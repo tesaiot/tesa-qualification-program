@@ -1,0 +1,89 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Original content by drsanti (https://github.com/drsanti), funded by TESA; imported from drsanti/TESAIoT-Courses/C2.
+id: digital-twin
+short: twin
+title:
+  th: พัฒนาเฟิร์มแวร์ร่วมกับ TESA Digital Twin บน VS Code
+  en: Firmware Development with the VS Code-based TESA Digital Twin
+summary:
+  th: 'หลักสูตรเชิงปฏิบัติการพัฒนา ตรวจสอบ และทดสอบเฟิร์มแวร์ Edge AI ร่วมกับ Digital Twin บน VS Code (Bitstream Studio): จำลองอุปกรณ์ เซ็นเซอร์ พฤติกรรม ท่อข้อมูล และการเชื่อมต่อคลาวด์ เพื่อลดการพึ่งฮาร์ดแวร์จริงในช่วงพัฒนา'
+  en: 'A hands-on course on developing, checking and testing Edge AI firmware with a VS Code-based Digital Twin (Bitstream Studio): simulate the device, sensors, behaviour, data pipeline and cloud link so development depends less on real hardware.'
+level: L3
+status: alpha
+audience:
+- developer
+- student
+- educator
+hours: 18
+hardware:
+  emulator: true
+  boards:
+  - devkit
+toolchain:
+  vscode: Visual Studio Code >= 1.75 (Bitstream Studio engine ^1.75.0); the Hackathon README asks for 1.85+; Cursor also works
+  bitstream-studio: 0.2.2 on VS Marketplace (TERNIONDEV.bitstream-studio); or a VSIX from TESAIoT_Hackathon/vsix paired with the HEX
+  bitstream-simulator: separate VS Code extension named by the source for board-free mode; no public download found on VS Marketplace or in TESAIoT_Hackathon/vsix as of 2026-09-26
+  firmware-hex: tesaiot-bitstream-<version>.hex; manifest latest 0.2.1 at TESAIoT_Hackathon@f5f09a6
+  web-app: TESAIoT_Hackathon web-app ex01–ex17 at f5f09a6
+  blender: 4.5 (manual links in the lessons are pinned to 4.5)
+  mqtt-tools: broker inside Bitstream Studio; MQTTX or mosquitto_sub optional
+prerequisites:
+  courses:
+  - firmware-sdk-edge-ai
+  skills:
+  - skill: lang.c
+    level: 2
+  - skill: proto.mqtt
+    level: 1
+outcomes:
+- th: อธิบายสถาปัตยกรรม Digital Twin และตัดสินใจได้ว่าเมื่อไรใช้ Twin/Simulator และเมื่อไรต้องยืนยันบนบอร์ดจริง
+  en: Explain a Digital Twin architecture and decide when a Twin/Simulator is enough and when the real board must confirm.
+- th: ติดตั้งและใช้ Bitstream Studio บน VS Code เปิดเซสชัน Simulator หรือ Bitstream (UART) ได้ซ้ำ
+  en: Install and use Bitstream Studio in VS Code and open a Simulator or Bitstream (UART) session reproducibly.
+- th: สร้าง Virtual Device ที่มีเซ็นเซอร์ behavior และ event script ที่รันซ้ำได้
+  en: Build a Virtual Device with sensors, behaviours and a repeatable event script.
+- th: พิสูจน์ I/O ระหว่างเฟิร์มแวร์กับ Twin วัด latency และแยกปัญหาทีละชั้น
+  en: Prove firmware-to-Twin I/O, measure latency and isolate faults layer by layer.
+- th: ออกแบบท่อ telemetry และ MQTT pub/sub แล้วทดลอง fault injection ภายใต้เงื่อนไขที่ควบคุมได้
+  en: Design a telemetry pipeline and MQTT pub/sub, then run controlled fault-injection experiments.
+- th: ทดสอบระบบแบบ end-to-end ด้วยตารางเทสอย่างน้อย 3 เคส และส่งมอบ README ที่รันซ้ำได้
+  en: Test the system end to end with at least three test cases and hand over a reproducible README.
+authors:
+- name: drsanti
+  url: https://github.com/drsanti
+  role: author
+sponsors:
+- TESA
+license:
+  content: CC-BY-4.0
+  code: none
+source:
+  repo: https://github.com/drsanti/TESAIoT-Courses
+  ref: 287c21814ba8c75f693136616dcd270349a15966
+  note: Course 2 (C2/) of drsanti/TESAIoT-Courses. TESA funded the work and holds the rights; imported under CC BY 4.0. The upstream repository carries no licence file. Text kept faithful; structure, front matter, quizzes and notes added by TESA Open Knowledge.
+modules:
+- id: m01-twin-architecture
+  title:
+    th: สถาปัตยกรรม Digital Twin
+    en: Digital Twin Architecture
+- id: m02-vscode-twin
+  title:
+    th: VS Code สำหรับพัฒนาร่วมกับ Twin
+    en: VS Code for Twin Development
+- id: m03-virtual-device
+  title:
+    th: การสร้างแบบจำลองอุปกรณ์เสมือน (+ Blender สำหรับ Twin 3D)
+    en: Virtual Device Modeling (+ Blender for Twin 3D)
+- id: m04-cosimulation
+  title:
+    th: Co-simulation ระหว่างเฟิร์มแวร์กับ Twin
+    en: Firmware–Twin Co-simulation
+- id: m05-telemetry-cloud
+  title:
+    th: Telemetry และการจำลองคลาวด์
+    en: Telemetry and Cloud Simulation
+- id: m06-integration
+  title:
+    th: การรวมระบบและการทดสอบ
+    en: System Integration and Testing

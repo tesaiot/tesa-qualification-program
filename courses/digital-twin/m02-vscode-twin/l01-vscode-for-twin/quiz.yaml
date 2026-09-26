@@ -1,0 +1,51 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Check-for-understanding items written for TESA Open Knowledge from the lesson text (source: drsanti/TESAIoT-Courses).
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ทำไมบทเรียนย้ำว่า VSIX กับ HEX ควรเป็นชุดเดียวกัน
+  choices:
+  - th: เพราะ HEX ต้องติดตั้งผ่าน VS Code เท่านั้น
+  - th: เพื่อให้ใช้ Cursor แทน VS Code ได้
+  - th: เพื่อกันโปรโตคอลและ UI ไม่ตรงกัน ถ้าไม่แน่ใจให้ดู `latest` ใน firmware manifest
+  - th: เพราะ VSIX ใหญ่เกินจะติดตั้งแยก
+  answer:
+  - 2
+  explain:
+    th: กรอบ Version matching ในหัวข้อ 2.3
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: โหมดใดที่บทเรียนแนะนำให้ลองเป็นอย่างแรกเพื่อลดความเสี่ยงฮาร์ดแวร์
+  choices:
+  - th: Simulator
+  - th: Bitstream (UART)
+  - th: BLE
+  - th: MQTT broker
+  answer:
+  - 0
+  explain:
+    th: หัวข้อ 5.1 Path — Simulator (recommended first)
+- id: q3
+  objective: 3
+  type: order
+  prompt:
+    th: เรียงลำดับคำถามที่ควรถามเมื่อ UI ว่าง ตาม Key phrase ของบทเรียน
+  choices:
+  - th: link?
+  - th: extension?
+  - th: correct panel?
+  - th: backend?
+  - th: source streaming?
+  answer:
+  - 1
+  - 3
+  - 0
+  - 4
+  - 2
+  explain:
+    th: 'Key phrase ในหัวข้อ 6: extension? → backend? → link? → source streaming? → correct panel?'

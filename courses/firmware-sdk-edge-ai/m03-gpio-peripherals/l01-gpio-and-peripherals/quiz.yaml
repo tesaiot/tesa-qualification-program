@@ -1,0 +1,51 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Check-for-understanding items written for TESA Open Knowledge from the lesson text (source: drsanti/TESAIoT-Courses).
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ในสแต็กของบทเรียนนี้ ข้อใดถูกระบุว่า “อย่าใช้เป็นเส้นทางหลัก” ของหลักสูตร
+  choices:
+  - th: '`cyhal_gpio_*`'
+  - th: '`led_controller_*`'
+  - th: '`Cy_GPIO_Write` / `Cy_GPIO_Inv`'
+  - th: '`cm55_button_*`'
+  answer:
+  - 0
+  explain:
+    th: 'ท้ายตาราง Naming map: สแต็กของหลักสูตรใช้ wrapper + PDL / MTB HAL ไม่ใช้ `cyhal_gpio_*` เป็นเส้นทางหลัก'
+- id: q2
+  objective: 2
+  type: order
+  prompt:
+    th: เรียงลำดับการใช้ Driver API มาตรฐานตามหัวข้อ 4
+  choices:
+  - th: ตรวจค่าคืน
+  - th: Init / configure
+  - th: Deinit เมื่อเลิกใช้
+  - th: Transfer (read / write / set)
+  - th: Enable / start
+  answer:
+  - 1
+  - 4
+  - 3
+  - 0
+  - 2
+  explain:
+    th: 'หัวข้อ 4: Init/configure → Enable/start → Transfer → ตรวจค่าคืน → Deinit'
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: ทำไมต้องล็อกบัส I²C รอบการอ่านเขียนระดับต่ำ
+  choices:
+  - th: เพราะหลาย task แชร์บัสเดียวกัน การล็อกทำให้ใช้บัสร่วมกันได้อย่างปลอดภัย
+  - th: เพื่อเพิ่มความเร็วของบัส
+  - th: เพราะบอร์ดไม่มีตัวต้านทาน pull-up
+  - th: เพื่อให้ PWM ทำงานพร้อม I²C ได้
+  answer:
+  - 0
+  explain:
+    th: 'ตารางหลักการในหัวข้อ 1 และหัวข้อ 3.3: ใช้ mutex รอบบัสร่วม เพื่อให้หลาย task ใช้บัสเดียวกันได้อย่างปลอดภัย'

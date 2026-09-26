@@ -1,0 +1,46 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Check-for-understanding items written for TESA Open Knowledge from the lesson text (source: drsanti/TESAIoT-Courses).
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: สถานการณ์ S3 — Lid service ให้สังเกตอะไรบน Twin
+  choices:
+  - th: การชน มุมเปิด และการเห็น PCB เมื่อเปิดฝาซ้ำสามรอบด้วยคลิป
+  - th: ฐานนิ่งเมื่อวางบนโต๊ะ
+  - th: ขนาดและทิศของช่อง USB
+  - th: ค่าเซ็นเซอร์บน dashboard
+  answer:
+  - 0
+  explain:
+    th: ตาราง Scenario catalog ในหัวข้อ 2.1
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ถ้าอ้างว่า “โมเดลตอบตามเซ็นเซอร์” หลักฐานที่บทเรียนกำหนดคือข้อใด
+  choices:
+  - th: ไฟล์ .blend ต้นฉบับ
+  - th: ภาพเรนเดอร์ EEVEE
+  - th: สกรีนช็อตหรือคลิปที่เห็นทั้งโมเดลและการเปลี่ยนค่า
+  - th: คำอธิบายสั้น ๆ ในรายงาน
+  answer:
+  - 2
+  explain:
+    th: ตาราง Evidence rule ในหัวข้อ 4.3
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: ท้าย pre-prototype checklist ต้องมีอะไร
+  choices:
+  - th: รายการแก้สามข้อเรียงตามความสำคัญ (หรือ “Ready to print” พร้อมสิ่งที่ยังเฝ้าระวัง)
+  - th: ภาพเรนเดอร์สามมุม
+  - th: รายชื่อสมาชิกทีม
+  - th: ไฟล์ STL ที่พิมพ์แล้ว
+  answer:
+  - 0
+  explain:
+    th: หัวข้อ 5.2 Top 3 fixes before print

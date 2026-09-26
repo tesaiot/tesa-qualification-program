@@ -1,0 +1,46 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Check-for-understanding items written for TESA Open Knowledge from the lesson text (source: drsanti/TESAIoT-Courses).
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ถ้าต้องการให้ผลของ Boolean / Solidify / Bevel ที่ยังไม่ Apply ในฉากติดไปใน GLB ต้องเปิดตัวเลือกใด
+  choices:
+  - th: Selected Objects
+  - th: Animations
+  - th: Materials
+  - th: Data → Mesh → Apply Modifiers
+  answer:
+  - 3
+  explain:
+    th: ตาราง Export option ในหัวข้อ 3
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ถ้านำเข้า Twin แล้วพบว่าสเกลผิด บทเรียนแนะนำให้ทำอย่างไร
+  choices:
+  - th: ลบคลิปแอนิเมชันออก
+  - th: กลับไปแก้ใน Blender แล้ว export ใหม่
+  - th: ซูมแก้ใน Twin แล้วใช้ต่อถาวร
+  - th: เปลี่ยนไปส่ง STL แทน
+  answer:
+  - 1
+  explain:
+    th: หัวข้อ 4.2 First checks after import
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: ชื่อใดตรงกับรูปแบบการตั้งชื่อจุดของบทเรียน
+  choices:
+  - th: '`Point1`'
+  - th: '`จุดเซ็นเซอร์`'
+  - th: '`Cube.001`'
+  - th: '`sensor_sht40_vent`'
+  answer:
+  - 3
+  explain:
+    th: 'หัวข้อ 5.2 Naming convention: `sensor_…`, `interact_…`, `led_status_window`'

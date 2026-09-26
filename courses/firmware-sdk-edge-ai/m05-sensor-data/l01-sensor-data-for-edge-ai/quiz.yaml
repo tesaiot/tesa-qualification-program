@@ -1,0 +1,46 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Check-for-understanding items written for TESA Open Knowledge from the lesson text (source: drsanti/TESAIoT-Courses).
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ถ้าต้องการอัตราอ่านคงที่ที่แม่นยำขึ้น บทเรียนแนะนำฟังก์ชันใด
+  choices:
+  - th: ลูป busy-wait
+  - th: '`sensor_*_set_rate_hz`'
+  - th: '`vTaskDelayUntil`'
+  - th: '`vTaskDelay`'
+  answer:
+  - 2
+  explain:
+    th: 'ตารางในหัวข้อ 3.1: `vTaskDelayUntil` ดีกว่า `vTaskDelay` เมื่อต้องการคาบแม่นยำ และ SDK ในบทเรียนไม่มี `sensor_*_set_rate_hz`'
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: โค้ด EMA ในหัวข้อ 3.2 คือ `ema = alpha * t + (1 - alpha) * ema` ถ้า ema = 20.0, alpha = 0.2 และค่าใหม่ t = 30.0 ค่า ema ใหม่เท่าใด
+  choices:
+  - th: '22.0'
+  - th: '30.0'
+  - th: '26.0'
+  - th: '20.0'
+  answer:
+  - 0
+  explain:
+    th: 0.2 × 30.0 + 0.8 × 20.0 = 6.0 + 16.0 = 22.0
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: ใน ring window ที่ `WIN_N = 32` ฟังก์ชัน `imu_window_full()` คืนค่า true เมื่อใด
+  choices:
+  - th: ทุกครั้งที่ push ตัวอย่างใหม่
+  - th: เมื่อค่า `ax[0]` ไม่เป็นศูนย์
+  - th: เมื่อ `count` ≥ 32
+  - th: เมื่อ `head` กลับมาเป็น 0
+  answer:
+  - 2
+  explain:
+    th: 'หัวข้อ 4.1: `imu_window_full` คืน `w->count >= WIN_N`'

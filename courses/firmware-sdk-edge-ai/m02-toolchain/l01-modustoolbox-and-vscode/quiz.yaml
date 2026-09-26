@@ -1,0 +1,46 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Check-for-understanding items written for TESA Open Knowledge from the lesson text (source: drsanti/TESAIoT-Courses).
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: เครื่องมือใดทำหน้าที่ “สร้างโปรเจกต์จาก BSP/template และจัดการ toolchain / library”
+  choices:
+  - th: VS Code
+  - th: KitProg3
+  - th: TESA Firmware SDK
+  - th: ModusToolbox™
+  answer:
+  - 3
+  explain:
+    th: 'Key phrase ของหัวข้อ 1: ModusToolbox™ สร้างโปรเจกต์และจัดการ toolchain/library, VS Code ใช้เขียนโค้ดและ debug, SDK คือ API ที่แอปเรียกใช้'
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ข้อใดเป็นเงื่อนไขที่บทเรียนย้ำว่า “ต้องตรง” ก่อนคาดหวังผลบนบอร์ด
+  choices:
+  - th: ต้องใช้ J-Link แทน KitProg เสมอ
+  - th: BSP ต้องตรงกับคิตที่ใช้
+  - th: ต้องใช้ IAR Embedded Workbench
+  - th: ต้องติดตั้ง Blender
+  answer:
+  - 1
+  explain:
+    th: 'Module Summary ข้อ 4: BSP ต้องตรงคิต และตาราง 6.5 ก็ชี้ว่า BSP ผิดคิตเป็นสาเหตุแรกของอาการ build ผ่านแต่บอร์ดเงียบ'
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: Flash HEX แล้วแต่ไม่มี telemetry ใน Bitstream Studio ตารางในหัวข้อ 6.5 ชี้สาเหตุใด
+  choices:
+  - th: ยังไม่ได้ติดตั้ง Arm MDK
+  - th: BSP มี LED มากเกินไป
+  - th: ต้องใช้ LLVM แทน GCC
+  - th: VSIX กับ HEX คนละเวอร์ชัน, baud ไม่ใช่ 921600 หรือยังไม่ Link
+  answer:
+  - 3
+  explain:
+    th: แถวสุดท้ายของตาราง 6.5 Troubleshooting Quick Table

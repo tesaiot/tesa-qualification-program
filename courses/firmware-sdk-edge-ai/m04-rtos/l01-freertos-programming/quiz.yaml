@@ -1,0 +1,49 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Check-for-understanding items written for TESA Open Knowledge from the lesson text (source: drsanti/TESAIoT-Courses).
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ตามหัวข้อ 3.3 งาน background เช่นกระพริบ LED ควรใช้ priority ใด
+  choices:
+  - th: สูงกว่างานตอบสนองปุ่ม
+  - th: '`tskIDLE_PRIORITY + 1`'
+  - th: priority สูงสุดของระบบ
+  - th: เท่ากับงาน IPC วิกฤต
+  answer:
+  - 1
+  explain:
+    th: 'Priority rules of thumb: งาน background ใช้ `tskIDLE_PRIORITY + 1` และอย่ายกทุกอย่างขึ้นสูงสุด'
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ต้องการส่ง “ข้อมูล” จาก task ปุ่มไปยัง task ที่พิมพ์ UART ควรใช้กลไกใด
+  choices:
+  - th: Mutex
+  - th: Event group
+  - th: Tick hook
+  - th: Queue
+  answer:
+  - 3
+  explain:
+    th: 'Module Summary ข้อ 3: Queue ส่งข้อมูล, Mutex ล็อกทรัพยากร, Binary semaphore / Event group ส่งสัญญาณสถานะ'
+- id: q3
+  objective: 3
+  type: multi
+  prompt:
+    th: ข้อใดห้ามทำใน ISR หรือ tick hook ตามบทเรียน (เลือกได้หลายข้อ)
+  choices:
+  - th: เรียก `portYIELD_FROM_ISR`
+  - th: เรียก `vTaskDelay`
+  - th: เรียก `printf`
+  - th: เรียก `xQueueSendFromISR`
+  - th: อ่านเซ็นเซอร์ผ่าน I²C
+  answer:
+  - 1
+  - 2
+  - 4
+  explain:
+    th: 'กรอบ “ห้ามใน ISR / tick hook” ในหัวข้อ 7: ห้าม blocking take, `vTaskDelay`, I²C และ `printf` ให้ใช้ `*FromISR` แล้วให้ task ทำงานหนักแทน'

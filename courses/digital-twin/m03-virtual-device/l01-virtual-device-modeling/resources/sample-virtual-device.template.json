@@ -1,0 +1,52 @@
+{
+  "_comment": "Conceptual training template — map fields to Simulator / SENSOR_CFG / scene presets used in your setup. Not a private schema dump.",
+  "deviceId": "tesa-edge-demo-01",
+  "displayName": "TESA Edge Demo Device",
+  "sensors": [
+    {
+      "id": "temp",
+      "type": "temperature",
+      "unit": "C",
+      "default": 25.0,
+      "min": -10.0,
+      "max": 85.0
+    },
+    {
+      "id": "pressure",
+      "type": "pressure",
+      "unit": "Pa",
+      "default": 101325.0,
+      "min": 30000.0,
+      "max": 110000.0
+    },
+    {
+      "id": "btn_user",
+      "type": "switch",
+      "default": 0
+    },
+    {
+      "id": "imu",
+      "type": "imu",
+      "axes": ["ax", "ay", "az"],
+      "default": [0, 0, 1]
+    }
+  ],
+  "actuators": [
+    {
+      "id": "led_status",
+      "type": "led",
+      "default": 0
+    }
+  ],
+  "behaviors": [
+    {
+      "when": "command.led == on",
+      "then": "actuators.led_status = 1"
+    },
+    {
+      "when": "sensors.temp > 40",
+      "then": "emit event threshold_exceeded"
+    }
+  ],
+  "suggestedScenes": ["labQuiet", "motion", "environment"]
+}

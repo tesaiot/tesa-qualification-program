@@ -1,0 +1,46 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Check-for-understanding items written for TESA Open Knowledge from the lesson text (source: drsanti/TESAIoT-Courses).
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ข้อใดตรงกับ Key phrase ของบทเรียนเรื่อง BLE กับ MQTT
+  choices:
+  - th: MQTT พาข้อมูลขึ้นเครือข่าย ส่วน BLE พาข้อมูลเข้ามือถือหรือพีซีที่อยู่ใกล้
+  - th: BLE ต้องมี broker เสมอ
+  - th: MQTT ไม่ต้องใช้ Wi-Fi
+  - th: BLE กับ MQTT เป็นชั้นขนส่งเดียวกัน
+  answer:
+  - 0
+  explain:
+    th: 'Key phrase ในหัวข้อ BLE vs MQTT และตาราง Common Pitfalls: คนละชั้นขนส่ง อย่าหา broker ในแล็บ BLE'
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: อุปกรณ์ที่ “สแกนแล้วเชื่อม” เช่นโทรศัพท์หรือพีซี มีบทบาทใด
+  choices:
+  - th: Advertising
+  - th: Notification
+  - th: Central
+  - th: Peripheral
+  answer:
+  - 2
+  explain:
+    th: 'ตารางในหัวข้อ 1: Central คือโฮสต์ที่สแกนแล้วเชื่อม ส่วนบอร์ดมักเป็น Peripheral ที่ advertise'
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: ในเฟิร์มแวร์ของบทเรียนนี้ BLE stack รันบนคอร์ใด
+  choices:
+  - th: CM33 โดย CM55 สั่งงานผ่าน IPC
+  - th: CM55 โดยตรง
+  - th: Ethos-U55
+  - th: NNLite
+  answer:
+  - 0
+  explain:
+    th: 'หัวข้อ 2: สแต็ก BLE รันบน CM33 ส่วนแอปเซ็นเซอร์บน CM55 สั่งผ่าน IPC'

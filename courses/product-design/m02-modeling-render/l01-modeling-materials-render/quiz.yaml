@@ -1,0 +1,46 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Check-for-understanding items written for TESA Open Knowledge from the lesson text (source: drsanti/TESAIoT-Courses).
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ก่อนใช้ Boolean / Bevel / Solidify ต้องทำอะไรก่อนเสมอ
+  choices:
+  - th: เพิ่ม Subdivision Surface
+  - th: '`Ctrl+A` → Apply Scale'
+  - th: Export เป็น GLB
+  - th: ใส่วัสดุ Principled BSDF
+  answer:
+  - 1
+  explain:
+    th: 'หัวข้อ 2.1: ถ้า Scale ไม่เป็น 1,1,1 ขอบมนและรูเจาะมักเพี้ยน'
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ค่า Metallic ที่เหมาะกับพลาสติกตัวเครื่อง
+  choices:
+  - th: '1'
+  - th: '0.5'
+  - th: ขึ้นกับสีของพลาสติก
+  - th: '0'
+  answer:
+  - 3
+  explain:
+    th: 'ตารางในหัวข้อ 3.2: พลาสติก = 0 ส่วนโลหะของปุ่มหรือพอร์ต = 1'
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: Render engine ที่บทเรียนแนะนำเมื่อต้องการดูผลเร็วในแล็บส่วนใหญ่
+  choices:
+  - th: Physics
+  - th: EEVEE
+  - th: Cycles
+  - th: Workbench
+  answer:
+  - 1
+  explain:
+    th: 'ตารางในหัวข้อ 4.1: EEVEE สำหรับดูผลเร็ว ส่วน Cycles สำหรับภาพสุดท้ายถ้าเครื่องไหว'

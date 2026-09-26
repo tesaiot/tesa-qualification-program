@@ -1,0 +1,46 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Check-for-understanding items written for TESA Open Knowledge from the lesson text (source: drsanti/TESAIoT-Courses).
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: “แบบจำลองซอฟต์แวร์ของอุปกรณ์หนึ่งตัว ทั้งพิน เซ็นเซอร์ สถานะ และพฤติกรรมตอบสนอง” คือข้อใด
+  choices:
+  - th: Host / Twin UI
+  - th: Virtual Device
+  - th: Digital Twin Platform
+  - th: Physical Device
+  answer:
+  - 1
+  explain:
+    th: 'ตารางในหัวข้อ 2: Digital Twin Platform คือสภาพแวดล้อมที่รวม Virtual Device กับการสื่อสาร visualization สคริปต์ และ cloud จำลอง'
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ทำไม Bitstream Studio ให้ใช้ Bitstream หรือ Simulator ทีละเส้น
+  choices:
+  - th: เพราะ Simulator ต้องต่อบอร์ดด้วยเสมอ
+  - th: เพราะ UART เร็วเกินกว่า UI จะแสดงได้
+  - th: เพื่อประหยัดพลังงานของบอร์ด
+  - th: เพื่อกันข้อมูล uart กับ sim ปะปนในกราฟเดียวกัน
+  answer:
+  - 3
+  explain:
+    th: 'หัวข้อ 3.3 Two telemetry backends: ห้ามผสมเพื่อกันข้อมูล uart/sim ปะปนกัน'
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: สถานการณ์ใดที่บทเรียนระบุว่า Twin “ไม่แทน” และต้องใช้บอร์ดจริง
+  choices:
+  - th: การคำนวณบนค่า IMU ในโค้ด
+  - th: ระยะ Wi-Fi หรือ BLE ในห้องจริง
+  - th: logic สลับโหมดจากปุ่ม
+  - th: รูปแบบ JSON และ MQTT topic
+  answer:
+  - 1
+  explain:
+    th: 'ตาราง Decision guide ในหัวข้อ 5.1: RF จริงและ pin map ต้องยืนยันบนบอร์ด'

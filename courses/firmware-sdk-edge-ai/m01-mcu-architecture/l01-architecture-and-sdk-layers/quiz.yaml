@@ -1,0 +1,46 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Check-for-understanding items written for TESA Open Knowledge from the lesson text (source: drsanti/TESAIoT-Courses).
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: งาน “ฟังคำปลุก (wake-word) แบบใช้พลังงานต่ำตลอดคืน” ควรอยู่โดเมนใดตามแนวทางของบทเรียน
+  choices:
+  - th: Ethos-U55 NPU
+  - th: แอปบนคอร์หลักที่จัด JSON แล้ว publish
+  - th: Cortex-M55 + Helium DSP (โดเมนสมรรถนะสูง)
+  - th: Cortex-M33 ± NNLite (โดเมนพลังงานต่ำ)
+  answer:
+  - 3
+  explain:
+    th: 'หัวข้อ 3.4 และ 3.6: งาน always-on ที่งบพลังงานสำคัญกว่า throughput ควรอยู่โดเมนพลังงานต่ำ (M33 ± NNLite)'
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ใน Scenario A (อ่านอุณหภูมิทุก 1 วินาที) ขั้นตอน “เก็บตัวอย่างล่าสุด N ค่า / ค่าเฉลี่ยเคลื่อนที่” อยู่ชั้นใด
+  choices:
+  - th: HAL / BSP
+  - th: Driver API
+  - th: Utility
+  - th: Application
+  answer:
+  - 2
+  explain:
+    th: 'ตารางใน 8.7: งานช่วยที่ใช้ซ้ำได้ เช่น buffer และค่าเฉลี่ยเคลื่อนที่ อยู่ชั้น Utility ส่วนการเปรียบเทียบเกณฑ์และเปลี่ยนสถานะเป็นของ Application'
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: ข้อใดตรงกับประโยค “ติดตั้ง IDE ได้ ≠ เข้าใจ SDK แล้ว” มากที่สุด
+  choices:
+  - th: ติดตั้ง VS Code แล้วจะได้ Driver API มาด้วยอัตโนมัติ
+  - th: SDK กับ IDE อยู่ชั้นเดียวกัน จึงเลือกใช้อย่างใดอย่างหนึ่งก็พอ
+  - th: ModusToolbox™ / VS Code เป็นเครื่องมือสร้าง build และ debug ส่วน SDK คือชุด API ที่โค้ดแอปเรียกใช้
+  - th: SDK คือโปรแกรมแก้ไขโค้ดที่มาแทน VS Code
+  answer:
+  - 2
+  explain:
+    th: 'หัวข้อ 7.3 SDK Is Not the IDE: เครื่องมือพัฒนาอยู่คนละชั้นกับไลบรารีที่โค้ดเรียกใช้'

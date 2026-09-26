@@ -1,0 +1,46 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Check-for-understanding items written for TESA Open Knowledge from the lesson text (source: drsanti/TESAIoT-Courses).
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: '`mode=idle` หรือ `led=on` เป็นข้อมูลชนิดใด และบทเรียนแนะนำ retain อย่างไร'
+  choices:
+  - th: Telemetry และไม่ตั้ง retain
+  - th: State และมักตั้ง retain
+  - th: Telemetry และมักตั้ง retain
+  - th: Event และมักตั้ง retain
+  answer:
+  - 1
+  explain:
+    th: 'ตารางในหัวข้อ 1 และ 6.2: State คือสถานะปัจจุบัน มัก retain เพื่อให้ผู้มาใหม่ได้ค่าล่าสุด'
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: Live Data ปกติ แต่ MQTT subscriber ว่าง ตารางในหัวข้อ 2.1 ชี้สาเหตุใด
+  choices:
+  - th: เซ็นเซอร์เสีย
+  - th: bridge ระหว่าง webview กับ UART หลุด
+  - th: ต้องเปิด ex05 ก่อน
+  - th: ยังไม่มี publisher บน topic นั้น
+  answer:
+  - 3
+  explain:
+    th: 'หัวข้อ 2.1 และ 4.1: Start broker ไม่ได้แปลว่ามี telemetry อัตโนมัติ ต้องมี publisher บน topic ที่ subscribe'
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: ข้อใดเป็นหลักของ fault injection ที่ดีตามบทเรียน
+  choices:
+  - th: ปิด log เพื่อลดภาระของระบบ
+  - th: เปลี่ยนอย่างเดียวต่อรอบ และมี log ทั้งสองฝั่ง
+  - th: เปลี่ยนหลายอย่างพร้อมกันเพื่อประหยัดเวลา
+  - th: ผสม sim กับ uart ตอนเก็บหลักฐาน
+  answer:
+  - 1
+  explain:
+    th: Key phrase ในหัวข้อ 7.2

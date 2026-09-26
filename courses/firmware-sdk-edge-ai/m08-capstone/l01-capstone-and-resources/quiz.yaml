@@ -1,0 +1,48 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Check-for-understanding items written for TESA Open Knowledge from the lesson text (source: drsanti/TESAIoT-Courses).
+items:
+- id: q1
+  objective: 1
+  type: multi
+  prompt:
+    th: ข้อใดเป็นเกณฑ์ผ่านขั้นต่ำของ Capstone (เลือกได้หลายข้อ)
+  choices:
+  - th: ไม่ฝัง secret ในไฟล์ส่งสาธารณะ
+  - th: มีอย่างน้อย 2 FreeRTOS tasks
+  - th: MQTT หรือ BLE อย่างน้อยหนึ่งเส้น พร้อมรับคำสั่งหรือยืนยันลิงก์
+  - th: ใช้ทั้ง MQTT และ BLE พร้อมกัน
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: 'ตาราง Minimum pass criteria ในหัวข้อ 2.3: การใช้ทั้ง MQTT และ BLE เป็นงานต่อยอด ไม่ใช่เกณฑ์ขั้นต่ำ'
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ต้องการชื่อฟังก์ชัน peripheral ตารางในหัวข้อ 3.1 ให้เปิดที่ใดก่อน
+  choices:
+  - th: ชีตของโมดูล 7 (ble-connectivity.md)
+  - th: บทเรียนโมดูล 1
+  - th: บทเรียนโมดูล 2 (toolchain)
+  - th: ชีตของโมดูล 3 (peripheral-api-map.md)
+  answer:
+  - 3
+  explain:
+    th: 'หัวข้อ 3.1 Where to look first: ชื่อฟังก์ชัน peripheral อยู่ใน M03 cheatsheet'
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: สถานการณ์สาธิต “Command” หมายถึงข้อใด
+  choices:
+  - th: build และ flash ใหม่ให้สำเร็จ
+  - th: ส่งคำสั่งจาก PC หรือโทรศัพท์ (MQTT topic หรือ BLE write) แล้วอุปกรณ์ตอบสนอง
+  - th: ค่าเซ็นเซอร์ไหลและ LED/UART ทำงานปกติ
+  - th: เปลี่ยนอุณหภูมิหรือขยับบอร์ดแล้วค่าเปลี่ยน
+  answer:
+  - 1
+  explain:
+    th: 'Demo scenarios ในแล็บ Capstone: Normal, Stimulus และ Command ต่างกันที่แหล่งของการเปลี่ยนแปลง'

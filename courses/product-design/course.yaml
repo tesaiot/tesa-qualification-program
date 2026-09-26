@@ -1,0 +1,84 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Original content by drsanti (https://github.com/drsanti), funded by TESA; imported from drsanti/TESAIoT-Courses/C3.
+id: product-design
+short: pdesign
+title:
+  th: การออกแบบผลิตภัณฑ์เชิงอุตสาหกรรม (Blender และ Digital Twin)
+  en: Product Industrial Design (Blender & Twin)
+summary:
+  th: หลักสูตรเชิงปฏิบัติการออกแบบกล่องหุ้มผลิตภัณฑ์อัจฉริยะด้วย Blender ตั้งแต่แนวคิด block model วัสดุ PBR การเรนเดอร์ และแอนิเมชัน ไปจนถึงส่งออก GLB เข้า Digital Twin ตรวจสอบเชิงดิจิทัล และทำต้นแบบจริงพร้อม Design Report
+  en: 'A hands-on course in designing smart-product enclosures with Blender: concept, block model, PBR materials, rendering and animation, then GLB export to a Digital Twin, digital validation and a physical prototype with a design report.'
+level: L2
+status: alpha
+audience:
+- public
+- student
+- developer
+- entrepreneur
+- educator
+hours: 18
+hardware:
+  emulator: false
+  boards:
+  - none
+toolchain:
+  blender: 4.5 (all manual links in the lessons point to the 4.5 manual)
+  blender-add-ons: glTF 2.0 importer/exporter (bundled); 3D Print Toolbox for mesh checks in module 6
+  bitstream-studio: 0.2.2 on VS Marketplace (TERNIONDEV.bitstream-studio) as the Twin host from module 4
+  slicer: any FDM slicer (the source names Cura) for module 6
+  optional-hardware: the real board (for fitment) and the TESAIoT_Hackathon web-app ex05/ex06 for in-enclosure sensor checks
+prerequisites:
+  courses: []
+  skills: []
+outcomes:
+- th: ออกแบบกล่องหุ้มตามขนาดฮาร์ดแวร์จริงด้วยลำดับ Concept → Block → Final และหลัก clearance กับความหนาผนัง
+  en: Design an enclosure to real hardware dimensions through Concept, Block and Final stages using clearance and wall-thickness rules.
+- th: ขึ้นรูปรายละเอียด ใส่วัสดุ PBR จัดแสง และเรนเดอร์ภาพนำเสนอใน Blender
+  en: Model detail, apply PBR materials, light the scene and render presentation images in Blender.
+- th: สร้างแอนิเมชันเปิด–ปิดที่ตั้งชื่อคลิปแล้ว และตรวจการชนของชิ้นส่วนขณะเคลื่อนไหว
+  en: Create named open/close animation clips and check parts for interference while they move.
+- th: ส่งออกโมเดลเป็น GLB เข้า Twin (Bitstream Studio) พร้อมจุดเซ็นเซอร์และจุดโต้ตอบที่ตั้งชื่อแล้ว
+  en: Export the model as GLB into the Twin (Bitstream Studio) with named sensor and interaction points.
+- th: ตรวจสอบเชิงดิจิทัลด้วยสถานการณ์ใช้งาน และสรุปรายการแก้สามอันดับแรกก่อนสร้างต้นแบบ
+  en: Validate the design digitally with usage scenarios and list the top three fixes before prototyping.
+- th: เตรียม STL ตรวจ fitment กับบอร์ดจริง และเขียน Design Report ที่ผู้อื่นทำซ้ำได้
+  en: Prepare STL files, check fitment against the real board and write a design report others can reproduce.
+authors:
+- name: drsanti
+  url: https://github.com/drsanti
+  role: author
+sponsors:
+- TESA
+license:
+  content: CC-BY-4.0
+  code: none
+source:
+  repo: https://github.com/drsanti/TESAIoT-Courses
+  ref: 287c21814ba8c75f693136616dcd270349a15966
+  note: Course 3 (C3/) of drsanti/TESAIoT-Courses. TESA funded the work and holds the rights; imported under CC BY 4.0. The upstream repository carries no licence file. Text kept faithful; structure, front matter, quizzes and notes added by TESA Open Knowledge.
+modules:
+- id: m01-design-fundamentals
+  title:
+    th: พื้นฐานการออกแบบเชิงอุตสาหกรรม
+    en: Industrial Design Fundamentals
+- id: m02-modeling-render
+  title:
+    th: การขึ้นรูป วัสดุ และการเรนเดอร์
+    en: Modeling, Materials, and Render
+- id: m03-motion
+  title:
+    th: การเคลื่อนไหวและการโต้ตอบ
+    en: Motion and Interaction
+- id: m04-blender-to-twin
+  title:
+    th: จาก Blender สู่ Digital Twin
+    en: Blender to Twin Integration
+- id: m05-digital-validation
+  title:
+    th: สถานการณ์ใช้งานและการตรวจสอบเชิงดิจิทัล
+    en: Scenario and Digital Validation
+- id: m06-prototyping
+  title:
+    th: การทำต้นแบบและโครงงานปิดหลักสูตร
+    en: Prototyping and Final Project

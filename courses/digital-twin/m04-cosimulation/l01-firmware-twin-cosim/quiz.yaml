@@ -1,0 +1,46 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Check-for-understanding items written for TESA Open Knowledge from the lesson text (source: drsanti/TESAIoT-Courses).
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: “Co-simulation” ในบทเรียนนี้หมายถึงข้อใด
+  choices:
+  - th: เฟิร์มแวร์คิดและตอบ ในเวลาเดียวกับที่ Twin กระตุ้นและแสดงผล
+  - th: การเปิดกราฟดูค่าเพียงอย่างเดียว
+  - th: การรัน Simulator สองตัวพร้อมกัน
+  - th: การคอมไพล์เฟิร์มแวร์บน Twin
+  answer:
+  - 0
+  explain:
+    th: Key phrase ในส่วน Learning Outcomes
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: เมื่อวัด latency ลำดับความเร็วที่มักเห็นคือข้อใด
+  choices:
+  - th: Studio ช้าที่สุดเสมอ
+  - th: ทั้งสามจุดเท่ากันทุกครั้ง
+  - th: log เร็วสุด → Studio ใกล้เคียง → web-app ช้ากว่าเล็กน้อย
+  - th: web-app เร็วสุด → log → Studio
+  answer:
+  - 2
+  explain:
+    th: หัวข้อ 5.1 Simple measurements to record
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: เฟิร์มแวร์ log ถูกต้องแต่ UI ไม่ขยับ ตามตารางในหัวข้อ 6 น่าสงสัยฝั่งใด
+  choices:
+  - th: Visualization / แผงผิด / consumer
+  - th: Host / Link / Simulator / COM
+  - th: ฮาร์ดแวร์ / HEX / สาย
+  - th: Input mapping / cfg / task
+  answer:
+  - 0
+  explain:
+    th: 'ตาราง Isolating Faults: log ถูกแต่ UI ไม่ขยับ ชี้ไปที่ชั้น visualization หรือ consumer'

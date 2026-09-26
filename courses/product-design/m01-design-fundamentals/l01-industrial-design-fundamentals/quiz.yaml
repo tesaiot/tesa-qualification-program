@@ -1,0 +1,46 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Check-for-understanding items written for TESA Open Knowledge from the lesson text (source: drsanti/TESAIoT-Courses).
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: “ช่อง USB หันผิดทาง” เป็นปัญหาของเลนส์ใดในตาราง Four Lenses
+  choices:
+  - th: User Experience
+  - th: Function
+  - th: Material & Manufacturing
+  - th: Form & Proportion
+  answer:
+  - 0
+  explain:
+    th: 'ตารางในหัวข้อ 2: เลนส์ User Experience ถามว่าเปิดฝา ดู LED เสียบสายได้โดยไม่พึ่งคู่มือยาวไหม'
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: PCB กว้าง 80 mm, clearance 0.5 mm ต่อด้าน, ผนังหนา 2 mm ขนาดภายนอกแกน X ประมาณเท่าใด
+  choices:
+  - th: 84 mm
+  - th: 90 mm
+  - th: 85 mm
+  - th: 81 mm
+  answer:
+  - 2
+  explain:
+    th: 'สูตรในหัวข้อ 4.2: outer_X ≈ PCB_X + 2×clearance + 2×wall = 80 + 1 + 4 = 85 mm'
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: ค่า Unit Scale ที่บทเรียนตั้งสำหรับงานโมเดลหน่วยมิลลิเมตร
+  choices:
+  - th: '0.001'
+  - th: '1.0'
+  - th: '1000'
+  - th: '0.01'
+  answer:
+  - 0
+  explain:
+    th: 'หัวข้อ 5.2: Unit System = Metric, Length = Millimeters, Unit Scale = 0.001'

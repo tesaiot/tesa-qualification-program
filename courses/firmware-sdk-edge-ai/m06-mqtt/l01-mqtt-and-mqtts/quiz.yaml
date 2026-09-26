@@ -1,0 +1,46 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Check-for-understanding items written for TESA Open Knowledge from the lesson text (source: drsanti/TESAIoT-Courses).
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: MQTTs ต่างจาก MQTT อย่างไรตามบทเรียน
+  choices:
+  - th: เป็นโปรโตคอลคนละตัวที่ไม่ใช้ broker
+  - th: ใช้ UDP แทน TCP
+  - th: ใช้ได้เฉพาะกับ BLE
+  - th: คือ MQTT ที่ห่อด้วย TLS และมักใช้พอร์ต 8883
+  answer:
+  - 3
+  explain:
+    th: 'Key phrase ในหัวข้อ 1: MQTTs ไม่ใช่โปรโตคอลคนละตัว แต่เป็น MQTT ที่ห่อด้วย TLS (พอร์ตที่พบบ่อย 8883)'
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: สั่ง MQTT connect แล้วสถานะไม่ขึ้น CONNECTED ทั้งที่คอนฟิก broker ถูก สิ่งแรกที่ควรตรวจคืออะไร
+  choices:
+  - th: BLE advertising เปิดอยู่หรือไม่
+  - th: Wi-Fi ขึ้นสถานะ CONNECTED แล้วหรือยัง
+  - th: QoS ตั้งเป็น 2 หรือยัง
+  - th: retain เป็น true หรือยัง
+  answer:
+  - 1
+  explain:
+    th: 'หัวข้อ 2: MQTT จะไม่ขึ้นเองถ้า Wi-Fi ยังไม่ CONNECTED ต้อง join AP ก่อนทุกครั้ง'
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: เส้นทาง telemetry หลักในเฟิร์มแวร์ของบทเรียนใช้ payload และ QoS แบบใด
+  choices:
+  - th: CBOR และ QoS 2
+  - th: binary และ QoS 1 พร้อม retain
+  - th: XML และ QoS 1
+  - th: JSON ข้อความ และ QoS 0
+  answer:
+  - 3
+  explain:
+    th: 'หัวข้อ 6.3 และ 7: telemetry เป็น JSON และ publish ด้วย QoS 0 เป็นหลัก ยังไม่มีเส้นทาง CBOR สำเร็จรูป'

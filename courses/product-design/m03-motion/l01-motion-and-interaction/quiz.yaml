@@ -1,0 +1,46 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Check-for-understanding items written for TESA Open Knowledge from the lesson text (source: drsanti/TESAIoT-Courses).
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ก่อนใส่ keyframe การเปิดฝา ควรวาง origin ของฝาไว้ที่ใด
+  choices:
+  - th: ตำแหน่งกล้อง
+  - th: กึ่งกลางของฉาก
+  - th: ที่บานพับ
+  - th: กึ่งกลางของฝา
+  answer:
+  - 2
+  explain:
+    th: หัวข้อ 2.1 Place the origin at the hinge
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ชื่อคลิปใดเหมาะสำหรับส่งเข้า Twin
+  choices:
+  - th: '`lid_open`'
+  - th: '`Anim1`'
+  - th: '`เปิดฝา`'
+  - th: '`final_final2`'
+  answer:
+  - 0
+  explain:
+    th: 'ตารางในหัวข้อ 3.4: ใช้ชื่อภาษาอังกฤษสั้น เลี่ยงชื่อว่าง ชื่อซ้ำ และภาษาไทยในชื่อคลิป'
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: ถ้าฝาเปิดแล้วชนชิ้นส่วนสูงภายใน บทเรียนเสนอทางแก้ใด
+  choices:
+  - th: ซ่อนชิ้นส่วนที่ชนตอนเรนเดอร์
+  - th: export ใหม่โดยไม่ต้องแก้อะไร
+  - th: เลื่อนบานพับ ลดมุมเปิด หรือกลับไปแก้รูปทรงในโมดูล 2
+  - th: เปิด Physics simulation ให้ชิ้นส่วนเด้งออก
+  answer:
+  - 2
+  explain:
+    th: 'หัวข้อ 4: Motion ที่ชนคือบั๊กดีไซน์ที่จับได้ถูกกว่าตอนพิมพ์แล้วค่อยรู้'

@@ -1,0 +1,48 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Check-for-understanding items written for TESA Open Knowledge from the lesson text (source: drsanti/TESAIoT-Courses).
+items:
+- id: q1
+  objective: 1
+  type: multi
+  prompt:
+    th: ข้อใดอยู่ในเกณฑ์ผ่านขั้นต่ำของ Capstone Course 2 (เลือกได้หลายข้อ)
+  choices:
+  - th: ใช้ทั้ง Live Data และ MQTT บนเดโมเดียวกัน
+  - th: README วิธีรันซ้ำ (bring-up → demo → teardown)
+  - th: ตารางเทส E2E ผ่านอย่างน้อย 3 เคส
+  - th: MQTT publish หรือ subscribe อย่างน้อยหนึ่งทาง
+  answer:
+  - 1
+  - 2
+  - 3
+  explain:
+    th: 'ตาราง 2.1 Minimum pass rubric: การใช้ทั้ง Live Data และ MQTT เป็นงานต่อยอด'
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: หลักของการวิเคราะห์ log ในโมดูลนี้คือข้อใด
+  choices:
+  - th: แก้ทีละชั้น และแคป log ทั้งฝั่งเฟิร์มแวร์และโฮสต์ในรอบเดียวกัน
+  - th: ดู log ฝั่งโฮสต์อย่างเดียวก็พอ
+  - th: แก้เฟิร์มแวร์และโหมด Studio พร้อมกันเพื่อประหยัดเวลา
+  - th: ลบ log เก่าก่อนทุกครั้งเพื่อไม่ให้สับสน
+  answer:
+  - 0
+  explain:
+    th: Key phrase ในหัวข้อ 3 Log Analysis
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: ถ้าเลือกโดเมน “โรงงาน” สำหรับ Capstone ต้องเตรียมฮาร์ดแวร์อย่างไรตามบทเรียน
+  choices:
+  - th: ต้องใช้ PLC จริง
+  - th: ต้องต่อ Modbus กับเครื่องจักรจริง
+  - th: ไม่ต้องมีฮาร์ดแวร์เฉพาะโดเมน ให้แมปลงเครื่องมือในแล็บที่มีอยู่ (SHT40 / DPS368 / BMI270 / สวิตช์ / MQTT)
+  - th: ต้องซื้อเซนเซอร์อุตสาหกรรมจริงเท่านั้น
+  answer:
+  - 2
+  explain:
+    th: 'หัวข้อ 4: เลือกโดเมนแล้วแมปลงเครื่องมือในแล็บ โดยไม่ต้องมีฮาร์ดแวร์เฉพาะโดเมน'

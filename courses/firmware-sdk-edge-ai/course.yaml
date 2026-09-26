@@ -1,0 +1,94 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Original content by drsanti (https://github.com/drsanti), funded by TESA; imported from drsanti/TESAIoT-Courses/C1.
+id: firmware-sdk-edge-ai
+short: fw-sdk
+title:
+  th: TESA Firmware SDK สำหรับ Edge AI
+  en: TESA Firmware SDK for Edge AI
+summary:
+  th: หลักสูตรเชิงปฏิบัติการเฟิร์มแวร์ภาษา C บน PSOC™ Edge E84 ตั้งแต่สถาปัตยกรรมชิปและชั้น SDK เครื่องมือ ModusToolbox™ + VS Code อุปกรณ์ต่อพ่วง FreeRTOS การเตรียมข้อมูลเซ็นเซอร์สำหรับ Edge AI ไปจนถึง MQTT, BLE และ Capstone
+  en: 'A hands-on C firmware course on PSOC™ Edge E84: chip architecture and SDK layers, ModusToolbox™ + VS Code, peripherals, FreeRTOS, sensor data preparation for Edge AI, MQTT, BLE and a capstone.'
+level: L3
+status: alpha
+audience:
+- developer
+- student
+- educator
+hours: 26
+hardware:
+  emulator: false
+  boards:
+  - devkit
+  - eva-kit
+toolchain:
+  modustoolbox: 3.6+ per the source (M02); the public tesaiot-pse84-devkit-sdk README pins 3.6 exactly
+  arm-gcc: Arm GNU Toolchain bundled with ModusToolbox (the public SDK names 14.2.1)
+  editor: Visual Studio Code + ModusToolbox extensions
+  firmware-hex: tesaiot-bitstream-<version>.hex; manifest latest 0.2.1 at TESAIoT_Hackathon@f5f09a6
+  bitstream-studio: 0.2.2 on VS Marketplace (TERNIONDEV.bitstream-studio, 2026-08-25)
+  host-tools: serial terminal; MQTTX or mosquitto_sub; nRF Connect / LightBlue / AIROC Bluetooth Connect
+prerequisites:
+  courses: []
+  skills:
+  - skill: lang.c
+    level: 2
+outcomes:
+- th: จับคู่งาน Edge AI กับโดเมนฮาร์ดแวร์ของ PSOC™ Edge E84 และกับชั้นซอฟต์แวร์ HAL/BSP · Driver API · Utility · Application ได้
+  en: Map Edge AI workloads to PSOC™ Edge E84 hardware domains and to the HAL/BSP, Driver API, Utility and Application layers.
+- th: สร้าง build flash และ debug โปรเจกต์เฟิร์มแวร์ด้วย ModusToolbox™ และ VS Code บนบอร์ดจริง
+  en: Create, build, flash and debug a firmware project with ModusToolbox™ and VS Code on a real board.
+- th: ควบคุม GPIO, UART, I²C, PWM และ ADC ผ่าน Driver API และแบ่งงานเป็นหลาย task ด้วย FreeRTOS (queue, mutex, event group)
+  en: Drive GPIO, UART, I²C, PWM and ADC through a driver API and split work into FreeRTOS tasks (queue, mutex, event group).
+- th: อ่านเซ็นเซอร์ด้วยคาบเวลาคงที่ กรอง normalize และจัดหน้าต่างข้อมูลเพื่อเตรียมเข้า Edge AI
+  en: Sample sensors at a fixed period, filter, normalise and window the data to prepare it for Edge AI.
+- th: เชื่อมอุปกรณ์กับ broker ด้วย MQTT/MQTTs และกับโฮสต์ใกล้ตัวด้วย BLE พร้อมเก็บหลักฐานการทำงาน
+  en: Connect a device to a broker over MQTT/MQTTs and to a nearby host over BLE, with evidence that it works.
+- th: ส่งมอบมินิโปรเจกต์ที่รวม sensor, RTOS และ connectivity พร้อม README ที่ผู้อื่นทำซ้ำได้
+  en: Deliver a mini project that combines sensing, RTOS and connectivity, with a README others can reproduce.
+authors:
+- name: drsanti
+  url: https://github.com/drsanti
+  role: author
+sponsors:
+- TESA
+license:
+  content: CC-BY-4.0
+  code: none
+source:
+  repo: https://github.com/drsanti/TESAIoT-Courses
+  ref: 287c21814ba8c75f693136616dcd270349a15966
+  note: Course 1 (C1/) of drsanti/TESAIoT-Courses. TESA funded the work and holds the rights; imported under CC BY 4.0. The upstream repository carries no licence file. Text kept faithful; structure, front matter, quizzes and notes added by TESA Open Knowledge.
+modules:
+- id: m01-mcu-architecture
+  title:
+    th: สถาปัตยกรรม MCU และโครงสร้าง Firmware SDK
+    en: MCU Architecture and Firmware SDK Structure
+- id: m02-toolchain
+  title:
+    th: ModusToolbox™ และ VS Code สำหรับพัฒนาเฟิร์มแวร์
+    en: ModusToolbox™ and VS Code for Firmware Development
+- id: m03-gpio-peripherals
+  title:
+    th: GPIO และอุปกรณ์ต่อพ่วงพื้นฐาน
+    en: GPIO and Basic Peripherals
+- id: m04-rtos
+  title:
+    th: การเขียนเฟิร์มแวร์แบบ RTOS
+    en: RTOS Firmware Programming
+- id: m05-sensor-data
+  title:
+    th: ข้อมูลเซ็นเซอร์และการเตรียมข้อมูลสำหรับ Edge AI
+    en: Sensor Data and Edge AI Preparation
+- id: m06-mqtt
+  title:
+    th: MQTT และ MQTTs สำหรับสื่อสารกับคลาวด์
+    en: MQTT and MQTTs for Cloud Communication
+- id: m07-ble
+  title:
+    th: การเชื่อมต่อ Bluetooth Low Energy (BLE)
+    en: Bluetooth Low Energy (BLE) Connectivity
+- id: m08-capstone
+  title:
+    th: Capstone และแหล่งเรียนรู้ของหลักสูตร
+    en: Capstone Project and Course Resources
