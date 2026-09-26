@@ -1,0 +1,45 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-FileCopyrightText: 2023 Meysam Parvizi
+# SPDX-License-Identifier: CC-BY-SA-4.0
+#
+# Test fixture: a five-skill map shaped exactly like skills/skills.yaml.
+schema_version: 1
+
+framework:
+  id: tesa-ese
+  version: 0.0.1-fixture
+  title:
+    th: แผนที่ทักษะชุดทดสอบ
+    en: Fixture Skill Map
+  license: CC-BY-SA-4.0
+  derived_from:
+    title: Embedded Systems Engineering Roadmap
+    author: Meysam Parvizi
+    url: https://github.com/m3y54m/Embedded-Engineering-Roadmap
+    license: CC-BY-SA-4.0
+
+levels:
+  - {id: 1, code: L1, th: รู้จัก, en: Aware}
+  - {id: 2, code: L2, th: ทำตามแนวทาง, en: Guided}
+  - {id: 3, code: L3, th: ทำได้เอง, en: Independent}
+  - {id: 4, code: L4, th: มืออาชีพ, en: Professional}
+  - {id: 5, code: L5, th: ออกแบบและนำทีม, en: "Design & Lead"}
+
+importance:
+  R: {th: จำเป็น, en: Required}
+  Rec: {th: แนะนำ, en: Recommended}
+  P: {th: ทางเลือก, en: Possibilities}
+
+areas:
+  - {id: software, th: ซอฟต์แวร์, en: Software}
+
+groups:
+  - {id: lang, area: software, th: ภาษาโปรแกรม, en: Programming Languages}
+  - {id: mcu, area: software, th: ไมโครคอนโทรลเลอร์, en: Microcontrollers}
+
+skills:
+  - {id: lang.python, group: lang, th: ภาษา Python, en: Python, origin: eer, importance: Rec, eer_node: "Programming Languages / Python"}
+  - {id: lang.micropython, group: lang, th: MicroPython, en: MicroPython, origin: tesa, importance: null}
+  - {id: mcu.gpio, group: mcu, th: GPIO, en: GPIO, origin: eer, importance: R, eer_node: "Microcontrollers / GPIO"}
+  - {id: mcu.pwm, group: mcu, th: PWM, en: PWM, origin: eer, importance: R, eer_node: "Microcontrollers / PWM"}
+  - {id: mcu.old-io, group: mcu, th: ขาเข้าออกแบบเก่า, en: Old IO, origin: tesa, importance: null, deprecated: true, replaced_by: mcu.gpio}

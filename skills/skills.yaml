@@ -1,0 +1,228 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-FileCopyrightText: 2023 Meysam Parvizi
+# SPDX-License-Identifier: CC-BY-SA-4.0
+#
+# TESA Embedded Systems Skill Map — the single source of truth for skill IDs.
+# Adapted from "Embedded Systems Engineering Roadmap" by Meysam Parvizi (see skills/NOTICE.md).
+#
+# Rules (enforced by tools/validate.py):
+#   - An id is permanent. Never rename or reuse one; retire it with `deprecated: true` + `replaced_by:`.
+#   - ids are vendor-neutral: PSoC Edge, ModusToolbox, BENTO belong in a lesson's `context:`, not here.
+#   - `origin`: eer = a node on the roadmap diagram v1.2.3 · eer-readme = a topic only in the newer
+#     roadmap README · tesa = added by TESA.
+#   - `importance` is the roadmap's own colour (R / Rec / P); null for skills TESA added.
+#     Role profiles in skills/roles/ may promote a skill for a given role.
+#   - A skill's stable UUID is uuid5(NAMESPACE_URL, "https://tesaiot.github.io/tesa-qualification-program/skills/<id>/"),
+#     computed by tools, never stored.
+
+schema_version: 1
+
+framework:
+  id: tesa-ese
+  version: 0.1.0
+  title:
+    th: แผนที่ทักษะวิศวกรรมระบบสมองกลฝังตัว TESA
+    en: TESA Embedded Systems Skill Map
+  license: CC-BY-SA-4.0
+  derived_from:
+    title: Embedded Systems Engineering Roadmap
+    author: Meysam Parvizi
+    url: https://github.com/m3y54m/Embedded-Engineering-Roadmap
+    license: CC-BY-SA-4.0
+    diagram_version: v1.2.3 (2023-12-23)
+    readme_commit: a9f4eac5c9f42031bebd87e25cdbfeb05b6f0c1b
+
+levels:
+  - {id: 1, code: L1, th: รู้จัก, en: Aware, bloom: remember/understand}
+  - {id: 2, code: L2, th: ทำตามแนวทาง, en: Guided, bloom: apply (scaffolded)}
+  - {id: 3, code: L3, th: ทำได้เอง, en: Independent, bloom: apply/analyse}
+  - {id: 4, code: L4, th: มืออาชีพ, en: Professional, bloom: analyse/evaluate, tpqi: "นักพัฒนาระบบสมองกลฝังตัว ระดับ 4"}
+  - {id: 5, code: L5, th: ออกแบบและนำทีม, en: Design & Lead, bloom: evaluate/create, tpqi: "นักพัฒนาระบบสมองกลฝังตัว ระดับ 5"}
+
+importance:
+  R: {th: จำเป็น, en: Required}
+  Rec: {th: แนะนำ, en: Recommended}
+  P: {th: ทางเลือก, en: Possibilities}
+
+areas:
+  - {id: software, th: ซอฟต์แวร์, en: Software}
+  - {id: hardware, th: ฮาร์ดแวร์, en: Hardware}
+  - {id: interfaces, th: อินเทอร์เฟซและโปรโตคอล, en: Interfaces & Protocols}
+  - {id: systems, th: ระบบและการประยุกต์, en: Systems & Applications}
+  - {id: soft, th: ทักษะด้านบุคคล, en: Soft Skills}
+  - {id: practice, th: ผลิตภัณฑ์และการสอน, en: Product & Teaching}
+
+groups:
+  - {id: lang,   area: software,   th: ภาษาโปรแกรม, en: Programming Languages}
+  - {id: prog,   area: software,   th: พื้นฐานการเขียนโปรแกรม, en: Programming Fundamentals}
+  - {id: os,     area: software,   th: ระบบปฏิบัติการ, en: Operating Systems}
+  - {id: linux,  area: software,   th: Embedded Linux, en: Embedded Linux}
+  - {id: rtos,   area: software,   th: ระบบปฏิบัติการเวลาจริง, en: Real-Time OS}
+  - {id: mcu,    area: software,   th: ไมโครคอนโทรลเลอร์, en: Microcontrollers}
+  - {id: sdlc,   area: software,   th: รูปแบบการพัฒนาซอฟต์แวร์, en: SDLC Models}
+  - {id: vcs,    area: software,   th: การควบคุมเวอร์ชัน, en: Version Control}
+  - {id: build,  area: software,   th: ระบบ build, en: Build System}
+  - {id: debug,  area: software,   th: การดีบัก, en: Debugging}
+  - {id: test,   area: software,   th: การทดสอบ, en: Testing}
+  - {id: sec,    area: systems,    th: ความปลอดภัยระบบฝังตัว, en: Embedded Security}
+  - {id: gui,    area: systems,    th: ส่วนติดต่อผู้ใช้บนระบบฝังตัว, en: Embedded GUI}
+  - {id: iot,    area: systems,    th: อินเทอร์เน็ตของสรรพสิ่ง, en: IoT}
+  - {id: ai,     area: systems,    th: ปัญญาประดิษฐ์บนอุปกรณ์, en: Edge AI}
+  - {id: auto,   area: systems,    th: ซอฟต์แวร์ยานยนต์, en: Automotive Software}
+  - {id: sys,    area: systems,    th: ระบบและการประมวลผล, en: Systems & Signal Processing}
+  - {id: hw,     area: hardware,   th: อิเล็กทรอนิกส์, en: Electronics}
+  - {id: meas,   area: hardware,   th: เครื่องมือวัดและทดสอบ, en: Using Test Equipment}
+  - {id: hwdev,  area: hardware,   th: ทักษะสร้างต้นแบบ, en: Prototyping Skills}
+  - {id: proto,  area: interfaces, th: อินเทอร์เฟซและโปรโตคอล, en: Interfaces & Protocols}
+  - {id: soft,   area: soft,       th: ทักษะด้านบุคคล, en: Soft Skills}
+  - {id: biz,    area: practice,   th: ผลิตภัณฑ์และธุรกิจ, en: Product & Business}
+  - {id: edu,    area: practice,   th: การสอนและการประเมิน, en: Teaching & Assessment}
+
+skills:
+  # ---- Programming Languages
+  - {id: lang.c,           group: lang,  th: ภาษา C, en: C, origin: eer, importance: R, eer_node: "Programming Languages / C"}
+  - {id: lang.cpp,         group: lang,  th: ภาษา C++, en: C++, origin: eer, importance: Rec, eer_node: "Programming Languages / C++"}
+  - {id: lang.python,      group: lang,  th: ภาษา Python, en: Python, origin: eer, importance: Rec, eer_node: "Programming Languages / Python"}
+  - {id: lang.micropython, group: lang,  th: MicroPython บนไมโครคอนโทรลเลอร์, en: MicroPython, origin: tesa, importance: null}
+  - {id: lang.asm,         group: lang,  th: ภาษาแอสเซมบลี, en: Assembly, origin: eer, importance: P, eer_node: "Programming Languages / Assembly"}
+  - {id: lang.rust,        group: lang,  th: ภาษา Rust, en: Rust, origin: eer, importance: P, eer_node: "Programming Languages / Rust"}
+  # ---- Programming Fundamentals
+  - {id: prog.algo-ds,         group: prog, th: อัลกอริทึมและโครงสร้างข้อมูล, en: Algorithms & Data Structures, origin: eer, importance: R, eer_node: "Programming Fundamentals / Algorithms & Data Structures"}
+  - {id: prog.design-patterns, group: prog, th: รูปแบบการออกแบบซอฟต์แวร์, en: Design Patterns, origin: eer, importance: R, eer_node: "Programming Fundamentals / Design Patterns"}
+  - {id: prog.state-machines,  group: prog, th: เครื่องสถานะ, en: State Machines, origin: eer, importance: R, eer_node: "Programming Fundamentals / State Machines"}
+  - {id: prog.memory,          group: prog, th: การจัดการหน่วยความจำ, en: Memory Management, origin: eer, importance: R, eer_node: "Programming Fundamentals / Memory Management"}
+  # ---- Operating Systems
+  - {id: os.fundamentals, group: os, th: พื้นฐานระบบปฏิบัติการ, en: Operating System Fundamentals, origin: eer, importance: Rec, eer_node: "Operating Systems / Operating System Fundamentals"}
+  - {id: os.threading,    group: os, th: เธรดและการทำงานขนาน, en: Threading / Parallelism, origin: eer, importance: P, eer_node: "Operating Systems / Embedded Linux / Threading / Parallelism"}
+  - {id: os.ipc,          group: os, th: การสื่อสารระหว่างโปรเซส, en: IPC, origin: eer, importance: P, eer_node: "Operating Systems / Embedded Linux / IPC"}
+  # ---- Embedded Linux
+  - {id: linux.kernel,          group: linux, th: เคอร์เนลลินุกซ์, en: Linux Kernel, origin: eer, importance: Rec, eer_node: "Embedded Linux / Linux Kernel"}
+  - {id: linux.drivers,         group: linux, th: ไดรเวอร์อุปกรณ์, en: Device Drivers, origin: eer, importance: Rec, eer_node: "Embedded Linux / Device Drivers"}
+  - {id: linux.u-boot,          group: linux, th: U-Boot, en: U-Boot, origin: eer, importance: P, eer_node: "Embedded Linux / U-Boot"}
+  - {id: linux.buildroot-yocto, group: linux, th: Buildroot และ Yocto, en: Buildroot / Yocto, origin: eer, importance: P, eer_node: "Embedded Linux / Buildroot / Yocto"}
+  - {id: linux.qt,              group: linux, th: Qt Framework, en: Qt Framework, origin: eer, importance: P, eer_node: "Embedded Linux / Qt Framework"}
+  # ---- Real-Time OS
+  - {id: rtos.basics,       group: rtos, th: พื้นฐาน RTOS, en: RTOS Basics, origin: eer, importance: R, eer_node: "Real-Time OS / RTOS Basics"}
+  - {id: rtos.freertos,     group: rtos, th: FreeRTOS, en: FreeRTOS, origin: eer, importance: Rec, eer_node: "Real-Time OS / FreeRTOS"}
+  - {id: rtos.zephyr,       group: rtos, th: Zephyr, en: Zephyr, origin: eer, importance: Rec, eer_node: "Real-Time OS / Zephyr"}
+  - {id: rtos.qnx,          group: rtos, th: QNX, en: QNX, origin: eer, importance: P, eer_node: "Real-Time OS / QNX"}
+  - {id: rtos.ucos,         group: rtos, th: µC/OS, en: µC/OS, origin: eer, importance: P, eer_node: "Real-Time OS / µC/OS"}
+  - {id: rtos.rt-thread,    group: rtos, th: RT-Thread, en: RT-Thread, origin: eer, importance: P, eer_node: "Real-Time OS / RT-Thread"}
+  - {id: rtos.multicore-ipc, group: rtos, th: การสื่อสารระหว่างคอร์ในชิปหลายคอร์, en: Multi-core IPC, origin: tesa, importance: null}
+  # ---- Microcontrollers
+  - {id: mcu.gpio,       group: mcu, th: GPIO ขาเข้า–ออกทั่วไป, en: GPIO, origin: eer, importance: R, eer_node: "Microcontrollers / GPIO"}
+  - {id: mcu.adc-dac,    group: mcu, th: ADC และ DAC, en: ADC / DAC, origin: eer, importance: R, eer_node: "Microcontrollers / ADC / DAC"}
+  - {id: mcu.timers,     group: mcu, th: ตัวจับเวลาและตัวนับ, en: Timers / Counters, origin: eer, importance: R, eer_node: "Microcontrollers / Timers / Counters"}
+  - {id: mcu.pwm,        group: mcu, th: PWM, en: PWM, origin: eer, importance: R, eer_node: "Microcontrollers / PWM"}
+  - {id: mcu.watchdog,   group: mcu, th: Watchdog, en: Watchdog, origin: eer, importance: R, eer_node: "Microcontrollers / Watchdog"}
+  - {id: mcu.interrupts, group: mcu, th: อินเทอร์รัปต์, en: Interrupts, origin: eer, importance: R, eer_node: "Microcontrollers / Interrupts"}
+  - {id: mcu.dma,        group: mcu, th: DMA, en: DMA, origin: eer, importance: R, eer_node: "Microcontrollers / DMA"}
+  - {id: mcu.clock,      group: mcu, th: การจัดการสัญญาณนาฬิกา, en: Clock Management, origin: eer, importance: R, eer_node: "Microcontrollers / Clock Management"}
+  - {id: mcu.power,      group: mcu, th: การจัดการพลังงาน, en: Power Management, origin: eer, importance: Rec, eer_node: "Microcontrollers / Power Management"}
+  - {id: mcu.bootloader, group: mcu, th: Bootloader และ DFU, en: Bootloader / DFU, origin: eer, importance: Rec, eer_node: "Microcontrollers / Bootloader / DFU"}
+  # ---- SDLC / Version control / Build / Debug / Test
+  - {id: sdlc.agile,   group: sdlc, th: Agile และ Scrum, en: Agile / SCRUM, origin: eer, importance: Rec, eer_node: "SDLC Models / Agile / SCRUM"}
+  - {id: sdlc.v-model, group: sdlc, th: V-Model, en: V-Model, origin: eer, importance: Rec, eer_node: "SDLC Models / V-Model"}
+  - {id: vcs.git, group: vcs, th: Git, en: Git, origin: eer, importance: R, eer_node: "Version Control / Git"}
+  - {id: vcs.svn, group: vcs, th: SVN, en: SVN, origin: eer, importance: P, eer_node: "Version Control / SVN"}
+  - {id: build.compilers,   group: build, th: คอมไพเลอร์และ GCC, en: Compilers / GCC, origin: eer, importance: R, eer_node: "Build System / Compilers / GCC"}
+  - {id: build.make-cmake,  group: build, th: Make และ CMake, en: Make / CMake, origin: eer, importance: R, eer_node: "Build System / Make / CMake"}
+  - {id: build.bash,        group: build, th: Bash scripting, en: Bash Scripting, origin: eer, importance: Rec, eer_node: "Build System / Bash Scripting"}
+  - {id: build.docker,      group: build, th: Docker, en: Docker, origin: eer, importance: P, eer_node: "Build System / Docker"}
+  - {id: build.vendor-sdk,  group: build, th: SDK และเครื่องมือของผู้ผลิตชิป, en: Vendor SDK & Toolchain, origin: tesa, importance: null}
+  - {id: debug.jtag-swd, group: debug, th: JTAG และ SWD, en: JTAG / SWD, origin: eer, importance: R, eer_node: "Debugging / JTAG / SWD"}
+  - {id: debug.gdb,      group: debug, th: GDB, en: GDB, origin: eer, importance: R, eer_node: "Debugging / GDB"}
+  - {id: debug.openocd,  group: debug, th: OpenOCD, en: OpenOCD, origin: eer, importance: P, eer_node: "Debugging / OpenOCD"}
+  - {id: test.unit-tdd,  group: test, th: TDD และ unit testing, en: TDD & Unit Testing, origin: eer, importance: R, eer_node: "Testing / TDD & Unit Testing"}
+  - {id: test.cicd,      group: test, th: CI/CD pipeline, en: CI/CD Pipelines, origin: eer, importance: Rec, eer_node: "Testing / CI/CD Pipelines"}
+  - {id: test.sil-hil,   group: test, th: การทดสอบแบบ SIL และ HIL, en: SIL / HIL Testing, origin: eer, importance: P, eer_node: "Testing / SIL / HIL Testing"}
+  - {id: test.standards, group: test, th: มาตรฐานและการรับรองผลิตภัณฑ์, en: Standards & Certifications, origin: eer, importance: P, eer_node: "Testing / Standards & Certifications"}
+  # ---- Embedded Security
+  - {id: sec.fundamentals,   group: sec, th: พื้นฐานความปลอดภัยระบบฝังตัว, en: Embedded Security, origin: eer, importance: P, eer_node: "Embedded Security"}
+  - {id: sec.crypto,         group: sec, th: วิทยาการเข้ารหัสสำหรับระบบฝังตัว, en: Cryptography, origin: eer-readme, importance: null}
+  - {id: sec.secure-boot,    group: sec, th: Secure boot และ chain of trust, en: Secure Boot, origin: eer-readme, importance: null}
+  - {id: sec.tls,            group: sec, th: TLS และ mTLS บนอุปกรณ์, en: TLS / mTLS on Devices, origin: tesa, importance: null}
+  - {id: sec.secure-element, group: sec, th: การใช้ชิปความปลอดภัย (secure element), en: Secure Element Integration, origin: tesa, importance: null}
+  # ---- Embedded GUI
+  - {id: gui.embedded, group: gui, th: ส่วนติดต่อผู้ใช้บนระบบฝังตัว, en: Embedded GUI, origin: eer, importance: P, eer_node: "Embedded GUI"}
+  - {id: gui.hmi,      group: gui, th: การออกแบบ HMI และแดชบอร์ด, en: HMI & Dashboard Design, origin: tesa, importance: null}
+  # ---- IoT
+  - {id: iot.fundamentals,   group: iot, th: พื้นฐานระบบ IoT, en: IoT, origin: eer, importance: P, eer_node: "IoT"}
+  - {id: iot.cloud-platform, group: iot, th: การเชื่อมต่อแพลตฟอร์ม IoT, en: IoT Platform Integration, origin: tesa, importance: null}
+  - {id: iot.ota,            group: iot, th: การอัปเดตเฟิร์มแวร์ทางไกล (OTA), en: Over-the-Air Update, origin: eer-readme, importance: null}
+  - {id: iot.digital-twin,   group: iot, th: ดิจิทัลทวิน, en: Digital Twin, origin: tesa, importance: null}
+  # ---- Edge AI
+  - {id: ai.edge,            group: ai, th: Edge AI พื้นฐาน, en: Edge AI, origin: eer, importance: P, eer_node: "Edge AI"}
+  - {id: ai.data-collection, group: ai, th: การเก็บและเตรียมข้อมูลจากเซนเซอร์, en: Sensor Data Collection & Labelling, origin: tesa, importance: null}
+  - {id: ai.model-training,  group: ai, th: การฝึกโมเดลสำหรับอุปกรณ์ขนาดเล็ก, en: Model Training for Tiny Devices, origin: eer-readme, importance: null}
+  - {id: ai.model-deploy,    group: ai, th: การแปลงและติดตั้งโมเดลบนอุปกรณ์, en: Model Optimisation & Deployment, origin: tesa, importance: null}
+  # ---- Automotive
+  - {id: auto.autosar, group: auto, th: AUTOSAR, en: AUTOSAR, origin: eer, importance: P, eer_node: "AUTOSAR"}
+  # ---- Systems & signal processing
+  - {id: sys.memory-fs,        group: sys, th: เทคโนโลยีหน่วยความจำและระบบไฟล์, en: Memory Technologies & File Systems, origin: eer, importance: Rec, eer_node: "Memory Technologies & File Systems"}
+  - {id: sys.simulation,       group: sys, th: การจำลองฮาร์ดแวร์และอีมูเลเตอร์, en: Hardware Simulation / Emulation, origin: eer, importance: Rec, eer_node: "Hardware Simulation / Emulation"}
+  - {id: sys.sensors-actuators, group: sys, th: เซนเซอร์และแอคชูเอเตอร์, en: Sensors & Actuators, origin: eer, importance: P, eer_node: "Sensors & Actuators"}
+  - {id: sys.dsp,              group: sys, th: การประมวลผลสัญญาณดิจิทัล, en: Digital Signal Processing, origin: eer, importance: P, eer_node: "Digital Signal Processing"}
+  - {id: sys.control,          group: sys, th: ทฤษฎีควบคุม, en: Control Theory, origin: eer, importance: P, eer_node: "Control Theory"}
+  # ---- Electronics
+  - {id: hw.math,         group: hw, th: คณิตศาสตร์และแคลคูลัสพื้นฐาน, en: Basic Math & Calculus, origin: eer, importance: R, eer_node: "Electronics / Basic Math & Calculus"}
+  - {id: hw.circuits,     group: hw, th: หลักการวงจรไฟฟ้า, en: Principles of Electric Circuits, origin: eer, importance: R, eer_node: "Electronics / Principles of Electric Circuits"}
+  - {id: hw.electronics,  group: hw, th: อิเล็กทรอนิกส์พื้นฐาน, en: Electronics Fundamentals, origin: eer, importance: R, eer_node: "Electronics / Electronics Fundamentals"}
+  - {id: hw.digital,      group: hw, th: การออกแบบวงจรดิจิทัล, en: Digital Design, origin: eer, importance: R, eer_node: "Electronics / Digital Design"}
+  - {id: hw.architecture, group: hw, th: สถาปัตยกรรมคอมพิวเตอร์, en: Computer Architecture, origin: eer, importance: R, eer_node: "Electronics / Computer Architecture"}
+  # ---- Test equipment
+  - {id: meas.multimeter,     group: meas, th: มัลติมิเตอร์, en: Multimeter, origin: eer, importance: R, eer_node: "Using Test Equipment / Multimeter"}
+  - {id: meas.logic-analyzer, group: meas, th: Logic / Protocol analyzer, en: Logic / Protocol Analyzer, origin: eer, importance: R, eer_node: "Using Test Equipment / Logic / Protocol Analyzer"}
+  - {id: meas.oscilloscope,   group: meas, th: ออสซิลโลสโคป, en: Oscilloscope, origin: eer, importance: Rec, eer_node: "Using Test Equipment / Oscilloscope"}
+  # ---- Prototyping
+  - {id: hwdev.breadboard,    group: hwdev, th: การต่อวงจรบนเบรดบอร์ด, en: Breadboarding, origin: eer, importance: Rec, eer_node: "Prototyping Skills / Breadboarding"}
+  - {id: hwdev.design-basics, group: hwdev, th: พื้นฐานการออกแบบฮาร์ดแวร์, en: Hardware Design Basics, origin: eer, importance: Rec, eer_node: "Prototyping Skills / Hardware Design Basics"}
+  - {id: hwdev.pcb-emc,       group: hwdev, th: การออกแบบ PCB และ EMC, en: PCB Design / EMC, origin: eer, importance: Rec, eer_node: "Prototyping Skills / PCB Design / EMC"}
+  - {id: hwdev.soldering,     group: hwdev, th: การบัดกรีและซ่อมแซม, en: Soldering / Rework, origin: eer, importance: Rec, eer_node: "Prototyping Skills / Soldering / Rework"}
+  - {id: hwdev.fpga,          group: hwdev, th: การพัฒนา FPGA, en: FPGA Development, origin: eer, importance: P, eer_node: "FPGA Development"}
+  - {id: hwdev.enclosure,     group: hwdev, th: การออกแบบเชิงอุตสาหกรรมและตัวเครื่อง, en: Industrial & Enclosure Design, origin: tesa, importance: null}
+  - {id: hwdev.3d-modeling,   group: hwdev, th: การขึ้นรูปสามมิติและเรนเดอร์, en: 3D Modelling & Rendering, origin: tesa, importance: null}
+  # ---- Interfaces & Protocols
+  - {id: proto.uart,     group: proto, th: UART, en: UART, origin: eer, importance: R, eer_node: "Interfaces & Protocols / Basic / UART"}
+  - {id: proto.i2c,      group: proto, th: I2C, en: I2C, origin: eer, importance: R, eer_node: "Interfaces & Protocols / Basic / I2C"}
+  - {id: proto.spi,      group: proto, th: SPI, en: SPI, origin: eer, importance: R, eer_node: "Interfaces & Protocols / Basic / SPI"}
+  - {id: proto.ethernet, group: proto, th: Ethernet, en: Ethernet, origin: eer, importance: Rec, eer_node: "Interfaces & Protocols / High-Speed / Ethernet"}
+  - {id: proto.usb,      group: proto, th: USB, en: USB, origin: eer, importance: Rec, eer_node: "Interfaces & Protocols / High-Speed / USB"}
+  - {id: proto.pcie,     group: proto, th: PCIe, en: PCIe, origin: eer, importance: P, eer_node: "Interfaces & Protocols / High-Speed / PCIe"}
+  - {id: proto.bluetooth, group: proto, th: Bluetooth และ BLE, en: Bluetooth, origin: eer, importance: Rec, eer_node: "Interfaces & Protocols / Wireless / Bluetooth"}
+  - {id: proto.wifi,     group: proto, th: Wi-Fi, en: Wi-Fi, origin: eer, importance: Rec, eer_node: "Interfaces & Protocols / Wireless / Wi-Fi"}
+  - {id: proto.lora,     group: proto, th: LoRa, en: LoRa, origin: eer, importance: P, eer_node: "Interfaces & Protocols / Wireless / LoRa"}
+  - {id: proto.zigbee,   group: proto, th: Zigbee, en: Zigbee, origin: eer, importance: P, eer_node: "Interfaces & Protocols / Wireless / Zigbee"}
+  - {id: proto.thread,   group: proto, th: Thread, en: Thread, origin: eer, importance: P, eer_node: "Interfaces & Protocols / Wireless / Thread"}
+  - {id: proto.matter,   group: proto, th: Matter, en: Matter, origin: eer, importance: P, eer_node: "Interfaces & Protocols / Wireless / Matter"}
+  - {id: proto.uwb,      group: proto, th: UWB, en: UWB, origin: eer, importance: P, eer_node: "Interfaces & Protocols / Wireless / UWB"}
+  - {id: proto.modbus,   group: proto, th: Modbus, en: Modbus, origin: eer, importance: Rec, eer_node: "Interfaces & Protocols / Industrial / Modbus"}
+  - {id: proto.profinet, group: proto, th: Profinet, en: Profinet, origin: eer, importance: P, eer_node: "Interfaces & Protocols / Industrial / Profinet"}
+  - {id: proto.ethercat, group: proto, th: EtherCAT, en: EtherCAT, origin: eer, importance: P, eer_node: "Interfaces & Protocols / Industrial / EtherCAT"}
+  - {id: proto.mqtt,     group: proto, th: MQTT และ MQTTs, en: MQTT, origin: eer, importance: Rec, eer_node: "Interfaces & Protocols / Industrial / MQTT"}
+  - {id: proto.coap,     group: proto, th: CoAP, en: CoAP, origin: eer, importance: P, eer_node: "Interfaces & Protocols / Industrial / CoAP"}
+  - {id: proto.tcp-ip,   group: proto, th: TCP/IP, en: TCP/IP, origin: eer, importance: P, eer_node: "Interfaces & Protocols / Network / TCP/IP"}
+  - {id: proto.udp,      group: proto, th: UDP, en: UDP, origin: eer, importance: P, eer_node: "Interfaces & Protocols / Network / UDP"}
+  - {id: proto.can,      group: proto, th: CAN, en: CAN, origin: eer, importance: Rec, eer_node: "Interfaces & Protocols / Automotive / CAN"}
+  - {id: proto.lin,      group: proto, th: LIN, en: LIN, origin: eer, importance: P, eer_node: "Interfaces & Protocols / Automotive / LIN"}
+  - {id: proto.most,     group: proto, th: MOST, en: MOST, origin: eer, importance: P, eer_node: "Interfaces & Protocols / Automotive / MOST"}
+  - {id: proto.flexray,  group: proto, th: FlexRay, en: FlexRay, origin: eer, importance: P, eer_node: "Interfaces & Protocols / Automotive / FlexRay"}
+  - {id: proto.gsm-lte,  group: proto, th: GSM และ LTE, en: GSM / LTE, origin: eer, importance: P, eer_node: "Interfaces & Protocols / Cellular / GSM / LTE"}
+  - {id: proto.lte-m-5g, group: proto, th: LTE-M และ 5G, en: LTE-M / 5G, origin: eer, importance: P, eer_node: "Interfaces & Protocols / Cellular / LTE-M / 5G"}
+  - {id: proto.nb-iot,   group: proto, th: NB-IoT, en: NB-IoT, origin: eer, importance: P, eer_node: "Interfaces & Protocols / Cellular / NB-IoT"}
+  - {id: proto.rs485,    group: proto, th: RS-485, en: RS-485, origin: eer-readme, importance: null}
+  # ---- Soft skills
+  - {id: soft.communication,   group: soft, th: การสื่อสาร, en: Communication Skills, origin: eer, importance: R, eer_node: "Soft Skills / Communication Skills"}
+  - {id: soft.problem-solving, group: soft, th: การแก้ปัญหาและการคิดเชิงวิพากษ์, en: Problem-Solving & Critical Thinking, origin: eer, importance: R, eer_node: "Soft Skills / Problem-Solving Skills & Critical Thinking"}
+  - {id: soft.teamwork,        group: soft, th: การทำงานเป็นทีม, en: Teamwork & Collaboration, origin: eer, importance: R, eer_node: "Soft Skills / Teamwork & Collaborative Abilities"}
+  - {id: soft.organization,    group: soft, th: การจัดการงานและเวลา, en: Organisational & Time Management, origin: eer, importance: R, eer_node: "Soft Skills / Organizational & Time Management Skills"}
+  - {id: soft.self-driven,     group: soft, th: การเรียนรู้และขับเคลื่อนตนเอง, en: Self-Driven & Independent, origin: eer, importance: R, eer_node: "Soft Skills / Being Self-Driven and Independent"}
+  - {id: soft.adaptability,    group: soft, th: การปรับตัวและความอดทน, en: Adaptability & Patience, origin: eer, importance: R, eer_node: "Soft Skills / Adaptability & Patience"}
+  # ---- Product & Business (TESA)
+  - {id: biz.product-decision, group: biz, th: การตัดสินใจเชิงผลิตภัณฑ์ด้าน AIoT, en: AIoT Product Decisions, origin: tesa, importance: null}
+  - {id: biz.cost-bom,         group: biz, th: ต้นทุน BOM เวลา และทีม, en: "Cost, BOM & Team Planning", origin: tesa, importance: null}
+  - {id: biz.risk-compliance,  group: biz, th: ความเสี่ยงและการปฏิบัติตามกฎ (ความปลอดภัย PDPA มาตรฐาน), en: Risk & Compliance, origin: tesa, importance: null}
+  # ---- Teaching & Assessment (TESA)
+  - {id: edu.lesson-design, group: edu, th: การออกแบบบทเรียน, en: Lesson Design, origin: tesa, importance: null}
+  - {id: edu.assessment,    group: edu, th: การออกแบบการประเมิน, en: Assessment Design, origin: tesa, importance: null}
+  - {id: edu.facilitation,  group: edu, th: การจัดการเรียนรู้เชิงปฏิบัติ, en: Hands-on Facilitation, origin: tesa, importance: null}

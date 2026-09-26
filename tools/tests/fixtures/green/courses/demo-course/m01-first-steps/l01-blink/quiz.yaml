@@ -1,0 +1,14 @@
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt: {th: ขา GPIO ที่ต่อ LED ต้องตั้งเป็นแบบใด, en: "How must the LED's GPIO pin be configured?"}
+    choices: [{th: ขาเข้า}, {th: ขาออก}]
+    answer: [1]
+    explain: {th: LED รับกระแสจากขา จึงต้องเป็นขาออก}
+  - id: q2
+    objective: 2
+    type: order
+    prompt: {th: เรียงขั้นตอนของลูปกะพริบ}
+    choices: [{th: สลับสถานะ LED}, {th: หน่วงเวลาครึ่งคาบเวลา}, {th: วนกลับ}]
+    answer: [0, 1, 2]

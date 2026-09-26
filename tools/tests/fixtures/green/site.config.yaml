@@ -1,0 +1,16 @@
+site:
+  origin: https://fixture.example.org
+  base: /fixture-site
+repo:
+  url: https://github.com/example/fixture-repo
+  branch: main
+ide:
+  origin: https://ide.example.org
+credit:
+  line: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY 4.0"
+  org:
+    th: "สมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA)"
+    en: "Thai Embedded Systems Association (TESA)"
+  attribution:
+    th: "\"{title}\" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) {repo} สัญญาอนุญาต CC BY 4.0"
+    en: "\"{title}\" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), {repo}, licensed under CC BY 4.0"

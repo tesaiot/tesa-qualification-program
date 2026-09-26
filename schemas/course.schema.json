@@ -1,0 +1,354 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:tesa:open-knowledge:schema:course",
+  "title": "Course (courses/<id>/course.yaml)",
+  "description": "BUILD_SPEC §3. Cross-file rules in tools/validate.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "short",
+    "title",
+    "summary",
+    "level",
+    "status",
+    "audience",
+    "hours",
+    "hardware",
+    "prerequisites",
+    "outcomes",
+    "authors",
+    "sponsors",
+    "license",
+    "modules"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "short": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "title": {
+      "$ref": "#/$defs/i18n"
+    },
+    "summary": {
+      "$ref": "#/$defs/i18n"
+    },
+    "level": {
+      "type": "string",
+      "pattern": "^L[1-5]$"
+    },
+    "status": {
+      "enum": [
+        "pre-alpha",
+        "alpha",
+        "beta",
+        "stable"
+      ]
+    },
+    "audience": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "public",
+          "student",
+          "developer",
+          "entrepreneur",
+          "educator"
+        ]
+      }
+    },
+    "hours": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "hardware": {
+      "$ref": "#/$defs/hardware"
+    },
+    "toolchain": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "string",
+          "number"
+        ]
+      }
+    },
+    "prerequisites": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "courses": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          }
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "skill",
+              "level"
+            ],
+            "properties": {
+              "skill": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9]*\\.[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "level": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              }
+            }
+          }
+        }
+      }
+    },
+    "outcomes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/i18n"
+      }
+    },
+    "authors": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "role"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^https?://\\S+$"
+          },
+          "role": {
+            "enum": [
+              "author",
+              "adapter",
+              "reviewer"
+            ]
+          }
+        }
+      }
+    },
+    "sponsors": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "license": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "content",
+        "code"
+      ],
+      "properties": {
+        "content": {
+          "enum": [
+            "CC-BY-4.0",
+            "CC-BY-SA-4.0"
+          ]
+        },
+        "code": {
+          "enum": [
+            "MIT",
+            "Apache-2.0",
+            "none"
+          ]
+        }
+      }
+    },
+    "source": {
+      "oneOf": [
+        {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": false,
+          "properties": {
+            "repo": {
+              "type": "string",
+              "pattern": "^https?://\\S+$"
+            },
+            "ref": {
+              "type": "string"
+            },
+            "path": {
+              "type": "string"
+            },
+            "site": {
+              "type": "string",
+              "pattern": "^https?://\\S+$"
+            },
+            "title": {
+              "type": "string"
+            },
+            "license": {
+              "type": "string"
+            },
+            "note": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": false,
+            "properties": {
+              "repo": {
+                "type": "string",
+                "pattern": "^https?://\\S+$"
+              },
+              "ref": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "site": {
+                "type": "string",
+                "pattern": "^https?://\\S+$"
+              },
+              "title": {
+                "type": "string"
+              },
+              "license": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "note": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/i18n_th"
+        }
+      ]
+    },
+    "modules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^m[0-9]{2}-[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "title": {
+            "$ref": "#/$defs/i18n"
+          },
+          "summary": {
+            "$ref": "#/$defs/i18n_th"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "i18n": {
+      "type": "object",
+      "description": "Thai + English text",
+      "required": [
+        "th",
+        "en"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "th": {
+          "type": "string",
+          "minLength": 1
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "i18n_th": {
+      "type": "object",
+      "description": "Thai text, English optional",
+      "required": [
+        "th"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "th": {
+          "type": "string",
+          "minLength": 1
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "hardware": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "emulator",
+        "boards"
+      ],
+      "properties": {
+        "emulator": {
+          "type": "boolean"
+        },
+        "boards": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "eva-kit",
+              "devkit",
+              "none"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+images:
+  - path: m01-first-steps/l01-blink/img/led_commons.png
+    title: LED (fixture image)
+    author: Fixture Author
+    source: https://commons.wikimedia.org/wiki/File:Example.png
+    license: CC-BY-SA-4.0
+    modified: false

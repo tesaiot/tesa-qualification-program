@@ -1,0 +1,19 @@
+schema_version: 1
+courses:
+  - id: demo-course
+    short: demo
+    in_tree: true
+    level: L1
+    status: alpha
+    title: {th: "หลักสูตรตัวอย่าง: ไฟกะพริบ", en: "Demo Course: Blinking LED"}
+
+  - id: outside-course
+    short: outside
+    in_tree: false
+    level: L2
+    status: stable
+    title: {th: "หลักสูตรภายนอก", en: "Outside Course"}
+    external:
+      repo: https://github.com/example/outside-course
+      ref: 0123456789abcdef0123456789abcdef01234567
+      license: {content: CC-BY-4.0, code: MIT}

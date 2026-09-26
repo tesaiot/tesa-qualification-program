@@ -1,0 +1,56 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-SA-4.0
+#
+# Role profile — see skills/README.md.
+# requires[].level  = minimum level (1–5) of that skill for this role.
+# promoted_from     = the skill's roadmap importance in skills.yaml: R = already required on the roadmap;
+#                     Rec or P = this role raises it to required; null = no roadmap colour (origin tesa / eer-readme).
+id: edge-ai-engineer
+title:
+  th: วิศวกร Edge AI
+  en: Edge AI Engineer
+summary:
+  th: เก็บและเตรียมข้อมูลจากเซนเซอร์ ฝึกโมเดลขนาดเล็ก แปลงและติดตั้งโมเดลให้รันบนอุปกรณ์ได้ภายในงบหน่วยความจำ เวลา และพลังงาน แล้ววัดผลบนบอร์ดจริง
+  en: Collects and prepares sensor data, trains small models, converts and deploys them to run on the device within memory, latency and power budgets, and measures the result on the real board.
+target_level: L4
+requires:
+  # Languages and fundamentals
+  - {skill: lang.python,          level: 3, promoted_from: Rec}
+  - {skill: lang.c,               level: 3, promoted_from: R}
+  - {skill: prog.algo-ds,         level: 3, promoted_from: R}
+  - {skill: prog.memory,          level: 3, promoted_from: R}
+  - {skill: hw.math,              level: 3, promoted_from: R}
+  # Getting data in efficiently
+  - {skill: mcu.dma,              level: 3, promoted_from: R}
+  - {skill: mcu.adc-dac,          level: 3, promoted_from: R}
+  - {skill: mcu.interrupts,       level: 3, promoted_from: R}
+  - {skill: mcu.timers,           level: 2, promoted_from: R}
+  - {skill: mcu.power,            level: 3, promoted_from: Rec}
+  - {skill: proto.i2c,            level: 3, promoted_from: R}
+  - {skill: proto.spi,            level: 2, promoted_from: R}
+  - {skill: rtos.multicore-ipc,   level: 2, promoted_from: null}
+  # Edge AI pipeline (raised to required for this role)
+  - {skill: sys.sensors-actuators, level: 3, promoted_from: P}
+  - {skill: sys.dsp,              level: 3, promoted_from: P}
+  - {skill: ai.edge,              level: 3, promoted_from: P}
+  - {skill: ai.data-collection,   level: 3, promoted_from: null}
+  - {skill: ai.model-training,    level: 3, promoted_from: null}
+  - {skill: ai.model-deploy,      level: 3, promoted_from: null}
+  # Tooling
+  - {skill: build.vendor-sdk,     level: 3, promoted_from: null}
+  - {skill: vcs.git,              level: 3, promoted_from: R}
+  - {skill: debug.gdb,            level: 2, promoted_from: R}
+  # Soft skills — required in every profile, assessed from project evidence
+  - {skill: soft.communication,   level: 3, promoted_from: R}
+  - {skill: soft.problem-solving, level: 3, promoted_from: R}
+  - {skill: soft.teamwork,        level: 3, promoted_from: R}
+  - {skill: soft.organization,    level: 3, promoted_from: R}
+  - {skill: soft.self-driven,     level: 3, promoted_from: R}
+  - {skill: soft.adaptability,    level: 3, promoted_from: R}
+anchors:
+  tpqi: null
+  note: >-
+    TPQI has no Edge AI qualification yet; the embedded core of this role follows นักพัฒนาระบบสมองกลฝังตัว
+    ระดับ 4. Edge AI, sensors and DSP are raised from Possibilities, Python and power management from
+    Recommended. SFIA 9 MLNG level 3 is used only as an internal reference and is not part of the published
+    mapping. The TQP T3 Specialist (Edge AI) credential builds on this profile.

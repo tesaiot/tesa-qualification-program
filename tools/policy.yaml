@@ -1,0 +1,85 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: Apache-2.0
+#
+# Policy data shared by the tools in this folder. Change a rule here, not inside a script.
+# Site origin/base, repo URL and the TESA credit line live in ../site.config.yaml (owned by the
+# site); the values under `fallback:` are used ONLY when that file is missing a key, and every tool
+# prints a warning when it falls back.
+
+fallback:
+  site: {origin: https://tesaiot.github.io, base: /tesa-qualification-program}
+  repo: {url: https://github.com/tesaiot/tesa-qualification-program, branch: main}
+  credit:
+    org: {th: สมาคมสมองกลฝังตัวไทย, en: Thai Embedded Systems Association}
+
+# BUILD_SPEC §1.9 — everyone must credit TESA.
+attribution:
+  # Every courses/<id>/README.md (th) and README.en.md (en) carries a heading with this text,
+  # followed by the repo URL (site.config.yaml repo.url) in that section.
+  cite_heading: {th: อ้างอิง TESA, en: How to cite TESA}
+  # Every courses/**/slides.md front matter `footer:` must contain this.
+  footer_must_contain: TESA
+  # Root files that must exist and name TESA.
+  root_files: [NOTICE, ATTRIBUTION.md]
+
+limits:
+  max_file_bytes: 5242880        # 5 MB, courses/** (BUILD_SPEC §3)
+  # Total of a lesson's time_min (lead decision 2026-09-25): outside [min, max] is an ERROR; above
+  # soft_max is a WARNING unless the lesson folder name contains lab_marker (labs may run to max).
+  lesson_minutes: {min: 10, soft_max: 75, max: 240, lab_marker: lab}
+
+# REUSE.toml is generated from this block + courses/*/course.yaml + courses/*/credits.yaml by
+# tools/gen_reuse.py. In a REUSE.toml the LAST matching annotation wins, so order matters:
+# general first, specific last.
+reuse:
+  holders:
+    tesa: "2026 Thai Embedded Systems Association (TESA)"
+    aic: "2026 Wiroon Sriborrirux, Advance Innovation Centre (AIC), Burapha University"
+    parvizi: "2023 Meysam Parvizi"
+    ethical-source: "Organization for Ethical Source"
+  base:
+    - comment: Default for everything else (Markdown, YAML, images, slides) is CC BY 4.0 by TESA.
+      paths: ["**"]
+      license: CC-BY-4.0
+      holders: [tesa]
+      precedence: closest
+    - comment: Code and repository tooling are Apache-2.0 by TESA — everything under site/ included
+        (the site project asked for this; course pages are synced from courses/ at build time).
+      paths: ["tools/**", "schemas/**", "site/**", "site.config.yaml", ".github/workflows/**",
+              "lychee.toml", ".gitignore", "**/.gitignore", ".gitattributes", ".editorconfig"]
+      license: Apache-2.0
+      holders: [tesa]
+      precedence: closest
+    - comment: The Code of Conduct is the Contributor Covenant 3.0 (CC BY-SA 4.0); the Thai file is its translation.
+      paths: ["CODE_OF_CONDUCT.md", "CODE_OF_CONDUCT.en.md"]
+      license: CC-BY-SA-4.0
+      holders: [ethical-source, tesa]
+      precedence: closest
+    - comment: The skill map adapts Meysam Parvizi's roadmap and stays CC BY-SA 4.0 (share-alike).
+      paths: ["skills/**"]
+      license: CC-BY-SA-4.0
+      holders: [tesa, parvizi]
+      precedence: aggregate
+  # Course content (everything in courses/<id>/ that is not code) is CC BY 4.0. `aggregate` keeps
+  # TESA's line even when a file carries its own copyright text (for example an upstream credit).
+  course_content:
+    license_from: course.yaml license.content   # CC-BY-4.0 when course.yaml is absent
+    default_holders: [tesa]
+    precedence: aggregate
+  # Code folders: <course>/**/<dir>/** for each dir below, plus <course>/shared/**.
+  course_code:
+    dirs: [examples, practice, solution]
+    shared: shared
+    license_from: course.yaml license.code       # MIT | Apache-2.0 | none (none = no code annotation)
+    default_holders: [tesa]
+    precedence: closest                          # a file's own header (e.g. copied Infineon code) wins
+  # Per-course overrides (where the spec names a holder or licence explicitly).
+  courses:
+    aiot-micropython:
+      content_holders: [tesa, aic]               # adapted course material: TESA alongside AIC
+      code_license: MIT                          # imported AIC code stays MIT (BUILD_SPEC §1.6)
+      code_holders: [aic]                        # MIT code keeps the AIC line only
+  # credits.yaml licence keywords that are not SPDX ids.
+  credits_license_map:
+    Infineon-permission: LicenseRef-Infineon-permission
+    own: null        # own work: no override; the course content annotation (TESA) applies

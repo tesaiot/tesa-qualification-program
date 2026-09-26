@@ -1,0 +1,300 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:tesa:open-knowledge:schema:skills",
+  "title": "TESA skill map (skills/skills.yaml)",
+  "description": "The single source of truth for skill ids. Cross-file rules (unique ids, group/area exist, id prefix = group, replaced_by exists) are checked by tools/validate.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "framework",
+    "levels",
+    "importance",
+    "areas",
+    "groups",
+    "skills"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "framework": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "version",
+        "title",
+        "license"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "$ref": "#/$defs/i18n"
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1
+        },
+        "derived_from": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "title",
+            "author",
+            "url",
+            "license"
+          ],
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "author": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string",
+              "pattern": "^https?://\\S+$"
+            },
+            "license": {
+              "type": "string"
+            },
+            "diagram_version": {
+              "type": "string"
+            },
+            "readme_commit": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{7,40}$"
+            }
+          }
+        }
+      }
+    },
+    "levels": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "code",
+          "th",
+          "en"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          },
+          "code": {
+            "type": "string",
+            "pattern": "^L[1-5]$"
+          },
+          "th": {
+            "type": "string"
+          },
+          "en": {
+            "type": "string"
+          },
+          "bloom": {
+            "type": "string"
+          },
+          "tpqi": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "importance": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/i18n"
+      }
+    },
+    "areas": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "th",
+          "en"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "th": {
+            "type": "string"
+          },
+          "en": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "groups": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "area",
+          "th",
+          "en"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*$"
+          },
+          "area": {
+            "type": "string"
+          },
+          "th": {
+            "type": "string"
+          },
+          "en": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "skills": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "group",
+          "th",
+          "en",
+          "origin",
+          "importance"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*\\.[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "group": {
+            "type": "string"
+          },
+          "th": {
+            "type": "string",
+            "minLength": 1
+          },
+          "en": {
+            "type": "string",
+            "minLength": 1
+          },
+          "origin": {
+            "enum": [
+              "eer",
+              "eer-readme",
+              "tesa"
+            ]
+          },
+          "importance": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "eer_node": {
+            "type": "string"
+          },
+          "description": {
+            "$ref": "#/$defs/i18n_th"
+          },
+          "requires": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9]*\\.[a-z0-9]+(?:-[a-z0-9]+)*$"
+            },
+            "uniqueItems": true
+          },
+          "deprecated": {
+            "type": "boolean"
+          },
+          "replaced_by": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*\\.[a-z0-9]+(?:-[a-z0-9]+)*$"
+          }
+        },
+        "if": {
+          "required": [
+            "origin"
+          ],
+          "properties": {
+            "origin": {
+              "const": "eer"
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "eer_node"
+          ]
+        }
+      }
+    }
+  },
+  "$defs": {
+    "i18n": {
+      "type": "object",
+      "description": "Thai + English text",
+      "required": [
+        "th",
+        "en"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "th": {
+          "type": "string",
+          "minLength": 1
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "i18n_th": {
+      "type": "object",
+      "description": "Thai text, English optional",
+      "required": [
+        "th"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "th": {
+          "type": "string",
+          "minLength": 1
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

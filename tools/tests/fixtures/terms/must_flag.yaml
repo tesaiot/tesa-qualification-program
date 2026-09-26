@@ -1,0 +1,9 @@
+# a comment that says คาบ 3 is not prose
+id: demo-course
+summary: {th: ในคาบเรียนนี้เราจะต่อ LED, en: Connect an LED}
+source: {repo: https://example.org, path: slides/session-03.md}
+outcomes:
+  - {th: ทำงานให้เสร็จในคาบนี้, en: Finish within the lesson}
+images:
+  - path: img/session-03.png
+    title: Session 3 wiring

@@ -1,0 +1,98 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+#
+# Every course TESA Open Knowledge knows about. `in_tree: true` courses live in courses/<id>/ and carry
+# their own course.yaml; external ones are registered here, pinned to a ref, with their licence.
+# `short` is the prefix of every lesson id in the course (<short>.mNN.lNN) and never changes.
+
+schema_version: 1
+courses:
+  - id: explorer
+    short: explore
+    in_tree: true
+    level: L1
+    status: alpha
+    title: {th: "Explorer: เปิดโลกระบบสมองกลฝังตัว", en: "Explorer: Meet Embedded Systems"}
+
+  - id: aiot-micropython
+    short: aiot-mpy
+    in_tree: true
+    level: L2
+    status: alpha
+    title: {th: "AIoT in Action: จากหน้าจอสัมผัสสู่แพลตฟอร์ม IoT (MicroPython)", en: "AIoT in Action: From Touch Screen to IoT Platform (MicroPython)"}
+
+  - id: edge-ai-iot-for-business
+    short: biz
+    in_tree: true
+    level: L1
+    status: alpha
+    title: {th: "Edge AI และ IoT สำหรับการตัดสินใจเชิงผลิตภัณฑ์", en: "Edge AI & IoT for Product Decisions"}
+
+  - id: product-design
+    short: pdesign
+    in_tree: true
+    level: L2
+    status: alpha
+    title: {th: "การออกแบบผลิตภัณฑ์เชิงอุตสาหกรรม (Blender และ Digital Twin)", en: "Product Industrial Design (Blender & Twin)"}
+
+  - id: electronics-and-instruments
+    short: elec
+    in_tree: true
+    level: L2
+    status: pre-alpha
+    title: {th: "อิเล็กทรอนิกส์และเครื่องมือวัดสำหรับนักพัฒนาระบบฝังตัว", en: "Electronics & Test Instruments for Embedded Developers"}
+
+  - id: embedded-c-foundations
+    short: c-found
+    in_tree: true
+    level: L3
+    status: pre-alpha
+    title: {th: "พื้นฐานเฟิร์มแวร์ภาษา C บน PSoC Edge", en: "Embedded C Foundations on PSoC Edge"}
+
+  - id: firmware-sdk-edge-ai
+    short: fw-sdk
+    in_tree: true
+    level: L3
+    status: alpha
+    title: {th: "TESA Firmware SDK สำหรับ Edge AI", en: "TESA Firmware SDK for Edge AI"}
+
+  - id: digital-twin
+    short: twin
+    in_tree: true
+    level: L3
+    status: alpha
+    title: {th: "พัฒนาเฟิร์มแวร์ร่วมกับ TESA Digital Twin บน VS Code", en: "Firmware Development with the VS Code-based TESA Digital Twin"}
+
+  - id: secure-iot-optiga
+    short: sec-iot
+    in_tree: true
+    level: L3
+    status: pre-alpha
+    title: {th: "Secure IoT กับ OPTIGA™ Trust M", en: "Secure IoT with OPTIGA™ Trust M"}
+
+  - id: edge-ai-developer
+    short: edgeai-dev
+    in_tree: true
+    level: L3
+    status: pre-alpha
+    title: {th: "Edge AI Developer: จากเซนเซอร์สู่โมเดลบนอุปกรณ์", en: "Edge AI Developer: From Sensor to On-Device Model"}
+    note: The source course exists (MicroPython-first) and is under the author's review; only the outline is published until the author releases it.
+
+  - id: educator-kit
+    short: edu
+    in_tree: true
+    level: L3
+    status: alpha
+    title: {th: "ชุดสำหรับผู้สอน (Educator Kit)", en: "Educator Kit"}
+
+  - id: embedded-game-console
+    short: game
+    in_tree: false
+    level: L2
+    status: stable
+    title: {th: "Fundamental of Embedded Systems Developer I–II (เกมคอนโซล)", en: "Fundamental of Embedded Systems Developer I–II (Game Console)"}
+    external:
+      repo: https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-game_console_developer
+      site: https://advance-innovation-centre-aic.github.io/embedded-systems-for-game_console_developer/
+      ref: 96bbf2b831fe56a61cc46369ec6edc33fea979f7
+      license: {content: CC-BY-4.0, code: MIT}

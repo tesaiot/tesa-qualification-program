@@ -1,0 +1,11 @@
+schema_version: 1
+tracks:
+  - id: first-steps
+    title: {th: ก้าวแรก, en: First steps}
+    audience: [public]
+    summary: {th: เส้นทางสำหรับทดสอบ, en: A pathway used by the tests}
+    hours: 3
+    steps:
+      - {course: demo-course, modules: [m01-first-steps], note: เริ่มที่นี่}
+      - {course: outside-course}
+    exit: {th: กะพริบไฟได้เอง, en: Blinks an LED unaided}

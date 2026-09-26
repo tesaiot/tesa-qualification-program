@@ -1,0 +1,8 @@
+id: embedded-developer
+title: {th: นักพัฒนาระบบสมองกลฝังตัว, en: Embedded Developer}
+summary: {th: บทบาทสำหรับทดสอบ, en: A role used by the tests}
+target_level: L3
+requires:
+  - {skill: mcu.gpio, level: 3, promoted_from: R}
+  - {skill: lang.micropython, level: 2, promoted_from: null}
+anchors: [{framework: TPQI, unit: fixture}]

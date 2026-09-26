@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:tesa:open-knowledge:schema:credits",
+  "title": "Third-party media credits (courses/<id>/credits.yaml)",
+  "description": "BUILD_SPEC §6. license = SPDX id/expression, LicenseRef-*, 'Infineon-permission' or 'own'.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "images"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "title",
+          "author",
+          "source",
+          "license"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "not": {
+              "pattern": "^(/|\\.\\./|[a-z][a-z0-9+.-]*:)"
+            },
+            "description": "relative to the course folder"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "author": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "type": "string",
+            "pattern": "^https?://\\S+$"
+          },
+          "license": {
+            "type": "string",
+            "pattern": "^(own|Infineon-permission|[A-Za-z0-9][A-Za-z0-9.+-]*(?: (?:AND|OR|WITH) [A-Za-z0-9][A-Za-z0-9.+-]*)*)$"
+          },
+          "modified": {
+            "type": [
+              "boolean",
+              "string"
+            ],
+            "description": "false, true, or a short description of the change"
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

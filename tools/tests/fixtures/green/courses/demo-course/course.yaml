@@ -1,0 +1,21 @@
+id: demo-course
+short: demo
+title: {th: "หลักสูตรตัวอย่าง: ไฟกะพริบ", en: "Demo Course: Blinking LED"}
+summary:
+  th: หลักสูตรเล็กที่สุดที่ผ่านทุกกฎ ใช้ทดสอบเครื่องมือตรวจ
+  en: The smallest course that passes every rule; the tools are tested against it.
+level: L1
+status: alpha
+audience: [public, student]
+hours: 2
+hardware: {emulator: true, boards: [eva-kit]}
+toolchain: {micropython: "1.24"}
+prerequisites: {courses: [outside-course], skills: [{skill: lang.python, level: 1}]}
+outcomes:
+  - {th: เขียนโปรแกรมกะพริบ LED ได้, en: Write a program that blinks an LED}
+authors: [{name: TESA, url: https://github.com/example, role: author}]
+sponsors: [TESA]
+license: {content: CC-BY-4.0, code: Apache-2.0}
+source: {repo: https://github.com/example/source, ref: abc1234, note: fixture}
+modules:
+  - {id: m01-first-steps, title: {th: ก้าวแรก, en: First steps}}

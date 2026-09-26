@@ -1,0 +1,68 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: Apache-2.0
+#
+# Content model, words, links between files, credits, secrets, licensing (REUSE).
+# Every step after the install runs even when an earlier one failed, so one push shows every
+# problem at once. Actions are pinned to full commit SHAs (tag in the trailing comment).
+name: validate
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      # No __pycache__/*.pyc in the tree: `reuse lint` runs after the tests and would count them.
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/requirements.txt
+
+      - name: Install tools
+        run: python -m pip install -r tools/requirements.txt
+
+      - name: Validate content (schemas, structure, skills, links, terms, credits, secrets, TESA credit)
+        run: python tools/validate.py
+
+      - name: Tool self-tests (every check proven red and green)
+        if: ${{ !cancelled() }}
+        run: python -m pytest tools/tests -q -p no:cacheprovider
+
+      - name: CREDITS.md is up to date
+        if: ${{ !cancelled() }}
+        run: python tools/gen_credits.py --check
+
+      - name: REUSE.toml is up to date
+        if: ${{ !cancelled() }}
+        run: python tools/gen_reuse.py --check
+
+      - name: REUSE lint
+        if: ${{ !cancelled() }}
+        run: reuse lint
+
+      - name: Site data exports (skills, courses, coverage, CASE)
+        if: ${{ !cancelled() }}
+        run: python tools/export.py --out "$RUNNER_TEMP/export"
+
+      - name: Translation freshness (report only)
+        if: ${{ !cancelled() }}
+        run: python tools/i18n_stale.py

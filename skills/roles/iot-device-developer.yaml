@@ -1,0 +1,63 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-SA-4.0
+#
+# Role profile — see skills/README.md.
+# requires[].level  = minimum level (1–5) of that skill for this role.
+# promoted_from     = the skill's roadmap importance in skills.yaml: R = already required on the roadmap;
+#                     Rec or P = this role raises it to required; null = no roadmap colour (origin tesa / eer-readme).
+id: iot-device-developer
+title:
+  th: นักพัฒนาอุปกรณ์ IoT
+  en: IoT Device Developer
+summary:
+  th: สร้างอุปกรณ์ที่อ่านเซนเซอร์แล้วส่งข้อมูลขึ้นแพลตฟอร์ม IoT อย่างปลอดภัยผ่าน Wi-Fi หรือ BLE ด้วย MQTT บน TLS ประหยัดพลังงาน และอัปเดตเฟิร์มแวร์ทางไกลได้
+  en: Builds devices that read sensors and send data securely to an IoT platform over Wi-Fi or BLE using MQTT over TLS, run on a power budget, and can be updated over the air.
+target_level: L4
+requires:
+  # Firmware core (L2–3)
+  - {skill: lang.c,               level: 3, promoted_from: R}
+  - {skill: lang.micropython,     level: 2, promoted_from: null}
+  - {skill: prog.state-machines,  level: 3, promoted_from: R}
+  - {skill: prog.memory,          level: 2, promoted_from: R}
+  - {skill: mcu.gpio,             level: 3, promoted_from: R}
+  - {skill: mcu.adc-dac,          level: 2, promoted_from: R}
+  - {skill: mcu.timers,           level: 2, promoted_from: R}
+  - {skill: mcu.interrupts,       level: 3, promoted_from: R}
+  - {skill: mcu.watchdog,         level: 2, promoted_from: R}
+  - {skill: mcu.power,            level: 3, promoted_from: Rec}
+  - {skill: proto.uart,           level: 3, promoted_from: R}
+  - {skill: proto.i2c,            level: 3, promoted_from: R}
+  - {skill: proto.spi,            level: 2, promoted_from: R}
+  - {skill: rtos.basics,          level: 3, promoted_from: R}
+  - {skill: build.vendor-sdk,     level: 3, promoted_from: null}
+  - {skill: vcs.git,              level: 3, promoted_from: R}
+  - {skill: debug.jtag-swd,       level: 2, promoted_from: R}
+  - {skill: debug.gdb,            level: 2, promoted_from: R}
+  - {skill: test.unit-tdd,        level: 2, promoted_from: R}
+  - {skill: sys.sensors-actuators, level: 3, promoted_from: P}
+  # Connectivity and the platform (raised to required for this role)
+  - {skill: iot.fundamentals,     level: 3, promoted_from: P}
+  - {skill: iot.cloud-platform,   level: 3, promoted_from: null}
+  - {skill: iot.ota,              level: 2, promoted_from: null}
+  - {skill: proto.mqtt,           level: 3, promoted_from: Rec}
+  - {skill: proto.wifi,           level: 3, promoted_from: Rec}
+  - {skill: proto.bluetooth,      level: 3, promoted_from: Rec}
+  - {skill: proto.tcp-ip,         level: 3, promoted_from: P}
+  # Security of the connection
+  - {skill: sec.fundamentals,     level: 2, promoted_from: P}
+  - {skill: sec.tls,              level: 3, promoted_from: null}
+  # Soft skills — required in every profile, assessed from project evidence
+  - {skill: soft.communication,   level: 3, promoted_from: R}
+  - {skill: soft.problem-solving, level: 3, promoted_from: R}
+  - {skill: soft.teamwork,        level: 3, promoted_from: R}
+  - {skill: soft.organization,    level: 3, promoted_from: R}
+  - {skill: soft.self-driven,     level: 3, promoted_from: R}
+  - {skill: soft.adaptability,    level: 3, promoted_from: R}
+anchors:
+  tpqi: "นักพัฒนาซอฟต์แวร์เพื่ออินเตอร์เน็ตของสรรพสิ่ง ระดับ 4"
+  note: >-
+    MQTT, Wi-Fi and Bluetooth are raised from Recommended, and IoT, TCP/IP, sensors and embedded
+    security from Possibilities, because connected devices are the core of TESA × Infineon products.
+    TLS and OTA have no roadmap colour (sec.tls is a TESA skill; iot.ota comes from the newer roadmap
+    README) and are required here. The TPQI IoT software developer level 4 qualification is a neighbouring
+    anchor; its device-side firmware skills come from the embedded systems developer standard.

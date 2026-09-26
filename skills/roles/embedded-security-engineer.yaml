@@ -1,0 +1,53 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-SA-4.0
+#
+# Role profile — see skills/README.md.
+# requires[].level  = minimum level (1–5) of that skill for this role.
+# promoted_from     = the skill's roadmap importance in skills.yaml: R = already required on the roadmap;
+#                     Rec or P = this role raises it to required; null = no roadmap colour (origin tesa / eer-readme).
+id: embedded-security-engineer
+title:
+  th: วิศวกรความปลอดภัยระบบฝังตัว
+  en: Embedded Security Engineer
+summary:
+  th: ออกแบบและตรวจสอบความปลอดภัยของอุปกรณ์ตั้งแต่ secure boot การเก็บกุญแจในชิปความปลอดภัย การสื่อสารแบบ TLS/mTLS ไปจนถึงการอัปเดตเฟิร์มแวร์ที่ป้องกันการปลอมแปลง
+  en: Designs and checks device security end to end, from secure boot and keys held in a secure element to TLS/mTLS communication and tamper-resistant firmware updates.
+target_level: L4
+requires:
+  # Firmware foundation
+  - {skill: lang.c,               level: 3, promoted_from: R}
+  - {skill: prog.memory,          level: 3, promoted_from: R}
+  - {skill: mcu.interrupts,       level: 2, promoted_from: R}
+  - {skill: mcu.bootloader,       level: 3, promoted_from: Rec}
+  - {skill: proto.i2c,            level: 3, promoted_from: R}
+  - {skill: build.compilers,      level: 3, promoted_from: R}
+  - {skill: build.vendor-sdk,     level: 3, promoted_from: null}
+  - {skill: vcs.git,              level: 3, promoted_from: R}
+  - {skill: debug.jtag-swd,       level: 3, promoted_from: R}
+  - {skill: debug.gdb,            level: 3, promoted_from: R}
+  # Security (raised to required for this role)
+  - {skill: sec.fundamentals,     level: 3, promoted_from: P}
+  - {skill: sec.crypto,           level: 3, promoted_from: null}
+  - {skill: sec.secure-boot,      level: 3, promoted_from: null}
+  - {skill: sec.secure-element,   level: 3, promoted_from: null}
+  - {skill: sec.tls,              level: 3, promoted_from: null}
+  - {skill: iot.ota,              level: 3, promoted_from: null}
+  - {skill: proto.tcp-ip,         level: 2, promoted_from: P}
+  - {skill: test.standards,       level: 2, promoted_from: P}
+  - {skill: biz.risk-compliance,  level: 2, promoted_from: null}
+  # Soft skills — required in every profile, assessed from project evidence
+  - {skill: soft.communication,   level: 3, promoted_from: R}
+  - {skill: soft.problem-solving, level: 3, promoted_from: R}
+  - {skill: soft.teamwork,        level: 3, promoted_from: R}
+  - {skill: soft.organization,    level: 3, promoted_from: R}
+  - {skill: soft.self-driven,     level: 3, promoted_from: R}
+  - {skill: soft.adaptability,    level: 3, promoted_from: R}
+anchors:
+  tpqi: null
+  note: >-
+    TPQI has no embedded security qualification yet; the embedded core of this role follows
+    นักพัฒนาระบบสมองกลฝังตัว ระดับ 4. Embedded security, TCP/IP and standards are raised from Possibilities
+    and the bootloader from Recommended. Cryptography, secure boot, the secure element (OPTIGA™ Trust M in
+    TESA × Infineon lessons, named in lesson context, not in the ID), TLS and OTA have no roadmap colour and
+    are required here. SFIA 9 SCTY level 3 is used only as an internal reference and is not part of the
+    published mapping. The TQP T3 Specialist (Secure IoT) credential builds on this profile.

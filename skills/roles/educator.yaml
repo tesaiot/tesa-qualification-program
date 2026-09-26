@@ -1,0 +1,34 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-SA-4.0
+#
+# Role profile — see skills/README.md.
+# requires[].level  = minimum level (1–5) of that skill for this role.
+# promoted_from     = the skill's roadmap importance in skills.yaml: R = already required on the roadmap;
+#                     Rec or P = this role raises it to required; null = no roadmap colour (origin tesa / eer-readme).
+id: educator
+title:
+  th: ผู้สอน
+  en: Educator
+summary:
+  th: ออกแบบบทเรียนและการประเมินที่วัดผลได้ จัดการเรียนรู้เชิงปฏิบัติบนบอร์ดจริงและ emulator และมีความสามารถระดับมืออาชีพ (L4) ในทุกทักษะที่ตนสอน
+  en: Designs measurable lessons and assessments, runs hands-on learning on real boards and the emulator, and holds professional level (L4) in every skill they teach.
+target_level: L4
+requires:
+  # Teaching and assessment (TESA additions)
+  - {skill: edu.lesson-design,    level: 3, promoted_from: null}
+  - {skill: edu.assessment,       level: 3, promoted_from: null}
+  - {skill: edu.facilitation,     level: 3, promoted_from: null}
+  # Soft skills — required in every profile, assessed from project evidence
+  - {skill: soft.communication,   level: 4, promoted_from: R}
+  - {skill: soft.problem-solving, level: 3, promoted_from: R}
+  - {skill: soft.teamwork,        level: 3, promoted_from: R}
+  - {skill: soft.organization,    level: 3, promoted_from: R}
+  - {skill: soft.self-driven,     level: 3, promoted_from: R}
+  - {skill: soft.adaptability,    level: 3, promoted_from: R}
+anchors:
+  tpqi: null
+  note: >-
+    In addition to the list above, an educator must hold L4 in every skill they teach. That set depends on
+    the course taught, so it is checked per course when the TQP Certified Trainer credential is issued
+    (tqp/certification.md) rather than listed here. Communication is required at L4 because teaching is
+    the job. SFIA 9 TEAC/TMCR are used only as internal references and are not part of the published mapping.

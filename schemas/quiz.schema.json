@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:tesa:open-knowledge:schema:quiz",
+  "title": "Check-for-understanding (lesson quiz.yaml)",
+  "description": "BUILD_SPEC §5. Index checks in tools/validate.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "items"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "objective",
+          "type",
+          "prompt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]+$"
+          },
+          "objective": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "type": {
+            "enum": [
+              "single",
+              "multi",
+              "order",
+              "short"
+            ]
+          },
+          "prompt": {
+            "$ref": "#/$defs/i18n_th"
+          },
+          "choices": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "$ref": "#/$defs/i18n_th"
+            }
+          },
+          "answer": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "explain": {
+            "$ref": "#/$defs/i18n_th"
+          }
+        },
+        "if": {
+          "properties": {
+            "type": {
+              "enum": [
+                "single",
+                "multi",
+                "order"
+              ]
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "choices",
+            "answer"
+          ]
+        }
+      }
+    }
+  },
+  "$defs": {
+    "i18n": {
+      "type": "object",
+      "description": "Thai + English text",
+      "required": [
+        "th",
+        "en"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "th": {
+          "type": "string",
+          "minLength": 1
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "i18n_th": {
+      "type": "object",
+      "description": "Thai text, English optional",
+      "required": [
+        "th"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "th": {
+          "type": "string",
+          "minLength": 1
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

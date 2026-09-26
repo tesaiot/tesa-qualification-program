@@ -1,0 +1,189 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+#
+# Learning pathways (เส้นทางการเรียนรู้) through the TESA Open Knowledge catalog.
+# Source: TESA Open Knowledge Blueprint §04 (five pathways). Every `course` below is an id in
+# catalog/courses.yaml; `modules` are module ids inside that course. A step whose note starts with
+# "ไม่บังคับ" is optional and is not counted in `hours`.
+# `hours` is the estimated learner time for the required steps only.
+
+schema_version: 1
+tracks:
+  - id: explorer
+    title: {th: "เส้นทางผู้เริ่มต้น (Explorer)", en: "Explorer pathway"}
+    audience: public
+    summary:
+      th: >-
+        สำหรับบุคคลทั่วไปที่ไม่เคยเขียนโปรแกรม เริ่มจากมองหาระบบสมองกลฝังตัวรอบตัว เขียน MicroPython บรรทัดแรกใน BENTO Emulator
+        แล้วต่อด้วยโมดูลแรกของ AIoT in Action ไม่ต้องมีบอร์ด
+      en: >-
+        For members of the public with no programming background. Spot embedded systems around you, write a first line of
+        MicroPython in the BENTO Emulator, then continue with the first module of AIoT in Action. No board needed.
+    hours: 9
+    steps:
+      - course: explorer
+        note:
+          th: หกบทเรียน บทละ 20–30 นาที ทำใน BENTO Emulator ได้ทั้งหมด
+          en: Six lessons of 20–30 minutes, all doable in the BENTO Emulator.
+      - course: aiot-micropython
+        modules: [m01-ui-application]
+        note:
+          th: โมดูลแรกของ AIoT in Action ต่อยอดจากสิ่งที่ทำใน Explorer ทำในอีมูเลเตอร์ได้ บอร์ดจริงช่วยให้เห็นผลครบกว่า
+          en: The first module of AIoT in Action builds on Explorer; it runs in the emulator, and a real board shows more.
+    exit:
+      th: >-
+        อธิบายระบบสมองกลฝังตัวและเขียนโปรแกรม MicroPython สั้น ๆ ได้ (L1) พร้อมรับใบเรียนจบ T0 เมื่อ TESA เปิดออกใบ
+        แล้วเลือกต่อเส้นทางนักศึกษาหรือนักพัฒนา
+      en: >-
+        Can explain embedded systems and write short MicroPython programs (L1); ready for the T0 completion record once TESA
+        issues it; continue on the student or developer pathway.
+
+  - id: entrepreneur
+    title: {th: "เส้นทางผู้ประกอบการ", en: "Entrepreneur pathway"}
+    audience: entrepreneur
+    summary:
+      th: >-
+        สำหรับเจ้าของกิจการและผู้ตัดสินใจเรื่องผลิตภัณฑ์ ไม่ต้องเขียนโค้ด หกบทเรียนตั้งแต่ Edge AI และ IoT ทำอะไรได้ ไปจนถึงเขียนโจทย์ให้นักพัฒนา
+        ได้ผลลัพธ์เป็น decision canvas หนึ่งหน้า
+      en: >-
+        For business owners and product decision-makers, no code. Six lessons from what edge AI and IoT can do to writing a brief
+        for developers, ending with a one-page decision canvas.
+    hours: 3
+    steps:
+      - course: edge-ai-iot-for-business
+        note:
+          th: หกบทเรียน บทละราว 30 นาที ผลงานท้ายหลักสูตรคือ decision canvas ของโครงการคุณเอง
+          en: Six lessons of about 30 minutes; the final deliverable is a decision canvas for your own project.
+      - course: explorer
+        modules: [m01-meet-embedded]
+        note:
+          th: ไม่บังคับ ถ้าอยากเห็นของจริงสักครั้ง ลองเขียนโปรแกรมแรกในอีมูเลเตอร์ใช้เวลาราวหนึ่งชั่วโมง
+          en: Optional. To see the real thing once, the first module takes about an hour in the emulator.
+      - course: product-design
+        note:
+          th: ไม่บังคับ สำหรับผู้ที่ต้องตัดสินใจเรื่องตัวเครื่องและการออกแบบเชิงอุตสาหกรรม
+          en: Optional, for those deciding on enclosure and industrial design.
+    exit:
+      th: >-
+        มี decision canvas หนึ่งหน้าที่ใช้คุยกับทีมพัฒนาหรือผู้รับจ้างได้ แล้วต่อหลักสูตรอบรมของ TQP หรือพันธมิตรตามความต้องการของโครงการ
+      en: >-
+        Holds a one-page decision canvas ready for a development team or contractor; continue with TQP or partner training as the
+        project requires.
+
+  - id: developer
+    title: {th: "เส้นทางนักพัฒนา", en: "Developer pathway"}
+    audience: developer
+    summary:
+      th: >-
+        สำหรับนักพัฒนาที่ทำงานแล้วและต้องการทักษะที่ใช้ได้จริงเร็ว ทำแบบทดสอบจัดระดับแล้วข้ามส่วนที่รู้แล้วได้ ไปที่ระดับ Practitioner (ภาษา C
+        และ SDK) และ Professional (ความปลอดภัยและ Edge AI) ใช้บอร์ดจริงหรือ remote flash
+      en: >-
+        For working developers who need job-ready skills fast. Take a placement check, skip what you know, then move through
+        Practitioner (C and the SDK) and Professional (security and edge AI) on a real board or via remote flash.
+    hours: 60
+    steps:
+      - course: aiot-micropython
+        note:
+          th: ทางด่วน ข้ามได้ถ้าผ่านแบบทดสอบจัดระดับ ถ้าไม่ข้าม ใช้เป็นพื้นฐานเรื่องบอร์ด เซนเซอร์ และ MQTT (ไม่นับใน hours)
+          en: Fast track; skip it if you pass the placement check. Otherwise use it for board, sensor and MQTT basics (not counted in hours).
+      - course: embedded-c-foundations
+        note:
+          th: ภาษา C สำหรับไมโครคอนโทรลเลอร์ build ดีบัก peripherals โปรโตคอล และ unit test
+          en: C for microcontrollers, build, debugging, peripherals, buses and unit tests.
+      - course: firmware-sdk-edge-ai
+        note:
+          th: เฟิร์มแวร์บน TESA Firmware SDK
+          en: Firmware on the TESA Firmware SDK.
+      - course: secure-iot-optiga
+        note:
+          th: ความปลอดภัยด้วย OPTIGA™ Trust M และ mTLS
+          en: Security with OPTIGA™ Trust M and mTLS.
+      - course: edge-ai-developer
+        note:
+          th: เลือกเรียนตามสายงาน Edge AI
+          en: For the edge AI role.
+      - course: electronics-and-instruments
+        note:
+          th: ไม่บังคับ แนะนำสำหรับผู้ที่ยังไม่เคยใช้มัลติมิเตอร์ logic analyzer หรือออสซิลโลสโคป
+          en: Optional; recommended if you have not used a multimeter, logic analyzer or oscilloscope.
+      - course: digital-twin
+        note:
+          th: ไม่บังคับ สำหรับงานที่ใช้ Digital Twin ร่วมกับเฟิร์มแวร์
+          en: Optional, for work that pairs firmware with a digital twin.
+    exit:
+      th: >-
+        พัฒนา ทดสอบ และแก้ไขเฟิร์มแวร์บน PSoC™ Edge ได้ครบวงจร พร้อมสอบ TQP T2 Certified Embedded Developer
+        ซึ่งออกแบบให้เทียบกับคุณวุฒิวิชาชีพ TPQI นักพัฒนาระบบสมองกลฝังตัว ระดับ 4
+      en: >-
+        Can develop, test and fix PSoC™ Edge firmware end to end; ready for the TQP T2 Certified Embedded Developer exam, which is
+        designed to align with the TPQI Embedded Systems Developer level 4 qualification.
+
+  - id: student
+    title: {th: "เส้นทางนักศึกษา", en: "Student pathway"}
+    audience: student
+    summary:
+      th: >-
+        สำหรับนักศึกษาที่ต้องการทักษะ ผลงาน และหน่วยกิต เรียน AIoT in Action แล้วต่อด้วยเฟิร์มแวร์ภาษา C ทำ capstone เก็บ portfolio บน GitHub
+        แล้วต่อยอดสู่การแข่งขัน TESA Top Gun Rally ใช้อีมูเลเตอร์ร่วมกับบอร์ดหนึ่งตัวต่อผู้เรียนสามถึงสี่คน
+      en: >-
+        For students who want skills, a portfolio and credit. AIoT in Action, then firmware in C, a capstone, a GitHub portfolio,
+        and on to the TESA Top Gun Rally. Uses the emulator plus one board for every three to four learners.
+    hours: 90
+    steps:
+      - course: explorer
+        note:
+          th: ไม่บังคับ สำหรับผู้ที่ยังไม่เคยเขียนโปรแกรม
+          en: Optional, for learners who have never programmed.
+      - course: aiot-micropython
+        note:
+          th: หลักสูตรหลักระดับ L2 จบด้วย capstone
+          en: The core L2 course, ending with a capstone.
+      - course: electronics-and-instruments
+        note:
+          th: พื้นฐานวงจรและเครื่องมือวัดที่ต้องใช้กับงานฮาร์ดแวร์จริง
+          en: Circuit and instrument basics needed for real hardware work.
+      - course: embedded-c-foundations
+        note:
+          th: ภาษา C และทักษะวิศวกรรมพื้นฐาน (build, Git, ดีบัก, ทดสอบ)
+          en: C and core engineering skills (build, Git, debugging, testing).
+      - course: firmware-sdk-edge-ai
+        note:
+          th: เฟิร์มแวร์บน SDK ต่อยอดเป็น capstone และ portfolio
+          en: Firmware on the SDK, leading to a capstone and portfolio.
+      - course: embedded-game-console
+        note:
+          th: ไม่บังคับ หลักสูตรภายนอกของ AIC สำหรับผู้ที่อยากฝึกเขียนเกมบนบอร์ด
+          en: Optional external AIC course for learners who want to build games on the board.
+    exit:
+      th: >-
+        มี portfolio บน GitHub และ capstone ที่ใช้สมัครงานหรือแข่งขันได้ พร้อมสอบ TQP T1 หรือ T2 และเทียบโอนหน่วยกิตผ่านมหาวิทยาลัยพันธมิตรเมื่อมีข้อตกลง
+      en: >-
+        Holds a GitHub portfolio and a capstone for jobs or competitions; ready for TQP T1 or T2, with credit transfer through a
+        partner university where an agreement exists.
+
+  - id: educator
+    title: {th: "เส้นทางผู้สอน", en: "Educator pathway"}
+    audience: educator
+    summary:
+      th: >-
+        สำหรับอาจารย์และผู้สอนที่จะนำหลักสูตรไปใช้ รับชุดสำหรับผู้สอน ออกแบบรายวิชาและการประเมิน เข้าอบรม train-the-trainer สองวัน
+        แล้วสาธิตการสอน
+      en: >-
+        For lecturers and trainers adopting the courses. Take the educator kit, design the course and its assessment, attend the
+        two-day train-the-trainer workshop, then give a teaching demonstration.
+    hours: 16
+    steps:
+      - course: educator-kit
+        note:
+          th: เรียนเองราวหกชั่วโมง บวกเวิร์กช็อป train-the-trainer สองวันที่ TESA จัด และการสาธิตการสอน
+          en: About six hours self-study, plus the two-day train-the-trainer workshop run by TESA and a teaching demonstration.
+      - course: aiot-micropython
+        note:
+          th: ไม่บังคับ หลักสูตรที่คุณจะสอน ผู้สอนต้องทำได้ในระดับที่สูงกว่าผู้เรียน (ทักษะที่สอนอยู่ที่ L4 ขึ้นไป)
+          en: Optional here; the course you will teach. Trainers must hold the taught skills at L4 or above.
+    exit:
+      th: >-
+        มีแผนรายวิชาพร้อมตารางเทียบผลลัพธ์การเรียนรู้ และพร้อมสมัคร TQP Certified Trainer ตามกติกาใน tqp/certification.md
+      en: >-
+        Has a course plan with an outcome crosswalk, and is ready to apply for TQP Certified Trainer under the rules in
+        tqp/certification.md.

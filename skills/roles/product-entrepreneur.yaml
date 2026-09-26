@@ -1,0 +1,49 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-SA-4.0
+#
+# Role profile — see skills/README.md.
+# requires[].level  = minimum level (1–5) of that skill for this role.
+# promoted_from     = the skill's roadmap importance in skills.yaml: R = already required on the roadmap;
+#                     Rec or P = this role raises it to required; null = no roadmap colour (origin tesa / eer-readme).
+id: product-entrepreneur
+title:
+  th: ผู้ประกอบการและเจ้าของผลิตภัณฑ์
+  en: Product Entrepreneur / Product Owner
+summary:
+  th: เข้าใจภาพรวมของไมโครคอนโทรลเลอร์ การสื่อสาร IoT และ Edge AI พอที่จะตัดสินใจเชิงผลิตภัณฑ์ ประเมินต้นทุน BOM เวลา ทีม และความเสี่ยง แล้วเขียนโจทย์ที่ชัดให้นักพัฒนาได้
+  en: Understands microcontrollers, IoT connectivity and Edge AI well enough to make product decisions, estimate BOM, time, team and risk, and write a clear brief for developers.
+target_level: L3
+requires:
+  # Technical breadth (overview at L2)
+  - {skill: mcu.gpio,             level: 2, promoted_from: R}
+  - {skill: mcu.power,            level: 2, promoted_from: Rec}
+  - {skill: proto.wifi,           level: 2, promoted_from: Rec}
+  - {skill: proto.bluetooth,      level: 2, promoted_from: Rec}
+  - {skill: proto.mqtt,           level: 2, promoted_from: Rec}
+  - {skill: iot.fundamentals,     level: 2, promoted_from: P}
+  - {skill: iot.cloud-platform,   level: 2, promoted_from: null}
+  - {skill: ai.edge,              level: 2, promoted_from: P}
+  - {skill: sec.fundamentals,     level: 2, promoted_from: P}
+  # Hardware product design
+  - {skill: hwdev.design-basics,  level: 2, promoted_from: Rec}
+  - {skill: hwdev.pcb-emc,        level: 2, promoted_from: Rec}
+  - {skill: hwdev.enclosure,      level: 2, promoted_from: null}
+  - {skill: test.standards,       level: 2, promoted_from: P}
+  # Product and business
+  - {skill: biz.product-decision, level: 3, promoted_from: null}
+  - {skill: biz.cost-bom,         level: 3, promoted_from: null}
+  - {skill: biz.risk-compliance,  level: 3, promoted_from: null}
+  # Soft skills — required in every profile, assessed from project evidence
+  - {skill: soft.communication,   level: 3, promoted_from: R}
+  - {skill: soft.problem-solving, level: 3, promoted_from: R}
+  - {skill: soft.teamwork,        level: 3, promoted_from: R}
+  - {skill: soft.organization,    level: 3, promoted_from: R}
+  - {skill: soft.self-driven,     level: 3, promoted_from: R}
+  - {skill: soft.adaptability,    level: 3, promoted_from: R}
+anchors:
+  tpqi: null
+  note: >-
+    No TPQI anchor. The technical skills are required at L2 (a guided overview), not at a developer's
+    depth; hardware design basics, PCB/EMC and standards are raised so that cost, certification and
+    supply-chain risk can be judged. The product and business skills (biz.*) are TESA additions and are
+    required at L3. The no-code course "Edge AI & IoT for Product Decisions" is the main route.

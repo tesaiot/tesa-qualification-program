@@ -1,0 +1,68 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-SA-4.0
+#
+# Role profile — see skills/README.md.
+# requires[].level  = minimum level (1–5) of that skill for this role.
+# promoted_from     = the skill's roadmap importance in skills.yaml: R = already required on the roadmap;
+#                     Rec or P = this role raises it to required; null = no roadmap colour (origin tesa / eer-readme).
+id: firmware-developer
+title:
+  th: นักพัฒนาเฟิร์มแวร์
+  en: Firmware Developer
+summary:
+  th: เขียน ทดสอบ และแก้ไขเฟิร์มแวร์ภาษา C บนไมโครคอนโทรลเลอร์ ใช้อุปกรณ์ต่อพ่วง อินเทอร์รัปต์ และ RTOS ได้เอง ดีบักด้วยเครื่องมือจริง และวัดสัญญาณบนบอร์ดได้
+  en: Writes, tests and fixes C firmware on microcontrollers; uses peripherals, interrupts and an RTOS independently; debugs with real tools and measures signals on the board.
+target_level: L4
+requires:
+  # Programming
+  - {skill: lang.c,               level: 3, promoted_from: R}
+  - {skill: prog.state-machines,  level: 3, promoted_from: R}
+  - {skill: prog.memory,          level: 3, promoted_from: R}
+  - {skill: prog.algo-ds,         level: 2, promoted_from: R}
+  # Microcontroller peripherals
+  - {skill: mcu.gpio,             level: 3, promoted_from: R}
+  - {skill: mcu.adc-dac,          level: 3, promoted_from: R}
+  - {skill: mcu.timers,           level: 3, promoted_from: R}
+  - {skill: mcu.pwm,              level: 3, promoted_from: R}
+  - {skill: mcu.interrupts,       level: 3, promoted_from: R}
+  - {skill: mcu.dma,              level: 3, promoted_from: R}
+  - {skill: mcu.watchdog,         level: 3, promoted_from: R}
+  - {skill: mcu.clock,            level: 3, promoted_from: R}
+  - {skill: mcu.power,            level: 3, promoted_from: Rec}
+  # Serial interfaces
+  - {skill: proto.uart,           level: 3, promoted_from: R}
+  - {skill: proto.i2c,            level: 3, promoted_from: R}
+  - {skill: proto.spi,            level: 3, promoted_from: R}
+  # RTOS
+  - {skill: rtos.basics,          level: 3, promoted_from: R}
+  # Build, version control, debug, test
+  - {skill: build.compilers,      level: 3, promoted_from: R}
+  - {skill: build.make-cmake,     level: 2, promoted_from: R}
+  - {skill: build.vendor-sdk,     level: 3, promoted_from: null}
+  - {skill: vcs.git,              level: 3, promoted_from: R}
+  - {skill: debug.jtag-swd,       level: 3, promoted_from: R}
+  - {skill: debug.gdb,            level: 3, promoted_from: R}
+  - {skill: test.unit-tdd,        level: 2, promoted_from: R}
+  # Hardware and measurement (TPQI unit ICT-CSOS-107B)
+  - {skill: hw.circuits,          level: 2, promoted_from: R}
+  - {skill: hw.electronics,       level: 2, promoted_from: R}
+  - {skill: hw.digital,           level: 2, promoted_from: R}
+  - {skill: hw.architecture,      level: 2, promoted_from: R}
+  - {skill: meas.multimeter,      level: 3, promoted_from: R}
+  - {skill: meas.logic-analyzer,  level: 3, promoted_from: R}
+  - {skill: meas.oscilloscope,    level: 2, promoted_from: Rec}
+  # Soft skills — required in every profile, assessed from project evidence
+  - {skill: soft.communication,   level: 3, promoted_from: R}
+  - {skill: soft.problem-solving, level: 3, promoted_from: R}
+  - {skill: soft.teamwork,        level: 3, promoted_from: R}
+  - {skill: soft.organization,    level: 3, promoted_from: R}
+  - {skill: soft.self-driven,     level: 3, promoted_from: R}
+  - {skill: soft.adaptability,    level: 3, promoted_from: R}
+anchors:
+  tpqi: "นักพัฒนาระบบสมองกลฝังตัว ระดับ 4 (ICT-CSOS-107B, ICT-FYNH-108B)"
+  note: >-
+    L4 for the role is shown by integrating these L3 skills into a working system under test conditions
+    (TQP T2 practical), not by every skill reaching L4. mcu.power is raised from Recommended because
+    low-power design is central to TESA × Infineon products; the oscilloscope is raised from Recommended
+    because the TPQI level 4 hardware unit requires real instruments. SFIA 9 RESD/PROG level 3 is used
+    only as an internal reference and is not part of the published mapping.

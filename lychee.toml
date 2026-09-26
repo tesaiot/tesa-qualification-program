@@ -1,0 +1,30 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: Apache-2.0
+#
+# lychee settings for .github/workflows/links.yml (lychee v0.24). The pull-request job adds
+# --offline, so only links between files in this repository are checked there.
+
+no_progress = true
+max_retries = 3
+retry_wait_time = 5
+timeout = 30
+max_concurrency = 8
+# 429 = rate limited: the page exists.
+accept = ["200..=299", "429"]
+# Code samples are not links to check.
+include_verbatim = false
+# Private and loopback addresses in lessons are examples (a board on the local network).
+exclude_all_private = true
+
+exclude = [
+  '^https?://(localhost|127\.0\.0\.1|0\.0\.0\.0)',
+  '^https?://([a-z0-9-]+\.)*example\.(com|org|net)',
+  '^mailto:',
+]
+
+exclude_path = [
+  # The tools' own test fixtures break links on purpose.
+  "tools/tests/fixtures",
+  "node_modules",
+  "site/dist",
+]
