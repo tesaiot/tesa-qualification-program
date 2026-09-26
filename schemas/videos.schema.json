@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:tesa:open-knowledge:schema:videos",
+  "title": "Companion videos (catalog/videos.yaml)",
+  "description": "YouTube videos linked from lesson pages. Channel, playlist and lesson references are checked by tools/validate.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "provider",
+    "channels",
+    "videos"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "provider": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "watch",
+        "thumb",
+        "playlist"
+      ],
+      "properties": {
+        "watch": {
+          "type": "string",
+          "pattern": "^https://[^\\s]*\\{id\\}[^\\s]*$",
+          "description": "Watch page URL; {id} is replaced"
+        },
+        "thumb": {
+          "type": "string",
+          "pattern": "^https://[^\\s]*\\{id\\}[^\\s]*$",
+          "description": "Thumbnail image URL; {id} is replaced"
+        },
+        "playlist": {
+          "type": "string",
+          "pattern": "^https://[^\\s]*\\{id\\}[^\\s]*$",
+          "description": "Playlist page URL; {id} is replaced"
+        }
+      }
+    },
+    "channels": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "url"
+        ],
+        "properties": {
+          "name": {
+            "$ref": "#/$defs/i18n"
+          },
+          "credit": {
+            "$ref": "#/$defs/i18n",
+            "description": "Full credit line (affiliation), shown under the videos"
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^https://"
+          }
+        }
+      }
+    },
+    "playlists": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "channel"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{10,64}$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "channel": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          }
+        }
+      }
+    },
+    "videos": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "channel",
+          "lessons"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{11}$",
+            "description": "YouTube video id (11 characters)"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Exactly as published"
+          },
+          "channel": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "playlist": {
+            "type": "string"
+          },
+          "lessons": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]+\\.m[0-9]{2}\\.l[0-9]{2}$"
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "i18n": {
+      "type": "object",
+      "description": "Thai + English text",
+      "required": [
+        "th",
+        "en"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "th": {
+          "type": "string",
+          "minLength": 1
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

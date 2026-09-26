@@ -3,11 +3,13 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 // Wraps Starlight's MarkdownContent. Pages generated from a lesson (or course) README carry a
-// `tqp` front-matter object (scripts/sync_content.py); for those we add the lesson header box
-// above the text and the review questions + "cite this lesson" box below it.
+// `tqp` front-matter object (scripts/sync_content.py); for those we add the lesson header box above the
+// text, and the review questions + "cite this lesson" box below it. Companion videos go above a lesson's
+// text (a few, to watch first) and below a course page's text (all of the course's, a longer grid).
 import Default from '@astrojs/starlight/components/MarkdownContent.astro';
 import LessonEnd from './LessonEnd.astro';
 import LessonMeta from './LessonMeta.astro';
+import Videos from './Videos.astro';
 
 const tqp = (Astro.locals.starlightRoute.entry.data as { tqp?: Record<string, any> }).tqp;
 const kind = tqp?.kind;
@@ -15,6 +17,8 @@ const kind = tqp?.kind;
 
 <Default>
 	{tqp && (kind === 'lesson' || kind === 'course') && <LessonMeta tqp={tqp} />}
+	{tqp && kind === 'lesson' && tqp.videos && <Videos videos={tqp.videos as any} />}
 	<slot />
+	{tqp && kind === 'course' && tqp.videos && <Videos videos={tqp.videos as any} course />}
 	{tqp && kind === 'lesson' && <LessonEnd tqp={tqp} />}
 </Default>

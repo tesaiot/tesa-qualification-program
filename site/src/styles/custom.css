@@ -746,3 +746,73 @@ mark.tok-missing {
 		display: none !important;
 	}
 }
+
+/* ------------------------------------------------------------------ companion videos (Videos.astro) */
+.tok-videos {
+	border: 1px solid var(--tok-box-border);
+	background: var(--tok-box-bg);
+	border-radius: var(--tok-radius);
+	padding: 0.9rem 1rem;
+	margin-block-end: 1.5rem;
+	font-size: var(--sl-text-sm);
+	line-height: 1.5;
+}
+.tok-videos .tok-videos-title {
+	font-size: var(--sl-text-base);
+	font-weight: 600;
+	margin: 0;
+	color: var(--sl-color-white);
+}
+.tok-videos-intro {
+	margin: 0.15rem 0 0.75rem;
+	color: var(--sl-color-gray-3);
+}
+.tok-videos-grid {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+	gap: 0.75rem;
+}
+.tok-video {
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
+	min-width: 0;
+}
+.tok-video a {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+	color: var(--sl-color-white);
+	text-decoration: none;
+}
+.tok-video a:hover .tok-video-title,
+.tok-video a:focus-visible .tok-video-title {
+	text-decoration: underline;
+}
+.tok-video img {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+	border-radius: calc(var(--tok-radius) - 0.15rem);
+	background: var(--sl-color-gray-5);
+}
+.tok-video-title {
+	font-weight: 500;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+.tok-video-channel {
+	font-size: var(--sl-text-xs);
+	color: var(--sl-color-gray-3);
+}
+.tok-videos-credit {
+	margin: 0.75rem 0 0;
+	font-size: var(--sl-text-xs);
+	color: var(--sl-color-gray-3);
+}

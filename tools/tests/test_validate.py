@@ -105,6 +105,40 @@ def m_tracks_module(r: Path):
     edit(r / "catalog/tracks.yaml", "modules: [m01-first-steps]", "modules: [m07-missing]")
 
 
+VIDEOS = """schema_version: 1
+provider:
+  watch: "https://www.youtube.com/watch?v={id}"
+  thumb: "https://i.ytimg.com/vi/{id}/mqdefault.jpg"
+  playlist: "https://www.youtube.com/playlist?list={id}"
+channels:
+  tesa: {name: {th: TESA, en: TESA}, url: "https://www.youtube.com/@tesa"}
+playlists: [{id: PLfixture01, title: Fixture, channel: tesa}]
+videos:
+  - {id: AAAAAAAAAAA, title: Fixture video, channel: tesa, playlist: PLfixture01, lessons: [LESSON]}
+"""
+
+
+def _lesson_id(r: Path) -> str:
+    import yaml
+    t = (r / L1 / "README.md").read_text(encoding="utf-8")
+    return yaml.safe_load(t.split("---")[1])["id"]
+
+
+def test_videos_green(green: Path) -> None:
+    (green / "catalog/videos.yaml").write_text(VIDEOS.replace("LESSON", _lesson_id(green)), encoding="utf-8")
+    rep = validate.run(green, strict=True)
+    assert not [f for f in [*rep.errors, *rep.warnings] if f.check in ("videos", "schema", "yaml")], rep.errors
+
+
+def m_videos_lesson(r: Path):
+    (r / "catalog/videos.yaml").write_text(VIDEOS.replace("LESSON", "demo.m09.l09"), encoding="utf-8")
+
+
+def m_videos_channel(r: Path):
+    (r / "catalog/videos.yaml").write_text(VIDEOS.replace("LESSON", _lesson_id(r)).replace("channel: tesa, playlist",
+                                           "channel: nobody, playlist"), encoding="utf-8")
+
+
 def m_roles(r: Path):
     edit(r / "skills/roles/embedded-developer.yaml", "{skill: mcu.gpio, level: 3", "{skill: mcu.gpiox, level: 3")
 
@@ -291,6 +325,8 @@ CASES = [
     (m_tracks_course, "tracks", "error"),
     (m_tracks_module, "tracks", "error"),
     (m_roles, "roles", "error"),
+    (m_videos_lesson, "videos", "error"),
+    (m_videos_channel, "videos", "error"),
     (m_links, "links", "error"),
     (m_links_image, "links", "error"),
     (m_alt, "alt", "warning"),

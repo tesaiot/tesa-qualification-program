@@ -1,0 +1,187 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+#
+# Companion videos (วิดีโอประกอบ) on YouTube. Each video appears on the lesson pages listed in
+# `lessons` and on those lessons' course pages, with its channel credited. The videos stay on YouTube
+# under their channels; this file only links to them (no video or thumbnail is copied into the repo).
+# tools/validate.py checks every reference here; site/scripts/sync_content.py renders the boxes.
+# Titles are copied exactly as published. Source: the "AIoT Foundation" playlist, read 2026-09-26
+# through YouTube's oEmbed endpoint (title, channel).
+
+schema_version: 1
+
+provider:
+  watch: "https://www.youtube.com/watch?v={id}"
+  thumb: "https://i.ytimg.com/vi/{id}/mqdefault.jpg"
+  playlist: "https://www.youtube.com/playlist?list={id}"
+
+channels:
+  tesa:
+    name: {th: "สมาคมสมองกลฝังตัวไทย (TESA)", en: "Thai Embedded Systems Association (TESA)"}
+    url: https://www.youtube.com/@thaiembeddedsystemsassocia2094
+  drsanti:
+    name: {th: "ผศ.ดร.สันติ นุราช (KMUTT)", en: "Asst. Prof. Dr. Santi Nuratch (KMUTT)"}
+    credit:
+      th: >-
+        ผศ.ดร.สันติ นุราช ภาควิชาวิศวกรรมระบบควบคุมและเครื่องมือวัด คณะวิศวกรรมศาสตร์
+        มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี (KMUTT)
+      en: >-
+        Asst. Prof. Dr. Santi Nuratch, Department of Control Systems and Instrumentation Engineering,
+        Faculty of Engineering, King Mongkut's University of Technology Thonburi (KMUTT)
+    url: https://www.youtube.com/@dr-santi
+
+playlists:
+  - id: PLOuPSlsBpTYA
+    title: AIoT Foundation
+    channel: tesa
+
+videos:
+  # --- Software development process (TESA)
+  - id: INwC7GHCTsk
+    title: "Software Development Process - EP01 : Overall Software Development Process"
+    channel: tesa
+    playlist: PLOuPSlsBpTYA
+    lessons: [biz.m02.l03, fw-sdk.m08.l01, aiot-mpy.m05.l01]
+  - id: Kog2ArYdL2o
+    title: "Software Development Process - EP02 : User Needs"
+    channel: tesa
+    playlist: PLOuPSlsBpTYA
+    lessons: [biz.m02.l03, pdesign.m01.l01, aiot-mpy.m05.l01]
+  - id: 5E_qHu-flmg
+    title: "Software Development Process - EP03 : System Requirements"
+    channel: tesa
+    playlist: PLOuPSlsBpTYA
+    lessons: [biz.m02.l03, fw-sdk.m08.l01, aiot-mpy.m05.l01]
+  - id: Db25SiMf6PM
+    title: "Software Development Process - EP04 : Software Requirements (ต่อ)"
+    channel: tesa
+    playlist: PLOuPSlsBpTYA
+    lessons: [biz.m02.l03, fw-sdk.m08.l01]
+
+  # --- TESAIoT Dev Kit, Developer Hub and flashing (TESA)
+  - id: 5WPN6KiNpGQ
+    title: "TESAIoT Developer Hub for Firmware/Middleware/Application Developer"
+    channel: tesa
+    playlist: PLOuPSlsBpTYA
+    lessons: [fw-stack.m01.l01, c-found.m02.l01]
+  - id: JfFfSXouFMQ
+    title: "Download (from TESA Developer Hub), Build and Program via ModusToolbox to TESAIoT Dev Kit"
+    channel: tesa
+    playlist: PLOuPSlsBpTYA
+    lessons: [fw-stack.m01.l01, c-found.m02.l01, fw-sdk.m02.l01]
+  - id: TZEsLwwyBzw
+    title: "Remote Flashing for TESAIoT Dev Kit via TESA Developer Hub"
+    channel: tesa
+    playlist: PLOuPSlsBpTYA
+    lessons: [fw-stack.m01.l01, c-found.m02.l01]
+  - id: Wc_nXiLS864
+    title: "Remote Flashing for PSoC Edge AI Kit via TESA Developer Hub"
+    channel: tesa
+    playlist: PLOuPSlsBpTYA
+    lessons: [fw-sdk.m02.l01, fw-sdk.m02.l02]
+
+  # --- Platform and security (TESA)
+  - id: Ot10XIlznnY
+    title: "Overall TESAIoT Secure Platform"
+    channel: tesa
+    playlist: PLOuPSlsBpTYA
+    lessons: [sec-iot.m03.l02, sec-iot.m05.l01, fw-stack.m05.l01]
+  - id: xoyZBh20dYA
+    title: "TESAIoT Security Essentials"
+    channel: tesa
+    playlist: PLOuPSlsBpTYA
+    lessons: [sec-iot.m01.l01, sec-iot.m01.l02]
+
+  # --- Digital twin and 3D (TESA)
+  - id: OUz9zDYL47g
+    title: "TESAIoT Digital Twin"
+    channel: tesa
+    playlist: PLOuPSlsBpTYA
+    lessons: [twin.m01.l01]
+  - id: PkHg7dsvUEg
+    title: "TESAIoT Digital Twin Studio"
+    channel: tesa
+    playlist: PLOuPSlsBpTYA
+    lessons: [twin.m01.l01, twin.m02.l01]
+  - id: Z9ks-GoD9Hg
+    title: "ตอนที่ 1 - การสร้าง 3D Model ด้วยโปรแกรม onshape"
+    channel: tesa
+    playlist: PLOuPSlsBpTYA
+    lessons: [pdesign.m02.l01, twin.m03.l01]
+
+  # --- Bitstream Studio, BS-01 to BS-15 (Asst. Prof. Dr. Santi Nuratch)
+  - id: 6g3OW-otGiE
+    title: "BS-01: Introduction to Bitstream Studio"
+    channel: drsanti
+    playlist: PLOuPSlsBpTYA
+    lessons: [twin.m02.l01, pdesign.m04.l01]
+  - id: 7Kyw3ErqYpw
+    title: "BS-02: Install BitStream Studio"
+    channel: drsanti
+    playlist: PLOuPSlsBpTYA
+    lessons: [twin.m02.l01, twin.m02.l02, pdesign.m04.l02]
+  - id: a7x7PGjeS20
+    title: "BS-03: Update Bitstream Studio"
+    channel: drsanti
+    playlist: PLOuPSlsBpTYA
+    lessons: [twin.m02.l02]
+  - id: IysS5dOGNaM
+    title: "BS-04: BitStream Firmware Update"
+    channel: drsanti
+    playlist: PLOuPSlsBpTYA
+    lessons: [twin.m02.l02]
+  - id: h4VzxN5ictU
+    title: "BS-05: Install BitStream Studio from VSIX"
+    channel: drsanti
+    playlist: PLOuPSlsBpTYA
+    lessons: [twin.m02.l02]
+  - id: AGY2_QYIPL4
+    title: "BS-06: TESAIoT DevKit Twin"
+    channel: drsanti
+    playlist: PLOuPSlsBpTYA
+    lessons: [twin.m02.l01, twin.m04.l01]
+  - id: keQHrD1ssQs
+    title: "BS-07: Flow/Node Editor (The Basics)"
+    channel: drsanti
+    playlist: PLOuPSlsBpTYA
+    lessons: [twin.m03.l01, twin.m04.l01]
+  - id: 2JY63LHU3zU
+    title: "BS-08: Node Library"
+    channel: drsanti
+    playlist: PLOuPSlsBpTYA
+    lessons: [twin.m03.l01, twin.m04.l01]
+  - id: D-U6RxLMTa0
+    title: "BS-09: Inspector/Property Panel"
+    channel: drsanti
+    playlist: PLOuPSlsBpTYA
+    lessons: [twin.m03.l01]
+  - id: ZnySy-d6hQM
+    title: "BS-10: MQTT Publisher & Subscriber"
+    channel: drsanti
+    playlist: PLOuPSlsBpTYA
+    lessons: [twin.m05.l01, twin.m05.l02]
+  - id: YrEnnaBSxKM
+    title: "BS-11: 3D Object Transform Drivers"
+    channel: drsanti
+    playlist: PLOuPSlsBpTYA
+    lessons: [twin.m03.l01, pdesign.m04.l01]
+  - id: H5Tqo9IV6kA
+    title: "BS-12: Live/Real-time Data and Web Applications"
+    channel: drsanti
+    playlist: PLOuPSlsBpTYA
+    lessons: [twin.m05.l01, twin.m06.l01]
+  - id: xDbjgdHMHHc
+    title: "BS-13: Graphics Settings"
+    channel: drsanti
+    playlist: PLOuPSlsBpTYA
+    lessons: [twin.m03.l01, pdesign.m04.l01]
+  - id: 1VdIONI8Xgs
+    title: "BS-14: Animation Player"
+    channel: drsanti
+    playlist: PLOuPSlsBpTYA
+    lessons: [twin.m03.l01, pdesign.m04.l01]
+  - id: cG0vsP6whQM
+    title: "BS-15: Animation Clips & Mixers"
+    channel: drsanti
+    playlist: PLOuPSlsBpTYA
+    lessons: [twin.m03.l01, pdesign.m04.l01]

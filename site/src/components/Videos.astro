@@ -1,0 +1,55 @@
+---
+// SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+// SPDX-License-Identifier: Apache-2.0
+//
+// "Companion videos": YouTube videos listed for this lesson (or all lessons of a course) in
+// catalog/videos.yaml. scripts/sync_content.py resolves them into `tqp.videos`; this only renders.
+// Each card links to YouTube in a new tab; the thumbnail is YouTube's own image, loaded lazily.
+// Every channel shown is credited under the grid, with its full credit line when it has one.
+import { S, langOf, pick } from '../lib/strings';
+
+interface Props {
+	videos: { items: any[]; channels: any[]; playlists: any[] };
+	course?: boolean;
+}
+
+const { videos, course = false } = Astro.props;
+const lang = langOf(Astro.locals.starlightRoute.lang);
+const t = S[lang];
+const channelName = (key: string) => pick(videos.channels.find((c) => c.key === key)?.name, lang, key);
+const headingId = course ? 'tok-videos-course' : 'tok-videos';
+---
+
+<section class="tok-videos not-content" aria-labelledby={headingId} data-pagefind-ignore>
+	<h2 id={headingId} class="tok-videos-title">{course ? t.videosCourseTitle : t.videosTitle}</h2>
+	<p class="tok-videos-intro">{t.videosIntro}</p>
+	<ul class="tok-videos-grid">
+		{
+			videos.items.map((v) => (
+				<li class="tok-video">
+					<a href={v.url} target="_blank" rel="noopener noreferrer">
+						<img src={v.thumb} alt="" width="320" height="180" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+						<span class="tok-video-title">{v.title}</span>
+					</a>
+					<span class="tok-video-channel">{channelName(v.channel)}</span>
+				</li>
+			))
+		}
+	</ul>
+	<p class="tok-videos-credit">
+		{t.videosBy}{' '}
+		{videos.channels.map((c, i) => (
+			<>
+				{i > 0 && ' · '}
+				<a href={c.url} target="_blank" rel="noopener noreferrer">{pick(c.credit ?? c.name, lang, c.key)}</a>
+			</>
+		))}
+		{videos.playlists.map((pl) => (
+			<>
+				{' · '}
+				{t.videosPlaylist}{' '}
+				<a href={pl.url} target="_blank" rel="noopener noreferrer">{pl.title}</a>
+			</>
+		))}
+	</p>
+</section>

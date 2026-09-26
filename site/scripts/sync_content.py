@@ -333,6 +333,54 @@ class Builder:
         self.tracks = load_yaml_file(tracks_path, self.p, "catalog/tracks.yaml") if tracks_path.is_file() else None
         if self.tracks is None:
             self.p.warn("catalog/tracks.yaml", "not present yet; the pathways page says so")
+        self.load_videos()
+
+    def load_videos(self) -> None:
+        """catalog/videos.yaml -> self.videos_by_lesson: lesson id -> [video view model] (file order).
+        References are checked by tools/validate.py; anything unresolvable here is reported and skipped."""
+        self.videos_by_lesson: dict[str, list] = {}
+        self.video_channels: dict[str, dict] = {}
+        path = self.repo / "catalog" / "videos.yaml"
+        if not path.is_file():
+            return
+        data = load_yaml_file(path, self.p, "catalog/videos.yaml") or {}
+        prov = data.get("provider") or {}
+        channels = data.get("channels") or {}
+        playlists = {pl.get("id"): pl for pl in data.get("playlists") or [] if isinstance(pl, dict)}
+        for key, ch in channels.items():
+            self.video_channels[key] = {"key": key, "name": ch.get("name"), "credit": ch.get("credit"), "url": ch.get("url")}
+        for v in data.get("videos") or []:
+            if not isinstance(v, dict) or v.get("channel") not in channels:
+                self.p.error("catalog/videos.yaml", f"video {v!r}: unknown channel")
+                continue
+            vid = str(v["id"])
+            pl = playlists.get(v.get("playlist"))
+            model = {
+                "id": vid,
+                "title": str(v.get("title") or vid),
+                "url": str(prov.get("watch", "")).replace("{id}", vid),
+                "thumb": str(prov.get("thumb", "")).replace("{id}", vid),
+                "channel": v["channel"],
+                "playlist": ({"title": pl.get("title"), "url": str(prov.get("playlist", "")).replace("{id}", str(pl["id"]))}
+                             if pl else None),
+            }
+            for lid in v.get("lessons") or []:
+                self.videos_by_lesson.setdefault(str(lid), []).append(model)
+
+    def videos_tqp(self, lesson_ids) -> dict | None:
+        """The companion-video box for a page: the videos of these lessons (first mention wins the order),
+        the channels to credit and the playlists they come from."""
+        seen, items = set(), []
+        for lid in lesson_ids:
+            for v in self.videos_by_lesson.get(lid, []):
+                if v["id"] not in seen:
+                    seen.add(v["id"])
+                    items.append(v)
+        if not items:
+            return None
+        used = list(dict.fromkeys(v["channel"] for v in items))
+        playlists = list({v["playlist"]["url"]: v["playlist"] for v in items if v.get("playlist")}.values())
+        return {"items": items, "channels": [self.video_channels[k] for k in used], "playlists": playlists}
 
     # ------------------------------------------------------------------ discover pages
     def md_route(self, repo_path: str) -> str:
@@ -606,6 +654,7 @@ class Builder:
             "lessons": sum(len(mod.lessons) for mod in course.modules),
             "modules": len(course.modules),
             "source_url": self.cfg.gh_tree(course.dir, self.ref),
+            "videos": self.videos_tqp(l.id for mod in course.modules for l in mod.lessons),
         }
 
     def status(self, code) -> dict:
@@ -691,6 +740,7 @@ class Builder:
             # The GitHub button only when the folder holds more than the page itself (code, slides, lab, ...).
             "source_url": self.cfg.gh_tree(lesson.dir, self.ref) if has_material else None,
             "quiz": lesson.quiz,
+            "videos": self.videos_tqp([lesson.id]),
             "cite": {
                 "th": self.attribution(lesson.title["th"], "th"),
                 "en": self.attribution(lesson.title["en"], "en"),

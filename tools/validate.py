@@ -48,6 +48,7 @@ CHECKS: dict[str, str] = {
     "cover": "course.yaml cover: the image exists, is .webp/.jpg/.png under 600 KB, and a third-party cover is credited",
     "prereq": "lesson and course prerequisites exist",
     "tracks": "catalog/tracks.yaml references existing courses and modules",
+    "videos": "catalog/videos.yaml: known channels and playlists, existing lesson ids, no duplicate video",
     "roles": "skills/roles/*.yaml reference existing skills",
     "links": "relative Markdown/HTML links and images resolve to files",
     "alt": "images have non-empty alt text (warning)",
@@ -780,6 +781,41 @@ def check_cite(ctx: Ctx, cid: str, cdir: Path, course: dict) -> None:
                              f"credit.attribution.{lang}; missing: " + " | ".join(m.strip() for m in missing))
 
 
+# =========================================================================== videos
+def check_videos(ctx: Ctx) -> None:
+    """catalog/videos.yaml is optional; when present every reference in it must resolve."""
+    path = ctx.root / "catalog" / "videos.yaml"
+    rp = "catalog/videos.yaml"
+    if not path.is_file():
+        return
+    doc = load_checked(ctx, path, "videos")
+    if doc is None or not isinstance(doc.data, dict):
+        return
+    channels = doc.data.get("channels") if isinstance(doc.data.get("channels"), dict) else {}
+    playlists = {p.get("id") for p in doc.data.get("playlists") or [] if isinstance(p, dict)}
+    for i, pl in enumerate(doc.data.get("playlists") or []):
+        if isinstance(pl, dict) and pl.get("channel") not in channels:
+            ctx.rep.error("videos", rp, doc.line_of(("playlists", i)), f"playlist {pl.get('id')!r}: unknown channel "
+                          f"{pl.get('channel')!r}")
+    seen: dict[str, int] = {}
+    for i, v in enumerate(doc.data.get("videos") or []):
+        if not isinstance(v, dict):
+            continue
+        line = doc.line_of(("videos", i))
+        vid = v.get("id")
+        if vid in seen:
+            ctx.rep.error("videos", rp, line, f"video {vid!r} is listed twice (first on line {seen[vid]})")
+        seen.setdefault(vid, line)
+        if v.get("channel") not in channels:
+            ctx.rep.error("videos", rp, line, f"video {vid!r}: unknown channel {v.get('channel')!r}")
+        if v.get("playlist") is not None and v.get("playlist") not in playlists:
+            ctx.rep.error("videos", rp, line, f"video {vid!r}: unknown playlist {v.get('playlist')!r}")
+        for j, lid in enumerate(v.get("lessons") or []):
+            if lid not in ctx.lessons:
+                ctx.rep.error("videos", rp, doc.line_of(("videos", i, "lessons", j)) or line,
+                              f"video {vid!r}: lesson {lid!r} does not exist")
+
+
 # =========================================================================== tracks, roles
 def check_tracks(ctx: Ctx) -> None:
     path = ctx.root / "catalog" / "tracks.yaml"
@@ -1220,6 +1256,7 @@ def run(root: Path, strict: bool = False, excludes: tuple[str, ...] | None = Non
             step(f"course {cid}", check_course, ctx, cid)
     step("prereq", check_prereqs, ctx)
     step("tracks", check_tracks, ctx)
+    step("videos", check_videos, ctx)
     step("roles", check_roles, ctx)
     step("pairs", check_pairs, ctx)
     step("files", scan_files, ctx)
