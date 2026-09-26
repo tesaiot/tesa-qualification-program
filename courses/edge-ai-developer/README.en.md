@@ -143,6 +143,22 @@ The PC tools of module 5 are in [`shared/training/`](shared/training/README.md) 
 - On the TESAIoT Dev Kit, opening the PDM microphone from MicroPython still clashes with the audio clock; the examples that read raw sound (lessons 2.3–2.4 and example 10) were tested by the author on the PSoC Edge AI Kit. Sound models through `edge_ai` work.
 - The BENTO firmware source and the internal architecture notes cited in module 7 are not published. What you can check is the headers and documentation in the [public SDK](https://github.com/tesaiot/tesaiot-pse84-devkit-sdk), which adds a model with `ai_engine_register()` instead of editing `ai_engine.c`.
 
+## Changes from the original
+
+This course adapts the 20 Edge AI Developer decks. Facts that did not match the public SDK, the BENTO Emulator or a re-run of
+the tools are corrected in the lessons. The main ones:
+
+- `motion()` returns m/s², so the energy formula divides by 9.81, and pitch is `atan2(−ax, …)`.
+- `dataset_tools.py` gives 143 windows split 101/21/21 (the decks said 142 and 100/22/22), and the split formula matches `split()`.
+- Forgetting `representative_dataset` in the int8 conversion raises ValueError; it does not quietly lose accuracy.
+- The Emulator has 5 models (no Push). Its results are simulated except the Motion model, which really runs through ONNX
+  Runtime Web, and it cannot load a learner's model, so the web parity lab runs in the learner's own page.
+- The firmware `wifi` module has no `rssi()`, so the examples read `status()["rssi"]`; `ui.tone` takes (note, wave, velocity, ms).
+- References to internal documents that are not public now point to the headers and docs of the public SDK.
+- `train.py` gains the `--save-keras` option that `convert_web.py` needs.
+
+Accuracy and latency figures in the lessons are the author's and have not been re-measured on a board.
+
 ## Licences
 
 - **Content** (slides, READMEs, own diagrams and screenshots) — CC BY 4.0
