@@ -1,6 +1,6 @@
 # Electronics & Test Instruments for Embedded Developers
 
-Level **L2** · status **pre-alpha (outline, being written)** · 6 modules, 15 lessons · about 20 hours
+Level **L2** · status **alpha** · 6 modules, 15 lessons · about 20 hours
 
 This course closes the electronics and test-instrument gap. The Embedded Systems Engineering Roadmap marks these skills as required,
 and TPQI's Embedded Systems Developer level 4 qualification has a hardware development unit (ICT-CSOS-107B).
@@ -70,10 +70,34 @@ The lesson pages are Thai-first; English lesson pages are pending (`translation:
 | elec.m06.l03 | Reading schematics | 65 min |
 | elec.m06.l04 | PCB and EMC basics | 65 min |
 
+## Board examples used in the labs
+
+Most labs use the Developer Hub QWA309 examples as signal sources to measure. They run on the TESAIoT Dev Kit only;
+every lab also says what to do on an Eva Kit (usually a short program of your own that makes the same signal on a free pin).
+
+| Example | Used in |
+|---|---|
+| [QWA309 Potentiometer Monitor](https://dev.tesaiot.dev/?example=developer-hub--prac_qwa309_pot_monitor&q=prac_qwa309_pot_monitor) | Voltage dividers and the ADC; reading schematics |
+| [QWA309 4-Channel ADC Scope](https://dev.tesaiot.dev/?example=developer-hub--prac_qwa309_adc_scope&q=prac_qwa309_adc_scope) | Voltage dividers and the ADC |
+| [QWA309 Push Button Monitor](https://dev.tesaiot.dev/?example=developer-hub--prac_qwa309_button_monitor&q=prac_qwa309_button_monitor) | Pull-ups, pull-downs and buttons |
+| [QWA309 Header I/O Test](https://dev.tesaiot.dev/?example=developer-hub--prac_qwa309_header_hw_test&q=prac_qwa309_header_hw_test) | Logic levels, buttons, logic analyzer, I2C and UART decoding, oscilloscope, PWM, breadboarding |
+
+## What you need
+
+- A TESAIoT Dev Kit (or Eva Kit) and a USB cable
+- A digital multimeter with a mA jack, and its manual
+- A low-cost logic analyzer that works with PulseView
+- An oscilloscope with a 10× probe (a lab bench scope or a USB scope)
+- A breadboard, jumper wires, a basic resistor kit, LEDs, a push button, a 100 µF capacitor
+- A temperature-controlled soldering iron, a practice board, safety glasses, an ESD wrist strap and fume extraction (module 6)
+
 ## Status
 
-This course is an outline (pre-alpha): every lesson has objectives, skills and verified references, but no content, labs or checks yet.
+This course is alpha: every lesson has concepts with worked numeric examples, a complete worked example, exercises with answers, a lab and check-for-understanding questions.
+Lesson pages are in Thai; the English lesson pages are pending. All diagrams are this course's own work (CC BY 4.0). Report a wrong number or step as described in [CONTRIBUTING.en.md](../../CONTRIBUTING.en.md).
+
 **Safety.** Every lab uses low voltage from the board or a lab supply only. Never measure mains.
+Each lesson has its own safety notes (current measurement, probe grounding, the iron, flux fume, ESD); read them before each lab.
 
 ## Main references
 
@@ -82,12 +106,14 @@ This course is an outline (pre-alpha): every lesson has objectives, skills and v
 - [sigrok PulseView](https://sigrok.org/wiki/PulseView)
 - [sigrok protocol decoders](https://sigrok.org/wiki/Protocol_decoders)
 - [AIoT in Action: examples/s05/05_adc_counts_to_volts.py (MIT)](https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer/blob/a80bbe88a34bcb9bb8d991f42f9252b77cdab079/examples/s05/05_adc_counts_to_volts.py)
+- [TESAIoT Dev Kit SDK: QWA309 base-board capability map (Apache-2.0)](https://github.com/tesaiot/tesaiot-pse84-devkit-sdk/blob/ef72c1b658178eee8c38b1e47d28b006f80a59b5/bento-firmware-template-mtb-mpy/bento_libs/claw/kit-tesaiot-pse84-ai/README.md)
+- [Developer Hub: TESAIoT Dev Kit practice examples (commit 372d0d8)](https://github.com/tesaiot/developer-hub/tree/372d0d849578a6a49b634d3ecaab8b5958166921)
 
 ## Licence
 
-- Content: CC BY 4.0
-- New code added to this course: Apache-2.0
-- MicroPython examples referenced belong to AIoT in Action (MIT), linked at a pinned commit
+- Content and diagrams: CC BY 4.0
+- This course has no code files of its own yet; any added later will be Apache-2.0
+- MicroPython examples referenced belong to AIoT in Action (MIT); C examples belong to the Developer Hub and the TESAIoT Dev Kit SDK. All are linked, not copied into this repository
 
 ## How to cite TESA
 

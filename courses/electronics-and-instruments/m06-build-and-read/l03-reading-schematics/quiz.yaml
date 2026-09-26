@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: ค่าตัวต้านทานบนแผนผังเขียนว่า 4k7 หมายถึงเท่าไร
+      en: A resistor value on a schematic reads 4k7. What is it?
+    choices:
+      - {th: 47 kΩ}
+      - {th: 4.7 kΩ}
+      - {th: 470 Ω}
+      - {th: 4.7 Ω}
+    answer: [1]
+    explain:
+      th: ตัวอักษร k อยู่ตำแหน่งจุดทศนิยมและบอกหน่วย 4k7 จึงเป็น 4.7 kΩ ส่วน 4.7 Ω จะเขียนว่า 4R7
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: บนแผนผัง เส้นสองเส้นตัดกันเป็นรูปกากบาทโดยไม่มีจุดดำ หมายความว่าอะไร
+      en: Two wires cross on a schematic with no junction dot. What does it mean?
+    choices:
+      - {th: สองเส้นต่อกัน}
+      - {th: สองเส้นไม่ต่อกัน}
+      - {th: ต่อกันเฉพาะในหน้าเดียวกัน}
+      - {th: ต้องเปิดรายการชิ้นส่วนดู}
+    answer: [1]
+    explain:
+      th: การต่อกันแสดงด้วยจุดดำ (junction dot) ซึ่งมักอยู่ที่จุดต่อรูปตัว T กากบาทที่ไม่มีจุดคือเส้นที่ลากผ่านกันเฉย ๆ
+  - id: q3
+    objective: 1
+    type: single
+    prompt:
+      th: ชื่อสัญญาณ BTN_N บอกอะไรเกี่ยวกับสัญญาณนี้
+      en: What does the net name BTN_N tell you about the signal?
+    choices:
+      - {th: เป็นสัญญาณของปุ่มที่ทำงานเมื่อเป็น 0 (active-low)}
+      - {th: เป็นสัญญาณของปุ่มหมายเลข N}
+      - {th: เป็นสัญญาณแรงดันลบ}
+      - {th: เป็นสัญญาณที่ไม่ได้ใช้ (not connected)}
+    answer: [0]
+    explain:
+      th: ท้าย _N (เช่นเดียวกับ /, n หรือขีดทับชื่อ) เป็นแบบแผนของสัญญาณ active-low ปุ่มที่ต่อลงกราวด์พร้อม pull-up จึงมักชื่อแบบนี้
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: ขาของไมโครคอนโทรลเลอร์ในหน้า 1 ต่อกับป้ายชื่อ LED1 ส่วนหน้า 3 มีป้ายชื่อ LED1 ต่อกับแอโนดของ D5 ข้อใดถูก
+      en: An MCU pin on sheet 1 goes to a net label LED1, and on sheet 3 a label LED1 connects to the anode of D5. Which is correct?
+    choices:
+      - {th: ไม่ต่อกัน เพราะไม่มีเส้นลากข้ามหน้า}
+      - {th: เป็น net เดียวกัน ขานั้นขับ D5 ได้}
+      - {th: ต่อกันเฉพาะเมื่อมีจัมเปอร์บนบอร์ด}
+      - {th: ต้องดูป้ายบนแผ่นวงจรเท่านั้นจึงจะรู้}
+    answer: [1]
+    explain:
+      th: ป้ายชื่อเดียวกันในแผนผังเดียวกันคือ net เดียวกัน ไม่ว่าจะอยู่หน้าไหน นี่คือวิธีที่แผนผังหลายหน้าต่อสัญญาณถึงกัน
+  - id: q5
+    objective: 2
+    type: single
+    prompt:
+      th: ป้ายบนแผ่นวงจรกับแผนผังบอกตำแหน่งขาไม่ตรงกัน ควรทำอย่างไร
+      en: The board silkscreen and the schematic disagree about a pin. What should you do?
+    choices:
+      - {th: เชื่อป้ายบนแผ่นวงจร เพราะเห็นกับตา}
+      - {th: ถือแผนผังเป็นหลักไว้ก่อน แล้วยืนยันด้วยการวัด เช่น โหมดความต่อเนื่องหรือดูสัญญาณที่รู้ว่าขาไหนขับ}
+      - {th: เลือกเอกสารที่ใหม่กว่าโดยไม่ต้องวัด}
+      - {th: หยุดใช้บอร์ดนั้น}
+    answer: [1]
+    explain:
+      th: แผนผังคือเอกสารที่ใช้สร้างแผ่นวงจร จึงมักถูกกว่า แต่ก็มีรุ่นและผิดได้ ข้อสรุปสุดท้ายต้องมาจากการวัด ตัวอย่างคือข้อสังเกตเรื่องป้าย VR1 และขา CS ใน README ของบอร์ด QWA309 ใน SDK

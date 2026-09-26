@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: PWM มีคาบเวลา 2 ms และความกว้างพัลส์ 0.5 ms ความถี่และ duty cycle เป็นเท่าไร
+      en: A PWM signal has a 2 ms period and a 0.5 ms pulse width. What are its frequency and duty cycle?
+    choices:
+      - {th: 500 Hz และ 25%}
+      - {th: 2 kHz และ 25%}
+      - {th: 500 Hz และ 75%}
+      - {th: 250 Hz และ 50%}
+    answer: [0]
+    explain:
+      th: f = 1 / 2 ms = 500 Hz และ D = 0.5 / 2 = 25%
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: ขา 3.3 V ขับ PWM duty 40% ความถี่สูง ต่อวงจรกรองที่เฉลี่ยสัญญาณ จะได้แรงดันเฉลี่ยเท่าไร
+      en: A 3.3 V pin drives 40% duty PWM at high frequency into an averaging filter. What is the average voltage?
+    choices:
+      - {th: 1.32 V}
+      - {th: 1.98 V}
+      - {th: 3.3 V}
+      - {th: 0.40 V}
+    answer: [0]
+    explain:
+      th: V_avg = D × V_high = 0.40 × 3.3 V = 1.32 V ส่วน 1.98 V คือกรณี duty 60%
+  - id: q3
+    objective: 1
+    type: single
+    prompt:
+      th: วิธีใดทำให้วัด duty cycle ของ PWM ได้แม่นที่สุด
+      en: Which practice gives the most accurate PWM duty cycle measurement?
+    choices:
+      - {th: วัดคาบเวลาเดียวที่ระดับ 10% ของแรงดัน}
+      - {th: วัดความกว้างพัลส์ที่ระดับ 50% ของแรงดัน และเฉลี่ยหลายคาบเวลา}
+      - {th: อ่านค่าจากฟังก์ชัน duty() ของโปรแกรม}
+      - {th: ใช้มัลติมิเตอร์โหมดความต่อเนื่อง}
+    answer: [1]
+    explain:
+      th: ระดับ 50% ลดผลของขอบที่ช้า และการเฉลี่ยหลายคาบเวลาลดผลของความละเอียดเวลาและ jitter ค่าจากโปรแกรมคือค่าที่สั่ง ไม่ใช่ค่าที่วัด
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: โปรแกรมสั่ง duty 30% แต่วัดที่ขาได้ 70% ทุกค่าที่ลองสั่ง ผลรวมของค่าที่สั่งกับค่าที่วัดได้เป็น 100% เสมอ สาเหตุที่น่าจะเป็นที่สุดคืออะไร
+      en: The program commands 30% but the pin measures 70%, and the two always add up to 100%. What is the most likely cause?
+    choices:
+      - {th: ความละเอียดของตัวนับไม่พอ}
+      - {th: ขั้วของสัญญาณกลับ เช่น ขาออกตั้งเป็น active-low หรือวัดขาที่เป็นคู่กลับเฟส}
+      - {th: ความถี่ของ PWM สูงเกินไป}
+      - {th: ออสซิลโลสโคปเสีย}
+    answer: [1]
+    explain:
+      th: D ที่วัดได้ = 100% − D ที่สั่ง คือรูปแบบของขั้วกลับ ความละเอียดของตัวนับทำให้คลาดเป็นขั้นเล็ก ๆ ไม่ได้กลับค่าทั้งหมด
+  - id: q5
+    objective: 2
+    type: single
+    prompt:
+      th: หลังสั่ง on() แล้ว toggle() หลอด LED ดับ แต่ duty() ยังตอบ 100 อธิบายได้อย่างไร
+      en: After on() then toggle(), the LED is off but duty() still returns 100. Why?
+    choices:
+      - {th: หลอดเสีย}
+      - {th: duty() รายงานค่าที่สั่งครั้งล่าสุด ไม่ได้วัดสถานะจริงของขา}
+      - {th: toggle() ไม่ทำงาน}
+      - {th: PWM ของฮาร์ดแวร์ยังทำงานอยู่ที่ 100%}
+    answer: [1]
+    explain:
+      th: ตัวอย่าง 03_led_brightness.py ของหลักสูตร AIoT in Action สาธิตเรื่องนี้ไว้ ตัวเลขในโปรแกรมคือสิ่งที่สั่ง การจะรู้ว่าขาทำอะไรจริงต้องวัดด้วยเครื่องมือ

@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: วงจรแบ่งแรงดันจาก 3.3 V ใช้ R1 = 10 kΩ เป็นตัวบน และ R2 = 20 kΩ เป็นตัวล่าง แรงดันขาออกเป็นเท่าไร
+      en: A divider from 3.3 V has R1 = 10 kΩ on top and R2 = 20 kΩ at the bottom. What is the output?
+    choices:
+      - {th: 1.1 V}
+      - {th: 2.2 V}
+      - {th: 1.65 V}
+      - {th: 3.3 V}
+    answer: [1]
+    explain:
+      th: V_out = 3.3 × 20 / (10 + 20) = 2.2 V แรงดันขาออกคือแรงดันคร่อมตัวล่าง ตัวล่างใหญ่กว่าจึงได้แรงดันมากกว่าครึ่ง ถ้าได้ 1.1 V แปลว่าสลับตัวบนกับตัวล่าง
+  - id: q2
+    objective: 2
+    type: single
+    prompt:
+      th: ADC 12 บิต แรงดันอ้างอิง 1.8 V อ่านได้ค่าดิบ 2048 แรงดันที่ขาประมาณเท่าไร
+      en: A 12-bit ADC with a 1.8 V reference reads 2048. About what voltage is on the pin?
+    choices:
+      - {th: 0.90 V}
+      - {th: 1.65 V}
+      - {th: 2.048 V}
+      - {th: 0.45 V}
+    answer: [0]
+    explain:
+      th: V = 2048 × 1.8 / 4096 = 0.90 V คือครึ่งหนึ่งของช่วง 0 ถึง 1.8 V ค่าดิบเป็นจำนวนขั้น ไม่ใช่ mV
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: โค้ดแปลงค่าดิบเป็นโวลต์โดยคูณกับ 3.3 V ที่เขียนตายตัว แต่แรงดันอ้างอิงจริงของบอร์ดคือ 3.2 V ข้อใดถูก
+      en: Code converts raw counts to volts with a hard-coded 3.3 V, but the real reference is 3.2 V. Which is true?
+    choices:
+      - {th: ทั้งโวลต์และเปอร์เซ็นต์ผิดเท่ากัน}
+      - {th: โวลต์ที่รายงานสูงเกินจริงราว 3% แต่เปอร์เซ็นต์ยังถูก}
+      - {th: ทั้งโวลต์และเปอร์เซ็นต์ยังถูก เพราะ ADC ชดเชยเอง}
+      - {th: เปอร์เซ็นต์ผิด แต่โวลต์ถูก}
+    answer: [1]
+    explain:
+      th: เปอร์เซ็นต์คืออัตราส่วนของค่าเต็มสเกล ไม่ต้องใช้แรงดันอ้างอิง ส่วนโวลต์คูณกับ 3.3 แทน 3.2 จึงสูงเกิน 3.3 / 3.2 = 1.031 เท่า วิธีจับความผิดแบบนี้คือเทียบกับมัลติมิเตอร์
+  - id: q4
+    objective: 3
+    type: single
+    prompt:
+      th: วงจรแบ่งแรงดัน 100 kΩ สองตัวจาก 3.3 V ต่อเข้ากับโหลด 1 MΩ แรงดันขาออกประมาณเท่าไร
+      en: A divider of two 100 kΩ resistors from 3.3 V drives a 1 MΩ load. About what is the output?
+    choices:
+      - {th: 1.65 V}
+      - {th: 1.57 V}
+      - {th: 1.50 V}
+      - {th: 0.30 V}
+    answer: [1]
+    explain:
+      th: R_th = 50 kΩ ได้ 1.65 × 1 M / (1 M + 50 k) = 1.571 V ต่ำกว่าค่าไม่มีโหลดราว 4.8% เพราะโหลดดึงกระแสออกจากจุดกลาง
+  - id: q5
+    objective: 3
+    type: multi
+    prompt:
+      th: ADC อ่านค่าจากวงจรแบ่งแรงดันความต้านทานสูงได้ต่ำกว่าความจริง ข้อใดช่วยแก้ได้ (เลือกได้มากกว่าหนึ่งข้อ)
+      en: An ADC reads low on a high-resistance divider. Which of these help? (choose all that apply)
+    choices:
+      - {th: ลดค่าตัวต้านทานของวงจรแบ่งแรงดันลง}
+      - {th: ใส่ op-amp แบบ voltage follower คั่นระหว่างวงจรแบ่งแรงดันกับ ADC}
+      - {th: เพิ่มค่าตัวต้านทานทั้งสองตัวเป็นสิบเท่า}
+      - {th: ตั้งเวลาสุ่มตัวอย่าง (acquisition time) ของ ADC ให้ยาวขึ้น}
+    answer: [0, 1, 3]
+    explain:
+      th: ทุกข้อที่ถูกลด R_th ที่ ADC มองเห็น หรือให้เวลาตัวเก็บประจุสำหรับสุ่มประจุนานขึ้น การเพิ่มค่าตัวต้านทานทำให้ R_th สูงขึ้นและอาการหนักขึ้น

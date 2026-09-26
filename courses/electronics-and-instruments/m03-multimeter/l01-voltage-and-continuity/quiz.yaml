@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: มัลติมิเตอร์แบบเลือกย่านเองมีย่าน 200 mV, 2 V, 20 V และ 200 V จะวัดขา 3V3 ควรเลือกย่านใด
+      en: A manual-range meter has 200 mV, 2 V, 20 V and 200 V ranges. Which range should you use on the 3V3 pin?
+    choices:
+      - {th: 200 mV}
+      - {th: 2 V}
+      - {th: 20 V}
+      - {th: 200 V}
+    answer: [2]
+    explain:
+      th: เลือกย่านที่เล็กที่สุดที่ยังมากกว่าค่าที่คาด 3.3 V เกินย่าน 2 V จอจะขึ้น OL ส่วนย่าน 200 V อ่านได้แต่ความละเอียดหยาบกว่า
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: เครื่องมีความแม่นยำ ±(0.5% + 2 digits) อ่านได้ 3.29 V ที่ย่าน 20 V (ความละเอียด 0.01 V) ค่าจริงอยู่ในช่วงใด
+      en: A meter rated ±(0.5% + 2 digits) reads 3.29 V on the 20 V range (0.01 V resolution). Where is the true value?
+    choices:
+      - {th: 3.29 V พอดี}
+      - {th: ราว 3.25 ถึง 3.33 V}
+      - {th: ราว 3.27 ถึง 3.31 V}
+      - {th: ราว 3.12 ถึง 3.46 V}
+    answer: [1]
+    explain:
+      th: ±(0.005 × 3.29 + 2 × 0.01) = ±0.036 V จึงอยู่ระหว่างราว 3.25 ถึง 3.33 V ตัวเลขบนจอละเอียดถึง 0.01 V แต่ความแม่นยำหยาบกว่านั้น
+  - id: q3
+    objective: 1
+    type: single
+    prompt:
+      th: การวัดแรงดันที่ขาหนึ่งเทียบกราวด์ ต้องต่อมัลติมิเตอร์อย่างไร
+      en: How do you connect a multimeter to measure the voltage of a pin relative to ground?
+    choices:
+      - {th: ตัดวงจรแล้วต่อมิเตอร์อนุกรม สายแดงที่ช่อง mA}
+      - {th: สายดำที่ COM แตะ GND สายแดงที่ช่อง VΩ แตะขาที่วัด โดยไม่ต้องตัดวงจร}
+      - {th: ปิดไฟก่อน แล้วใช้โหมด Ω}
+      - {th: สายแดงแตะ GND สายดำแตะขาที่วัด แล้วตั้งโหมดความต่อเนื่อง}
+    answer: [1]
+    explain:
+      th: แรงดันวัดแบบขนาน (คร่อม) สองจุด ไม่ต้องตัดวงจรและต้องเปิดไฟ ความต้านทานขาเข้าสูงของมิเตอร์ทำให้แทบไม่รบกวนวงจร
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: ทำไมต้องถอดไฟก่อนวัดความต้านทานหรือความต่อเนื่อง
+      en: Why must power be removed before measuring resistance or continuity?
+    choices:
+      - {th: เพราะมิเตอร์ใช้กระแสของมันเองวัด แรงดันในวงจรจะทำให้ค่าผิดและอาจทำให้เครื่องเสียหาย}
+      - {th: เพราะโหมด Ω ใช้แบตเตอรี่มาก}
+      - {th: เพราะเสียงของโหมดความต่อเนื่องจะดังตลอด}
+      - {th: ไม่จำเป็นต้องถอดไฟ}
+    answer: [0]
+    explain:
+      th: โหมด Ω ปล่อยกระแสเล็ก ๆ แล้ววัดแรงดันที่เกิด ถ้าวงจรมีไฟอยู่ แรงดันนั้นปนเข้ามา ค่าที่อ่านไม่มีความหมาย และวงจรป้องกันของเครื่องอาจต้องรับแรงดันที่ไม่ได้ออกแบบไว้
+  - id: q5
+    objective: 2
+    type: single
+    prompt:
+      th: วัดตัวต้านทาน 10 kΩ ที่ยังอยู่ในวงจร และมีตัวต้านทาน 10 kΩ อีกตัวต่อขนานอยู่ จะอ่านได้ประมาณเท่าไร
+      en: You measure a 10 kΩ resistor in circuit with another 10 kΩ in parallel. What will you read?
+    choices:
+      - {th: 10 kΩ}
+      - {th: 20 kΩ}
+      - {th: 5 kΩ}
+      - {th: 0 Ω}
+    answer: [2]
+    explain:
+      th: มิเตอร์เห็นทุกทางที่ต่อคร่อมสองจุดนั้น 10 kΩ ∥ 10 kΩ = 5 kΩ ไม่ได้แปลว่าตัวต้านทานเสีย ถ้าต้องการค่าจริงของตัวเดียวให้ยกขาหนึ่งข้างออกจากวงจร

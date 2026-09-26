@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: อุปกรณ์มี address 7 บิตเป็น 0x30 ไบต์แรกบนสาย SDA เมื่อมาสเตอร์ขอเขียนคืออะไร
+      en: A device has the 7-bit address 0x30. What is the first byte on SDA for a write?
+    choices:
+      - {th: '0x30'}
+      - {th: '0x60'}
+      - {th: '0x61'}
+      - {th: '0x18'}
+    answer: [1]
+    explain:
+      th: ไบต์แรกคือ address เลื่อนซ้ายหนึ่งบิตแล้วต่อด้วยบิต R/W เขียนคือ 0 จึงได้ 0x60 ถ้าอ่านจะเป็น 0x61
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: 'ขณะสแกนบัส decoder แสดง "Address write: 3C" ตามด้วย NACK หมายความว่าอะไร'
+      en: 'During a bus scan the decoder shows "Address write: 3C" followed by NACK. What does it mean?'
+    choices:
+      - {th: อุปกรณ์ที่ 0x3C รับข้อมูลเรียบร้อย}
+      - {th: ไม่มีอุปกรณ์ตอบรับที่ address 0x3C ในจังหวะนาฬิกาที่ 9 SDA จึงค้างสูง}
+      - {th: บัสลัดวงจร}
+      - {th: decoder ตั้งความเร็วผิด}
+    answer: [1]
+    explain:
+      th: ในจังหวะที่ 9 มาสเตอร์ปล่อย SDA อุปกรณ์ที่มีอยู่จริงจะดึงลงเป็น ACK ถ้าไม่มีใครดึง pull-up ทำให้ SDA เป็น 1 คือ NACK เครื่องสแกนจึงสรุปว่าที่อยู่นี้ว่าง
+  - id: q3
+    objective: 1
+    type: multi
+    prompt:
+      th: ข้อใดถูกต้องเกี่ยวกับสัญญาณ I2C (เลือกได้มากกว่าหนึ่งข้อ)
+      en: Which statements about I2C signalling are correct? (choose all that apply)
+    choices:
+      - {th: START คือ SDA ตกลงขณะ SCL สูง}
+      - {th: ACK คือฝั่งรับดึง SDA ลงในจังหวะนาฬิกาที่ 9}
+      - {th: ข้อมูลบน SDA ควรเปลี่ยนขณะ SCL สูง}
+      - {th: STOP คือ SDA ขึ้นขณะ SCL สูง}
+    answer: [0, 1, 3]
+    explain:
+      th: ข้อมูลต้องนิ่งขณะ SCL สูง และเปลี่ยนได้ตอน SCL ต่ำ การเปลี่ยน SDA ขณะ SCL สูงถูกสงวนไว้เป็นสัญญาณ START และ STOP เท่านั้น
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: UART ที่ 115200 baud หนึ่งบิตยาวประมาณเท่าไร
+      en: About how long is one bit on a 115200 baud UART?
+    choices:
+      - {th: 8.68 µs}
+      - {th: 86.8 µs}
+      - {th: 115 µs}
+      - {th: 0.87 µs}
+    answer: [0]
+    explain:
+      th: 1 / 115200 = 8.68 µs ส่วน 86.8 µs คือหนึ่งไบต์แบบ 8N1 (10 บิตรวมบิตเริ่มและบิตหยุด)
+  - id: q5
+    objective: 2
+    type: single
+    prompt:
+      th: สัญญาณจริงเป็น 115200 baud แต่ตั้ง decoder ไว้ที่ 9600 จะเห็นอะไร
+      en: The line runs at 115200 baud but the decoder is set to 9600. What do you see?
+    choices:
+      - {th: ไบต์ถูกต้องแต่แสดงช้าลง}
+      - {th: ไบต์เพี้ยนหรือหายไปจำนวนมาก และมี framing error เพราะ decoder อ่านบิตผิดจังหวะ}
+      - {th: decoder ปรับ baud ให้เองอัตโนมัติ}
+      - {th: สายสัญญาณจะเปลี่ยนเป็น 9600 ตาม}
+    answer: [1]
+    explain:
+      th: UART ไม่มีสายนาฬิกา ฝั่งอ่านใช้จังหวะที่ตั้งไว้ ที่ 9600 หนึ่งบิตยาว 104 µs ครอบหลายบิตจริง ทั้งแพ็กเก็ตจึงกลายเป็นไบต์เพี้ยนไม่กี่ไบต์และ framing error วิธีแก้คือวัดพัลส์ที่แคบที่สุดแล้วหา baud จริง

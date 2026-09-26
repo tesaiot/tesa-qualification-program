@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: ตัวต้านทาน 2.2 kΩ ต่อคร่อมแหล่งจ่าย 3.3 V มีกระแสไหลเท่าไร
+      en: A 2.2 kΩ resistor is connected across 3.3 V. What current flows?
+    choices:
+      - {th: 1.5 mA}
+      - {th: 7.26 mA}
+      - {th: 0.67 mA}
+      - {th: 1.5 A}
+    answer: [0]
+    explain:
+      th: I = V / R = 3.3 V / 2.2 kΩ = 1.5 mA ใช้คู่หน่วย V กับ kΩ จะได้ mA ออกมาตรง ๆ ข้อ 7.26 mA มาจากการเอาแรงดันคูณความต้านทาน ซึ่งผิดสูตร
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: ตัวต้านทาน 1 kΩ ต่อขนานกับ 3.3 kΩ ความต้านทานรวมใกล้ค่าใดที่สุด
+      en: A 1 kΩ resistor in parallel with 3.3 kΩ. What is the combined resistance?
+    choices:
+      - {th: 4.3 kΩ}
+      - {th: 767 Ω}
+      - {th: 2.15 kΩ}
+      - {th: 1.15 kΩ}
+    answer: [1]
+    explain:
+      th: (1 × 3.3) / (1 + 3.3) kΩ = 0.767 kΩ ความต้านทานขนานต้องน้อยกว่าตัวที่น้อยที่สุด (1 kΩ) เสมอ จึงตัดตัวเลือกอื่นได้ทันที
+  - id: q3
+    objective: 1
+    type: multi
+    prompt:
+      th: ข้อใดจริงสำหรับตัวต้านทานสองตัวที่ต่ออนุกรมกับแหล่งจ่าย (เลือกได้มากกว่าหนึ่งข้อ)
+      en: Which statements are true for two resistors in series with a supply? (choose all that apply)
+    choices:
+      - {th: กระแสที่ไหลผ่านทั้งสองตัวเท่ากัน}
+      - {th: แรงดันคร่อมทั้งสองตัวบวกกันได้แรงดันแหล่งจ่าย}
+      - {th: ความต้านทานรวมน้อยกว่าตัวที่น้อยที่สุด}
+      - {th: แรงดันคร่อมทั้งสองตัวเท่ากันเสมอ}
+    answer: [0, 1]
+    explain:
+      th: อนุกรมมีทางเดินกระแสทางเดียว กระแสจึงเท่ากัน และแรงดันแบ่งกันตามสัดส่วนความต้านทาน (KVL) ความต้านทานรวมน้อยกว่าตัวที่น้อยที่สุดเป็นสมบัติของวงจรขนาน
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: ตัวต้านทาน 47 Ω ต่อคร่อม 3.3 V ควรเลือกพิกัดกำลังเท่าไร ถ้าใช้หลักเผื่ออย่างน้อยสองเท่า
+      en: A 47 Ω resistor sits across 3.3 V. Which power rating should you choose with at least a 2× margin?
+    choices:
+      - {th: 1/8 W}
+      - {th: 1/4 W}
+      - {th: 1/2 W}
+      - {th: เลือกอะไรก็ได้ ไฟ 3.3 V ไม่ทำให้ตัวต้านทานร้อน}
+    answer: [2]
+    explain:
+      th: P = V² / R = 3.3² / 47 = 0.232 W เผื่อสองเท่าได้ 0.46 W จึงต้องใช้ 1/2 W ตัว 1/4 W (0.25 W) ทำงานเกือบเต็มพิกัดและร้อนมาก แรงดันต่ำไม่ได้แปลว่ากำลังต่ำเสมอ ถ้าความต้านทานต่ำพอ
+  - id: q5
+    objective: 2
+    type: single
+    prompt:
+      th: รู้กระแสที่ไหลผ่านตัวต้านทานและรู้ค่าความต้านทาน ใช้สูตรใดหากำลังได้ตรงที่สุด
+      en: You know the current through a resistor and its resistance. Which formula gives the power directly?
+    choices:
+      - {th: P = V / I}
+      - {th: P = I² × R}
+      - {th: P = R / I}
+      - {th: P = V² × R}
+    answer: [1]
+    explain:
+      th: P = V × I และแทน V = I × R จะได้ P = I² × R ถ้ารู้แรงดันคร่อมกับความต้านทานให้ใช้ P = V² / R แทน

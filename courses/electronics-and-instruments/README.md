@@ -1,6 +1,6 @@
 # อิเล็กทรอนิกส์และเครื่องมือวัดสำหรับนักพัฒนาระบบฝังตัว
 
-ระดับ **L2** · สถานะ **pre-alpha (โครงร่าง อยู่ระหว่างเขียน)** · 6 โมดูล 15 บทเรียน · ประมาณ 20 ชั่วโมง
+ระดับ **L2** · สถานะ **alpha (ทดลองใช้)** · 6 โมดูล 15 บทเรียน · ประมาณ 20 ชั่วโมง
 
 หลักสูตรนี้ปิดช่องว่างเรื่องอิเล็กทรอนิกส์และเครื่องมือวัด ซึ่ง Embedded Systems Engineering Roadmap จัดเป็นทักษะจำเป็น
 และคุณวุฒิวิชาชีพนักพัฒนาระบบสมองกลฝังตัว ระดับ 4 ของ TPQI ก็มีหน่วยสมรรถนะด้านการพัฒนาฮาร์ดแวร์ (ICT-CSOS-107B)
@@ -68,10 +68,34 @@
 | elec.m06.l03 | [อ่านแผนผังวงจร](m06-build-and-read/l03-reading-schematics/README.md) | 65 นาที |
 | elec.m06.l04 | [พื้นฐาน PCB และ EMC](m06-build-and-read/l04-pcb-and-emc-basics/README.md) | 65 นาที |
 
+## ตัวอย่างบนบอร์ดที่ใช้ในแล็บ
+
+แล็บส่วนใหญ่ใช้ตัวอย่างชุด QWA309 ของ Developer Hub เป็นแหล่งสัญญาณให้วัด ตัวอย่างชุดนี้รันบน TESAIoT Dev Kit เท่านั้น
+ทุกแล็บบอกวิธีทำแทนสำหรับ Eva Kit ไว้ด้วย (ส่วนใหญ่คือเขียนโปรแกรมสั้น ๆ สร้างสัญญาณเดียวกันบนขาว่าง)
+
+| ตัวอย่าง | ใช้ในบทเรียน |
+|---|---|
+| [QWA309 Potentiometer Monitor](https://dev.tesaiot.dev/?example=developer-hub--prac_qwa309_pot_monitor&q=prac_qwa309_pot_monitor) | วงจรแบ่งแรงดันและ ADC, อ่านแผนผังวงจร |
+| [QWA309 4-Channel ADC Scope](https://dev.tesaiot.dev/?example=developer-hub--prac_qwa309_adc_scope&q=prac_qwa309_adc_scope) | วงจรแบ่งแรงดันและ ADC |
+| [QWA309 Push Button Monitor](https://dev.tesaiot.dev/?example=developer-hub--prac_qwa309_button_monitor&q=prac_qwa309_button_monitor) | Pull-up, pull-down และปุ่มกด |
+| [QWA309 Header I/O Test](https://dev.tesaiot.dev/?example=developer-hub--prac_qwa309_header_hw_test&q=prac_qwa309_header_hw_test) | ระดับลอจิก ปุ่มกด logic analyzer ถอดรหัส I2C และ UART ออสซิลโลสโคป วัด PWM เบรดบอร์ด |
+
+## สิ่งที่ต้องเตรียม
+
+- บอร์ด TESAIoT Dev Kit (หรือ Eva Kit) พร้อมสาย USB
+- มัลติมิเตอร์แบบดิจิทัลที่มีช่อง mA และคู่มือของเครื่อง
+- logic analyzer ราคาประหยัดที่ใช้กับ PulseView ได้
+- ออสซิลโลสโคปพร้อมโพรบ 10× (ของห้องแล็บ หรือแบบต่อ USB)
+- เบรดบอร์ด สายจัมเปอร์ ตัวต้านทานชุดพื้นฐาน LED ปุ่มกด ตัวเก็บประจุ 100 µF
+- หัวแร้งแบบปรับอุณหภูมิ แผ่นฝึกบัดกรี แว่นตานิรภัย สายรัดข้อมือกันไฟฟ้าสถิต และเครื่องดูดควัน (โมดูล 6)
+
 ## สถานะของหลักสูตร
 
-หลักสูตรนี้เป็นโครงร่าง (pre-alpha) ทุกบทเรียนมีเป้าหมาย ทักษะที่พัฒนา และแหล่งอ้างอิงที่ตรวจแล้ว แต่ยังไม่มีเนื้อหา แล็บ และเช็กความเข้าใจ
+หลักสูตรนี้อยู่ในสถานะ alpha (ทดลองใช้) ทุกบทเรียนมีแนวคิดพร้อมตัวอย่างคำนวณ ตัวอย่างสมบูรณ์ แบบฝึกพร้อมเฉลย แล็บ และคำถามเช็กความเข้าใจ
+หน้าบทเรียนเป็นภาษาไทย หน้าภาษาอังกฤษของแต่ละบทยังรอแปล แผนภาพทั้งหมดเป็นงานวาดของหลักสูตรนี้เอง (CC BY 4.0) ถ้าพบตัวเลขหรือขั้นตอนที่ผิด แจ้งได้ตาม [CONTRIBUTING.md](../../CONTRIBUTING.md)
+
 **ความปลอดภัย** ทุกแล็บในหลักสูตรนี้ใช้ไฟแรงดันต่ำจากบอร์ดหรือแหล่งจ่ายห้องแล็บเท่านั้น ห้ามวัดไฟบ้าน
+แต่ละบทเรียนมีข้อควรระวังของตัวเอง เช่น การวัดกระแส สายกราวด์ของโพรบ หัวแร้ง ควันฟลักซ์ และไฟฟ้าสถิต อ่านก่อนเริ่มแล็บทุกครั้ง
 
 ## แหล่งอ้างอิงหลัก
 
@@ -80,12 +104,14 @@
 - [sigrok PulseView](https://sigrok.org/wiki/PulseView)
 - [sigrok protocol decoders](https://sigrok.org/wiki/Protocol_decoders)
 - [AIoT in Action: examples/s05/05_adc_counts_to_volts.py (MIT)](https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer/blob/a80bbe88a34bcb9bb8d991f42f9252b77cdab079/examples/s05/05_adc_counts_to_volts.py)
+- [TESAIoT Dev Kit SDK: แผนผังความสามารถของบอร์ดฐาน QWA309 (Apache-2.0)](https://github.com/tesaiot/tesaiot-pse84-devkit-sdk/blob/ef72c1b658178eee8c38b1e47d28b006f80a59b5/bento-firmware-template-mtb-mpy/bento_libs/claw/kit-tesaiot-pse84-ai/README.md)
+- [Developer Hub: แบบฝึกของ TESAIoT Dev Kit (commit 372d0d8)](https://github.com/tesaiot/developer-hub/tree/372d0d849578a6a49b634d3ecaab8b5958166921)
 
 ## สัญญาอนุญาต
 
-- เนื้อหา CC BY 4.0
-- โค้ดใหม่ที่จะเพิ่มในหลักสูตรนี้ Apache-2.0
-- ตัวอย่าง MicroPython ที่อ้างถึงเป็นของหลักสูตร AIoT in Action (MIT) ลิงก์ไปยัง commit ที่ตรึงไว้
+- เนื้อหาและแผนภาพ CC BY 4.0
+- หลักสูตรนี้ยังไม่มีไฟล์โค้ดของตัวเอง ถ้าเพิ่มในอนาคตจะใช้ Apache-2.0
+- ตัวอย่าง MicroPython ที่อ้างถึงเป็นของหลักสูตร AIoT in Action (MIT) ตัวอย่าง C เป็นของ Developer Hub และ SDK ของ TESAIoT Dev Kit ทั้งหมดอ้างอิงด้วยลิงก์ ไม่ได้คัดลอกเข้าคลังนี้
 
 ## อ้างอิง TESA
 

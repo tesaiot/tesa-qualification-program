@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: สัญญาณมีคาบเวลา 40 ms อยากเห็นราวสองถึงสามคาบเวลาบนจอที่มี 10 ช่องแนวนอน ควรตั้ง timebase เท่าไร
+      en: A signal has a 40 ms period. To see about two to three periods on a 10-division screen, which timebase?
+    choices:
+      - {th: 1 ms/div}
+      - {th: 10 ms/div}
+      - {th: 100 ms/div}
+      - {th: 40 ms/div}
+    answer: [1]
+    explain:
+      th: 10 ms/div ทำให้ทั้งจอเห็น 100 ms คือ 2.5 คาบเวลา ที่ 1 ms/div เห็นแค่ 10 ms ไม่ถึงคาบเวลาเดียว ที่ 100 ms/div เห็น 25 คาบเวลาจนแน่นเกินไป
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: ภาพของสัญญาณลอจิก 0 ถึง 3.3 V วิ่งไปมาไม่นิ่ง ขณะที่ตั้ง trigger level ไว้ที่ 5 V ควรแก้อย่างไร
+      en: A 0–3.3 V logic trace keeps rolling with the trigger level at 5 V. What should you fix?
+    choices:
+      - {th: เพิ่ม volts/div}
+      - {th: ตั้ง trigger level ให้อยู่ในช่วงที่สัญญาณแกว่ง เช่น 1.65 V}
+      - {th: เปลี่ยนเป็น AC coupling}
+      - {th: เปลี่ยนโพรบเป็น 1×}
+    answer: [1]
+    explain:
+      th: สัญญาณไม่เคยข้าม 5 V เงื่อนไข trigger จึงไม่เคยเป็นจริง ในโหมด Auto เครื่องวาดภาพไปเรื่อย ๆ โดยไม่มีจุดเริ่มร่วมกัน ภาพจึงวิ่ง ตั้ง level กลางช่วงสัญญาณแล้วภาพจะนิ่ง
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: ทำไมห้ามหนีบปากคีบกราวด์ของโพรบออสซิลโลสโคปตั้งโต๊ะไว้ที่ขา 3V3 ของบอร์ดที่เสียบ USB กับคอมพิวเตอร์
+      en: Why must you never clip a bench scope's probe ground to the 3V3 pin of a board plugged into a computer by USB?
+    choices:
+      - {th: เพราะจะอ่านค่าติดลบ}
+      - {th: เพราะปากคีบกราวด์ต่อลงดินผ่านปลั๊กไฟ และกราวด์ของบอร์ดก็มักต่อลงดินผ่านคอมพิวเตอร์ จึงเท่ากับลัดวงจร 3V3 ลงกราวด์}
+      - {th: เพราะโพรบ 10× รับแรงดัน 3.3 V ไม่ได้}
+      - {th: ไม่มีปัญหา ถ้าตั้ง AC coupling}
+    answer: [1]
+    explain:
+      th: ปากคีบกราวด์ไม่ได้ลอย มันต่อกับสายดินของเครื่อง ถ้ากราวด์ของบอร์ดต่อลงดินด้วย ปากคีบที่ขา 3V3 คือสายลัดวงจร ต้องหนีบที่กราวด์ของวงจรเท่านั้น
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: วัดขอบสัญญาณเร็วด้วยสายกราวด์ยาว 15 cm แล้วเห็นการสั่นราว 100 MHz ที่ขอบ สาเหตุที่น่าจะเป็นที่สุดคืออะไร
+      en: Using a 15 cm ground lead on a fast edge, you see about 100 MHz ringing. What is the most likely cause?
+    choices:
+      - {th: บอร์ดมีสัญญาณรบกวนความถี่วิทยุ}
+      - {th: ความเหนี่ยวนำของลูปสายกราวด์ร่วมกับความจุของโพรบเกิดเรโซแนนซ์ ซึ่งเป็นผลจากวิธีวัด}
+      - {th: โพรบชำรุด}
+      - {th: timebase ตั้งเร็วเกินไป}
+    answer: [1]
+    explain:
+      th: สายกราวด์ 15 cm มีความเหนี่ยวนำราว 150 nH กับโพรบราว 15 pF เรโซแนนซ์ราว 106 MHz ใช้สปริงกราวด์สั้นแล้ววัดซ้ำ ถ้าการสั่นหายไปก็เป็นผลจากวิธีวัด
+  - id: q5
+    objective: 3
+    type: multi
+    prompt:
+      th: ข้อใดคือข้อมูลที่ออสซิลโลสโคปให้ได้ แต่ logic analyzer ทั่วไปให้ไม่ได้ (เลือกได้มากกว่าหนึ่งข้อ)
+      en: Which information does an oscilloscope give that a typical logic analyzer cannot? (choose all that apply)
+    choices:
+      - {th: แรงดันจริงของระดับ 1 และระดับ 0}
+      - {th: ขอบเกิน (overshoot) และการสั่นที่ขอบ}
+      - {th: ลำดับการเปลี่ยนของ 16 ขาพร้อมกันนานหลายวินาที}
+      - {th: ขอบขาขึ้นที่ช้าเพราะ pull-up ของ I2C ใหญ่เกินไป}
+    answer: [0, 1, 3]
+    explain:
+      th: logic analyzer เก็บแค่ว่าสูงหรือต่ำกว่าเกณฑ์ จึงไม่เห็นแรงดันจริงหรือรูปร่างของขอบ ส่วนการดูหลายขาพร้อมกันนาน ๆ เป็นจุดแข็งของ logic analyzer

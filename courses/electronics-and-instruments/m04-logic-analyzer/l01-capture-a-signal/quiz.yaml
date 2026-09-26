@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: ต่อสายสัญญาณของ logic analyzer เข้าขาของบอร์ดแล้ว แต่ลืมต่อสาย GND ผลที่น่าจะเกิดคืออะไร
+      en: The logic analyzer's signal lead is on a board pin, but its GND lead is not connected. What is the likely result?
+    choices:
+      - {th: ภาพถูกต้องตามปกติ เพราะ USB ต่อกราวด์ให้เองเสมอ}
+      - {th: ภาพมั่ว เป็นเส้นคงที่ หรือเปลี่ยนเมื่อขยับสาย เพราะเครื่องไม่มีจุดอ้างอิงร่วมกับบอร์ด}
+      - {th: บอร์ดจะรีเซ็ต}
+      - {th: เครื่องจะวัดแรงดันจริงได้แทนค่า 0 และ 1}
+    answer: [1]
+    explain:
+      th: ช่องสัญญาณวัดแรงดันเทียบกับ GND ของเครื่อง ถ้าไม่มีสาย GND ร่วมกับบอร์ด ไม่มีอะไรรับประกันว่าจุดอ้างอิงสองฝั่งเท่ากัน ต่อ GND ก่อนสายสัญญาณทุกครั้ง
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: ลำดับการต่อ logic analyzer เข้ากับบอร์ดข้อใดดีที่สุด
+      en: Which order is best for connecting a logic analyzer to a board?
+    choices:
+      - {th: ต่อสายสัญญาณก่อน แล้วต่อ GND ทีหลังถ้าภาพไม่นิ่ง}
+      - {th: ต่อ GND ก่อน แล้วต่อสายสัญญาณ แล้วจึงเริ่มจับ}
+      - {th: ไม่ต้องต่อ GND ถ้าบอร์ดใช้ไฟจาก USB}
+      - {th: ต่อสายสัญญาณเข้าขาชิปโดยตรงให้ใกล้ที่สุด}
+    answer: [1]
+    explain:
+      th: ต่อจุดอ้างอิงก่อนเสมอ แล้วหนีบสายสัญญาณที่ขา header หรือจุดทดสอบ การจิ้มขาชิปที่ถี่เสี่ยงลัดวงจรขาข้าง ๆ
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: ต้องการจับสัญญาณ UART 115200 baud ให้ได้อย่างน้อย 8 ตัวอย่างต่อบิต อัตราสุ่มข้อใดต่ำที่สุดที่ใช้ได้
+      en: You need at least 8 samples per bit on a 115200 baud UART. Which is the lowest sample rate that works?
+    choices:
+      - {th: 115.2 kHz}
+      - {th: 230.4 kHz}
+      - {th: 500 kHz}
+      - {th: 1 MHz}
+    answer: [3]
+    explain:
+      th: 115200 × 8 = 921.6 kHz ในตัวเลือกมีเพียง 1 MHz ที่เกินค่านี้ (ได้ราว 8.7 ตัวอย่างต่อบิต)
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: คลื่นสี่เหลี่ยม 1 kHz ถูกสุ่มที่ 1.1 kHz ภาพที่ได้จะแสดงความถี่เท่าไร
+      en: A 1 kHz square wave is sampled at 1.1 kHz. What frequency does the capture show?
+    choices:
+      - {th: 1 kHz}
+      - {th: 1.1 kHz}
+      - {th: 100 Hz}
+      - {th: 2.1 kHz}
+    answer: [2]
+    explain:
+      th: สุ่มช้ากว่า 2 เท่าของความถี่สัญญาณมาก เกิด aliasing ความถี่ปลอมคือ |1100 − 1000| = 100 Hz และภาพดูสะอาดน่าเชื่อ จึงอันตราย
+  - id: q5
+    objective: 3
+    type: single
+    prompt:
+      th: ภาพที่จับได้มีขอบขาขึ้นที่ 5.0 ms และ 25.0 ms และขอบขาลงระหว่างนั้นที่ 10.0 ms ความถี่และ duty cycle เป็นเท่าไร
+      en: Rising edges at 5.0 ms and 25.0 ms, with a falling edge at 10.0 ms between them. What are the frequency and duty cycle?
+    choices:
+      - {th: 50 Hz และ 25%}
+      - {th: 40 Hz และ 25%}
+      - {th: 50 Hz และ 75%}
+      - {th: 200 Hz และ 50%}
+    answer: [0]
+    explain:
+      th: คาบเวลา 25.0 − 5.0 = 20 ms จึงได้ 50 Hz ความกว้างพัลส์ 10.0 − 5.0 = 5 ms duty = 5 / 20 = 25%

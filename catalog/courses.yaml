@@ -52,7 +52,7 @@ courses:
     short: elec
     in_tree: true
     level: L2
-    status: pre-alpha
+    status: alpha
     title: {th: "อิเล็กทรอนิกส์และเครื่องมือวัดสำหรับนักพัฒนาระบบฝังตัว", en: "Electronics & Test Instruments for Embedded Developers"}
     nav: {th: "อิเล็กทรอนิกส์และเครื่องมือวัด", en: "Electronics & Instruments"}
 

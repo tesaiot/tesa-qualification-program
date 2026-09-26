@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: แหล่งจ่าย 3.3 V หลอด LED มี V_f = 2.1 V ต้องการกระแส 4 mA ตัวต้านทานที่คำนวณได้คือเท่าไร
+      en: A 3.3 V supply, an LED with V_f = 2.1 V, and a 4 mA target. What resistance do you calculate?
+    choices:
+      - {th: 300 Ω}
+      - {th: 825 Ω}
+      - {th: 525 Ω}
+      - {th: 3 Ω}
+    answer: [0]
+    explain:
+      th: R = (3.3 − 2.1) V / 4 mA = 1.2 V / 4 mA = 300 Ω ตัวต้านทานรับเฉพาะแรงดันส่วนที่เหลือจาก V_f ข้อ 825 Ω ลืมหัก V_f ออก
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: ทำไมไม่ควรต่อ LED จากขา 3.3 V ลง GND โดยไม่มีตัวต้านทาน
+      en: Why should you not connect an LED from a 3.3 V pin to GND without a resistor?
+    choices:
+      - {th: เพราะ LED จะไม่ติดเลย}
+      - {th: เพราะกระแสจะถูกจำกัดด้วยความต้านทานภายในของขาและ LED เท่านั้น อาจเกินพิกัดของทั้งสองอย่าง}
+      - {th: เพราะ LED จะกลับขั้วเอง}
+      - {th: ไม่มีปัญหา LED จำกัดกระแสได้เองเสมอ}
+    answer: [1]
+    explain:
+      th: เมื่อแรงดันเกิน V_f กระแสของ LED พุ่งขึ้นเร็วมาก ไม่มีอะไรกำหนดกระแสนอกจากความต้านทานภายในเล็ก ๆ ผลคือขาของชิปหรือ LED ทำงานเกินพิกัดและเสื่อมหรือพัง
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: ตัวเก็บประจุ decoupling 100 nF ที่วางชิดขาไฟของชิปทำหน้าที่หลักอะไร
+      en: What is the main job of a 100 nF decoupling capacitor placed right at a chip's power pin?
+    choices:
+      - {th: กรองสัญญาณข้อมูลที่ขา I/O}
+      - {th: จ่ายกระแสกระชากช่วงสั้น ๆ ให้ชิปจากตรงนั้นเลย ไม่ให้แรงดันไฟเลี้ยงตก}
+      - {th: เพิ่มแรงดันไฟเลี้ยงให้สูงกว่าแหล่งจ่าย}
+      - {th: ป้องกันการต่อไฟกลับขั้ว}
+    answer: [1]
+    explain:
+      th: ลายวงจรยาวจากตัวควบคุมแรงดันมีความเหนี่ยวนำ จ่ายกระแสเร็วไม่ทัน ตัวเก็บประจุที่อยู่ชิดขาจ่ายประจุให้แทน แรงดันจึงตกน้อย ยิ่งวางใกล้ยิ่งได้ผล
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: ไดโอดกันไฟย้อนที่ต่อคร่อมขดลวดรีเลย์ซึ่งมีสวิตช์ด้านล่าง ต้องหันขั้วอย่างไร
+      en: How must a flyback diode across a low-side-switched relay coil be oriented?
+    choices:
+      - {th: แคโทดทางฝั่งไฟบวก แอโนดทางฝั่งสวิตช์}
+      - {th: แอโนดทางฝั่งไฟบวก แคโทดทางฝั่งสวิตช์}
+      - {th: หันทางไหนก็ได้}
+      - {th: ต่อไดโอดอนุกรมกับขดลวดแทนการต่อคร่อม}
+    answer: [0]
+    explain:
+      th: ขณะทำงานปกติไดโอดต้องไม่นำไฟ (ถูกไบแอสกลับ) พอสวิตช์ตัด แรงดันที่ปลายฝั่งสวิตช์พุ่งสูงกว่าไฟบวก ไดโอดจึงนำไฟและให้กระแสไหลวนผ่านขดลวด ถ้าหันกลับ ไดโอดจะลัดวงจรไฟเลี้ยงทันทีที่เปิดสวิตช์
+  - id: q5
+    objective: 3
+    type: single
+    prompt:
+      th: ต้องการสั่งมอเตอร์ 12 V ที่กินกระแส 800 mA จากขา GPIO 3.3 V วิธีใดเหมาะที่สุด
+      en: You must switch a 12 V, 800 mA motor from a 3.3 V GPIO. Which approach fits best?
+    choices:
+      - {th: ต่อมอเตอร์กับขา GPIO โดยตรง}
+      - {th: NPN ตัวเล็กกับตัวต้านทานเบส 330 Ω โดยไม่ต้องมีไดโอด}
+      - {th: MOSFET ชนิด N แบบ logic-level ต่อด้านล่าง พร้อมไดโอดกันไฟย้อนคร่อมมอเตอร์}
+      - {th: ต่อตัวต้านทาน 15 Ω อนุกรมกับมอเตอร์แล้วต่อเข้าขา GPIO}
+    answer: [2]
+    explain:
+      th: ขาให้ได้ทั้งแรงดันและกระแสไม่พอ MOSFET แบบ logic-level เปิดได้เต็มที่ด้วย V_GS ต่ำและแทบไม่กินกระแสเกต ส่วนมอเตอร์เป็นขดลวดจึงต้องมีไดโอดกันไฟย้อน NPN จะต้องการกระแสเบสหลายสิบ mA ซึ่งเกินขา

@@ -5,9 +5,10 @@ short: elec
 title: {th: อิเล็กทรอนิกส์และเครื่องมือวัดสำหรับนักพัฒนาระบบฝังตัว, en: Electronics & Test Instruments for Embedded Developers}
 summary: {th: หลักการวงจรและอิเล็กทรอนิกส์พื้นฐาน วงจรดิจิทัล การใช้มัลติมิเตอร์ logic analyzer และออสซิลโลสโคป การต่อวงจรบนเบรดบอร์ด การบัดกรี การอ่านวงจร และพื้นฐาน PCB กับ EMC สำหรับนักพัฒนาที่ต้องทำงานกับบอร์ดจริง, en: 'Circuit and electronics fundamentals, digital logic, using a multimeter, logic analyzer and oscilloscope, breadboarding, soldering, reading schematics, and PCB and EMC basics for developers who work with real boards.'}
 level: L2
-status: pre-alpha
+status: alpha
 audience: [student, developer, public]
 hours: 20
+cover: {image: cover.webp}
 hardware:
   emulator: false
   boards: [eva-kit, devkit]

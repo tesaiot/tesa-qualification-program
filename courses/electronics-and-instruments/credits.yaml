@@ -1,4 +1,11 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
 # SPDX-License-Identifier: CC-BY-4.0
-# This course uses no images yet.
-images: []
+# This course uses no image files. Its diagrams are inline SVG written for the course (own work, CC BY 4.0).
+images:
+  - path: cover.webp
+    title: "Loud Objects at iMAL"
+    author: "Marc Wathieu"
+    source: "https://www.flickr.com/photos/88133570@N00/5183937859"
+    license: CC-BY-2.0
+    modified: true
+    note: "Cropped and resized to 960x540 for the course card."

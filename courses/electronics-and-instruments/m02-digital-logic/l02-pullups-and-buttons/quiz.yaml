@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: ขาเข้าที่ไม่ได้ต่ออะไรและไม่ได้เปิด pull-up หรือ pull-down อ่านได้ 0 นิ่งตลอดการทดสอบ ข้อสรุปใดถูกต้อง
+      en: An unconnected input with no pull-up or pull-down read a steady 0 during a test. Which conclusion is correct?
+    choices:
+      - {th: ขาลอยในบอร์ดนี้เป็น 0 เสมอ ใช้ได้}
+      - {th: ค่าของขาลอยขึ้นกับประจุและสัญญาณรบกวนรอบตัว นิ่งตอนทดสอบไม่ได้รับประกันว่าจะนิ่งตลอดไป}
+      - {th: ชิปมี pull-down ภายในเปิดอยู่แน่นอน}
+      - {th: ขานั้นเสีย}
+    answer: [1]
+    explain:
+      th: ขาเข้า CMOS มีความต้านทานสูงมาก แรงดันของมันลอยไปตามประจุรอบตัว บางครั้งนิ่ง บางครั้งแกว่ง ต้องมี pull-up หรือ pull-down กำหนดค่าเริ่มต้นเสมอ
+  - id: q2
+    objective: 2
+    type: single
+    prompt:
+      th: ปุ่มต่อจากขาลง GND และมี pull-up 10 kΩ ไป 3.3 V เมื่อกดปุ่ม ขาอ่านได้อะไร และมีกระแสผ่าน pull-up เท่าไร
+      en: A button connects a pin to GND with a 10 kΩ pull-up to 3.3 V. When pressed, what does the pin read and what current flows in the pull-up?
+    choices:
+      - {th: อ่านได้ 1 กระแส 0 mA}
+      - {th: อ่านได้ 0 กระแส 0.33 mA}
+      - {th: อ่านได้ 0 กระแส 33 mA}
+      - {th: อ่านได้ 1 กระแส 0.33 mA}
+    answer: [1]
+    explain:
+      th: ปุ่มต่อขาลง GND โดยตรง ขาจึงเป็น 0 V อ่านได้ 0 (active-low) และแรงดันทั้งหมด 3.3 V ตกคร่อม pull-up กระแส = 3.3 V / 10 kΩ = 0.33 mA
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: ใน PSoC ถ้าตั้งขาเป็น CY_GPIO_DM_PULLUP แต่ส่งค่า out-value เป็น 0 ให้ Cy_GPIO_Pin_FastInit() จะเกิดอะไรขึ้นกับปุ่มแบบ active-low
+      en: On PSoC, a pin is set to CY_GPIO_DM_PULLUP but Cy_GPIO_Pin_FastInit() gets out-value 0. What happens to an active-low button?
+    choices:
+      - {th: ทำงานปกติ ค่า out-value ไม่มีผลกับขาเข้า}
+      - {th: ขาอ่านได้ 0 ตลอดเหมือนปุ่มถูกกดค้าง เพราะในโหมดนี้ out-value คือตัวที่เปิด pull-up}
+      - {th: ขากลายเป็นขาออก}
+      - {th: ปุ่มกลายเป็น active-high}
+    answer: [1]
+    explain:
+      th: SDK เตือนไว้ในตัวอย่าง cm33/io/04_gpio_led_button.c ว่าในโหมด pull-up ค่า out-value ต้องเป็น 1 ถ้าเป็น 0 ขาจะถูกดึงลง และโปรแกรมจะเห็นปุ่มถูกกดตลอดเวลา
+  - id: q4
+    objective: 3
+    type: single
+    prompt:
+      th: วัดการเด้งของปุ่มได้ 0.3, 0.5, 2.8, 0.4 และ 1.0 ms ควรเลือกเวลากันเด้งเท่าไร
+      en: Measured bounce times are 0.3, 0.5, 2.8, 0.4 and 1.0 ms. Which debounce time should you choose?
+    choices:
+      - {th: 1 ms (ราวค่าเฉลี่ย)}
+      - {th: 2.8 ms พอดี}
+      - {th: ราว 6 ถึง 10 ms (ค่ามากที่สุดคูณเผื่อ 2 ถึง 3 เท่า)}
+      - {th: 500 ms}
+    answer: [2]
+    explain:
+      th: ต้องออกแบบจากกรณีที่แย่ที่สุด (2.8 ms) แล้วเผื่อ เพราะปุ่มอาจเด้งนานขึ้นเมื่อเก่าลง ค่าเฉลี่ยทำให้การกดบางครั้งนับซ้ำ ส่วน 500 ms นานจนผู้ใช้รู้สึกว่าปุ่มหน่วง
+  - id: q5
+    objective: 3
+    type: single
+    prompt:
+      th: ต้องการเห็นการเด้งที่มีพัลส์สั้นที่สุดราว 20 µs อัตราสุ่มของ logic analyzer ข้อใดเหมาะที่สุด
+      en: You want to see bounce with pulses as short as about 20 µs. Which logic analyzer sample rate fits best?
+    choices:
+      - {th: 10 kHz}
+      - {th: 50 kHz}
+      - {th: 1 MHz}
+      - {th: 10 Hz}
+    answer: [2]
+    explain:
+      th: ที่ 1 MHz หนึ่งตัวอย่างห่างกัน 1 µs พัลส์ 20 µs จะมีราว 20 ตัวอย่าง เห็นชัดและวัดเวลาได้ ที่ 50 kHz (20 µs ต่อตัวอย่าง) พัลส์นี้อาจหายไปทั้งพัลส์หรือเหลือตัวอย่างเดียว

@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: ขาออกของอุปกรณ์ 1.8 V มี V_OH(min) = 1.35 V ต่อเข้าขาเข้าของอุปกรณ์ 3.3 V ที่มี V_IH(min) = 2.31 V ได้ไหม
+      en: A 1.8 V device output (V_OH(min) = 1.35 V) drives a 3.3 V input (V_IH(min) = 2.31 V). Can they connect directly?
+    choices:
+      - {th: ได้ เพราะ 1.35 V มากกว่าศูนย์}
+      - {th: ไม่ได้ ระดับ 1 ของขาออกต่ำกว่า V_IH จึงไม่รับประกันว่าจะอ่านเป็น 1}
+      - {th: ได้ ถ้าใส่ตัวต้านทาน 1 kΩ อนุกรม}
+      - {th: ไม่ได้ เพราะ V_OL สูงเกินไป}
+    answer: [1]
+    explain:
+      th: NM_H = 1.35 − 2.31 = −0.96 V ติดลบ ขาเข้าอาจอ่านเป็นอะไรก็ได้ ต้องใช้ตัวแปลงระดับ ตัวต้านทานอนุกรมไม่ได้ช่วยยกแรงดัน
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: ขาออก 3.3 V ต่อเข้าขาของชิป 1.8 V ที่ทนแรงดันขาเข้าได้สูงสุด 2.1 V ข้อใดถูก
+      en: A 3.3 V output drives a pin of a 1.8 V chip whose absolute maximum input is 2.1 V. Which is true?
+    choices:
+      - {th: ใช้ได้ปลอดภัย เพราะ 3.3 V สูงกว่า V_IH จึงอ่านเป็น 1 ได้ถูก}
+      - {th: อ่านค่าได้ถูกก็จริง แต่แรงดันเกินค่าสูงสุดที่ขาทน อาจเสียหายหรือจ่ายไฟย้อนเข้าชิป ต้องแปลงระดับ}
+      - {th: อ่านไม่ได้เลยเพราะแรงดันสูงเกิน}
+      - {th: ปลอดภัยถ้าชิป 1.8 V ปิดไฟอยู่}
+    answer: [1]
+    explain:
+      th: ในแง่ลอจิกอ่านเป็น 1 ได้ แต่ 3.3 V เกิน 2.1 V กระแสจะไหลผ่านไดโอดป้องกันเข้าไฟเลี้ยง 1.8 V ถ้าชิปปิดไฟอยู่ยิ่งแย่ เพราะมันจะถูกเลี้ยงผ่านขานั้นแทน
+  - id: q3
+    objective: 1
+    type: single
+    prompt:
+      th: ขาออกมี V_OH(min) = 2.9 V ขาเข้ามี V_IH(min) = 2.31 V ส่วนเผื่อสัญญาณรบกวนด้านสูง (NM_H) เป็นเท่าไร
+      en: An output has V_OH(min) = 2.9 V and an input has V_IH(min) = 2.31 V. What is the high noise margin?
+    choices:
+      - {th: 0.59 V}
+      - {th: 5.21 V}
+      - {th: 0.99 V}
+      - {th: −0.59 V}
+    answer: [0]
+    explain:
+      th: NM_H = V_OH(min) − V_IH(min) = 2.9 − 2.31 = 0.59 V สัญญาณรบกวนที่กดแรงดันลงไม่เกินนี้ยังอ่านเป็น 1 ได้
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: เกต XOR ได้ขาเข้า A = 1 และ B = 1 ขาออกเป็นอะไร
+      en: An XOR gate has A = 1 and B = 1. What is the output?
+    choices:
+      - {th: '0'}
+      - {th: '1'}
+      - {th: ไม่แน่นอน}
+      - {th: เท่ากับ A AND B}
+    answer: [0]
+    explain:
+      th: XOR เป็น 1 เมื่อขาเข้าต่างกันเท่านั้น A และ B เท่ากันจึงได้ 0 ส่วน A AND B ในกรณีนี้ได้ 1
+  - id: q5
+    objective: 2
+    type: single
+    prompt:
+      th: 'ALARM = ARM AND OPEN AND (NOT MAINT) ชุดค่าใดทำให้สัญญาณเตือนดัง'
+      en: 'ALARM = ARM AND OPEN AND (NOT MAINT). Which input combination sounds the alarm?'
+    choices:
+      - {th: 'ARM = 1, OPEN = 1, MAINT = 1'}
+      - {th: 'ARM = 1, OPEN = 1, MAINT = 0'}
+      - {th: 'ARM = 0, OPEN = 1, MAINT = 0'}
+      - {th: 'ARM = 1, OPEN = 0, MAINT = 0'}
+    answer: [1]
+    explain:
+      th: AND ต้องการให้ทุกเทอมเป็น 1 เทอม NOT MAINT เป็น 1 เมื่อ MAINT = 0 จึงมีเพียงแถวเดียวคือ ARM = 1, OPEN = 1, MAINT = 0
