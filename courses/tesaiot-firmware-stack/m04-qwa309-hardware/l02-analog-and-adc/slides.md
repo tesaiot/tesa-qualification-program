@@ -76,9 +76,57 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — บอร์ดฐาน QWA309 มีอะไรให้ฝึก
 
-บอร์ดฐาน QWA309 ของ TESAIoT Dev Kit มีอุปกรณ์จริงให้ฝึก ได้แก่ ปุ่มกด potentiometer 4 ตัว CAN transceiver และ header สำหรับต่ออุปกรณ์ภายนอก บทเรียนนี้ใช้แบบฝึกของ Developer Hub ที่เขียนไว้สำหรับบอร์ดนี้โดยตรง
+potentiometer 4 ตัว (VR1–VR4 ที่ P15.4–P15.7) — สองแบบฝึกอ่านตัวเดียวกัน แต่แสดงผลต่างกัน: แผงตัวเลข+บาร์ กับ กราฟเลื่อนแบบออสซิลโลสโคป
+
+---
+
+# แนวคิด — SAR ADC 12 บิตคืออะไร
+
+อ่านค่าเป็นเลข 0–4095 เทียบกับ Vref **1.8 V** (ไม่ใช่ 3.3 V) → ความละเอียด 1800/4095 ≈ 0.44 mV/ขั้น
+
+ละเอียดกว่าที่ 3.3 V (≈0.81 mV) แต่ noise เพียงไม่กี่ mV ก็ทำให้ค่า raw กระเพื่อม 1–3 ขั้นได้ตามปกติ
+
+---
+
+# แนวคิด — เริ่มต้น ADC เองในโค้ด UI module
+
+ต่างจาก I2C ที่ master template เปิดไว้ให้ (บทเรียน 1.1) ADC ต้อง init เองทั้งหมด
+
+`Cy_GPIO_Pin_FastInit(..., CY_GPIO_DM_ANALOG, ...)` ทั้ง 4 ขา → `Cy_AutAnalog_Init()` → `Enable()` → `StartAutonomousControl()`
+
+---
+
+# แนวคิด — แปลงค่าดิบด้วยเลขจำนวนเต็ม
+
+`millivolts = raw * 1800 / 4095` · `percent_tenths = raw * 1000 / 4095`
+
+raw = 2048 → 900 mV, 50.0% — ไม่ใช้ float และการหารปัดเศษทิ้งเสมอ (truncate)
+
+---
+
+# แนวคิด — "Live" กับ "ADC settling" บอกอะไร
+
+ตรวจ `Cy_AutAnalog_SAR_GetHSchanResultStatus()` ว่าครบ 4 ช่องหรือยัง — เป็นแค่ป้ายสถานะ
+
+ตัวเลขบนจอถูกอัปเดตทุกรอบอยู่แล้ว ไม่ได้รอป้ายนี้ก่อน
+
+---
+
+# แนวคิด — กราฟเลื่อน: จำนวนจุด × คาบสุ่ม = ความยาวหน้าต่าง
+
+`LV_CHART_UPDATE_MODE_SHIFT` · `SCOPE_POINTS = 100` จุด · `SCOPE_PERIOD_MS = 60` ms
+
+หน้าต่างเวลา = 100 × 60 ms = 6 วินาที — ลดคาบเหลือ 30 ms จะเหลือ 3 วินาที
+
+---
+
+# แนวคิด — ชื่อช่อง VR1–VR4 ไม่ผูกกับ index เดียวกันเสมอ
+
+Pot Monitor: VR1=index 1 (P15.5), VR2=index 0 (P15.4) — สลับกัน
+
+ADC Scope: `s_ch[]={0,1,2,3}` ตรงตัว — หมุน pot ที่ P15.4 ตัวเดียวกัน เห็น VR2 ขยับในตัวหนึ่ง แต่ VR1 ขยับในอีกตัว
 
 ---
 
@@ -88,6 +136,47 @@ section.cover img{filter:none}
 
 - `mcu.adc-dac` (ระดับ 2)
 - `gui.hmi` (ระดับ 2)
+
+---
+
+# ตัวอย่างสมบูรณ์ — แปลงค่าดิบด้วยเลขจำนวนเต็ม
+
+[`pot_monitor_ui.c`](https://github.com/tesaiot/developer-hub/blob/e5c772252e7d20f715463e0d27df9ece4e569c38/prac_qwa309_pot_monitor/pot_monitor_ui.c)
+
+```c
+raw = (uint16_t)Cy_AutAnalog_SAR_ReadResult(POT_ADC_INDEX,
+                                            CY_AUTANALOG_SAR_INPUT_GPIO,
+                                            channel->adc_channel);
+raw &= 0x0FFFU;
+
+millivolts = ((uint32_t)raw * POT_ADC_VREF_MV) / POT_ADC_FULL_SCALE;
+percent_tenths = ((uint32_t)raw * 1000U) / POT_ADC_FULL_SCALE;
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — VR1/VR2 สลับ index
+
+[`pot_monitor_ui.c`](https://github.com/tesaiot/developer-hub/blob/e5c772252e7d20f715463e0d27df9ece4e569c38/prac_qwa309_pot_monitor/pot_monitor_ui.c)
+
+```c
+static pot_channel_t pot_channels[POT_COUNT] =
+{
+    { "VR1", "P15.5  ADC5", 1U, 0x14B8A6, /* ... */ },
+    { "VR2", "P15.4  ADC4", 0U, 0x22C55E, /* ... */ },
+    { "VR3", "P15.6  ADC6", 2U, 0xF59E0B, /* ... */ },
+    { "VR4", "P15.7  ADC7", 3U, 0xF43F5E, /* ... */ },
+};
+```
+
+---
+
+# จุดที่มักพลาด
+
+- คิดว่า Vref คือ 3.3 V — จริงคือ `POT_ADC_VREF_MV = 1800` (1.8 V)
+- คิดว่าค่าแกว่ง 1–3 ขั้นคือ ADC เสีย — ที่ 0.44 mV/ขั้น noise เพียงไม่กี่ mV ก็ทำให้แกว่งได้ตามปกติ
+- เทียบชื่อ VR1–VR4 ข้ามตัวอย่างโดยไม่ดู index จริง — สองตัวอย่างแมปชื่อกับ SAR index ไม่ตรงกัน
+- รอป้าย "Live" ก่อนเชื่อค่าบนจอ — จริงคือจออัปเดตทุกรอบอยู่แล้วไม่ว่าป้ายจะขึ้นว่าอะไร
 
 ---
 

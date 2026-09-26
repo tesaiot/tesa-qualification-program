@@ -78,9 +78,59 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — บอร์ดฐาน QWA309 มีอะไรให้ฝึก
 
-บอร์ดฐาน QWA309 ของ TESAIoT Dev Kit มีอุปกรณ์จริงให้ฝึก ได้แก่ ปุ่มกด potentiometer 4 ตัว CAN transceiver และ header สำหรับต่ออุปกรณ์ภายนอก บทเรียนนี้ใช้แบบฝึกของ Developer Hub ที่เขียนไว้สำหรับบอร์ดนี้โดยตรง
+ทั้งสามแบบฝึกควบคุมจอ RGB dot-matrix ตัวเดียวกัน (DFRobot DFR0522) ผ่านไดรเวอร์ I2C ร่วมกันใน `rgb_panel.c`
+
+ต่างกันที่วิธีสั่งงาน: กดปุ่มสั่งตรง ๆ, แอนิเมชันอัตโนมัติ, และผสมสีจาก potentiometer
+
+---
+
+# แนวคิด — DFR0522 คืออะไร คำสั่งมีอะไรบ้าง
+
+จอ RGB dot-matrix 16×8 พิกเซล ที่ I2C address `0x10` รองรับ 8 สี (0–7)
+
+เฟรมคำสั่ง: `0x02` (register) + function byte (clear/fill/pixel) + สี + x + y แพดเป็น `RGB_PANEL_TX_SIZE = 51` ไบต์เสมอ
+
+---
+
+# แนวคิด — เขียนไดรเวอร์ I2C ระดับไบต์เอง
+
+`Cy_SCB_I2C_MasterSendStart()` → ลูป `MasterWriteByte()` ทีละไบต์ → `MasterSendStop()` เสมอไม่ว่าจะสำเร็จหรือไม่
+
+ทั้งสามแบบฝึกเรียกไดรเวอร์เดียวกันผ่าน `rgb_panel_clear/fill/pixel()`
+
+---
+
+# แนวคิด — ใช้บัสร่วมกับจอ/ทัช ไม่ใช่ sensor I2C
+
+`DISPLAY_I2C_CONTROLLER_HW` + `disp_touch_i2c_controller_context` — บัสเดียวกับจอ/ทัชที่ 3.3 V
+
+sensor I2C ของ master อยู่บน 1.8 V domain คนละบัส ต่อผิดอาจสื่อสารไม่ได้หรือขาเสียหาย
+
+---
+
+# แนวคิด — ตรวจอุปกรณ์ก่อนเชื่อผล
+
+ปุ่ม "Check 0x10" ส่งแค่ START+address+STOP ดู ACK/NACK
+
+"ADDRESS NACK" = ไม่มีอุปกรณ์ตอบ (สาย/ไฟ/address) ต่างจาก error หลัง address ตอบแล้ว (คำสั่ง/timing)
+
+---
+
+# แนวคิด — ผสม R/G/B ด้วยการแพ็กบิต (Pot → RGB Mixer)
+
+`raw ≥ MIX_THRESHOLD (2048)` → เปิดบิตของช่องนั้น b0=R b1=G b2=B แล้ว cast ตรงเป็น `rgb_panel_color_t`
+
+เขียนแผงเฉพาะตอนสีเปลี่ยน (`color != s_last_color`) เพื่อลดภาระบัส
+
+---
+
+# แนวคิด — แอนิเมชันด้วย state machine (RGB Matrix FX)
+
+`s_frame` นับ 0–23 ต่อเอฟเฟกต์ (`FX_FRAMES_PER_EFFECT=24`) แล้ว `s_effect` วนมอดุโล 3
+
+Colour Cycle / Pixel Sweep / Row Wipe — ทุกเอฟเฟกต์เรียก `rgb_panel` ตัวเดียวกัน
 
 ---
 
@@ -90,6 +140,59 @@ section.cover img{filter:none}
 
 - `proto.i2c` (ระดับ 2)
 - `sys.sensors-actuators` (ระดับ 2)
+
+---
+
+# ตัวอย่างสมบูรณ์ — ไดรเวอร์ I2C ระดับไบต์
+
+[`rgb_panel.c`](https://github.com/tesaiot/developer-hub/blob/e5c772252e7d20f715463e0d27df9ece4e569c38/prac_qwa309_rgb_matrix/rgb_panel.c) — ทั้งสามแบบฝึกเรียกไดรเวอร์นี้ร่วมกัน:
+
+```c
+status = Cy_SCB_I2C_MasterSendStart(base, RGB_PANEL_I2C_ADDRESS,
+                    CY_SCB_I2C_WRITE_XFER,
+                    RGB_PANEL_BYTE_TIMEOUT_MS, context);
+
+if (status == CY_SCB_I2C_SUCCESS) {
+    for (uint32_t i = 0U; i < RGB_PANEL_TX_SIZE; i++) {
+        status = Cy_SCB_I2C_MasterWriteByte(base, tx_buffer[i],
+                    RGB_PANEL_BYTE_TIMEOUT_MS, context);
+        if (status != CY_SCB_I2C_SUCCESS) { break; }
+    }
+}
+
+stop_status = Cy_SCB_I2C_MasterSendStop(base,
+                RGB_PANEL_BYTE_TIMEOUT_MS, context);
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — ผสมสีด้วยการแพ็กบิต
+
+[`pot_rgb_mixer_ui.c`](https://github.com/tesaiot/developer-hub/blob/e5c772252e7d20f715463e0d27df9ece4e569c38/prac_qwa309_pot_rgb_mixer/pot_rgb_mixer_ui.c)
+
+```c
+uint8_t bits = 0U;
+for (uint8_t i = 0U; i < 3U; i++) {
+    uint16_t raw = mix_read(s_ch[i].ch);
+    if (raw >= MIX_THRESHOLD) { bits |= (uint8_t)(1U << i); }
+}
+
+rgb_panel_color_t color = (rgb_panel_color_t)bits;
+if (color != s_last_color) {
+    s_last_color = color;
+    (void)rgb_panel_fill(DISPLAY_I2C_CONTROLLER_HW,
+                         &disp_touch_i2c_controller_context, color);
+}
+```
+
+---
+
+# จุดที่มักพลาด
+
+- ต่อ DFR0522 เข้า sensor I2C (1.8 V) แทนบัส 3.3 V ของจอ/ทัช — ต้องใช้ `DISPLAY_I2C_CONTROLLER_HW` เสมอ
+- สรุปว่า "ADDRESS NACK" กับ error หลังจากนั้นคือปัญหาเดียวกัน — คนละสาเหตุ (สาย/ไฟ vs คำสั่ง/timing)
+- เขียนแผงทุกรอบโพลโดยไม่เช็กว่าสีเปลี่ยนหรือไม่ — เปลืองบัสที่ใช้ร่วมกับทัช
+- ลืมว่า `rgb_panel_fill/pixel()` ตรวจขอบเขตพารามิเตอร์และคืน `BAD_PARAM` ก่อนส่งเสมอ
 
 ---
 

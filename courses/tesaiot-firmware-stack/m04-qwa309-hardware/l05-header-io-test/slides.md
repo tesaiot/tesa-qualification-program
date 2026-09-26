@@ -74,9 +74,59 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — บอร์ดฐาน QWA309 มีอะไรให้ฝึก
 
-บอร์ดฐาน QWA309 ของ TESAIoT Dev Kit มีอุปกรณ์จริงให้ฝึก ได้แก่ ปุ่มกด potentiometer 4 ตัว CAN transceiver และ header สำหรับต่ออุปกรณ์ภายนอก บทเรียนนี้ใช้แบบฝึกของ Developer Hub ที่เขียนไว้สำหรับบอร์ดนี้โดยตรง
+header ของ QWA309 เป็นเครื่องมือ diagnostic ตรวจ I/O ทุกแบบในโปรแกรมเดียว: I2C, UART, SPI, GPIO, PWM, ADC/PWM3
+
+การทดสอบส่วนใหญ่ต้องต่อสายไปยังบอร์ด ESP32-S3 companion ที่รันเฟิร์มแวร์ simulator
+
+---
+
+# แนวคิด — ทดสอบอะไรบ้าง ผ่านขาไหน
+
+Scan/I2C ESP32 (0x30) · UART Echo (SCB9, P15.0/1, 115200) · SPI ESP32 (bit-bang P9.0-3)
+
+GPIO In/Out (P13.0,3-7) · PWM Out (P13.3/4) · ADC In/PWM3 Out (P15.2/3) — ปุ่มละหนึ่งบัส
+
+---
+
+# แนวคิด — ยืนยันคำตอบด้วย magic + counter + checksum
+
+แพ็กเก็ต: magic คงที่ (0xA5 คำขอ / 0x5A คำตอบ) + command + counter + `xor_checksum()`
+
+PASS ยืนยันเฉพาะเส้นทางที่ทดสอบ ไม่ได้แปลว่าขาอื่นใช้งานได้ด้วย
+
+---
+
+# แนวคิด — สแกน I2C เฉพาะช่วงที่มาตรฐานสงวนไว้
+
+`I2C_SCAN_MIN_ADDR=0x08` ถึง `MAX_ADDR=0x77` ไม่ใช่เต็ม 0x00–0x7F
+
+0x00–0x07 และ 0x78–0x7F สงวนไว้ (general call, 10-bit addressing) probe เข้าไปอาจกระตุ้นพฤติกรรมพิเศษ
+
+---
+
+# แนวคิด — SPI bit-bang: CPU สลับขาเองทีละบิต
+
+`Cy_GPIO_Write/Read()` ธรรมดาบน P9.0-3 แทนฮาร์ดแวร์ SCB — mode 0, delay 5 µs ต่อขอบ
+
+ยืดหยุ่นเรื่องขาแต่ช้ากว่า และ clock แกว่งได้เมื่อมี interrupt แทรก
+
+---
+
+# แนวคิด — PWM รายงาน "SENT" ไม่ใช่ "PASS"
+
+`Cy_GPIO_Write()` สลับ P13.3/P13.4 ตรง ๆ (25 Hz, 50 รอบ) ไม่ใช้ PWM peripheral
+
+บอร์ดสั่งออกได้แต่ตรวจเองไม่ได้ว่าถึงปลายทาง — ต้องยืนยันด้วยเครื่องมือวัดแยก
+
+---
+
+# แนวคิด — เครื่องมือวัดกับผลซอฟต์แวร์ขัดกัน เชื่ออะไรก่อน
+
+ตรวจการตั้งค่าเครื่องมือวัดเอง (สาย กราวด์ threshold sample rate trigger) ก่อน
+
+วัดสัญญาณที่รู้ผลแน่นอนก่อนเปรียบเทียบ — validate เครื่องมือก่อนเชื่อตัวเลข
 
 ---
 
@@ -89,6 +139,59 @@ section.cover img{filter:none}
 - `proto.i2c` (ระดับ 2)
 - `mcu.pwm` (ระดับ 1)
 - `meas.logic-analyzer` (ระดับ 1)
+
+---
+
+# ตัวอย่างสมบูรณ์ — สแกน I2C เฉพาะช่วงมาตรฐาน
+
+[`header_tester_ui.c`](https://github.com/tesaiot/developer-hub/blob/e5c772252e7d20f715463e0d27df9ece4e569c38/prac_qwa309_header_hw_test/header_tester_ui.c)
+
+```c
+for (uint8_t row = 0U; row < 8U; row++) {
+    for (uint8_t col = 0U; col < 16U; col++) {
+        uint8_t address = (uint8_t)(row * 16U + col);
+
+        if ((address < I2C_SCAN_MIN_ADDR) ||
+            (address > I2C_SCAN_MAX_ADDR)) {
+            continue;   /* reserved range */
+        }
+        bool device_found = probe_i2c_address(address, NULL);
+        /* ... record + print ... */
+    }
+}
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — SPI bit-bang ทีละบิต
+
+[`header_tester_ui.c`](https://github.com/tesaiot/developer-hub/blob/e5c772252e7d20f715463e0d27df9ece4e569c38/prac_qwa309_header_hw_test/header_tester_ui.c)
+
+```c
+for (int8_t bit = 7; bit >= 0; bit--)
+{
+    uint32_t tx_bit = ((tx[byte_index] >> (uint8_t)bit) & 0x01U);
+    Cy_GPIO_Write(HEADER_SPI_MOSI_PORT, HEADER_SPI_MOSI_PIN, tx_bit);
+    Cy_SysLib_DelayUs(5U);
+    Cy_GPIO_Write(HEADER_SPI_CLK_PORT, HEADER_SPI_CLK_PIN, 1U);
+    Cy_SysLib_DelayUs(5U);
+    if (Cy_GPIO_Read(HEADER_SPI_MISO_PORT, HEADER_SPI_MISO_PIN) != 0U) {
+        rx_byte |= (uint8_t)(1U << (uint8_t)bit);
+    }
+    Cy_GPIO_Write(HEADER_SPI_CLK_PORT, HEADER_SPI_CLK_PIN, 0U);
+    Cy_SysLib_DelayUs(5U);
+}
+```
+
+---
+
+# จุดที่มักพลาด
+
+- PASS ของเส้นทางหนึ่ง ≠ ขาอื่นบน header ใช้งานได้ด้วย — โปรโตคอลยืนยันแค่เส้นทางที่ทดสอบ
+- สแกน I2C เต็ม 0x00–0x7F — ช่วงต้น/ท้ายสงวนไว้ อาจกระตุ้นพฤติกรรมพิเศษ
+- คิดว่า SPI bit-bang เหมือน SPI ฮาร์ดแวร์ทุกด้าน — ช้ากว่าและ clock แกว่งได้
+- เห็น "SENT" ของ PWM แล้วสรุปว่าผ่าน — บอร์ดตรวจเองไม่ได้ว่าถึงปลายทาง
+- เครื่องมือวัดกับซอฟต์แวร์ขัดกันแล้วเชื่อเครื่องมือทันที — ตรวจการตั้งค่าเครื่องมือเองก่อน
 
 ---
 

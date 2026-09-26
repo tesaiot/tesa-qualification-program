@@ -76,9 +76,43 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — บอร์ดฐาน QWA309 มีอะไรให้ฝึก
 
-บอร์ดฐาน QWA309 ของ TESAIoT Dev Kit มีอุปกรณ์จริงให้ฝึก ได้แก่ ปุ่มกด potentiometer 4 ตัว CAN transceiver และ header สำหรับต่ออุปกรณ์ภายนอก บทเรียนนี้ใช้แบบฝึกของ Developer Hub ที่เขียนไว้สำหรับบอร์ดนี้โดยตรง
+ปุ่มกด potentiometer 4 ตัว CAN transceiver และ header สำหรับต่ออุปกรณ์ภายนอก — บทเรียนนี้ใช้แบบฝึกของ Developer Hub ที่เขียนไว้สำหรับบอร์ดนี้โดยตรง
+
+สองแบบฝึกแรกใช้ปุ่มกดสองตัวเดียวกันเป็นข้อมูลเข้า แต่อ่านค่าคนละแบบ: อ่าน **สถานะปัจจุบัน** (level) เทียบกับจับ **จังหวะที่เพิ่งเปลี่ยน** (edge)
+
+---
+
+# แนวคิด — ปุ่มกด active-low พร้อม internal pull-up
+
+`Cy_GPIO_Pin_FastInit(port, pin, CY_GPIO_DM_PULLUP, 1UL, HSIOM_SEL_GPIO)` เปิด pull-up ในตัวชิป ดึงขาขึ้น HIGH เมื่อไม่มีอะไรมาแตะ
+
+ปุ่มต่อลงกราวด์เมื่อกด ขาจึงลง LOW และ `Cy_GPIO_Read()` คืนค่า 0 — เขียนเงื่อนไข "กด" เป็น `0U == Cy_GPIO_Read(...)`
+
+---
+
+# แนวคิด — debounce แบบนับรอบ (Push Button Monitor)
+
+โพลทุก `BUTTON_REFRESH_PERIOD_MS = 25` ms ค่าต้องอ่านได้ระดับเดียวกันติดกัน 3 ครั้ง (`BUTTON_DEBOUNCE_TICKS = 2`) ≈ 50 ms จึงยอมรับว่าสถานะเปลี่ยนจริง
+
+`press_count` เพิ่มเฉพาะตอนสถานะเสถียรเปลี่ยนเป็นกด · `hold_time_ms` สะสมทีละ 25 ms ขณะกดค้าง
+
+---
+
+# แนวคิด — จับ "ขอบขาลง" แทนสถานะค้าง (Hardware Button Menu)
+
+`btn_pressed_edge()` debounce แบบเดียวกัน (`MENU_DEBOUNCE = 2` ที่ 30 ms) แต่คืน `true` แค่รอบที่เพิ่งเปลี่ยนจากปล่อยเป็นกด
+
+กดค้างนานเท่าไร highlight ก็เลื่อนแค่ครั้งเดียวต่อการกด — วนด้วย `(s_sel + 1U) % MENU_ITEMS` (4 รายการ)
+
+---
+
+# แนวคิด — ชื่อปุ่มไม่ตรงกัน: SW9/SW10 เทียบกับ SW5/SW6
+
+`metadata.json` และคอมเมนต์ของ Push Button Monitor เขียนว่า "SW9 (P17.5) และ SW10 (P17.7)"
+
+แต่โค้ดจริงใน `buttons[]` ใช้ `"SW5"` (P17.7) และ `"SW6"` (P17.5) — ตรงกับ Hardware Button Menu และลายพิมพ์บนบอร์ด ให้ยึดตามโค้ด
 
 ---
 
@@ -88,6 +122,64 @@ section.cover img{filter:none}
 
 - `mcu.gpio` (ระดับ 2)
 - `gui.hmi` (ระดับ 2)
+
+---
+
+# ตัวอย่างสมบูรณ์ — debounce แบบนับรอบ (level)
+
+[`button_monitor_ui.c`](https://github.com/tesaiot/developer-hub/blob/e5c772252e7d20f715463e0d27df9ece4e569c38/prac_qwa309_button_monitor/button_monitor_ui.c)
+
+```c
+bool sampled_pressed =
+    (0U == Cy_GPIO_Read(button->port, button->pin_num));
+
+if (sampled_pressed == button->last_sample_pressed) {
+    if (button->debounce_count < BUTTON_DEBOUNCE_TICKS) {
+        button->debounce_count++;
+    }
+} else {
+    button->last_sample_pressed = sampled_pressed;
+    button->debounce_count = 0U;
+}
+
+if ((button->debounce_count >= BUTTON_DEBOUNCE_TICKS) &&
+    (sampled_pressed != button->stable_pressed)) {
+    button->stable_pressed = sampled_pressed;   /* commit */
+}
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — จับขอบขาลง (edge)
+
+[`hw_button_menu_ui.c`](https://github.com/tesaiot/developer-hub/blob/e5c772252e7d20f715463e0d27df9ece4e569c38/prac_qwa309_hw_button_menu/hw_button_menu_ui.c)
+
+```c
+static bool btn_pressed_edge(btn_t *b)
+{
+    bool raw = (0U == Cy_GPIO_Read(b->port, b->pin));
+    bool edge = false;
+    if (raw == b->last) {
+        if (b->cnt < MENU_DEBOUNCE) { b->cnt++; }
+        if ((b->cnt >= MENU_DEBOUNCE) && (raw != b->stable)) {
+            b->stable = raw;
+            if (raw) { edge = true; }   /* press edge */
+        }
+    } else {
+        b->cnt = 0U;
+    }
+    b->last = raw;
+    return edge;
+}
+```
+
+---
+
+# จุดที่มักพลาด
+
+- ลืมตั้ง pull-up แล้วปล่อยขาเป็น high-Z — ขาลอยตอนปล่อย ค่าจะแกว่งตามสัญญาณรบกวน
+- คิดว่ากดค้างแล้วเมนูเลื่อนซ้ำ — จริงคือเลื่อนครั้งเดียวต่อการกด เพราะจับที่ edge ไม่ใช่ level
+- ผสมสองรูปแบบเข้าด้วยกัน — ต้องเลือก level หรือ edge ให้ตรงกับพฤติกรรมที่ต้องการ
 
 ---
 

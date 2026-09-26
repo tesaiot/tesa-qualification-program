@@ -74,9 +74,59 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — บอร์ดฐาน QWA309 มีอะไรให้ฝึก
 
-บอร์ดฐาน QWA309 ของ TESAIoT Dev Kit มีอุปกรณ์จริงให้ฝึก ได้แก่ ปุ่มกด potentiometer 4 ตัว CAN transceiver และ header สำหรับต่ออุปกรณ์ภายนอก บทเรียนนี้ใช้แบบฝึกของ Developer Hub ที่เขียนไว้สำหรับบอร์ดนี้โดยตรง
+CAN transceiver บนบอร์ดฐาน — ตั้ง CANFD0 เป็น Classic CAN 2.0A ล้วน (ไม่ใช้ฟีเจอร์ CAN FD) ที่ 500 kbps
+
+ทั้งส่งและรับเฟรมในโปรแกรมเดียว บนแกน CM55
+
+---
+
+# แนวคิด — bit timing ที่รวมกันได้ 500 kbps
+
+clock 100 MHz · prescaler 10 · TS1 15 · TS2 4 (รีจิสเตอร์เก็บ n−1)
+
+1 บิต = 1+15+4 = 20 quanta · 100/10=10 MHz ÷ 20 = **500 kbps** · sample point = 16/20 = 80%
+
+---
+
+# แนวคิด — ตั้งค่าทั้งหมดด้วยโค้ด PDL ล้วน
+
+`can_pins_init()` HSIOM P16.2/P16.3 → `can_clock_init()` จ่าย peripheral clock → `Cy_CANFD_EnableMRAM()` → `Cy_CANFD_Init(&g_cfg)`
+
+ไม่แตะ Device Configurator เลย
+
+---
+
+# แนวคิด — โหมด polled ล้วน ไม่มี ISR
+
+`txCallback/rxCallback/errorCallback = NULL` ไม่ลงทะเบียน NVIC
+
+ส่ง-รับทำงานใน `can_timer_cb()` บน `lv_timer` ทุก 250 ms — รันในงาน LVGL เดียวกับที่วาดจอ
+
+---
+
+# แนวคิด — heartbeat 1 ครั้ง/วินาทีด้วย one-shot TX (DAR)
+
+ส่งทุก `CAN_TX_EVERY_TICKS=4` รอบ (4×250ms=1s) ตั้งบิต DAR ปิด auto-retransmit
+
+`g_tx_count` เพิ่มเมื่อ **ส่งสำเร็จเข้าคิว** เท่านั้น ไม่ได้แปลว่ามีใครรับจริง
+
+---
+
+# แนวคิด — รับเฟรมทีละเฟรมต่อรอบโพล
+
+`can_poll_rx()` ดึงจาก FIFO (4 ช่อง) แค่ 1 เฟรม/ครั้ง ที่ 250 ms/ครั้ง → รับได้สูงสุด ~4 เฟรม/วินาที
+
+peer ส่งเร็วกว่านี้ FIFO เต็ม เฟรมส่วนเกินหายไปเงียบ ๆ
+
+---
+
+# แนวคิด — arbitration: dominant ชนะ ไม่ใช่ "เลขน้อยกว่า"
+
+บิต 0 (dominant) ชนะบิต 1 (recessive) เสมอเมื่อชนกัน — ID ที่บิตสูงเป็น 0 จึงชนะ ไม่ใช่การเทียบตัวเลข
+
+ต้องมี terminator 120 Ω ที่ปลายสายทั้งสองด้าน (P9) ลดการสะท้อนสัญญาณ
 
 ---
 
@@ -86,6 +136,54 @@ section.cover img{filter:none}
 
 - `proto.can` (ระดับ 2)
 - `gui.hmi` (ระดับ 2)
+
+---
+
+# ตัวอย่างสมบูรณ์ — ตั้งบิต DAR (one-shot TX)
+
+[`can_monitor_ui.c`](https://github.com/tesaiot/developer-hub/blob/e5c772252e7d20f715463e0d27df9ece4e569c38/prac_qwa309_can_monitor/can_monitor_ui.c)
+
+```c
+if (CY_CANFD_SUCCESS != Cy_CANFD_Init(CANBUS_HW, CANBUS_CHANNEL,
+                                       &g_cfg, &g_ctx)) {
+    return false;
+}
+Cy_CANFD_ConfigChangesEnable(CANBUS_HW, CANBUS_CHANNEL);
+/* One-shot TX: disable automatic retransmission so a frame
+ * is not held pending an ACK when no peer node is on the bus. */
+CANBUS_HW->CH[CANBUS_CHANNEL].M_TTCAN.CCCR |=
+    CANFD_CH_M_TTCAN_CCCR_DAR_Msk;
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — โพล RX FIFO ครั้งเดียวต่อรอบ
+
+[`can_monitor_ui.c`](https://github.com/tesaiot/developer-hub/blob/e5c772252e7d20f715463e0d27df9ece4e569c38/prac_qwa309_can_monitor/can_monitor_ui.c)
+
+```c
+static void can_poll_rx(void)
+{
+    uint32_t irq = Cy_CANFD_GetInterruptStatus(CANBUS_HW, CANBUS_CHANNEL);
+    if (0U != (irq & CY_CANFD_RX_FIFO_0_NEW_MESSAGE)) {
+        if (CY_CANFD_SUCCESS ==
+            Cy_CANFD_GetFIFOTop(CANBUS_HW, CANBUS_CHANNEL, 0U, &g_rx_buf)) {
+            g_last_rx_id  = g_r0.id;
+            g_last_rx_dlc = g_r1.dlc;
+        }
+        Cy_CANFD_AckRxFifo(CANBUS_HW, CANBUS_CHANNEL, 0U);
+    }
+}
+```
+
+---
+
+# จุดที่มักพลาด
+
+- ตัวนับ TX เพิ่มขึ้น ≠ มีคนรับเฟรม — DAR ปิดการรอ ACK ไว้ ต้องมี node อื่นยืนยัน
+- ต่อบัสจริงไม่ใส่ terminator 120 Ω — สัญญาณสะท้อน อ่านบิตผิด แต่ใส่ทุก node ก็ผิดเช่นกัน
+- คาดว่าจะรับได้ทุกเฟรม — โพลได้แค่ 1 เฟรม/250 ms เฟรมส่วนเกินหายไปเงียบ ๆ
+- คิดว่า ID น้อยกว่าชนะเพราะเป็นตัวเลข — จริงคือกลไกไฟฟ้า (dominant ชนะ recessive)
 
 ---
 
