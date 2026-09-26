@@ -31,6 +31,7 @@ python3 tools/gen_reuse.py         # สร้าง REUSE.toml ใหม่ แ
 | `python3 tools/export.py --out DIR` | เขียน `skills.json` `courses.json` `coverage.json` `case.json` ให้เว็บไซต์ใช้ |
 | `python3 tools/gen_credits.py [--check]` | สร้าง `CREDITS.md` · `--check` ออก exit 1 ถ้าไฟล์ไม่ตรงกับ credits.yaml |
 | `python3 tools/gen_reuse.py [--check]` | สร้าง `REUSE.toml` ตามนโยบายใน `tools/policy.yaml` · `--check` ออก exit 1 ถ้าไม่ตรง |
+| `python3 tools/check_authorship.py [--range A..B]` | ตรวจทุก commit ว่าผู้เขียนและผู้ร่วมเขียนเป็นคน ไม่มีเครดิตผู้ช่วย AI · exit 1 ถ้าพบ · exit 2 ถ้าตรวจไม่ได้ (เช่น clone แบบ shallow) |
 | `python3 tools/i18n_stale.py [--strict]` | บอกว่าหน้า `README.en.md` ใดแปลจากเนื้อหาไทยฉบับเก่า · `--hash README.md` พิมพ์ค่าที่ต้องใส่ |
 | `python -m pytest tools/tests -q` | ทดสอบเครื่องมือเอง ทุกข้อตรวจต้องพิสูจน์ได้ทั้งตอนผ่านและตอนไม่ผ่าน |
 
@@ -85,6 +86,7 @@ python3 tools/gen_reuse.py         # regenerate REUSE.toml, then run `reuse lint
 | `python3 tools/export.py --out DIR` | Writes `skills.json`, `courses.json`, `coverage.json`, `case.json` for the site. |
 | `python3 tools/gen_credits.py [--check]` | Builds `CREDITS.md`; `--check` exits 1 when it is stale. |
 | `python3 tools/gen_reuse.py [--check]` | Builds `REUSE.toml` from `tools/policy.yaml` and the credits; `--check` exits 1 when stale. |
+| `python3 tools/check_authorship.py [--range A..B]` | Checks every commit: authors and co-authors are people, no AI-assistant credit · exit 1 when found · exit 2 when it could not check (e.g. a shallow clone). |
 | `python3 tools/i18n_stale.py [--strict]` | Lists English pages translated from an older Thai body; `--hash README.md` prints the value to record. |
 | `python -m pytest tools/tests -q` | Self-tests: every check is shown to pass on a clean fixture AND to fail on a one-change mutation of it. |
 

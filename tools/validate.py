@@ -28,6 +28,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import check_terms  # noqa: E402
+from _authorship import authorship_findings  # noqa: E402
 from _common import (FIXTURES_REL, REPO_ROOT, SCHEMA_DIR, YamlDoc, is_text_file,  # noqa: E402
                      iter_files, load_policy, load_site_config, load_yaml, mask_code,
                      parse_yaml, read_text, split_front_matter)
@@ -60,6 +61,7 @@ CHECKS: dict[str, str] = {
     "size": "no file over the size limit under courses/",
     "secrets": "no literal passwords/tokens/private keys under courses/",
     "leaks": "no internal paths or retired domain in published files",
+    "authorship": "no AI assistant credited as author, co-author or generator in any file",
     "tesa-footer": "every courses/**/slides.md footer credits TESA",
     "tesa-cite": "every course README.md / README.en.md has the TESA citation block",
     "tesa-notice": "root NOTICE and ATTRIBUTION.md exist and name TESA",
@@ -81,7 +83,7 @@ THIRD_PARTY_MARKERS = ("commons", "wikimedia", "pmc", "nasa", "esa", "flickr", "
 LEAK_PATTERNS = (
     (re.compile(r"/mnt/tesaiot"), "internal volume path"),
     (re.compile(r"/home/wiroon\b"), "internal home path"),
-    (re.compile(r"/tmp/claude-"), "internal scratch path"),
+    (re.compile(r"/tmp/[^/\s]+/-(?:mnt|home)-"), "internal scratch path"),
     (re.compile(r"TESAIoT_PLAN|Bento_Engine|IMPLEMENT_PLAN|TESA_Rules"), "internal plan folder"),
     (re.compile(r"\btesaiot\.com\b", re.I), "retired domain tesaiot.com (use tesaiot.dev)"),
 )
@@ -1137,6 +1139,9 @@ def scan_files(ctx: Ctx) -> None:
         text = text.replace("\r\n", "\n")
         if not f.startswith("tools/"):
             check_leaks(ctx, f, text)
+        if not f.startswith("tools/tests/"):
+            for n, what, hit in authorship_findings(text):
+                ctx.rep.error("authorship", f, n, f"{what}: {hit!r} — authors are people (CONTRIBUTING.md)")
         if in_courses:
             check_secrets(ctx, f, text, allow)
         kind = check_terms.kind_of(f)

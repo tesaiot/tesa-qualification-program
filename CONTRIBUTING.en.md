@@ -33,6 +33,13 @@ git appends `Signed-off-by: Your Real Name <your@email>` to the message.
 
 Pull requests with unsigned commits are not merged.
 
+### Authors are people
+
+Authors, co-authors and sign-offs name real people only. If an AI assistant helped you write code or content, do not add a
+`Co-authored-by:` trailer or a "Generated with …" footer that credits it, in a commit or in a file. You answer for what you
+submit, as the DCO sign-off certifies. CI checks every commit and every file (`tools/check_authorship.py` and
+`tools/validate.py`) and fails if it finds one.
+
 ## Pick your route
 
 | You want to | Start here |

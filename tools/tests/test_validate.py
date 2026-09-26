@@ -202,6 +202,22 @@ def m_leaks_path(r: Path):
     edit(r / L2 / "README.md", "## แนวคิด\n", "## แนวคิด\n\nไฟล์อยู่ที่ /mnt/tesaiot_volume/x\n")
 
 
+def m_leaks_scratch(r: Path):
+    edit(r / L2 / "README.md", "## แนวคิด\n", "## แนวคิด\n\nร่างอยู่ที่ /tmp/agent-1000/-mnt-volume-x/scratchpad/a.md\n")
+
+
+# Built from parts so this test file never carries the credit it tests for.
+AI_NAME, AI_ADDR = "Cl" + "aude", "noreply@" + "anthropic.com"
+
+
+def m_authorship_trailer(r: Path):
+    edit(r / L2 / "README.md", "## แนวคิด\n", f"## แนวคิด\n\nCo-Authored-By: {AI_NAME} <{AI_ADDR}>\n")
+
+
+def m_authorship_generated(r: Path):
+    edit(r / "README.md", "# ชุดทดสอบ", f"# ชุดทดสอบ\n\n🤖 Generated with {AI_NAME} Code")
+
+
 def m_footer(r: Path):
     edit(r / L1 / "slides.md", 'footer: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY 4.0"',
          'footer: "AIoT in Action"')
@@ -293,6 +309,9 @@ CASES = [
     (m_secrets_key, "secrets", "error"),
     (m_leaks, "leaks", "error"),
     (m_leaks_path, "leaks", "error"),
+    (m_leaks_scratch, "leaks", "error"),
+    (m_authorship_trailer, "authorship", "error"),
+    (m_authorship_generated, "authorship", "error"),
     (m_footer, "tesa-footer", "error"),
     (m_footer_directive, "tesa-footer", "error"),
     (m_footer_partial, "tesa-footer", "warning"),

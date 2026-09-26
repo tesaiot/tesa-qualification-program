@@ -474,7 +474,7 @@ SECRET_LITERAL_PATTERNS = [
 # Same list as tools/validate.py LEAK_PATTERNS (internal paths, retired domain). The pragma keeps the
 # validator from reporting this detector's own pattern as a leak.
 INTERNAL_PATH_RE = re.compile(  # validate:ignore-leak
-    r"/mnt/tesaiot|/home/wiroon\b|/tmp/claude-|TESAIoT_PLAN|Bento_Engine|IMPLEMENT_PLAN|TESA_Rules|\btesaiot\.com\b",  # validate:ignore-leak
+    r"/mnt/tesaiot|/home/wiroon\b|/tmp/[^/\s]+/-(?:mnt|home)-|TESAIoT_PLAN|Bento_Engine|IMPLEMENT_PLAN|TESA_Rules|\btesaiot\.com\b",  # validate:ignore-leak
     re.I,
 )
 # A literal that is obviously a placeholder (same rule as tools/validate.py PLACEHOLDER).
