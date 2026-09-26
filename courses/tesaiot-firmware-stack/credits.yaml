@@ -1,1 +1,8 @@
-images: []
+images:
+  - path: cover.webp
+    title: "TESAIoT Dev Kit (PSOC™ Edge AI Kit SoM on the QWA309 base board)"
+    author: "TESAIoT PSE84 Dev Kit SDK, Thai Embedded Systems Association (TESA)"
+    source: "https://github.com/tesaiot/tesaiot-pse84-devkit-sdk/blob/ef72c1b658178eee8c38b1e47d28b006f80a59b5/docs/assets/tesaiot-dev-kit.webp"
+    license: Apache-2.0
+    modified: true
+    note: "Board photo placed on a gradient background and sized 960x540 for the course card."

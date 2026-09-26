@@ -16,6 +16,7 @@ audience:
 - student
 - educator
 hours: 18
+cover: {image: cover.webp}
 hardware:
   emulator: true
   boards:

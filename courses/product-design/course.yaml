@@ -18,6 +18,7 @@ audience:
 - entrepreneur
 - educator
 hours: 18
+cover: {image: cover.webp}
 hardware:
   emulator: false
   boards:

@@ -285,6 +285,28 @@
           }
         }
       }
+    },
+    "cover": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "image"
+      ],
+      "description": "Card cover image of the course (16:9). Third-party images must also be listed in credits.yaml; own images set own: true.",
+      "properties": {
+        "image": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9._/-]+\\.(webp|jpg|jpeg|png)$"
+        },
+        "own": {
+          "type": "boolean"
+        },
+        "position": {
+          "type": "string",
+          "pattern": "^[a-z0-9% .-]{1,32}$",
+          "description": "CSS object-position, e.g. 'center 40%'"
+        }
+      }
     }
   },
   "$defs": {

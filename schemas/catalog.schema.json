@@ -95,6 +95,14 @@
                 }
               }
             }
+          },
+          "nav": {
+            "$ref": "#/$defs/i18n",
+            "description": "Short label for the site navigation"
+          },
+          "featured": {
+            "type": "boolean",
+            "description": "Mark as a core course on course cards"
           }
         },
         "if": {

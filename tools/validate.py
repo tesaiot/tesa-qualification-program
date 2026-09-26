@@ -44,6 +44,7 @@ CHECKS: dict[str, str] = {
     "skills": "skill map integrity; every skill id used exists, is not deprecated, level 1-5",
     "catalog": "catalog/courses.yaml <-> courses/<id>/ folders and course.yaml id/short/level",
     "structure": "required files; mNN-/lNN- folders <-> course.yaml modules; lesson ids",
+    "cover": "course.yaml cover: the image exists, is .webp/.jpg/.png under 600 KB, and a third-party cover is credited",
     "prereq": "lesson and course prerequisites exist",
     "tracks": "catalog/tracks.yaml references existing courses and modules",
     "roles": "skills/roles/*.yaml reference existing skills",
@@ -416,6 +417,9 @@ def check_course(ctx: Ctx, cid: str) -> None:
                 if isinstance(ps, dict):
                     _skill_ref(ctx, ps.get("skill"), ps.get("level"), rp,
                                doc.line_of(("prerequisites", "skills", i)), "prerequisites.skills")
+        cov = course.get("cover")
+        if isinstance(cov, dict) and isinstance(cov.get("image"), str):
+            check_cover(ctx, cid, cdir, rp, doc.line_of(("cover", "image")), cov)
     ctx.courses[cid] = course
     # The catalog (lead-owned) is the source of truth for the lesson-id prefix; a course.yaml that
     # disagrees is reported once above instead of once per lesson.
@@ -628,6 +632,29 @@ def check_prereqs(ctx: Ctx) -> None:
             ctx.rep.error("prereq", rp, line, f"prerequisite lesson {pid!r} does not exist")
         elif pid == lid:
             ctx.rep.error("prereq", rp, line, "a lesson cannot be its own prerequisite")
+
+
+COVER_MAX_KB = 600
+
+
+def check_cover(ctx: Ctx, cid: str, cdir: Path, rp: str, line: int, cov: dict) -> None:
+    img = cdir / cov["image"]
+    if not img.is_file():
+        ctx.rep.error("cover", rp, line, f"cover image {cov['image']!r} does not exist in courses/{cid}/")
+        return
+    kb = img.stat().st_size // 1024
+    if kb > COVER_MAX_KB:
+        ctx.rep.error("cover", rp, line, f"cover image is {kb} KB; keep it under {COVER_MAX_KB} KB (a 1280x720 WebP is enough)")
+    if cov.get("own") is not True:
+        credits = cdir / "credits.yaml"
+        listed = set()
+        if credits.is_file():
+            data = load_yaml(credits).data   # a broken credits.yaml is reported by the credits check
+            if isinstance(data, dict):
+                listed = {im.get("path") for im in data.get("images") or [] if isinstance(im, dict)}
+        if cov["image"] not in listed:
+            ctx.rep.error("cover", rp, line, f"cover image {cov['image']!r} is not in courses/{cid}/credits.yaml "
+                          "(or set own: true for TESA's own image)")
 
 
 def check_credits(ctx: Ctx, cid: str, cdir: Path) -> None:

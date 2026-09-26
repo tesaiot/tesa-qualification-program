@@ -8,6 +8,7 @@ level: L3
 status: pre-alpha
 audience: [developer, student]
 hours: 40
+cover: {image: cover.webp}
 hardware:
   emulator: true
   boards: [devkit]

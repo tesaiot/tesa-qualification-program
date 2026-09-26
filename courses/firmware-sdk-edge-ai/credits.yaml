@@ -1,4 +1,11 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
 # SPDX-License-Identifier: CC-BY-4.0
 # The source course (drsanti/TESAIoT-Courses@287c218) embeds no images in its lessons, labs or resources.
-images: []
+images:
+  - path: cover.webp
+    title: "Free circuit board macro image"
+    author: "rawpixel (public domain)"
+    source: "https://www.rawpixel.com/image/5920287/photo-image-background-public-domain-technology"
+    license: CC0-1.0
+    modified: true
+    note: "Cropped and resized to 960x540 for the course card."

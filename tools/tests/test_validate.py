@@ -55,6 +55,15 @@ def m_skills_map_prefix(r: Path):
     edit(r / "skills/skills.yaml", "{id: mcu.pwm, group: mcu,", "{id: mcu.pwm, group: lang,")
 
 
+def m_cover_missing(r: Path):
+    edit(r / C / "course.yaml", "hours: 2", "hours: 2\ncover: {image: no-such-cover.webp, own: true}")
+
+
+def m_cover_uncredited(r: Path):
+    (r / C / "cover.webp").write_bytes(b"RIFF0000WEBPVP8 ")
+    edit(r / C / "course.yaml", "hours: 2", "hours: 2\ncover: {image: cover.webp}")
+
+
 def m_catalog_short(r: Path):
     edit(r / C / "course.yaml", "short: demo", "short: dem")
 
@@ -242,6 +251,8 @@ def m_config(r: Path):
 
 # (mutation, check that must go red, "error" | "warning")
 CASES = [
+    (m_cover_missing, "cover", "error"),
+    (m_cover_uncredited, "cover", "error"),
     (m_yaml_syntax, "yaml", "error"),
     (m_yaml_duplicate_key, "yaml", "error"),
     (m_schema_extra_key, "schema", "error"),

@@ -19,3 +19,5 @@ npm-debug.log*
 
 # Python bytecode from running the scripts locally
 __pycache__/
+# Course covers copied by scripts/sync_content.py
+public/covers/

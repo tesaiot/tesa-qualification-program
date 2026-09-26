@@ -17,6 +17,7 @@ level: L1
 status: alpha
 audience: [public, student, entrepreneur, educator]
 hours: 3
+cover: {image: cover.webp}
 hardware:
   emulator: true
   boards: [none, eva-kit, devkit]

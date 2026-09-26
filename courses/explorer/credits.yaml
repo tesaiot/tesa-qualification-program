@@ -1,4 +1,11 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
 # SPDX-License-Identifier: CC-BY-4.0
 # This course uses no images yet. Code is adapted from AIoT in Action (MIT); see course.yaml `source`.
-images: []
+images:
+  - path: cover.webp
+    title: "SparkFun"
+    author: "jared"
+    source: "https://www.flickr.com/photos/35468148654@N01/509789392"
+    license: CC-BY-2.0
+    modified: true
+    note: "Cropped and resized to 960x540 for the course card."

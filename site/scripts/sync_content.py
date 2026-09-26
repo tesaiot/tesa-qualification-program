@@ -31,6 +31,7 @@ import json
 import os
 import posixpath
 import re
+import shutil
 import sys
 import uuid
 from dataclasses import dataclass, field
@@ -973,6 +974,53 @@ class Builder:
             bits.append(", ".join(hw_bits))
         return " · ".join(bits)
 
+    def course_card(self, cat: dict, c, lang: str) -> str:
+        """A course card: cover image (16:9, decorative), title link stretched over the card (one tab stop),
+        level/time/lessons/hardware chips, and a 3-line summary. Covers are copied to public/covers/."""
+        m = c.meta or {}
+        href = self.course_href(c.id, lang)
+        img = ""
+        cover = m.get("cover") if isinstance(m.get("cover"), dict) else None
+        if cover and cover.get("image"):
+            src = self.repo / "courses" / c.id / str(cover["image"])
+            if src.is_file():
+                ext = src.suffix.lower()
+                dst = self.site_dir / "public" / "covers" / f"{c.id}{ext}"
+                dst.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(src, dst)
+                pos = esc(str(cover.get("position") or "center"))
+                img = (f'<img class="tok-card-img" src="{self.cfg.base}/covers/{c.id}{ext}" alt="" loading="lazy" '
+                       f'decoding="async" width="960" height="540" style="object-position:{pos}">')
+            else:
+                self.p.warn(f"courses/{c.id}/course.yaml", f"cover image {cover['image']} not found")
+        chips = []
+        lvl = str(m.get("level") or cat.get("level") or "")
+        if lvl:
+            chips.append(f'<li class="tok-chip tok-lvl tok-lvl-{esc(lvl.lower())}">{esc(pick(self.level_name(lvl), lang))}</li>')
+        if m.get("hours"):
+            chips.append(f'<li class="tok-chip">{m["hours"]} {"ชม." if lang == "th" else "h"}</li>')
+        n = sum(len(mod.lessons) for mod in c.modules)
+        if n:
+            chips.append(f'<li class="tok-chip">{n} {"บทเรียน" if lang == "th" else "lessons"}</li>')
+        hw = self.hardware(m.get("hardware"))
+        hw_bits = (["Emulator"] if hw["emulator"] else []) + [pick(b["label"], lang) for b in hw["boards"]]
+        if hw_bits:
+            chips.append(f'<li class="tok-chip tok-chip-hw">{esc(" · ".join(hw_bits))}</li>')
+        flags = ""
+        if cat.get("featured"):
+            flags += f'<span class="tok-card-flag">{"หลักสูตรหลัก" if lang == "th" else "Core course"}</span>'
+        st = str(m.get("status") or cat.get("status") or "")
+        if st:
+            flags += f'<span class="tok-card-status">{esc(pick(VOCAB["status"].get(st, {"th": st, "en": st}), lang))}</span>'
+        summary = pick(c.summary, lang)
+        title = esc(c.title[lang])
+        link = f'<a href="{esc(href)}">{title}</a>' if href else title
+        return (f'<article class="tok-card{" tok-card-featured" if cat.get("featured") else ""}">'
+                f'<div class="tok-card-text"><p class="tok-card-title" role="heading" aria-level="3">{link}</p>'
+                f'<ul class="tok-chips">{"".join(chips)}</ul>'
+                + (f'<p class="tok-card-body">{esc(summary)}</p>' if summary else "")
+                + f'</div>{img}{flags}</article>')
+
     def build_catalog(self) -> None:
         T = {"th": ("หลักสูตรทั้งหมด",
                     "ทุกหลักสูตรเรียนได้ฟรี เรียงจากพื้นฐานไปถึงงานเฉพาะทาง หลักสูตรที่ยังเป็นร่าง (pre-alpha, alpha) "
@@ -987,20 +1035,19 @@ class Builder:
             pre = self.cfg.base + ("/en" if lang == "en" else "")
             lines = [intro.format(pathways=f"{pre}/pathways/"), ""]
             externals = []
+            by_level: dict = {}
             for cat in self.catalog:
                 if not cat.get("in_tree"):
                     externals.append(cat)
                     continue
                 course = self.course_by_id(cat["id"])
-                ctitle = pick(course.title if course else cat.get("title"), lang, cat["id"])
-                href = self.course_href(cat["id"], lang) if course else None
-                lines.append(f"## [{ctitle}]({href})" if href else f"## {ctitle}")
-                lines += ["", f'<p class="tok-meta">{esc(self.course_meta_line(cat, course, lang))}</p>', ""]
-                summary = pick(course.summary, lang) if course else ""
-                if summary:
-                    lines += [summary, ""]
-                elif not course:
-                    lines += [f"*{no_page}*", ""]
+                if not course:
+                    continue
+                lvl = str(course.meta.get("level") or cat.get("level") or "")
+                by_level.setdefault(lvl, []).append(self.course_card(cat, course, lang))
+            for lvl in sorted(by_level):
+                lines += [f"## {pick(self.level_name(lvl), lang) if lvl else ('อื่น ๆ' if lang == 'th' else 'Other')}", "",
+                          f'<div class="tok-cards not-content">{"".join(by_level[lvl])}</div>', ""]
             if externals:
                 lines += [f"## {ext_h}", ""]
                 for cat in externals:
@@ -1171,13 +1218,7 @@ class Builder:
                 c = self.course_by_id(cat["id"])
                 if not c:
                     continue
-                href = self.course_href(c.id, lang)
-                meta = self.course_meta_line(cat, c, lang)
-                summary = pick(c.summary, lang)
-                inner = (f'<span class="tok-card-title">{esc(c.title[lang])}</span>'
-                         f'<span class="tok-card-meta">{esc(meta)}</span>'
-                         + (f'<span class="tok-card-body">{esc(summary)}</span>' if summary else ""))
-                cards.append(f'<a class="tok-card" href="{esc(href)}">{inner}</a>' if href else f'<div class="tok-card">{inner}</div>')
+                cards.append(self.course_card(cat, c, lang))
             lines = [
                 f"## {t['who_h']}", "", t["who"], "",
                 f"## {t['courses_h']}", "",
@@ -1294,10 +1335,13 @@ class Builder:
                     items.append({"label": m.title["th"], "translations": {"en": m.title["en"]}, "collapsed": True, "items": sub})
             if not items:
                 continue
-            group = {"label": c.title["th"], "translations": {"en": c.title["en"]}, "collapsed": True, "items": items}
+            nav = c.cat.get("nav") if isinstance(c.cat.get("nav"), dict) else None
+            label = {"th": pick(nav, "th", c.title["th"]), "en": pick(nav, "en", c.title["en"])} if nav else c.title
+            group = {"label": label["th"], "translations": {"en": label["en"]}, "collapsed": True, "items": items}
+            # Only drafts get a badge: a badge on every course was noise in a dense list.
             st = str(c.meta.get("status") or c.cat.get("status") or "")
-            if st in VOCAB["badge_variant"]:
-                group["badge"] = {"text": st, "variant": VOCAB["badge_variant"][st]}
+            if st == "pre-alpha":
+                group["badge"] = {"text": "ร่าง", "variant": "caution"}
             courses.append(group)
         about = [slug_item("attribution")] + [slug_item(r) for r, _ in self.about if r in th_routes]
         bar = [

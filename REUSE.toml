@@ -1031,3 +1031,59 @@ path = "courses/aiot-micropython/m05-capstone/l02-capstone-starter/img/led_blink
 precedence = "override"
 SPDX-FileCopyrightText = "smial (talk)"
 SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+# Third-party (digital-twin/credits.yaml)
+path = "courses/digital-twin/cover.webp"
+precedence = "override"
+SPDX-FileCopyrightText = "U.S. Department of Energy"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+# Third-party (edge-ai-developer/credits.yaml)
+path = "courses/edge-ai-developer/cover.webp"
+precedence = "override"
+SPDX-FileCopyrightText = "Alex Knight"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+# Third-party (edge-ai-iot-for-business/credits.yaml)
+path = "courses/edge-ai-iot-for-business/cover.webp"
+precedence = "override"
+SPDX-FileCopyrightText = "Helloquence"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+# Third-party (educator-kit/credits.yaml)
+path = "courses/educator-kit/cover.webp"
+precedence = "override"
+SPDX-FileCopyrightText = "National Park Service"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+# Third-party (explorer/credits.yaml)
+path = "courses/explorer/cover.webp"
+precedence = "override"
+SPDX-FileCopyrightText = "jared"
+SPDX-License-Identifier = "CC-BY-2.0"
+
+[[annotations]]
+# Third-party (firmware-sdk-edge-ai/credits.yaml)
+path = "courses/firmware-sdk-edge-ai/cover.webp"
+precedence = "override"
+SPDX-FileCopyrightText = "rawpixel (public domain)"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+# Third-party (product-design/credits.yaml)
+path = "courses/product-design/cover.webp"
+precedence = "override"
+SPDX-FileCopyrightText = "rawpixel (public domain)"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+# Third-party (tesaiot-firmware-stack/credits.yaml)
+path = "courses/tesaiot-firmware-stack/cover.webp"
+precedence = "override"
+SPDX-FileCopyrightText = "TESAIoT PSE84 Dev Kit SDK, Thai Embedded Systems Association (TESA)"
+SPDX-License-Identifier = "Apache-2.0"

@@ -1,4 +1,11 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
 # SPDX-License-Identifier: CC-BY-4.0
 # This course uses no images.
-images: []
+images:
+  - path: cover.webp
+    title: "Writing Papers"
+    author: "Helloquence"
+    source: "https://stocksnap.io/photo/writing-papers-Y01VDYAX63"
+    license: CC0-1.0
+    modified: true
+    note: "Cropped and resized to 960x540 for the course card."

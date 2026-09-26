@@ -9,7 +9,13 @@ Third-party images and media used by the TESA Open Knowledge courses, with autho
 - การอ้างอิงต้นฉบับที่ดัดแปลงมา (AIC, drsanti, Meysam Parvizi, Infineon) อยู่ใน [NOTICE.md](NOTICE.md) · Upstream attributions: [NOTICE.md](NOTICE.md)
 - วิธีให้เครดิต TESA เมื่อนำไปใช้ต่อ อยู่ใน [ATTRIBUTION.md](ATTRIBUTION.md) · How to credit TESA when you reuse this material: [ATTRIBUTION.md](ATTRIBUTION.md)
 
-รวม 128 รายการ จาก 1 หลักสูตร · 128 item(s) from 1 course(s).
+รวม 136 รายการ จาก 9 หลักสูตร · 136 item(s) from 9 course(s).
+
+## Explorer: เปิดโลกระบบสมองกลฝังตัว (`explorer`)
+
+| ไฟล์ · File | ชื่อ · Title | ผู้สร้าง · Author | แหล่งที่มา · Source | สัญญาอนุญาต · Licence | การดัดแปลง · Changes |
+|---|---|---|---|---|---|
+| [`cover.webp`](courses/explorer/cover.webp) | SparkFun | jared | [https://www.flickr.com/photos/35468148654@N01/509789392](https://www.flickr.com/photos/35468148654@N01/509789392) | CC-BY-2.0 | ดัดแปลง · modified |
 
 ## AIoT in Action: จากหน้าจอสัมผัสสู่แพลตฟอร์ม IoT (MicroPython) (`aiot-micropython`)
 
@@ -143,3 +149,45 @@ Third-party images and media used by the TESA Open Knowledge courses, with autho
 | [`m05-capstone/l01-problem-to-design/img/vibration_bearing_envelope_spectrum_pmc.jpg`](courses/aiot-micropython/m05-capstone/l01-problem-to-design/img/vibration_bearing_envelope_spectrum_pmc.jpg) | Figure from Mika D., Józwik J., Ruggiero A., Sensors 25(23):7371, 2025 | Mika D., Józwik J., Ruggiero A., Sensors 25(23):7371, 2025 | [https://pmc.ncbi.nlm.nih.gov/articles/PMC12694681/](https://pmc.ncbi.nlm.nih.gov/articles/PMC12694681/) | CC-BY-4.0 | ดัดแปลง · modified |
 | [`m05-capstone/l02-capstone-starter/img/edge_computing_concept_commons.png`](courses/aiot-micropython/m05-capstone/l02-capstone-starter/img/edge_computing_concept_commons.png) | Edge computing.png | Psenda38 | [https://commons.wikimedia.org/wiki/File:Edge_computing.png](https://commons.wikimedia.org/wiki/File:Edge_computing.png) | CC0-1.0 | ไม่ดัดแปลง · unmodified |
 | [`m05-capstone/l02-capstone-starter/img/led_blink_heartbeat_anim_commons.gif`](courses/aiot-micropython/m05-capstone/l02-capstone-starter/img/led_blink_heartbeat_anim_commons.gif) | Blinken LED 480.gif | smial (talk) | [https://commons.wikimedia.org/wiki/File:Blinken_LED_480.gif](https://commons.wikimedia.org/wiki/File:Blinken_LED_480.gif) | CC0-1.0 | ไม่ดัดแปลง · unmodified |
+
+## TESAIoT Firmware Stack: เฟิร์มแวร์ภาษา C บน TESAIoT Dev Kit (`tesaiot-firmware-stack`)
+
+| ไฟล์ · File | ชื่อ · Title | ผู้สร้าง · Author | แหล่งที่มา · Source | สัญญาอนุญาต · Licence | การดัดแปลง · Changes |
+|---|---|---|---|---|---|
+| [`cover.webp`](courses/tesaiot-firmware-stack/cover.webp) | TESAIoT Dev Kit (PSOC™ Edge AI Kit SoM on the QWA309 base board) | TESAIoT PSE84 Dev Kit SDK, Thai Embedded Systems Association (TESA) | [https://github.com/tesaiot/tesaiot-pse84-devkit-sdk/blob/ef72c1b658178eee8c38b1e47d28b006f80a59b5/docs/assets/tesaiot-dev-kit.webp](https://github.com/tesaiot/tesaiot-pse84-devkit-sdk/blob/ef72c1b658178eee8c38b1e47d28b006f80a59b5/docs/assets/tesaiot-dev-kit.webp) | Apache-2.0 | ดัดแปลง · modified |
+
+## Edge AI และ IoT สำหรับการตัดสินใจเชิงผลิตภัณฑ์ (`edge-ai-iot-for-business`)
+
+| ไฟล์ · File | ชื่อ · Title | ผู้สร้าง · Author | แหล่งที่มา · Source | สัญญาอนุญาต · Licence | การดัดแปลง · Changes |
+|---|---|---|---|---|---|
+| [`cover.webp`](courses/edge-ai-iot-for-business/cover.webp) | Writing Papers | Helloquence | [https://stocksnap.io/photo/writing-papers-Y01VDYAX63](https://stocksnap.io/photo/writing-papers-Y01VDYAX63) | CC0-1.0 | ดัดแปลง · modified |
+
+## การออกแบบผลิตภัณฑ์เชิงอุตสาหกรรม (Blender และ Digital Twin) (`product-design`)
+
+| ไฟล์ · File | ชื่อ · Title | ผู้สร้าง · Author | แหล่งที่มา · Source | สัญญาอนุญาต · Licence | การดัดแปลง · Changes |
+|---|---|---|---|---|---|
+| [`cover.webp`](courses/product-design/cover.webp) | Photo from rawpixel | rawpixel (public domain) | [https://www.rawpixel.com/image/5948163/free-public-domain-cc0-photo](https://www.rawpixel.com/image/5948163/free-public-domain-cc0-photo) | CC0-1.0 | ดัดแปลง · modified |
+
+## TESA Firmware SDK สำหรับ Edge AI (`firmware-sdk-edge-ai`)
+
+| ไฟล์ · File | ชื่อ · Title | ผู้สร้าง · Author | แหล่งที่มา · Source | สัญญาอนุญาต · Licence | การดัดแปลง · Changes |
+|---|---|---|---|---|---|
+| [`cover.webp`](courses/firmware-sdk-edge-ai/cover.webp) | Free circuit board macro image | rawpixel (public domain) | [https://www.rawpixel.com/image/5920287/photo-image-background-public-domain-technology](https://www.rawpixel.com/image/5920287/photo-image-background-public-domain-technology) | CC0-1.0 | ดัดแปลง · modified |
+
+## พัฒนาเฟิร์มแวร์ร่วมกับ TESA Digital Twin บน VS Code (`digital-twin`)
+
+| ไฟล์ · File | ชื่อ · Title | ผู้สร้าง · Author | แหล่งที่มา · Source | สัญญาอนุญาต · Licence | การดัดแปลง · Changes |
+|---|---|---|---|---|---|
+| [`cover.webp`](courses/digital-twin/cover.webp) | MedUSA, a large-scale 3D printing | U.S. Department of Energy | [https://www.rawpixel.com/image/3325581/free-photo-image-robot-factory-manufacturing-robotics](https://www.rawpixel.com/image/3325581/free-photo-image-robot-factory-manufacturing-robotics) | CC0-1.0 | ดัดแปลง · modified |
+
+## Edge AI Developer: จากเซนเซอร์สู่โมเดลบนอุปกรณ์ (`edge-ai-developer`)
+
+| ไฟล์ · File | ชื่อ · Title | ผู้สร้าง · Author | แหล่งที่มา · Source | สัญญาอนุญาต · Licence | การดัดแปลง · Changes |
+|---|---|---|---|---|---|
+| [`cover.webp`](courses/edge-ai-developer/cover.webp) | Robot Technology | Alex Knight | [https://stocksnap.io/photo/robot-technology-WUBMLJRYEK](https://stocksnap.io/photo/robot-technology-WUBMLJRYEK) | CC0-1.0 | ดัดแปลง · modified |
+
+## ชุดสำหรับผู้สอน (Educator Kit) (`educator-kit`)
+
+| ไฟล์ · File | ชื่อ · Title | ผู้สร้าง · Author | แหล่งที่มา · Source | สัญญาอนุญาต · Licence | การดัดแปลง · Changes |
+|---|---|---|---|---|---|
+| [`cover.webp`](courses/educator-kit/cover.webp) | Ranger teaches students how to use | National Park Service | [https://www.rawpixel.com/image/3395330/free-photo-image-learning-teach-zoo](https://www.rawpixel.com/image/3395330/free-photo-image-learning-teach-zoo) | CC0-1.0 | ดัดแปลง · modified |

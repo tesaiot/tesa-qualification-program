@@ -1,4 +1,11 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
 # SPDX-License-Identifier: CC-BY-4.0
 # The source course (drsanti/TESAIoT-Courses@287c218) embeds no images in its lessons, labs or resources.
-images: []
+images:
+  - path: cover.webp
+    title: "MedUSA, a large-scale 3D printing"
+    author: "U.S. Department of Energy"
+    source: "https://www.rawpixel.com/image/3325581/free-photo-image-robot-factory-manufacturing-robotics"
+    license: CC0-1.0
+    modified: true
+    note: "Cropped and resized to 960x540 for the course card."

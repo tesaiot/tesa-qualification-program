@@ -1,4 +1,11 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
 # SPDX-License-Identifier: CC-BY-4.0
 # This course uses no images yet.
-images: []
+images:
+  - path: cover.webp
+    title: "Robot Technology"
+    author: "Alex Knight"
+    source: "https://stocksnap.io/photo/robot-technology-WUBMLJRYEK"
+    license: CC0-1.0
+    modified: true
+    note: "Cropped and resized to 960x540 for the course card."
