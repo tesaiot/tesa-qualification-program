@@ -1,0 +1,75 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — sec-iot.m05.l01 บทเรียน 5.1
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ทำไมแพลตฟอร์มออกใบรับรองให้ได้โดยไม่ต้องเห็นกุญแจลับของอุปกรณ์
+    en: Why can the platform issue a certificate without ever seeing the device's private key?
+  choices:
+  - th: เพราะแพลตฟอร์มเดากุญแจลับจากกุญแจสาธารณะได้
+  - th: เพราะ CSR มีกุญแจสาธารณะ และลายเซ็นบน CSR พิสูจน์ว่าผู้ขอถือกุญแจลับคู่นั้น
+  - th: เพราะกุญแจลับถูกส่งไปแบบเข้ารหัส
+  - th: เพราะใบรับรองไม่เกี่ยวกับกุญแจ
+  answer: [1]
+  explain:
+    th: นี่คือ proof of possession ตาม PKCS #10 ใบที่ออกมาใส่กุญแจสาธารณะเดิม กุญแจลับจึงอยู่ในชิปต่อไป
+- id: q2
+  objective: 1
+  type: multi
+  prompt:
+    th: เลือกทุกข้อที่อยู่ใน CSR
+    en: Select everything a CSR contains.
+  choices:
+  - th: subject ที่ขอให้ใส่ในใบ
+  - th: กุญแจสาธารณะ
+  - th: ลายเซ็นที่ลงด้วยกุญแจลับคู่กัน
+  - th: กุญแจลับ
+  - th: ลายเซ็นของ CA
+  answer: [0, 1, 2]
+  explain:
+    th: CSR ไม่มีกุญแจลับ และยังไม่มีลายเซ็นของ CA ลายเซ็นของ CA อยู่ในใบรับรองที่ออกมาภายหลัง
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: หลังเรียก publish_csr() อย่างเดียว trustm_requested_target_oid() บอกอะไร
+    en: After a bare publish_csr(), what does trustm_requested_target_oid() tell you?
+  choices:
+  - th: ช่องที่ใบรับรองจาก CSR นี้จะถูกเขียน
+  - th: OID ของคำขอ Protected Update ครั้งก่อน หรือค่าเริ่มต้น 0xE0E1 ไม่ได้บอกเรื่อง CSR นี้
+  - th: UID ของชิป
+  - th: correlation id
+  answer: [1]
+  explain:
+    th: ค่านี้ถูกเขียนโดย tesaiot_publish_protected_update() เท่านั้น ตัวติดตามคำขอ CSR คือ correlation id
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: คำตอบของแพลตฟอร์มยังไม่มา แต่โปรแกรมเรียก trustm_reset_state() ผลคืออะไร
+    en: The platform's reply has not arrived yet, but the program calls trustm_reset_state(). What happens?
+  choices:
+  - th: ไม่มีผล
+  - th: correlation id ถูกล้าง ใบรับรองที่มาถึงทีหลังไม่มีอะไรให้จับคู่และถูกทิ้ง
+  - th: ชิปสร้างกุญแจใหม่
+  - th: แพลตฟอร์มยกเลิกคำขอ
+  answer: [1]
+  explain:
+    th: ตัวอย่าง 05 ให้รีเซ็ตเมื่อเสร็จ หรือเมื่อหมดเวลาที่ตัดสินใจเอง ไม่ใช่เพื่อความสะอาด
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: ข้อใดเป็นสัญญาเรื่องบัฟเฟอร์ของ publish_csr()
+    en: Which statement is the buffer contract of publish_csr()?
+  choices:
+  - th: บัฟเฟอร์เป็น const ได้ และ csr_length คือขนาดบัฟเฟอร์
+  - th: บัฟเฟอร์ต้องเขียนได้ ใหญ่กว่า CSR พอให้ JSON ที่สร้างทับ csr_length คือความยาว CSR และ CSR หายไปหลังเรียก
+  - th: ฟังก์ชันจองบัฟเฟอร์ใหม่ให้เอง
+  - th: ต้องส่ง CSR แบบ DER เท่านั้น
+  answer: [1]
+  explain:
+    th: publish_csr() สร้าง JSON ทับในบัฟเฟอร์ของผู้เรียก ตัวอย่าง 05 แนะนำให้เผื่อ 256 ไบต์เหนือขนาด CSR

@@ -1,0 +1,74 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — sec-iot.m04.l02 บทเรียน 4.2
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ในเส้นทาง Protected Update ขั้นไหนที่ host ที่ถูกเจาะปลอมไม่ได้
+    en: In the Protected Update path, which step can a compromised host not fake?
+  choices:
+  - th: การพิมพ์บรรทัด PROTECTED UPDATE COMPLETED SUCCESSFULLY!
+  - th: การที่ชิปตรวจลายเซ็นของ manifest กับ trust anchor ของตัวเองสำเร็จ แล้วเขียนช่องเป้าหมาย
+  - th: การส่ง ACK ขึ้นแพลตฟอร์ม
+  - th: การ subscribe commands/#
+  answer: [1]
+  explain:
+    th: ทุกอย่างที่ host ทำหรือพิมพ์ ผู้ที่คุม host ปลอมได้ แต่ชิปไม่ยอมเขียนถ้าลายเซ็นไม่ผ่าน หลักฐานจึงอยู่ที่การอ่านสถานะจากชิปเอง
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: tesaiot_publish_protected_update() คืนค่า 0 หมายความว่าอะไร
+    en: What does a 0 return from tesaiot_publish_protected_update() mean?
+  choices:
+  - th: ชิปเขียนใบรับรองใหม่เสร็จแล้ว
+  - th: คำขอถูก publish แล้ว ชิปยังไม่เปลี่ยนจนกว่า manifest จะมาถึงและถูก apply
+  - th: LcsO เปลี่ยนแล้ว
+  - th: แพลตฟอร์มปฏิเสธคำขอ
+  answer: [1]
+  explain:
+    th: คอมเมนต์ของตัวอย่าง 06 บอกว่า 0 แปลว่าขอแล้ว ไม่ใช่เสร็จแล้ว ต้องติดตามด้วย correlation id จนคำตอบมาถึง
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ตัวนับ version (metadata tag C1) ป้องกันอะไร
+    en: What does the version counter (metadata tag C1) protect against?
+  choices:
+  - th: ป้องกันไม่ให้ manifest ที่ลงนามถูกต้องแต่เป็นรุ่นเก่า ถูกนำมาใช้ซ้ำ
+  - th: ป้องกันการอ่านใบรับรอง
+  - th: ป้องกันการเชื่อมต่อ WiFi ซ้ำ
+  - th: ป้องกันการเขียน tag C0
+  answer: [0]
+  explain:
+    th: ลายเซ็นบอกว่าใครออก manifest แต่ไม่บอกว่ามันใหม่หรือเก่า ตัวนับที่ขึ้นอย่างเดียวทำหน้าที่ส่วนนั้น
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: บอร์ดพัฒนาที่ C0 ของ 0xE0E1 เป็น 01 เพิ่งผ่าน Protected Update ข้อใดถูก
+    en: A development board whose 0xE0E1 has C0 = 01 has just completed a Protected Update. Which is right?
+  choices:
+  - th: ช่องนี้ถูกล็อกถาวร
+  - th: ช่องนี้รับเฉพาะ manifest ที่ลงนามโดย anchor แต่ล็อกยังเคลียร์ได้เพราะ LcsO ยังต่ำกว่า op ส่วนตัวนับ version ย้อนไม่ได้
+  - th: ทั้งล็อกและตัวนับย้อนได้ด้วยการ reflash
+  - th: LcsO เปลี่ยนเป็น op แล้ว
+  answer: [1]
+  explain:
+    th: ล็อกเป็นเงื่อนไข Change ใน metadata ที่เขียนกลับได้ตราบที่ LcsO ต่ำกว่า op ส่วนตัวนับขึ้นอย่างเดียว
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: ตามตัวอย่าง 06 การเปลี่ยนแปลงใดบนชิปที่ไม่มี reflash การลบ หรือการตัดไฟใดพากลับได้
+    en: According to example 06, which chip change can no reflash, erase or power cycle undo?
+  choices:
+  - th: การเขียนใบรับรองลง 0xE0E1
+  - th: การเลื่อน LcsO (metadata tag C0)
+  - th: การเชื่อมต่อ MQTT
+  - th: การอ่าน metadata
+  answer: [1]
+  explain:
+    th: LcsO เดินทางเดียว cr ไป in ไป op ไป te และเมื่อถึง op การเขียน metadata หยุดถาวร ไม่มีตัวอย่างใดใน SDK เขียน tag นี้

@@ -1,0 +1,76 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — sec-iot.m02.l02 บทเรียน 2.2
+items:
+- id: q1
+  objective: 1
+  type: order
+  prompt:
+    th: เรียงขั้นตอนการอ่านข้อมูลจากชิปหนึ่งครั้งให้ถูก (ถือ hold ก่อน lock แบบตัวอย่าง 04)
+    en: Put one chip read in the right order (hold taken before the gate, as in example 04).
+  choices:
+  - th: optiga_manager_release()
+  - th: optiga_manager_acquire() แล้วตรวจว่าไม่เป็น NULL
+  - th: optiga_manager_touch_release()
+  - th: optiga_manager_init() หนึ่งครั้งจาก task
+  - th: optiga_util_read_data() แล้วรอ callback จนสถานะไม่ใช่ BUSY
+  - th: optiga_manager_touch_hold_reason("Reading the secure element")
+  answer: [3, 5, 1, 4, 0, 2]
+  explain:
+    th: init มาก่อนทุกอย่าง ถือ hold และประตูครอบทั้งธุรกรรมรวมช่วงรอ callback แล้วคืนแบบซ้อนถูก สิ่งที่ถือทีหลังคืนก่อน
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: ทำไม optiga_chip_enter() จึงใช้เป็นคำถามว่า "ชิปพร้อมหรือยัง" ไม่ได้
+    en: Why can't optiga_chip_enter() be used to ask "is the chip ready?"
+  choices:
+  - th: เพราะมันช้า
+  - th: เพราะก่อน init มันคืน true ทั้งที่ไม่ได้ล็อกอะไร มันคืน false เฉพาะเมื่อมีคนอื่นถือชิป
+  - th: เพราะมันใช้ได้เฉพาะใน ISR
+  - th: เพราะมันเขียน metadata
+  answer: [1]
+  explain:
+    th: ผู้เขียน SDK ตั้งใจให้ false ของ enter() แปลได้อย่างเดียว คำถามว่าตัวจัดการพร้อมหรือยังเป็นงานของ optiga_manager_lock()
+- id: q3
+  objective: 1
+  type: single
+  prompt:
+    th: acquire() ได้ค่าไม่เป็น NULL แล้วโค้ด return ออกกลางทางโดยไม่เรียก release() ผลคืออะไร
+    en: acquire() returned non-NULL and the code returns early without calling release(). What happens?
+  choices:
+  - th: ไม่มีผล ประตูปล่อยเองเมื่อฟังก์ชันจบ
+  - th: ชิปถูกกันไว้ตลอดการบูตครั้งนั้น task อื่นที่ขอจะรอสิบวินาทีแล้วล้ม รวมถึงการลงนาม TLS
+  - th: ชิปรีเซ็ตตัวเอง
+  - th: LcsO เปลี่ยนเป็น operational
+  answer: [1]
+  explain:
+    th: ตัวอย่าง 03 เรียกสิ่งนี้ว่าการรั่วของชิปไปจนจบการบูต ทางแก้คือเขียนฟังก์ชันให้มีทางออกเดียวที่คืนเสมอ
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: เส้นทาง mTLS แบบเก่าหยุดจอสัมผัสเฉพาะช่วงตั้งค่า ทำไมการเชื่อมต่อยังค้างเป็นบางรอบ
+    en: The old mTLS path paused touch only during setup. Why did connections still hang now and then?
+  choices:
+  - th: เพราะการตั้งค่าใช้เวลานานเกินไป
+  - th: เพราะลายเซ็น CertificateVerify เกิดทีหลังใน cy_mqtt_connect() ตอนที่จอสัมผัสกลับมาอ่านบัสแล้ว
+  - th: เพราะชิปไม่รองรับ TLS
+  - th: เพราะใช้พอร์ตผิด
+  answer: [1]
+  explain:
+    th: hold ต้องครอบไบต์สุดท้ายที่คุยกับชิป ไม่ใช่ครอบฟังก์ชันที่ดูเหมือนงานเข้ารหัส อาการที่พบคือ OPTIGA_COMMS_ERROR (0x0102) หรือการค้าง
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: ในปุ่ม "ลงทะเบียน" บนหน้าจอ LVGL ข้อใดควรอยู่ใน callback ของปุ่ม
+    en: In an LVGL "enrol" button, what belongs in the button callback?
+  choices:
+  - th: optiga_manager_lock() แล้วสร้างคู่กุญแจ
+  - th: รอใบรับรองจากแพลตฟอร์มจนกว่าจะมา
+  - th: ปิดหน้าต่างเก่า เปิดหน้าต่างใหม่ ส่งคำขอให้ worker task แล้วให้ lv_timer ถามสถานะ
+  - th: ถือ touch-hold ไว้จนกว่าการลงทะเบียนจะเสร็จ
+  answer: [2]
+  explain:
+    th: งานยาวไปอยู่ใน worker ส่วนจอแค่ถามสถานะ ถ้ารอแบบ inline จอจะค้างและหน้าต่างที่อธิบายเหตุผลก็วาดไม่ได้

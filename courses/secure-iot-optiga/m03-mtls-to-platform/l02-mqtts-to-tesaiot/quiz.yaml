@@ -1,0 +1,75 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — sec-iot.m03.l02 บทเรียน 3.2
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ไฟล์ตั้งค่ามี tls_mode=server_tls และ port=1883 บอร์ดจะต่อ broker ที่พอร์ตใด
+    en: The config file has tls_mode=server_tls and port=1883. Which port does the board connect to?
+  choices:
+  - th: '1883'
+  - th: '8883'
+  - th: '8884'
+  - th: '443'
+  answer: [2]
+  explain:
+    th: พอร์ตของ MQTT มาจาก tls_mode ใน mqtt_client_config.c บรรทัด port= ถูกเก็บไว้แต่ไม่ถูกใช้ (บท C3 กับดักข้อ 1)
+- id: q2
+  objective: 1
+  type: order
+  prompt:
+    th: เรียงขั้นของเส้นทางข้อมูลตั้งแต่ไฟล์ตั้งค่าจนถึง broker
+    en: Order the steps of the data path from config file to broker.
+  choices:
+  - th: mqtt_client_config_init() เลือกพอร์ต client id ชื่อผู้ใช้และ root CA ตาม tls_mode
+  - th: tesaiot_config_init() อ่าน /.tesaiot_config ตอนบูต
+  - th: cy_mqtt_connect() เชื่อมต่อ broker ผ่าน TLS
+  - th: tesaiot_mqtt_connect() ถูกเรียกจากปุ่ม Connect
+  - th: mqtt_request_start() สร้าง task MQTT ครั้งแรกที่ถูกขอ แล้ว task รอ WiFi
+  answer: [1, 3, 4, 0, 2]
+  explain:
+    th: ตามบท C3 ค่าตั้งถูกอ่านตอนบูต task ของ MQTT ถูกสร้างตอนมีคนขอเชื่อมต่อครั้งแรก รอ WiFi แล้วจึงตั้งค่าการเชื่อมต่อและต่อ broker
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ทำไม 10_wifi_join.c จึงปฏิเสธการทำงานเมื่อไม่พบข้อมูลรับรองในที่เก็บ แทนที่จะใช้ SSID สำรองในโค้ด
+    en: Why does 10_wifi_join.c refuse to run when no stored credentials exist, rather than fall back to an SSID in the code?
+  choices:
+  - th: เพราะ SSID สำรองกินหน่วยความจำ
+  - th: เพราะ credential ที่คอมไพล์ติดโค้ดคือ credential ที่หลุดไปกับที่เก็บโค้ดสาธารณะ ซึ่งขัดกับ ETSI ข้อ 5.4-3
+  - th: เพราะ WiFi ไม่รองรับ SSID สำรอง
+  - th: เพราะ compiler ไม่ยอม
+  answer: [1]
+  explain:
+    th: ตัวอย่างบอกวิธีบันทึกข้อมูลรับรองแทน และไม่มีทางเลือกที่สี่
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: 10_wifi_join.c ล้างบัฟเฟอร์รหัสผ่านผ่าน pointer แบบ volatile เพื่ออะไร
+    en: Why does 10_wifi_join.c wipe the passphrase buffer through a volatile pointer?
+  choices:
+  - th: เพื่อให้เร็วขึ้น
+  - th: เพื่อไม่ให้ compiler ตัดการเขียนศูนย์ทิ้ง เพราะมองว่าไม่มีใครอ่านบัฟเฟอร์นั้นต่อ
+  - th: เพื่อเข้ารหัสรหัสผ่าน
+  - th: เพื่อส่งรหัสผ่านให้ชิป OPTIGA
+  answer: [1]
+  explain:
+    th: คอมเมนต์ในไฟล์บอกว่าถ้าไม่ทำแบบนี้ รหัสผ่านจะค้างอยู่ใน .bss ตลอดอายุของ image
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: อุปกรณ์วัดอุณหภูมิทุก 10 วินาที และต้องรับคำสั่งจากแพลตฟอร์มภายในไม่กี่วินาที ควรเลือกอะไร
+    en: A device measures temperature every 10 s and must receive platform commands within seconds. Which fits?
+  choices:
+  - th: HTTPS ถามแพลตฟอร์มทุกชั่วโมง
+  - th: MQTTs ที่ publish telemetry และ subscribe commands/#
+  - th: HTTP แบบไม่เข้ารหัส เพราะเร็วกว่า
+  - th: ไม่ต้องเชื่อมต่อ
+  answer: [1]
+  explain:
+    th: session ที่เปิดค้างทำให้คำสั่งมาถึงเองโดยไม่ต้องถาม HTTPS เหมาะกับงานที่ส่งเป็นครั้งคราวหรือดาวน์โหลดไฟล์ใหญ่

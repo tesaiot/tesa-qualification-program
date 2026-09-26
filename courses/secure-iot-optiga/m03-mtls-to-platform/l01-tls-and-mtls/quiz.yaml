@@ -1,0 +1,76 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — sec-iot.m03.l01 บทเรียน 3.1
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ใน mTLS อุปกรณ์พิสูจน์ว่าถือกุญแจลับของใบรับรองจริงด้วยข้อความใด
+    en: In mTLS, which message proves the device really holds the certificate's private key?
+  choices:
+  - th: ClientHello
+  - th: Certificate
+  - th: CertificateVerify
+  - th: EncryptedExtensions
+  answer: [2]
+  explain:
+    th: Certificate แค่บอกว่าอ้างเป็นใคร CertificateVerify คือลายเซ็นบน transcript ที่ทำได้เฉพาะคนถือกุญแจลับ
+- id: q2
+  objective: 1
+  type: order
+  prompt:
+    th: เรียงข้อความ handshake ของ TLS 1.3 แบบ mTLS จากฝั่งเซิร์ฟเวอร์ให้ถูก
+    en: Order the server-side messages of a TLS 1.3 mTLS handshake.
+  choices:
+  - th: Certificate (เซิร์ฟเวอร์)
+  - th: ServerHello
+  - th: Finished (เซิร์ฟเวอร์)
+  - th: CertificateRequest
+  - th: EncryptedExtensions
+  - th: CertificateVerify (เซิร์ฟเวอร์)
+  answer: [1, 4, 3, 0, 5, 2]
+  explain:
+    th: ตาม RFC 8446 หัวข้อ 2 ServerHello ตามด้วย EncryptedExtensions, CertificateRequest (เฉพาะ mTLS), Certificate, CertificateVerify และ Finished
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: psa_generate_key() ใน mqtt_mtls_setup_optiga() ทำอะไร
+    en: What does psa_generate_key() do inside mqtt_mtls_setup_optiga()?
+  choices:
+  - th: สร้างคู่กุญแจใหม่ในชิปทุกครั้งที่เชื่อมต่อ
+  - th: คัดลอกกุญแจลับจากชิปมาไว้ใน RAM
+  - th: ลงทะเบียน handle แบบ opaque ที่ driver แปลงเป็น OID ของกุญแจในชิป ไม่ได้สร้างอะไรในชิป
+  - th: สร้างกุญแจ AES สำหรับ TLS record
+  answer: [2]
+  explain:
+    th: บท C4 ระบุว่า handle นี้ไม่เก็บเนื้อกุญแจ เก็บแค่ชื่อของกุญแจ การลงนามจริงวิ่งผ่าน optiga_psa_sign() ไปที่ trustm_ecdsa_sign() ในชิป
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: log แสดง [PSA-Sign] Using Key OID 0xE0F1 for TLS CertificateVerify แล้วการเชื่อมต่อถูกปิด ข้อสรุปใดถูก
+    en: 'The log shows "[PSA-Sign] Using Key OID 0xE0F1 for TLS CertificateVerify" and then the connection closes. Which conclusion is right?'
+  choices:
+  - th: ชิปลงนามสำเร็จแล้ว ปัญหาอยู่ที่ broker แน่นอน
+  - th: บรรทัดนี้พิมพ์ก่อนการลงนาม ต้องดูต่อว่ามีบรรทัด ERROR ของ trustm_ecdsa_sign หรือไม่ ก่อนสรุป
+  - th: กุญแจหลุดออกจากชิป
+  - th: ต้องเปลี่ยนพอร์ตเป็น 8884
+  answer: [1]
+  explain:
+    th: สัญญาณว่าสำเร็จคือบรรทัดนี้ ไม่มีบรรทัด ERROR ตามมา และได้ Connected to broker ครบทั้งสามข้อ
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: อุปกรณ์ในโหมด server-TLS ต่อไปที่พอร์ต 8883 แล้ว TLS ปิดการเชื่อมต่อ สาเหตุที่เป็นไปได้มากที่สุดคืออะไร
+    en: A device in server-TLS mode connects to port 8883 and TLS closes the connection. What is the most likely cause?
+  choices:
+  - th: 8883 เป็นพอร์ตของ mTLS ซึ่งเซิร์ฟเวอร์ขอใบรับรองของอุปกรณ์ แต่อุปกรณ์ไม่ได้ส่ง
+  - th: รหัส WiFi ผิด
+  - th: ชิป OPTIGA เสีย
+  - th: topic ผิด
+  answer: [0]
+  explain:
+    th: server-TLS ใช้ 8884 และ mTLS ใช้ 8883 ในแล็บข้อ 3 คุณเห็นเองว่าพอร์ต 8883 ส่ง CertificateRequest และปฏิเสธเมื่อไม่มีใบของ client

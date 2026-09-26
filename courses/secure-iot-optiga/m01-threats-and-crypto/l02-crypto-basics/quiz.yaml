@@ -1,0 +1,74 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — sec-iot.m01.l02 บทเรียน 1.2
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ทำไมฟังก์ชันตรวจลายเซ็นใน 02_model_signature_hook.c จึงไม่คืน "ผ่าน" แม้ CRC ของส่วนท้ายไฟล์จะถูกต้อง
+    en: Why does the signature hook in 02_model_signature_hook.c not return "verified" even when the trailer CRC is correct?
+  choices:
+  - th: เพราะ CRC ช้าเกินไป
+  - th: เพราะใครก็คำนวณ CRC ใหม่ได้ มันบอกว่าข้อมูลไม่เสียระหว่างทาง แต่ไม่บอกว่าใครเขียน
+  - th: เพราะ CRC ต้องใช้กุญแจลับ
+  - th: เพราะ CRC ใช้ได้กับข้อมูลที่เข้ารหัสแล้วเท่านั้น
+  answer: [1]
+  explain:
+    th: การยืนยันว่าใครเป็นผู้สร้างต้องอาศัยกุญแจ ถ้าไม่มีการตรวจด้วยกุญแจ การคืน "ผ่าน" คือการอ้างว่าตรวจแล้วทั้งที่ยังไม่ได้ตรวจ
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: อุปกรณ์กับเซิร์ฟเวอร์ต้องได้กุญแจ AES ร่วมกันโดยไม่ส่งกุญแจข้ามเครือข่าย ควรใช้เครื่องมือใด
+    en: A device and a server must share an AES key without sending the key over the network. Which primitive fits?
+  choices:
+  - th: hash SHA-256
+  - th: HMAC
+  - th: การตกลงกุญแจแบบ ECDHE ที่มีลายเซ็นกำกับ
+  - th: CRC32
+  answer: [2]
+  explain:
+    th: ECDHE ให้กุญแจร่วมโดยไม่ส่งกุญแจ แต่ต้องมีลายเซ็นกำกับเพื่อรู้ว่าตกลงกับใคร นี่คือส่วน ECDHE ในชื่อ ciphersuite ของ TLS
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ใบรับรองจากโรงงานในช่อง 0xE0E0 มี subject CN=InfineonIoTNode เหมือนกันทุกชิป ข้อสรุปใดถูก
+    en: The factory certificate in slot 0xE0E0 has subject CN=InfineonIoTNode on every chip. Which conclusion is right?
+  choices:
+  - th: ใบนี้บอกได้ว่าเป็นอุปกรณ์เครื่องไหน
+  - th: ใบนี้ปลอมแน่นอน
+  - th: ใบนี้พิสูจน์ว่าเป็น Trust M ของแท้ แต่ถ้าจะแยกเครื่องต้องใช้ serial หรือกุญแจสาธารณะ
+  - th: ใบนี้ไม่มีกุญแจสาธารณะ
+  answer: [2]
+  explain:
+    th: ตามบท C4 ของเอกสาร SDK ฟิลด์ที่ต่างกันต่อชิปมีแค่ serial กับกุญแจสาธารณะ การผูกสิทธิ์กับเครื่องต้องผูกกับสองค่านี้ ไม่ใช่กับ subject
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: ในค่าตั้ง mbedTLS ของ CM33_NS ที่ commit ef72c1b อุปกรณ์จะปฏิเสธใบรับรองเซิร์ฟเวอร์ที่หมดอายุหรือไม่
+    en: With the CM33_NS mbedTLS configuration at commit ef72c1b, does the device reject an expired server certificate?
+  choices:
+  - th: ปฏิเสธเสมอ
+  - th: ไม่ปฏิเสธด้วยเหตุผลเรื่องวันที่ เพราะ MBEDTLS_HAVE_TIME_DATE ถูกปิด
+  - th: ปฏิเสธเฉพาะเมื่อมี CRL
+  - th: ขึ้นกับ broker
+  answer: [1]
+  explain:
+    th: ค่าตั้งนี้ปิดการตรวจช่วงเวลาของใบ X.509 และปิดการ parse CRL จึงต้องบันทึกเป็นความเสี่ยงที่ยังเหลือใน threat model
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: ข้อใดคือสิ่งที่ OPTIGA™ Trust M ไม่ได้ป้องกัน
+    en: Which of these does OPTIGA™ Trust M not protect against?
+  choices:
+  - th: การอ่านกุญแจลับออกมาทำสำเนา
+  - th: การใช้กุญแจลงนามโดยเฟิร์มแวร์ที่ถูกยึดไปแล้ว ขณะที่ผู้โจมตียังคุมบอร์ดอยู่
+  - th: การถอดชิป flash ไปอ่านกุญแจ
+  - th: การค้นหากุญแจในไฟล์ image ของเฟิร์มแวร์
+  answer: [1]
+  explain:
+    th: ชิปทำตามคำสั่งของ MCU ที่ต่ออยู่ มันกันการขโมยและโคลนกุญแจ แต่ไม่รู้ว่า MCU ถูกยึดหรือไม่

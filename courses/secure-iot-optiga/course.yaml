@@ -5,13 +5,14 @@ short: sec-iot
 title: {th: Secure IoT กับ OPTIGA™ Trust M, en: Secure IoT with OPTIGA™ Trust M}
 summary: {th: การทำ threat model และพื้นฐานวิทยาการเข้ารหัส การใช้ชิปความปลอดภัย OPTIGA™ Trust M การเชื่อมต่อ mTLS กับ TESAIoT Platform secure boot และ Protected Update ไปจนถึงการลงทะเบียนอุปกรณ์ด้วย CSR โดยอ้างอิงตัวอย่างและเอกสารใน TESAIoT PSE84 Dev Kit SDK, en: 'Threat modelling and crypto basics, the OPTIGA™ Trust M secure element, mTLS to the TESAIoT Platform, secure boot and Protected Update, and CSR-based device enrolment, grounded in the examples and docs of the TESAIoT PSE84 Dev Kit SDK.'}
 level: L3
-status: pre-alpha
+status: alpha
 audience: [developer, student]
 hours: 20
+cover: {image: cover.webp}
 hardware:
   emulator: false
   boards: [devkit]
-toolchain: {sdk: tesaiot-pse84-devkit-sdk @ef72c1b658178eee8c38b1e47d28b006f80a59b5}
+toolchain: {sdk: tesaiot-pse84-devkit-sdk @ef72c1b658178eee8c38b1e47d28b006f80a59b5, modustoolbox: "3.6 (as the SDK README requires)", optiga-trust-m: release-v5.3.0 (pinned by the SDK)}
 prerequisites:
   courses: [embedded-c-foundations]
   skills:
@@ -27,7 +28,7 @@ authors:
 - {name: TESA Open Knowledge contributors, url: 'https://github.com/tesaiot/tesa-qualification-program', role: author}
 sponsors: [TESA]
 license: {content: CC-BY-4.0, code: Apache-2.0}
-source: {repo: 'https://github.com/tesaiot/tesaiot-pse84-devkit-sdk', ref: ef72c1b658178eee8c38b1e47d28b006f80a59b5, license: Apache-2.0, note: 'SDK security examples and docs are linked at this commit, not copied into this course.'}
+source: {repo: 'https://github.com/tesaiot/tesaiot-pse84-devkit-sdk', ref: ef72c1b658178eee8c38b1e47d28b006f80a59b5, license: Apache-2.0, note: 'SDK security examples and docs are linked at this commit; lesson pages quote short excerpts with attribution and copy no files.'}
 modules:
 - id: m01-threats-and-crypto
   title: {th: Threat model และพื้นฐานวิทยาการเข้ารหัส, en: Threat modelling and crypto basics}

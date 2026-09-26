@@ -1,0 +1,75 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — sec-iot.m01.l01 บทเรียน 1.1
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ข้อใดเป็นทรัพย์สินที่ต้องรักษาความถูกต้องเป็นหลัก ไม่ใช่ความลับ
+    en: Which asset mainly needs integrity rather than confidentiality?
+  choices:
+  - th: รหัส WiFi ในที่เก็บข้อมูลรับรอง
+  - th: trust anchor ใน tesaiot_root_ca.h
+  - th: กุญแจลับในช่อง 0xE0F1
+  - th: รหัสผ่าน MQTT ในโหมด server-TLS
+  answer: [1]
+  explain:
+    th: ใบรับรองของ CA เป็นข้อมูลสาธารณะ แต่ถ้ามีคนเปลี่ยนได้ อุปกรณ์จะเชื่อเซิร์ฟเวอร์ปลอม อีกสามข้อต้องรักษาความลับ
+- id: q2
+  objective: 1
+  type: multi
+  prompt:
+    th: เลือกทุกข้อที่เป็นทรัพย์สินของโหนดเซนเซอร์ในบทเรียนนี้
+    en: Select every item that is an asset of the course's sensor node.
+  choices:
+  - th: กุญแจลับของตัวตนอุปกรณ์ในชิป OPTIGA™ Trust M
+  - th: เฟิร์มแวร์ของทั้งสามคอร์
+  - th: สถานะวงจรชีวิตของชิป (metadata tag C0)
+  - th: สีของเคสบอร์ด
+  - th: คำสั่งที่มาทางหัวข้อ device/<device_id>/commands/#
+  answer: [0, 1, 2, 4]
+  explain:
+    th: ทรัพย์สินคือสิ่งที่ถ้าเสียความลับ ความถูกต้อง หรือความพร้อมใช้งานแล้วมีคนเดือดร้อน สีเคสไม่เข้าเกณฑ์นี้
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: '"อุปกรณ์ใช้ TLS 1.2" เป็นมาตรการที่ตรวจได้หรือไม่'
+    en: 'Is "the device uses TLS 1.2" a verifiable mitigation?'
+  choices:
+  - th: ได้ เพราะ TLS 1.2 เป็นมาตรฐาน
+  - th: ไม่ได้ ต้องเขียนเป็นการทดสอบที่ผลเป็นแดงได้ เช่น ใบรับรองปลอมต้องทำให้การเชื่อมต่อล้ม
+  - th: ได้ ถ้า log ขึ้น Connected to broker
+  - th: ไม่ได้ เพราะ TLS ไม่เกี่ยวกับ STRIDE
+  answer: [1]
+  explain:
+    th: Connected to broker ขึ้นได้แม้การตรวจใบรับรองจะปิดอยู่ การทดสอบที่มีความหมายต้องลองกรณีที่ควรล้มแล้วเห็นมันล้มจริง
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: ภัย "ผู้โจมตีส่งคำสั่งปลอมเข้าหัวข้อ commands" ควรจัดเป็นหมวด STRIDE ใดเป็นหลัก
+    en: Which STRIDE category mainly fits "an attacker sends forged commands to the commands topic"?
+  choices:
+  - th: Denial of service
+  - th: Spoofing
+  - th: Information disclosure
+  - th: Repudiation
+  answer: [1]
+  explain:
+    th: ผู้โจมตีปลอมตัวเป็นผู้มีสิทธิ์สั่ง มาตรการคือการยืนยันตัวตนและ ACL ที่ผูกหัวข้อกับตัวตน
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: โหมด server-TLS ยืนยันตัวอุปกรณ์ด้วยชื่อผู้ใช้และรหัสผ่าน ขัดกับข้อใดของ ETSI EN 303 645
+    en: Server-TLS mode authenticates the device with a username and password. Which ETSI EN 303 645 provision does it conflict with?
+  choices:
+  - th: 5.1-2A ไม่ควรใช้รหัสผ่านยืนยันตัวตนระหว่างเครื่องกับเครื่อง
+  - th: 5.7-1 secure boot
+  - th: 5.13-1B ตรวจข้อมูลที่รับเข้า
+  - th: ไม่ขัดข้อใด
+  answer: [0]
+  explain:
+    th: ข้อ 5.1-2A มีสถานะ R (ควรทำ) จึงเป็นช่องว่างที่ต้องเขียนเหตุผลหรือแผนไว้ แผนของหลักสูตรนี้คือเปลี่ยนเป็น mTLS

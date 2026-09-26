@@ -1,17 +1,25 @@
 # Secure IoT กับ OPTIGA™ Trust M
 
-ระดับ **L3** · สถานะ **pre-alpha (โครงร่าง อยู่ระหว่างเขียน)** · 5 โมดูล 11 บทเรียน · ประมาณ 20 ชั่วโมง
+ระดับ **L3** · สถานะ **alpha** · 5 โมดูล 11 บทเรียน · ประมาณ 20 ชั่วโมง
 
 ความปลอดภัยเป็นจุดที่ TESA และ Infineon สอนได้ลึกกว่าที่อื่น เพราะบอร์ด TESAIoT Dev Kit มีชิปความปลอดภัย OPTIGA™ Trust M
 และ SDK สาธารณะมีทั้งตัวอย่างและเอกสารเรื่อง mTLS, Protected Update และการลงทะเบียนอุปกรณ์ด้วย CSR อยู่แล้ว
 หลักสูตรนี้เรียบเรียงวัสดุเหล่านั้นเป็นบทเรียน เริ่มจากคิดแบบผู้โจมตี แล้วค่อยลงมือกับชิปจริง
 ลิงก์ไปยัง SDK ทุกลิงก์ตรึงไว้ที่ commit `ef72c1b`
 
+ตลอดหลักสูตรเราใช้อุปกรณ์ตัวอย่างชิ้นเดียว คือโหนดเซนเซอร์บน TESAIoT Dev Kit ที่ส่งข้อมูลขึ้น TESAIoT Platform ผ่าน MQTTS
+เริ่มจากทำ threat model ของมัน แล้วค่อย ๆ เติมมาตรการทีละบท จนบทสุดท้ายส่งอุปกรณ์ชิ้นนั้นพร้อมหลักฐานว่ามาตรการทำงานจริง
+ทุกข้อเท็จจริงในบทเรียนอ้างถึงไฟล์ใน SDK เอกสารของ SDK ตัวอย่างบน TESAIoT Developer Hub หรือเอกสารสาธารณะของ Infineon
+และทุกบทบอกตรง ๆ ว่า TLS, mTLS, ชิปความปลอดภัย, secure boot และ Protected Update **ไม่ได้** ป้องกันอะไร
+
 ## เหมาะกับใคร
 
 - นักพัฒนาเฟิร์มแวร์ที่ผ่านหลักสูตรพื้นฐานเฟิร์มแวร์ภาษา C หรือเทียบเท่า
 - ผู้ที่ต้องเชื่อมอุปกรณ์เข้าแพลตฟอร์ม IoT อย่างปลอดภัย
 - ต้องมีบอร์ด TESAIoT Dev Kit และบัญชีหรือแพลตฟอร์ม TESAIoT สำหรับบทเรียนเรื่อง mTLS
+
+**สิ่งที่ต้องเตรียม** TESAIoT PSE84 Dev Kit SDK ที่ commit `ef72c1b` กับ ModusToolbox 3.6 (README ของ SDK ระบุรุ่นนี้)
+คอมพิวเตอร์ที่มี `openssl` และ `mosquitto-clients` และอุปกรณ์ที่ลงทะเบียนบน TESAIoT Platform สำหรับโมดูล 3 ถึง 5
 
 ## เมื่อจบหลักสูตร คุณจะทำได้
 
@@ -61,10 +69,13 @@
 
 ## สถานะของหลักสูตร
 
-หลักสูตรนี้เป็นโครงร่าง (pre-alpha) ทุกบทเรียนมีเป้าหมาย ทักษะที่พัฒนา และแหล่งอ้างอิงที่ตรวจแล้ว แต่ยังไม่มีเนื้อหาและแบบฝึก
+หลักสูตรนี้อยู่ในสถานะ **alpha** ทุกบทเรียนมีเนื้อหา ตัวอย่างที่ยกจากซอร์สจริง แบบฝึกพร้อมเฉลย เช็กความเข้าใจใน `quiz.yaml` และแล็บ
+ยังรอการทดลองสอนกับผู้เรียนจริงและคำติชม หน้าภาษาอังกฤษของแต่ละบทเรียนยังไม่ได้แปล (`translation: pending`)
+
 **คำเตือนด้านความปลอดภัยของชิป** สถานะวงจรชีวิตของ OPTIGA (LcsO) เปลี่ยนได้ทางเดียวและย้อนกลับไม่ได้ ตาม README ของตัวอย่างใน SDK
-ไม่มีตัวอย่างใดใน SDK ที่เขียน metadata tag C0 หรือเลื่อนสถานะนี้ บทเรียนในหลักสูตรนี้จะไม่สั่งให้ทำเช่นกัน
-โค้ด host library ของ Infineon ใช้วิธีลิงก์ไปยัง repository และ tag ไม่คัดลอกมา
+ไม่มีตัวอย่างใดใน SDK ที่เขียน metadata tag C0 หรือเลื่อนสถานะนี้ และไม่มีบทเรียนใดในหลักสูตรนี้สั่งให้ทำ
+แล็บที่เปลี่ยนสถานะของชิปแบบอื่น (การลงทะเบียนที่สร้างกุญแจใหม่ และ Protected Update ที่ทำให้ตัวนับ version ขึ้นถาวร) ถูกแยกเป็นแล็บเสริมที่ต้องได้รับอนุญาตจากผู้สอนก่อน
+และการ provision secure boot ของอุปกรณ์อยู่นอกขอบเขตของแล็บ
 
 ## แหล่งอ้างอิงหลัก
 
@@ -73,13 +84,17 @@
 - [C4 — mTLS: the OPTIGA-backed TLS identity (เอกสาร SDK สร้างจาก commit ef72c1b)](https://tesaiot.github.io/tesaiot-pse84-devkit-sdk/sdk/mtb-only/group__c4__mtls__optiga.html)
 - [D2 — Enrolment and Protected Update end to end (เอกสาร SDK สร้างจาก commit ef72c1b)](https://tesaiot.github.io/tesaiot-pse84-devkit-sdk/sdk/mtb-only/group__d2__enrolment__protected__update.html)
 - [Infineon optiga-trust-m (host library, MIT) @ release-v5.8.3](https://github.com/Infineon/optiga-trust-m/tree/release-v5.8.3)
+- [Infineon optiga-trust-m @ release-v5.3.0](https://github.com/Infineon/optiga-trust-m/tree/release-v5.3.0) รุ่นที่ SDK ใช้ตามไฟล์ `proj_cm55/deps/optiga-trust-m.mtb`
+- ตัวอย่างบน TESAIoT Developer Hub: [device-servertls](https://dev.tesaiot.dev/?example=developer-hub--device-servertls&q=device-servertls) · [device-mtls](https://dev.tesaiot.dev/?example=developer-hub--device-mtls&q=device-mtls) · [c_ota_client](https://dev.tesaiot.dev/?example=developer-hub--c_ota_client&q=c_ota_client) · [pse84_tesaiot_client](https://dev.tesaiot.dev/?example=developer-hub--pse84_tesaiot_client&q=pse84_tesaiot_client) (Cypress EULA ลิงก์เท่านั้น)
+- หลักสูตรคู่กัน: [TESAIoT Firmware Stack โมดูล 5 · เชื่อมต่อ TESAIoT Platform อย่างปลอดภัย](../tesaiot-firmware-stack/m05-connect-to-platform/README.md)
 - [ETSI EN 303 645 V3.1.3 (2024-09) Cyber Security for Consumer Internet of Things: Baseline Requirements](https://www.etsi.org/deliver/etsi_en/303600_303699/303645/03.01.03_60/en_303645v030103p.pdf)
 
 ## สัญญาอนุญาต
 
 - เนื้อหา CC BY 4.0
-- โค้ดใหม่ที่จะเพิ่มในหลักสูตรนี้ Apache-2.0
-- โค้ดของ SDK และของ Infineon ไม่ได้คัดลอกมา ใช้สัญญาอนุญาตของต้นทางตามลิงก์
+- หลักสูตรนี้ไม่มีไฟล์โค้ดแยก โค้ดสั้น ๆ ที่เขียนขึ้นใหม่ในหน้าบทเรียนเป็น Apache-2.0
+- โค้ดที่ยกมาสั้น ๆ พร้อมลิงก์ไปยังไฟล์และ commit มาจาก TESAIoT PSE84 Dev Kit SDK และ TESAIoT Developer Hub (Apache-2.0) และจากตัวอย่างของ Infineon optiga-trust-m (MIT) แต่ละชิ้นระบุที่มาและสัญญาอนุญาตไว้ตรงที่ยก
+- โค้ดของตัวอย่าง `pse84_tesaiot_client` อยู่ภายใต้ Cypress (Infineon) EULA หลักสูตรนี้อ้างอิงด้วยลิงก์เท่านั้น ไม่คัดลอก และไฟล์ในโมดูล `tesaiot_mqtt` ของ SDK ที่พัฒนาต่อจากโปรเจกต์นั้นก็อ้างอิงด้วยลิงก์และสรุปความเท่านั้น
 
 ## อ้างอิง TESA
 

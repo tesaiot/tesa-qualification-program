@@ -1,4 +1,11 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
 # SPDX-License-Identifier: CC-BY-4.0
 # This course uses no images yet.
-images: []
+images:
+  - path: cover.webp
+    title: "System Lock"
+    author: "Yu. Samoilov"
+    source: "https://www.flickr.com/photos/110751683@N02/13334048894"
+    license: CC-BY-2.0
+    modified: true
+    note: "Cropped and resized to 960x540 for the course card."

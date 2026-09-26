@@ -1,0 +1,74 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — sec-iot.m02.l01 บทเรียน 2.1
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ข้อใดไม่ใช่หน้าที่ที่ OPTIGA™ Trust M ทำให้ SDK ของบอร์ด
+    en: Which of these is not a job OPTIGA™ Trust M does for the board's SDK?
+  choices:
+  - th: สร้างเลขสุ่มด้วย TRNG
+  - th: ลงลายเซ็น ECDSA ด้วยกุญแจที่อยู่ในชิป
+  - th: เข้ารหัสภาพบนจอ LCD
+  - th: เก็บกุญแจลับที่สร้างขึ้นในชิป
+  answer: [2]
+  explain:
+    th: การวาดจอเป็นงานของ CM55 ชิปความปลอดภัยไม่เกี่ยว
+- id: q2
+  objective: 1
+  type: multi
+  prompt:
+    th: เลือกทุกฟังก์ชันใน host library ของ Infineon ที่ทำงานเข้ารหัสอยู่ในชิป
+    en: Select every Infineon host-library function that performs a cryptographic operation inside the chip.
+  choices:
+  - th: optiga_crypt_ecdsa_sign
+  - th: optiga_crypt_random
+  - th: optiga_crypt_ecc_generate_keypair
+  - th: printf
+  answer: [0, 1, 2]
+  explain:
+    th: สามตัวแรกอยู่ใน optiga_crypt.h ลงนาม สุ่มเลข และสร้างคู่กุญแจในชิป printf เป็นฟังก์ชันของ C library
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ตาม ref_hsm.c ฟังก์ชันใดไม่ใช่การอ่านแบบฟรี
+    en: According to ref_hsm.c, which call is not a free read?
+  choices:
+  - th: trustm_requested_target_oid()
+  - th: trustm_current_correlation_id()
+  - th: optiga_manager_lock()
+  - th: trustm_requested_anchor_oid()
+  answer: [2]
+  explain:
+    th: optiga_manager_lock() ถือประตูเข้าชิป ได้ true ต้องคืนด้วย optiga_manager_unlock() และได้ false อาจแปลว่าเพิ่งรอครบสิบวินาที
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: optiga_manager_lock() คืน false ใน ref_hsm.c หมายความว่าอย่างไร
+    en: What does a false return from optiga_manager_lock() in ref_hsm.c mean?
+  choices:
+  - th: ชิปเสีย
+  - th: ยังไม่มีใครเรียก optiga_manager_init() หรือมี task อื่นถือชิปอยู่ครบสิบวินาที และค่าที่คืนแยกสองกรณีนี้ไม่ได้
+  - th: LcsO เดินไป operational แล้ว
+  - th: ไม่มีใบรับรองในช่อง 0xE0E1
+  answer: [1]
+  explain:
+    th: คอมเมนต์ในตัวอย่างบอกว่าสองกรณีนี้เป็นปัญหาต่างกัน ถ้าต้องแยก โค้ดของคุณต้องจำเองว่าเรียก init แล้วหรือยัง
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: ทำไมหลักสูตรนี้จึงไม่สั่งให้เขียน metadata tag C0
+    en: Why does this course never ask you to write metadata tag C0?
+  choices:
+  - th: เพราะชิปไม่รองรับ
+  - th: เพราะ LcsO เดินทางเดียว ไม่มี reflash ใดพากลับได้ และเมื่อถึง op การเขียน metadata จะหยุดถาวร
+  - th: เพราะต้องใช้รหัสผ่านจาก Infineon
+  - th: เพราะจะทำให้ WiFi ใช้ไม่ได้
+  answer: [1]
+  explain:
+    th: ผลคือบอร์ดที่ใช้เรียนต่อไม่ได้และไม่มีทางกู้ ตัวอย่าง 06 ของ SDK ให้หลักว่างานนี้ควรอยู่ในเครื่องมือแยกที่ตั้งชื่อชัด

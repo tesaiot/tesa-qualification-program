@@ -1,0 +1,74 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — sec-iot.m04.l01 บทเรียน 4.1
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ใน proj_cm33_s/main.c ของแม่แบบ CM33_S ทำอะไรก่อนเปิด CM33_NS
+    en: In the template's proj_cm33_s/main.c, what does CM33_S do before starting CM33_NS?
+  choices:
+  - th: ตรวจลายเซ็นของ CM33_NS ด้วย OPTIGA™ Trust M
+  - th: cybsp_init() แล้วอ่าน stack pointer และ reset handler จากตาราง vector ของ CM33_NS แล้วกระโดดไป
+  - th: ถอดรหัส image ของ CM33_NS
+  - th: เชื่อมต่อ WiFi
+  answer: [1]
+  explain:
+    th: ไม่มีการตรวจลายเซ็นในขั้นนี้ ห่วงโซ่ความเชื่อใจในแม่แบบจึงขาดหลัง CM33_S
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: ถ้าสั่ง build ด้วย SECURE_BOOT=true ระบบ build ของแม่แบบทำอย่างไร และทำไม
+    en: What does the template's build do with SECURE_BOOT=true, and why?
+  choices:
+  - th: ถือว่าเป็น 1 แล้วลงนามให้
+  - th: ถือว่าเป็น 0 แล้ว build แบบไม่ลงนาม
+  - th: หยุดด้วย error เพราะค่าที่พิมพ์ผิดต้องไม่กลายเป็น build ที่ไม่ได้ลงนามแบบเงียบ ๆ
+  - th: ข้ามขั้น sign ทั้งหมด
+  answer: [2]
+  explain:
+    th: common.mk ยอมรับแค่ 0 กับ 1 ค่าอื่นเป็น hard error ตามคอมเมนต์ในไฟล์
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ในแม่แบบที่ build ด้วย SECURE_BOOT=1 และอุปกรณ์ provision secure_boot=true แล้ว ลายเซ็นถูกตรวจที่ข้อต่อใดของการบูต
+    en: With SECURE_BOOT=1 on a device provisioned secure_boot=true, at which boot link is a signature checked?
+  choices:
+  - th: Extended Boot ตรวจ image ของ CM33_S เท่านั้น
+  - th: ทุกข้อต่อจนถึง CM55
+  - th: CM33_S ตรวจ CM33_NS
+  - th: CM33_NS ตรวจ CM55
+  answer: [0]
+  explain:
+    th: ในไฟล์ secure_boot_with_extended_boot.json ขั้น sign มีอินพุตเดียวคือ proj_cm33_s.hex ส่วน CM33_NS และ CM55 ไม่ได้ถูกลงนาม
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: build ด้วย SECURE_BOOT=1 แล้ว flash ลงบอร์ดที่ยังไม่ provision secure_boot=true ผลคืออะไร
+    en: You build with SECURE_BOOT=1 and flash a board not yet provisioned secure_boot=true. What happens?
+  choices:
+  - th: บอร์ดไม่บูต
+  - th: Extended Boot ยังไม่บังคับตรวจลายเซ็น การมีลายเซ็นจึงยังไม่ได้เพิ่มการป้องกัน
+  - th: ชิป OPTIGA ถูกล็อก
+  - th: LcsO เปลี่ยนเป็น operational
+  answer: [1]
+  explain:
+    th: คอมเมนต์ใน config บอกว่า Extended Boot ตรวจลายเซ็นนี้เมื่ออุปกรณ์ provision secure_boot=true แล้วเท่านั้น
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: ข้อใดอธิบายความต่างของ secure boot กับการเข้ารหัสเฟิร์มแวร์ได้ถูก
+    en: Which statement correctly contrasts secure boot and firmware encryption?
+  choices:
+  - th: secure boot ซ่อนโค้ด การเข้ารหัสยืนยันว่าใครเขียน
+  - th: secure boot ยืนยันว่าโค้ดมาจากเจ้าของกุญแจและไม่ถูกแก้ การเข้ารหัสทำให้คนอื่นอ่านโค้ดไม่ได้
+  - th: ทั้งสองอย่างเหมือนกัน
+  - th: secure boot ต้องใช้กุญแจลับบนอุปกรณ์
+  answer: [1]
+  explain:
+    th: ต้องใช้คู่กันถ้าต้องการทั้งความถูกต้องและความลับ แม่แบบนี้ไม่มีขั้นเข้ารหัส image

@@ -1,0 +1,60 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — sec-iot.m05.l03 บทเรียน 5.3
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: หลักฐานชุดใดพอจะอ้างว่า "ชิปลงนาม CertificateVerify สำเร็จด้วยกุญแจที่ลงทะเบียนแล้ว"
+    en: Which evidence is enough to claim "the chip signed CertificateVerify with the enrolled key"?
+  choices:
+  - th: บรรทัด [PSA-Sign] Using Key OID 0xE0F1 อย่างเดียว
+  - th: บรรทัด device pair verified, บรรทัด Using Key OID 0xE0F1, ไม่มีบรรทัด ERROR ของ trustm_ecdsa_sign และ [MQTT] Connected to broker ในการเชื่อมต่อเดียวกัน
+  - th: หน้าจอขึ้นว่าเชื่อมต่อแล้ว
+  - th: tesaiot_mqtt_connect() คืน true
+  answer: [1]
+  explain:
+    th: ตามเกณฑ์ของบท C4 ที่ใช้ในบทเรียน 3.1 บรรทัด Using Key OID พิมพ์ก่อนการลงนาม จึงต้องมีบรรทัดอื่นประกอบ
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: ข้อใดเป็นหลักฐานว่า telemetry ไปถึงจริง
+    en: Which item is evidence that telemetry actually arrived?
+  choices:
+  - th: tesaiot_mqtt_publish() คืน true
+  - th: ผู้ subscribe ที่เชื่อมต่อไว้ก่อน ได้รับ payload ที่อุปกรณ์ publish
+  - th: บรรทัด [Publisher] Published to บน UART
+  - th: ไฟ LED บนบอร์ดกะพริบ
+  answer: [1]
+  explain:
+    th: true แปลแค่ว่าเข้าคิว และบท C3 บอกว่าบรรทัด [Publisher] Published to ถูกปิดไว้ หลักฐานต้องมาจากฝั่งผู้รับ
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ข้อใดควรอยู่ในช่องความเสี่ยงที่ยังเหลือของ threat model หลังทำงานนี้เสร็จ
+    en: Which item belongs in the remaining-risk section of the threat model after this capstone?
+  choices:
+  - th: ไม่มี เพราะใช้ mTLS แล้ว
+  - th: ห่วงโซ่ secure boot ครอบแค่ CM33_S และอุปกรณ์ไม่ตรวจวันหมดอายุของใบรับรอง
+  - th: กุญแจลับอยู่ใน flash
+  - th: รหัสผ่าน MQTT ถูกพิมพ์บน console
+  answer: [1]
+  explain:
+    th: ข้อ ค และ ง ไม่จริงในอุปกรณ์ที่ทำตามหลักสูตร ข้อ ก คือการทำ threat model แบบปิดตา
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: ทำไมต้องมีการทดสอบด้านลบในรายงาน
+    en: Why must the report include negative tests?
+  choices:
+  - th: เพื่อให้รายงานยาวขึ้น
+  - th: เพราะมาตรการที่ไม่เคยถูกทดสอบให้ล้ม อาจผ่านทุกครั้งไม่ว่ามันจะทำงานหรือไม่
+  - th: เพราะแพลตฟอร์มบังคับ
+  - th: เพราะการทดสอบด้านบวกผิดเสมอ
+  answer: [1]
+  explain:
+    th: หลักเดียวกับมาตรการที่ตรวจได้ในบทเรียน 1.1 การทดสอบต้องทำให้ผลเป็นแดงได้

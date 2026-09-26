@@ -1,0 +1,60 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — sec-iot.m05.l02 บทเรียน 5.2
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ถ้าหน้าจอ Enrol รอผลของชิปแบบ inline ใน task ของ LVGL คนที่ถือบอร์ดจะเห็นอะไร
+    en: If the Enrol screen waited inline for the chip in the LVGL task, what would the person holding the board see?
+  choices:
+  - th: จอแสดงความคืบหน้าทีละขั้นตามปกติ
+  - th: จอค้างทั้งจอ และหน้าต่างที่อธิบายว่าทำไมค้างก็วาดไม่ได้ จอจึงทั้งตายและเงียบ
+  - th: ชิปทำงานเร็วขึ้น
+  - th: การลงทะเบียนถูกยกเลิกอัตโนมัติ
+  answer: [1]
+  explain:
+    th: นี่คือเหตุผลที่ IPC_CMD_HSM_PROVISION คืนทันที และ lv_timer ถามสถานะเป็นระยะ ตามคอมเมนต์ของ 01_hsm_screens.c
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: ในการออกแบบของ SDK ใครเป็นคนทำงานลงทะเบียนจริง และจอรู้ความคืบหน้าอย่างไร
+    en: In the SDK's design, who does the enrolment work, and how does the screen learn the progress?
+  choices:
+  - th: callback ของปุ่มบน CM55 ทำเองทั้งหมด
+  - th: worker ฝั่ง CM33_NS ทำงาน ส่วนจอส่ง op=POLL เป็นระยะแล้ววาด state step และข้อความที่ได้กลับมา
+  - th: แพลตฟอร์มส่งภาพหน้าจอมาให้
+  - th: ชิป OPTIGA วาดจอเอง
+  answer: [1]
+  explain:
+    th: prov_task บน CM33_NS ตรวจงานทุก 50 ms และรายงานผ่าน prov_say() ส่วนจอแค่ถามว่าตอนนี้ถึงไหน
+- id: q3
+  objective: 2
+  type: order
+  prompt:
+    th: เรียงขั้นเมื่อผู้ใช้แตะให้เปิดหน้าจอลงทะเบียน ตามตัวอย่าง 01_hsm_screens.c
+    en: Order what happens when the user taps to open the enrol screen, as in 01_hsm_screens.c.
+  choices:
+  - th: hsm_enrol_open() เปิดหน้าต่างเต็มจอ
+  - th: คืนค่า SDK_EX_STARTED (เริ่มแล้ว ยังไม่เสร็จ)
+  - th: hsm_provision_ui_teardown() ปิดหน้าต่างเก่าและ timer ของมัน
+  - th: บันทึกข้อความลง log ของตัวอย่าง
+  answer: [2, 0, 3, 1]
+  explain:
+    th: ปิดของเก่าก่อนเสมอ เปิดของใหม่ บันทึก แล้วคืนค่าว่างานเริ่มแล้ว timer ของหน้าจอเป็นเจ้าของงานต่อจากนี้
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: ทำไม hsm_provision_ui_teardown() ต้องเป็นคำสั่งสุดท้ายใน callback ที่ทำลายหน้า
+    en: Why must hsm_provision_ui_teardown() be the last statement of the page destroy callback?
+  choices:
+  - th: เพื่อให้ timer ที่ถามสถานะถูกยกเลิก ไม่ยิงใส่วัตถุ LVGL ที่ถูกคืนหน่วยความจำแล้ว
+  - th: เพราะมันช้าที่สุด
+  - th: เพื่อให้การลงทะเบียนเริ่มใหม่
+  - th: เพราะมันล้าง correlation id
+  answer: [0]
+  explain:
+    th: บท D2 ให้เหตุผลว่า timer ที่ยิงหลังวัตถุถูกคืนจะอ้างถึงหน่วยความจำที่ไม่มีแล้ว

@@ -84,7 +84,7 @@ courses:
     short: sec-iot
     in_tree: true
     level: L3
-    status: pre-alpha
+    status: alpha
     title: {th: "Secure IoT กับ OPTIGA™ Trust M", en: "Secure IoT with OPTIGA™ Trust M"}
     nav: {th: "Secure IoT (OPTIGA™)", en: "Secure IoT (OPTIGA\u2122)"}
 
