@@ -1,0 +1,13 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: Apache-2.0
+#
+# Screenshots published into lessons, taken by tools/screens/capture.py on a CI runner
+# (.github/workflows/screens.yml). Re-run the workflow whenever the emulator or a page changes.
+#   kind: emulator  run `code` (a lesson program) in the public BENTO simulator and photograph its screen
+#   kind: page      photograph a web page (`url`), optionally only the element `clip`
+# `out` is where the WebP lands; the lesson README links it. A shot that fails its gate is not written.
+
+simulator_path: /simulator/index.html   # appended to ide.origin in site.config.yaml
+viewport: {width: 1800, height: 1100}
+
+shots: []

@@ -1,0 +1,101 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: Apache-2.0
+#
+# Screenshots for lessons, taken here on a GitHub runner (tools/screens/capture.py).
+#   survey   run every lesson program matching `glob` in the public BENTO simulator; the pictures,
+#            a report and contact sheets come back as a workflow artifact, for review only
+#   publish  take the shots listed in tools/screens/screens.yaml and open a pull request with them
+# Run by hand from the Actions tab (workflow_dispatch). Actions are pinned to full commit SHAs.
+name: screens
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: survey (artifact only) or publish (pull request)
+        type: choice
+        options: [survey, publish]
+        default: survey
+      glob:
+        description: "survey: lesson programs to run (repo glob)"
+        default: "courses/explorer/**/examples/*.py"
+      only:
+        description: "publish: shot ids from screens.yaml, space-separated (empty = all)"
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: screens-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    permissions:
+      contents: write        # publish: push the screens/<run> branch
+      pull-requests: write   # publish: open the pull request
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: ${{ inputs.mode == 'publish' }}
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/screens/requirements.txt
+
+      - name: Install Playwright and Chromium
+        run: |
+          python -m pip install -r tools/screens/requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Survey
+        if: ${{ inputs.mode == 'survey' }}
+        env:
+          GLOB: ${{ inputs.glob }}
+        run: python tools/screens/capture.py survey --glob "$GLOB" --out "$RUNNER_TEMP/screens"
+
+      - name: Upload the survey
+        if: ${{ inputs.mode == 'survey' && !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: screens-survey-${{ github.run_id }}
+          path: ${{ runner.temp }}/screens
+          retention-days: 14
+
+      - name: Publish shots
+        if: ${{ inputs.mode == 'publish' }}
+        env:
+          ONLY: ${{ inputs.only }}
+        run: |
+          # shellcheck disable=SC2086  # ONLY is a space-separated list of ids on purpose
+          python tools/screens/capture.py publish --only $ONLY
+
+      - name: Open a pull request
+        if: ${{ inputs.mode == 'publish' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ACTOR: ${{ github.actor }}
+          ACTOR_ID: ${{ github.actor_id }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain -- courses)" ]; then echo "No picture changed."; exit 0; fi
+          # The person who ran the workflow is the author (CONTRIBUTING: authors are people; DCO sign-off).
+          git config user.name "$ACTOR"
+          git config user.email "${ACTOR_ID}+${ACTOR}@users.noreply.github.com"
+          branch="screens/${GITHUB_RUN_ID}"
+          git switch -c "$branch"
+          git add -- courses
+          git commit -s -m "Screenshots from the screens workflow" -m "Taken by tools/screens/capture.py in $RUN_URL"
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" --title "Screenshots from run ${GITHUB_RUN_ID}" \
+            --body "Taken by tools/screens/capture.py in $RUN_URL. Check every picture before merging."

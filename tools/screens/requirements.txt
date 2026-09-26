@@ -1,0 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: Apache-2.0
+# Only for tools/screens/capture.py (CI runner). Pinned; bump deliberately.
+playwright==1.63.0
+Pillow==12.3.0
+PyYAML==6.0.3
