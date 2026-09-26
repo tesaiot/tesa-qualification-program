@@ -1061,6 +1061,13 @@ SPDX-FileCopyrightText = "National Park Service"
 SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
+# Third-party (electronics-and-instruments/credits.yaml)
+path = "courses/electronics-and-instruments/cover.webp"
+precedence = "override"
+SPDX-FileCopyrightText = "Marc Wathieu"
+SPDX-License-Identifier = "CC-BY-2.0"
+
+[[annotations]]
 # Third-party (explorer/credits.yaml)
 path = "courses/explorer/cover.webp"
 precedence = "override"
@@ -1080,6 +1087,13 @@ path = "courses/product-design/cover.webp"
 precedence = "override"
 SPDX-FileCopyrightText = "rawpixel (public domain)"
 SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+# Third-party (secure-iot-optiga/credits.yaml)
+path = "courses/secure-iot-optiga/cover.webp"
+precedence = "override"
+SPDX-FileCopyrightText = "Yu. Samoilov"
+SPDX-License-Identifier = "CC-BY-2.0"
 
 [[annotations]]
 # Third-party (tesaiot-firmware-stack/credits.yaml)

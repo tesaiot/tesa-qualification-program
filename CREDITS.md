@@ -9,7 +9,7 @@ Third-party images and media used by the TESA Open Knowledge courses, with autho
 - การอ้างอิงต้นฉบับที่ดัดแปลงมา (AIC, drsanti, Meysam Parvizi, Infineon) อยู่ใน [NOTICE.md](NOTICE.md) · Upstream attributions: [NOTICE.md](NOTICE.md)
 - วิธีให้เครดิต TESA เมื่อนำไปใช้ต่อ อยู่ใน [ATTRIBUTION.md](ATTRIBUTION.md) · How to credit TESA when you reuse this material: [ATTRIBUTION.md](ATTRIBUTION.md)
 
-รวม 136 รายการ จาก 9 หลักสูตร · 136 item(s) from 9 course(s).
+รวม 138 รายการ จาก 11 หลักสูตร · 138 item(s) from 11 course(s).
 
 ## Explorer: เปิดโลกระบบสมองกลฝังตัว (`explorer`)
 
@@ -168,6 +168,12 @@ Third-party images and media used by the TESA Open Knowledge courses, with autho
 |---|---|---|---|---|---|
 | [`cover.webp`](courses/product-design/cover.webp) | Photo from rawpixel | rawpixel (public domain) | [https://www.rawpixel.com/image/5948163/free-public-domain-cc0-photo](https://www.rawpixel.com/image/5948163/free-public-domain-cc0-photo) | CC0-1.0 | ดัดแปลง · modified |
 
+## อิเล็กทรอนิกส์และเครื่องมือวัดสำหรับนักพัฒนาระบบฝังตัว (`electronics-and-instruments`)
+
+| ไฟล์ · File | ชื่อ · Title | ผู้สร้าง · Author | แหล่งที่มา · Source | สัญญาอนุญาต · Licence | การดัดแปลง · Changes |
+|---|---|---|---|---|---|
+| [`cover.webp`](courses/electronics-and-instruments/cover.webp) | Loud Objects at iMAL | Marc Wathieu | [https://www.flickr.com/photos/88133570@N00/5183937859](https://www.flickr.com/photos/88133570@N00/5183937859) | CC-BY-2.0 | ดัดแปลง · modified |
+
 ## TESA Firmware SDK สำหรับ Edge AI (`firmware-sdk-edge-ai`)
 
 | ไฟล์ · File | ชื่อ · Title | ผู้สร้าง · Author | แหล่งที่มา · Source | สัญญาอนุญาต · Licence | การดัดแปลง · Changes |
@@ -179,6 +185,12 @@ Third-party images and media used by the TESA Open Knowledge courses, with autho
 | ไฟล์ · File | ชื่อ · Title | ผู้สร้าง · Author | แหล่งที่มา · Source | สัญญาอนุญาต · Licence | การดัดแปลง · Changes |
 |---|---|---|---|---|---|
 | [`cover.webp`](courses/digital-twin/cover.webp) | MedUSA, a large-scale 3D printing | U.S. Department of Energy | [https://www.rawpixel.com/image/3325581/free-photo-image-robot-factory-manufacturing-robotics](https://www.rawpixel.com/image/3325581/free-photo-image-robot-factory-manufacturing-robotics) | CC0-1.0 | ดัดแปลง · modified |
+
+## Secure IoT กับ OPTIGA™ Trust M (`secure-iot-optiga`)
+
+| ไฟล์ · File | ชื่อ · Title | ผู้สร้าง · Author | แหล่งที่มา · Source | สัญญาอนุญาต · Licence | การดัดแปลง · Changes |
+|---|---|---|---|---|---|
+| [`cover.webp`](courses/secure-iot-optiga/cover.webp) | System Lock | Yu. Samoilov | [https://www.flickr.com/photos/110751683@N02/13334048894](https://www.flickr.com/photos/110751683@N02/13334048894) | CC-BY-2.0 | ดัดแปลง · modified |
 
 ## Edge AI Developer: จากเซนเซอร์สู่โมเดลบนอุปกรณ์ (`edge-ai-developer`)
 
