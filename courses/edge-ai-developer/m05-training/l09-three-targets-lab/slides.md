@@ -267,7 +267,7 @@ print(r['label'], r['conf'], r['latency_ms'])   # เช่น shaking 0.94 3.9
 **ภาพ/เอกสารอ้างอิง**
 
 - Quantization (signal processing) — บทความ + ภาพประกอบ quantization error: https://en.wikipedia.org/wiki/Quantization_(signal_processing) (ที่มา: Wikipedia / Wikimedia Commons, CC BY-SA)
-- Arm Ethos-U55 microNPU + ethos-u-vela compiler — สเปกและตัวคอมไพเลอร์ที่เราใช้วันนี้: https://developer.arm.com/Processors/Ethos-U55 · https://github.com/ARM-software/ethos-u-vela (ที่มา: Arm Developer / ARM-software, official docs)
+- Arm Ethos-U55 microNPU + ethos-u-vela compiler — สเปกและตัวคอมไพเลอร์ที่เราใช้วันนี้: https://developer.arm.com/Processors/Ethos-U55 · https://pypi.org/project/ethos-u-vela/ (ที่มา: Arm Developer และแพ็กเกจ ethos-u-vela ทางการบน PyPI)
 
 > วิดีโอ/ภาพภายนอกเป็นของเจ้าของต้นฉบับ ใช้เพื่อการศึกษา อ้างอิงลิงก์ต้นทาง — เราลิงก์ไปหา ไม่ได้ฝังหรือดัดแปลง
 

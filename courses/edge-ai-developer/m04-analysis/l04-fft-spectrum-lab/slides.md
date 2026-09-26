@@ -367,7 +367,7 @@ peak_lbl.text("peak: %.1f Hz (bin %d)" % (kmax * FS / N, kmax))
 
 **บทความ / ภาพอ้างอิง (สาธารณสมบัติ / CC)**
 - Fast Fourier transform — สารานุกรม: https://en.wikipedia.org/wiki/Fast_Fourier_transform (ที่มา: Wikipedia, CC BY-SA)
-- ภาพ Fourier transform / time-frequency — Wikimedia Commons: https://commons.wikimedia.org/wiki/Category:Fourier_transform (ที่มา: Wikimedia Commons, public domain / CC)
+- ภาพ Fourier transform / time-frequency — Wikimedia Commons: https://commons.wikimedia.org/wiki/Category:Fourier_transformation (ที่มา: Wikimedia Commons, public domain / CC)
 
 > วิดีโอ/ภาพภายนอกเป็นของเจ้าของต้นฉบับ ใช้เพื่อการศึกษา อ้างอิงลิงก์ต้นทาง
 

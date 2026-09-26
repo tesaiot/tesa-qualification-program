@@ -324,7 +324,7 @@ if should_fire:
 **ภาพ / เอกสารอ้างอิง**
 
 - Schmitt trigger (แนวคิด hysteresis กันสัญญาณสั่นข้ามเส้น): https://en.wikipedia.org/wiki/Schmitt_trigger  (ที่มา: Wikipedia, CC BY-SA)
-- Switch bounce waveform (ภาพสัญญาณเด้งของหน้าสัมผัส): https://commons.wikimedia.org/wiki/File:Bouncy_switch.png  (ที่มา: Wikimedia Commons, public domain / CC)
+- Switch bounce waveform (ภาพสัญญาณเด้งของหน้าสัมผัส): https://commons.wikimedia.org/wiki/File:Bouncy_Switch.png  (ที่มา: Wikimedia Commons, public domain / CC)
 - Confusion matrix (false positive / false negative): https://en.wikipedia.org/wiki/Confusion_matrix  (ที่มา: Wikipedia, CC BY-SA)
 
 > วิดีโอ/ภาพภายนอกเป็นของเจ้าของต้นฉบับ ใช้เพื่อการศึกษา อ้างอิงลิงก์ต้นทาง — เราไม่ได้ฝังหรือทำซ้ำ เพียงชี้ทางไปอ่านต่อ

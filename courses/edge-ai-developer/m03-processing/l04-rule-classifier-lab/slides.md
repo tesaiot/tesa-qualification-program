@@ -330,7 +330,7 @@ def classify(t, h, hi):
 **ภาพ / บทความอ้างอิง**
 - จุดน้ำค้าง (Dew point) พร้อมสูตร Magnus: https://en.wikipedia.org/wiki/Dew_point (ที่มา: Wikipedia, CC BY-SA)
 - ดัชนีความร้อน (Heat index) พร้อมตาราง NOAA: https://en.wikipedia.org/wiki/Heat_index (ที่มา: Wikipedia, CC BY-SA)
-- ตารางดัชนีความร้อนของ NOAA (ภาพ): https://commons.wikimedia.org/wiki/Category:Heat_index (ที่มา: Wikimedia Commons, public domain — NOAA)
+- ตารางดัชนีความร้อนของ NOAA: https://www.weather.gov/safety/heat-index (ที่มา: NOAA National Weather Service)
 
 > วิดีโอ/ภาพภายนอกเป็นของเจ้าของต้นฉบับ ใช้เพื่อการศึกษา อ้างอิงลิงก์ต้นทาง
 
