@@ -74,11 +74,39 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — SHT4x คืออะไร
 
-วัดความชื้นสัมพัทธ์และอุณหภูมิด้วยเซนเซอร์ Sensirion SHT4x บน I2C แล้วแสดงผลเป็นตัวบ่งชี้บนจอ LVGL
+Sensirion — RH ±1.8%, T ±0.2°C, RH 0-100%, T -40..125°C, < 0.4 µA ที่ 1 Hz
 
-- ตั้งเกณฑ์สีของตัวบ่งชี้จากช่วงความชื้นที่สบาย และอธิบายที่มาของเกณฑ์
+ไม่มี register map — คุยด้วย **command-based protocol**: ส่ง command byte → รอ delay → อ่าน 6 byte + CRC-8
+
+---
+
+# แนวคิด — โปรโตคอลอยู่ในมิดเดิลแวร์ ไม่ใช่โค้ดของ episode
+
+`sht4x_driver.c` **ไม่มี** command byte/CRC เอง — เรียก `mtb_sht4x_measure_high_precision()` ตัวเดียว
+
+มิดเดิลแวร์ทำครบ (ส่ง `0xFD`, รอ, อ่าน, ตรวจ CRC, แปลงหน่วย) คืนเป็น milli-units — โค้ด episode แค่หาร 1000
+
+รูปแบบเดียวกับ DPS368/BMI270: ห่อโปรโตคอล byte ไว้ในไลบรารีผู้ผลิตเสมอ
+
+---
+
+# แนวคิด — เกณฑ์สีจริงมีแค่ 3 โซน
+
+README ต้นทาง: 30/60/80% (4 โซน มีแดง "อันตราย")
+
+**โค้ดจริง**: < 40% Dry (เหลืองอำพัน) · 40-60% Comfort (เขียว) · > 60% Humid (น้ำเงิน) — ไม่มีโซนแดง
+
+40-60% ตรงกับคำแนะนำ HVAC/ASHRAE ทั่วไป
+
+---
+
+# แนวคิด — เกณฑ์ถูกกำหนดซ้ำสองที่
+
+`hum_level_color()` (สี) และ `set_comfort_chip()` (ข้อความ) hard-code 40.0f/60.0f **แยกกันคนละฟังก์ชัน**
+
+แก้ที่เดียวลืมอีกที่ → ข้อความกับสีไม่ตรงกัน (เช่น "Humid" แต่สียังเขียว)
 
 ---
 
@@ -92,16 +120,55 @@ section.cover img{filter:none}
 
 ---
 
-# ตัวอย่างสมบูรณ์
+# ตัวอย่างสมบูรณ์ — driver เรียกมิดเดิลแวร์ตัวเดียว
 
-โค้ดของ episode นี้อยู่ใน Developer Hub (อ้างอิงที่ commit `9a8e3ed`) อ่าน **Why / What / How** ฉบับเต็มก่อนใน [README ของ episode](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep03_sht40_indicator/README.md) แล้วไล่โค้ดตามลำดับนี้
+โค้ดจาก tesaiot/developer-hub (Apache-2.0) · commit `9a8e3ed` · [`sht4x_driver.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep03_sht40_indicator/app_sensor/sht4x/sht4x_driver.c)
 
-- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep03_sht40_indicator/main_example.c)
-- [`app_sensor/sht4x/sht4x_config.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep03_sht40_indicator/app_sensor/sht4x/sht4x_config.h)
-- [`app_sensor/sht4x/sht4x_driver.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep03_sht40_indicator/app_sensor/sht4x/sht4x_driver.c)
-- [`app_sensor/sht4x/sht4x_driver.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep03_sht40_indicator/app_sensor/sht4x/sht4x_driver.h)
-- [`app_sensor/sht4x/sht4x_reader.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep03_sht40_indicator/app_sensor/sht4x/sht4x_reader.c)
-- และอีก 6 ไฟล์ใน [โฟลเดอร์ของ episode](https://github.com/tesaiot/developer-hub/tree/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep03_sht40_indicator)
+```c
+cy_rslt_t sht4x_driver_read_sample(sht4x_sample_t *sample)
+{
+    int32_t temp_milli_c = 0;
+    int32_t hum_milli_rh = 0;
+
+    cy_rslt_t rslt = mtb_sht4x_measure_high_precision(
+        s_i2c_bus, &temp_milli_c, &hum_milli_rh);
+    if (CY_RSLT_SUCCESS != rslt) { return rslt; }
+
+    /* Middleware returns milli-units; convert once here. */
+    sample->temperature_c = ((float)temp_milli_c) / 1000.0f;
+    sample->humidity_rh = ((float)hum_milli_rh) / 1000.0f;
+    return CY_RSLT_SUCCESS;
+}
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — เกณฑ์สีตัวจริง
+
+[`sht4x_view.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep03_sht40_indicator/app_ui/sht4x/sht4x_view.c)
+
+```c
+static lv_color_t hum_level_color(float humidity_rh)
+{
+    if (humidity_rh < 40.0f)
+    {
+        return lv_color_hex(0xD97706);   /* Dry */
+    }
+    if (humidity_rh <= 60.0f)
+    {
+        return lv_color_hex(0x16A34A);   /* Comfort */
+    }
+    return lv_color_hex(0x2563EB);       /* Humid */
+}
+```
+
+---
+
+# จุดที่มักพลาด
+
+- คิดว่าต้องเขียน command byte/CRC-8 เอง — จริงอยู่ในมิดเดิลแวร์แล้ว
+- จำเกณฑ์สีผิดเป็น 4 โซน (30/60/80%) — จริงมีแค่ 3 โซน (40/60)
+- แก้เกณฑ์สีแค่ฟังก์ชันเดียว — ต้องแก้ `hum_level_color()` กับ `set_comfort_chip()` พร้อมกัน
 
 ---
 

@@ -74,11 +74,51 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — event-driven programming ใน LVGL
 
-ปุ่ม UP / DOWN / RESET ที่ตอบสนองต่อ LV_EVENT_PRESSED และ LV_EVENT_LONG_PRESSED_REPEAT — แยก UI logic ออกจาก counter logic
+`lv_obj_add_event_cb(obj, callback, filter, user_data)` ผูก event callback
 
-- แยก UI logic ออกจาก counter logic เป็นคนละไฟล์ และอธิบายว่าทำไมจึงทดสอบง่ายขึ้น
+- `filter` กำหนดชนิด event (`LV_EVENT_PRESSED`, `LV_EVENT_LONG_PRESSED_REPEAT`, ...)
+- `user_data` คือ pointer ที่เราส่งเอง อ่านกลับด้วย `lv_event_get_user_data(e)`
+- แทนที่ global variable — callback ตัวเดียวรับใช้หลายปุ่มพร้อมกันได้
+
+---
+
+# แนวคิด — tap กับ hold ต่างกันที่ event
+
+- `LV_EVENT_PRESSED` — ยิงทันทีที่แตะลง ไม่ต้องรอปล่อย
+- `LV_EVENT_LONG_PRESSED_REPEAT` — ยิงซ้ำทุก N ms ตอนกดค้าง (`LV_INDEV_DEF_LONG_PRESS_REP_TIME` ใน `lv_conf.h`)
+
+EP02 ผูก callback เดียวกันกับทั้งสอง event (register สองครั้ง) แล้วเช็ค `lv_event_get_code(e)` เพื่อเลือก delta
+
+---
+
+# แนวคิด — แยก UI ออกจาก logic
+
+`ui_button_counter.c` รู้จัก LVGL เต็มตัว แต่ `counter_logic.c` รู้จักแค่ `lv_obj_t *` ของ label กับ state ของตัวเอง
+
+ปุ่ม UP กับ DOWN **ใช้ callback ตัวเดียวกัน** ต่างกันแค่ payload (`tap_delta`/`hold_repeat_delta`) ที่ส่งผ่าน `user_data`
+
+เพิ่มปุ่มใหม่ที่ใช้ logic เดิม = สร้าง action struct ใหม่ ไม่ต้องเขียน callback ใหม่
+
+---
+
+# แนวคิด — ทำไม state ต้องเป็น `static`
+
+`s_counter_state`, `s_up_action`, `s_down_action` เป็นตัวแปร `static` ระดับไฟล์
+
+`lv_obj_add_event_cb()` เก็บ **pointer** ของ `user_data` ไว้เรียกทีหลัง (ตอนผู้ใช้กดปุ่ม — นานหลังฟังก์ชันสร้าง UI return แล้ว)
+
+ถ้าเป็นตัวแปร local บน stack จะตายทันทีที่ฟังก์ชัน return → callback อ่าน dangling pointer
+
+---
+
+# แนวคิด — flex layout และโลโก้ scale
+
+- `lv_obj_set_layout(row, LV_LAYOUT_FLEX)` + `LV_FLEX_FLOW_ROW` เรียงปุ่มซ้าย→ขวาอัตโนมัติ
+- `lv_obj_set_style_pad_column(row, 20, ...)` เว้นช่องไฟระหว่างปุ่ม
+- ปุ่มใช้ label-on-button pattern: label เป็นลูกของปุ่ม จัดกึ่งกลางด้วย `lv_obj_align`
+- `lv_image_set_scale(logo, 128)` — LVGL ใช้ 256 = 1.0x ดังนั้น 128 = 0.5x
 
 ---
 
@@ -92,15 +132,57 @@ section.cover img{filter:none}
 
 ---
 
-# ตัวอย่างสมบูรณ์
+# ตัวอย่างสมบูรณ์ — `counter_logic_button_event_cb`
 
-โค้ดของ episode นี้อยู่ใน Developer Hub (อ้างอิงที่ commit `9a8e3ed`) อ่าน **Why / What / How** ฉบับเต็มก่อนใน [README ของ episode](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep02_button_event/README.md) แล้วไล่โค้ดตามลำดับนี้
+โค้ดจาก tesaiot/developer-hub (Apache-2.0) · commit `9a8e3ed` · [`counter_logic.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep02_button_event/counter_logic.c)
 
-- [`counter_logic.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep02_button_event/counter_logic.c)
-- [`counter_logic.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep02_button_event/counter_logic.h)
-- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep02_button_event/main_example.c)
-- [`ui_button_counter.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep02_button_event/ui_button_counter.c)
-- [`ui_button_counter.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep02_button_event/ui_button_counter.h)
+```c
+void counter_logic_button_event_cb(lv_event_t *e)
+{
+    lv_event_code_t code = lv_event_get_code(e);
+    counter_button_action_t *action =
+        (counter_button_action_t *)lv_event_get_user_data(e);
+
+    if(action == NULL || action->state == NULL) {
+        return;
+    }
+    if(code == LV_EVENT_PRESSED) {
+        counter_logic_apply_delta(action->state, action->tap_delta);
+        return;
+    }
+    if(code == LV_EVENT_LONG_PRESSED_REPEAT) {
+        counter_logic_apply_delta(action->state, action->hold_repeat_delta);
+    }
+}
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — ผูกปุ่ม UP กับ callback
+
+[`ui_button_counter.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep02_button_event/ui_button_counter.c)
+
+```c
+/* Event payload: tap +1, hold-repeat +5. */
+s_up_action.state = &s_counter_state;
+s_up_action.tap_delta = 1;
+s_up_action.hold_repeat_delta = 5;
+lv_obj_add_event_cb(btn_up, counter_logic_button_event_cb,
+                    LV_EVENT_PRESSED, &s_up_action);
+lv_obj_add_event_cb(btn_up, counter_logic_button_event_cb,
+                    LV_EVENT_LONG_PRESSED_REPEAT, &s_up_action);
+```
+
+ปุ่ม DOWN เรียก callback **ตัวเดียวกัน** แค่ส่ง `s_down_action` ที่ `tap_delta = -1` แทน
+
+---
+
+# จุดที่มักพลาด
+
+- ส่ง `user_data` เป็นตัวแปร local (stack) → ต้อง `static`/global เพราะ callback เก็บ pointer ไว้ใช้ทีหลัง
+- ปุ่ม RESET เช็คทั้ง `LV_EVENT_PRESSED` และ `LV_EVENT_CLICKED` ต่างจาก UP/DOWN ที่เช็คแค่ `LV_EVENT_PRESSED`
+- ต้อง register `lv_obj_add_event_cb()` **สองครั้ง** คนละ filter เพื่อรับทั้ง tap และ hold
+- `lv_image_set_scale` ใช้ฐาน 256 ไม่ใช่ 100 — 128 คือ 0.5x ไม่ใช่ 128%
 
 ---
 

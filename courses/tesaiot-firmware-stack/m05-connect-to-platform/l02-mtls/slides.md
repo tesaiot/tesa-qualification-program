@@ -73,9 +73,61 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — mTLS คืออะไร
 
-อุปกรณ์ที่ส่งข้อมูลขึ้นแพลตฟอร์มต้องพิสูจน์ได้ว่าคุยกับเซิร์ฟเวอร์ตัวจริง และแพลตฟอร์มต้องรู้ว่าอุปกรณ์เป็นตัวจริง บทเรียนนี้ใช้ตัวอย่างอ้างอิงของ Developer Hub ที่เชื่อมกับ TESAIoT Platform จริง
+หลังเซิร์ฟเวอร์ยื่นใบรับรองให้ตรวจ (เหมือน Server-TLS) เซิร์ฟเวอร์ขอใบรับรองของอุปกรณ์กลับด้วย
+
+อุปกรณ์ต้องพิสูจน์ว่าถือ private key คู่กับใบรับรองนั้น — private key เองไม่เคยถูกส่งผ่านเครือข่ายเลย
+
+ต่างจาก Server-TLS ที่ต้องส่ง "ความลับ" (API key/password) ทุกครั้งที่เชื่อมต่อ
+
+---
+
+# แนวคิด — ไฟล์ที่ต้องมี และการตรวจก่อนเชื่อมต่อ
+
+ต้องมี `client_cert.pem` และ `client_key.pem` ใน `certs_credentials/` เสมอ
+
+`main.c`: `file_exists(crt) && file_exists(key)` — ถ้าไม่ครบ หยุดทันทีพร้อม error ไม่ลองเชื่อมต่อแบบไม่มีใบรับรอง
+
+---
+
+# แนวคิด — อุปกรณ์แบบ CSR: กุญแจไม่เคยออกจากเครื่องที่สร้างมัน
+
+`scripts/generate_csr.sh` สร้างกุญแจด้วย `openssl` แล้ว `chmod 600` ทันที ที่ฝั่งอุปกรณ์เอง
+
+แพลตฟอร์มได้แค่ CSR (มี public key) ไปลงนาม — bundle ที่ดาวน์โหลดจึง**ไม่มี** private key รวมมา
+
+bundle รั่วก็ไม่ทำให้กุญแจรั่ว ต้องคัดลอกกุญแจมาวางเองด้วย `sync_csr_key.sh <DEVICE_ID>`
+
+---
+
+# แนวคิด — CA ที่ตรวจเซิร์ฟเวอร์ยังเป็น system trust
+
+ต่างจาก MQTTS ใน Server-TLS ที่ใช้ `ca-chain.pem` ของอุปกรณ์ mTLS ตั้ง `tls.ca_chain = NULL` ทั้งสองสาขา
+
+คอมเมนต์ในโค้ด: "Use system trust … Do not force device CA"
+
+mTLS เพิ่มแค่การที่อุปกรณ์ต้องยื่นใบรับรองกลับ ไม่ได้เปลี่ยนวิธีตรวจเซิร์ฟเวอร์
+
+---
+
+# แนวคิด — พอร์ตของ mTLS ต่างจาก Server-TLS
+
+mTLS: HTTPS พอร์ต 9444, MQTTS พอร์ต 8883
+
+Server-TLS: HTTPS พอร์ต 443, MQTTS พอร์ต 8884
+
+ส่ง HTTPS mTLS ไปพอร์ต 443 แทน 9444 → ปลายทางไม่ใช่ endpoint ของ mTLS (SAN/โดเมนไม่ตรง)
+
+---
+
+# แนวคิด — เปรียบเทียบ Server-TLS กับ mTLS
+
+ทั้งคู่เข้ารหัสช่องทางเท่ากัน และตรวจเซิร์ฟเวอร์เหมือนกัน (`verify_peer = 1` เสมอ)
+
+Server-TLS: เริ่มง่าย แต่ความลับเดินทางทุกครั้งที่เชื่อมต่อ — รั่วแล้วปลอมตัวได้ทันที
+
+mTLS: ไม่มีความลับเดินทางเลย แต่ต้องดูแลใบรับรอง/กุญแจ — กุญแจรั่วกระทบแค่อุปกรณ์ตัวนั้น (ACL แยกตาม `device/<device_id>/…`)
 
 ---
 
@@ -89,13 +141,75 @@ section.cover img{filter:none}
 
 ---
 
-# ตัวอย่างสมบูรณ์
+## ก่อนรันตัวอย่าง — ตั้งโฮสต์เป็น tesaiot.dev
+
+`config.h` ของตัวอย่างที่ commit นี้ยังตั้งค่าเริ่มต้นเป็นโดเมนเดิมของแพลตฟอร์มที่ลงท้ายด้วย .com ซึ่งย้ายไปเป็น tesaiot.dev แล้ว
+โดเมนเดิมของ API ไม่ resolve แล้ว ส่วนของ MQTT ยังใช้ได้ชั่วคราว ให้ตั้ง `DEFAULT_API_BASE_URL` เป็น `https://tesaiot.dev:9444` และ `DEFAULT_MQTT_HOST` เป็น `mqtt.tesaiot.dev`
+(บันทึกไว้ที่ [developer-hub issue #3](https://github.com/tesaiot/developer-hub/issues/3))
+
+---
+
+# ตัวอย่างสมบูรณ์ — ต้องมีใบรับรองและกุญแจก่อนเริ่ม
+
+โค้ดจาก tesaiot/developer-hub (Apache-2.0) · commit `d2ed42c` · [`main.c`](https://github.com/tesaiot/developer-hub/blob/d2ed42c4a31232f553b6b8cef9ee7373db348c21/examples/embedded-devices/intermediate/device-mtls/main.c#L336-L343)
+
+```c
+join_path(crt, sizeof(crt), certs_dir, FILE_CLIENT_CERT);
+join_path(key, sizeof(key), certs_dir, FILE_CLIENT_KEY);
+if (!(file_exists(crt) && file_exists(key))) {
+  fprintf(stderr, "mTLS requires client_cert.pem "
+                  "and client_key.pem in %s\n", certs_dir);
+  return 1;
+}
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — ผูกใบรับรอง/กุญแจเข้ากับ TLS
+
+[`main.c`](https://github.com/tesaiot/developer-hub/blob/d2ed42c4a31232f553b6b8cef9ee7373db348c21/examples/embedded-devices/intermediate/device-mtls/main.c#L386-L388)
+
+```c
+iot_tls_conf_t tls; (void)memset(&tls, 0, sizeof(tls));
+tls.client_cert = crt; tls.client_key = key;
+tls.verify_peer = 1U;
+```
+
+ยังตรวจเซิร์ฟเวอร์เหมือน Server-TLS ทุกประการ เพิ่มแค่ใบรับรอง/กุญแจของอุปกรณ์เอง
+
+---
+
+# ตัวอย่างสมบูรณ์ — สาขา MQTTS: ไม่มี username/password เลย
+
+[`main.c`](https://github.com/tesaiot/developer-hub/blob/d2ed42c4a31232f553b6b8cef9ee7373db348c21/examples/embedded-devices/intermediate/device-mtls/main.c#L412-L419)
+
+```c
+/* ... */
+tls.ca_chain = NULL; tls.sni_name = mqtt_host;
+mreq.client_id = device_id;
+mreq.username = NULL; mreq.password = NULL;
+```
+
+ใบรับรองทำหน้าที่พิสูจน์ตัวตนแทน username/password ทั้งหมด
+
+---
+
+# ตัวอย่างสมบูรณ์ — credential และลิงก์
 
 ต้องมี credential ของอุปกรณ์จาก TESAIoT Platform ตามขั้นตอนใน README ห้ามนำ credential จริงขึ้น repo สาธารณะ
 
 [ตัวอย่างบน Developer Hub](https://dev.tesaiot.dev/?example=developer-hub--device-mtls&q=device-mtls)
 
 ตัวอย่างอยู่ใน tesaiot/developer-hub (Apache-2.0) และอ้างอิงด้วยลิงก์
+
+---
+
+# จุดที่มักพลาด
+
+- ลืมว่า bundle ของอุปกรณ์แบบ CSR ไม่มี private key มาด้วย — ต้องรัน `sync_csr_key.sh` ไม่ใช่ขอกุญแจใหม่จากแพลตฟอร์ม
+- ใช้พอร์ตของ Server-TLS กับ credential แบบ mTLS หรือกลับกัน — เจอ SAN/โดเมนไม่ตรง
+- คิดว่า mTLS ทำให้ไม่ต้องตรวจใบรับรองเซิร์ฟเวอร์อีก — `verify_peer = 1U` ยังเปิดเหมือนเดิม
+- เข้าใจว่า Server-TLS กับ mTLS ใช้ `X-API-KEY` เหมือนกัน — mTLS ไม่ใช้ API key เลย
 
 ---
 

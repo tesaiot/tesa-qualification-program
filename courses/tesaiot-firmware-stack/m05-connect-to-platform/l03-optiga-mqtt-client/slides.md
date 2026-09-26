@@ -73,9 +73,65 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — OPTIGA Trust M คืออะไร
 
-อุปกรณ์ที่ส่งข้อมูลขึ้นแพลตฟอร์มต้องพิสูจน์ได้ว่าคุยกับเซิร์ฟเวอร์ตัวจริง และแพลตฟอร์มต้องรู้ว่าอุปกรณ์เป็นตัวจริง บทเรียนนี้ใช้ตัวอย่างอ้างอิงของ Developer Hub ที่เชื่อมกับ TESAIoT Platform จริง
+secure element แยกต่างหาก (CC EAL6+) เชื่อมผ่าน I2C — สร้างและเก็บคู่กุญแจ ECC P-256 ในตัวเอง
+
+เฟิร์มแวร์สั่งให้ชิป "เซ็น" ได้ แต่อ่านกุญแจส่วนตัวออกมาไม่ได้เลย เพราะไม่เคยเข้า RAM ของ MCU
+
+งานเข้ารหัสอื่นของ TLS ยังทำโดย mbedTLS บน MCU ตามปกติ
+
+---
+
+# แนวคิด — OID: แผนที่กุญแจและใบรับรองในชิป
+
+`0xE0C2` Factory UID (อ่านอย่างเดียว) · `0xE0E0`+`0xE0F0` Factory cert+key
+
+`0xE0E1`+`0xE0F1` Device cert+key (ออกผ่าน Protected Update) · `0xE0E3` trust anchor (ROOT_CA)
+
+ใบรับรองต้องคู่กับกุญแจที่ OID ตรงกันเสมอ ใช้ผิดคู่ = เซ็นไม่ตรงกับใบรับรองที่ยื่น
+
+---
+
+# แนวคิด — อ่านกุญแจไม่ได้ แต่สั่งเซ็นได้
+
+`0xE0F0`/`0xE0F1`: Read = Never, Execute = Always (เซ็นได้เสมอ)
+
+`0xE0E0`: Change = Never (แก้ไม่ได้หลัง provision) · `0xE0E1`: เขียนใหม่ได้
+
+หัวใจของ hardware root of trust — debug เข้าไปอ่านหน่วยความจำก็คัดลอกกุญแจออกมาไม่ได้
+
+---
+
+# แนวคิด — Two-Certificate PKI และ SAFE MODE
+
+Factory cert (`0xE0E0`+`0xE0F0`) สำหรับ bootstrap/กู้ระบบ vs Device cert (`0xE0E1`+`0xE0F1`) ใช้งานจริง
+
+ทุกครั้งที่ boot/reset: `g_force_factory_cert = true` (SAFE MODE) — บังคับใช้ Factory cert ก่อนเสมอ
+
+เหตุผล: Device cert/key อาจไม่ตรงกันหลัง reset แต่ Factory cert/key จับคู่ถูกต้องเสมอ
+
+---
+
+# แนวคิด — ลำดับขั้นตอน Protected Update
+
+(1) OPTIGA สร้างคู่กุญแจในชิป (ที่ `0xE0F1`) → (2) สร้าง CSR ลงนามด้วยกุญแจนั้น
+
+(3) ต่อ MQTT ด้วย Factory cert → ส่ง CSR ขึ้นแพลตฟอร์ม → (4) รับ manifest ที่ลงนามแล้วกลับมา
+
+(5) OPTIGA ตรวจลายเซ็น manifest กับ trust anchor (`0xE0E3`) ก่อน แล้วจึงเขียนใบรับรองใหม่ลง `0xE0E1`
+
+private key ไม่เคยออกจากชิปตลอดกระบวนการ — มีแต่ CSR (public key) และใบรับรองที่เดินทาง
+
+---
+
+# แนวคิด — เชื่อมต่อ MQTT ด้วยกุญแจใน OPTIGA
+
+boot: อ่าน cert จาก OPTIGA → `optiga_psa_register()` + `psa_crypto_init()` → ผูก PSA key handle ที่ `PSA_KEY_LOCATION_OPTIGA`
+
+"generate" ในที่นี้คือผูก handle เข้ากับ OID ที่มีกุญแจอยู่แล้ว ไม่ได้สร้างกุญแจใหม่
+
+`cy_tls_set_optiga_key_id()` + `cy_tls_set_client_cert()` — TLS handshake ขั้น CertificateVerify เรียกกลับให้ OPTIGA เซ็นแฮช ไม่มีไบต์กุญแจไหลผ่าน RAM ของ MCU เลย
 
 ---
 
@@ -89,13 +145,40 @@ section.cover img{filter:none}
 
 ---
 
-# ตัวอย่างสมบูรณ์
+## ก่อนรันตัวอย่าง — ตั้งโฮสต์เป็น tesaiot.dev
+
+`mqtt_client_config.h` ของตัวอย่างที่ commit นี้ยังตั้ง `MQTT_BROKER_ADDRESS` และ `MQTT_SNI_HOSTNAME` เป็นชื่อ MQTT เดิมของแพลตฟอร์มที่ลงท้ายด้วย .com
+ชื่อนี้ยังใช้ได้ชั่วคราว แต่แพลตฟอร์มย้ายไปเป็น tesaiot.dev แล้ว ให้ตั้งทั้งสองค่าเป็น `mqtt.tesaiot.dev` (บันทึกไว้ที่ [developer-hub issue #3](https://github.com/tesaiot/developer-hub/issues/3))
+
+---
+
+# ตัวอย่างสมบูรณ์ — ไล่โค้ดตามลำดับนี้
+
+โค้ดอยู่ใน tesaiot/developer-hub · commit `d2ed42c` (อ้างอิงด้วยลิงก์เท่านั้น ดูหัวข้อถัดไป)
+
+- [`main.c#L491-L536`](https://github.com/tesaiot/developer-hub/blob/d2ed42c4a31232f553b6b8cef9ee7373db348c21/examples/security/pse84_tesaiot_client/main.c#L491-L536) — ลำดับตอน boot: อ่าน cert, ลงทะเบียน PSA driver, ผูก TLS เข้ากับกุญแจ
+- [`optiga_psa_se.c#L285-L323`](https://github.com/tesaiot/developer-hub/blob/d2ed42c4a31232f553b6b8cef9ee7373db348c21/examples/security/pse84_tesaiot_client/optiga_psa_se.c#L285-L323) — `optiga_psa_sign()` ที่ mbedTLS เรียกระหว่าง handshake
+- [`optiga_trust_helpers.c#L768-L824`](https://github.com/tesaiot/developer-hub/blob/d2ed42c4a31232f553b6b8cef9ee7373db348c21/examples/security/pse84_tesaiot_client/optiga_trust_helpers.c#L768-L824) — `trustm_gen_ecc_keypair()` กับ `export_private=false`
+- [`mqtt_task.c#L824-L834`](https://github.com/tesaiot/developer-hub/blob/d2ed42c4a31232f553b6b8cef9ee7373db348c21/examples/security/pse84_tesaiot_client/mqtt_task.c#L824-L834) — เลือกใบรับรองแล้วสลับ OID ของกุญแจให้ตรงกัน
+
+---
+
+# ตัวอย่างสมบูรณ์ — credential และลิขสิทธิ์
 
 ต้องมี credential ของอุปกรณ์จาก TESAIoT Platform ตามขั้นตอนใน README ห้ามนำ credential จริงขึ้น repo สาธารณะ
 
 [ตัวอย่างบน Developer Hub](https://dev.tesaiot.dev/?example=developer-hub--pse84_tesaiot_client&q=pse84_tesaiot_client)
 
 โค้ดชุดนี้อยู่ภายใต้ Cypress (Infineon) EULA จึงอ้างอิงด้วยลิงก์เท่านั้น
+
+---
+
+# จุดที่มักพลาด
+
+- คิดว่าโค้ดนี้ generate กุญแจใหม่ทุกครั้งที่ boot — จริงแค่ผูก PSA handle เข้ากับ OID ที่มีกุญแจอยู่แล้ว (`OPTIGA_TLS_ATTACH_ONLY`)
+- ใช้ใบรับรองกับกุญแจคนละ OID กัน — ต้องสลับ `optiga_psa_set_signing_key_oid()` ให้ตรงกับใบรับรองที่เลือกทุกครั้ง
+- คิดว่า reset แล้วจะได้ Device Certificate ทันที — ทุก reset กลับไป SAFE MODE (Factory cert) ก่อนเสมอ
+- รัน `make getlibs` ใหม่แล้วลืม `./apply_patches.sh` — patch หายไปพร้อม library, ใช้กุญแจใน OPTIGA ไม่ได้อีก
 
 ---
 

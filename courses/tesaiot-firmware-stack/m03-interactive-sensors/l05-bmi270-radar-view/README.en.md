@@ -30,7 +30,7 @@ source:
   repo: https://github.com/tesaiot/developer-hub
   path: "int_ep05_bmi270_radar_view"
   ref: 9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465
-source_sha256: 7c064203d1175cb1a75e664c48d63803d332275673fe41c0c708032269736691
+source_sha256: f7975781f04170918116132ea442c751d698b18a83b41314eac50974a79c5be1
 ---
 
 # Motion radar: movement direction in polar form
@@ -43,18 +43,121 @@ source_sha256: 7c064203d1175cb1a75e664c48d63803d332275673fe41c0c708032269736691
 
 ## Concepts
 
-Taking accelerometer/gyroscope data from the BMI270 and drawing it as a motion radar on the LVGL screen, to show movement direction in polar form
+### The baseline is a "resting pose" captured once at boot, not a running high-pass filter
+
+`radar_update_baseline()` averages accel X/Y and gyro Z over the **first 30 samples** (at the
+`BMI270_SAMPLE_PERIOD_MS = 50` read period, that is roughly the first 1.5 seconds after boot), stores them as
+`s_baseline_acc_x/y` and `s_baseline_gyr_z`, and **never recomputes them again** for the rest of the session. This
+is the simplest way to remove a constant gravity/offset (baseline subtraction), not a continuously running
+moving-average or low-pass filter — the upside is zero added latency; the downside is that if the pose at boot is
+not the pose you actually use, the baseline stays wrong for the whole session.
+
+### The radar's angle and magnitude come from the *difference* from baseline, not the raw three axes
+
+Unlike a textbook Cartesian-to-polar formula, the code computes `acc_dx = sample.acc_g_x - s_baseline_acc_x` and
+`acc_dy` the same way, then `acc_xy_delta_g = sqrt(acc_dx² + acc_dy²)` — using only the X/Y axes of the
+**difference**, never the Z axis, and never the raw vector's magnitude (which would always include roughly 1g of
+gravity even when the board is not moving). The direction is `atan2f(acc_dy, acc_dx)` of this difference vector —
+in other words, the radar points toward "the direction acceleration just changed from what it was at boot," not
+"the direction the total acceleration vector currently points."
+
+### Two dead-band thresholds gate whether the needle moves at all
+
+Before even computing an angle, the code checks whether `acc_xy_delta_g >= 0.06g` **or**
+`gyr_z_delta_abs_dps >= 12°/s`. If neither holds, `motion_active = false`, the angle is forced to 0, and no
+needle is drawn at all. The reason: `atan2()` of a near-zero vector (mg-level noise) returns a nearly random
+angle, so without this dead-band the needle would wander even while the board sits perfectly still. Unlike a
+low-pass filter, this technique adds **no latency** — there is no averaging across time, just a per-sample
+decision on whether to show or hide.
+
+### Three intensity levels come from a normalized score comparing both axes
+
+`radar_calc_motion_level()` converts `acc_xy_delta_g` and `gyr_z_delta_abs_dps` into a score by dividing each by
+its own constant (`0.45g` and `140°/s`), then picks whichever score is **larger** to decide the level —
+`< 0.35` is LOW (green `0x22C55E`), `0.35–0.80` is MEDIUM (amber `0xF59E0B`), `≥ 0.80` is HIGH (red `0xEF4444`).
+This system does not appear in the upstream README at all, but it is what lets a user read both "how hard" (from
+color) and "which way" (from the needle's angle) in a single glance.
+
+### The real screen uses an `lv_scale` widget with one needle, not a canvas with rings and trace history
+
+The upstream README describes an `lv_canvas` drawing four concentric rings, N/E/S/W cardinal lines, and a
+64-point trace history connected into a fading line. The real code instead uses **`lv_scale`**, LVGL 9's
+ready-made widget (a round 0–360° dial with 41 ticks), and draws **one needle** with
+`lv_scale_set_line_needle_value(scale, needle, needle_len, angle_i)`, where the needle's length encodes movement
+magnitude, its angle encodes direction, and it is hidden (`LV_OBJ_FLAG_HIDDEN`) whenever `motion_active` is
+false. There is no trace history or multi-ring grid at all. The gyro reading is shown through a separate dual-ring
+arc gauge (`intensity_gyr_arc`) that maps the delta to 0–100, not an arc drawn at the Z-axis angle as the upstream
+README describes.
 
 ## Worked example
 
-This episode's code lives on the Developer Hub (pinned to commit `9a8e3ed`). Read the full **Why / What / How** first in the [episode's README](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/README.md), then work through the code in this order:
+This episode's code lives on the Developer Hub (pinned to commit `9a8e3ed`) — read the Why section of the
+[upstream README](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/README.md)
+to understand its purpose, but **the excerpts below are copied from the actual files** (Apache-2.0,
+tesaiot/developer-hub, same commit), because the math and the on-screen widget differ substantially from what the
+upstream README describes.
 
-- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/main_example.c)
-- [`app_sensor/bmi270/bmi270_config.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/app_sensor/bmi270/bmi270_config.h)
-- [`app_sensor/bmi270/bmi270_driver.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/app_sensor/bmi270/bmi270_driver.c)
-- [`app_sensor/bmi270/bmi270_driver.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/app_sensor/bmi270/bmi270_driver.h)
-- [`app_sensor/bmi270/bmi270_reader.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/app_sensor/bmi270/bmi270_reader.c)
-- and 6 more files in the [episode's folder](https://github.com/tesaiot/developer-hub/tree/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view)
+[`app_ui/radar/radar_presenter.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/app_ui/radar/radar_presenter.c) — angle and dead-band from the baseline delta:
+
+```c
+acc_dx = sample.acc_g_x - s_baseline_acc_x;
+acc_dy = sample.acc_g_y - s_baseline_acc_y;
+acc_xy_delta_g = sqrtf((acc_dx * acc_dx) + (acc_dy * acc_dy));
+gyr_z_delta_abs_dps = fabsf(sample.gyr_dps_z - s_baseline_gyr_z);
+
+/* Treat signal as STILL until delta crosses threshold from baseline. */
+motion_active = s_baseline_ready &&
+                ((acc_xy_delta_g >= RADAR_STILL_ACC_DELTA_G) ||
+                 (gyr_z_delta_abs_dps >= RADAR_STILL_GYR_DELTA_DPS));
+
+angle_deg = motion_active ? (atan2f(acc_dy, acc_dx) * RADAR_DEG_PER_RAD) : 0.0f;
+level = motion_active ? radar_calc_motion_level(acc_xy_delta_g, gyr_z_delta_abs_dps) : RADAR_LEVEL_LOW;
+```
+
+The three intensity levels from a normalized score:
+
+```c
+static radar_motion_level_t radar_calc_motion_level(float acc_xy_delta_g, float gyr_z_delta_abs_dps)
+{
+    float acc_score = acc_xy_delta_g / 0.45f;
+    float gyr_score = gyr_z_delta_abs_dps / 140.0f;
+    float score = (acc_score > gyr_score) ? acc_score : gyr_score;
+
+    if (score < 0.35f) { return RADAR_LEVEL_LOW; }
+    if (score < 0.80f) { return RADAR_LEVEL_MEDIUM; }
+    return RADAR_LEVEL_HIGH;
+}
+```
+
+[`app_ui/radar/radar_view.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/app_ui/radar/radar_view.c) — one needle on an `lv_scale`, hidden while still:
+
+```c
+s_view.radar_scale = lv_scale_create(radar_card);
+lv_scale_set_mode(s_view.radar_scale, LV_SCALE_MODE_ROUND_INNER);
+lv_scale_set_range(s_view.radar_scale, 0, 360);
+lv_scale_set_total_tick_count(s_view.radar_scale, 41);
+
+s_view.radar_needle = lv_line_create(s_view.radar_scale);
+lv_scale_set_line_needle_value(s_view.radar_scale, s_view.radar_needle, 18, 0);
+/* Hide needle in STILL state; presenter shows it only when motion is active. */
+lv_obj_add_flag(s_view.radar_needle, LV_OBJ_FLAG_HIDDEN);
+```
+
+- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/main_example.c) hands the I2C handle to `radar_presenter_start()`, exactly as the upstream README describes
+- [`app_sensor/bmi270/bmi270_config.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/app_sensor/bmi270/bmi270_config.h) — `BMI270_SAMPLE_PERIOD_MS = 50` (faster than lesson 3.2's 200 ms, since a radar needs higher responsiveness)
+- See the full folder at [`int_ep05_bmi270_radar_view/`](https://github.com/tesaiot/developer-hub/tree/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view)
+
+## Common mistakes
+
+- **The board is not level at boot, so the needle sticks pointing one way even when still** — the baseline is
+  captured once from the first 30 samples; if the board was tilted at boot, a later level pose will differ from
+  the baseline enough to look like continuous motion. Hold the board still in its intended pose when powering on.
+- **Assuming magnitude comes from all three axes (x, y, z)** — the real code only uses the X/Y difference from
+  baseline, never Z, and never the raw value.
+- **Removing or shrinking the dead-band to make it "more responsive"** — this makes the needle wander randomly
+  while the board sits perfectly still, because `atan2()` of a near-zero vector is meaningless.
+- **Assuming there is a canvas with 4 rings and a 64-point trace** — the real screen uses a ready-made `lv_scale`
+  widget with a single needle; no movement history is kept at all.
 
 ### Build and flash
 

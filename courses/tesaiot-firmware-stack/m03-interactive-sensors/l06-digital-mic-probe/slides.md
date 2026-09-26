@@ -74,11 +74,44 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — PDM vs PCM
 
-เก็บสัญญาณเสียงจากไมโครโฟน PDM สเตอริโอบนบอร์ด คำนวณระดับความดังซ้าย/ขวาแล้วแสดงเป็น level meter บนจอ LVGL
+PDM: สตรีม 1 บิต 1-3 MHz ที่ความหนาแน่นของ pulse แทนขนาดสัญญาณ — ไมค์ MEMS ส่งแบบนี้ตรง ๆ
 
-- แสดงระดับเสียงเป็น level meter และอธิบายว่าคำนวณแบบ peak หรือ RMS
+ชิปแปลง PDM→PCM ในฮาร์ดแวร์ (lowpass+decimate) — episode นี้ตั้ง 16 kHz, เฟรมละ 160 ตัวอย่าง/ช่อง (= 10 ms)
+
+---
+
+# แนวคิด — จับสัญญาณด้วย interrupt ไม่ใช่ DMA
+
+README ต้นทาง: "DMA-driven — CPU ไม่ต้องยุ่ง"
+
+**โค้ดจริง**: interrupt ต่อช่อง (ซ้าย=ch2, ขวา=ch3) ยิงเมื่อ FIFO ถึง trigger level → อ่านทีละตัวอย่างด้วย `Cy_PDM_PCM_Channel_ReadFifo()`
+
+double-buffer (`buffer0`/`buffer1`) จัดการเองในซอฟต์แวร์ ไม่ใช่ DMA descriptor
+
+---
+
+# แนวคิด — avg คือ mean(|x|) ไม่ใช่ RMS
+
+`compute_level()`: `peak_abs` + `avg_abs` = Σ|x| / N — **ไม่มีการยกกำลังสอง** จึงไม่ใช่ RMS
+
+ขึ้นลงคล้าย RMS คำนวณเบากว่า แต่ต่ำกว่า RMS เสมอ (sine wave: mean|x| ≈ 0.9× RMS)
+
+---
+
+# แนวคิด — % บนจอ clamp floor/ceiling ไม่ใช่ avg/32767
+
+คอมเมนต์ในซอร์ส: "Tuned for classroom speech level so UI% doesn't saturate too early"
+
+`avg_abs` ≤ 80 → 0% · ≥ 8000 → 100% · ระหว่างนั้น scale เชิงเส้น — เสียงพูดเบา ๆ เต็มแถบได้จริง
+
+---
+
+# แนวคิด — balance meter ทำไว้แล้ว + UI poll ไม่ใช่ async_call
+
+- `balance_lr = (L_avg-R_avg)*100/(L_avg+R_avg)` มีอยู่แล้ว ไม่ใช่แค่ "ลองแก้" ตาม README ต้นทาง
+- UI ใช้ `lv_timer` poll ทุก 50 ms (20 Hz ไม่ใช่ 50 Hz) แบบ "sample ล่าสุดชนะ" — เสียงกระแทกสั้น <10ms อาจไม่ขึ้นบนจอ
 
 ---
 
@@ -92,16 +125,56 @@ section.cover img{filter:none}
 
 ---
 
-# ตัวอย่างสมบูรณ์
+# ตัวอย่างสมบูรณ์ — % แบบ floor/ceiling
 
-โค้ดของ episode นี้อยู่ใน Developer Hub (อ้างอิงที่ commit `9a8e3ed`) อ่าน **Why / What / How** ฉบับเต็มก่อนใน [README ของ episode](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep06_digital_mic_probe/README.md) แล้วไล่โค้ดตามลำดับนี้
+โค้ดจาก tesaiot/developer-hub (Apache-2.0) · commit `9a8e3ed` · [`pdm_probe_logger.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep06_digital_mic_probe/app_audio/pdm/pdm_probe_logger.c)
 
-- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep06_digital_mic_probe/main_example.c)
-- [`app_audio/pdm/pdm_mic.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep06_digital_mic_probe/app_audio/pdm/pdm_mic.c)
-- [`app_audio/pdm/pdm_mic.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep06_digital_mic_probe/app_audio/pdm/pdm_mic.h)
-- [`app_audio/pdm/pdm_probe_logger.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep06_digital_mic_probe/app_audio/pdm/pdm_probe_logger.c)
-- [`app_audio/pdm/pdm_probe_logger.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep06_digital_mic_probe/app_audio/pdm/pdm_probe_logger.h)
-- และอีก 4 ไฟล์ใน [โฟลเดอร์ของ episode](https://github.com/tesaiot/developer-hub/tree/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep06_digital_mic_probe)
+```c
+/* Tuned for classroom speech level so UI% doesn't
+ * saturate too early. */
+#define PDM_UI_FLOOR_ABS              (80U)
+#define PDM_UI_CEIL_ABS               (8000U)
+
+static uint32_t to_ui_pct(uint32_t avg_abs)
+{
+    if (avg_abs <= PDM_UI_FLOOR_ABS) { return 0U; }
+    if (avg_abs >= PDM_UI_CEIL_ABS)  { return 100U; }
+    return ((avg_abs - PDM_UI_FLOOR_ABS) * 100U) /
+           (PDM_UI_CEIL_ABS - PDM_UI_FLOOR_ABS);
+}
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — UI poll แบบ latest-sample-wins
+
+[`mic_presenter.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep06_digital_mic_probe/app_ui/mic/mic_presenter.c)
+
+```c
+static void mic_presenter_ui_timer_cb(lv_timer_t *timer)
+{
+    mic_presenter_sample_t local = {0};
+    bool has_sample = false;
+
+    taskENTER_CRITICAL();
+    has_sample = s_has_sample;
+    if (has_sample) { local = s_latest_sample; }
+    taskEXIT_CRITICAL();
+
+    if (has_sample && s_view_ready) {
+        mic_view_apply(&local);
+    }
+}
+```
+
+---
+
+# จุดที่มักพลาด
+
+- คิดว่าใช้ DMA — จริงคือ interrupt อ่าน FIFO + double-buffer ซอฟต์แวร์
+- คิดว่า avg คือ RMS — จริงคือ mean(|x|) ไม่มีการยกกำลังสอง
+- คิดว่า % มาจาก avg/32767 ตรง ๆ — จริง clamp ผ่านช่วง 80-8000
+- คิดว่า UI จับเสียงกระแทกสั้นได้ทุกครั้ง — "sample ล่าสุดชนะ" อาจพลาดเฟรมสั้น ๆ
 
 ---
 

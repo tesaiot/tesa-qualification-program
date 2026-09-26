@@ -74,11 +74,41 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — `lv_timer` เดียว ไม่ใช่สี่ task
 
-โปรเจกต์ปิดคอร์ส: แดชบอร์ดรวมเซนเซอร์ทั้ง 4 ตัว (DPS368, SHT4x, BMI270, BMM350) + ไมโครโฟน PDM สเตอริโอ บนจอเดียว
+README ต้นทาง: "4 reader task + single queue + `lv_async_call`"
 
-- จัดจังหวะการอ่านเซนเซอร์แต่ละตัวให้จอไม่กระตุก
+**โค้ดจริง**: ไม่มี `xTaskCreate`/`xQueueCreate`/`lv_async_call` เลยสักตัว — `lv_timer` เดียวที่ 100 ms เป็น cooperative scheduler เอง ทุกอย่างรันบน LVGL thread เดียว
+
+---
+
+# แนวคิด — "next due time" ต่อเซนเซอร์
+
+แต่ละเซนเซอร์มี `next_..._ms` ของตัวเอง เช็ค `(now_ms - next_xxx_ms) < 0` ทุก tick 100 ms
+
+คาบจริง = ค่าเดิมจากบทเรียนของมันเอง **ไม่ใช่ 200/500/20/50 ms** ตาม README ต้นทาง
+
+`DPS368=1000` · `SHT4x=1000` · `BMI270=200` · `BMM350=120` ms
+
+---
+
+# แนวคิด — tick 100 ms ปัดคาบที่ไม่ใช่ผลคูณของ 100
+
+BMM350 คาบ 120 ms แต่ timer หลัก 100 ms → อ่านจริงทุก 200 ms (ปัดขึ้นเป็นผลคูณของ 100)
+
+ผลคือ **auto-calibration 140 ตัวอย่างใช้เวลา ~28 วินาที ไม่ใช่ 16.8 วินาที** เหมือนตอนรันเดี่ยวใน EP04
+
+calibration เริ่มอัตโนมัติตั้งแต่ boot ต่างจากบทเรียน 3.4 ที่ต้องกดปุ่ม
+
+---
+
+# แนวคิด — จอจริงเป็นแท็บ 5 หน้า ไม่ใช่ grid 2×2
+
+README ต้นทาง: grid 2×2 + บาร์ mic ด้านล่าง แสดงพร้อมกันทั้งหมด
+
+**โค้ดจริง**: `sensorhub_page_t` 5 ค่า (Home/Env/Motion/Compass/Audio) — แสดงทีละหน้าแบบแท็บ เหมือนโครง nav shell จากโมดูล 2
+
+หน้า Audio แสดงระดับเสียงที่คำนวณแล้ว ไม่ใช่คลื่นดิบ · บั๊ก BMM350 (บทเรียน 3.4) ยังต้อง patch เหมือนเดิม
 
 ---
 
@@ -94,16 +124,60 @@ section.cover img{filter:none}
 
 ---
 
-# ตัวอย่างสมบูรณ์
+# ตัวอย่างสมบูรณ์ — `lv_timer` เดียวเรียก poll ทุกตัว
 
-โค้ดของ episode นี้อยู่ใน Developer Hub (อ้างอิงที่ commit `9a8e3ed`) อ่าน **Why / What / How** ฉบับเต็มก่อนใน [README ของ episode](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep07_sensorhub_final/README.md) แล้วไล่โค้ดตามลำดับนี้
+โค้ดจาก tesaiot/developer-hub (Apache-2.0) · commit `9a8e3ed` · [`sensorhub_presenter.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep07_sensorhub_final/app_ui/sensorhub/sensorhub_presenter.c)
 
-- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep07_sensorhub_final/main_example.c)
-- [`app_audio/pdm/pdm_mic.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep07_sensorhub_final/app_audio/pdm/pdm_mic.c)
-- [`app_audio/pdm/pdm_mic.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep07_sensorhub_final/app_audio/pdm/pdm_mic.h)
-- [`app_audio/pdm/pdm_probe_logger.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep07_sensorhub_final/app_audio/pdm/pdm_probe_logger.c)
-- [`app_audio/pdm/pdm_probe_logger.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep07_sensorhub_final/app_audio/pdm/pdm_probe_logger.h)
-- และอีก 32 ไฟล์ใน [โฟลเดอร์ของ episode](https://github.com/tesaiot/developer-hub/tree/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep07_sensorhub_final)
+```c
+static void sensorhub_poll_timer_cb(lv_timer_t *timer)
+{
+    uint32_t now_ms = lv_tick_get();
+
+    sensorhub_poll_dps(now_ms);
+    sensorhub_poll_sht(now_ms);
+    sensorhub_poll_bmi(now_ms);
+    sensorhub_poll_bmm(now_ms);
+    sensorhub_poll_bmm_calibration();
+    sensorhub_poll_mic();
+}
+/* ... */
+s_ctx.poll_timer = lv_timer_create(sensorhub_poll_timer_cb,
+                                   HUB_UI_POLL_MS, NULL);
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — รูปแบบ "next due" ต่อเซนเซอร์
+
+```c
+/* Poll DPS368 on its own sampling period. */
+static void sensorhub_poll_dps(uint32_t now_ms)
+{
+    if ((!s_ctx.dps_ready) ||
+        ((int32_t)(now_ms - s_ctx.next_dps_ms) < 0)) {
+        return;
+    }
+
+    s_ctx.next_dps_ms = now_ms + DPS368_SAMPLE_PERIOD_MS;
+
+    dps368_sample_t sample;
+    if (dps368_reader_poll(&sample)) {
+        s_ctx.dps_sample = sample;
+        sensorhub_view_update_env(&s_ctx.dps_sample,
+            s_ctx.has_sht ? &s_ctx.sht_sample : NULL);
+    }
+}
+```
+
+---
+
+# จุดที่มักพลาด
+
+- คิดว่ามี 4 FreeRTOS task + queue — จริงคือ `lv_timer` เดียวเป็น scheduler
+- จำคาบผิดเป็น 200/500/20/50 ms — จริงคือ 1000/1000/200/120 ms
+- ลืมว่า tick 100 ms ปัดคาบ BMM350 (120ms) ขึ้นเป็น 200ms — calibration ช้าลงเกือบสองเท่า
+- คิดว่าจอแสดงทุก tile พร้อมกัน — จริงเป็นแท็บ 5 หน้าทีละหน้า
+- ลืม patch บั๊ก BMM350 — บั๊กเดียวกับบทเรียน 3.4 ยังอยู่
 
 ---
 

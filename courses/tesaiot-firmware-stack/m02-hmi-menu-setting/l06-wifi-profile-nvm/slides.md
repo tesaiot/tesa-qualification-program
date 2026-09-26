@@ -74,11 +74,41 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — หน่วยเก็บจริงคือ RRAM
 
-เก็บ SSID + password ลง non-volatile memory — form กรอก profile ผ่าน lv_textarea (password mode) และ save/load ผ่าน profile store
+README ต้นทางพูดกว้าง ๆ ว่าใช้ `cyhal_flash_*`/`cy_em_eeprom`/MCUboot NVS
 
-- บันทึก โหลด และล้างโปรไฟล์ผ่าน profile store ใน NVM ได้ และค่ายังอยู่หลังรีเซ็ตบอร์ด
+**โค้ดจริง** เรียก `Cy_RRAM_TSReadByteArray()` / `Cy_RRAM_NvmWriteByteArray()` ตรง ๆ กับ `RRAMC0`
+
+RRAM = Resistive RAM บนชิป PSoC Edge E84 เอง เขียนที่ `CYMEM_CM55_0_user_nvm_C_START`
+
+---
+
+# แนวคิด — record 256 ไบต์ พร้อม magic + CRC32
+
+`wifi_profile_record_t`: `magic` (`0x57465031` = "WFP1" ไม่ใช่ "WIFI"), `version`, `crc32`, `valid` + payload
+
+พอดีใน `WIFI_PROFILE_SLOT_SIZE = 256` ไบต์ (ตรวจด้วย compile-time assertion)
+
+struct สาธารณะ `wifi_profile_data_t` มีแค่ ssid/password/security/auto_connect — **ไม่มี magic**
+
+---
+
+# แนวคิด — เขียนแล้วต้องอ่านกลับมาตรวจ
+
+- เทียบ block เดิมก่อน ถ้าเหมือนกันข้ามการเขียน (`SAVE_SKIP_SAME`, ลด wear)
+- เขียนแล้วอ่านกลับมาเทียบไบต์ต่อไบต์ (`SAVE_VERIFY_FAIL` ถ้าไม่ตรง)
+- slot ที่ไม่เคยเขียนคือ `0xFF` ทั้งก้อน — เช็คก่อนเสมอ ไม่งั้นตีความขยะเป็นโปรไฟล์
+
+---
+
+# แนวคิด — auto-fill ต้องกดปุ่ม ไม่ใช่แค่แตะแถว
+
+README ต้นทาง: แตะแถวใน scan list → auto-jump ไปหน้า profile ทันที
+
+**โค้ดจริง**: แตะแถวก่อน (เลือก) → ต้องกดปุ่ม **"Use this AP"** แยกอีกขั้น
+
+หน้า scan กับ profile เชื่อมกันผ่าน callback ที่ registered ไว้ ไม่ใช่ global state `pending_ssid`
 
 ---
 
@@ -92,16 +122,61 @@ section.cover img{filter:none}
 
 ---
 
-# ตัวอย่างสมบูรณ์
+# ตัวอย่างสมบูรณ์ — เขียน RRAM พร้อม verify
 
-โค้ดของ episode นี้อยู่ใน Developer Hub (อ้างอิงที่ commit `9a8e3ed`) อ่าน **Why / What / How** ฉบับเต็มก่อนใน [README ของ episode](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep06_wifi_profile_nvm/README.md) แล้วไล่โค้ดตามลำดับนี้
+โค้ดจาก tesaiot/developer-hub (Apache-2.0) · commit `9a8e3ed` · [`wifi_profile_store.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep06_wifi_profile_nvm/wifi_profile/wifi_profile_store.c)
 
-- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep06_wifi_profile_nvm/main_example.c)
-- [`nav/menu_nav_logic.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep06_wifi_profile_nvm/nav/menu_nav_logic.c)
-- [`nav/menu_nav_logic.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep06_wifi_profile_nvm/nav/menu_nav_logic.h)
-- [`nav/ui_menu_layout.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep06_wifi_profile_nvm/nav/ui_menu_layout.h)
-- [`nav/ui_menu_navigation.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep06_wifi_profile_nvm/nav/ui_menu_navigation.c)
-- และอีก 11 ไฟล์ใน [โฟลเดอร์ของ episode](https://github.com/tesaiot/developer-hub/tree/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep06_wifi_profile_nvm)
+```c
+/* Skip write if content is unchanged to reduce NVM wear. */
+if(wifi_profile_read_slot(WIFI_PROFILE_PRIMARY_ADDR, current_block)) {
+    if(0 == memcmp(current_block, block, sizeof(block))) {
+        return true;   /* SAVE_SKIP_SAME */
+    }
+}
+
+if(!wifi_profile_write_slot(WIFI_PROFILE_PRIMARY_ADDR, block)) {
+    return false;
+}
+if(!wifi_profile_read_slot(WIFI_PROFILE_PRIMARY_ADDR, verify_block)) {
+    return false;
+}
+if(0 != memcmp(verify_block, block, sizeof(block))) {
+    return false;   /* SAVE_VERIFY_FAIL */
+}
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — ต้องเลือกแถวก่อนกด Use
+
+[`ui_wifi_list_page.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep06_wifi_profile_nvm/wifi_list/ui_wifi_list_page.c)
+
+```c
+static void ui_wifi_use_selected_ap_cb(lv_event_t *e)
+{
+    uint16_t count;
+    const wifi_scan_ap_t *aps =
+        wifi_scan_service_get_list(&s_ctx.service, &count);
+
+    if((aps == NULL) || (count == 0U) ||
+       (s_ctx.selected_idx >= count)) {
+        lv_label_set_text(s_ctx.hint_label,
+            "Select an AP row before using it.");
+        return;
+    }
+
+    s_use_ap_cb(&aps[s_ctx.selected_idx], s_use_ap_user_data);
+}
+```
+
+---
+
+# จุดที่มักพลาด
+
+- คิดว่าใช้ generic flash API — โค้ดจริงใช้ RRAM API ตรง ๆ
+- ไม่เช็คว่า slot เป็น `0xFF` (erased) ก่อน parse เป็น record
+- เขียนแล้วไม่อ่านกลับมาตรวจ — ข้ามขั้น verify-after-write
+- คิดว่าแตะแถวจะ auto-jump — จริงต้องกดปุ่ม Use แยกอีกขั้น
 
 ---
 

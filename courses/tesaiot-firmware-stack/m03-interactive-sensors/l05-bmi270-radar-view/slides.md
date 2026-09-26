@@ -74,11 +74,49 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — baseline จับครั้งเดียวตอน boot
 
-นำข้อมูล accelerometer/gyroscope จาก BMI270 มาวาดเป็น motion radar บนจอ LVGL เพื่อให้เห็นทิศทางการเคลื่อนไหวแบบ polar
+เฉลี่ย accel X/Y + gyro Z ของ **30 ตัวอย่างแรก** (~1.5 วิที่ 50 ms/ตัวอย่าง) แล้วไม่คำนวณใหม่อีกเลย
 
-- ใช้ baseline และ dead-band ตัดการสั่นเล็ก ๆ ก่อนวาด และคำนวณว่าถ้าใช้ moving average แทน จะเพิ่มความหน่วงเท่าไรที่คาบเวลาอ่าน 50 ms
+ไม่ใช่ moving-average/low-pass ต่อเนื่อง — ไม่เพิ่ม latency แต่ถ้าท่าตอน boot ไม่ใช่ท่าใช้งานจริง จะผิดไปตลอด
+
+---
+
+# แนวคิด — มุม/ขนาดจากส่วนต่างจาก baseline
+
+`acc_dx = acc_g_x - baseline_x`, `acc_dy` แบบเดียวกัน → ใช้แค่ X/Y ของ**ส่วนต่าง** ไม่รวม Z ไม่ใช่ raw magnitude
+
+`atan2f(acc_dy, acc_dx)` — radar ชี้ทาง "ที่ความเร่งเพิ่งเปลี่ยนจากตอน boot" ไม่ใช่ทิศรวมปัจจุบัน
+
+---
+
+# แนวคิด — dead-band สองเกณฑ์ก่อนขยับเข็ม
+
+`motion_active` จริงเมื่อ `acc_xy_delta ≥ 0.06g` **หรือ** `gyr_z_delta ≥ 12°/s` เท่านั้น
+
+ไม่ถึง → บังคับมุม = 0 ไม่วาดเข็มเลย — กัน `atan2()` ของเวกเตอร์เกือบศูนย์ให้มุมสุ่ม
+
+ต่างจาก low-pass: **ไม่เพิ่ม latency** เลย เป็นการตัดสินใจต่อตัวอย่างเดียว
+
+---
+
+# แนวคิด — 3 ระดับความแรงจาก score ที่ normalize
+
+`acc_score = delta/0.45g`, `gyr_score = delta/140°/s` → ใช้ค่าที่**มากกว่า**
+
+`< 0.35` LOW (เขียว) · `0.35–0.80` MEDIUM (เหลืองอำพัน) · `≥ 0.80` HIGH (แดง)
+
+ไม่มีใน README ต้นทางเลย — ทำให้อ่านทั้ง "แรงแค่ไหน" (สี) และ "ทางไหน" (มุม) พร้อมกัน
+
+---
+
+# แนวคิด — จอจริงใช้ `lv_scale` เข็มเดียว ไม่ใช่ canvas+trace
+
+README ต้นทาง: `lv_canvas` วาด 4 ring + trace 64 จุด
+
+**โค้ดจริง**: `lv_scale` widget สำเร็จรูป (dial 0-360°) + เข็มเดียวด้วย `lv_scale_set_line_needle_value()`
+
+เข็มซ่อนเมื่อนิ่ง ไม่มี trace history เลย — gyro แสดงผ่าน dual-ring arc gauge แยกต่างหาก
 
 ---
 
@@ -92,16 +130,49 @@ section.cover img{filter:none}
 
 ---
 
-# ตัวอย่างสมบูรณ์
+# ตัวอย่างสมบูรณ์ — มุมและ dead-band
 
-โค้ดของ episode นี้อยู่ใน Developer Hub (อ้างอิงที่ commit `9a8e3ed`) อ่าน **Why / What / How** ฉบับเต็มก่อนใน [README ของ episode](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/README.md) แล้วไล่โค้ดตามลำดับนี้
+โค้ดจาก tesaiot/developer-hub (Apache-2.0) · commit `9a8e3ed` · [`radar_presenter.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/app_ui/radar/radar_presenter.c)
 
-- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/main_example.c)
-- [`app_sensor/bmi270/bmi270_config.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/app_sensor/bmi270/bmi270_config.h)
-- [`app_sensor/bmi270/bmi270_driver.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/app_sensor/bmi270/bmi270_driver.c)
-- [`app_sensor/bmi270/bmi270_driver.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/app_sensor/bmi270/bmi270_driver.h)
-- [`app_sensor/bmi270/bmi270_reader.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/app_sensor/bmi270/bmi270_reader.c)
-- และอีก 6 ไฟล์ใน [โฟลเดอร์ของ episode](https://github.com/tesaiot/developer-hub/tree/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view)
+```c
+acc_dx = sample.acc_g_x - s_baseline_acc_x;
+acc_dy = sample.acc_g_y - s_baseline_acc_y;
+acc_xy_delta_g = sqrtf((acc_dx*acc_dx)+(acc_dy*acc_dy));
+
+motion_active = s_baseline_ready &&
+    ((acc_xy_delta_g >= RADAR_STILL_ACC_DELTA_G) ||
+     (gyr_z_delta_abs_dps >= RADAR_STILL_GYR_DELTA_DPS));
+
+angle_deg = motion_active ?
+    (atan2f(acc_dy, acc_dx) * RADAR_DEG_PER_RAD) : 0.0f;
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — เข็มเดียวบน `lv_scale`
+
+[`radar_view.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/app_ui/radar/radar_view.c)
+
+```c
+s_view.radar_scale = lv_scale_create(radar_card);
+lv_scale_set_mode(s_view.radar_scale, LV_SCALE_MODE_ROUND_INNER);
+lv_scale_set_range(s_view.radar_scale, 0, 360);
+
+s_view.radar_needle = lv_line_create(s_view.radar_scale);
+lv_scale_set_line_needle_value(s_view.radar_scale,
+    s_view.radar_needle, 18, 0);
+/* Hide needle in STILL state. */
+lv_obj_add_flag(s_view.radar_needle, LV_OBJ_FLAG_HIDDEN);
+```
+
+---
+
+# จุดที่มักพลาด
+
+- บอร์ดไม่ราบตอน boot → เข็มค้างชี้ทิศเดียวแม้วางนิ่ง — baseline จับครั้งเดียว
+- คิดว่า magnitude มาจากทั้งสามแกน — จริงใช้แค่ X/Y ส่วนต่างจาก baseline
+- เอา dead-band ออกเพื่อให้ "ไวขึ้น" — เข็มจะส่ายสุ่มตอนบอร์ดนิ่งสนิท
+- คิดว่ามี canvas+ring 4 วง+trace — จริงคือ `lv_scale` เข็มเดียว ไม่มีประวัติเก็บไว้
 
 ---
 

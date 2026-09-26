@@ -74,11 +74,46 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — BMI270 คืออะไร
 
-แสดงค่าการเคลื่อนไหว 6 แกนจากเซนเซอร์ Bosch BMI270 (accelerometer + gyroscope) บนจอ LVGL แบบเรียลไทม์
+IMU 6 แกนของ Bosch — accel 3 แกน (±2g ถึง ±16g, 16-bit) + gyro 3 แกน (±125 ถึง ±2000 °/s)
 
-- แยกความหมายของค่าเร่ง (g) กับค่าหมุน (°/s) และทายค่าที่ควรเห็นเมื่อวางบอร์ดนิ่ง
+episode นี้ใช้ค่า default ของไลบรารี: **±2g และ ±2000 dps** (กว้างสุด ไม่ clip ตอนเขย่าแรง)
+
+---
+
+# แนวคิด — poll 200 ms ด้วย `lv_timer` เดียว
+
+เหมือนบทเรียน 3.1 — ไม่ใช่ 100 Hz ผ่าน FreeRTOS task ตามที่บางครั้งอาจเข้าใจผิด
+
+คอมเมนต์ในซอร์ส: "Poll slower to reduce redraw pressure on small HMI panel"
+
+---
+
+# แนวคิด — อ่านทุกรอบ วาดจอแค่บางรอบ
+
+`BMI270_UI_UPDATE_DIV = 2` — อ่าน + ตัดสิน ALERT ทุก 200 ms แต่วาด widget แค่ทุก 2 ตัวอย่าง (400 ms)
+
+การอ่านเซนเซอร์กับการวาดจอไม่ต้องคาบเดียวกัน — วาดแค่ถี่พอสายตาเห็นก็พอ
+
+---
+
+# แนวคิด — motion alert ใช้ hysteresis สองเกณฑ์
+
+ฟีเจอร์ที่ README ต้นทางไม่พูดถึง: **MOTION ALERT**
+
+- เปิดเมื่อ acc ≥ 1.45g หรือ gyro ≥ 280°/s
+- ปิดเมื่อ acc < 1.25g **และ** gyro < 220°/s
+
+เกณฑ์เปิด/ปิดต่างกัน → ไม่กระพริบเมื่อค่าแกว่งอยู่รอบเกณฑ์เดียว
+
+---
+
+# แนวคิด — จอแสดง "ขนาดรวม" ไม่ใช่ 6 แกนแยก
+
+`bmi270_view.c` สร้างแค่ **2 บาร์** (accel/gyro magnitude) + **chart เส้นเดียว 2 series**
+
+ไม่ใช่ 6 บาร์แยก x/y/z ตามที่บางครั้งอาจเข้าใจผิด — ค่าที่แสดงคือ √(x²+y²+z²)
 
 ---
 
@@ -92,16 +127,54 @@ section.cover img{filter:none}
 
 ---
 
-# ตัวอย่างสมบูรณ์
+# ตัวอย่างสมบูรณ์ — ค่าคงที่ตัวจริง
 
-โค้ดของ episode นี้อยู่ใน Developer Hub (อ้างอิงที่ commit `9a8e3ed`) อ่าน **Why / What / How** ฉบับเต็มก่อนใน [README ของ episode](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep02_bmi270_motion_visual/README.md) แล้วไล่โค้ดตามลำดับนี้
+โค้ดจาก tesaiot/developer-hub (Apache-2.0) · commit `9a8e3ed` · [`bmi270_config.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep02_bmi270_motion_visual/app_sensor/bmi270/bmi270_config.h)
 
-- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep02_bmi270_motion_visual/main_example.c)
-- [`app_sensor/bmi270/bmi270_config.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep02_bmi270_motion_visual/app_sensor/bmi270/bmi270_config.h)
-- [`app_sensor/bmi270/bmi270_driver.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep02_bmi270_motion_visual/app_sensor/bmi270/bmi270_driver.c)
-- [`app_sensor/bmi270/bmi270_driver.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep02_bmi270_motion_visual/app_sensor/bmi270/bmi270_driver.h)
-- [`app_sensor/bmi270/bmi270_reader.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep02_bmi270_motion_visual/app_sensor/bmi270/bmi270_reader.c)
-- และอีก 6 ไฟล์ใน [โฟลเดอร์ของ episode](https://github.com/tesaiot/developer-hub/tree/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep02_bmi270_motion_visual)
+```c
+/* Poll slower to reduce redraw pressure on small HMI panel. */
+#define BMI270_SAMPLE_PERIOD_MS           (200U)
+
+/* Update LVGL widgets every N samples to reduce flicker. */
+#define BMI270_UI_UPDATE_DIV              (2U)
+
+/* Motion thresholds with hysteresis. */
+#define BMI270_ALERT_ACC_ON_G             (1.45f)
+#define BMI270_ALERT_ACC_OFF_G            (1.25f)
+#define BMI270_ALERT_GYR_ON_DPS           (280.0f)
+#define BMI270_ALERT_GYR_OFF_DPS          (220.0f)
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — hysteresis สำหรับ alert
+
+[`bmi270_presenter.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep02_bmi270_motion_visual/app_ui/bmi270/bmi270_presenter.c)
+
+```c
+static bool bmi270_should_alert(const bmi270_sample_t *sample,
+                                bool is_alert_active)
+{
+    if (is_alert_active)
+    {
+        bool below_acc = (sample->acc_mag_g < BMI270_ALERT_ACC_OFF_G);
+        bool below_gyr = (sample->gyr_mag_dps < BMI270_ALERT_GYR_OFF_DPS);
+        return !(below_acc && below_gyr);
+    }
+
+    return ((sample->acc_mag_g >= BMI270_ALERT_ACC_ON_G) ||
+            (sample->gyr_mag_dps >= BMI270_ALERT_GYR_ON_DPS));
+}
+```
+
+---
+
+# จุดที่มักพลาด
+
+- จำ poll rate ผิดเป็น 100 Hz ผ่าน FreeRTOS task — จริงคือ 200 ms ด้วย `lv_timer` เดียว
+- คิดว่าอ่านเซนเซอร์กับวาดจอต้องคาบเดียวกัน — จริงแยกกันด้วย `UI_UPDATE_DIV`
+- ใช้ threshold เดียวสำหรับ alert — ไม่มี hysteresis จะกระพริบเมื่อค่าแกว่งรอบเกณฑ์
+- คิดว่าจอแสดงค่าต่อแกน x/y/z — จริงแสดงแค่ขนาดรวม 2 บาร์
 
 ---
 

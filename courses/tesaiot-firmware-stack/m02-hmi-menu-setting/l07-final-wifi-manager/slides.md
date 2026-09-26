@@ -74,11 +74,47 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — service ถือ state, UI แค่ observe
 
-รวม scan + profile + connect + auto-retry + ping watchdog เป็น WiFi manager สมบูรณ์ พร้อม state machine บนหน้าจอและ auto-connect จาก profile ที่เก็บไว้
+`wifi_connection_service` รันเป็น background task ถือ state machine + ข้อมูลทั้งหมดไว้เอง
 
-- ออกแบบ state machine ของการเชื่อมต่อ (ต่อ หลุด ลองใหม่) และแสดงสถานะบนจอ
+หน้า UI **ไม่เก็บ state เอง** — แค่ `lv_timer` เรียก `get_snapshot()` เป็นระยะมาคัดลอกแสดง
+
+เหตุผล: หน้า UI ถูก `lv_menu_set_page()` สลับออกได้ (บทเรียน 2.4) แต่ service อยู่ยงไม่ว่า UI จะสลับไปไหน
+
+`get_snapshot()` ล็อก semaphore ก่อน `memcpy` — ปลอดภัยเพราะ background task ก็ lock ตัวเดียวกันก่อนแก้ state
+
+---
+
+# แนวคิด — retry ladder ตัวจริง 1-2-5-10s
+
+README ต้นทางบอก 1s → 5s → 15s → 60s
+
+**โค้ดจริง**: `{ 1000, 2000, 5000, 10000 }` ms — คอมเมนต์ในซอร์สยืนยันตรง ๆ
+
+`retry_stage` เป็น index เข้าตาราง ถ้าเกินขนาดจะ clamp ไว้ที่ตัวสุดท้าย (เพดาน 10s ไม่ใช่ 60s)
+
+---
+
+# แนวคิด — ping watchdog ไม่ได้สั่งต่อใหม่
+
+`cy_wcm_ping()` ไปที่ **gateway** (จาก DHCP) ทุก 20 วินาที — ไม่ใช่ IP สาธารณะตายตัว
+
+ping fail ครบ 3 ครั้ง → แค่ตั้ง `internet_ok = false` ให้ UI แสดง **ไม่แตะ state machine เลย**
+
+สิ่งที่สั่ง `RECONNECT_WAIT` จริงคือ WCM disconnect event หรือ `cy_wcm_is_connected_to_ap() == 0`
+
+ping watchdog = เกจวัดให้ผู้ใช้ดู ไม่ใช่ตัวขับ retry
+
+---
+
+# แนวคิด — command queue เดียว + auto-connect ตอน boot
+
+ปุ่ม Connect/Disconnect/Retry ไม่แก้ state ตรง ๆ — ส่งคำสั่งเข้าคิวที่ background task เดียวประมวลผลทีละคำสั่ง
+
+กันสองคำสั่งชนกัน เช่นกด Disconnect พร้อมกับ retry ladder กำลังจะ connect เอง
+
+`wifi_connection_service_init()` โหลด profile จาก NVM (บทเรียน 2.6) ถ้า valid → connect ทันทีโดยไม่ต้องกดอะไร
 
 ---
 
@@ -93,16 +129,64 @@ section.cover img{filter:none}
 
 ---
 
-# ตัวอย่างสมบูรณ์
+# ตัวอย่างสมบูรณ์ — retry ladder ตัวจริง
 
-โค้ดของ episode นี้อยู่ใน Developer Hub (อ้างอิงที่ commit `9a8e3ed`) อ่าน **Why / What / How** ฉบับเต็มก่อนใน [README ของ episode](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep07_final_wifi_manager/README.md) แล้วไล่โค้ดตามลำดับนี้
+โค้ดจาก tesaiot/developer-hub (Apache-2.0) · commit `9a8e3ed` · [`wifi_connection_service.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep07_final_wifi_manager/wifi_conn/wifi_connection_service.c)
 
-- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep07_final_wifi_manager/main_example.c)
-- [`nav/menu_nav_logic.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep07_final_wifi_manager/nav/menu_nav_logic.c)
-- [`nav/menu_nav_logic.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep07_final_wifi_manager/nav/menu_nav_logic.h)
-- [`nav/ui_menu_layout.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep07_final_wifi_manager/nav/ui_menu_layout.h)
-- [`nav/ui_menu_navigation.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep07_final_wifi_manager/nav/ui_menu_navigation.c)
-- และอีก 15 ไฟล์ใน [โฟลเดอร์ของ episode](https://github.com/tesaiot/developer-hub/tree/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep07_final_wifi_manager)
+```c
+static const uint32_t s_reconnect_backoff_ms[] =
+    { 1000U, 2000U, 5000U, 10000U };
+
+/* Reconnect backoff: 1s -> 2s -> 5s -> 10s (cap at max stage). */
+static bool wifi_conn_schedule_retry_locked(void)
+{
+    uint8_t idx = s_ctx.retry_stage;
+    if(idx >= 4U) { idx = 3U; }
+
+    s_ctx.retry_wait_ms = s_reconnect_backoff_ms[idx];
+    if(s_ctx.retry_stage < 3U) { s_ctx.retry_stage++; }
+
+    wifi_conn_set_state_locked(WIFI_CONN_STATE_RECONNECT_WAIT);
+    return true;
+}
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — ping ไม่แตะ state machine
+
+```c
+if(0 == wifi_conn_ping_ok) {
+    if(s_ctx.ping_fail_streak < 0xFFU) {
+        s_ctx.ping_fail_streak++;
+    }
+
+    if(s_ctx.ping_fail_streak >= WIFI_CONN_PING_FAIL_THRESHOLD) {
+        s_ctx.internet_ok = false;   /* display only —
+                                       * no state transition here */
+    }
+}
+```
+
+snapshot getter ล็อกก่อน copy:
+
+```c
+if(pdTRUE != xSemaphoreTake(s_ctx.lock, portMAX_DELAY)) {
+    return false;
+}
+out_snapshot->state = s_ctx.state;
+/* ... copy every field ... */
+(void)xSemaphoreGive(s_ctx.lock);
+```
+
+---
+
+# จุดที่มักพลาด
+
+- จำ retry ladder ผิดเป็น 1s/5s/15s/60s — ค่าจริงคือ 1s/2s/5s/10s
+- คิดว่า ping fail สั่ง retry ทันที — จริง ๆ แค่ตั้งธงแสดงผล ไม่แตะ state
+- ให้ UI แก้ state ของ service ตรง ๆ — ต้องผ่าน command queue เท่านั้น
+- อ่าน state โดยไม่ล็อก semaphore — ต้องผ่าน `get_snapshot()` เท่านั้น
 
 ---
 

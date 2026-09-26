@@ -74,11 +74,46 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — สแกน Wi-Fi ผ่าน stack สามชั้น
 
-สแกน WiFi ผ่าน WHD/cy_wcm แล้วแสดงผลเป็น list พร้อม RSSI + security type — เพิ่มหน้า WiFi Scan เข้าไปใน shell ของ EP04
+`whd` (คุย SDIO กับโมดูลวิทยุ) → `cy_wcm` (Connection Manager) → callback ของแอป
 
-- แยก scan service ออกจากหน้า UI และส่งผลสแกนเข้าหน้าอย่างปลอดภัย
+episode ห่อทั้งสามชั้นไว้ใน **service layer** — UI เรียกแค่ `wifi_scan_service_start()` / `_process()` ไม่ต้องรู้จัก `cy_wcm` เลย
+
+---
+
+# แนวคิด — pre-init: warm up ตั้งแต่ boot
+
+`example_main()` เรียก `wifi_scan_service_preinit()` ก่อนสร้าง UI — ทำ SDIO bring-up + `cy_wcm_init()` ตั้งแต่ boot
+
+ถ้าเรียกตอนกดปุ่มครั้งแรกแทน ผู้ใช้จะเห็น UI ค้าง 1-3 วินาที — pre-init ทำให้ครั้งแรกเร็วเท่าครั้งถัดไป
+
+---
+
+# แนวคิด — callback ของ WHD ไม่แตะ LVGL เลย
+
+README ต้นทางบอกว่าใช้ `lv_async_call()` แต่**โค้ดจริง**ใช้ critical section + poll timer
+
+`wifi_scan_callback()` (รันบน WCM task) แค่เขียนข้อมูล+ธงใน `taskENTER_CRITICAL()`/`EXIT` ไม่เรียก LVGL API เลย
+
+---
+
+# แนวคิด — ฝั่ง LVGL poll ธงแทนถูกปลุก
+
+`lv_timer_create(ui_wifi_poll_timer_cb, UI_WIFI_POLL_MS=150, NULL)` — ทุก 150 ms เรียก `wifi_scan_service_process()`
+
+อ่าน+เคลียร์ `scan_done_pending` ใน critical section เดียวกัน ถ้าเสร็จค่อย render ใหม่
+
+**ข้อมูลข้าม thread ด้วย critical section, แจ้งเตือนข้าม thread ด้วยการ poll** — คนละกลไกกับ `lv_async_call()` แต่ปลอดภัยเท่ากัน
+
+---
+
+# แนวคิด — กันสแกนซ้อนสองชั้น + RSSI
+
+- `wifi_scan_service_start()` เช็ค `service->scanning` ก่อนเสมอ + ปุ่ม UI ก็ `LV_STATE_DISABLED` ด้วย
+- ผลเรียงจากแรงไปอ่อน (`wifi_scan_sort_by_rssi_desc`)
+- SSID ที่พิมพ์ไม่ได้ (hidden) แสดงเป็น `<hidden>`
+- struct `wifi_scan_ap_t` มีแค่ `ssid`, `rssi`, `security` — ไม่มี `bssid`
 
 ---
 
@@ -93,16 +128,63 @@ section.cover img{filter:none}
 
 ---
 
-# ตัวอย่างสมบูรณ์
+# ตัวอย่างสมบูรณ์ — callback ไม่แตะ LVGL
 
-โค้ดของ episode นี้อยู่ใน Developer Hub (อ้างอิงที่ commit `9a8e3ed`) อ่าน **Why / What / How** ฉบับเต็มก่อนใน [README ของ episode](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/README.md) แล้วไล่โค้ดตามลำดับนี้
+โค้ดจาก tesaiot/developer-hub (Apache-2.0) · commit `9a8e3ed` · [`wifi_scan_service.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/wifi_list/wifi_scan_service.c)
 
-- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/main_example.c)
-- [`nav/menu_nav_logic.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/nav/menu_nav_logic.c)
-- [`nav/menu_nav_logic.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/nav/menu_nav_logic.h)
-- [`nav/ui_menu_layout.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/nav/ui_menu_layout.h)
-- [`nav/ui_menu_navigation.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/nav/ui_menu_navigation.c)
-- และอีก 6 ไฟล์ใน [โฟลเดอร์ของ episode](https://github.com/tesaiot/developer-hub/tree/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list)
+```c
+if(status == CY_WCM_SCAN_COMPLETE) {
+    taskENTER_CRITICAL();
+    wifi_scan_sort_by_rssi_desc(service);
+    service->scan_done_pending = true;
+    taskEXIT_CRITICAL();
+}
+```
+
+```c
+bool wifi_scan_service_process(wifi_scan_service_t *service)
+{
+    taskENTER_CRITICAL();
+    bool done = service->scan_done_pending;
+    service->scan_done_pending = false;
+    taskEXIT_CRITICAL();
+
+    if(done) { service->scanning = false; return true; }
+    return false;
+}
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — poll timer ฝั่ง LVGL
+
+[`ui_wifi_list_page.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/wifi_list/ui_wifi_list_page.c)
+
+```c
+static void ui_wifi_poll_timer_cb(lv_timer_t *timer)
+{
+    uint16_t count = 0U;
+    LV_UNUSED(timer);
+
+    if(wifi_scan_service_process(&s_ctx.service)) {
+        lv_obj_clear_state(s_ctx.scan_btn, LV_STATE_DISABLED);
+        (void)wifi_scan_service_get_list(&s_ctx.service, &count);
+        ui_wifi_render_ap_list();
+    }
+}
+/* ... */
+s_ctx.poll_timer = lv_timer_create(ui_wifi_poll_timer_cb,
+                                   UI_WIFI_POLL_MS, NULL);
+```
+
+---
+
+# จุดที่มักพลาด
+
+- คิดว่าใช้ `lv_async_call()` ตาม README ต้นทาง — โค้ดจริงใช้ critical section + poll timer
+- เรียก LVGL widget API จาก callback ของ `cy_wcm`/`whd` ตรง ๆ → ชนกับ `lv_timer_handler()`
+- ลืมกันสแกนซ้อนที่ตัว service ไม่ใช่แค่ปุ่ม
+- struct จริงไม่มี `bssid` ต่างจากที่ README ต้นทางพูดถึง
 
 ---
 

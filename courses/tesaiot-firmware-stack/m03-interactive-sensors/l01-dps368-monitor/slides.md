@@ -74,11 +74,43 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — DPS368 คืออะไร
 
-อ่านค่าความดันบรรยากาศและอุณหภูมิจากเซนเซอร์ Infineon DPS368 ผ่าน I2C แล้วแสดงผลบนจอ LVGL
+Barometer แบบ capacitive MEMS ของ Infineon — วัดความดัน 300–1200 hPa ที่ความละเอียด ±0.002 hPa (≈ 2 ซม. ความสูง)
 
-- อธิบายการแบ่งชั้น driver → reader → presenter → view ของ episode
+วัดอุณหภูมิร่วมด้วยเพื่อชดเชยค่าความดัน — สูตรชดเชยอยู่ในไลบรารี Infineon แล้ว
+
+---
+
+# แนวคิด — สี่ชั้นของโค้ด
+
+`dps368_driver` (คุย `xensiv_dps3xx` โดยตรง) → `dps368_reader` (ห่อเป็น `poll()` เดียว) → `dps368_presenter` (ผูก timer) → `dps368_view` (label ล้วน ๆ ไม่มี gauge)
+
+แต่ละชั้นรู้จักแค่ชั้นติดกัน — `view` ไม่รู้จัก I2C, `driver` ไม่รู้จัก LVGL
+
+---
+
+# แนวคิด — I2C bus พร้อมใช้ + address fallback
+
+`main_example.c` ส่ง `&sensor_i2c_controller_hal_obj` ที่ master เปิดไว้แล้วตรงเข้า `dps368_presenter_start()`
+
+ลองที่อยู่ default ก่อน (`0x77`) ไม่ตอบค่อยลอง alternate (`0x76` จากขา SDO) — ใช้ได้ทั้งสองแบบ strap
+
+---
+
+# แนวคิด — poll จริงคือ `lv_timer` เดียว ไม่ใช่ FreeRTOS task
+
+`lv_timer_create(dps368_poll_sensor_cb, 1000, NULL)` — รันบน **LVGL thread เดียวกัน** กับที่วาดจอ
+
+อ่าน I2C แบบ blocking ตรงในนั้นเลย ไม่มี queue หรือ `lv_async_call()` — เซนเซอร์เดียว ไม่คุ้มความซับซ้อนของ task แยก
+
+---
+
+# แนวคิด — แยก "ยังไม่พร้อม" จาก error จริง
+
+`XENSIV_DPS3XX_RSLT_ERR_DATA_NOT_READY` → `false` แต่ **ไม่ใช่ error** (แค่ยังไม่ถึงรอบ conversion)
+
+error code อื่นถือเป็นปัญหาจริง แสดงบน status label — ถ้าไม่แยกจะกระพริบ error ทุกวินาทีที่ยังไม่ถึงรอบอ่าน
 
 ---
 
@@ -93,16 +125,67 @@ section.cover img{filter:none}
 
 ---
 
-# ตัวอย่างสมบูรณ์
+# ตัวอย่างสมบูรณ์ — `lv_timer` เดียวที่ poll
 
-โค้ดของ episode นี้อยู่ใน Developer Hub (อ้างอิงที่ commit `9a8e3ed`) อ่าน **Why / What / How** ฉบับเต็มก่อนใน [README ของ episode](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep01_dps368_monitor/README.md) แล้วไล่โค้ดตามลำดับนี้
+โค้ดจาก tesaiot/developer-hub (Apache-2.0) · commit `9a8e3ed` · [`dps368_presenter.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep01_dps368_monitor/app_ui/dps368/dps368_presenter.c)
 
-- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep01_dps368_monitor/main_example.c)
-- [`app_sensor/app_dps368_service.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep01_dps368_monitor/app_sensor/app_dps368_service.c)
-- [`app_sensor/app_dps368_service.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep01_dps368_monitor/app_sensor/app_dps368_service.h)
-- [`app_sensor/dps368/dps368_config.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep01_dps368_monitor/app_sensor/dps368/dps368_config.h)
-- [`app_sensor/dps368/dps368_driver.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep01_dps368_monitor/app_sensor/dps368/dps368_driver.c)
-- และอีก 12 ไฟล์ใน [โฟลเดอร์ของ episode](https://github.com/tesaiot/developer-hub/tree/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep01_dps368_monitor)
+```c
+static void dps368_poll_sensor_cb(lv_timer_t *timer)
+{
+    (void)timer;
+
+    dps368_sample_t sample;
+    bool has_new_sample = dps368_reader_poll(&sample);
+
+    if (has_new_sample)
+    {
+        dps368_view_update_sample(&sample);
+        return;
+    }
+
+    cy_rslt_t rslt = dps368_reader_get_last_error();
+    if (CY_RSLT_SUCCESS == rslt)
+    {
+        return;   /* not-ready is not an error */
+    }
+    /* ... real error -> update status label ... */
+}
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — แยก not-ready จาก error
+
+[`dps368_reader.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep01_dps368_monitor/app_sensor/dps368/dps368_reader.c)
+
+```c
+if (CY_RSLT_SUCCESS == rslt)
+{
+    s_last_sample.pressure_hpa = pressure_hpa;
+    s_last_sample.sample_count++;
+    if (NULL != out_sample) { *out_sample = s_last_sample; }
+    return true;
+}
+
+/* At low sample rate, polling can happen before
+ * conversion is ready. */
+if (rslt == XENSIV_DPS3XX_RSLT_ERR_DATA_NOT_READY)
+{
+    s_last_error = CY_RSLT_SUCCESS;
+    return false;
+}
+
+s_last_error = rslt;
+return false;
+```
+
+---
+
+# จุดที่มักพลาด
+
+- คิดว่ามี FreeRTOS task แยก poll ทุก 100 ms — จริงคือ `lv_timer` เดียวที่ 1000 ms อ่าน I2C แบบ blocking ตรง ๆ
+- ถือว่า `DATA_NOT_READY` เป็น error — ต้องแยกออกเสมอ เป็นแค่สัญญาณว่ายังไม่ถึงรอบ conversion
+- ลืมว่าเซนเซอร์มีสองที่อยู่ I2C (`0x77`/`0x76`) — hard-code ตัวเดียวจะใช้ไม่ได้กับบางบอร์ด
 
 ---
 

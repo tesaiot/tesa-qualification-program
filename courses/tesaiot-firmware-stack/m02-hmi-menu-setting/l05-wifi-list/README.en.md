@@ -31,7 +31,7 @@ source:
   repo: https://github.com/tesaiot/developer-hub
   path: "hmi_ep05_wifi_list"
   ref: 9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465
-source_sha256: a2ac1a04d5efade4be081740eba5b308d339acf25565f42ac09425a77fc46d5b
+source_sha256: f70e1eabf2a6b8caebabf0d373271a386f7edf3feee3b157bcdb5d3bb6995dd3
 ---
 
 # Wi-Fi scan and a network list
@@ -44,18 +44,137 @@ source_sha256: a2ac1a04d5efade4be081740eba5b308d339acf25565f42ac09425a77fc46d5b
 
 ## Concepts
 
-Scanning Wi-Fi through WHD/cy_wcm and displaying the results as a list with RSSI and security type — adding a Wi-Fi Scan page into EP04's shell
+### Scanning Wi-Fi goes through a three-layer stack
+
+Scanning on the PSoC Edge passes through `whd` (the WiFi Host Driver, talking SDIO to the radio module) →
+`cy_wcm` (the Connection Manager, wrapping `whd` in a higher-level scan/connect API) → the application's own
+callback, which `cy_wcm` calls every time it discovers a new AP. This episode wraps all three layers in a
+**service layer** (`wifi_scan_service.c`) so the UI page (`ui_wifi_list_page.c`) only ever calls
+`wifi_scan_service_start()` / `wifi_scan_service_process()`, without needing to know `cy_wcm` at all.
+
+### Pre-init: warm up the radio at boot, not on the button press
+
+`example_main()` calls `wifi_scan_service_preinit()` before the UI is even created. This function does the SDIO
+bring-up (setting up the SDIO and host-wake interrupt handlers, registering the SDHC controller's deep-sleep
+callback) and `cy_wcm_init()`, all at boot time. If that were done on the first "Scan" tap instead, the user would
+see the UI freeze for 1–3 seconds while the radio bring-up runs. This pre-init pattern makes the first tap just as
+fast as every later one. If pre-init fails, the code merely logs it and lets the UI open anyway (only Scan itself
+will then fail when tried).
+
+### The WHD callback never touches LVGL at all — unlike what the upstream README describes
+
+The episode's README on the Developer Hub says it uses `lv_async_call()` to hand work from the WHD callback back
+to the LVGL thread. The actual code at commit `9a8e3ed` uses a different pattern instead: **a critical section
+plus a poll timer**. `wifi_scan_callback()` (called from the WCM's own internal task, not the LVGL task) only
+copies each AP's result into an array inside FreeRTOS's `taskENTER_CRITICAL()` / `taskEXIT_CRITICAL()`, then sets
+the `scan_done_pending`/`scan_error_pending` flags — it never calls a single LVGL widget API. This is just as safe
+from races as `lv_async_call()`, just a different mechanism.
+
+### The LVGL side polls the flag instead of being woken up
+
+`ui_wifi_list_page_create()` creates `lv_timer_create(ui_wifi_poll_timer_cb, UI_WIFI_POLL_MS, NULL)` with
+`UI_WIFI_POLL_MS = 150`. Every 150 milliseconds, `ui_wifi_poll_timer_cb()` — which already runs on the LVGL thread
+and so may safely call widget APIs — calls `wifi_scan_service_process()`, which reads and clears the
+`scan_done_pending`/`scan_error_pending` flags inside the same critical section. If the flag says the scan is
+done, it then reads the result list and re-renders. In short: **data crosses threads through a critical section,
+notification crosses threads through periodic polling**, rather than being pushed into LVGL immediately the way
+`lv_async_call()` would. Both approaches are equally correct and safe; they are simply different mechanisms — this
+lesson follows the actual code.
+
+### Preventing overlapping scans lives in the service, not just at the button
+
+`wifi_scan_service_start()` checks `service->scanning` first and returns `false` right away if a scan is already
+running. The UI side also sets `LV_STATE_DISABLED` on the Scan button while waiting for results. This two-layer
+guard (the service layer inside, the UI button outside) keeps the system safe even if the UI side ever forgets to
+disable the button itself.
+
+### RSSI, invisible SSIDs, and sorting the results
+
+Scan results are sorted strongest-to-weakest signal (`wifi_scan_sort_by_rssi_desc`) before being displayed. An AP
+whose SSID is not printable text (a hidden network) is shown as the literal text `<hidden>`
+(`WIFI_SCAN_HIDDEN_SSID_TEXT`) instead. The `wifi_scan_ap_t` struct holds only `ssid`, `rssi` (an `int16_t` in
+dBm) and `security` (a string already converted from the `cy_wcm_security_t` enum) — it has no `bssid` field, as
+the upstream README mentions — and holds at most `WIFI_SCAN_MAX_APS = 12` networks per scan.
 
 ## Worked example
 
-This episode's code lives on the Developer Hub (pinned to commit `9a8e3ed`). Read the full **Why / What / How** first in the [episode's README](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/README.md), then work through the code in this order:
+This episode's code lives on the Developer Hub (pinned to commit `9a8e3ed`) — read the Why section of the
+[upstream README](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/README.md)
+to understand its purpose, but **the excerpts below are copied from the actual files** (Apache-2.0,
+tesaiot/developer-hub, same commit), because the real thread-safety mechanism differs from what the upstream
+README describes.
 
-- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/main_example.c)
-- [`nav/menu_nav_logic.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/nav/menu_nav_logic.c)
-- [`nav/menu_nav_logic.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/nav/menu_nav_logic.h)
-- [`nav/ui_menu_layout.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/nav/ui_menu_layout.h)
-- [`nav/ui_menu_navigation.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/nav/ui_menu_navigation.c)
-- and 6 more files in the [episode's folder](https://github.com/tesaiot/developer-hub/tree/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list)
+[`wifi_list/wifi_scan_service.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/wifi_list/wifi_scan_service.c) — the WHD callback only writes data and flags inside a critical section, never touching LVGL:
+
+```c
+if(status == CY_WCM_SCAN_COMPLETE) {
+    taskENTER_CRITICAL();
+    wifi_scan_sort_by_rssi_desc(service);
+    service->scan_done_pending = true;
+    taskEXIT_CRITICAL();
+}
+```
+
+`wifi_scan_service_process()`, called by the poll timer every 150 ms — reads and clears the flag atomically:
+
+```c
+bool wifi_scan_service_process(wifi_scan_service_t *service)
+{
+    bool done;
+    bool error;
+
+    taskENTER_CRITICAL();
+    done = service->scan_done_pending;
+    error = service->scan_error_pending;
+    service->scan_done_pending = false;
+    service->scan_error_pending = false;
+    taskEXIT_CRITICAL();
+
+    if(done) {
+        service->scanning = false;
+        service->scan_sequence++;
+        return true;
+    }
+    /* ... error handling ... */
+    return false;
+}
+```
+
+[`wifi_list/ui_wifi_list_page.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/wifi_list/ui_wifi_list_page.c) — the LVGL-side poll timer that calls `process()` and re-renders:
+
+```c
+static void ui_wifi_poll_timer_cb(lv_timer_t *timer)
+{
+    uint16_t count = 0U;
+    LV_UNUSED(timer);
+
+    if(wifi_scan_service_process(&s_ctx.service)) {
+        lv_obj_clear_state(s_ctx.scan_btn, LV_STATE_DISABLED);
+        (void)wifi_scan_service_get_list(&s_ctx.service, &count);
+        ui_wifi_update_status_labels();
+        ui_wifi_render_ap_list();
+    }
+}
+/* ... */
+s_ctx.poll_timer = lv_timer_create(ui_wifi_poll_timer_cb, UI_WIFI_POLL_MS, NULL);
+```
+
+- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/main_example.c) calls `wifi_scan_service_preinit()` then forwards into the UI, exactly as the upstream README describes
+- [`wifi_list/wifi_scan_types.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list/wifi_list/wifi_scan_types.h) — the real `wifi_scan_ap_t` struct (no `bssid`)
+- See the full folder at [`hmi_ep05_wifi_list/`](https://github.com/tesaiot/developer-hub/tree/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep05_wifi_list) — EP04's shell (`nav/`) is reused, with the Home page replaced by the WiFi List page
+
+## Common mistakes
+
+- **Assuming this episode uses `lv_async_call()`** — the upstream README says so, but the real code uses a
+  critical section plus an `lv_timer` polling every 150 ms. Trust the real code when explaining the
+  thread-safety mechanism.
+- **Calling LVGL widget APIs directly from the `cy_wcm`/`whd` callback** — the callback runs on the WCM's internal
+  task, not the LVGL task. Calling `lv_label_set_text()` right there would race with `lv_timer_handler()`, which
+  may be drawing at the same time. It must go through a critical section plus polling (or `lv_async_call()`).
+- **Forgetting to guard against overlapping scans** — without checking `service->scanning` before
+  `cy_wcm_start_scan()`, mashing the Scan button repeatedly would fire multiple overlapping scans.
+- **Mixing up the struct's field names** — the upstream README mentions `bssid`, but the real `wifi_scan_ap_t`
+  only has `ssid`, `rssi` and `security`.
 
 ### Build and flash
 

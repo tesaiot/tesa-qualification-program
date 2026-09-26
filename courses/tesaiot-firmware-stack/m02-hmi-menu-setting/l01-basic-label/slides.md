@@ -74,11 +74,54 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — LVGL widget คือ `lv_obj_t *` ทั้งหมด
 
-หน้าจอ LVGL ตัวแรก — วาด logo, title และ subtitle แบบ static บน active screen
+LVGL แทน widget ทุกชนิด (screen, image, label, ปุ่ม, เมนู) ด้วย struct เดียวกันคือ `lv_obj_t`
 
-- อธิบายว่า master template เรียก example_main(parent) เมื่อไร และทำไมเราไม่เขียน main เอง
+`lv_screen_active()` คืนค่า `lv_obj_t *` ของหน้าจอที่กำลังแสดงอยู่ — ใช้เป็น parent เมื่อสร้าง widget ตัวแรก
+
+---
+
+# แนวคิด — object tree: screen → image → label
+
+EP01 สร้าง `screen` → `logo` (image) → `title`, `subtitle` (label)
+
+- `lv_obj_align(obj, align, x, y)` — จัดวางเทียบกับ **parent**
+- `lv_obj_align_to(obj, target, align, x, y)` — จัดวางเทียบกับ **widget อื่น** เป็น anchor
+
+title ใช้ `LV_ALIGN_OUT_BOTTOM_MID` เทียบกับ logo — ถ้าโลโก้เปลี่ยนขนาด title เลื่อนตามอัตโนมัติ
+
+offset ที่ใช้: โลโก้ห่างขอบบน 24 px · title ใต้โลโก้ 48 px · subtitle ใต้ title 24 px
+
+---
+
+# แนวคิด — สีและฟอนต์
+
+- `lv_color_hex(0xRRGGBB)` แปลงเลขฐาน 16 เป็น `lv_color_t` — พื้นหลังใช้ `0x0F172A` (slate-900)
+- `LV_OPA_COVER` = ความทึบสูงสุด, `LV_PART_MAIN` = ส่วนหลักของ widget ที่ style ไปลง
+- ฟอนต์ Montserrat ต้องถูกเปิดใน `lv_conf.h` ของ master ก่อน (episode นี้ใช้ 30 px กับ title, 20 px กับ subtitle)
+
+---
+
+# แนวคิด — ทำไมโลโก้ต้องฝังเป็น C array
+
+บอร์ดนี้ไม่มีไฟล์ระบบหรือ SD card ให้เปิดไฟล์ภาพตอน runtime
+
+โลโก้ถูกแปลงล่วงหน้าเป็น `lv_image_dsc_t APP_LOGO` — เก็บ header + pixel data ดิบ คอมไพล์ฝังรวมเข้าไปใน flash image เดียวกับโปรแกรม
+
+`lv_image_set_src(logo, &APP_LOGO)` รับ pointer ไปยัง flash ตรง ๆ ไม่มีการอ่านไฟล์และไม่มี I/O latency
+
+---
+
+# แนวคิด — สัญญาการเข้า-ออกของ episode
+
+master เรียก `example_main(lv_scr_act())` ครั้งเดียวหลัง FreeRTOS, display driver, GPU และ LVGL พร้อมหมดแล้ว
+
+`main_example.c` implement `example_main()` แบบ strong แล้ว forward ไปที่ `ui_ep01_basic_label_create()` ทันที โดยไม่ใช้ `parent` ตรง ๆ (มี `(void)parent;`) เพราะฟังก์ชันสร้าง UI เรียก `lv_screen_active()` เอง
+
+ยังเรียก `tesaiot_add_thai_support_badge()` ก่อน — ยืนยันว่าฟอนต์ Noto Sans Thai ถูก bundle มาพร้อมแล้ว
+
+หลัง `example_main()` return master วน `lv_timer_handler()` ตลอดไป — EP01 ไม่มี event จึงวาดครั้งเดียวแล้วค้างภาพ
 
 ---
 
@@ -92,13 +135,56 @@ section.cover img{filter:none}
 
 ---
 
-# ตัวอย่างสมบูรณ์
+# ตัวอย่างสมบูรณ์ — `main_example.c`
 
-โค้ดของ episode นี้อยู่ใน Developer Hub (อ้างอิงที่ commit `9a8e3ed`) อ่าน **Why / What / How** ฉบับเต็มก่อนใน [README ของ episode](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep01_basic_label/README.md) แล้วไล่โค้ดตามลำดับนี้
+โค้ดจาก tesaiot/developer-hub (Apache-2.0) · commit `9a8e3ed` · [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep01_basic_label/main_example.c)
 
-- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep01_basic_label/main_example.c)
-- [`ui_ep01_basic_label.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep01_basic_label/ui_ep01_basic_label.c)
-- [`ui_ep01_basic_label.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep01_basic_label/ui_ep01_basic_label.h)
+```c
+void example_main(lv_obj_t *parent)
+{
+    /* Master template bundles Noto Sans Thai fonts — this
+     * badge confirms Thai rendering is available. */
+    tesaiot_add_thai_support_badge();
+
+    (void)parent;   /* episode manages its own screen via
+                     * lv_screen_active(). */
+
+    ui_ep01_basic_label_create();
+}
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — `ui_ep01_basic_label.c`
+
+[ไฟล์เต็มบน Developer Hub](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep01_basic_label/ui_ep01_basic_label.c)
+
+```c
+lv_obj_t *screen = lv_screen_active();
+lv_obj_set_style_bg_color(screen,
+    lv_color_hex(0x0F172A), LV_PART_MAIN);
+lv_obj_set_style_bg_opa(screen,
+    LV_OPA_COVER, LV_PART_MAIN);
+
+lv_obj_t *logo = lv_image_create(screen);
+lv_image_set_src(logo, &APP_LOGO);
+lv_obj_align(logo, LV_ALIGN_TOP_MID, 0, 24);
+
+lv_obj_t *title = lv_label_create(screen);
+lv_label_set_text(title, "EP01 - Basic Label");
+lv_obj_align_to(title, logo,
+    LV_ALIGN_OUT_BOTTOM_MID, 0, 48);
+```
+
+`lv_obj_align()` เทียบกับ parent ส่วน `lv_obj_align_to()` เทียบกับ widget อื่นเป็น anchor
+
+---
+
+# จุดที่มักพลาด
+
+- ใช้ `lv_obj_align()` แทน `lv_obj_align_to()` เมื่ออยากวางเทียบกับ widget อื่น (จะไปเทียบกับ `screen` แทน)
+- ลืมเปิดขนาดฟอนต์ใน `lv_conf.h` ก่อนใช้ — build ไม่ผ่านหรือได้ฟอนต์อื่นแทนแบบไม่มี error ชัดเจน
+- คิดว่าต้องใช้ `parent` ที่ได้รับมาตรง ๆ — จริง ๆ ฟังก์ชันสร้าง UI เรียก `lv_screen_active()` เองได้เลย
 
 ---
 

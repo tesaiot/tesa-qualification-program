@@ -74,11 +74,51 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — ทำไมต้องมี on-screen keyboard
 
-lv_textarea + lv_keyboard — รับ input แบบ realtime และแบบ commit-on-OK พร้อม dropdown เลือกโหมด normal / number
+บอร์ดนี้ไม่มี hardware keyboard — ต้องใช้ `lv_keyboard` widget สำเร็จรูปของ LVGL
 
-- สลับโหมดแป้นพิมพ์ระหว่าง normal กับ number จาก dropdown
+`lv_keyboard` ไม่ทำงานเดี่ยว ๆ ต้องผูกกับ textarea ด้วย `lv_keyboard_set_textarea(kb, ta)` ให้รู้ว่าพิมพ์ลงช่องไหน
+
+---
+
+# แนวคิด — สองโหมดของ input
+
+- **Input A (Realtime)** — ผูก `LV_EVENT_VALUE_CHANGED` เข้ากับ label โดยตรง เปลี่ยนทุก keystroke
+- **Input B (Confirmed on OK)** — ไม่ sync label ตอนพิมพ์ อัปเดตเมื่อ `LV_EVENT_READY` ยิง (กด OK) เท่านั้น
+
+เลือกโหมดตามว่าค่าที่ยังพิมพ์ไม่ครบจะสร้างปัญหาทันทีหรือไม่
+
+---
+
+# แนวคิด — callback ตัวเดียว รับหลาย event
+
+`text_input_logic_textarea_event_cb` ผูกกับ**ทั้งสอง** textarea รับ 3 event: `CLICKED`, `FOCUSED`, `VALUE_CHANGED`
+
+- CLICKED/FOCUSED → เปิด keyboard + ตั้ง `active_textarea = target` เสมอ
+- VALUE_CHANGED → อัปเดต label **เฉพาะเมื่อ** `target == realtime_textarea`
+
+Input B ก็ subscribe VALUE_CHANGED เหมือนกัน แต่ callback เลือกไม่ทำอะไร
+
+---
+
+# แนวคิด — ตอน OK อัปเดต label ไหน
+
+callback ของ keyboard เองรับ `LV_EVENT_READY` และ `LV_EVENT_CANCEL`
+
+เมื่อ READY เช็คว่า `active_textarea` ตอนนั้นคือ confirmed หรือ realtime แล้วอัปเดต label ฝั่งนั้น
+
+keyboard ตัวเดียวรับใช้ทั้งสอง textarea โดยรู้จาก state ที่ตั้งไว้ตอน FOCUSED
+
+---
+
+# แนวคิด — dropdown เปลี่ยนมากกว่าหน้าตาแป้นพิมพ์
+
+เลือก "Number" เรียกทั้ง `lv_keyboard_set_mode(kb, LV_KEYBOARD_MODE_NUMBER)` **และ** `lv_textarea_set_accepted_chars(target, "0123456789")`
+
+→ บล็อกตัวอักษรอื่นไม่ให้พิมพ์เข้า textarea ได้เลย ไม่ใช่แค่เปลี่ยนปุ่มบนคีย์บอร์ด
+
+apply กับ textarea ทั้งสองช่องพร้อมกันทุกครั้งที่ dropdown เปลี่ยน
 
 ---
 
@@ -92,16 +132,54 @@ lv_textarea + lv_keyboard — รับ input แบบ realtime และแบ
 
 ---
 
-# ตัวอย่างสมบูรณ์
+# ตัวอย่างสมบูรณ์ — callback ของ textarea
 
-โค้ดของ episode นี้อยู่ใน Developer Hub (อ้างอิงที่ commit `9a8e3ed`) อ่าน **Why / What / How** ฉบับเต็มก่อนใน [README ของ episode](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep03_text_input_keyboard/README.md) แล้วไล่โค้ดตามลำดับนี้
+โค้ดจาก tesaiot/developer-hub (Apache-2.0) · commit `9a8e3ed` · [`text_input_logic.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep03_text_input_keyboard/text_input_logic.c)
 
-- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep03_text_input_keyboard/main_example.c)
-- [`text_input_logic.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep03_text_input_keyboard/text_input_logic.c)
-- [`text_input_logic.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep03_text_input_keyboard/text_input_logic.h)
-- [`ui_text_input_keyboard.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep03_text_input_keyboard/ui_text_input_keyboard.c)
-- [`ui_text_input_keyboard.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep03_text_input_keyboard/ui_text_input_keyboard.h)
-- [`ui_text_input_layout.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep03_text_input_keyboard/ui_text_input_layout.h)
+```c
+if(code == LV_EVENT_CLICKED || code == LV_EVENT_FOCUSED) {
+    state->active_textarea = target;
+    lv_keyboard_set_textarea(state->keyboard, target);
+    text_input_apply_mode_for_target(state, target);
+    text_input_show_keyboard(state);
+    return;
+}
+
+/* Realtime output is bound only to Input A. */
+if(code == LV_EVENT_VALUE_CHANGED &&
+   target == state->realtime_textarea) {
+    text_input_update_realtime_label(state);
+}
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — callback ของ keyboard
+
+```c
+if(code == LV_EVENT_READY) {
+    if(state->active_textarea == state->confirmed_textarea) {
+        text_input_update_confirmed_label(state);
+    } else if(state->active_textarea == state->realtime_textarea) {
+        text_input_update_realtime_label(state);
+    }
+    text_input_hide_keyboard(state);
+    return;
+}
+
+if(code == LV_EVENT_CANCEL) {
+    text_input_hide_keyboard(state);   /* ไม่ restore ค่าเดิม */
+}
+```
+
+---
+
+# จุดที่มักพลาด
+
+- Cancel แค่ซ่อน keyboard ไม่ได้คืนค่าตัวอักษรที่พิมพ์ไปแล้ว — ต้อง backup/restore เอง
+- โหมด Number บล็อกตัวอักษรที่ textarea ด้วย ไม่ใช่แค่เปลี่ยนปุ่ม — เคลียร์ด้วย `set_accepted_chars(ta, NULL)`
+- callback รับสอง textarea ต้องเช็ค `target` ก่อนอัปเดต label ไม่งั้นอัปเดตผิดตัว
+- ชื่อ callback ในโค้ดจริงต่างจากที่ README ต้นทางส่วน How อธิบายไว้ — ยึดโค้ดจริงเป็นหลัก
 
 ---
 

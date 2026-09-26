@@ -74,11 +74,41 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — โค้ดจริงใช้ `lv_menu` ไม่ใช่ 4-container
 
-โครง navigation หลัก — top nav bar พร้อมปุ่มสลับหน้า + icon action buttons + หน้าต่าง ๆ ที่ lv_menu สร้างไว้ครั้งเดียวแล้วสลับตามเมนูที่เลือก (README ของ episode เล่าแบบ stage container แต่โค้ดใช้ lv_menu ให้ยึดตามโค้ด)
+README ต้นทางส่วน How เล่าว่าใช้ container header/nav/stage/footer + `lv_obj_clean()` rebuild ทุกครั้ง
 
-- แยก layout, navigation logic และหน้าแต่ละหน้าออกจากกันตามโครงไฟล์ของ episode
+**โค้ดจริง**ที่ commit `9a8e3ed` ใช้ `lv_menu` — widget สำเร็จรูปสำหรับ multi-page navigation
+
+สร้างทุกหน้าไว้ล่วงหน้าด้วย `lv_menu_page_create()` แล้วสลับด้วย `lv_menu_set_page()` เท่านั้น ไม่มี clean/rebuild
+
+---
+
+# แนวคิด — โครงหน้าจอ
+
+header (settings icon + title) คงที่ → top nav (Home/WiFi/Display/Info/Back) คงที่ → `lv_menu` ตรงกลาง → footer
+
+`lv_menu` มี header ของตัวเอง ต้องซ่อนด้วย `LV_OBJ_FLAG_HIDDEN` ทั้ง main header และ sidebar header — ไม่งั้นซ้อนกันสองชั้น
+
+---
+
+# แนวคิด — สองทางเข้าหน้าเดียวกัน
+
+top nav ที่แสดงตลอด + sidebar ("Navigate") ที่ซ่อนได้ เปิด/ปิดด้วยปุ่ม settings icon
+
+ทั้งสองทางเรียกคนละ callback แต่ไปจบที่ `menu_nav_set_page()` เดียวกัน — ปลายทางเดียว สองประตู
+
+**active-state ต้องซิงก์สองฝั่งพร้อมกัน** ทุกครั้งที่เปลี่ยนหน้า ไม่งั้นปุ่มอีกฝั่ง highlight ค้าง
+
+---
+
+# แนวคิด — ทำไมต้อง `lv_async_call`
+
+`menu_nav_queue_page_switch()` ไม่เรียก `lv_menu_set_page()` ทันที เก็บ `pending_page` แล้วส่งผ่าน `lv_async_call()`
+
+คอมเมนต์ในซอร์ส: "Always defer actual page switching to avoid lv_menu state race after sidebar transitions"
+
+ปุ่ม top nav อาจยุบ sidebar ก่อนสลับหน้า — ถ้าสลับ synchronous จะชนกับ layout state ของ `lv_menu` ที่ยังปรับตัวไม่เสร็จ
 
 ---
 
@@ -92,16 +122,62 @@ section.cover img{filter:none}
 
 ---
 
-# ตัวอย่างสมบูรณ์
+# ตัวอย่างสมบูรณ์ — เลื่อนการสลับหน้าด้วย `lv_async_call`
 
-โค้ดของ episode นี้อยู่ใน Developer Hub (อ้างอิงที่ commit `9a8e3ed`) อ่าน **Why / What / How** ฉบับเต็มก่อนใน [README ของ episode](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep04_menu_navigation/README.md) แล้วไล่โค้ดตามลำดับนี้
+โค้ดจาก tesaiot/developer-hub (Apache-2.0) · commit `9a8e3ed` · [`nav/menu_nav_logic.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep04_menu_navigation/nav/menu_nav_logic.c)
 
-- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep04_menu_navigation/main_example.c)
-- [`nav/menu_nav_logic.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep04_menu_navigation/nav/menu_nav_logic.c)
-- [`nav/menu_nav_logic.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep04_menu_navigation/nav/menu_nav_logic.h)
-- [`nav/ui_menu_layout.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep04_menu_navigation/nav/ui_menu_layout.h)
-- [`nav/ui_menu_navigation.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep04_menu_navigation/nav/ui_menu_navigation.c)
-- และอีก 1 ไฟล์ใน [โฟลเดอร์ของ episode](https://github.com/tesaiot/developer-hub/tree/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep04_menu_navigation)
+```c
+static void menu_nav_async_apply_pending_page(void *user_data)
+{
+    menu_nav_state_t *state = (menu_nav_state_t *)user_data;
+    if(state == NULL || !state->page_switch_pending) {
+        return;
+    }
+    state->page_switch_pending = false;
+    menu_nav_apply_page_now(state, state->pending_page);
+}
+
+static void menu_nav_queue_page_switch(menu_nav_state_t *state,
+                                       menu_nav_page_id_t page_id)
+{
+    state->pending_page = page_id;
+    if(!state->page_switch_pending) {
+        state->page_switch_pending = true;
+        lv_async_call(menu_nav_async_apply_pending_page, state);
+    }
+}
+```
+
+---
+
+# ตัวอย่างสมบูรณ์ — สร้าง `lv_menu` และหน้าทั้งสี่
+
+[`nav/ui_menu_navigation.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep04_menu_navigation/nav/ui_menu_navigation.c)
+
+```c
+lv_obj_t *menu = lv_menu_create(content);
+lv_menu_set_mode_header(menu, LV_MENU_HEADER_TOP_FIXED);
+lv_menu_set_mode_root_back_button(menu,
+    LV_MENU_ROOT_BACK_BUTTON_DISABLED);
+
+lv_obj_t *home_page = create_full_content_page(menu, "Home", ...);
+lv_obj_t *page_wifi = create_full_content_page(menu, "WiFi Manager", ...);
+lv_obj_t *page_display = create_full_content_page(menu, "Display Setting", ...);
+lv_obj_t *page_device = create_full_content_page(menu, "Device Info", ...);
+
+lv_menu_set_page(menu, home_page);
+```
+
+ทุกหน้าถูกสร้างไว้ล่วงหน้าครั้งเดียว — สลับหน้าคือแค่เปลี่ยนว่าจะแสดงอันไหน
+
+---
+
+# จุดที่มักพลาด
+
+- README ต้นทางเล่าแบบ stage+clean/rebuild แต่โค้ดจริงใช้ `lv_menu` — โค้ดกับคำบรรยายขัดกัน ให้ยึดโค้ด
+- ลืมซ่อน header ภายในของ `lv_menu` → เห็น header ซ้อนกันสองชั้น
+- เรียก `lv_menu_set_page()` ทันทีหลัง toggle sidebar โดยไม่ผ่าน `lv_async_call` → ชนกับ layout state
+- อัปเดต active-state แค่ฝั่งเดียว (top nav หรือ sidebar) → อีกฝั่ง highlight ค้าง
 
 ---
 

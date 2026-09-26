@@ -74,11 +74,50 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — BMM350 คืออะไร
 
-สร้างเข็มทิศดิจิทัลจากเซนเซอร์สนามแม่เหล็ก Bosch BMM350 บน I3C พร้อมฟีเจอร์ปรับแต่ง (hard-iron calibration)
+Magnetometer 3 แกนล่าสุดของ Bosch (2023) — noise 1.4 µT RMS, ช่วง ±2000 µT (คลุมสนามโลก 25-65 µT สบาย)
 
-- ทำ hard-iron calibration และแสดงว่าทิศแม่นขึ้นหลังปรับ
+ต่อผ่าน **I3C** ตัวแรกในซีรีส์ — เร็วกว่า I2C มี dynamic addressing + in-band interrupt
+
+master เตรียม `i3c_controller_init()` ให้เหมือน I2C bus ของเซนเซอร์อื่น
+
+---
+
+# แนวคิด — บั๊ก vendor ที่ทำให้จอดำค้าง ⚠️
+
+`BMM350_SensorAPI` v1.10.0 มีบั๊กบน I3C: `bmm350_init()` ส่ง soft-reset ทำให้เซนเซอร์รีเซ็ตกลับ I2C mode
+
+driver คุยต่อผ่าน I3C กับเซนเซอร์ที่ไม่ฟังแล้ว → บล็อกไม่จบ → LVGL ไม่เริ่ม → **จอดำตั้งแต่ boot**
+
+เช็ค serial log: มี `[BMM350] INIT_OK` ตามหลัง `[MASTER] I3C init OK` ไหม — ถ้าไม่มีต้อง patch ก่อน build
+
+---
+
+# แนวคิด — calibration ต้องผ่านสองเงื่อนไข
+
+`BMM350_CALIBRATION_SAMPLES = 140` ที่ 120 ms/ตัวอย่าง ≈ 16.8 วินาที (ไม่ใช่ "15 วินาที" กลม ๆ)
+
+**แต่ครบจำนวนยังไม่พอ** — ต้องมี span ของ X และ Y ≥ `BMM350_CALIBRATION_MIN_SPAN_UT = 20 µT` ด้วย
+
+วางนิ่งไม่หมุน → span แคบ → calibration ค้างไม่จบแม้ครบ 140 ตัวอย่างแล้ว
+
+---
+
+# แนวคิด — ทำ soft-iron scale ด้วย ไม่ใช่แค่ offset
+
+README ต้นทาง: "soft-iron จะไม่ทำ — ต้อง fit ellipsoid ซับซ้อน"
+
+คอมเมนต์ในซอร์ส: "hard-iron **+ simple soft-iron scale**"
+
+โค้ดจริงคำนวณทั้ง offset (จุดกึ่งกลาง) และ scale ต่อแกนจาก span เฉลี่ย — ดึงวงรีให้กลมขึ้นแบบง่าย ๆ
+
+---
+
+# แนวคิด — calibration อยู่ RAM เท่านั้น + heading ไม่ชดเชยเอียง
+
+- ค่า calibration เป็น `static` ใน RAM — `bmm350_reader_init()` เคลียร์ทุก boot ต้อง calibrate ใหม่เสมอ
+- `atan2f(y, x)` ไม่ใช้แกน Z หรือข้อมูลเอียงจาก accel — บอร์ดต้องราบขณะอ่านทิศ
 
 ---
 
@@ -92,16 +131,31 @@ section.cover img{filter:none}
 
 ---
 
-# ตัวอย่างสมบูรณ์
+# ตัวอย่างสมบูรณ์ — ค่าคงที่ calibration ตัวจริง
 
-โค้ดของ episode นี้อยู่ใน Developer Hub (อ้างอิงที่ commit `9a8e3ed`) อ่าน **Why / What / How** ฉบับเต็มก่อนใน [README ของ episode](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep04_bmm350_compass/README.md) แล้วไล่โค้ดตามลำดับนี้
+โค้ดจาก tesaiot/developer-hub (Apache-2.0) · commit `9a8e3ed` · [`bmm350_config.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep04_bmm350_compass/app_sensor/bmm350/bmm350_config.h)
 
-- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep04_bmm350_compass/main_example.c)
-- [`app_sensor/bmm350/bmm350_config.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep04_bmm350_compass/app_sensor/bmm350/bmm350_config.h)
-- [`app_sensor/bmm350/bmm350_driver.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep04_bmm350_compass/app_sensor/bmm350/bmm350_driver.c)
-- [`app_sensor/bmm350/bmm350_driver.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep04_bmm350_compass/app_sensor/bmm350/bmm350_driver.h)
-- [`app_sensor/bmm350/bmm350_reader.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep04_bmm350_compass/app_sensor/bmm350/bmm350_reader.c)
-- และอีก 6 ไฟล์ใน [โฟลเดอร์ของ episode](https://github.com/tesaiot/developer-hub/tree/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep04_bmm350_compass)
+```c
+/* Runtime heading calibration (hard-iron + simple
+ * soft-iron scale). 140 samples @ 120 ms = ~16.8 s. */
+#define BMM350_CALIBRATION_SAMPLES             (140U)
+#define BMM350_CALIBRATION_MIN_SPAN_UT         (20.0f)
+
+/* Heading axis mapping for board orientation tuning. */
+#define BMM350_HEADING_SWAP_XY                 (0U)
+#define BMM350_HEADING_X_SIGN                  (1)
+#define BMM350_HEADING_Y_SIGN                  (1)
+#define BMM350_HEADING_OFFSET_DEG              (0.0f)
+```
+
+---
+
+# จุดที่มักพลาด
+
+- จอดำค้างตั้งแต่ boot → ลืม patch บั๊ก I3C soft-reset ของ `BMM350_SensorAPI`
+- คิดว่า calibrate เสร็จเมื่อครบเวลา/จำนวน — ต้องหมุนให้ span ≥ 20 µT ด้วย
+- คิดว่า calibration อยู่หลัง reset บอร์ด — จริงอยู่ RAM เท่านั้น หายทุก boot
+- ลืมว่า heading ไม่ชดเชยความเอียง — บอร์ดต้องราบ
 
 ---
 

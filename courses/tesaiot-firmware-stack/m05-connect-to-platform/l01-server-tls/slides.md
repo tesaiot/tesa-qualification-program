@@ -73,9 +73,51 @@ section.cover img{filter:none}
 
 ---
 
-# แนวคิด
+# แนวคิด — Server-TLS ยืนยันตัวตนของใคร
 
-อุปกรณ์ที่ส่งข้อมูลขึ้นแพลตฟอร์มต้องพิสูจน์ได้ว่าคุยกับเซิร์ฟเวอร์ตัวจริง และแพลตฟอร์มต้องรู้ว่าอุปกรณ์เป็นตัวจริง บทเรียนนี้ใช้ตัวอย่างอ้างอิงของ Developer Hub ที่เชื่อมกับ TESAIoT Platform จริง
+เซิร์ฟเวอร์ยื่นใบรับรองให้อุปกรณ์ตรวจก่อนเสมอ — ตรวจกับ CA ที่เชื่อถือได้ + ชื่อโฮสต์
+
+นี่คือสิ่งเดียวที่ Server-TLS ยืนยัน: **ตัวตนของเซิร์ฟเวอร์** ไม่ใช่ตัวตนของอุปกรณ์
+
+`main.c`: `tls.client_cert`/`client_key` = `NULL` เสมอ แต่ `verify_peer = 1U` ยังเปิดอยู่ตลอด
+
+---
+
+# แนวคิด — สองทางพิสูจน์ตัวตนของอุปกรณ์
+
+เลือกผ่าน `COMM_MODE`: HTTPS ส่ง header `X-API-KEY` (ไม่ส่ง Bearer) / MQTTS ใช้ `username=device_id` + `password`
+
+ทั้งสองทางยังเป็น Server-TLS เหมือนกัน ต่างแค่วิธีที่อุปกรณ์พิสูจน์ตัวเอง
+
+ความลับ (API key/password) เดินทางในอุโมงค์ TLS ที่เข้ารหัสแล้วเสมอ ไม่ส่งแบบข้อความเปล่า
+
+---
+
+# แนวคิด — ca-chain.pem กับ system trust
+
+MQTTS: ใช้ `ca-chain.pem` ของอุปกรณ์ตรวจ broker พร้อม `tls.sni_name = mqtt_host`
+
+HTTPS: เขียนทับเป็น `tls.ca_chain = NULL` — ใช้ system trust แทน เพราะปลายทางสาธารณะมี public CA
+
+รายละเอียดต่างกันตามทางเชื่อมต่อภายในตัวอย่างเดียวกัน ไม่ใช่กฎตายตัว
+
+---
+
+# แนวคิด — พอร์ตแยกตามวิธีพิสูจน์ตัวตน
+
+Server-TLS: MQTT พอร์ต 8884, HTTPS พอร์ต 443
+
+mTLS (บทเรียนถัดไป): ใช้พอร์ตอื่น — ใช้ผิดพอร์ตจะเจอ TLS ปิดหลัง CONNECT ทันที
+
+---
+
+# แนวคิด — ลำดับขั้นตอน และจุดที่ล้มเหลว
+
+(1) อ่าน credential → (2) TLS handshake (`verify_peer` เสมอ) → (3) ส่ง credential ในอุโมงค์ → (4) publish JSON
+
+ขั้น 2 ล้ม (เวลาเครื่องผิด/ใบรับรองหมดอายุ) → handshake ล้มก่อนถึงขั้น 3 เสมอ
+
+ขั้น 2 ผ่านแต่ขั้น 3 ผิด → broker ตอบ Code 5 "Not authorized" (คนละสาเหตุกับปัญหา TLS)
 
 ---
 
@@ -89,13 +131,81 @@ section.cover img{filter:none}
 
 ---
 
-# ตัวอย่างสมบูรณ์
+## ก่อนรันตัวอย่าง — ตั้งโฮสต์เป็น tesaiot.dev
+
+`config.h` ของตัวอย่างที่ commit นี้ยังตั้งค่าเริ่มต้นเป็นโดเมนเดิมของแพลตฟอร์มที่ลงท้ายด้วย .com ซึ่งย้ายไปเป็น tesaiot.dev แล้ว
+โดเมนเดิมของ API ไม่ resolve แล้ว ส่วนของ MQTT ยังใช้ได้ชั่วคราว ให้ตั้ง `DEFAULT_API_BASE_URL` เป็น `https://tesaiot.dev` และ `DEFAULT_MQTT_HOST` เป็น `mqtt.tesaiot.dev`
+(บันทึกไว้ที่ [developer-hub issue #3](https://github.com/tesaiot/developer-hub/issues/3))
+
+---
+
+# ตัวอย่างสมบูรณ์ — TLS conf เริ่มต้น
+
+โค้ดจาก tesaiot/developer-hub (Apache-2.0) · commit `d2ed42c` · [`main.c`](https://github.com/tesaiot/developer-hub/blob/d2ed42c4a31232f553b6b8cef9ee7373db348c21/examples/embedded-devices/entry/device-servertls/main.c#L297-L301)
+
+```c
+iot_tls_conf_t tls; (void)memset(&tls, 0, sizeof(tls));
+tls.ca_chain = file_exists(PATH_CA_CHAIN) ? PATH_CA_CHAIN : NULL;
+tls.client_cert = NULL; tls.client_key = NULL; /* serverTLS */
+tls.verify_peer = 1U;
+```
+
+ไม่มีใบรับรองฝั่งอุปกรณ์ แต่ยังตรวจฝั่งเซิร์ฟเวอร์เสมอ
+
+---
+
+# ตัวอย่างสมบูรณ์ — สาขา MQTTS
+
+[`main.c`](https://github.com/tesaiot/developer-hub/blob/d2ed42c4a31232f553b6b8cef9ee7373db348c21/examples/embedded-devices/entry/device-servertls/main.c#L331-L341)
+
+```c
+/* MQTTS (Server‑TLS): username/password + CA verify */
+mreq.username = (mqtt_user[0] != '\0') ? mqtt_user : dev_id;
+mreq.password = (mqtt_pass[0] != '\0') ? mqtt_pass : NULL;
+mreq.topic = topic; mreq.payload = json;
+mreq.qos = 1U;
+tls.sni_name = mqtt_host;
+const int rc = iot_mqtts_publish(&mreq, &tls);
+```
+
+ใช้ `ca-chain.pem` ของอุปกรณ์ตรวจ broker + พิสูจน์ตัวเองด้วย username/password
+
+---
+
+# ตัวอย่างสมบูรณ์ — สาขา HTTPS
+
+[`main.c`](https://github.com/tesaiot/developer-hub/blob/d2ed42c4a31232f553b6b8cef9ee7373db348c21/examples/embedded-devices/entry/device-servertls/main.c#L344-L354)
+
+```c
+/* HTTPS (Server‑TLS): Bearer/X-API-KEY */
+/* ... */
+tls.ca_chain = NULL;
+tls.sni_name = NULL;
+/* For Server‑TLS HTTPS, send only X-API-KEY (omit Bearer) */
+hreq.api_key = api_key;
+const int rc = iot_https_post(&hreq, &tls);
+```
+
+ใช้ trust store ของระบบแทน `ca-chain.pem` + พิสูจน์ตัวเองด้วย `X-API-KEY`
+
+---
+
+# ตัวอย่างสมบูรณ์ — credential และลิงก์
 
 ต้องมี credential ของอุปกรณ์จาก TESAIoT Platform ตามขั้นตอนใน README ห้ามนำ credential จริงขึ้น repo สาธารณะ
 
 [ตัวอย่างบน Developer Hub](https://dev.tesaiot.dev/?example=developer-hub--device-servertls&q=device-servertls)
 
 ตัวอย่างอยู่ใน tesaiot/developer-hub (Apache-2.0) และอ้างอิงด้วยลิงก์
+
+---
+
+# จุดที่มักพลาด
+
+- คิดว่า Server-TLS ยืนยันตัวตนอุปกรณ์ด้วย — จริงยืนยันแค่เซิร์ฟเวอร์ อุปกรณ์ต้องมี API key/password แยก
+- ใช้พอร์ตผิดโหมด (8883 แทน 8884) — TLS ปิด connection หลัง CONNECT ทันที
+- เจอ Code 5 แล้วคิดว่าเป็นปัญหา TLS — จริงคือ TLS ผ่านแล้ว เป็นขั้นพิสูจน์ตัวตนอุปกรณ์
+- คิดว่า `ca-chain.pem` ใช้ตรวจทุกทางเสมอ — ตัวอย่างนี้ HTTPS ใช้ system trust แทน
 
 ---
 
