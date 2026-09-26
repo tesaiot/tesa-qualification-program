@@ -21,6 +21,13 @@ courses:
     status: alpha
     title: {th: "AIoT in Action: จากหน้าจอสัมผัสสู่แพลตฟอร์ม IoT (MicroPython)", en: "AIoT in Action: From Touch Screen to IoT Platform (MicroPython)"}
 
+  - id: tesaiot-firmware-stack
+    short: fw-stack
+    in_tree: true
+    level: L3
+    status: alpha
+    title: {th: "TESAIoT Firmware Stack: เฟิร์มแวร์ภาษา C บน TESAIoT Dev Kit", en: "TESAIoT Firmware Stack: C Firmware on the TESAIoT Dev Kit"}
+
   - id: edge-ai-iot-for-business
     short: biz
     in_tree: true

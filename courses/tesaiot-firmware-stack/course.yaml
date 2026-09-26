@@ -1,0 +1,50 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+id: tesaiot-firmware-stack
+short: fw-stack
+title:
+  th: "TESAIoT Firmware Stack: เฟิร์มแวร์ภาษา C บน TESAIoT Dev Kit"
+  en: "TESAIoT Firmware Stack: C Firmware on the TESAIoT Dev Kit"
+summary:
+  th: "หลักสูตรหลักของ TQP สำหรับนักพัฒนา เขียนเฟิร์มแวร์ภาษา C บน TESAIoT Dev Kit ด้วย ModusToolbox และ master template ของ TESA ตั้งแต่ HMI ด้วย LVGL เซนเซอร์และเสียง ฮาร์ดแวร์บนบอร์ดฐาน QWA309 จนถึงการเชื่อมต่อ TESAIoT Platform อย่างปลอดภัย โดยใช้ตัวอย่างจริงจาก TESAIoT Developer Hub"
+  en: "The core TQP course for developers: C firmware on the TESAIoT Dev Kit with ModusToolbox and TESA's master template, from an LVGL HMI, sensors and audio, and the QWA309 base-board hardware to a secure link with the TESAIoT Platform, built on the real examples of the TESAIoT Developer Hub."
+level: L3
+status: alpha
+audience: [developer, student, educator]
+hours: 26
+hardware:
+  emulator: false
+  boards: [devkit]
+toolchain:
+  modustoolbox: "3.6 or later (the episode catalogue recommends 3.8)"
+  master_template: "tesaiot/developer-hub @ tesaiot_dev_kit_master 89d1477"
+  examples: "tesaiot/developer-hub @ tesaiot_dev_kit_episodes e48fbd2 · tesaiot_dev_kit_practise_codes 372d0d8 · main d2ed42c"
+prerequisites:
+  courses: []
+  skills:
+    - {skill: lang.c, level: 2}
+outcomes:
+  - th: "build และ flash เฟิร์มแวร์ภาษา C ลง TESAIoT Dev Kit ด้วย ModusToolbox และ master template ได้ด้วยตัวเอง"
+    en: "Build and flash C firmware to the TESAIoT Dev Kit with ModusToolbox and the master template on your own"
+  - th: "สร้าง HMI บนจอสัมผัสด้วย LVGL ตั้งแต่ label จนถึง Wi-Fi Manager ที่มี state machine และเก็บโปรไฟล์ใน NVM"
+    en: "Build a touch-screen HMI with LVGL, from a label to a Wi-Fi manager with a state machine and NVM profiles"
+  - th: "อ่านเซนเซอร์ทุกตัวบนบอร์ดและไมโครโฟน PDM แล้วรวมเป็นแดชบอร์ดที่ไม่กระตุก"
+    en: "Read every on-board sensor and the PDM microphone and combine them into a smooth dashboard"
+  - th: "ใช้ GPIO ADC I2C CAN UART SPI และ PWM บนบอร์ดฐาน QWA309 และยืนยันสัญญาณด้วยเครื่องมือวัด"
+    en: "Use GPIO, ADC, I2C, CAN, UART, SPI and PWM on the QWA309 base board and confirm signals with an instrument"
+  - th: "ส่งข้อมูลขึ้น TESAIoT Platform ด้วย Server-TLS และ mTLS และอธิบายบทบาทของ OPTIGA™ Trust M และ OTA"
+    en: "Send data to the TESAIoT Platform with Server-TLS and mTLS, and explain the roles of OPTIGA™ Trust M and OTA"
+authors:
+  - {name: "Thai Embedded Systems Association (TESA) — TESAIoT Firmware Stack team", url: "https://github.com/tesaiot/developer-hub", role: author}
+sponsors: [TESA]
+license: {content: CC-BY-4.0, code: none}
+source:
+  repo: https://github.com/tesaiot/developer-hub
+  ref: e48fbd2a8d786730e30aed96eb129150e2bcf66d
+  note: "Code stays in the Developer Hub and is linked at pinned commits, never copied: the episode and practice branches carry no licence file, and the master template and the OPTIGA client carry Infineon/Cypress EULAs."
+modules:
+  - {id: m01-getting-started, title: {th: "เริ่มต้นกับ TESAIoT Dev Kit", en: "Getting started with the TESAIoT Dev Kit"}}
+  - {id: m02-hmi-menu-setting, title: {th: "HMI Menu & Setting ด้วย LVGL", en: "HMI Menu & Setting with LVGL"}}
+  - {id: m03-interactive-sensors, title: {th: "เซนเซอร์และเสียงบน TESAIoT Dev Kit", en: "Sensors and audio on the TESAIoT Dev Kit"}}
+  - {id: m04-qwa309-hardware, title: {th: "ฮาร์ดแวร์บนบอร์ดฐาน QWA309", en: "Hardware on the QWA309 base board"}}
+  - {id: m05-connect-to-platform, title: {th: "เชื่อมต่อ TESAIoT Platform อย่างปลอดภัย", en: "Connecting to the TESAIoT Platform securely"}}

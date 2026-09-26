@@ -37,6 +37,7 @@ Skillset Mapping ใน **TESA Qualification Program (TQP) ซึ่งเป็
 |---|---|---|
 | [Explorer: เปิดโลกระบบสมองกลฝังตัว](courses/explorer/README.md) | L1 รู้จัก | ฉบับร่าง (alpha) |
 | [AIoT in Action: จากหน้าจอสัมผัสสู่แพลตฟอร์ม IoT (MicroPython)](courses/aiot-micropython/README.md) | L2 ทำตามแนวทาง | ฉบับร่าง (alpha) |
+| [**TESAIoT Firmware Stack: เฟิร์มแวร์ภาษา C บน TESAIoT Dev Kit**](courses/tesaiot-firmware-stack/README.md) · หลักสูตรหลัก | L3 ทำได้เอง | ฉบับร่าง (alpha) |
 | [Edge AI และ IoT สำหรับการตัดสินใจเชิงผลิตภัณฑ์](courses/edge-ai-iot-for-business/README.md) | L1 รู้จัก | ฉบับร่าง (alpha) |
 | [การออกแบบผลิตภัณฑ์เชิงอุตสาหกรรม (Blender และ Digital Twin)](courses/product-design/README.md) | L2 ทำตามแนวทาง | ฉบับร่าง (alpha) |
 | [อิเล็กทรอนิกส์และเครื่องมือวัดสำหรับนักพัฒนาระบบฝังตัว](courses/electronics-and-instruments/README.md) | L2 ทำตามแนวทาง | ร่างโครง (pre-alpha) |
@@ -54,14 +55,25 @@ Skillset Mapping ใน **TESA Qualification Program (TQP) ซึ่งเป็
 
 ## เรียนอย่างไร
 
-ต้องมีแค่เบราว์เซอร์กับ [BENTO IDE](https://ide.tesaiot.dev/) ซึ่งมี BENTO Emulator ให้ลองโดยไม่ต้องมีบอร์ด
-ถ้ามีบอร์ด Eva Kit หรือ TESAIoT Dev Kit จะเห็นผลบนฮาร์ดแวร์จริง บทเรียนหนึ่งใช้เวลา 30–60 นาที และเดินตามลำดับนี้
+**แกนของคลังนี้คือเฟิร์มแวร์ภาษา C บน TESAIoT Dev Kit** (PSoC Edge AI Kit SoM บนบอร์ดฐาน QWA309)
+เครื่องมือหลักมีสามอย่าง
 
-1. **เป้าหมายและก่อนเริ่ม** รู้ว่าจบบทแล้วจะทำอะไรได้ และทวนของเดิมสองข้อ
-2. **ดูของจริงก่อน** ทายก่อนรัน แล้วรันงานที่เสร็จแล้วบนบอร์ดหรือ emulator
-3. **แนวคิดและตัวอย่างสมบูรณ์** อ่านทีละช่วงสั้น ๆ แล้วไล่ตัวอย่างทีละท่า
-4. **ฝึกเติมแล้วค่อยดูเฉลย** ช่องว่างเพิ่มขึ้นทีละบท ลองเองก่อนอย่างน้อย 15 นาที
-5. **เช็กความเข้าใจ แล็บ และสะท้อนคิด** ตอบถูกตั้งแต่ 80% ขึ้นไปถือว่าจบบท และเก็บหลักฐานจากแล็บไว้ใน portfolio
+| ใช้อะไร | ทำอะไร |
+|---|---|
+| [ModusToolbox](https://www.infineon.com/cms/en/design-support/tools/sdk/modustoolbox-software/) + [master template ของ TESA](courses/tesaiot-firmware-stack/m01-getting-started/l01-toolchain-and-master-template/README.md) | build และ flash เฟิร์มแวร์ภาษา C ลงบอร์ด |
+| [TESAIoT Developer Hub](https://dev.tesaiot.dev/) ([github.com/tesaiot/developer-hub](https://github.com/tesaiot/developer-hub)) | ตัวอย่างโค้ดจริงทีละตอน พร้อมคำอธิบาย Why / What / How และเฟิร์มแวร์สำเร็จรูปสำหรับ flash |
+| [TESAIoT Dev Kit SDK](https://github.com/tesaiot/tesaiot-pse84-devkit-sdk) | SDK และเอกสารอ้างอิงของบอร์ด (Edge AI, security, BLE, IPC) |
+
+เริ่มที่หลักสูตร [TESAIoT Firmware Stack](courses/tesaiot-firmware-stack/README.md) บทเรียนหนึ่งใช้เวลา 30–75 นาที และเดินตามลำดับนี้
+
+1. **เป้าหมายและดูของจริงก่อน** รู้ว่าจบบทแล้วจะทำอะไรได้ แล้ว flash ตัวอย่างที่เสร็จแล้วลงบอร์ดเพื่อเห็นปลายทาง
+2. **อ่านและไล่โค้ด** อ่าน Why / What / How ของตัวอย่าง แล้วไล่ไฟล์ตามลำดับที่บทเรียนแนะนำ
+3. **build เองและลองแก้** วางไฟล์ลงใน master template ทายผลก่อนแก้ แล้วเทียบกับที่เห็นบนบอร์ด
+4. **เช็กความเข้าใจและเก็บผลงาน** ตอบคำถามท้ายบท ต่อยอดหนึ่งอย่าง และเก็บภาพหรือวิดีโอไว้ใน portfolio
+
+**ยังไม่เคยเขียนโปรแกรมบนบอร์ด หรือยังไม่มีบอร์ด** เริ่มที่ [Explorer](courses/explorer/README.md) หรือ
+[AIoT in Action](courses/aiot-micropython/README.md) ซึ่งใช้ MicroPython ใน [BENTO IDE](https://ide.tesaiot.dev/)
+และมี BENTO Emulator ให้ลองในเบราว์เซอร์โดยไม่ต้องมีบอร์ด แล้วค่อยต่อด้วยภาษา C
 
 ## ร่วมพัฒนา
 

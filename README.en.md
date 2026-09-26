@@ -40,6 +40,7 @@ Each pathway's courses, hours and exit point are in [catalog/tracks.yaml](catalo
 |---|---|---|
 | [Explorer: Meet Embedded Systems](courses/explorer/README.en.md) | L1 Aware | alpha |
 | [AIoT in Action: From Touch Screen to IoT Platform (MicroPython)](courses/aiot-micropython/README.en.md) | L2 Guided | alpha |
+| [**TESAIoT Firmware Stack: C Firmware on the TESAIoT Dev Kit**](courses/tesaiot-firmware-stack/README.en.md) · core course | L3 Independent | alpha |
 | [Edge AI & IoT for Product Decisions](courses/edge-ai-iot-for-business/README.en.md) | L1 Aware | alpha |
 | [Product Industrial Design (Blender & Twin)](courses/product-design/README.en.md) | L2 Guided | alpha |
 | [Electronics & Test Instruments for Embedded Developers](courses/electronics-and-instruments/README.en.md) | L2 Guided | pre-alpha |
@@ -57,14 +58,22 @@ maintained by their owners and registered in [catalog/courses.yaml](catalog/cour
 
 ## How to learn
 
-All you need is a browser and [BENTO IDE](https://ide.tesaiot.dev/), which includes the BENTO Emulator, so no board is required.
-With an Eva Kit or TESAIoT Dev Kit board you see the result on real hardware. A lesson takes 30–60 minutes and runs in this order:
+**The core of this collection is C firmware on the TESAIoT Dev Kit** (the PSoC Edge AI Kit SoM on the QWA309 base board).
+You use three tools:
 
-1. **Objectives and warm-up**: what you will be able to do, and two questions reviewing earlier lessons.
-2. **See it work first**: predict, then run the finished program on a board or the emulator.
-3. **Concept and worked example**: short chunks, then a step-by-step example.
-4. **Practice, then the solution**: more blanks as you progress; try for at least 15 minutes before looking.
-5. **Check, lab and reflection**: 80% or more on the check completes the lesson; keep your lab evidence in a portfolio.
+| Tool | What for |
+|---|---|
+| [ModusToolbox](https://www.infineon.com/cms/en/design-support/tools/sdk/modustoolbox-software/) + [TESA's master template](courses/tesaiot-firmware-stack/m01-getting-started/l01-toolchain-and-master-template/README.md) | build and flash C firmware |
+| [TESAIoT Developer Hub](https://dev.tesaiot.dev/) ([github.com/tesaiot/developer-hub](https://github.com/tesaiot/developer-hub)) | real examples, episode by episode, with Why / What / How and ready-made firmware to flash |
+| [TESAIoT Dev Kit SDK](https://github.com/tesaiot/tesaiot-pse84-devkit-sdk) | the board SDK and reference docs (edge AI, security, BLE, IPC) |
+
+Start with [TESAIoT Firmware Stack](courses/tesaiot-firmware-stack/README.en.md). A lesson takes 30–75 minutes:
+see the finished example on the board first, read the example's Why / What / How and walk the code, build it yourself
+and change one thing after predicting the result, then answer the check questions and keep your work in a portfolio.
+
+**New to boards, or no board yet?** Start with [Explorer](courses/explorer/README.en.md) or
+[AIoT in Action](courses/aiot-micropython/README.en.md), which use MicroPython in the [BENTO IDE](https://ide.tesaiot.dev/)
+with the BENTO Emulator in the browser, then move on to C.
 
 ## Contributing
 

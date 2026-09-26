@@ -206,6 +206,13 @@ SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
 SPDX-License-Identifier = "Apache-2.0"
 
 [[annotations]]
+# Course tesaiot-firmware-stack: content
+path = "courses/tesaiot-firmware-stack/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
 # Third-party (aiot-micropython/credits.yaml)
 path = "courses/aiot-micropython/assets/img/adc_successive_approx_anim_wikimedia.gif"
 precedence = "override"

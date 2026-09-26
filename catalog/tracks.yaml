@@ -80,12 +80,16 @@ tracks:
       en: >-
         For working developers who need job-ready skills fast. Take a placement check, skip what you know, then move through
         Practitioner (C and the SDK) and Professional (security and edge AI) on a real board or via remote flash.
-    hours: 60
+    hours: 86
     steps:
       - course: aiot-micropython
         note:
           th: ทางด่วน ข้ามได้ถ้าผ่านแบบทดสอบจัดระดับ ถ้าไม่ข้าม ใช้เป็นพื้นฐานเรื่องบอร์ด เซนเซอร์ และ MQTT (ไม่นับใน hours)
           en: Fast track; skip it if you pass the placement check. Otherwise use it for board, sensor and MQTT basics (not counted in hours).
+      - course: tesaiot-firmware-stack
+        note:
+          th: "หลักสูตรหลัก เฟิร์มแวร์ภาษา C บน TESAIoT Dev Kit ด้วยตัวอย่างจาก Developer Hub"
+          en: "The core course: C firmware on the TESAIoT Dev Kit with the Developer Hub examples."
       - course: embedded-c-foundations
         note:
           th: ภาษา C สำหรับไมโครคอนโทรลเลอร์ build ดีบัก peripherals โปรโตคอล และ unit test
@@ -128,7 +132,7 @@ tracks:
       en: >-
         For students who want skills, a portfolio and credit. AIoT in Action, then firmware in C, a capstone, a GitHub portfolio,
         and on to the TESA Top Gun Rally. Uses the emulator plus one board for every three to four learners.
-    hours: 90
+    hours: 116
     steps:
       - course: explorer
         note:
@@ -138,6 +142,10 @@ tracks:
         note:
           th: หลักสูตรหลักระดับ L2 จบด้วย capstone
           en: The core L2 course, ending with a capstone.
+      - course: tesaiot-firmware-stack
+        note:
+          th: "หลักสูตรหลักภาษา C บน TESAIoT Dev Kit ต่อจาก AIoT in Action"
+          en: "The core C course on the TESAIoT Dev Kit, after AIoT in Action."
       - course: electronics-and-instruments
         note:
           th: พื้นฐานวงจรและเครื่องมือวัดที่ต้องใช้กับงานฮาร์ดแวร์จริง
