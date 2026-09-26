@@ -174,7 +174,7 @@ The solutions are open on purpose, but they are there **to compare with after yo
 
 ## Licences
 
-- **Content** (slides, READMEs, own diagrams and screenshots) — CC BY 4.0
+- **Content** (slides, READMEs, own diagrams and screenshots) — CC BY-NC 4.0
 - **Code** (`examples/`, `practice/`, `solution/`, `shared/`) and the reference model `shared/training/model_int8.tflite` — MIT, Copyright (c) 2026 Wiroon Sriborrirux (full licence text in the repository's `LICENSES/MIT.txt`)
 - **Third-party images** keep their own licences; authors, sources and licences are listed in [credits.yaml](credits.yaml)
 - **The DEEPCRAFT models** the board uses belong to Imagimob AB (an Infineon Technologies company); this repository's licences do not cover them
@@ -187,6 +187,6 @@ Adapted from the **Edge AI Developer** course by Assoc. Prof. Wiroon Sriborrirux
 
 When you use, adapt or redistribute this course or part of it, credit it as follows (add "(adapted)" after the title if you changed it, and keep the original author's credit):
 
-> "Edge AI Developer: From Sensor to On-Device Model" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0 · Adapted from Edge AI Developer, © 2026 Assoc. Prof. Wiroon Sriborrirux, Embedded Systems Engineering, Department of Electrical Engineering, Faculty of Engineering, Burapha University (BUU) · BENTO & TESAIoT (CC BY 4.0 / MIT)
+> "Edge AI Developer: From Sensor to On-Device Model" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY-NC 4.0 · Adapted from Edge AI Developer, © 2026 Assoc. Prof. Wiroon Sriborrirux, Embedded Systems Engineering, Department of Electrical Engineering, Faculty of Engineering, Burapha University (BUU) · BENTO & TESAIoT (CC BY 4.0 / MIT)
 
 Attribution does not mean that TESA or Infineon endorse or certify your course or work. "TESA", "TQP" and "Certified by TESA and Infineon" are marks of the programme.

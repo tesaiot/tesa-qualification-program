@@ -4,7 +4,7 @@ theme: default
 paginate: true
 lang: th
 title: "บทเรียน 2.3 — เขียนโจทย์ให้นักพัฒนา: Decision Canvas หนึ่งหน้า"
-footer: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY 4.0"
+footer: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY-NC 4.0"
 ---
 <style>
 section { font-size: 24px; padding: 40px 52px; justify-content: flex-start; }
@@ -102,9 +102,9 @@ section.cover img{filter:none}
 
 ## แนวคิด (3) — แบ่งปันแม่แบบได้ แต่ต้องอ้างอิง TESA
 
-แม่แบบนี้และเนื้อหาทั้งหลักสูตรเผยแพร่ภายใต้ CC BY 4.0 นำไปใช้ในบริษัท แจกให้ลูกค้า หรือใช้ในงานที่ปรึกษาได้ รวมถึงเชิงพาณิชย์ เงื่อนไขคือต้องอ้างอิงที่มาด้วยข้อความนี้:
+แม่แบบนี้ (resources/decision-canvas.md) เผยแพร่ภายใต้ CC BY 4.0 นำไปใช้ในบริษัท แจกให้ลูกค้า หรือใช้ในงานที่ปรึกษาได้ รวมถึงเชิงพาณิชย์ (เนื้อหาบทเรียนของหลักสูตรเป็น CC BY-NC 4.0) เงื่อนไขคือต้องอ้างอิงที่มาด้วยข้อความนี้:
 
-> "«ชื่อบทเรียนหรือหลักสูตร»" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย
+> "แม่แบบ decision canvas" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย
 > (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0
 
 ถ้าคุณแก้แม่แบบ เช่น เพิ่มช่องของบริษัท ให้เติม **(ดัดแปลง)** ต่อท้ายข้อความอ้างอิง และบอกสั้น ๆ ว่าเปลี่ยนอะไร การอ้างอิงไม่ได้แปลว่า TESA รับรองโครงการหรือบริการของคุณ ห้ามเขียนให้เข้าใจแบบนั้น รายละเอียดและตัวอย่างอยู่ใน ATTRIBUTION.md
@@ -140,4 +140,4 @@ section.cover img{filter:none}
 ## แหล่งที่มา
 
 "Edge AI และ IoT สำหรับการตัดสินใจเชิงผลิตภัณฑ์" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย
-(Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0
+(Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0

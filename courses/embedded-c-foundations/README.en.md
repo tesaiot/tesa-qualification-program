@@ -97,7 +97,7 @@ practice, solution, a comprehension check (each lesson's `quiz.yaml`), a lab and
 
 ## Licence
 
-- Content: CC BY 4.0
+- Content: CC BY-NC 4.0
 - This course's code (every lesson's `examples/`, `practice/` and `solution/` folders): Apache-2.0
 - SDK code is not copied as files. Lessons quote short excerpts of at most 25 lines, each with a link to the file at commit `ef72c1b` and the credit (Apache-2.0, tesaiot-pse84-devkit-sdk)
 - Infineon code is not copied; it stays under its own licence at the linked source
@@ -107,7 +107,7 @@ practice, solution, a comprehension check (each lesson's `quiz.yaml`), a lab and
 
 When you use, share or adapt this course, credit it as follows:
 
-> "Embedded C Foundations on PSoC Edge" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0
+> "Embedded C Foundations on PSoC Edge" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY-NC 4.0
 
 Add "(adapted)" at the end of the credit, with a short note of what you changed, when you change the material.
 Crediting TESA does not mean TESA endorses your work. Details and examples are in [ATTRIBUTION.md](../../ATTRIBUTION.md).

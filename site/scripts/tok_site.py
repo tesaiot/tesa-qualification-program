@@ -115,7 +115,7 @@ def load_site_config(repo: Path) -> SiteConfig:
     base = str(need("site", "base")).strip()
     base = "" if base in ("", "/") else "/" + base.strip("/")
     credit = need("credit")
-    for k in ("line", "attribution"):
+    for k in ("line", "attribution", "licence"):
         if k not in credit:
             sys.exit(f"[site] site.config.yaml: missing required key credit.{k}")
     site = data.get("site", {})

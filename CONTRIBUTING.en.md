@@ -91,7 +91,8 @@ CI checks the banned words in lessons but cannot read context. If a correct "ค
 
 | Path | Licence |
 |---|---|
-| Markdown content, slides and your own images in `courses/` | CC BY 4.0 |
+| Markdown content, slides and your own images in `courses/` | CC BY-NC 4.0 (with the additional permissions in ATTRIBUTION.md) |
+| Templates in lessons' `resources/` folders | CC BY 4.0 |
 | New code (examples, practice, solutions, tools, site) | Apache-2.0 |
 | Code imported from the AIC AIoT in Action course | MIT (keep the original copyright line) |
 | `skills/` | CC BY-SA 4.0 |

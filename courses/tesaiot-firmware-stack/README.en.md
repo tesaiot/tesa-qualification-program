@@ -42,7 +42,7 @@ client are under Infineon/Cypress EULAs.
 ## How to cite TESA
 
 > "TESAIoT Firmware Stack: C Firmware on the TESAIoT Dev Kit" from TESA Open Knowledge by the Thai Embedded Systems
-> Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0
+> Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY-NC 4.0
 
 Add "(adapted)" when you change it. The example code is the TESAIoT Firmware Stack by the Thai Embedded Systems
 Association (TESA) in [tesaiot/developer-hub](https://github.com/tesaiot/developer-hub). See [ATTRIBUTION.md](../../ATTRIBUTION.md).

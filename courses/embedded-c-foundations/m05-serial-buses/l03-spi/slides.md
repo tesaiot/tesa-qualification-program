@@ -4,7 +4,7 @@ theme: default
 paginate: true
 lang: th
 title: "บทเรียน 5.3 — SPI"
-footer: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY 4.0"
+footer: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY-NC 4.0"
 ---
 <style>
 section { font-size: 24px; padding: 40px 52px; justify-content: flex-start; }
@@ -204,7 +204,7 @@ test ใช้เฟรมจริงที่ Header I/O Test ส่ง `A5 31
 
 "พื้นฐานเฟิร์มแวร์ภาษา C บน PSoC Edge" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย
 (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program
-สัญญาอนุญาต CC BY 4.0
+สัญญาอนุญาต CC BY-NC 4.0
 
 โค้ดของหลักสูตรนี้ (`examples/`, `practice/`, `solution/`) Apache-2.0 · โค้ดของ SDK ไม่ได้คัดลอกเป็นไฟล์
 บทเรียนยกมาเป็นช่วงสั้น ๆ พร้อมลิงก์ไปยังไฟล์ที่ commit `ef72c1b` (Apache-2.0, tesaiot-pse84-devkit-sdk)

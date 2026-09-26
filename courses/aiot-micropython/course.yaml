@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
-# SPDX-License-Identifier: CC-BY-4.0
+# SPDX-License-Identifier: CC-BY-NC-4.0
 # Adapted from AIoT in Action — Embedded Systems for AIoT Developer, © 2026 Assoc. Prof. Wiroon Sriborrirux, Embedded Systems Engineering, Department of Electrical Engineering, Faculty of Engineering, Burapha University (BUU), Advance Innovation Centre (AIC) · BENTO & TESAIoT (CC BY 4.0 / MIT)
 
 schema_version: 1
@@ -56,7 +56,7 @@ authors:
 sponsors:
 - TESA
 license:
-  content: CC-BY-4.0
+  content: CC-BY-NC-4.0
   code: MIT
 source:
 - repo: https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer

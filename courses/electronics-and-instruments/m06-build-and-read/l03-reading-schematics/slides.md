@@ -4,7 +4,7 @@ theme: default
 paginate: true
 lang: th
 title: "บทเรียน 6.3 — อ่านแผนผังวงจร"
-footer: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY 4.0"
+footer: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY-NC 4.0"
 ---
 <style>
 section { font-size: 24px; padding: 40px 52px; justify-content: flex-start; }
@@ -203,8 +203,8 @@ section.cover img{filter:none}
 
 "อิเล็กทรอนิกส์และเครื่องมือวัดสำหรับนักพัฒนาระบบฝังตัว" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย
 (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program
-สัญญาอนุญาต CC BY 4.0
+สัญญาอนุญาต CC BY-NC 4.0
 
-แผนภาพในบทเรียนนี้เป็นงานวาดของหลักสูตรนี้เอง (CC BY 4.0)
+แผนภาพในบทเรียนนี้เป็นงานวาดของหลักสูตรนี้เอง (CC BY-NC 4.0)
 
-TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY 4.0
+TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY-NC 4.0

@@ -56,7 +56,7 @@ Infineon/Cypress
 เมื่อนำหลักสูตรนี้หรือบางบทเรียนไปใช้ ให้ใส่ข้อความนี้ในจุดที่ผู้เรียนเห็น และเติม «(ดัดแปลง)» เมื่อมีการแก้ไข
 
 > "TESAIoT Firmware Stack: เฟิร์มแวร์ภาษา C บน TESAIoT Dev Kit" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย
-> (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0
+> (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0
 
 ตัวอย่างโค้ดเป็นผลงานของ TESAIoT Firmware Stack โดยสมาคมสมองกลฝังตัวไทย (TESA) ใน [tesaiot/developer-hub](https://github.com/tesaiot/developer-hub)
 รายละเอียดการให้เครดิตอยู่ที่ [ATTRIBUTION.md](../../ATTRIBUTION.md)

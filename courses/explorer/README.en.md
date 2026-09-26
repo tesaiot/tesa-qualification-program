@@ -62,14 +62,14 @@ exactly as the original does, and each file names the original it came from.
 
 ## Licence
 
-- Content (Markdown and quizzes): CC BY 4.0
+- Content (Markdown and quizzes): CC BY-NC 4.0
 - Example code, practice files and solutions: MIT (keep the original copyright lines at the top of each file)
 
 ## How to cite TESA
 
 When you use, share or adapt this course, credit it as follows:
 
-> "Explorer: Meet Embedded Systems" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0
+> "Explorer: Meet Embedded Systems" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY-NC 4.0
 
 Add "(adapted)" at the end of the credit, with a short note of what you changed, when you change the material, and keep the AIoT in Action credit above when you reuse the code.
 Crediting TESA does not mean TESA endorses your work. Details and examples are in [ATTRIBUTION.md](../../ATTRIBUTION.md).

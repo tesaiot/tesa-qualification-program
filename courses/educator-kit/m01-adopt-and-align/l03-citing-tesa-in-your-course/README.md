@@ -25,7 +25,7 @@ develops:
   - {skill: soft.communication, to: 2}
 assesses:
   - {skill: edu.lesson-design, level: 3, evidence: resources/syllabus-attribution.md}
-context: {audience: educator, licence: CC-BY-4.0}
+context: {audience: educator, licence: CC-BY-NC-4.0}
 status: alpha
 translation: done
 slides: slides.md
@@ -53,11 +53,12 @@ slides: slides.md
 
 ### 1. ทำไมต้องอ้างอิง
 
-เนื้อหาใน TESA Open Knowledge ใช้สัญญาอนุญาต **CC BY 4.0** สถาบันของคุณนำไปสอน ดัดแปลง และใช้ในหลักสูตรที่เก็บค่าเรียนได้
-เงื่อนไขหลักข้อเดียวคือต้องอ้างอิงที่มาในแบบที่เจ้าของงานกำหนด และ TESA กำหนดข้อความไว้หนึ่งแบบ ใช้ทุกที่
+เนื้อหาใน TESA Open Knowledge ใช้สัญญาอนุญาต **CC BY-NC 4.0** ซึ่งใช้ได้เฉพาะที่ไม่ใช่เพื่อการค้า และ TESA ให้คำอนุญาตเพิ่มแก่สถาบันการศึกษา
+สถาบันของคุณจึงนำไปสอน ดัดแปลง และใช้ในรายวิชาที่เก็บค่าเล่าเรียนตามปกติของสถาบันได้ ([ATTRIBUTION.md](../../../../ATTRIBUTION.md)) ส่วนการใช้เชิงพาณิชย์อื่น เช่นเปิดอบรมเก็บค่าเรียนให้บุคคลภายนอก ต้องขออนุญาต TESA ก่อน
+เงื่อนไขที่ต้องทำทุกครั้งคือต้องอ้างอิงที่มาในแบบที่เจ้าของงานกำหนด และ TESA กำหนดข้อความไว้หนึ่งแบบ ใช้ทุกที่
 
 > "<ชื่อบทเรียนหรือหลักสูตร>" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA)
-> https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0
+> https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0
 
 การอ้างอิงเป็นเรื่องจริยธรรมทางวิชาการด้วย ผู้เรียนเห็นผู้สอนให้เครดิตแหล่งที่มาอย่างถูกต้อง ก็เรียนรู้ที่จะทำแบบเดียวกัน
 (นี่คือเหตุผลที่ตารางเทียบในบทที่แล้วจัดเรื่องนี้ไว้ในด้านจริยธรรม)
@@ -74,7 +75,7 @@ slides: slides.md
 บรรทัดเครดิตสั้นคือ
 
 ```
-TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY 4.0
+TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY-NC 4.0
 ```
 
 ข้อความพร้อมวางทุกแบบอยู่ที่ [resources/syllabus-attribution.md](resources/syllabus-attribution.md)
@@ -89,7 +90,7 @@ TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตั�
 
 ### 4. อ้างอิงไม่เท่ากับได้รับการรับรอง
 
-CC BY 4.0 ไม่อนุญาตให้สื่อว่าเจ้าของงานรับรองหรือสนับสนุนงานของผู้ใช้ และชื่อ TESA, TQP และ "Certified by TESA and Infineon" เป็นเครื่องหมาย
+CC BY-NC 4.0 ไม่อนุญาตให้สื่อว่าเจ้าของงานรับรองหรือสนับสนุนงานของผู้ใช้ และชื่อ TESA, TQP และ "Certified by TESA and Infineon" เป็นเครื่องหมาย
 ไม่ได้อยู่ใต้สัญญาอนุญาต CC ([TRADEMARKS.md](../../../../TRADEMARKS.md)) ดังนั้น
 
 - **เขียนได้** "รายวิชานี้ใช้สื่อเปิดจาก TESA Open Knowledge" พร้อมข้อความอ้างอิง
@@ -103,7 +104,7 @@ CC BY 4.0 ไม่อนุญาตให้สื่อว่าเจ้า�
 อาจารย์ใช้โมดูลแรกของ Explorer ในสองสัปดาห์แรกของวิชาไมโครคอนโทรลเลอร์ แปลงสไลด์เป็นแม่แบบของคณะ และตัดบทเรียนที่ 3 ออก
 
 - **ท่าที่ 1 เอกสารรายวิชา** วางข้อความแบบ "กรณีดัดแปลง" จาก resources ลงหมวดสื่อประกอบการสอน
-  `"Explorer: เปิดโลกระบบสมองกลฝังตัว" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0 (ดัดแปลง: ใช้เฉพาะโมดูลแรก ตัดบทเรียนที่ 3 และแปลงเป็นแม่แบบสไลด์ของคณะ)`
+  `"Explorer: เปิดโลกระบบสมองกลฝังตัว" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0 (ดัดแปลง: ใช้เฉพาะโมดูลแรก ตัดบทเรียนที่ 3 และแปลงเป็นแม่แบบสไลด์ของคณะ)`
   แล้วต่อด้วยเครดิตต้นทาง AIoT in Action ที่ท้ายหน้าหลักสูตร Explorer เพราะโค้ดตัวอย่างมาจากที่นั่น
 - **ท่าที่ 2 สไลด์** คง footer เดิม แล้วเติมรหัสวิชาไว้ข้างหน้าในบรรทัดเดียวกัน และใส่ข้อความเต็มในหน้าสุดท้าย
 - **ท่าที่ 3 LMS** วางข้อความเต็มท้ายหน้าของสองสัปดาห์นั้น

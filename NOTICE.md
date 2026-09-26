@@ -13,7 +13,8 @@ TESA Open Knowledge จัดทำและเผยแพร่โดย **ส
 
 | ส่วน | สัญญาอนุญาต | ไฟล์สัญญาอนุญาต |
 |---|---|---|
-| เนื้อหาบทเรียน สไลด์ ภาพที่ TESA ทำเอง | CC BY 4.0 | [LICENSES/CC-BY-4.0.txt](LICENSES/CC-BY-4.0.txt) |
+| เนื้อหาบทเรียน สไลด์ ภาพที่ TESA ทำเอง | CC BY-NC 4.0 พร้อมคำอนุญาตเพิ่มใน [ATTRIBUTION.md](ATTRIBUTION.md) | [LICENSES/CC-BY-NC-4.0.txt](LICENSES/CC-BY-NC-4.0.txt) |
+| แม่แบบในโฟลเดอร์ `resources/` ของบทเรียน | CC BY 4.0 | [LICENSES/CC-BY-4.0.txt](LICENSES/CC-BY-4.0.txt) |
 | โค้ดใหม่ (เครื่องมือ เว็บไซต์ ตัวอย่างใหม่) | Apache-2.0 | [LICENSE](LICENSE), [LICENSES/Apache-2.0.txt](LICENSES/Apache-2.0.txt) |
 | โค้ดที่นำเข้าจากหลักสูตร AIoT in Action ของ AIC | MIT | [LICENSES/MIT.txt](LICENSES/MIT.txt) |
 | `skills/` (แผนที่ทักษะ) | CC BY-SA 4.0 | [LICENSES/CC-BY-SA-4.0.txt](LICENSES/CC-BY-SA-4.0.txt) |
@@ -35,7 +36,7 @@ TESA เป็นเจ้าของและผู้เผยแพร่ TE
 > Advance Innovation Centre (AIC) มหาวิทยาลัยบูรพา · BENTO & TESAIoT (CC BY 4.0 / MIT)
 > <https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer>
 
-เนื้อหาเผยแพร่ต่อภายใต้ CC BY 4.0 และโค้ดคงสัญญาอนุญาต MIT พร้อมบรรทัดลิขสิทธิ์เดิม
+ฉบับที่ TESA ปรับปรุงเผยแพร่ต่อภายใต้ CC BY-NC 4.0 (ต้นฉบับที่ AIC ยังเป็น CC BY 4.0) และโค้ดคงสัญญาอนุญาต MIT พร้อมบรรทัดลิขสิทธิ์เดิม
 `Copyright (c) 2026 Wiroon Sriborrirux, Advance Innovation Centre (AIC), Burapha University`
 ส่วนที่ดัดแปลง เช่น การแบ่งเป็นบทเรียน การเพิ่มเช็กความเข้าใจ และการปรับไฟล์ฝึก บันทึกไว้ใน README ของหลักสูตร
 
@@ -46,7 +47,7 @@ TESA เป็นเจ้าของและผู้เผยแพร่ TE
 > เนื้อหาต้นฉบับโดย ผศ.ดร.สันติ นุราช ภาควิชาวิศวกรรมระบบควบคุมและเครื่องมือวัด คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี (KMUTT) (https://github.com/drsanti) ภายใต้การสนับสนุนของสมาคม TESA
 > ต้นทาง: <https://github.com/drsanti/TESAIoT-Courses>
 
-งานชุดนี้จัดทำด้วยงบสนับสนุนจาก TESA และ TESA เผยแพร่ฉบับที่เรียบเรียงใหม่ในคลังนี้ภายใต้ CC BY 4.0
+งานชุดนี้จัดทำด้วยงบสนับสนุนจาก TESA และ TESA เผยแพร่ฉบับที่เรียบเรียงใหม่ในคลังนี้ภายใต้ CC BY-NC 4.0
 พร้อมระบุชื่อผู้เขียนต้นฉบับในหน้าหลักสูตรทุกหน้า
 
 ## 4. แผนที่ทักษะ (Meysam Parvizi)
@@ -85,7 +86,8 @@ This is the readable version of [`NOTICE`](NOTICE), the Apache-2.0 §4(d) notice
 How to credit TESA when you reuse the material: [ATTRIBUTION.md](ATTRIBUTION.md).
 Per-image credits for third-party images are in `CREDITS.md`, generated from `courses/*/credits.yaml`.
 
-**Licences by path.** Lesson content, slides and TESA's own images: CC BY 4.0. New code: Apache-2.0.
+**Licences by path.** Lesson content, slides and TESA's own images: CC BY-NC 4.0, with the additional permissions in
+[ATTRIBUTION.md](ATTRIBUTION.md). Templates in lessons' `resources/` folders: CC BY 4.0. New code: Apache-2.0.
 Code imported from the AIC course: MIT. `skills/`: CC BY-SA 4.0. The Code of Conduct files: CC BY-SA 4.0.
 Third-party images: their own licence. Names and logos are not licensed; see [TRADEMARKS.md](TRADEMARKS.md).
 
@@ -97,7 +99,7 @@ Third-party images: their own licence. Names and logos are not licensed; see [TR
    Imported code keeps the MIT licence and its original copyright line.
 3. **C1–C3 by Asst. Prof. Dr. Santi Nuratch (KMUTT).** `courses/firmware-sdk-edge-ai/`, `courses/digital-twin/` and `courses/product-design/` are based on
    original material by Asst. Prof. Dr. Santi Nuratch, Department of Control Systems and Instrumentation Engineering, Faculty of Engineering, King Mongkut's University of Technology Thonburi (KMUTT) (https://github.com/drsanti), <https://github.com/drsanti/TESAIoT-Courses>,
-   produced with funding from TESA. TESA publishes the reworked version here under CC BY 4.0 and names the
+   produced with funding from TESA. TESA publishes the reworked version here under CC BY-NC 4.0 and names the
    original author on every course page.
 4. **Meysam Parvizi.** `skills/` is adapted from the "Embedded Systems Engineering Roadmap"
    (<https://github.com/m3y54m/Embedded-Engineering-Roadmap>, CC BY-SA 4.0) and is therefore CC BY-SA 4.0.

@@ -4,7 +4,7 @@ theme: default
 paginate: true
 lang: th
 title: "บทเรียน 3.1 — อบรมผู้สอนและเส้นทางสู่ TQP Certified Trainer"
-footer: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY 4.0"
+footer: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY-NC 4.0"
 ---
 <style>
 section { font-size: 24px; padding: 40px 52px; justify-content: flex-start; }
@@ -150,4 +150,4 @@ TQP Certified Trainer คือการรับรองว่าผู้ถ�
 ## แหล่งที่มา
 
 "ชุดสำหรับผู้สอน (Educator Kit)" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย
-(Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0
+(Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0

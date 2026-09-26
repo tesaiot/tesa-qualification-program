@@ -4,7 +4,7 @@ theme: default
 paginate: true
 lang: th
 title: "บทเรียน 2.3 — ไปต่อทางไหนดี และแบ่งปันอย่างไรให้ถูก"
-footer: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · ดัดแปลงจาก AIoT in Action (รศ.วิรุฬห์ ศรีบริรักษ์, BUU) · CC BY 4.0"
+footer: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · ดัดแปลงจาก AIoT in Action (รศ.วิรุฬห์ ศรีบริรักษ์, BUU) · CC BY-NC 4.0"
 ---
 <style>
 section { font-size: 24px; padding: 40px 52px; justify-content: flex-start; }
@@ -98,10 +98,10 @@ section.cover img{filter:none}
 
 ## แนวคิด — แบ่งปันได้ แต่ต้องอ้างอิง TESA ทุกครั้ง
 
-เนื้อหาใน TESA Open Knowledge เผยแพร่ภายใต้สัญญาอนุญาต **CC BY 4.0** — นำไปแบ่งปัน ใช้สอน ดัดแปลง หรือใช้เชิงพาณิชย์ได้ โดยมีเงื่อนไขเดียวคือ **ต้องอ้างอิงที่มา**
+เนื้อหาใน TESA Open Knowledge เผยแพร่ภายใต้สัญญาอนุญาต **CC BY-NC 4.0** — นำไปแบ่งปัน ใช้สอน และดัดแปลงได้ ถ้าไม่ใช่เพื่อการค้า (ใช้เพื่อการค้าต้องขออนุญาต TESA) และต้อง **อ้างอิงที่มา** ทุกครั้ง
 
 > "Explorer: เปิดโลกระบบสมองกลฝังตัว" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (TESA)
-> https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0
+> https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0
 
 - **ถ้าแก้ไขเนื้อหา** เติมคำว่า **(ดัดแปลง)** ต่อท้ายข้อความอ้างอิง
 - **โค้ดตัวอย่าง** ดัดแปลงจาก AIoT in Action (MIT) ต้องคงบรรทัดลิขสิทธิ์ที่หัวไฟล์ไว้เสมอ
@@ -134,7 +134,7 @@ TESA วางแผนออกหลักฐานการเรียนจ
 
 1. เจ้าของร้านอาหารอยากรู้ว่าควรลงทุนติดเซนเซอร์เฝ้าตู้แช่หรือไม่ โดยไม่อยากเขียนโค้ดเอง เส้นทางใดเหมาะที่สุด
 2. คุณแก้ตัวอย่างไฟกะพริบให้เป็นรหัสมอร์ส แล้วโพสต์สอนเพื่อน ข้อความอ้างอิงข้อใดถูกต้องที่สุด
-3. ข้อใดถูกเกี่ยวกับสัญญาอนุญาต CC BY 4.0 ของเนื้อหาหลักสูตรนี้
+3. ข้อใดถูกเกี่ยวกับสัญญาอนุญาต CC BY-NC 4.0 ของเนื้อหาหลักสูตรนี้
 4. ก่อนนำไฟล์โค้ดขึ้น portfolio สาธารณะ ต้องตรวจอะไรบ้าง (เลือกได้มากกว่าหนึ่งข้อ)
 
 ---
@@ -163,7 +163,7 @@ TESA วางแผนออกหลักฐานการเรียนจ
 
 "Explorer: เปิดโลกระบบสมองกลฝังตัว" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย
 (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program
-สัญญาอนุญาต CC BY 4.0
+สัญญาอนุญาต CC BY-NC 4.0
 
 ดัดแปลงจาก AIoT in Action — Embedded Systems for AIoT Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์
 วิศวกรรมระบบสมองกลฝังตัว มหาวิทยาลัยบูรพา (BUU) · Advance Innovation Centre (AIC) · BENTO & TESAIoT (CC BY 4.0 / MIT)

@@ -28,7 +28,7 @@ context: {audience: entrepreneur, lang: none, code: none, deliverable: decision 
 status: alpha
 translation: done
 slides: slides.md
-source_sha256: bbd92273389fcad6a0b1fd7c6c1e1e4266ee3c9154a28e5a5232765521a6091d
+source_sha256: cd53f3ce876fc746bb9ee764f04a303a85e78de9817993a436e7726fd475c983
 ---
 
 ## Objectives
@@ -81,10 +81,11 @@ The template is at [resources/decision-canvas.md](resources/decision-canvas.md).
 
 ### 4. You can share the template, but you must credit TESA
 
-This template and the whole course are published under CC BY 4.0. You may use it inside your company, hand it to clients, or use it in consulting work, including commercially.
+This template ([resources/decision-canvas.md](resources/decision-canvas.md)) is published under CC BY 4.0. You may use it inside your company, hand it to clients, or use it in consulting work, including commercially
+(the course's lesson content is CC BY-NC 4.0).
 The condition is that you credit the source, like this
 
-> "Edge AI & IoT for Product Decisions" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0
+> "Decision canvas template" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0
 
 If you edit the template, for example adding your company's own field, add **(adapted)** after the attribution text and say briefly what changed.
 Crediting the source does not mean TESA endorses your project or service; never write it in a way that implies that.

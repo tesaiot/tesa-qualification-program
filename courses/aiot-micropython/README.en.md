@@ -104,7 +104,7 @@ Five modules, 36 lessons: about 36 hours as in the source course (twelve 3-hour 
 
 ## Licences
 
-- **Content** (slides, READMEs, own diagrams and screenshots) — CC BY 4.0
+- **Content** (slides, READMEs, own diagrams and screenshots) — CC BY-NC 4.0
 - **Code** (`examples/`, `practice/`, `solution/`, `shared/`) — MIT, Copyright (c) 2026 Wiroon Sriborrirux, Advance Innovation Centre (AIC), Burapha University (full licence text in the repository's `LICENSES/MIT.txt`)
 - **Third-party images** keep their own licences; authors, sources and licences are listed in [credits.yaml](credits.yaml). Figures from Infineon's board guide are used for teaching; rights remain with Infineon Technologies AG.
 
@@ -116,6 +116,6 @@ Adapted from **AIoT in Action — Embedded Systems for AIoT Developer** by Assoc
 
 When you use, adapt or redistribute this course or part of it, credit it as follows (add "(adapted)" after the title if you changed it, and keep the upstream AIC credit):
 
-> "AIoT in Action: From Touch Screen to IoT Platform (MicroPython)" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0 · Adapted from AIoT in Action — Embedded Systems for AIoT Developer, © 2026 Assoc. Prof. Wiroon Sriborrirux, Embedded Systems Engineering, Department of Electrical Engineering, Faculty of Engineering, Burapha University (BUU), Advance Innovation Centre (AIC) · BENTO & TESAIoT (CC BY 4.0 / MIT)
+> "AIoT in Action: From Touch Screen to IoT Platform (MicroPython)" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY-NC 4.0 · Adapted from AIoT in Action — Embedded Systems for AIoT Developer, © 2026 Assoc. Prof. Wiroon Sriborrirux, Embedded Systems Engineering, Department of Electrical Engineering, Faculty of Engineering, Burapha University (BUU), Advance Innovation Centre (AIC) · BENTO & TESAIoT (CC BY 4.0 / MIT)
 
 Attribution does not mean that TESA or Infineon endorse or certify your course or work. "TESA", "TQP" and "Certified by TESA and Infineon" are marks of the programme.

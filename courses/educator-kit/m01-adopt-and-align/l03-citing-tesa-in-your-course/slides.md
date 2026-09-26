@@ -4,7 +4,7 @@ theme: default
 paginate: true
 lang: th
 title: "บทเรียน 1.3 — อ้างอิง TESA ในรายวิชาของคุณ"
-footer: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY 4.0"
+footer: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY-NC 4.0"
 ---
 <style>
 section { font-size: 24px; padding: 40px 52px; justify-content: flex-start; }
@@ -72,10 +72,10 @@ section.cover img{filter:none}
 
 ## แนวคิด (1) — ทำไมต้องอ้างอิง
 
-เนื้อหาใน TESA Open Knowledge ใช้สัญญาอนุญาต **CC BY 4.0** สถาบันของคุณนำไปสอน ดัดแปลง และใช้ในหลักสูตรที่เก็บค่าเรียนได้ เงื่อนไขหลักข้อเดียวคือต้องอ้างอิงที่มาในแบบที่เจ้าของงานกำหนด — ข้อความที่ ATTRIBUTION.md กำหนดไว้ใช้ทุกที่ในทุกสื่อ:
+เนื้อหาใน TESA Open Knowledge ใช้สัญญาอนุญาต **CC BY-NC 4.0** (ไม่ใช่เพื่อการค้า) และ TESA ให้คำอนุญาตเพิ่มแก่สถาบันการศึกษา สถาบันของคุณจึงนำไปสอน ดัดแปลง และใช้ในรายวิชาที่เก็บค่าเล่าเรียนตามปกติได้ การใช้เชิงพาณิชย์อื่นต้องขออนุญาต TESA ก่อน เงื่อนไขที่ต้องทำทุกครั้งคือต้องอ้างอิงที่มาในแบบที่เจ้าของงานกำหนด — ข้อความที่ ATTRIBUTION.md กำหนดไว้ใช้ทุกที่ในทุกสื่อ:
 
 > "«ชื่อบทเรียนหรือหลักสูตร»" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย
-> (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0
+> (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0
 
 การอ้างอิงเป็นเรื่องจริยธรรมทางวิชาการด้วย ผู้เรียนเห็นผู้สอนให้เครดิตแหล่งที่มาอย่างถูกต้อง ก็เรียนรู้ที่จะทำแบบเดียวกัน (นี่คือเหตุผลที่ตารางเทียบในบทที่แล้วจัดเรื่องนี้ไว้ในด้านจริยธรรม)
 
@@ -90,7 +90,7 @@ section.cover img{filter:none}
 | **เอกสารแจกและใบงาน** | บรรทัดเครดิตสั้นท้ายทุกหน้า และข้อความเต็มพร้อม URL เต็มในหน้าแรกหรือหน้าสุดท้าย |
 | **หน้า LMS** | ข้อความเต็มท้ายหน้าบทเรียนหรือหน้าแรกของรายวิชา |
 
-บรรทัดเครดิตสั้น: `TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY 4.0` — ข้อความพร้อมวางทุกแบบอยู่ที่ [resources/syllabus-attribution.md](resources/syllabus-attribution.md)
+บรรทัดเครดิตสั้น: `TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY-NC 4.0` — ข้อความพร้อมวางทุกแบบอยู่ที่ [resources/syllabus-attribution.md](resources/syllabus-attribution.md)
 
 ---
 
@@ -106,7 +106,7 @@ section.cover img{filter:none}
 
 ## แนวคิด (4) — อ้างอิงไม่เท่ากับได้รับการรับรอง
 
-CC BY 4.0 ไม่อนุญาตให้สื่อว่าเจ้าของงานรับรองหรือสนับสนุนงานของผู้ใช้ และชื่อ TESA, TQP และ "Certified by TESA and Infineon" เป็นเครื่องหมาย ไม่ได้อยู่ใต้สัญญาอนุญาต CC
+CC BY-NC 4.0 ไม่อนุญาตให้สื่อว่าเจ้าของงานรับรองหรือสนับสนุนงานของผู้ใช้ และชื่อ TESA, TQP และ "Certified by TESA and Infineon" เป็นเครื่องหมาย ไม่ได้อยู่ใต้สัญญาอนุญาต CC
 
 - **เขียนได้** "รายวิชานี้ใช้สื่อเปิดจาก TESA Open Knowledge" พร้อมข้อความอ้างอิง
 - **เขียนไม่ได้** "หลักสูตรที่ TESA รับรอง" "หลักสูตรเตรียมสอบ TQP" หรือใช้โลโก้ TESA และ TQP บนเอกสารรายวิชา **เว้นแต่** รายวิชานั้นผ่านการเทียบกับ TQP ผ่าน TESA และได้รับอนุญาตเป็นลายลักษณ์อักษรแล้ว
@@ -149,4 +149,4 @@ CC BY 4.0 ไม่อนุญาตให้สื่อว่าเจ้า�
 ## แหล่งที่มา
 
 "ชุดสำหรับผู้สอน (Educator Kit)" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย
-(Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0
+(Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0

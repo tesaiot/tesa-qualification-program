@@ -1,6 +1,6 @@
 <!--
 SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
-SPDX-License-Identifier: CC-BY-4.0
+SPDX-License-Identifier: CC-BY-NC-4.0
 -->
 
 # TESA Open Knowledge website

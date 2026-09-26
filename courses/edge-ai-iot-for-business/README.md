@@ -53,13 +53,13 @@
 
 ## สัญญาอนุญาต
 
-เนื้อหาทั้งหมด รวมถึงแม่แบบ decision canvas เผยแพร่ภายใต้ CC BY 4.0 หลักสูตรนี้ไม่มีโค้ด
+เนื้อหาบทเรียนเผยแพร่ภายใต้ CC BY-NC 4.0 ส่วนแม่แบบ decision canvas (ในโฟลเดอร์ resources/) เป็น CC BY 4.0 นำไปใช้ในงานของบริษัทได้ หลักสูตรนี้ไม่มีโค้ด
 
 ## อ้างอิง TESA
 
 เมื่อนำหลักสูตรนี้หรือแม่แบบ decision canvas ไปใช้ แบ่งปัน หรือดัดแปลง ต้องอ้างอิงดังนี้
 
-> "Edge AI และ IoT สำหรับการตัดสินใจเชิงผลิตภัณฑ์" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0
+> "Edge AI และ IoT สำหรับการตัดสินใจเชิงผลิตภัณฑ์" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0
 
 ถ้าแก้ไขเนื้อหาหรือแม่แบบ ให้เติม **(ดัดแปลง)** ต่อท้ายข้อความอ้างอิง พร้อมบอกสั้น ๆ ว่าเปลี่ยนอะไร
 การอ้างอิงไม่ได้แปลว่า TESA รับรองงาน บริการ หรือโครงการของคุณ รายละเอียดและตัวอย่างอยู่ใน [ATTRIBUTION.md](../../ATTRIBUTION.md)

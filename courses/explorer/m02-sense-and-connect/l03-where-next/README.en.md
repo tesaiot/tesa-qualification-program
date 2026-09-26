@@ -25,7 +25,7 @@ context: {platform: none, lang: none, audience: public}
 status: alpha
 translation: done
 slides: slides.md
-source_sha256: 70c4dd924a3ae8ddc879e4de925f84a7214086d27e507c8a8fa25c349919c0cd
+source_sha256: d821b8ad1658dd3d2a4ac4365ad002547ce22ba1534bcfe51de2a2b5ddf00418
 ---
 
 ## Objectives
@@ -68,10 +68,10 @@ or invite a couple of friends to learn along with you; that helps a lot too.
 
 ### 3. You can share it, but you must always credit TESA
 
-Content in TESA Open Knowledge is published under the **CC BY 4.0** licence, which means you may share it, teach with it, adapt it, and even use it commercially,
+Content in TESA Open Knowledge is published under the **CC BY-NC 4.0** licence, which means you may share it, teach with it and adapt it for non-commercial purposes (commercial use needs TESA's permission first),
 under one important condition: **you must credit the source** in the wording TESA specifies. The attribution text for this course is
 
-> "Explorer: Meet Embedded Systems" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0
+> "Explorer: Meet Embedded Systems" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY-NC 4.0
 
 Three rules worth remembering
 
