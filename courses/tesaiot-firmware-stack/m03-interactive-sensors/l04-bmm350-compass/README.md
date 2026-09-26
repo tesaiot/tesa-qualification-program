@@ -24,7 +24,7 @@ develops:
   - {skill: proto.i2c, to: 1}
 context: {platform: psoc-edge-e84, lang: c, ide: modustoolbox}
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "int_ep04_bmm350_compass"

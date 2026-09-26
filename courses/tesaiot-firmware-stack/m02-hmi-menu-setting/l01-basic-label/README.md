@@ -24,7 +24,7 @@ develops:
   - {skill: build.vendor-sdk, to: 2}
 context: {platform: psoc-edge-e84, lang: c, ide: modustoolbox}
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "hmi_ep01_basic_label"

@@ -18,7 +18,7 @@ develops:
 - {skill: mcu.bootloader, to: 2}
 context: {platform: psoc-edge-e84, lang: c, secure_element: optiga-trust-m, sdk: tesaiot-pse84-devkit-sdk}
 status: alpha
-translation: pending
+translation: done
 source:
 - {repo: 'https://github.com/tesaiot/tesaiot-pse84-devkit-sdk', path: bento-firmware-template-mtb-only/configs, ref: ef72c1b658178eee8c38b1e47d28b006f80a59b5, license: Apache-2.0}
 - {repo: 'https://github.com/Infineon/mtb-example-psoc-edge-basic-secure-app', path: README.md, ref: 96783c046340f79940f7d50b1c5c25fef4a0797f, note: 'Boot flow facts paraphrased; linked, not copied.'}

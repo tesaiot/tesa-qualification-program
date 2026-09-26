@@ -27,7 +27,7 @@ assesses:
   - {skill: prog.state-machines, level: 2, evidence: "วิดีโอหรือ log ที่บอร์ดต่อ Wi-Fi อัตโนมัติหลังรีเซ็ต และกลับมาเองหลังปิด AP"}
 context: {platform: psoc-edge-e84, lang: c, ide: modustoolbox}
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "hmi_ep07_final_wifi_manager"

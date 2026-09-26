@@ -22,7 +22,7 @@ develops:
   - {skill: iot.cloud-platform, to: 2}
 context: {platform: host-pc, lang: c}
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "examples/embedded-devices/entry/device-servertls"

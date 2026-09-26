@@ -28,7 +28,7 @@ assesses:
   - {skill: gui.hmi, level: 3, evidence: "วิดีโอแดชบอร์ดบนบอร์ดจริง 1 นาที พร้อมคำอธิบายการออกแบบ"}
 context: {platform: psoc-edge-e84, lang: c, ide: modustoolbox}
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "int_ep07_sensorhub_final"

@@ -24,7 +24,7 @@ develops:
   - {skill: sys.sensors-actuators, to: 2}
 context: {platform: psoc-edge-e84, lang: c, ide: modustoolbox}
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "int_ep05_bmi270_radar_view"

@@ -21,7 +21,7 @@ develops:
   - {skill: gui.hmi, to: 2}
 context: {platform: psoc-edge-e84, lang: c, ide: modustoolbox}
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "prac_qwa309_pot_monitor"

@@ -22,7 +22,7 @@ develops:
   - {skill: sec.fundamentals, to: 1}
 context: {platform: host-pc, lang: c}
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "examples/embedded-devices/advanced/c_ota_client"

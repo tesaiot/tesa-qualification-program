@@ -19,7 +19,7 @@ context:
   platform: psoc-edge-e84
   instruments: [multimeter, logic-analyzer, oscilloscope]
 status: alpha
-translation: pending
+translation: done
 ---
 
 ## เป้าหมาย

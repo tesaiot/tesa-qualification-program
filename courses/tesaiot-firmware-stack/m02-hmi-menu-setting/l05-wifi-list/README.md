@@ -25,7 +25,7 @@ develops:
   - {skill: iot.fundamentals, to: 1}
 context: {platform: psoc-edge-e84, lang: c, ide: modustoolbox}
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "hmi_ep05_wifi_list"

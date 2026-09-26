@@ -22,7 +22,7 @@ develops:
   - {skill: sec.fundamentals, to: 2}
 context: {platform: psoc-edge-e84, lang: c}
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "examples/security/pse84_tesaiot_client"

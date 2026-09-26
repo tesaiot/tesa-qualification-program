@@ -24,7 +24,7 @@ develops:
   - {skill: gui.hmi, to: 2}
 context: {platform: psoc-edge-e84, lang: c, ide: modustoolbox}
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "int_ep03_sht40_indicator"
