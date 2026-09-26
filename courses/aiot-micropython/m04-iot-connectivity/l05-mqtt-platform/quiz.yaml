@@ -72,12 +72,12 @@ items:
   objective: 4
   type: multi
   prompt:
-    th: คนที่ดักจับสัญญาณ WiFi ห้องเรียนได้ ทำอะไรได้บ้างเมื่อบอร์ดของทีมส่งผ่านพอร์ต 1883 เลือกทุกข้อที่ถูก
-    en: What can someone who captures the classroom WiFi do while the team's board sends over port 1883? Choose all that apply.
+    th: คนที่ดักจับสัญญาณ WiFi วงเดียวกับบอร์ดได้ ทำอะไรได้บ้างเมื่อบอร์ดของเราส่งผ่านพอร์ต 1883 เลือกทุกข้อที่ถูก
+    en: What can someone who captures the WiFi the board is on do while our board sends over port 1883? Choose all that apply.
   choices:
-  - th: อ่าน username และ password ของทีมได้
+  - th: อ่าน username และ password ของอุปกรณ์ได้
   - th: อ่านค่าเซนเซอร์ใน payload ได้
-  - th: ปลอมเป็นอุปกรณ์ของทีมส่งข้อมูลปลอมเข้าแพลตฟอร์มได้
+  - th: ปลอมเป็นอุปกรณ์ของเราส่งข้อมูลปลอมเข้าแพลตฟอร์มได้
   - th: ไม่ได้อะไรเลย เพราะ broker ขอรหัสผ่านก่อนต่อ
   answer:
   - 0

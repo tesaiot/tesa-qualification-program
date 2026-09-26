@@ -27,7 +27,7 @@ import wifi
 # ไม่มีทางอ่านอุณหภูมิจาก Python เลย: bmi270.temperature() ปฏิเสธ ไม่มี SHT40
 # ไฟล์นี้จึงเคยพังด้วย KeyError ทุกรอบบนบอร์ดจริง (ผ่านบน emulator ที่ตอบทุก key)
 # บอร์ดที่มี SHT40 (Dev Kit) ได้อุณหภูมิห้องจริง บอร์ดอื่นใช้ลูกบิด 0-100 % แทน
-# ช่วง 15-45 C - หมุนข้าม threshold ได้ในห้องเรียนโดยไม่ต้องรอห้องร้อนจริง
+# ช่วง 15-45 C - หมุนข้าม threshold ได้บนโต๊ะโดยไม่ต้องรอห้องร้อนจริง
 _TEMP_SRC = None
 
 
@@ -51,7 +51,7 @@ def read_temp(snap):
         return 15.0 + snap["pot"]["percent"] * 0.3, "pot"
     return None, ""
 
-WIFI_SSID = "AIoT-Class"
+WIFI_SSID = "my-hotspot"      # WiFi บ้านหรือ Hotspot มือถือของคุณ
 WIFI_PASS = "<รหัสผ่าน WiFi ของคุณ>"
 QUEUE_MAX = 60          # เก็บได้กี่ค่า ก่อนต้องทิ้งของเก่าสุด
 ROUNDS = 150

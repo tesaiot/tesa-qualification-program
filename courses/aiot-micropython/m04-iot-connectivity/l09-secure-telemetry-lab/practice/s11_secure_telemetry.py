@@ -22,8 +22,8 @@ import json
 import ui
 
 TEAM_NAME = "BentoBuilders"
-DEVICE_ID = "team03"          # ต้องตรงกับที่ขึ้นทะเบียนไว้ และสั้นกว่า 31 ตัวอักษร
-API_KEY = "<api key ของทีม>"
+DEVICE_ID = "team03"          # ต้องตรงกับที่ขึ้นทะเบียนไว้ในบัญชี TESAIoT Platform ของคุณ และสั้นกว่า 31 ตัวอักษร
+API_KEY = "<api key ของอุปกรณ์>"
 MQTT_PASS = "<รหัสผ่าน MQTT 16 ตัว>"
 BROKER = "<โฮสต์แพลตฟอร์ม>"
 

@@ -9,7 +9,7 @@ hardware: {emulator: true, boards: [eva-kit, devkit]}
 prerequisites: [aiot-mpy.m04.l08]
 objectives:
   - {th: เติมช่องว่างห้าจุดใน `s11_secure_telemetry.py` โดยรันหลังเติมเสร็จแต่ละท่า จนจอบอร์ดแสดง `device_id` โหมด `tls_mode` และตัวนับที่เดินขึ้นต่อเนื่อง และกราฟของ `device_id` ทีมบน dashboard ขยับตามเมื่อเอียงบอร์ด, en: 'Fill the five blanks in s11_secure_telemetry.py, running after each move, until the board screen shows the device_id, the tls_mode and a counter that keeps rising, and the team''s device_id graph on the dashboard moves when the board is tilted.'}
-  - {th: ใช้ตารางกับดักสองหน้าหาสาเหตุของอาการที่ไม่มี error ชี้สาเหตุได้อย่างน้อยสามอาการ เช่น ต่อไม่ติดเงียบ ๆ ข้อมูลขึ้นแต่ไม่มีเส้นกราฟ และทั้งห้องหลุดสลับกัน, en: 'Use the two pages of pitfall tables to find the cause of at least three symptoms whose error does not point at the cause, such as a silent failure to connect, data without a graph line, and the whole room dropping in turns.'}
+  - {th: ใช้ตารางกับดักสองหน้าหาสาเหตุของอาการที่ไม่มี error ชี้สาเหตุได้อย่างน้อยสามอาการ เช่น ต่อไม่ติดเงียบ ๆ ข้อมูลขึ้นแต่ไม่มีเส้นกราฟ และหลายบอร์ดหลุดสลับกัน, en: 'Use the two pages of pitfall tables to find the cause of at least three symptoms whose error does not point at the cause, such as a silent failure to connect, data without a graph line, and several boards dropping in turns.'}
   - {th: กรอกตารางเทียบ 1883 กับ 8884 ในบันทึกการเรียนจากสิ่งที่เห็นเอง และตอบได้โดยไม่เปิดสไลด์ว่า serverTLS ปกป้องอะไร ไม่ปกป้องอะไร และพอร์ต 8884 มาจาก `tls_mode` ไม่ใช่คีย์ `port`, en: 'Fill the 1883-versus-8884 table in the learning log from what you saw yourself, and answer without the slides what serverTLS protects, what it does not, and that port 8884 comes from tls_mode rather than the port key.'}
   - {th: อธิบายขีดจำกัดสองข้อของงานนี้ได้ คือการเข้ารหัสไม่ได้ทำให้ค่าที่วัดถูกต้องขึ้น และ `mqtt_pass` เป็นความลับที่คัดลอกได้ ต่างจากกุญแจส่วนตัวในชิป OPTIGA ที่ออกจากชิปไม่ได้, en: 'Explain the two limits of this work, that encryption does not make a measured value more correct, and that mqtt_pass is a copyable secret, unlike the private key in the OPTIGA chip that can never leave it.'}
 develops: [{skill: sec.tls, to: 2}, {skill: iot.cloud-platform, to: 2}, {skill: soft.problem-solving, to: 2}, {skill: sec.secure-element, to: 1}]
@@ -32,22 +32,23 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 เมื่อจบบทเรียนนี้ คุณจะ:
 
 1. เติมช่องว่างห้าจุดใน `s11_secure_telemetry.py` โดยรันหลังเติมเสร็จแต่ละท่า จนจอบอร์ดแสดง `device_id` โหมด `tls_mode` และตัวนับที่เดินขึ้นต่อเนื่อง และกราฟของ `device_id` ทีมบน dashboard ขยับตามเมื่อเอียงบอร์ด
-2. ใช้ตารางกับดักสองหน้าหาสาเหตุของอาการที่ไม่มี error ชี้สาเหตุได้อย่างน้อยสามอาการ เช่น ต่อไม่ติดเงียบ ๆ ข้อมูลขึ้นแต่ไม่มีเส้นกราฟ และทั้งห้องหลุดสลับกัน
+2. ใช้ตารางกับดักสองหน้าหาสาเหตุของอาการที่ไม่มี error ชี้สาเหตุได้อย่างน้อยสามอาการ เช่น ต่อไม่ติดเงียบ ๆ ข้อมูลขึ้นแต่ไม่มีเส้นกราฟ และหลายบอร์ดหลุดสลับกัน
 3. กรอกตารางเทียบ 1883 กับ 8884 ในบันทึกการเรียนจากสิ่งที่เห็นเอง และตอบได้โดยไม่เปิดสไลด์ว่า serverTLS ปกป้องอะไร ไม่ปกป้องอะไร และพอร์ต 8884 มาจาก `tls_mode` ไม่ใช่คีย์ `port`
 4. อธิบายขีดจำกัดสองข้อของงานนี้ได้ คือการเข้ารหัสไม่ได้ทำให้ค่าที่วัดถูกต้องขึ้น และ `mqtt_pass` เป็นความลับที่คัดลอกได้ ต่างจากกุญแจส่วนตัวในชิป OPTIGA ที่ออกจากชิปไม่ได้
 
 ## ก่อนเริ่ม
 
 บทเรียนนี้คือแล็บที่ต่อจากบทเรียน 4.7–4.8 ก่อนแตะโค้ดให้มีค่าประจำตัวสี่ค่าในบันทึกการเรียน (`device_id` · `api_key` · `mqtt_pass` · ชื่อโฮสต์ broker)
-บอร์ดต่อ WiFi ได้แล้ว และเปิด dashboard ของแพลตฟอร์มเลือกอุปกรณ์ของทีมรอไว้ ทวนสองเรื่องจากบทเรียน 4.8: `connect()` คืนค่าก่อนต่อเสร็จ
+จากหน้าจัดการอุปกรณ์ในบัญชี TESAIoT Platform ของคุณ (ดูบทเรียน 4.7 · ถ้าเรียนเป็นกลุ่ม ผู้จัดอาจเตรียมไว้ให้)
+บอร์ดต่อ WiFi ได้แล้ว และเปิด dashboard ของแพลตฟอร์มเลือกอุปกรณ์ของคุณรอไว้ ทวนสองเรื่องจากบทเรียน 4.8: `connect()` คืนค่าก่อนต่อเสร็จ
 ตัวที่ตอบได้จริงคือ `is_connected()` และ `tesaiot.publish(payload)` วาง payload ก่อน ไม่ต้องใส่ topic
 
-- **อุปกรณ์:** บอร์ด Eva Kit หรือ TESAIoT Dev Kit ที่ลงเฟิร์มแวร์ MicroPython ของ BENTO แล้ว หรือ BENTO Emulator ใน [BENTO IDE](https://ide.tesaiot.dev/) (ซ้อมเติมช่องว่างและดูหน้าจอบน Emulator ได้เพราะโมดูล tesaiot ถูกจำลองไว้ แต่ไม่มีการจับมือ TLS จริงและกราฟไม่ขึ้น dashboard การผ่าน MVP จึงต้องใช้บอร์ดจริงที่ได้ `device_id` จากผู้สอนแล้ว และโบนัสเรื่องชิป OPTIGA ต้องใช้บอร์ดจริง)
+- **อุปกรณ์:** บอร์ด Eva Kit หรือ TESAIoT Dev Kit ที่ลงเฟิร์มแวร์ MicroPython ของ BENTO แล้ว หรือ BENTO Emulator ใน [BENTO IDE](https://ide.tesaiot.dev/) (ซ้อมเติมช่องว่างและดูหน้าจอบน Emulator ได้เพราะโมดูล tesaiot ถูกจำลองไว้ แต่ไม่มีการจับมือ TLS จริงและกราฟไม่ขึ้น dashboard การผ่าน MVP จึงต้องใช้บอร์ดจริงที่มี `device_id` จากบัญชี TESAIoT Platform ของคุณแล้ว และโบนัสเรื่องชิป OPTIGA ต้องใช้บอร์ดจริง)
 - **เรียนมาก่อน:** [บทเรียน 4.8 — โมดูล tesaiot: MQTTs สู่แพลตฟอร์ม](../l08-tesaiot-module/README.md)
 
 ## แนวคิด
 
-MVP ของชุดบทเรียนนี้มีสองครึ่ง: telemetry ของทีมขึ้น dashboard ผ่าน TLS **และ** ตอบได้ว่าต่างจากบทเรียน 4.4–4.6 ตรงไหน
+MVP ของชุดบทเรียนนี้มีสองครึ่ง: telemetry ของอุปกรณ์คุณขึ้น dashboard ผ่าน TLS **และ** ตอบได้ว่าต่างจากบทเรียน 4.4–4.6 ตรงไหน
 ข้อที่เป็นหัวใจคือการตอบได้ว่า serverTLS ปกป้องอะไรและไม่ปกป้องอะไร ถ้าตอบไม่ได้ แปลว่าเราติดตั้งความปลอดภัยเป็น
 แต่ยังไม่รู้ว่าซื้ออะไรมาด้วยราคาเท่าไร
 
@@ -61,7 +62,7 @@ MVP ของชุดบทเรียนนี้มีสองครึ่�
 
 ตารางกับดักสองหน้ามีสิบสามแถว สิบแถวไม่ใช่บั๊กในโค้ด แต่เป็นความเข้าใจผิดเรื่องขอบเขตของ API และแทบไม่มีอาการไหนมี error ชี้สาเหตุ
 จึงต้องอ่านก่อนเจอปัญหา แถวที่เจอบ่อย: `sni_hostname` ไม่ตรง `broker` ต่อไม่ติดเงียบ ๆ · publish ก่อน `is_connected()` เป็น True
-ไม่ error แต่ไม่มีข้อมูล · ลูปรอที่ไม่มี timeout ค้างตลอดกาล · หลายทีมใช้ `device_id` ค่าเริ่มต้นตัวเดียวกัน ทั้งห้องหลุดสลับกัน ·
+ไม่ error แต่ไม่มีข้อมูล · ลูปรอที่ไม่มี timeout ค้างตลอดกาล · หลายบอร์ดใช้ `device_id` ค่าเริ่มต้นตัวเดียวกัน หลุดสลับกันเป็นจังหวะ ·
 ส่งค่าเป็นสตริง ข้อมูลขึ้นแต่ไม่มีเส้นกราฟ · ห่อ payload เองด้วย `{"data": ...}` ได้ชื่อวัดขึ้นต้น `data_` · สลับเป็น
 `tesaiot.publish(topic, payload)` ข้อมูลไปโผล่ผิด topic ส่วนแถว `protected_update()` บน Dev Kit คือแถวเดียวที่ "ไม่มี error"
 แปลว่าเสียหายไปแล้ว จึงห้ามเรียกทั้งสองบอร์ด
@@ -84,7 +85,7 @@ MVP ของชุดบทเรียนนี้มีสองครึ่�
 
 ## ฝึกเติม
 
-เปิด `practice/s11_secure_telemetry.py` แก้ห้าบรรทัดบนหัวไฟล์ให้เป็นของทีม (`TEAM_NAME` `DEVICE_ID` `API_KEY` `MQTT_PASS` `BROKER`)
+เปิด `practice/s11_secure_telemetry.py` แก้ห้าบรรทัดบนหัวไฟล์ให้เป็นของคุณ (`TEAM_NAME` `DEVICE_ID` `API_KEY` `MQTT_PASS` `BROKER`)
 แล้วเติมทีละจุด **อย่าเติมครบทั้งห้าจุดแล้วค่อยรัน** บนเส้นทางที่มี TLS อยู่ตรงกลาง จุดที่พังได้มีมากกว่าเดิมและไม่มีจุดไหนส่งเสียง
 
 1. จุดที่ 1–2: `config_set()` ของ `device_id` `api_key` `mqtt_pass` แล้วของ `broker` กับ `sni_hostname` (ชื่อเดียวกับ `broker`)
@@ -115,7 +116,7 @@ MVP ของชุดบทเรียนนี้มีสองครึ่�
 
 1. เรียงขั้นการทำไฟล์ฝึก `s11_secure_telemetry.py` ให้ความล้มเหลวบอกที่อยู่ของตัวเองได้ *(เรียงลำดับ · เป้าหมายข้อ 1)*
    - ก) เติมลูปรอ `is_connected()` ที่มีเพดาน 30 วินาที แล้วจับเวลาการจับมือ
-   - ข) แก้ห้าบรรทัดบนหัวไฟล์ให้เป็นค่าของทีม
+   - ข) แก้ห้าบรรทัดบนหัวไฟล์ให้เป็นค่าของอุปกรณ์คุณ
    - ค) เติม payload กับบรรทัดหลักฐานบนจอ แล้วเปิด dashboard ดูกราฟ
    - ง) เติม `config_set()` ของตัวตน แล้วรันดู `print(tesaiot.config())`
 
@@ -125,15 +126,15 @@ MVP ของชุดบทเรียนนี้มีสองครึ่�
 
    </details>
 
-2. ทุกทีมโค้ดถูก แต่บอร์ดทั้งห้องหลุดสลับกันเป็นจังหวะ สาเหตุที่แท้จริงตามตารางกับดักคืออะไร *(เลือกหนึ่งข้อ · เป้าหมายข้อ 2)*
-   - ก) หลายทีมใช้ `device_id` ค่าเริ่มต้นตัวเดียวกัน broker จึงเตะตัวเก่าออกทุกครั้งที่ตัวใหม่เข้ามา
-   - ข) `sni_hostname` ของทุกทีมไม่ตรงกับ `broker`
-   - ค) WiFi ห้องเรียนช้าเกินไปสำหรับ TLS
+2. บอร์ดสองตัวรันโค้ดที่ถูกทั้งคู่ แต่หลุดสลับกันเป็นจังหวะ สาเหตุที่แท้จริงตามตารางกับดักคืออะไร *(เลือกหนึ่งข้อ · เป้าหมายข้อ 2)*
+   - ก) หลายบอร์ดใช้ `device_id` ค่าเริ่มต้นตัวเดียวกัน broker จึงเตะตัวเก่าออกทุกครั้งที่ตัวใหม่เข้ามา
+   - ข) `sni_hostname` ของทุกบอร์ดไม่ตรงกับ `broker`
+   - ค) WiFi ช้าเกินไปสำหรับ TLS
    - ง) ลืมใส่ `time.sleep_ms(5000)` ในลูปส่ง
 
    <details><summary>เฉลย</summary>
 
-   **ก** — บอร์ดออกจากโรงงานด้วยค่าเริ่มต้นเดียวกันหมด ถ้าใช้ซ้ำ broker จะเตะตัวเก่าออกวนไปทั้งห้อง ทางแก้คือหนึ่งทีมหนึ่ง device_id ที่ provision มา ส่วน sni_hostname ผิดให้อาการต่อไม่ติดเลย ไม่ใช่หลุดสลับกัน
+   **ก** — บอร์ดออกจากโรงงานด้วยค่าเริ่มต้นเดียวกันหมด ถ้าใช้ซ้ำ broker จะเตะตัวเก่าออกวนไปเรื่อย ๆ ทางแก้คือหนึ่งบอร์ดหนึ่ง device_id ที่ provision มา ส่วน sni_hostname ผิดให้อาการต่อไม่ติดเลย ไม่ใช่หลุดสลับกัน
 
    </details>
 
@@ -194,6 +195,6 @@ MVP ของชุดบทเรียนนี้มีสองครึ่�
 
 ## สะท้อนคิด
 
-- ถ้า `mqtt_pass` ของทีมหลุดออกไป เราจะรู้ตัวได้อย่างไร และควรทำอะไรเป็นอย่างแรก
+- ถ้า `mqtt_pass` ของอุปกรณ์เราหลุดออกไป เราจะรู้ตัวได้อย่างไร และควรทำอะไรเป็นอย่างแรก
 - ใครควรเป็นคนตัดสินใจถอนสิทธิ์อุปกรณ์ตัวหนึ่ง ระหว่างคนดูแลแพลตฟอร์มกับคนเขียนเฟิร์มแวร์
 - ถ้ามีอุปกรณ์ 10,000 ตัวที่ต้องมีตัวตนไม่ซ้ำกัน ขั้นตอน provision ที่โรงงานควรหน้าตาเป็นอย่างไร

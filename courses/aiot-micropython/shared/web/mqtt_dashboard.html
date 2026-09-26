@@ -66,7 +66,7 @@
 
 <h2>ส่งคำสั่ง</h2>
 <div class="bar">
-  <label>ทีม <input id="team" value="teamXX" size="8" list="teamList" autocomplete="off"></label>
+  <label>ทีม <input id="team" value="teamXX" size="16" list="teamList" autocomplete="off"></label>
   <datalist id="teamList"></datalist>
   <button data-cmd='{"cmd":"beep"}'>บี๊บ</button>
   <label>LED <input id="ledN" type="number" value="0" min="0" max="7" style="width:4.5em"></label>
@@ -97,15 +97,15 @@
 const MAX_LOG = 200;          // เก็บ log กี่บรรทัด
 const MAX_SHOW = 300;         // ตัดข้อความยาวเกินกี่ตัวอักษร
 const STALE_SEC = 10;         // เงียบเกินกี่วินาทีถึงจะทำให้การ์ดจาง
-const TEAM_OK = /^team\d{2}$/;             // การ์ดรับเฉพาะชื่อทีมแบบที่ผู้สอนแจก team00..team99
-const SEND_OK = /^(team\d{2}|all)$/;       // ส่งได้ถึงทีมเดียว หรือ all = ทุกบอร์ดในห้อง
+const TEAM_OK = /^[a-z0-9]{4,16}$/;        // การ์ดรับรหัสแบบเดียวกับที่ไฟล์ฝั่งบอร์ดยอม: a-z 0-9 ยาว 4-16 ตัว
+const SEND_OK = /^([a-z0-9]{4,16}|all)$/;  // ส่งได้ถึงบอร์ดเดียว หรือ all = ทุกบอร์ด
 const ROOT_OK = /^[A-Za-z0-9_-]{1,40}$/;
 
 const $ = (id) => document.getElementById(id);
 let client = null;
 let root = "bento-aiot";
 const teams = new Map();      // ชื่อทีม -> { card, kv, ev, seen, last }
-// เปิดด้วย ?team=team05 จะเลือกทีมในช่องส่งคำสั่งให้เลย
+// เปิดด้วย ?team=nok4821 จะเลือกรหัสนั้นในช่องส่งคำสั่งให้เลย
 const qsTeam = new URLSearchParams(location.search).get("team");
 if (qsTeam && SEND_OK.test(qsTeam)) $("team").value = qsTeam;
 
@@ -205,7 +205,7 @@ function addLog(topic, text, outgoing) {
 
 function send(obj) {
   const team = $("team").value.trim();
-  if (!SEND_OK.test(team)) { showSend("ใส่ทีมเป็น team ตามด้วยเลขสองหลัก เช่น team05 (หรือ all = ทุกบอร์ด)", true); return; }
+  if (!SEND_OK.test(team)) { showSend("ใส่รหัสเป็น a-z 0-9 ยาว 4-16 ตัว เช่น nok4821 หรือ team05 (หรือ all = ทุกบอร์ด)", true); return; }
   if (!client || !client.connected) { showSend("ยังไม่ได้เชื่อมต่อ", true); return; }
   const topic = root + "/" + team + "/cmd";
   const text = JSON.stringify(obj);

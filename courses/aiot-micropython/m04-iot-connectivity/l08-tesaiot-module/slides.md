@@ -116,7 +116,7 @@ section.cover img{filter:none}
 
 **พูดให้ตรง**: ทั้งสองบอร์ดประกอบเฟิร์มแวร์ของคอร์จอด้วย `ENABLE_OPTIGA ?= 0` สิบหกคำสั่งที่ข้ามคอร์จึงไม่มีชิปให้คุย · ซอร์สบอกว่าคอร์จอตอบ "ไม่มีให้" กลับมาโดยไม่รอชิป แล้วฝั่ง Python โยน `OSError` พร้อมข้อความ (เพดานรอ 10 วินาทีมีไว้กรณีคอร์จอไม่ตอบเลย) — **ยังไม่ได้วัดเวลาจริงบนบอร์ดไหน** ลอง `t=time.ticks_ms(); tesaiot.health(); print(time.ticks_diff(time.ticks_ms(), t))` บนโต๊ะก่อนสอน แล้วบอกผู้เรียนด้วยตัวเลขที่วัดได้
 
-**เรื่องเดียวที่สองบอร์ดต่างกันจริง คือ `tesaiot.protected_update()`** — บน Eva ไม่ได้ถูกคอมไพล์เข้ามา (`OSError`) แต่บน Dev Kit (`ENABLE_OPTIGA_CLM=1`) มัน**ทำงานจริง**: ขอชุด Protected Update จากแพลตฟอร์มแล้วเขียนใบรับรองลงช่อง E0E1 ของชิป OPTIGA และ `csr=True` สร้างคู่กุญแจใหม่ทับของเดิม — **ห้ามเรียกในชุดบทเรียนนี้** ทั้งจากไฟล์ตัวอย่างและ REPL เพราะสิ่งที่เขียนลงชิปย้อนกลับจากในห้องเรียนไม่ได้
+**เรื่องเดียวที่สองบอร์ดต่างกันจริง คือ `tesaiot.protected_update()`** — บน Eva ไม่ได้ถูกคอมไพล์เข้ามา (`OSError`) แต่บน Dev Kit (`ENABLE_OPTIGA_CLM=1`) มัน**ทำงานจริง**: ขอชุด Protected Update จากแพลตฟอร์มแล้วเขียนใบรับรองลงช่อง E0E1 ของชิป OPTIGA และ `csr=True` สร้างคู่กุญแจใหม่ทับของเดิม — **ห้ามเรียกในชุดบทเรียนนี้** ทั้งจากไฟล์ตัวอย่างและ REPL เพราะสิ่งที่เขียนลงชิปย้อนกลับเองไม่ได้
 
 > **ชิป OPTIGA มีอยู่จริงและใช้ได้** ผ่านโมดูล `optiga` (สไลด์โบนัสท้ายบทเรียน) — Eva: I2C จาก CM33 ตรง ๆ · Dev Kit: ชิปอยู่บนบัสจอของ CM55 จอหยุดรับสัมผัสชั่วครู่ทุกครั้งที่เรียก และยังไม่ได้ตรวจว่าทุกบอร์ดมีชิปครบ — ลอง `optiga.uid()` ก่อน
 
@@ -130,7 +130,7 @@ section.cover img{filter:none}
 |---|---|---|
 | `tesaiot.config()` | dict **19 คีย์** | คีย์ครบชุด: `tls_mode` `device_id` `factory_uid` `api_key` `broker` `port` `sni_hostname` `qos` `keepalive` `timeout_ms` `max_retries` `retry_interval_ms` `api_host` `api_port` `api_endpoint` `wifi_ssid` `sntp_server` `sntp_timezone` `debug_level` |
 | `tesaiot.config_set(key, value)` | `True` / `False` | รับ **สตริงทั้งสองช่อง** ตัวเลขก็ต้องส่งเป็นสตริง · คีย์ผิดคืน `False` เงียบ ๆ ต้องรับค่ากลับมาดู · ตั้ง `"tls_mode","server_tls"` แล้วอ่านกลับได้ `"serverTLS"` เพราะมันแปลงชื่อให้ |
-| `tesaiot.config_reset()` | `None` | ล้างกลับเป็นค่าโรงงาน **ทั้ง 19 คีย์** ตัวตนของทีมหายหมด ต้องตั้งใหม่ทุกค่า |
+| `tesaiot.config_reset()` | `None` | ล้างกลับเป็นค่าโรงงาน **ทั้ง 19 คีย์** ตัวตนของอุปกรณ์หายหมด ต้องตั้งใหม่ทุกค่า |
 | `tesaiot.config_reload()` | `True` / `False` | อ่านไฟล์ตั้งค่าจากแฟลชขึ้นมาใหม่ ทับค่าที่แก้ไว้ในหน่วยความจำ · ใช้ทิ้งการแก้ที่ยังไม่พอใจ (ข้อควรรู้: ในซอร์ส `tesaiot_config_store.c` ปัจจุบัน `config_set()` เซฟลงแฟลชทุกครั้ง reload จึงอาจย้อนค่าที่ตั้งด้วย `config_set()` ไม่ได้ — ต้องยืนยันบนบอร์ด) |
 | `tesaiot.connect()` | `True` / `False` | `True` แปลว่า **งานเริ่มแล้ว** ไม่ใช่ต่อเสร็จแล้ว ต้องวนรอ `is_connected()` เอง |
 | `tesaiot.disconnect()` | `True` / `False` | ตัวนี้คืน bool ไม่เหมือน `mqtt.disconnect()` ที่คืน `None` — สองโมดูลไม่เหมือนกัน |
@@ -338,7 +338,7 @@ tesaiot.disconnect()
   <rect x="16" y="12" width="286" height="180" rx="9" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
   <text x="159" y="42" text-anchor="middle" font-size="20" font-weight="700" fill="#ef6c00">config_reset()</text>
   <text x="36" y="76" font-size="18" fill="#a1683a">ล้างครบทั้ง 19 คีย์</text>
-  <text x="36" y="104" font-size="18" fill="#a1683a">ตัวตนของทีมหายด้วย</text>
+  <text x="36" y="104" font-size="18" fill="#a1683a">ตัวตนของอุปกรณ์หายด้วย</text>
   <text x="36" y="132" font-size="18" fill="#a1683a">ต้องตั้งใหม่ทุกค่าก่อนต่อ</text>
   <text x="36" y="170" font-size="18" font-weight="700" fill="#c62828">ใช้ตอนหลงทางเท่านั้น</text>
   <rect x="318" y="12" width="286" height="180" rx="9" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
@@ -366,7 +366,7 @@ tesaiot.disconnect()
 <svg viewBox="0 0 940 200" xmlns="http://www.w3.org/2000/svg">
   <rect x="14" y="16" width="290" height="162" rx="8" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
   <text x="159" y="50" text-anchor="middle" font-size="20" font-weight="700" fill="#1565c0">1 · ก่อนแตะโค้ด</text>
-  <text x="159" y="84" text-anchor="middle" font-size="18" fill="#0d47a1">รับค่าประจำตัวสี่ตัวจากผู้สอน</text>
+  <text x="159" y="84" text-anchor="middle" font-size="18" fill="#0d47a1">จดค่าประจำตัวสี่ตัวจากแพลตฟอร์ม</text>
   <text x="159" y="114" text-anchor="middle" font-size="18" fill="#0d47a1">ลงบันทึกการเรียน</text>
   <text x="159" y="144" text-anchor="middle" font-size="18" fill="#0d47a1">ต่อ WiFi ให้ได้ก่อนเสมอ</text>
   <text x="159" y="170" text-anchor="middle" font-size="17" fill="#5472a3">นับตัวอักษร device_id ให้ไม่เกิน 31</text>
@@ -374,7 +374,7 @@ tesaiot.disconnect()
   <text x="469" y="50" text-anchor="middle" font-size="20" font-weight="700" fill="#2e7d32">2 · แก้ห้าบรรทัดบนหัวไฟล์</text>
   <text x="469" y="84" text-anchor="middle" font-size="18" fill="#1b5e20">TEAM_NAME · DEVICE_ID</text>
   <text x="469" y="114" text-anchor="middle" font-size="18" fill="#1b5e20">API_KEY · MQTT_PASS · BROKER</text>
-  <text x="469" y="144" text-anchor="middle" font-size="18" fill="#1b5e20">ที่เหลือเหมือนกันทุกทีม</text>
+  <text x="469" y="144" text-anchor="middle" font-size="18" fill="#1b5e20">ที่เหลือเหมือนกันทุกบอร์ด</text>
   <text x="469" y="170" text-anchor="middle" font-size="17" fill="#4a7c4e">เติมช่องว่างทีละจุด แล้วรันทุกครั้ง</text>
   <rect x="634" y="16" width="292" height="162" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
   <text x="780" y="50" text-anchor="middle" font-size="20" font-weight="700" fill="#ef6c00">3 · รันแล้วดูสองจอ</text>
@@ -385,10 +385,10 @@ tesaiot.disconnect()
 </svg>
 
 1. เปิดหน้า **BENTO Playground** บนบอร์ดค้างไว้ แล้วต่อ WiFi ให้เรียบร้อยก่อน (`wifi.connect()` ของบทเรียน 4.1–4.3 บล็อกได้นานถึงราว 85 วินาทีถ้ารหัสผิด)
-2. เปิด [`s11_secure_telemetry.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l09-secure-telemetry-lab/practice/s11_secure_telemetry.py) แก้ห้าบรรทัดบนหัวไฟล์ให้เป็นค่าของทีม
+2. เปิด [`s11_secure_telemetry.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l09-secure-telemetry-lab/practice/s11_secure_telemetry.py) แก้ห้าบรรทัดบนหัวไฟล์ให้เป็นค่าของอุปกรณ์คุณ
 3. เติมช่องว่างท่าที่ 1 ให้ครบ กด **Program to Device** แล้วดูว่า `print(tesaiot.config())` ขึ้นค่าครบและสะกดถูก **ก่อน** ไปท่าที่ 2
 4. เติมท่าที่ 2 แล้วรัน — จับเวลาว่ากี่วินาที `is_connected()` จึงเป็น True แล้วจดลงบันทึกการเรียน
-5. เติมท่าที่ 3 และ 4 แล้วเปิด dashboard ของแพลตฟอร์ม เลือกอุปกรณ์ของทีม ดูกราฟขยับพร้อมกับตัวนับบนจอบอร์ด
+5. เติมท่าที่ 3 และ 4 แล้วเปิด dashboard ของแพลตฟอร์ม เลือกอุปกรณ์ของคุณ ดูกราฟขยับพร้อมกับตัวนับบนจอบอร์ด
 6. ถ่ายภาพทั้งสองจอเก็บไว้เป็นหลักฐาน แล้วค่อยไปทำตารางเทียบ 1883 กับ 8884 ในบันทึกการเรียน
 
 <style scoped>section table{font-size:.66em}</style>
@@ -399,11 +399,11 @@ tesaiot.disconnect()
 
 | ลำดับ · เรื่อง · เวลา | ไฟล์ | ลงมือทำอะไร แล้วจะเข้าใจอะไร |
 |---|---|---|
-| **1 · อ่านค่าที่บอร์ดเก็บไว้ก่อนต่ออะไร** · 6 นาที | [`01_config_store.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l08-tesaiot-module/examples/01_config_store.py) | กรอกกล่องค่าประจำตัวในบันทึกการเรียน จากค่าที่บอร์ดตอบจริง ไม่ใช่จากใบที่ผู้สอนแจก · จะเข้าใจว่าต้องอ่านค่าที่บอร์ดเก็บไว้ให้ครบก่อน แล้วค่อยสั่งต่ออะไร |
+| **1 · อ่านค่าที่บอร์ดเก็บไว้ก่อนต่ออะไร** · 6 นาที | [`01_config_store.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l08-tesaiot-module/examples/01_config_store.py) | กรอกกล่องค่าประจำตัวในบันทึกการเรียน จากค่าที่บอร์ดตอบจริง ไม่ใช่จากค่าที่จดมา · จะเข้าใจว่าต้องอ่านค่าที่บอร์ดเก็บไว้ให้ครบก่อน แล้วค่อยสั่งต่ออะไร |
 | **2 · รอให้ต่อเสร็จเป็น** · 8 นาที | [`05_wait_for_connected.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l08-tesaiot-module/examples/05_wait_for_connected.py) | เขียนลูปรอด้วย `is_connected()` และจับเวลาจริงลงบันทึกการเรียน · จะเข้าใจว่า `connect()` คืนค่าก่อนต่อเสร็จ จึงต้องรอเป็น ไม่ใช่เชื่อว่าคืนค่าแล้วคือพร้อม |
 | **3 · ลูปส่ง telemetry บนช่องที่เข้ารหัส** · 15 นาที | [`06_secure_publish_loop.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l08-tesaiot-module/examples/06_secure_publish_loop.py) | ประกอบ MVP ของชุดบทเรียนนี้ — ตัวนับเดินขึ้นบนจอ พร้อมกราฟที่ขยับบน dashboard · จะเห็นว่าลูปส่ง telemetry ตัวเดิมย้ายขึ้นช่องที่เข้ารหัสได้ โดยรูปร่างของลูปไม่เปลี่ยน |
 
-ทั้งสามไฟล์ **ยังรันไม่ได้จนกว่าทีมจะได้ `device_id` ของตัวเอง** นี่ไม่ใช่ข้อบกพร่องของไฟล์ แต่เป็นงานเตรียมการที่ต้องเสร็จก่อนบทเรียน ถ้ายังไม่ได้ค่าประจำตัว ให้อ่านโครงไปก่อนแล้วรันเมื่อได้ค่ามา
+ทั้งสามไฟล์ **ยังรันไม่ได้จนกว่าบอร์ดจะมี `device_id` ของตัวเอง** (จากบัญชี TESAIoT Platform ของคุณ) นี่ไม่ใช่ข้อบกพร่องของไฟล์ แต่เป็นงานเตรียมการที่ต้องเสร็จก่อนบทเรียน ถ้ายังไม่ได้ค่าประจำตัว ให้อ่านโครงไปก่อนแล้วรันเมื่อได้ค่ามา
 
 **ติดตรงไหน เปิดอันนี้**
 

@@ -20,11 +20,11 @@ import time
 import ui
 import wifi
 
-WIFI_SSID = "AIoT-Class"
+WIFI_SSID = "my-hotspot"      # WiFi บ้านหรือ Hotspot มือถือของคุณ
 WIFI_PASS = "<รหัสผ่าน WiFi ของคุณ>"
-BROKER = "192.168.1.50"
-DEVICE_ID = "team03"
-TOPIC = "bento/team03/telemetry"
+BROKER = "broker.hivemq.com"   # broker ฝึกสาธารณะ (สำรอง "test.mosquitto.org")
+DEVICE_ID = "team03"          # client_id บน broker สาธารณะต้องไม่ซ้ำใคร: แก้เป็นรหัสไม่ซ้ำใคร เช่น "nok4821" (ชื่อเล่น + เลขสุ่ม 4 หลัก)
+TOPIC = "bento/team03/telemetry"   # แก้ team03 ให้ตรงกับ DEVICE_ID
 SEND_EVERY_MS = 3000
 CHART_MS = 300           # กราฟเดินตามลูปของจอ ไม่ได้เดินตามคาบส่ง
 

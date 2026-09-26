@@ -10,7 +10,7 @@ items:
     en: Order the steps of the s11_secure_telemetry.py practice so that any failure tells you where it is.
   choices:
   - th: เติมลูปรอ `is_connected()` ที่มีเพดาน 30 วินาที แล้วจับเวลาการจับมือ
-  - th: แก้ห้าบรรทัดบนหัวไฟล์ให้เป็นค่าของทีม
+  - th: แก้ห้าบรรทัดบนหัวไฟล์ให้เป็นค่าของอุปกรณ์คุณ
   - th: เติม payload กับบรรทัดหลักฐานบนจอ แล้วเปิด dashboard ดูกราฟ
   - th: เติม `config_set()` ของตัวตน แล้วรันดู `print(tesaiot.config())`
   answer:
@@ -24,17 +24,17 @@ items:
   objective: 2
   type: single
   prompt:
-    th: ทุกทีมโค้ดถูก แต่บอร์ดทั้งห้องหลุดสลับกันเป็นจังหวะ สาเหตุที่แท้จริงตามตารางกับดักคืออะไร
-    en: Every team's code is correct, yet the boards in the room drop in turns. What is the real cause according to the pitfalls table?
+    th: บอร์ดสองตัวรันโค้ดที่ถูกทั้งคู่ แต่หลุดสลับกันเป็นจังหวะ สาเหตุที่แท้จริงตามตารางกับดักคืออะไร
+    en: Two boards both run correct code, yet they drop in turns. What is the real cause according to the pitfalls table?
   choices:
-  - th: หลายทีมใช้ `device_id` ค่าเริ่มต้นตัวเดียวกัน broker จึงเตะตัวเก่าออกทุกครั้งที่ตัวใหม่เข้ามา
-  - th: '`sni_hostname` ของทุกทีมไม่ตรงกับ `broker`'
-  - th: WiFi ห้องเรียนช้าเกินไปสำหรับ TLS
+  - th: หลายบอร์ดใช้ `device_id` ค่าเริ่มต้นตัวเดียวกัน broker จึงเตะตัวเก่าออกทุกครั้งที่ตัวใหม่เข้ามา
+  - th: '`sni_hostname` ของทุกบอร์ดไม่ตรงกับ `broker`'
+  - th: WiFi ช้าเกินไปสำหรับ TLS
   - th: ลืมใส่ `time.sleep_ms(5000)` ในลูปส่ง
   answer:
   - 0
   explain:
-    th: บอร์ดออกจากโรงงานด้วยค่าเริ่มต้นเดียวกันหมด ถ้าใช้ซ้ำ broker จะเตะตัวเก่าออกวนไปทั้งห้อง ทางแก้คือหนึ่งทีมหนึ่ง device_id ที่ provision มา ส่วน sni_hostname ผิดให้อาการต่อไม่ติดเลย ไม่ใช่หลุดสลับกัน
+    th: บอร์ดออกจากโรงงานด้วยค่าเริ่มต้นเดียวกันหมด ถ้าใช้ซ้ำ broker จะเตะตัวเก่าออกวนไปเรื่อย ๆ ทางแก้คือหนึ่งบอร์ดหนึ่ง device_id ที่ provision มา ส่วน sni_hostname ผิดให้อาการต่อไม่ติดเลย ไม่ใช่หลุดสลับกัน
 - id: q3
   objective: 2
   type: multi

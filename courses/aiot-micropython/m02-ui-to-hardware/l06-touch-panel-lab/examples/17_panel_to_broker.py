@@ -24,13 +24,13 @@ import ui
 import wifi
 import mqtt
 
-# แก้บรรทัดเหล่านี้ให้ตรงกับของทีม (Hotspot มือถือ broker และเลขทีม) ชื่อชุดนี้ใช้เหมือนกันทั้งคอร์ส
+# แก้บรรทัดเหล่านี้ให้ตรงกับของทีม (Hotspot มือถือ broker และรหัส TEAM) ชื่อชุดนี้ใช้เหมือนกันทั้งคอร์ส
 WIFI_SSID = "bento-teamXX"            # ชื่อ Hotspot มือถือของทีม (WiFi ขององค์กรต้อง login บอร์ดใช้ไม่ได้)
 WIFI_PASS = "<รหัส Hotspot ของทีม>"     # อย่างน้อย 8 ตัว
 BROKER = "broker.hivemq.com"      # สำรอง: "test.mosquitto.org"
-TEAM = "teamXX"                   # แก้เป็นเลขทีมที่ผู้สอนแจก team01 ถึง team19
+TEAM = "teamXX"                   # รหัสที่ไม่ซ้ำใคร a-z 0-9 ยาว 4-16 เช่น "nok4821" (ชื่อเล่น + เลขสุ่ม 4 หลัก) · เรียนเป็นกลุ่มใช้เลขที่ผู้จัดแจก
 ROOT = "bento-aiot"               # คำนำหน้าเดียวของทั้งห้อง
-DEVICE_ID = "bento-aiot-" + TEAM  # client_id ยาว 17 ตัว ไม่เกิน 31
+DEVICE_ID = "bento-aiot-" + TEAM  # client_id ยาว 11 + ความยาว TEAM (ไม่เกิน 27) ไม่เกิน 31
 TOPIC_TELE = ROOT + "/" + TEAM + "/telemetry"
 TOPIC_EVENT = ROOT + "/" + TEAM + "/event"
 TOPIC_CMD = ROOT + "/" + TEAM + "/cmd"
@@ -116,12 +116,12 @@ def screen_safe(text, n):
     return out
 
 
-# --- ขั้นที่ 0: ชื่อทีมต้องเป็นของเราจริง ---
-# ค่าตั้งต้น teamXX จงใจให้รันไม่ผ่าน ถ้าปล่อยเป็นเลขทีมจริงไว้ ทุกบอร์ดที่ลืมแก้จะใช้
-# client_id เดียวกัน แล้ว broker จะเตะบอร์ดของทีมนั้นออกโดยไม่มีคำเตือน
-# team00 สงวนไว้ให้บอร์ดของผู้สอน
-if len(TEAM) != 6 or TEAM[:4] != "team" or not TEAM[4:].isdigit() or TEAM == "team00":
-    stop_here("ยังไม่ได้ตั้งชื่อทีม", "แก้ TEAM เป็นเลขทีมของคุณก่อน เช่น team03")
+# --- ขั้นที่ 0: รหัส TEAM ต้องเป็นของเราจริง ---
+# ค่าตั้งต้น teamXX จงใจให้รันไม่ผ่าน ถ้าปล่อยเป็นรหัสจริงไว้ ทุกบอร์ดที่ลืมแก้จะใช้
+# client_id เดียวกัน แล้ว broker จะเตะบอร์ดตัวอื่นออกโดยไม่มีคำเตือน
+# TEAM ต้องเป็น a-z 0-9 ยาว 4-16 ตัว: strip() ตัดตัวที่อนุญาตออกจากหัวท้าย ถ้ายังเหลืออะไรอยู่แปลว่ามีตัวต้องห้าม (ตัวใหญ่ ช่องว่าง / + #) · team00 สงวนไว้ให้บอร์ดกลางของผู้จัด
+if not 4 <= len(TEAM) <= 16 or TEAM == "team00" or TEAM.strip("abcdefghijklmnopqrstuvwxyz0123456789"):
+    stop_here("ยังไม่ได้ตั้งชื่อทีม", "แก้ TEAM เป็นรหัส a-z 0-9 ยาว 4-16 ตัว เช่น nok4821")
 
 # --- ขั้นที่ 1: WiFi ต้องได้ IP ก่อน --- (บันไดเดียวกับ m01-ui-application/l05-values-out-commands-back/examples/05_value_leaves_the_board.py)
 status.color(COL_WARN)

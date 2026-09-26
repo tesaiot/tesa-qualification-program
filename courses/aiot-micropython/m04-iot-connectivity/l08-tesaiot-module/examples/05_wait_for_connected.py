@@ -13,11 +13,11 @@ import lcd
 import time
 import ui
 
-WIFI_SSID = "AIoT-Class"
+WIFI_SSID = "my-hotspot"      # WiFi บ้านหรือ Hotspot มือถือของคุณ
 WIFI_PASS = "<รหัสผ่าน WiFi ของคุณ>"
-DEVICE_ID = "team03"
-API_KEY = "<api key ของทีม>"
-MQTT_PASS = "<รหัสผ่าน MQTT ของทีม>"
+DEVICE_ID = "team03"          # สี่ค่านี้จากหน้าจัดการอุปกรณ์ในบัญชี TESAIoT Platform ของคุณ (บทเรียน 4.7)
+API_KEY = "<api key ของอุปกรณ์>"
+MQTT_PASS = "<รหัสผ่าน MQTT ของอุปกรณ์>"
 BROKER = "<ชื่อโฮสต์ของแพลตฟอร์ม>"
 
 WAIT_LIMIT_MS = 30000       # รอนานสุดเท่านี้ แล้วยอมแพ้อย่างมีสติ

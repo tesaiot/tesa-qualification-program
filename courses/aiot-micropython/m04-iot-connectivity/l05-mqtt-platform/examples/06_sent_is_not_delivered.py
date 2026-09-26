@@ -18,14 +18,14 @@ import ui
 import json
 import time
 
-WIFI_SSID = "AIoT-Class"
+WIFI_SSID = "my-hotspot"      # WiFi บ้านหรือ Hotspot มือถือของคุณ
 WIFI_PASS = "<รหัสผ่าน WiFi ของคุณ>"
-BROKER = "192.168.1.50"          # broker ฝึกที่ไม่ตรวจตัวตน (เช่น mosquitto ในแลน) ไม่ใช่ CE: ไฟล์นี้ต่อโดยไม่มี username/password และใช้ topic bento/... ซึ่ง CE ปฏิเสธตั้งแต่ CONNECT
-DEVICE_ID = "team03"
+BROKER = "broker.hivemq.com"     # broker ฝึกสาธารณะ (สำรอง "test.mosquitto.org") ไม่ใช่ CE: ไฟล์นี้ต่อโดยไม่มี username/password และใช้ topic bento/... ซึ่ง CE ปฏิเสธตั้งแต่ CONNECT
+DEVICE_ID = "team03"             # broker สาธารณะมีคนอื่นใช้ด้วย: แก้เป็นรหัสไม่ซ้ำใคร เช่น "nok4821" (ชื่อเล่น + เลขสุ่ม 4 หลัก)
 
 # ส่งไปที่ topic ของตัวเอง แล้ว subscribe topic เดียวกัน ข้อความจึงวิ่งครบวง
-# broker -> กลับมาหาเรา นี่คือวิธีพิสูจน์การส่งถึงที่ถูกที่สุดที่ทำได้ในห้องเรียน
-TOPIC_ECHO = "bento/team03/echo"
+# broker -> กลับมาหาเรา นี่คือวิธีพิสูจน์การส่งถึงที่ถูกที่สุดที่ทำได้ด้วยบอร์ดตัวเดียว
+TOPIC_ECHO = "bento/team03/echo"     # แก้ team03 ให้ตรงกับ DEVICE_ID
 N = 10
 
 COL_TEXT, COL_DIM = 0xE8EAED, 0x9AA3AF

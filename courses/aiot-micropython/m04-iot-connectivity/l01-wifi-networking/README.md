@@ -8,7 +8,7 @@ time_min: {concept: 30, lab: 15, check: 5}
 hardware: {emulator: true, boards: [eva-kit, devkit]}
 prerequisites: [aiot-mpy.m03.l09]
 objectives:
-  - {th: เทียบความแรงสัญญาณสองค่าที่เป็น dBm ได้ด้วยกฎ "ทุก 10 dB คือ 10 เท่า ทุก 3 dB ราว 2 เท่า" โดยไม่ใช้เครื่องคิดเลข เช่นบอกได้ว่า −50 dBm แรงกว่า −80 dBm อยู่ 1000 เท่า และจัดวงของทีมเข้าเกณฑ์หน้างาน (ดีกว่า −60 · −67 · ต่ำกว่า −80), en: 'Compare two signal strengths in dBm with the rule "every 10 dB is 10×, every 3 dB is about 2×" without a calculator, e.g. state that −50 dBm is 1000× stronger than −80 dBm, and place the team''s network against the field thresholds (better than −60, −67, below −80).'}
+  - {th: เทียบความแรงสัญญาณสองค่าที่เป็น dBm ได้ด้วยกฎ "ทุก 10 dB คือ 10 เท่า ทุก 3 dB ราว 2 เท่า" โดยไม่ใช้เครื่องคิดเลข เช่นบอกได้ว่า −50 dBm แรงกว่า −80 dBm อยู่ 1000 เท่า และจัดวงที่บอร์ดต่อเข้าเกณฑ์หน้างาน (ดีกว่า −60 · −67 · ต่ำกว่า −80), en: 'Compare two signal strengths in dBm with the rule "every 10 dB is 10×, every 3 dB is about 2×" without a calculator, e.g. state that −50 dBm is 1000× stronger than −80 dBm, and place the board''s network against the field thresholds (better than −60, −67, below −80).'}
   - {th: เรียงห้าขั้นตั้งแต่บอร์ดถามหา AP จนได้เลข IP พร้อมเกตเวย์และ DNS ได้ถูกลำดับ และบอกได้ว่าขั้น 1–3 เป็นเรื่องของ WiFi ส่วนขั้น 4–5 เป็นเรื่องของ IP ผ่าน DHCP แบบ DORA ซึ่งพังคนละแบบ, en: 'Put the five steps from the board asking for access points to receiving an IP address, gateway and DNS in the right order, and say that steps 1–3 are WiFi while steps 4–5 are IP via DHCP (DORA), which fail in different ways.'}
   - {th: แปลผล ping เกตเวย์คู่กับ ping 8.8.8.8 ได้ถูกครบสามกรณี (ผ่านทั้งคู่ · เกตเวย์ผ่านแต่เน็ตไม่ผ่าน · เกตเวย์ไม่ผ่าน) และบอกได้ว่าต้องไปแก้ที่ไหน, en: 'Interpret a gateway ping paired with an 8.8.8.8 ping correctly in all three cases (both pass, gateway passes but internet fails, gateway fails) and say where the fix belongs.'}
   - {th: 'อธิบายข้อจำกัดสองข้อของโมดูล wifi บนบอร์ดนี้ได้: wifi.ping() รับเฉพาะเลข IP เพราะยังไม่มีตัวแปลชื่อ (resolver) เปิดให้ Python เรียก และไม่มี netmask กับ gateway ให้อ่าน โค้ดจึงต้องเดาเกตเวย์เป็น .1 แล้วพิสูจน์ด้วย ping', en: 'Explain two limits of the board''s wifi module: wifi.ping() accepts IP numbers only because no resolver is exposed to Python, and netmask and gateway cannot be read, so code guesses the gateway as .1 and proves the guess with ping.'}
@@ -30,7 +30,7 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 
 เมื่อจบบทเรียนนี้ คุณจะ:
 
-1. เทียบความแรงสัญญาณสองค่าที่เป็น dBm ได้ด้วยกฎ "ทุก 10 dB คือ 10 เท่า ทุก 3 dB ราว 2 เท่า" โดยไม่ใช้เครื่องคิดเลข เช่นบอกได้ว่า −50 dBm แรงกว่า −80 dBm อยู่ 1000 เท่า และจัดวงของทีมเข้าเกณฑ์หน้างาน (ดีกว่า −60 · −67 · ต่ำกว่า −80)
+1. เทียบความแรงสัญญาณสองค่าที่เป็น dBm ได้ด้วยกฎ "ทุก 10 dB คือ 10 เท่า ทุก 3 dB ราว 2 เท่า" โดยไม่ใช้เครื่องคิดเลข เช่นบอกได้ว่า −50 dBm แรงกว่า −80 dBm อยู่ 1000 เท่า และจัดวงที่บอร์ดต่อเข้าเกณฑ์หน้างาน (ดีกว่า −60 · −67 · ต่ำกว่า −80)
 2. เรียงห้าขั้นตั้งแต่บอร์ดถามหา AP จนได้เลข IP พร้อมเกตเวย์และ DNS ได้ถูกลำดับ และบอกได้ว่าขั้น 1–3 เป็นเรื่องของ WiFi ส่วนขั้น 4–5 เป็นเรื่องของ IP ผ่าน DHCP แบบ DORA ซึ่งพังคนละแบบ
 3. แปลผล ping เกตเวย์คู่กับ ping 8.8.8.8 ได้ถูกครบสามกรณี (ผ่านทั้งคู่ · เกตเวย์ผ่านแต่เน็ตไม่ผ่าน · เกตเวย์ไม่ผ่าน) และบอกได้ว่าต้องไปแก้ที่ไหน
 4. อธิบายข้อจำกัดสองข้อของโมดูล wifi บนบอร์ดนี้ได้: wifi.ping() รับเฉพาะเลข IP เพราะยังไม่มีตัวแปลชื่อ (resolver) เปิดให้ Python เรียก และไม่มี netmask กับ gateway ให้อ่าน โค้ดจึงต้องเดาเกตเวย์เป็น .1 แล้วพิสูจน์ด้วย ping
@@ -39,9 +39,10 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 
 ทบทวนบทเรียน 1.4–1.6 ที่เราเรียก `wifi.connect()` จนต่อเน็ตติดไปแล้ว และนึกภาพแดชบอร์ดของบทเรียน 3.7–3.9 ไว้
 เพราะชุดบทเรียน 4.1–4.3 จะต่อหน้าสถานะเครือข่ายเข้ากับจอนั้น บทเรียนนี้ยังไม่ต้องเขียนโค้ด
-เตรียมบันทึกการเรียนไว้จดตัวเลขที่อ่านจากจอ และขอชื่อวงกับรหัสผ่านที่ผู้สอนแจกไว้ให้พร้อม
+เตรียมบันทึกการเรียนไว้จดตัวเลขที่อ่านจากจอ และเตรียมชื่อกับรหัสผ่านของ WiFi บ้านหรือ Hotspot มือถือที่จะให้บอร์ดต่อ
+(ตั้งตามตารางในบทเรียน 1.4: ชื่อภาษาอังกฤษไม่มีช่องว่าง รหัสอย่างน้อย 8 ตัว ย่าน 2.4 GHz)
 
-- **อุปกรณ์:** บอร์ด Eva Kit หรือ TESAIoT Dev Kit ที่ลงเฟิร์มแวร์ MicroPython ของ BENTO แล้ว หรือ BENTO Emulator ใน [BENTO IDE](https://ide.tesaiot.dev/) (บทเรียนนี้ยังไม่มีโค้ด ตัวเลข dBm และเลข IP ที่จดในแล็บควรอ่านจากบอร์ดจริงที่ต่อ WiFi ของห้อง)
+- **อุปกรณ์:** บอร์ด Eva Kit หรือ TESAIoT Dev Kit ที่ลงเฟิร์มแวร์ MicroPython ของ BENTO แล้ว หรือ BENTO Emulator ใน [BENTO IDE](https://ide.tesaiot.dev/) (บทเรียนนี้ยังไม่มีโค้ด ตัวเลข dBm และเลข IP ที่จดในแล็บควรอ่านจากบอร์ดจริงที่ต่อ WiFi บ้านหรือ Hotspot ของคุณ)
 - **เรียนมาก่อน:** [บทเรียน 3.9 — ลงมือทำ: Mini-HMI Dashboard และการทดสอบ 10 นาที](../../m03-sensor-hmi/l09-dashboard-lab/README.md)
 
 ## ดูของจริงก่อน
@@ -69,7 +70,7 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 **จากคลื่นถึงเลข IP มีห้าขั้น** ขั้น 1–3 คือ WiFi: ขอดูว่ามีใครอยู่แถวนี้ · AP ตอบชื่อวง ความแรง ช่อง · ขอเข้าร่วมพร้อมพิสูจน์รหัสผ่าน
 ขั้น 4–5 คือ IP: ขอเลขผ่าน DHCP (Discover · Offer · Request · Acknowledge) แล้วได้เลข IP พร้อมเกตเวย์และ DNS
 เลขนี้เป็นการยืมชั่วคราว (lease) ปิดเปิดบอร์ดใหม่อาจได้คนละเลข โค้ดจึงต้องอ่าน `wifi.ip()` ทุกครั้งหลังต่อ
-`wifi.connect()` คืน `True` เมื่อผ่านครบห้าขั้น ติดขั้นไหนก็ได้ `False` เหมือนกันหมด ถ้า DHCP ของห้องเต็มหรือพัง
+`wifi.connect()` คืน `True` เมื่อผ่านครบห้าขั้น ติดขั้นไหนก็ได้ `False` เหมือนกันหมด ถ้า DHCP ของวงเต็มหรือพัง
 เราจะต่อ WiFi ติดแต่ไม่มีเลข IP ซึ่งดูเหมือนต่อไม่ติดทั้งที่ไม่ใช่
 
 **ping สองปลายทาง แล้วอ่านผลเป็นคู่** `wifi.ping(ip, timeout_ms)` คืนเวลาไป-กลับเป็นมิลลิวินาที หรือ −1 เมื่อไม่มีคำตอบ
@@ -135,7 +136,7 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 
    </details>
 
-5. บอร์ดผ่านขั้นเข้าร่วมวง WiFi แล้ว แต่ DHCP ของห้องเต็ม อาการที่เห็นคืออะไร *(เลือกหนึ่งข้อ · เป้าหมายข้อ 2)*
+5. บอร์ดผ่านขั้นเข้าร่วมวง WiFi แล้ว แต่ DHCP ของวงเต็ม อาการที่เห็นคืออะไร *(เลือกหนึ่งข้อ · เป้าหมายข้อ 2)*
    - ก) ต่อ WiFi ติด แต่ไม่มีเลข IP ซึ่งดูเหมือนต่อไม่ติด
    - ข) wifi.scan() ไม่เจอวงใดเลย
    - ค) ได้เลข IP ปกติ แต่ ping 8.8.8.8 ไม่ผ่าน
@@ -149,12 +150,12 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 
 ## แล็บ
 
-**อ่านเครือข่ายของห้องเป็นตัวเลข** (ราว 15 นาที) ทำบนบอร์ดจริง แล้วจดลงบันทึกการเรียน
+**อ่านเครือข่ายรอบตัวเป็นตัวเลข** (ราว 15 นาที) ทำบนบอร์ดจริง แล้วจดลงบันทึกการเรียน
 
 - [ ] เปิด Wi-Fi Setting แล้วจดชื่อวงกับค่า dBm ของสามวงที่แรงที่สุด และของวงที่อ่อนที่สุดที่เห็น
 - [ ] คำนวณว่าวงแรงสุดกับวงอ่อนสุดต่างกันกี่ dB และกี่เท่าของกำลัง ด้วยกฎ 10 dB = 10 เท่า · 3 dB ≈ 2 เท่า
-- [ ] จัดวงของทีมเข้าเกณฑ์หน้างาน: ดีกว่า −60 · ราว −67 · ต่ำกว่า −80
-- [ ] ต่อวงของทีมแล้วจดเลข IP ที่ได้ จากนั้นเขียนเลขเกตเวย์ที่ "เดา" ไว้ (สามช่องแรกต่อด้วย `.1`) เพื่อพิสูจน์ด้วย ping ในบทเรียน 4.3
+- [ ] จัดวงที่บอร์ดต่อเข้าเกณฑ์หน้างาน: ดีกว่า −60 · ราว −67 · ต่ำกว่า −80
+- [ ] ต่อ WiFi บ้านหรือ Hotspot ของคุณแล้วจดเลข IP ที่ได้ จากนั้นเขียนเลขเกตเวย์ที่ "เดา" ไว้ (สามช่องแรกต่อด้วย `.1`) เพื่อพิสูจน์ด้วย ping ในบทเรียน 4.3
 - [ ] ทำตารางสามแถวในบันทึกการเรียน: ผล ping เกตเวย์ · ผล ping 8.8.8.8 · ปัญหาอยู่ที่ไหน ให้ครบทั้งสามกรณี
 
 ## ไปต่อ

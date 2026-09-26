@@ -14,11 +14,11 @@ import json
 import time
 import ui
 
-WIFI_SSID = "AIoT-Class"
+WIFI_SSID = "my-hotspot"      # WiFi บ้านหรือ Hotspot มือถือของคุณ
 WIFI_PASS = "<รหัสผ่าน WiFi ของคุณ>"
-DEVICE_ID = "team03"
-API_KEY = "<api key ของทีม>"
-MQTT_PASS = "<รหัสผ่าน MQTT ของทีม>"
+DEVICE_ID = "team03"          # สี่ค่านี้จากหน้าจัดการอุปกรณ์ในบัญชี TESAIoT Platform ของคุณ (บทเรียน 4.7)
+API_KEY = "<api key ของอุปกรณ์>"
+MQTT_PASS = "<รหัสผ่าน MQTT ของอุปกรณ์>"
 BROKER = "<ชื่อโฮสต์ของแพลตฟอร์ม>"
 
 SEND_EVERY_MS = 2000        # ถี่พอให้เห็นจังหวะบนจอ งานจริงห่างกว่านี้ได้

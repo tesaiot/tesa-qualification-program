@@ -141,7 +141,7 @@ wifi.disconnect()                 # คืน None ไม่ใช่ True
 print(wifi.is_connected())        # False
 print(wifi.ip())                  # "0.0.0.0"  <- ไม่ว่าง จึงเป็นจริงใน if
 
-# --- softap(): เมื่อในห้องไม่มีวงให้ต่อ บอร์ดปล่อยวงของตัวเองได้ ---
+# --- softap(): เมื่อหาวงที่ตั้งไว้ไม่เจอ บอร์ดปล่อยวงของตัวเองได้ ---
 wifi.softap("bento-team01", "12345678")   # True แล้วบอร์ดอยู่ที่ 192.168.4.1
 ```
 
@@ -152,9 +152,9 @@ wifi.softap("bento-team01", "12345678")   # True แล้วบอร์ดอ�
   <text x="95" y="92" text-anchor="middle" font-size="18" font-weight="700" fill="#37474f">บอร์ด</text>
   <line x1="154" y1="86" x2="298" y2="86" stroke="#546e7a" stroke-width="3"/>
   <rect x="298" y="60" width="140" height="52" rx="7" fill="#ffffff" stroke="#546e7a" stroke-width="2"/>
-  <text x="368" y="92" text-anchor="middle" font-size="18" font-weight="700" fill="#37474f">AP ของห้อง</text>
+  <text x="368" y="92" text-anchor="middle" font-size="18" font-weight="700" fill="#37474f">AP ที่มีอยู่</text>
   <text x="36" y="146" font-size="18" fill="#546e7a">บอร์ดไปขอเข้าร่วมวงที่มีอยู่แล้ว</text>
-  <text x="36" y="176" font-size="18" fill="#546e7a">ได้เลข IP มาจาก DHCP ของห้อง</text>
+  <text x="36" y="176" font-size="18" fill="#546e7a">ได้เลข IP มาจาก DHCP ของ AP นั้น</text>
   <rect x="484" y="12" width="440" height="186" rx="9" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
   <text x="504" y="42" font-size="20" font-weight="700" fill="#2e7d32">โหมด softap — บอร์ดเป็นเจ้าของวงเอง</text>
   <rect x="504" y="60" width="118" height="52" rx="7" fill="#ffffff" stroke="#2e7d32" stroke-width="2"/>
@@ -166,11 +166,11 @@ wifi.softap("bento-team01", "12345678")   # True แล้วบอร์ดอ�
   <text x="504" y="176" font-size="18" fill="#1b5e20">ไม่มีทางออกอินเทอร์เน็ต — คุยได้แค่ในวงนี้</text>
 </svg>
 
-`disconnect()` ทำให้เรา **สร้างสถานะ "หลุด" ขึ้นมาดูได้ตามสั่ง** ไม่ต้องรอให้เน็ตห้องล่มเอง — บทเรียน 5.1–5.3 ต้องเขียนโค้ดที่ทนการหลุด ถ้าไม่เคยเห็นว่าหลุดแล้วค่าไหนเปลี่ยน จะเขียนเงื่อนไขถูกได้ยาก
+`disconnect()` ทำให้เรา **สร้างสถานะ "หลุด" ขึ้นมาดูได้ตามสั่ง** ไม่ต้องรอให้เน็ตล่มเอง — บทเรียน 5.1–5.3 ต้องเขียนโค้ดที่ทนการหลุด ถ้าไม่เคยเห็นว่าหลุดแล้วค่าไหนเปลี่ยน จะเขียนเงื่อนไขถูกได้ยาก
 
-`softap()` เป็นทางออกจริงเมื่อวงของห้องไม่มี — เครื่องมือช่างและกล้องติดรถจำนวนมากตั้งค่าครั้งแรกด้วยวิธีนี้ ข้อแลกเปลี่ยนคือ **วิทยุมีชุดเดียว** เป็น AP แล้วจะเป็นลูกข่ายพร้อมกันไม่ได้ `ping()` ออกเน็ตจึงใช้ไม่ได้ในโหมดนี้ · ลองไฟล์ [`07_disconnect_rejoin.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l02-network-status-code/examples/07_disconnect_rejoin.py) กับ [`08_softap_fallback.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l02-network-status-code/examples/08_softap_fallback.py)
+`softap()` เป็นทางออกจริงเมื่อไม่มีวงให้ต่อ — เครื่องมือช่างและกล้องติดรถจำนวนมากตั้งค่าครั้งแรกด้วยวิธีนี้ ข้อแลกเปลี่ยนคือ **วิทยุมีชุดเดียว** เป็น AP แล้วจะเป็นลูกข่ายพร้อมกันไม่ได้ `ping()` ออกเน็ตจึงใช้ไม่ได้ในโหมดนี้ · ลองไฟล์ [`07_disconnect_rejoin.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l02-network-status-code/examples/07_disconnect_rejoin.py) กับ [`08_softap_fallback.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l02-network-status-code/examples/08_softap_fallback.py)
 
-<!-- ไฟล์ตัวหลัง (08_softap_fallback) คือแผนสำรองของทั้งคอร์ส ถ้าวันนั้นในห้องหาวงไม่เจอ -->
+<!-- ไฟล์ตัวหลัง (08_softap_fallback) คือแผนสำรองของทั้งคอร์ส ถ้าวันไหนบอร์ดหาวงที่ตั้งไว้ไม่เจอ -->
 
 ---
 
@@ -204,7 +204,7 @@ tbl.col_width(3, 128)        # "มีรหัส" คือข้อควา�
   <text x="202" y="38" font-size="17" font-weight="700" fill="#ffffff">dBm</text>
   <text x="310" y="38" font-size="17" font-weight="700" fill="#ffffff">ช่อง</text>
   <text x="382" y="38" font-size="17" font-weight="700" fill="#ffffff">รหัส</text>
-  <text x="44" y="86" font-size="17" fill="#ffffff">AIoT-Class</text>
+  <text x="44" y="86" font-size="17" fill="#ffffff">my-hotspot</text>
   <text x="202" y="86" font-size="17" fill="#ffffff">-48</text>
   <text x="310" y="86" font-size="17" fill="#ffffff">6</text>
   <text x="382" y="86" font-size="17" fill="#ffffff">มีรหัส</text>
@@ -253,7 +253,7 @@ def rescan():
 <svg viewBox="0 0 940 222" xmlns="http://www.w3.org/2000/svg">
   <rect x="20" y="14" width="440" height="196" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
   <text x="44" y="44" font-size="19" font-weight="700" fill="#2e7d32">ของจริงที่ scan() คืนมา</text>
-  <text x="44" y="76" font-size="17" font-family="monospace" fill="#1b5e20">("AIoT-Class", -48, 4, 6)</text>
+  <text x="44" y="76" font-size="17" font-family="monospace" fill="#1b5e20">("my-hotspot", -48, 4, 6)</text>
   <text x="44" y="112" font-size="17" fill="#1b5e20">net[0] = ssid</text>
   <text x="250" y="112" font-size="17" fill="#1b5e20">net[1] = rssi</text>
   <text x="44" y="140" font-size="17" fill="#1b5e20">net[2] = security</text>
@@ -402,7 +402,7 @@ while True:                                     # ท่าที่ 5 — ล�
 <svg viewBox="0 0 940 168" xmlns="http://www.w3.org/2000/svg">
   <rect x="150" y="10" width="420" height="148" rx="8" fill="#142240" stroke="#00e676" stroke-width="2"/>
   <text x="172" y="38" font-size="18" font-weight="700" fill="#00e676">สถานะลิงก์</text>
-  <text x="172" y="68" font-size="17" fill="#ffffff">SSID: AIoT-Class</text>
+  <text x="172" y="68" font-size="17" fill="#ffffff">SSID: my-hotspot</text>
   <text x="172" y="94" font-size="17" fill="#ffffff">IP: 192.168.1.42</text>
   <text x="172" y="120" font-size="17" fill="#ffffff">เกตเวย์ 3 ms</text>
   <text x="172" y="146" font-size="17" fill="#ffffff">อินเทอร์เน็ต 24 ms</text>
@@ -484,4 +484,4 @@ while True:                                     # ท่าที่ 5 — ล�
 
 ถ้าจอค้างอยู่ที่ `กำลังต่อ 85 วิ` นานเกินหนึ่งนาทีครึ่ง ให้กด **RESTART** แล้วตรวจ SSID กับรหัสผ่านทีละตัวอักษร — อย่ารอต่อ
 
-> ทีมละหนึ่งบอร์ด สลับกันพิมพ์ทุกช่วง คนที่ไม่ได้พิมพ์มีหน้าที่จับเวลาและจดตัวเลขที่เห็น
+> ระหว่างพิมพ์ตามทีละท่า จับเวลาและจดตัวเลขที่เห็นบนจอไว้ด้วย (ถ้าเรียนเป็นกลุ่ม สลับกันพิมพ์กับจด)

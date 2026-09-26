@@ -123,7 +123,7 @@ section.cover img{filter:none}
   <text x="810" y="100" text-anchor="middle" font-size="16" fill="#e65100">ชนได้กับทุกคนในโลก</text>
 </svg>
 
-- **หัวข้อต้องไม่ซ้ำใคร** ทั้งห้องใช้ชุดเดียว `bento-aiot/<ทีม>/telemetry` (บอร์ดส่งค่า) · `bento-aiot/<ทีม>/event` (เหตุการณ์ เริ่มใช้บทเรียน 2.1–2.3) · `bento-aiot/<ทีม>/cmd` (คำสั่งเข้าบอร์ด) และผู้สอนแจก `TEAM` เป็น `team01` ถึง `team19`
+- **หัวข้อต้องไม่ซ้ำใคร** ทุกคนใช้ชุดเดียว `bento-aiot/<ทีม>/telemetry` (บอร์ดส่งค่า) · `bento-aiot/<ทีม>/event` (เหตุการณ์ เริ่มใช้บทเรียน 2.1–2.3) · `bento-aiot/<ทีม>/cmd` (คำสั่งเข้าบอร์ด) ผู้เรียนคนอื่นก็ใช้ broker และหัวข้อชุดนี้ จึงตั้ง `TEAM` เป็นรหัสที่ไม่ซ้ำใคร a-z 0-9 ยาว 4–16 ตัว เช่นชื่อเล่นต่อด้วยเลขสุ่ม 4 หลัก (`nok4821`) · ถ้าเรียนเป็นกลุ่ม ผู้จัดอาจแจก `team01` ถึง `team19`
 - **ห้าม subscribe `#`** เครื่องหมายนี้แปลว่าทุกหัวข้อบน broker ข้อความของคนแปลกหน้าทั้งโลกจะไหลเข้ามา และกล่องรับของบอร์ดมีช่องเดียว ใบใหม่ทับใบเก่า · หน้าเว็บของทีมฟัง `bento-aiot/team03/#` หน้ารวมของผู้สอนฟัง `bento-aiot/+/telemetry`
 - **ห้ามส่งความลับ** ไม่ว่ารหัส WiFi ชื่อจริง หรือเบอร์โทร ทุกใบวิ่งแบบไม่เข้ารหัส และใครที่ subscribe หัวข้อเดียวกันก็เห็น
 - **client\_id ชนกันได้กับทุกคนบนอินเทอร์เน็ต** ไม่ใช่แค่เพื่อนในห้อง ชนเมื่อไร broker เตะตัวเก่าออก (วัดแล้วว่าเป็นแบบนี้ทุกตัว) ไฟล์จึงตั้ง `DEVICE_ID = "bento-aiot-" + TEAM` ยาว 17 ตัวอักษร (เฟิร์มแวร์ตัดที่ 31) ส่วนหน้าเว็บสุ่ม `web-` ตามด้วยเลขสุ่มทุกครั้ง จึงไม่เตะบอร์ด
@@ -218,7 +218,7 @@ except OSError:
   <text x="126" y="76" text-anchor="middle" font-size="16" fill="#1b5e20">ในเบราว์เซอร์ใดก็ได้</text>
   <rect x="248" y="20" width="212" height="72" rx="8" fill="#e3f2fd" stroke="#1565c0" stroke-width="2" />
   <text x="354" y="50" text-anchor="middle" font-size="18" font-weight="700" fill="#1565c0">2 · ต่อท้าย ?team=</text>
-  <text x="354" y="76" text-anchor="middle" font-size="16" fill="#0d47a1">เลขเดียวกับ TEAM ในไฟล์ 05 06</text>
+  <text x="354" y="76" text-anchor="middle" font-size="16" fill="#0d47a1">รหัสเดียวกับ TEAM ในไฟล์ 05 06</text>
   <rect x="476" y="20" width="212" height="72" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="2" />
   <text x="582" y="50" text-anchor="middle" font-size="18" font-weight="700" fill="#ef6c00">3 · กด Enter</text>
   <text x="582" y="76" text-anchor="middle" font-size="16" fill="#e65100">ไม่ต้องบันทึกไฟล์</text>
@@ -229,13 +229,13 @@ except OSError:
   <text x="470" y="120" text-anchor="middle" font-size="18" fill="#546e7a">เปิดได้ทุกเครื่องที่มีเบราว์เซอร์ รวมถึงมือถือ ไม่ต้องติดตั้งอะไร</text>
 </svg>
 
-ลิงก์ของหน้าอ่านค่า เปลี่ยน `team05` ท้ายลิงก์เป็นเลขทีมของคุณ
+ลิงก์ของหน้าอ่านค่า เปลี่ยน `team05` ท้ายลิงก์เป็นรหัสของคุณ · หน้านี้บนเว็บ AIC รับเฉพาะรหัสรูป `teamNN` ถ้าใช้รหัสของตัวเองอย่าง `nok4821` ให้ดาวน์โหลด [`my_first_reader.html`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/shared/web/my_first_reader.html) ของรีโพนี้ไปเปิดในเบราว์เซอร์แทน
 
 <https://advance-innovation-centre-aic.github.io/embedded-systems-for-aiot-developer/examples/web/my_first_reader.html?team=team05>
 
 ```js
 // ถ้าดาวน์โหลดไฟล์ไปเปิดเอง แก้บรรทัดนี้แทนการต่อท้ายลิงก์
-let TEAM = "teamXX";          // ทีมของคุณ ตามที่ผู้สอนแจก เช่น "team05"
+let TEAM = "teamXX";          // รหัสเดียวกับ TEAM ในไฟล์ Python เช่น "nok4821" (เรียนเป็นกลุ่มใช้เลขที่ผู้จัดแจก เช่น "team05")
 ```
 
 - หน้านี้ฟัง `bento-aiot/<TEAM>/#` แล้ววาดหนึ่งกล่องต่อหนึ่งคีย์ของ JSON (`knob` `az` `n` ...) และมีปุ่มส่งเสียงกับเปิดปิดไฟ LED 0 ที่ส่งเข้า `.../cmd` ให้ไฟล์ 06

@@ -39,7 +39,8 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 
 ถือ canvas ห้าช่องกับตาราง schema จากบทเรียน 5.1 ไว้ในบันทึกการเรียน ถ้ายังตอบไม่ได้ว่า "ค่าเดียว" ของโจทย์ทีมคืออะไร
 แปลว่าช่อง Sense ยังกรอกไม่เสร็จ เตรียม MQTT Explorer บนคอมพิวเตอร์ (ใช้มาแล้วในบทเรียน 4.4–4.6) ชื่อและรหัส WiFi
-หรือ Hotspot ที่บอร์ดจะต่อ และเลขทีมสำหรับ topic `bento/teamNN/...` ไฟล์โครงอยู่ใน `practice/` ของบทเรียน 5.3
+หรือ Hotspot ที่บอร์ดจะต่อ และรหัสที่ไม่ซ้ำใครสำหรับ `DEVICE_ID` และ topic `bento/<รหัส>/...`
+(เช่นชื่อเล่นภาษาอังกฤษตัวเล็กต่อด้วยเลขสุ่ม 4 หลัก `nok4821` เพราะ broker ของโครงเป็นของสาธารณะ) ไฟล์โครงอยู่ใน `practice/` ของบทเรียน 5.3
 
 - **อุปกรณ์:** บอร์ด Eva Kit หรือ TESAIoT Dev Kit ที่ลงเฟิร์มแวร์ MicroPython ของ BENTO แล้ว หรือ BENTO Emulator ใน [BENTO IDE](https://ide.tesaiot.dev/)
 - **เรียนมาก่อน:** [บทเรียน 5.1 — จากโจทย์จริงสู่แบบ: canvas schema และการออกแบบตอนพัง](../l01-problem-to-design/README.md)
@@ -174,9 +175,9 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 **รันโครงให้ผ่านตั้งแต่ยังไม่แก้อะไร** (ราว 15 นาที) จดสิ่งที่เห็นแต่ละข้อลงบันทึกการเรียน
 
 - [ ] บนจอบอร์ด แตะการ์ด BENTO Playground แล้วค้างหน้านี้ไว้
-- [ ] เปิด `s12_capstone_starter.py` ใน BENTO IDE แก้บล็อก CONFIG ให้เป็นของทีม: `DEVICE_ID` `WIFI_SSID` `WIFI_PASS` `TOPIC` (ใช้ `bento/teamNN/...` ของทีมเท่านั้น)
+- [ ] เปิด `s12_capstone_starter.py` ใน BENTO IDE แก้บล็อก CONFIG ให้เป็นของคุณ: `DEVICE_ID` `WIFI_SSID` `WIFI_PASS` `TOPIC` (ใช้รหัสที่ไม่ซ้ำใครทั้งใน `DEVICE_ID` และ topic `bento/<รหัส>/...` เช่น `nok4821` เพราะ broker ของโครงเป็นของสาธารณะ)
 - [ ] กด Program to Device โดยยังไม่แก้ตรรกะ จอต้องขึ้นสามการ์ดและรันได้ทันที (บน Eva การอ่านเซนเซอร์ครั้งแรกหลังรีเซ็ตอาจรอได้ถึงราว 16 วินาที และ `wifi.connect()` บล็อกได้นาน อย่าเพิ่งกดรันซ้ำ)
-- [ ] เปิด MQTT Explorer แล้ว subscribe `bento/teamNN/#`
+- [ ] เปิด MQTT Explorer แล้ว subscribe `bento/<รหัส>/#`
 - [ ] เอียงบอร์ดเกิน 15 องศาค้างไว้ ไฟ "ผิดปกติ" ติด ป้าย "รอคนรับทราบ" ขึ้น และมีข้อความ `kind` เป็น `event` ขึ้น broker
 - [ ] ทดสอบการพัง: ปิด WiFi ที่บอร์ดต่อ (หรือถอดเราเตอร์) จอยังวาดต่อและบรรทัดสถานะเน็ตขึ้น offline พร้อมจำนวนที่ส่งไม่ออก
 - [ ] เขียนรายการจุด "ทีมเขียนเอง" ในไฟล์ แล้วจับคู่แต่ละจุดกับช่องของ canvas ที่ตอบมัน

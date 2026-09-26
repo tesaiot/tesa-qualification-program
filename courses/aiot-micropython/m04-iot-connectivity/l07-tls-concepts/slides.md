@@ -54,7 +54,7 @@ section.cover img{filter:none}
 
 ---
 
-## ดูของจริงก่อน — รหัสผ่านของทีมเราบนหน้าจอคนอื่น
+## ดูของจริงก่อน — รหัสผ่านของเราบนหน้าจอคนอื่น
 
 
 
@@ -146,7 +146,7 @@ section table td, section table th { padding: .16em .55em; }
   <text x="496" y="112" text-anchor="middle" font-size="17" fill="#1b5e20">รับคำสั่งกลับมา</text>
   <rect x="604" y="56" width="176" height="78" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
   <text x="692" y="86" text-anchor="middle" font-size="20" font-weight="700" fill="#2e7d32">TESAIoT CE</text>
-  <text x="692" y="112" text-anchor="middle" font-size="17" fill="#1b5e20">ของทีมเราเอง</text>
+  <text x="692" y="112" text-anchor="middle" font-size="17" fill="#1b5e20">ที่ติดตั้งเอง</text>
   <rect x="796" y="48" width="130" height="94" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="3"/>
   <text x="861" y="80" text-anchor="middle" font-size="20" font-weight="700" fill="#ef6c00">วันนี้</text>
   <text x="861" y="106" text-anchor="middle" font-size="17" fill="#e65100">tesaiot.*</text>
@@ -167,20 +167,20 @@ section table td, section table th { padding: .16em .55em; }
 
 ---
 
-## ก่อนเริ่มบทเรียน — ทุกทีมต้องมีตัวตนของตัวเอง
+## ก่อนเริ่มบทเรียน — บอร์ดทุกตัวต้องมีตัวตนของตัวเอง
 
 ![หน้าจอรายการอุปกรณ์ของ TESAIoT Community Edition ที่ใช้ลงทะเบียนตัวตนของอุปกรณ์ w:400](img/s11_ce_devices.png) ![การ์ด Hardware Security Module รุ่น nCipher nShield ที่เก็บกุญแจเข้ารหัสไว้ในฮาร์ดแวร์ w:300](img/hsm_ncipher_nshield_commons.jpg)
 
-<div style="font-size:.58em;color:#78909c;margin-top:-.35em">ซ้าย — ภาพหน้าจอ: TESAIoT Community Edition v1.1.8 — เอกสารของ repo (Apache-2.0) · ขวา — ภาพ: Alexander Klink / Wikimedia Commons — CC BY 3.0 — การ์ด HSM (nCipher nShield) ตัวจริงที่เสียบอยู่ในเครื่องของ CA: ตัวตนที่ทีมกำลังจะได้รับ ถูกเซ็นด้วยกุญแจที่อยู่ในของแบบนี้ ไม่ใช่ไฟล์บนโน้ตบุ๊กของใคร</div>
+<div style="font-size:.58em;color:#78909c;margin-top:-.35em">ซ้าย — ภาพหน้าจอ: TESAIoT Community Edition v1.1.8 — เอกสารของ repo (Apache-2.0) · ขวา — ภาพ: Alexander Klink / Wikimedia Commons — CC BY 3.0 — การ์ด HSM (nCipher nShield) ตัวจริงที่เสียบอยู่ในเครื่องของ CA: ตัวตนที่อุปกรณ์กำลังจะได้รับ ถูกเซ็นด้วยกุญแจที่อยู่ในของแบบนี้ ไม่ใช่ไฟล์บนโน้ตบุ๊กของใคร</div>
 
 <div style="display:flex;gap:18px;align-items:flex-start">
 <div style="flex:1">
 
 **บอร์ดทุกตัวออกจากโรงงานมาพร้อม `device_id` ค่าเริ่มต้นตัวเดียวกันหมด** และ MQTT บังคับว่า client id ต้องไม่ซ้ำกันบน broker เดียวกัน
 
-พอบอร์ดตัวที่สองต่อเข้ามาด้วย id เดิม broker จะ **เตะตัวแรกออก** ตัวแรกต่อใหม่แล้วเตะตัวที่สองออก วนแบบนี้ไปทั้งห้อง โดยที่โค้ดของทุกทีม **ถูกต้องหมด**
+พอบอร์ดตัวที่สองต่อเข้ามาด้วย id เดิม broker จะ **เตะตัวแรกออก** ตัวแรกต่อใหม่แล้วเตะตัวที่สองออก วนแบบนี้ไปเรื่อย ๆ โดยที่โค้ดของทุกบอร์ด **ถูกต้องหมด**
 
-ผู้สอน provision ตัวตนรายทีมให้ก่อนบทเรียน ทีมต้องได้ครบสี่ค่า: **`device_id` · `api_key` · `mqtt_pass` · ชื่อโฮสต์ของ broker** — ลงบันทึกการเรียนก่อนแตะโค้ด
+ตัวตนต้อง provision แยกรายอุปกรณ์ และต้องได้ครบสี่ค่า: **`device_id` · `api_key` · `mqtt_pass` · ชื่อโฮสต์ของ broker** — เพิ่มอุปกรณ์ในบัญชี TESAIoT Platform ของคุณ แล้วจดสี่ค่าจากหน้าจัดการอุปกรณ์ของแพลตฟอร์มลงบันทึกการเรียนก่อนแตะโค้ด (CE ที่ติดตั้งเองใช้กับ MQTTs ของชุดนี้ไม่ได้ ดูสไลด์เรื่อง root CA · ถ้าเรียนเป็นกลุ่ม ผู้จัดอาจเตรียมตัวตนไว้ให้)
 
 </div>
 <div style="width:300px">
@@ -189,9 +189,9 @@ section table td, section table th { padding: .16em .55em; }
   <rect x="8" y="10" width="284" height="172" rx="9" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
   <text x="150" y="36" text-anchor="middle" font-size="19" font-weight="700" fill="#c62828">id ซ้ำ = ลูปเตะกันเอง</text>
   <rect x="26" y="52" width="104" height="46" rx="6" fill="#fff" stroke="#c62828" stroke-width="2"/>
-  <text x="78" y="80" text-anchor="middle" font-size="18" fill="#b71c1c">ทีม A</text>
+  <text x="78" y="80" text-anchor="middle" font-size="18" fill="#b71c1c">บอร์ด A</text>
   <rect x="170" y="52" width="104" height="46" rx="6" fill="#fff" stroke="#c62828" stroke-width="2"/>
-  <text x="222" y="80" text-anchor="middle" font-size="18" fill="#b71c1c">ทีม B</text>
+  <text x="222" y="80" text-anchor="middle" font-size="18" fill="#b71c1c">บอร์ด B</text>
   <rect x="98" y="118" width="104" height="46" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
   <text x="150" y="146" text-anchor="middle" font-size="18" fill="#e65100">broker</text>
   <line x1="78" y1="100" x2="130" y2="116" stroke="#c62828" stroke-width="2.5"/>
@@ -202,7 +202,7 @@ section table td, section table th { padding: .16em .55em; }
 </div>
 </div>
 
-> ทีมที่ยังไม่ได้ค่าครบสี่ตัว **ห้ามเริ่มท่าที่ 2** — ไม่ใช่กฎห้องเรียน แต่เป็นเพราะมันจะทำให้ทั้งห้องต่อไม่ติดพร้อมกัน
+> ถ้ายังไม่ได้ค่าครบสี่ตัว **อย่าเพิ่งเริ่มท่าที่ 2** — บอร์ดจะต่อด้วยตัวตนค่าเริ่มต้นที่ซ้ำกับบอร์ดตัวอื่น แล้วเตะกันหลุดบน broker
 
 ---
 
@@ -441,7 +441,7 @@ TLS 1.2 (RFC 5246, ปี 2008) ใช้ **สองรอบไป-กลั�
 
 ---
 
-## ทำไม MQTTs ยิงเข้า CE ที่ทีมติดตั้งเองไม่ได้
+## ทำไม MQTTs ยิงเข้า CE ที่ติดตั้งเองไม่ได้
 
 <svg viewBox="0 0 940 292" xmlns="http://www.w3.org/2000/svg">
   <rect x="14" y="40" width="272" height="150" rx="10" fill="#132033" stroke="#3d5a80" stroke-width="2.5"/>
@@ -457,7 +457,7 @@ TLS 1.2 (RFC 5246, ปี 2008) ใช้ **สองรอบไป-กลั�
   <text x="790" y="108" text-anchor="middle" font-size="18" fill="#1b5e20">ตรวจผ่าน · ต่อได้จริง</text>
   <text x="790" y="132" text-anchor="middle" font-size="17" fill="#4a7c4e">นี่คือปลายทางของบทเรียน 4.7–4.9</text>
   <rect x="654" y="162" width="272" height="120" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2.5"/>
-  <text x="790" y="192" text-anchor="middle" font-size="20" font-weight="700" fill="#c62828">TESAIoT CE ของทีมเอง</text>
+  <text x="790" y="192" text-anchor="middle" font-size="20" font-weight="700" fill="#c62828">TESAIoT CE ที่ติดตั้งเอง</text>
   <text x="790" y="220" text-anchor="middle" font-size="18" fill="#b71c1c">สุ่ม root CA ใหม่ทุกครั้งที่ติดตั้ง</text>
   <text x="790" y="246" text-anchor="middle" font-size="18" fill="#b71c1c">บอร์ดไม่รู้จัก จึงตรวจไม่ผ่าน</text>
   <text x="790" y="270" text-anchor="middle" font-size="17" fill="#8d6e63">ไม่ใช่บั๊ก — เป็นผลของการออกแบบ</text>
@@ -472,11 +472,11 @@ TLS 1.2 (RFC 5246, ปี 2008) ใช้ **สองรอบไป-กลั�
   <text x="424" y="248" text-anchor="middle" font-size="17" fill="#8d6e63">บทเรียน 4.4–4.6 ใช้ 1883 กับ CE จึงทำได้</text>
 </svg>
 
-**บทเรียน 4.4–4.6 ใช้ MQTT ธรรมดา (1883) ยิงเข้า CE ที่ทีมติดตั้งเอง — ได้จริง · บทเรียน 4.7–4.9 ใช้ MQTTs (8884) ยิงเข้าแพลตฟอร์ม TESAIoT อย่างเป็นทางการ ที่เฟิร์มแวร์ฝัง CA ไว้ตรงกัน — ได้จริง** แต่ **การเอา MQTTs ไปยิง CE ที่ self-host ทำไม่ได้ในวันนี้** เพราะสคริปต์ติดตั้งของ CE สร้าง root CA ใหม่แบบสุ่มทุกครั้ง ใบรับรองของ broker จึงห้อยจาก root ที่บอร์ดไม่มีทางรู้จัก
+**บทเรียน 4.4–4.6 ใช้ MQTT ธรรมดา (1883) ยิงเข้า CE ที่ติดตั้งเอง — ได้จริง · บทเรียน 4.7–4.9 ใช้ MQTTs (8884) ยิงเข้าแพลตฟอร์ม TESAIoT อย่างเป็นทางการ ที่เฟิร์มแวร์ฝัง CA ไว้ตรงกัน — ได้จริง** แต่ **การเอา MQTTs ไปยิง CE ที่ self-host ทำไม่ได้ในวันนี้** เพราะสคริปต์ติดตั้งของ CE สร้าง root CA ใหม่แบบสุ่มทุกครั้ง ใบรับรองของ broker จึงห้อยจาก root ที่บอร์ดไม่มีทางรู้จัก
 
 จะทำให้ได้ต้องเอา CA ของ CE ชุดนั้น **ใส่กลับเข้าไปในซอร์สแล้ว build เฟิร์มแวร์ใหม่ทุกบอร์ด** ต่อการติดตั้งหนึ่งชุด — เป็นงานที่ทำได้ แต่ไม่ใช่งานของชุดบทเรียนนี้
 
-> ถ้ามีทีมไหนลองแล้วต่อไม่ติด **ไม่ต้องดีบักโค้ด** — มันไม่ใช่โค้ดของทีม มันคือกุญแจที่ไม่ตรงรู กลับไปใช้โฮสต์ที่ผู้สอนให้มา
+> ถ้าลองแล้วต่อไม่ติด **ไม่ต้องดีบักโค้ด** — มันไม่ใช่โค้ดของคุณ มันคือกุญแจที่ไม่ตรงรู กลับไปใช้โฮสต์ของแพลตฟอร์ม TESAIoT ที่ได้มาพร้อมตัวตนของอุปกรณ์
 
 ---
 
@@ -526,8 +526,8 @@ TLS 1.2 (RFC 5246, ปี 2008) ใช้ **สองรอบไป-กลั�
 |---|---|---|
 | การเข้ารหัส | ไม่มีเลย | TLS 1.2 |
 | ตัวตนของ broker | ไม่มีการพิสูจน์ | ใบรับรองที่ CA เซ็น + ตรวจ SNI |
-| ตัวตนของอุปกรณ์ | client_id ที่ใครก็อ้างได้ | credentials ที่ provision รายทีม |
-| ปลายทาง | CE ที่ทีมติดตั้งเอง | แพลตฟอร์ม TESAIoT |
+| ตัวตนของอุปกรณ์ | client_id ที่ใครก็อ้างได้ | credentials ที่ provision รายอุปกรณ์ |
+| ปลายทาง | CE ที่ติดตั้งเอง | แพลตฟอร์ม TESAIoT |
 | โมดูล | `mqtt` | `tesaiot` |
 
 พอร์ต 1883 **ไม่ได้ "ปลอดภัยน้อยกว่า" — มันไม่มีความปลอดภัยเลย** ทั้งเรื่องเนื้อหาและเรื่องตัวตน สิ่งที่ 8884 เพิ่มเข้ามาคือสองอย่างพร้อมกัน: การเข้ารหัส และการรู้ว่ากำลังคุยกับใคร

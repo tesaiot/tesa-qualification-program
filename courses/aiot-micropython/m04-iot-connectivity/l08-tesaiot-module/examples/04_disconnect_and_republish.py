@@ -15,11 +15,11 @@ import ui
 import json
 import time
 
-WIFI_SSID = "AIoT-Class"
+WIFI_SSID = "my-hotspot"      # WiFi บ้านหรือ Hotspot มือถือของคุณ
 WIFI_PASS = "<รหัสผ่าน WiFi ของคุณ>"
-DEVICE_ID = "team03"
-API_KEY = "<api key ของทีม>"
-MQTT_PASS = "<รหัสผ่าน MQTT ของทีม>"
+DEVICE_ID = "team03"          # สี่ค่านี้จากหน้าจัดการอุปกรณ์ในบัญชี TESAIoT Platform ของคุณ (บทเรียน 4.7)
+API_KEY = "<api key ของอุปกรณ์>"
+MQTT_PASS = "<รหัสผ่าน MQTT ของอุปกรณ์>"
 BROKER = "mqtt.tesaiot.dev"
 WAIT_MS = 30000
 
@@ -93,7 +93,7 @@ took = wait_connected(WAIT_MS)
 if took < 0:
     step(s2, "2) connect + รอจริง    ไม่ติดใน 30 วินาที", COL_BAD)
     note.color(COL_BAD)
-    note.text("ตรวจ broker sni_hostname และตัวตนของทีม")
+    note.text("ตรวจ broker sni_hostname และตัวตนของอุปกรณ์")
     lcd.print("<span class=err>ต่อไม่ติดใน 30 วินาที</span>")
     raise SystemExit
 

@@ -156,7 +156,7 @@ section.cover img{filter:none}
 
 <div style="font-size:.58em;color:#78909c;margin-top:-.35em">ภาพ: Miraceti / Wikimedia Commons — CC BY-SA 3.0</div>
 
-พอร์ต 1883 **ไม่มีการเข้ารหัส** ทั้ง `username`, `password` และ payload ทุกไบต์ เดินทางบน WiFi ห้องเรียนในรูปข้อความอ่านออกได้ ใครที่ดักจับสัญญาณได้ ก็อ่านรหัสของทีมเราได้ และ **ปลอมเป็นอุปกรณ์ของเราส่งข้อมูลปลอมเข้าแพลตฟอร์มได้ทันที**
+พอร์ต 1883 **ไม่มีการเข้ารหัส** ทั้ง `username`, `password` และ payload ทุกไบต์ เดินทางบน WiFi ในรูปข้อความอ่านออกได้ ใครที่ดักจับสัญญาณวงเดียวกันได้ ก็อ่านรหัสของอุปกรณ์เราได้ และ **ปลอมเป็นอุปกรณ์ของเราส่งข้อมูลปลอมเข้าแพลตฟอร์มได้ทันที**
 
 - CE เองระบุไว้ในไฟล์ตั้งค่าว่าพอร์ต 1883 มีไว้สำหรับ **local/dev เท่านั้น**
 - API ของแพลตฟอร์มจะเขียน log เตือนทุกครั้งที่อุปกรณ์โหมด `server_tls` เข้ามาทางพอร์ต 1883
@@ -347,7 +347,7 @@ print(mqtt.is_connected())        # False ทันที ไม่ต้อง�
   <text x="504" y="106" font-size="18" fill="#1b5e20">client_id ว่างทันที ต่อใหม่ชื่อเดิมได้เลย</text>
   <text x="504" y="136" font-size="18" fill="#1b5e20">is_connected() ตอบ False ตรงกับความจริง</text>
   <text x="504" y="166" font-size="18" fill="#1b5e20">รันซ้ำได้ต่อเนื่องโดยไม่ต้องรอ</text>
-  <text x="504" y="200" font-size="18" font-weight="700" fill="#1b5e20">ในห้องเรียนที่รันวันละสิบรอบ ต่างกันมาก</text>
+  <text x="504" y="200" font-size="18" font-weight="700" fill="#1b5e20">ตอนฝึกที่รันวันละสิบรอบ ต่างกันมาก</text>
 </svg>
 
 โค้ดหลักของชุดบทเรียนนี้วนลูปไม่รู้จบ จึงไม่เคยเดินมาถึงบรรทัด `disconnect()` แต่พอทีมกด Ctrl-C หรือกดรันใหม่ **บอร์ดหายไปโดยที่ broker ยังนับว่าเรายังอยู่** เพราะฝั่งนั้นรอจนครบ `keepalive` ก่อนถึงจะยอมรับว่าเราไปแล้ว ระหว่างนั้นชื่อ `client_id` เดิมยังถูกจองอยู่
@@ -426,8 +426,8 @@ print(mqtt.is_connected())        # False ทันที ไม่ต้อง�
 
 1. **บนเครื่องที่รัน CE** — ตรวจว่า `docker compose ps` เห็น emqx สถานะ up และพอร์ตขึ้นเป็น `0.0.0.0:1883` แล้วจริง
 2. **หา IP ของเครื่องนั้นใน LAN** (ไม่ใช่ `localhost` — บอร์ดอยู่คนละเครื่อง) แล้วทดสอบจากบอร์ดด้วย `wifi.ping("192.168.1.50")` ก่อน ถ้า ping ไม่ผ่าน อย่าเพิ่งเสียเวลากับ MQTT
-3. **บนคอม** เปิด **MQTT Explorer** ต่อไปที่ IP เดียวกัน พอร์ต 1883 ด้วยชื่อผู้ใช้/รหัสของทีม แล้ว subscribe `device/#` ไว้ล่วงหน้า
-4. **บนบอร์ด** เปิดหน้า **BENTO Playground** ค้างไว้ แล้วเปิด [`s10_mqtt_telemetry.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l06-mqtt-telemetry-lab/practice/s10_mqtt_telemetry.py) แก้ค่าบนหัวไฟล์ให้เป็นของทีม
+3. **บนคอม** เปิด **MQTT Explorer** ต่อไปที่ IP เดียวกัน พอร์ต 1883 ด้วยชื่อผู้ใช้/รหัสของอุปกรณ์ที่ได้ตอนเพิ่มอุปกรณ์ใน CE แล้ว subscribe `device/#` ไว้ล่วงหน้า
+4. **บนบอร์ด** เปิดหน้า **BENTO Playground** ค้างไว้ แล้วเปิด [`s10_mqtt_telemetry.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l06-mqtt-telemetry-lab/practice/s10_mqtt_telemetry.py) แก้ค่าบนหัวไฟล์ให้เป็นของคุณ
 5. เติมช่องว่าง `pass` ให้ครบ แล้วกด **Program to Device** — จากนั้นมองสองจอสลับกัน
 6. ทดสอบขากลับ: ใน MQTT Explorer พิมพ์ publish ไปที่ `device/<device_id>/commands` ด้วย payload `{"cmd":"toggle"}` แล้วดู LED
 
@@ -439,7 +439,7 @@ print(mqtt.is_connected())        # False ทันที ไม่ต้อง�
 
 | ลำดับ · เรื่อง · เวลา | ไฟล์ | ลงมือทำอะไร แล้วจะเข้าใจอะไร |
 |---|---|---|
-| **1 · ตั้งชื่อ topic ก่อนต่อ broker** · 8 นาที | [`01_topic_design.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l05-mqtt-platform/examples/01_topic_design.py) | ตั้ง topic ของทีมที่ไม่ชนกับอีกเก้าทีม และรู้ว่า wildcard ใส่ใน publish ไม่ได้ · จะเข้าใจว่าชื่อ topic เป็นของที่ออกแบบก่อนต่อ broker ไม่ใช่ค่อยคิดตอนโค้ดพร้อมส่งแล้ว |
+| **1 · ตั้งชื่อ topic ก่อนต่อ broker** · 8 นาที | [`01_topic_design.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l05-mqtt-platform/examples/01_topic_design.py) | ตั้ง topic ที่ไม่ชนกับผู้เรียนคนอื่นบน broker เดียวกัน และรู้ว่า wildcard ใส่ใน publish ไม่ได้ · จะเข้าใจว่าชื่อ topic เป็นของที่ออกแบบก่อนต่อ broker ไม่ใช่ค่อยคิดตอนโค้ดพร้อมส่งแล้ว |
 | **2 · บันไดสามขั้น WiFi → TCP → MQTT** · 15 นาที | [`03_connect_and_publish.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l05-mqtt-platform/examples/03_connect_and_publish.py) | ส่ง JSON ใบแรกขึ้น broker ได้ และรู้ว่าพังขั้นไหนเมื่อมันพัง · จะเห็นว่าการต่อคือบันไดสามขั้น WiFi → TCP → MQTT ที่ล้มได้คนละแบบ |
 | **3 · สั่งกลับจากคอมพิวเตอร์** · 12 นาที | [`04_subscribe_command.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l05-mqtt-platform/examples/04_subscribe_command.py) | ซ้อมครึ่งหลังของ MVP — รับ `{"cmd":"beep"}` กับ `{"cmd":"count"}` แล้วบอร์ดตอบทันที (คำสั่ง `toggle` ที่สลับ LED จริงอยู่ในไฟล์ฝึก `s10_mqtt_telemetry.py` ของบทเรียน 4.6) · จะเข้าใจว่าการสั่งกลับมาที่บอร์ดคือฝั่ง subscribe ไม่ใช่ฝั่ง publish |
 
@@ -453,4 +453,4 @@ print(mqtt.is_connected())        # False ทันที ไม่ต้อง�
 
 **อ่านเสริมนอกเวลา** — เรื่องนี้เป็นเนื้อหาของบทเรียน 4.7–4.9 ไม่ใช่เกณฑ์ผ่านของวันนี้: [`06_secure_publish_loop.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l08-tesaiot-module/examples/06_secure_publish_loop.py) คือลูปเดียวกันนี้ แต่วิ่งบนช่องที่เข้ารหัสไปยังแพลตฟอร์ม วันนี้ยังรันไม่ได้จนกว่าทีมจะได้ `device_id` ของตัวเอง เปิดอ่านเทียบโครงได้ แต่อย่าเพิ่งพยายามรัน
 
-> ทีมละหนึ่งบอร์ดหนึ่ง `device_id` — **ห้ามสองทีมใช้ `client_id` เดียวกัน** เพราะ broker จะเตะเครื่องเก่าออกทุกครั้งที่เครื่องใหม่ต่อเข้ามา แล้วทั้งสองทีมจะหลุดสลับกันเป็นลูป
+> หนึ่งบอร์ดหนึ่ง `device_id` — **ห้ามสองบอร์ดใช้ `client_id` เดียวกัน** เพราะ broker จะเตะเครื่องเก่าออกทุกครั้งที่เครื่องใหม่ต่อเข้ามา แล้วทั้งสองเครื่องจะหลุดสลับกันเป็นลูป · ไฟล์ 04 06 07 ต่อ broker ฝึกสาธารณะ `broker.hivemq.com` ที่คนอื่นก็ใช้ ก่อนรันให้แก้ `team03` ทั้งใน `DEVICE_ID` และใน topic เป็นรหัสของคุณ เช่น `nok4821`

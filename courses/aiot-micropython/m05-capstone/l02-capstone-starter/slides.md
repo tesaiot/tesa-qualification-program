@@ -248,8 +248,8 @@ def on_state_change(old, new, value):
   <text x="14" y="172" font-size="16" fill="#a1683a">ไม่ใช่ตัวอักษรสี</text>
   <text x="806" y="110" font-size="17" font-weight="700" fill="#2e7d32">เปิด/ปิด</text>
   <text x="806" y="132" font-size="16" fill="#4a7c4e">คนละปุ่ม</text>
-  <text x="806" y="180" font-size="17" font-weight="700" fill="#6a1b9a">31 จาก 64</text>
-  <text x="806" y="202" font-size="16" fill="#7e5a94">ยังเหลือให้ทีม</text>
+  <text x="806" y="180" font-size="17" font-weight="700" fill="#6a1b9a">31 จากงบ 32</text>
+  <text x="806" y="202" font-size="16" fill="#7e5a94">เพดาน 64 ตัว</text>
   <text x="470" y="252" text-anchor="middle" font-size="19" font-weight="700" fill="#37474f">ถ้าจอนี้ติดอยู่หน้าเครื่องจักรจริง คนเดินผ่านจะเข้าใจใน 2 วินาทีไหม</text>
 </svg>
 
@@ -427,7 +427,7 @@ def go_online():
 
 `client_id=DEVICE_ID` สำคัญกว่าที่คิด — บน broker สาธารณะ ถ้าสองบอร์ดใช้ client id เดียวกัน จะเตะกันหลุดสลับไปมาเป็นลูป
 
-> ยกระดับได้ด้วย `tesaiot.connect()` ของบทเรียน 4.7–4.9 (TLS 8884) แต่ต้อง provision ตัวตนอุปกรณ์รายทีมก่อน จึงไม่อยู่ในโครงเริ่มต้น
+> ยกระดับได้ด้วย `tesaiot.connect()` ของบทเรียน 4.7–4.9 (TLS 8884) แต่ต้อง provision ตัวตนของอุปกรณ์ในบัญชี TESAIoT Platform ก่อน จึงไม่อยู่ในโครงเริ่มต้น
 
 ---
 
@@ -503,9 +503,9 @@ def go_online():
 
 1. **บนจอบอร์ด** แตะการ์ด **BENTO Playground** แล้วค้างหน้านี้ไว้
 2. เปิด [`s12_capstone_starter.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m05-capstone/l03-build-and-present/practice/s12_capstone_starter.py) ใน BENTO IDE
-3. แก้บล็อก **CONFIG** ให้เป็นของทีม: `DEVICE_ID`, `WIFI_SSID`, `WIFI_PASS`, `TOPIC` (ใช้ `bento/teamNN/...` ของทีมเท่านั้น กันชนกับทีมอื่นบน broker สาธารณะ)
+3. แก้บล็อก **CONFIG** ให้เป็นของคุณ: `DEVICE_ID`, `WIFI_SSID`, `WIFI_PASS`, `TOPIC` (ใช้รหัสที่ไม่ซ้ำใคร เช่น `nok4821` ทั้งใน `DEVICE_ID` และ `bento/<รหัส>/...` กันชนกับคนอื่นบน broker สาธารณะ)
 4. กด **Program to Device** แล้วดูจอบอร์ด — ยังไม่ต้องแก้ตรรกะอะไร มันต้องรันได้แล้วตั้งแต่ตอนนี้
-5. เปิด MQTT Explorer บนคอม แล้ว subscribe `bento/teamNN/#` เพื่อดูข้อความของทีม
+5. เปิด MQTT Explorer บนคอม แล้ว subscribe `bento/<รหัส>/#` เพื่อดูข้อความของบอร์ดคุณ
 6. เอียงบอร์ดเกิน 15 องศาค้างไว้ ดูว่าจอเปลี่ยนสถานะและมีข้อความ `kind: event` ขึ้น broker
 7. **ทดสอบการพัง**: ปิด WiFi ที่เราต่อ (หรือถอด router) แล้วสังเกตว่าจอยังวาดต่อและขึ้น offline
 8. ค่อยเริ่มแทนที่ส่วนที่เขียนว่า "ทีมเขียนเอง" ทีละจุด แล้วรันดูทุกครั้ง

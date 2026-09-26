@@ -30,7 +30,7 @@
 - **บอร์ด** BENTO PSoC Edge **Eva Kit** (KIT_PSE84_EVAL_EPC2) หรือ **TESAIoT Dev Kit** (SoM KIT_PSE84_AI บนฐาน QWA309) ที่ลงเฟิร์มแวร์ MicroPython ของ BENTO แล้ว — **หรือไม่มีบอร์ดก็เริ่มได้** ด้วย BENTO Emulator ใน BENTO IDE (บางบทเรียนต้องใช้บอร์ดจริง ดูบรรทัด "อุปกรณ์" ในแต่ละบทเรียน)
 - **BENTO IDE** — <https://ide.tesaiot.dev/> เขียนโค้ดแล้วกด **Program to Device** ได้จากเบราว์เซอร์ และมี BENTO Emulator ในตัว
 - **WiFi** ตั้งแต่บทเรียน 1.4 (ต่อเน็ตครั้งแรก) และใช้จริงจังในโมดูล 4 · เครือข่ายที่ต้อง login ผ่านหน้าเว็บ บอร์ดใช้ไม่ได้ ให้ใช้ Hotspot จากมือถือแทน
-- **TESAIoT Community Edition** สำหรับบทเรียน 4.4–4.9 และ capstone — แพลตฟอร์ม IoT ที่ติดตั้งเองได้ (<https://github.com/tesaiot/tesaiot-community-edition>)
+- **TESAIoT Community Edition** สำหรับบทเรียน 4.5–4.6 — แพลตฟอร์ม IoT ที่ติดตั้งเองได้ (<https://github.com/tesaiot/tesaiot-community-edition>) · **บัญชี TESAIoT Platform** สำหรับ MQTTs ในบทเรียน 4.7–4.9 (CE ที่ติดตั้งเองใช้กับ MQTTs จากบอร์ดไม่ได้ ดูบทเรียน 4.7) · ส่วนบทเรียนที่ใช้ MQTT ธรรมดาอื่น ๆ และ capstone ใช้ broker ฝึกสาธารณะ ถ้าเรียนเป็นกลุ่ม ผู้จัดอาจเตรียม broker และตัวตนของอุปกรณ์ไว้ให้
 - สมุดหรือไฟล์สำหรับ **บันทึกการเรียน** ของตัวเอง สไลด์จะบอกเป็นระยะว่าควรจดอะไร
 
 สองบอร์ดต่างกันที่จำนวนไฟ (3 กับ 5 ดวง) เซนเซอร์เพิ่มบน Dev Kit (SHT40, DPS368, เรดาร์) และการ์ดบนหน้า Home (Dev Kit ไม่มี Controls, TESAIoT Connectivity และ Audio Player) สไลด์บอกไว้ทุกจุดที่สองบอร์ดต่างกัน

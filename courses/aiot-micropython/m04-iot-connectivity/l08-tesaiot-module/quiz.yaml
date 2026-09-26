@@ -56,7 +56,7 @@ items:
     en: A team has changed so many keys that they no longer know what the board holds. What does the deck recommend?
   choices:
   - th: เรียก `config_reset()` แล้วตั้งทุกค่าใหม่จากศูนย์ โดยไม่เอาค่าที่คืนมาใส่ใน `if`
-  - th: เรียก `config_reload()` แล้วค่าของทีมจะกลับมาครบเสมอ
+  - th: เรียก `config_reload()` แล้วค่าตัวตนจะกลับมาครบเสมอ
   - th: เรียก `tesaiot.protected_update()` เพื่อเขียนตัวตนลงชิปใหม่
   - th: ไล่แก้ทีละคีย์ไปเรื่อย ๆ จนต่อติด
   answer:

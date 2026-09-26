@@ -32,7 +32,7 @@ You need basic Python (variables, if, loops, functions). No electronics backgrou
 - **A board**: BENTO PSoC Edge **Eva Kit** (KIT_PSE84_EVAL_EPC2) or **TESAIoT Dev Kit** (KIT_PSE84_AI SoM on the QWA309 base) with the BENTO MicroPython firmware — **or start without a board** in the BENTO Emulator inside BENTO IDE (some lessons need the real board; see each lesson's hardware line)
 - **BENTO IDE** — <https://ide.tesaiot.dev/> write code and press **Program to Device** from the browser; the BENTO Emulator is built in
 - **WiFi** from lesson 1.4 (first connection) and throughout module 4 · networks that need a web login do not work for the board; use a phone hotspot
-- **TESAIoT Community Edition** for lessons 4.4–4.9 and the capstone — a self-hosted IoT platform (<https://github.com/tesaiot/tesaiot-community-edition>)
+- **TESAIoT Community Edition** for lessons 4.5–4.6 — a self-hosted IoT platform (<https://github.com/tesaiot/tesaiot-community-edition>) · **a TESAIoT Platform account** for MQTTs in lessons 4.7–4.9 (a self-installed CE cannot take MQTTs from the board; see lesson 4.7) · the other plain-MQTT lessons and the capstone use a public practice broker. When learning in a group, the organiser may prepare a broker and device identities for you
 - A notebook or file for your own **learning log**; the slides say what to record
 
 ## Course map

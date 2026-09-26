@@ -118,7 +118,7 @@ const NET_MARGIN_MS = 3000;       // เผื่อเวลาข้อคว�
 const ROUND_MS = WAIT_MIN_MS + WAIT_SPAN_MS + GO_TIMEOUT_MS + NET_MARGIN_MS;
 const STALE_SEC = 10;
 const MAX_TEAMS = 40;
-const TEAM_OK = /^team\d{2}$/;            // รับเฉพาะชื่อทีมแบบที่ผู้สอนแจก
+const TEAM_OK = /^[a-z0-9]{4,16}$/;       // รับรหัสแบบเดียวกับที่ไฟล์ฝั่งบอร์ดยอม: a-z 0-9 ยาว 4-16 ตัว
 const ROOT_OK = /^[A-Za-z0-9_-]{1,40}$/;
 
 const $ = (id) => document.getElementById(id);

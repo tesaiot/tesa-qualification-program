@@ -1,7 +1,7 @@
 # 05_status_dict.py - อ่านสถานะครั้งเดียว แล้วใช้ค่าชุดนั้นทั้งรอบ
 #
 # ก่อนกด Run แก้ 2 บรรทัดนี้ก่อน:
-#   WIFI_SSID = ชื่อวงที่ผู้สอนแจก
+#   WIFI_SSID = ชื่อ WiFi บ้านหรือ Hotspot มือถือของคุณ (ตั้งตามบทเรียน 1.4)
 #   WIFI_PASS = รหัสผ่านของวงนั้น
 #
 # Why : ตอนลิงก์มีปัญหา คนมักไล่ถามทีละอย่าง - ต่ออยู่ไหม IP อะไร โหมดไหน
@@ -27,7 +27,7 @@ import lcd
 import ui
 import time
 
-WIFI_SSID = "AIoT-Class"
+WIFI_SSID = "my-hotspot"
 WIFI_PASS = "<รหัสผ่าน WiFi ของคุณ>"
 WATCH_ROUNDS = 14
 COL_TEXT, COL_DIM = 0xE8EAED, 0x9AA3AF

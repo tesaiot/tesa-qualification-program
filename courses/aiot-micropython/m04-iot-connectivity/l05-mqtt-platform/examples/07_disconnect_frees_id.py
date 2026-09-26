@@ -16,11 +16,11 @@ import ui
 import json
 import time
 
-WIFI_SSID = "AIoT-Class"
+WIFI_SSID = "my-hotspot"      # WiFi บ้านหรือ Hotspot มือถือของคุณ
 WIFI_PASS = "<รหัสผ่าน WiFi ของคุณ>"
-BROKER = "192.168.1.50"          # IP ของเครื่องในแลน ไม่ใช่ localhost · broker ฝึกที่ไม่ตรวจตัวตน (เช่น mosquitto ในแลน) ไม่ใช่ CE: ไฟล์นี้ต่อโดยไม่มี username/password และใช้ topic bento/... ซึ่ง CE ปฏิเสธตั้งแต่ CONNECT
-DEVICE_ID = "team03"         # ใช้ตัวเดียวกันทั้งสองรอบ นั่นคือประเด็นของไฟล์นี้
-TOPIC = "bento/team03/telemetry"
+BROKER = "broker.hivemq.com"     # broker ฝึกสาธารณะ (สำรอง "test.mosquitto.org") ไม่ใช่ CE: ไฟล์นี้ต่อโดยไม่มี username/password และใช้ topic bento/... ซึ่ง CE ปฏิเสธตั้งแต่ CONNECT
+DEVICE_ID = "team03"         # ใช้ตัวเดียวกันทั้งสองรอบ นั่นคือประเด็นของไฟล์นี้ · แก้เป็นรหัสไม่ซ้ำใคร เช่น "nok4821" (ชื่อเล่น + เลขสุ่ม 4 หลัก)
+TOPIC = "bento/team03/telemetry"     # แก้ team03 ให้ตรงกับ DEVICE_ID
 
 COL_TEXT, COL_DIM = 0xE8EAED, 0x9AA3AF
 COL_CARD = 0x171B22
@@ -67,7 +67,7 @@ lcd.print("WiFi ได้ IP {}".format(wifi.ip()))
 if not mqtt.connect(BROKER, port=1883, client_id=DEVICE_ID):
     step(st1, "1) ต่อรอบแรก           ต่อ broker ไม่ได้", COL_BAD)
     note.color(COL_BAD)
-    note.text("ตรวจ BROKER ว่าเป็น IP ของเครื่องในแลนจริง")
+    note.text("ตรวจ BROKER และเน็ต หรือลองสำรอง test.mosquitto.org")
     lcd.print("<span class=err>ต่อ broker ไม่ได้</span>")
     raise SystemExit
 

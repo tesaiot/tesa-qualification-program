@@ -12,8 +12,8 @@ import lcd
 import ui
 import time
 
-# แก้สองบรรทัดนี้ให้ตรงกับเครือข่ายที่ผู้สอนแจก
-WIFI_SSID = "AIoT-Class"
+# แก้สองบรรทัดนี้ให้ตรงกับ WiFi บ้านหรือ Hotspot มือถือของคุณ
+WIFI_SSID = "my-hotspot"
 WIFI_PASS = "<รหัสผ่าน WiFi ของคุณ>"
 COL_TEXT, COL_DIM = 0xE8EAED, 0x9AA3AF
 COL_OK, COL_WARN, COL_BAD = 0x30A46C, 0xF5A623, 0xE5484D

@@ -1,6 +1,6 @@
 # s12_capstone_starter.py - ตัวอย่างที่ทำเสร็จแล้วหนึ่งชิ้น: Tilt Alarm สำหรับนั่งร้าน/ชั้นวาง
 # วิธีรัน: 1) บนจอบอร์ด แตะการ์ด Playground บนหน้า Home แล้วค้างหน้านี้ไว้
-#          2) แก้บล็อก CONFIG (device id, WiFi, broker, topic, เกณฑ์) ให้เป็นของทีม
+#          2) แก้บล็อก CONFIG (device id, WiFi, broker, topic, เกณฑ์) ให้เป็นของคุณ
 #          3) วางบอร์ดให้นิ่งตอนเริ่มรัน โปรแกรมจะจำท่าตั้งต้นเองในสองวินาทีแรก
 #
 # นี่คือ "คำตอบหนึ่งที่เป็นไปได้" ไม่ใช่คำตอบเดียวของชุดบทเรียนนี้
@@ -24,11 +24,11 @@ import dsp
 import ui
 
 # ---------- CONFIG ----------
-DEVICE_ID = "team01"
-WIFI_SSID = "AIoT-Class"
+DEVICE_ID = "team01"          # ห้ามซ้ำใคร broker ตัวนี้เป็นของสาธารณะ: แก้เป็นรหัสไม่ซ้ำใคร เช่น "nok4821" (ชื่อเล่น + เลขสุ่ม 4 หลัก)
+WIFI_SSID = "my-hotspot"      # WiFi บ้านหรือ Hotspot มือถือของคุณ
 WIFI_PASS = "<รหัส WiFi ของคุณ>"       # รหัสของ WiFi หรือ Hotspot ที่บอร์ดจะต่อ
 BROKER = "test.mosquitto.org"
-TOPIC = "bento/team01/telemetry"
+TOPIC = "bento/team01/telemetry"   # แก้ team01 ให้ตรงกับ DEVICE_ID
 UNIT = "deg"
 SCALE_MAX = 45                    # ปลายพิสัยของมาตรวัดบนจอ ต้องเป็นค่าที่เป็นไปได้จริง
 WARN_LIMIT = 8.0                  # เอียงจากท่าตั้งต้นเกินเท่านี้ = เฝ้าดู

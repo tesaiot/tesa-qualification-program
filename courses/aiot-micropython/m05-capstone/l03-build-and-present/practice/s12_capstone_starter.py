@@ -1,6 +1,6 @@
 # s12_capstone_starter.py - โครงเริ่มต้นของ mini-product: Sense -> Decide -> Show -> Send
 # วิธีรัน: 1) บนจอบอร์ด แตะการ์ด Playground บนหน้า Home แล้วค้างหน้านี้ไว้
-#          2) แก้บล็อก CONFIG ให้เป็นของทีม (device id, WiFi, broker, topic, เกณฑ์)
+#          2) แก้บล็อก CONFIG ให้เป็นของคุณ (device id, WiFi, broker, topic, เกณฑ์)
 #          3) กด Program to Device แล้วมองจอบอร์ด - ไฟล์นี้รันได้ตั้งแต่ยังไม่แก้อะไรเลย
 #
 # ไฟล์นี้ไม่ใช่ปริศนาให้เติมคำ มันคือวงจรที่ครบและรันได้แล้ว
@@ -28,11 +28,11 @@ import dsp
 import ui
 
 # ---------- CONFIG: แก้เฉพาะบล็อกนี้ก่อนรันครั้งแรก ----------
-DEVICE_ID = "team01"          # ห้ามซ้ำทีมอื่น broker ตัวนี้เป็นของสาธารณะ
-WIFI_SSID = "AIoT-Class"
+DEVICE_ID = "team01"          # ห้ามซ้ำใคร broker ตัวนี้เป็นของสาธารณะ: แก้เป็นรหัสไม่ซ้ำใคร เช่น "nok4821" (ชื่อเล่น + เลขสุ่ม 4 หลัก)
+WIFI_SSID = "my-hotspot"      # WiFi บ้านหรือ Hotspot มือถือของคุณ
 WIFI_PASS = "<รหัส WiFi ของคุณ>"       # รหัสของ WiFi หรือ Hotspot ที่บอร์ดจะต่อ
 BROKER = "test.mosquitto.org"
-TOPIC = "bento/team01/telemetry"
+TOPIC = "bento/team01/telemetry"   # แก้ team01 ให้ตรงกับ DEVICE_ID
 UNIT = "deg"                      # หน่วยของค่าที่ส่ง เขียนให้ตรงกับของจริงเสมอ
 SCALE_MAX = 45                    # ปลายพิสัยของมาตรวัดบนจอ ต้องเป็นค่าที่เป็นไปได้จริง
 WARN_LIMIT = 8.0                  # เกณฑ์ตัวอย่าง เกินเท่านี้ = เฝ้าดู
@@ -248,7 +248,7 @@ def show(now, value, state, latched, net_text, sent):
     lbl_quality.color(COL_WARN if stale else COL_DIM)
     lbl_net.text(net_text)
     lbl_sent.text("ส่งแล้ว " + str(sent) + " ใบ")
-    # ทีมเขียนเอง: เพิ่ม widget ของทีม (งบรวมทั้งจอไม่เกิน 64 ตัว ตอนนี้ใช้ไป 31)
+    # ทีมเขียนเอง: เพิ่ม widget ของทีม (งบของคอร์ส 32 ตัว เพดานเฟิร์มแวร์ 64 · ตอนนี้ใช้ไป 31 เหลือในงบหนึ่งตัว ถ้าต้องการมากกว่านั้นให้ตัดของเดิมที่ไม่จำเป็นออกก่อน)
     # เกณฑ์ข้อหนึ่งของงานชุดบทเรียนนี้คือ ถอดปลั๊กเราเตอร์แล้วจอต้องยังทำงาน
     # m05-capstone/l02-capstone-starter/examples/05_hmi_survives_offline.py คือการทดสอบข้อนั้นในรูปแบบที่เล็กที่สุด
     # มันแยกลูปของจอออกจากลูปของเครือข่ายเด็ดขาด และให้จอรายงานเองว่า "ค่านี้ออกไปแล้วหรือยัง"

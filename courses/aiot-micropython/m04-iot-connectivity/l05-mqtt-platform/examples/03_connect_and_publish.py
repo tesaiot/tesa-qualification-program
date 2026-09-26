@@ -14,12 +14,12 @@ import ui
 import json
 import time
 
-WIFI_SSID = "AIoT-Class"
+WIFI_SSID = "my-hotspot"      # WiFi บ้านหรือ Hotspot มือถือ วงเดียวกับคอมที่รัน CE
 WIFI_PASS = "<รหัสผ่าน WiFi ของคุณ>"
-BROKER = "192.168.1.50"          # IP ของเครื่องที่รัน broker ในแลน ไม่ใช่ localhost
-DEVICE_ID = "team03"
+BROKER = "192.168.1.50"          # IP ในแลนของคอมที่รัน TESAIoT CE ของคุณ ไม่ใช่ localhost
+DEVICE_ID = "team03"             # device_id ที่ตั้งเองตอนเพิ่มอุปกรณ์ใน CE ของคุณ
 MQTT_USER = "team03"         # ต้องเท่ากับ client_id ฝั่ง CE ตรวจข้อนี้
-MQTT_PASS = "<รหัสผ่าน MQTT ของทีม>"
+MQTT_PASS = "<รหัสผ่าน MQTT ของอุปกรณ์>"
 TOPIC = "bento/team03/telemetry"
 N = 10
 

@@ -2,7 +2,7 @@
 id: aiot-mpy.m04.l05
 lang: th
 title: {th: 'MQTT กับแพลตฟอร์มที่ติดตั้งเอง: telemetry และ command', en: 'MQTT with a self-hosted platform: telemetry and commands'}
-summary: {th: ใช้โมดูล mqtt หกชื่อส่ง JSON จากบอร์ดขึ้น TESAIoT CE ที่ทีมติดตั้งเองและรับคำสั่งกลับมา โดยรู้ทันกับดักพอร์ต 1883 การขึ้นทะเบียนอุปกรณ์ และเพดานเงียบของแต่ละฟังก์ชัน, en: 'Use the six names of the mqtt module to send JSON from the board to the team''s own TESAIoT CE and take commands back, knowing the port-1883 trap, device registration and each function''s silent limits.'}
+summary: {th: ใช้โมดูล mqtt หกชื่อส่ง JSON จากบอร์ดขึ้น TESAIoT CE ที่คุณติดตั้งเองและรับคำสั่งกลับมา โดยรู้ทันกับดักพอร์ต 1883 การขึ้นทะเบียนอุปกรณ์ และเพดานเงียบของแต่ละฟังก์ชัน, en: 'Use the six names of the mqtt module to send JSON from the board to your own TESAIoT CE and take commands back, knowing the port-1883 trap, device registration and each function''s silent limits.'}
 level: L2
 time_min: {concept: 15, practise: 35, lab: 20, check: 5}
 hardware: {emulator: true, boards: [eva-kit, devkit]}
@@ -24,7 +24,7 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 
 > โมดูล 4 — เชื่อมต่อแพลตฟอร์ม IoT · สไลด์: [slides.md](slides.md) · [ภาพรวมโมดูล](../README.md) · [หน้าหลักสูตร](../../README.md)
 
-ใช้โมดูล mqtt หกชื่อส่ง JSON จากบอร์ดขึ้น TESAIoT CE ที่ทีมติดตั้งเองและรับคำสั่งกลับมา โดยรู้ทันกับดักพอร์ต 1883 การขึ้นทะเบียนอุปกรณ์ และเพดานเงียบของแต่ละฟังก์ชัน
+ใช้โมดูล mqtt หกชื่อส่ง JSON จากบอร์ดขึ้น TESAIoT CE ที่คุณติดตั้งเองและรับคำสั่งกลับมา โดยรู้ทันกับดักพอร์ต 1883 การขึ้นทะเบียนอุปกรณ์ และเพดานเงียบของแต่ละฟังก์ชัน
 
 ## เป้าหมาย
 
@@ -37,12 +37,12 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 
 ## ก่อนเริ่ม
 
-ทวนบทเรียน 4.4: topic สองรูป (`bento/<ทีม>/telemetry` บน broker สาธารณะ และ `device/<device_id>/telemetry` บน TESAIoT CE)
+ทวนบทเรียน 4.4: topic สองรูป (`bento/<รหัสของคุณ>/telemetry` บน broker สาธารณะ และ `device/<device_id>/telemetry` บน TESAIoT CE)
 เพดาน 31 ตัวอักษรของ `client_id` / `username` / `password` และช่องรับข้อความที่มีช่องเดียว
-เตรียมคอมที่มี Docker และ RAM อย่างน้อย 8 GB สำหรับติดตั้ง TESAIoT Community Edition ติดตั้ง MQTT Explorer ไว้
-และให้บอร์ดกับคอมอยู่บน WiFi วงเดียวกัน
+เตรียมคอมที่มี Docker และ RAM อย่างน้อย 8 GB สำหรับติดตั้ง [TESAIoT Community Edition](https://github.com/tesaiot/tesaiot-community-edition) ติดตั้ง MQTT Explorer ไว้
+และให้บอร์ดกับคอมอยู่บน WiFi วงเดียวกัน (WiFi บ้านหรือ Hotspot มือถือของคุณ) ถ้าเรียนเป็นกลุ่ม ผู้จัดอาจเตรียม CE หรือ broker ไว้ให้
 
-- **อุปกรณ์:** บอร์ด Eva Kit หรือ TESAIoT Dev Kit ที่ลงเฟิร์มแวร์ MicroPython ของ BENTO แล้ว หรือ BENTO Emulator ใน [BENTO IDE](https://ide.tesaiot.dev/) (ซ้อมโค้ดและหน้าจอบน Emulator ได้ ไฟล์ 05 ไม่ต่อเครือข่ายเลย แต่ข้อความไม่ออกไปถึง TESAIoT CE ในแลนของทีม และเมื่อยังไม่ได้ต่อ `publish()` บน Emulator คืน False แทนการโยน OSError การดูผลที่ MQTT Explorer จึงต้องใช้บอร์ดจริง)
+- **อุปกรณ์:** บอร์ด Eva Kit หรือ TESAIoT Dev Kit ที่ลงเฟิร์มแวร์ MicroPython ของ BENTO แล้ว หรือ BENTO Emulator ใน [BENTO IDE](https://ide.tesaiot.dev/) (ซ้อมโค้ดและหน้าจอบน Emulator ได้ ไฟล์ 05 ไม่ต่อเครือข่ายเลย แต่ข้อความไม่ออกไปถึง TESAIoT CE ในแลนของคุณ และเมื่อยังไม่ได้ต่อ `publish()` บน Emulator คืน False แทนการโยน OSError การดูผลที่ MQTT Explorer จึงต้องใช้บอร์ดจริง)
 - **เรียนมาก่อน:** [บทเรียน 4.4 — MQTT: pub/sub topic QoS และงบข้อมูล](../l04-mqtt-concepts/README.md)
 
 ## แนวคิด
@@ -59,7 +59,7 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 โดย payload เป็น **bytes** ไม่เกิน 255 ไบต์ ส่วน `disconnect()` คืน `None` จึงห้ามใส่ใน `if` คีย์ `port` ตั้งได้
 แต่โมดูลนี้ส่งข้อมูลรับรอง TLS เป็นค่าว่างเสมอ จึงต่อได้เฉพาะพอร์ตข้อความเปล่า
 
-ครึ่งหลังของบทเรียนคือแพลตฟอร์มที่ทีมเป็นเจ้าของเอง ติดตั้ง TESAIoT CE ด้วย `make install` (ธง `PREBUILT=1`) ราว 15–30 นาที
+ครึ่งหลังของบทเรียนคือแพลตฟอร์มที่คุณเป็นเจ้าของเอง ติดตั้ง TESAIoT CE ด้วย `make install` (ธง `PREBUILT=1`) ราว 15–30 นาที
 `make up` ต้องมาก่อน `make init-pki` เอกสารทุกฉบับเขียนว่าพอร์ต 1883 แต่ `docker-compose.yml` เผยแพร่จริงเป็น
 `127.0.0.1:11883:1883` บอร์ดใน LAN จึงเข้าไม่ถึงเลย ต้องแก้เป็น `0.0.0.0:1883:1883` แล้วใช้ `docker compose up -d emqx`
 (`restart` ไม่อ่านพอร์ตใหม่) **ไฟล์ตั้งค่าคือความจริง** เพราะมันคือสิ่งที่เครื่องอ่าน แพลตฟอร์มนี้ไม่มีการลงทะเบียนอัตโนมัติ
@@ -85,7 +85,7 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 สามไฟล์แรกต้องทำในบทเรียน เปิดตามลำดับนี้ทั้งชุดราว 35 นาที ทุกไฟล์ให้ทายก่อนรันว่าจอจะเป็นอย่างไร
 
 1. `01_topic_design.py` (8 นาที) ดูการ์ดเขียวที่ publish ได้กับการ์ดส้มที่เป็น wildcard แล้วตอบว่าทำไม `+` กับ `#` ใส่ใน publish ไม่ได้
-2. `03_connect_and_publish.py` (15 นาที) แก้ค่าบนหัวไฟล์ให้เป็นของทีม ดูป้ายสามขั้น (WiFi · broker · publish) เปลี่ยนเป็นเขียวตามลำดับ
+2. `03_connect_and_publish.py` (15 นาที) แก้ค่าบนหัวไฟล์ให้เป็นของคุณ (IP ของคอมที่รัน CE และ device_id กับรหัสผ่าน MQTT ที่ได้ตอนเพิ่มอุปกรณ์) ดูป้ายสามขั้น (WiFi · broker · publish) เปลี่ยนเป็นเขียวตามลำดับ
    แล้วนับใน MQTT Explorer ว่าครบสิบข้อความไหม จากนั้นลองใส่ IP ของ broker ผิดหนึ่งครั้ง เพื่อจำว่าขั้นไหนล้มและล้มหน้าตาอย่างไร
 3. `04_subscribe_command.py` (12 นาที) ส่ง `{"cmd":"beep"}` หรือ `{"cmd":"count"}` จาก MQTT Explorer แล้วลองส่งข้อความที่ไม่ใช่ JSON
    ดูว่าโปรแกรมไม่หยุด ส่วนการสลับ LED ด้วย `{"cmd":"toggle"}` ทำจริงในไฟล์ฝึกของบทเรียน 4.6
@@ -94,8 +94,11 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 กับ `SEND_EVERY_MS` แล้วรันซ้ำ) · ไม่แน่ใจว่าจะใส่ฟิลด์อะไร เปิด `02_payload_shape.py` · โค้ดบอกว่าส่งแล้วแต่ MQTT Explorer ไม่เห็น
 เปิด `06_sent_is_not_delivered.py` ซึ่งนับที่ปลายทาง ไม่ใช่นับที่ต้นทาง · อยากเห็นว่า `disconnect()` คืนชื่อให้ว่างจริง เปิด `07_disconnect_frees_id.py`
 
-ไฟล์ตัวอย่างตั้ง topic เป็นรูป `bento/team03/...` และไฟล์ 04, 06, 07 เรียก `mqtt.connect()` โดยไม่ใส่ `username=` กับ `password=`
-ถ้าจะรันกับ CE ของทีม ต้องเติมสองค่านี้ (CE ปฏิเสธอุปกรณ์ที่ไม่รู้จักตั้งแต่ตอน CONNECT) และใช้ topic รูป `device/<device_id>/...`
+ไฟล์ 04, 06, 07 ตั้งไว้กับ broker ฝึกสาธารณะ `broker.hivemq.com` (สำรอง `test.mosquitto.org`) ซึ่งไม่ขอ `username=` กับ `password=`
+ผู้เรียนคนอื่นก็ใช้ broker นี้ ก่อนรันให้แก้ `team03` ทั้งใน `DEVICE_ID` และใน topic `bento/team03/...` เป็นรหัสที่ไม่ซ้ำใคร
+เช่นชื่อเล่นภาษาอังกฤษตัวเล็กต่อด้วยเลขสุ่ม 4 หลัก (`nok4821`) ไม่งั้น client_id ที่ซ้ำจะเตะกันหลุด และข้อความจะปนกับของคนอื่น
+ส่วน MQTT Explorer ให้ต่อ broker เดียวกันที่พอร์ต 1883 ถ้าจะรันสามไฟล์นี้กับ CE ของคุณ ต้องเติม `username=` กับ `password=`
+(CE ปฏิเสธอุปกรณ์ที่ไม่รู้จักตั้งแต่ตอน CONNECT) และใช้ topic รูป `device/<device_id>/...`
 
 | ไฟล์ | ไฟล์นี้สอน |
 |---|---|
@@ -165,10 +168,10 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 
    </details>
 
-5. คนที่ดักจับสัญญาณ WiFi ห้องเรียนได้ ทำอะไรได้บ้างเมื่อบอร์ดของทีมส่งผ่านพอร์ต 1883 เลือกทุกข้อที่ถูก *(เลือกได้หลายข้อ · เป้าหมายข้อ 4)*
-   - ก) อ่าน username และ password ของทีมได้
+5. คนที่ดักจับสัญญาณ WiFi วงเดียวกับบอร์ดได้ ทำอะไรได้บ้างเมื่อบอร์ดของเราส่งผ่านพอร์ต 1883 เลือกทุกข้อที่ถูก *(เลือกได้หลายข้อ · เป้าหมายข้อ 4)*
+   - ก) อ่าน username และ password ของอุปกรณ์ได้
    - ข) อ่านค่าเซนเซอร์ใน payload ได้
-   - ค) ปลอมเป็นอุปกรณ์ของทีมส่งข้อมูลปลอมเข้าแพลตฟอร์มได้
+   - ค) ปลอมเป็นอุปกรณ์ของเราส่งข้อมูลปลอมเข้าแพลตฟอร์มได้
    - ง) ไม่ได้อะไรเลย เพราะ broker ขอรหัสผ่านก่อนต่อ
 
    <details><summary>เฉลย</summary>
@@ -179,15 +182,15 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 
 ## แล็บ
 
-**เตรียมแพลตฟอร์มของทีม** ทำบนคอมของทีมกับบอร์ดจริง แล้วจดผลลงบันทึกการเรียน
+**เตรียมแพลตฟอร์มของคุณ** ทำบนคอมของคุณกับบอร์ดจริง แล้วจดผลลงบันทึกการเรียน
 
 - [ ] ติดตั้ง TESAIoT CE ด้วย `make install` โดยเรียก `make up` ก่อน `make init-pki`
 - [ ] แก้ `docker-compose.yml` จาก `127.0.0.1:11883:1883` เป็น `0.0.0.0:1883:1883` สั่ง `docker compose up -d emqx` แล้วดู `docker compose ps` ว่าพอร์ตขึ้นเป็น `0.0.0.0:1883` จริง
 - [ ] Devices → Add device ด้วย `device_id` สั้นที่ตั้งเอง ขอรหัสด้วย `reset-mqtt-password` และตรวจว่าเป็น active กับ `server_tls`
 - [ ] หา IP ของคอมใน LAN (ไม่ใช่ localhost) แล้ว `wifi.ping()` จากบอร์ดให้ผ่านก่อนแตะ MQTT
-- [ ] ต่อ MQTT Explorer ไปที่ IP เดียวกัน พอร์ต 1883 ด้วยชื่อและรหัสของทีม แล้ว subscribe `device/#` ไว้
+- [ ] ต่อ MQTT Explorer ไปที่ IP เดียวกัน พอร์ต 1883 ด้วยชื่อและรหัสของอุปกรณ์ แล้ว subscribe `device/#` ไว้
 - [ ] รัน `03_connect_and_publish.py` ด้วย `client_id == username == device_id` และ topic `device/<device_id>/telemetry` จนเห็นข้อความใน MQTT Explorer
-- [ ] เขียนหนึ่งประโยคในบันทึกการเรียนว่าคนดักฟังบน WiFi ห้องเรียนเห็นอะไรบ้างเมื่อเราใช้พอร์ต 1883
+- [ ] เขียนหนึ่งประโยคในบันทึกการเรียนว่าคนดักฟังบน WiFi วงเดียวกันเห็นอะไรบ้างเมื่อเราใช้พอร์ต 1883
 
 ## ไปต่อ
 
@@ -199,5 +202,5 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 ## สะท้อนคิด
 
 - เอกสารของ CE กับ `docker-compose.yml` ขัดกันเรื่องพอร์ต คุณจะเช็กอะไรก่อนเมื่อเจอระบบใหม่ครั้งหน้า
-- ถ้ามีคนในห้องดักรหัส MQTT ของทีมไปได้ เขาทำอะไรกับแพลตฟอร์มของเราได้บ้าง
+- ถ้ามีคนบน WiFi วงเดียวกันดักรหัส MQTT ของอุปกรณ์เราไปได้ เขาทำอะไรกับแพลตฟอร์มของเราได้บ้าง
 - ตัวนับ True จาก `publish()` เป็นหลักฐานว่าส่งถึงได้หรือไม่ ถ้าไม่ได้ หลักฐานที่เชื่อได้คืออะไร

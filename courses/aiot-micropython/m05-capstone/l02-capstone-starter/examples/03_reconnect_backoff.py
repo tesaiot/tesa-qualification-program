@@ -14,10 +14,10 @@ import time
 import ui
 import wifi
 
-WIFI_SSID = "AIoT-Class"
+WIFI_SSID = "my-hotspot"      # WiFi บ้านหรือ Hotspot มือถือของคุณ
 WIFI_PASS = "<รหัสผ่าน WiFi ของคุณ>"
-BROKER = "192.168.1.50"
-DEVICE_ID = "team03"
+BROKER = "broker.hivemq.com"   # broker ฝึกสาธารณะ (สำรอง "test.mosquitto.org")
+DEVICE_ID = "team03"          # client_id บน broker สาธารณะต้องไม่ซ้ำใคร: แก้เป็นรหัสไม่ซ้ำใคร เช่น "nok4821" (ชื่อเล่น + เลขสุ่ม 4 หลัก)
 BACKOFF_START_MS = 2000     # ครั้งแรกรอสองวินาที
 BACKOFF_MAX_MS = 60000      # เพดาน หนึ่งนาที ไม่ปล่อยให้ยาวกว่านี้
 SCHEDULE_N = 7              # จำนวนครั้งที่เอามาวาดให้ดูเป็นตัวอย่าง

@@ -9,7 +9,7 @@ hardware: {emulator: true, boards: [eva-kit, devkit]}
 prerequisites: [aiot-mpy.m04.l03]
 objectives:
   - {th: อธิบายความต่างของ client–server กับ publish/subscribe ได้ และบอกผลที่ตามมาสามข้อที่ทำให้ IoT เลือกแบบหลัง (บอร์ดไม่ต้องมี IP ที่คนอื่นเข้าถึงได้ · เพิ่มผู้รับได้โดยไม่แตะโค้ดบนบอร์ด · ผู้รับล่มไม่ทำให้ผู้ส่งล่ม), en: 'Explain how client–server differs from publish/subscribe and give the three consequences that make IoT choose the latter (the board needs no reachable IP, receivers can be added without touching board code, a receiver crash does not bring down the sender).'}
-  - {th: ออกแบบ topic ของทีมได้ทั้งสองแบบ (`bento/<ทีม>/telemetry` บน broker สาธารณะ และ `device/<device_id>/telemetry` บน TESAIoT CE ที่ช่องที่สองต้องเท่ากับ device_id) ตามกติกาตั้งชื่อสี่ข้อ และบอกได้ว่า subscription ที่มี `+` หรือ `#` รับ topic ใดบ้าง, en: 'Design the team''s topics in both patterns (`bento/<team>/telemetry` on a public broker and `device/<device_id>/telemetry` on TESAIoT CE, where the second level must equal the device_id) following the four naming rules, and state which topics a subscription with `+` or `#` receives.'}
+  - {th: ออกแบบ topic ของทีมได้ทั้งสองแบบ (`bento/<รหัสของคุณ>/telemetry` บน broker สาธารณะ และ `device/<device_id>/telemetry` บน TESAIoT CE ที่ช่องที่สองต้องเท่ากับ device_id) ตามกติกาตั้งชื่อสี่ข้อ และบอกได้ว่า subscription ที่มี `+` หรือ `#` รับ topic ใดบ้าง, en: 'Design the team''s topics in both patterns (`bento/<team>/telemetry` on a public broker and `device/<device_id>/telemetry` on TESAIoT CE, where the second level must equal the device_id) following the four naming rules, and state which topics a subscription with `+` or `#` receives.'}
   - {th: เลือก QoS ของแต่ละ topic ด้วยคำถาม "ถ้าข้อความนี้หายไปหนึ่งใบ ใครเดือดร้อน" และคำนวณงบข้อมูลต่อรอบได้ เช่น payload 80 ไบต์ทุก 5 วินาทีคือ 16 B/s พร้อมเขียน JSON ที่ทุกค่าที่ต้องขึ้นกราฟเป็นตัวเลข, en: 'Choose each topic''s QoS with the question "if one of these messages is lost, who suffers?", compute the data budget per cycle, e.g. an 80-byte payload every 5 seconds is 16 B/s, and write JSON in which every value meant for a graph is a number.'}
   - {th: บอกเพดานเงียบสี่ข้อของโมดูล mqtt บนบอร์ดได้ครบ (ช่องรับ 1 ข้อความ · payload ขาเข้า 255 ไบต์ · topic 127 ไบต์ · client_id / username / password 31 ตัวอักษร) พร้อมอาการเมื่อเกิน และอธิบายว่าทำไมลูปต้องฟังคำสั่งทุก 100 ms ไม่ใช่ทุก 5 วินาที, en: 'State all four silent limits of the board''s mqtt module (a 1-message receive slot, 255-byte incoming payload, 127-byte topic, 31-character client_id / username / password) with the symptom when each is exceeded, and explain why the loop must listen for commands every 100 ms, not every 5 seconds.'}
 develops: [{skill: proto.mqtt, to: 2}, {skill: iot.fundamentals, to: 2}, {skill: iot.cloud-platform, to: 1}, {skill: hw.architecture, to: 1}]
@@ -31,7 +31,7 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 เมื่อจบบทเรียนนี้ คุณจะ:
 
 1. อธิบายความต่างของ client–server กับ publish/subscribe ได้ และบอกผลที่ตามมาสามข้อที่ทำให้ IoT เลือกแบบหลัง (บอร์ดไม่ต้องมี IP ที่คนอื่นเข้าถึงได้ · เพิ่มผู้รับได้โดยไม่แตะโค้ดบนบอร์ด · ผู้รับล่มไม่ทำให้ผู้ส่งล่ม)
-2. ออกแบบ topic ของทีมได้ทั้งสองแบบ (`bento/<ทีม>/telemetry` บน broker สาธารณะ และ `device/<device_id>/telemetry` บน TESAIoT CE ที่ช่องที่สองต้องเท่ากับ device_id) ตามกติกาตั้งชื่อสี่ข้อ และบอกได้ว่า subscription ที่มี `+` หรือ `#` รับ topic ใดบ้าง
+2. ออกแบบ topic ของทีมได้ทั้งสองแบบ (`bento/<รหัสของคุณ>/telemetry` บน broker สาธารณะ และ `device/<device_id>/telemetry` บน TESAIoT CE ที่ช่องที่สองต้องเท่ากับ device_id) ตามกติกาตั้งชื่อสี่ข้อ และบอกได้ว่า subscription ที่มี `+` หรือ `#` รับ topic ใดบ้าง
 3. เลือก QoS ของแต่ละ topic ด้วยคำถาม "ถ้าข้อความนี้หายไปหนึ่งใบ ใครเดือดร้อน" และคำนวณงบข้อมูลต่อรอบได้ เช่น payload 80 ไบต์ทุก 5 วินาทีคือ 16 B/s พร้อมเขียน JSON ที่ทุกค่าที่ต้องขึ้นกราฟเป็นตัวเลข
 4. บอกเพดานเงียบสี่ข้อของโมดูล mqtt บนบอร์ดได้ครบ (ช่องรับ 1 ข้อความ · payload ขาเข้า 255 ไบต์ · topic 127 ไบต์ · client_id / username / password 31 ตัวอักษร) พร้อมอาการเมื่อเกิน และอธิบายว่าทำไมลูปต้องฟังคำสั่งทุก 100 ms ไม่ใช่ทุก 5 วินาที
 
@@ -62,8 +62,9 @@ broker ไม่ใช่ฐานข้อมูล มันคือที่
 **topic เป็นต้นไม้ ไม่ใช่ชื่อแบน ๆ** `+` แทนหนึ่งชั้นพอดี ส่วน `#` แทนทุกอย่างที่อยู่ใต้ลงไปกี่ชั้นก็ได้และต้องเป็นตัวสุดท้าย
 ในภาพของสไลด์ แล็ปท็อปที่ subscribe `/plug1/#` ได้ทุกค่าของปลั๊กตัวที่หนึ่ง มือถือที่ subscribe `/+/current` ได้กระแสของทุกปลั๊ก
 topic ไม่ต้องประกาศล่วงหน้า publish ไปชื่อไหนชื่อนั้นก็เกิด จึงต้องมีวินัยเอง: เรียงจากกว้างไปแคบ ห้ามขึ้นต้นด้วย `/`
-ห้ามใส่ช่องว่างหรือภาษาไทย และอย่าใส่ค่าที่เปลี่ยนบ่อยลงในชื่อ topic บน broker สาธารณะเรากันชนด้วยชื่อทีม เช่น
-`bento/team03/telemetry` กับ `bento/team03/cmd/led` ส่วนบน TESAIoT CE แพลตฟอร์มล็อกรูปแบบเป็น `device/team03/telemetry`
+ห้ามใส่ช่องว่างหรือภาษาไทย และอย่าใส่ค่าที่เปลี่ยนบ่อยลงในชื่อ topic บน broker สาธารณะเรากันชนด้วยรหัสที่ไม่ซ้ำใคร เช่น
+`bento/team03/telemetry` กับ `bento/team03/cmd/led` (ของจริงให้ใช้รหัสของตัวเองแทน `team03`
+เช่นชื่อเล่นภาษาอังกฤษตัวเล็กต่อด้วยเลขสุ่ม 4 หลักอย่าง `nok4821` เพราะผู้เรียนคนอื่นก็ใช้ broker เดียวกัน) ส่วนบน TESAIoT CE แพลตฟอร์มล็อกรูปแบบเป็น `device/team03/telemetry`
 กับ `device/team03/commands` ช่องที่สองต้องเท่ากับ device_id เป๊ะ ไม่งั้น ACL ปฏิเสธ payload ส่งแค่ก้อนข้อมูล เพราะบริดจ์เติม
 device_id และ timestamp ให้เอง ค่าซ้อน `{"accel":{"x":1}}` ถูกแบนเป็น `accel_x` และเฉพาะค่าตัวเลขเท่านั้นที่กลายเป็นเส้นกราฟ
 `{"status":"ok"}` เก็บได้แต่ไม่ขึ้นกราฟ ต้องแปลงเป็น `{"ok": 1}` ชื่อ topic กับรูปร่าง payload คือสัญญากับทุกคนที่ใช้ข้อมูลนี้ต่อ
@@ -162,7 +163,7 @@ poll ให้ถี่กว่าคนพิมพ์คำสั่ง `slee
 **ออกแบบสัญญาข้อมูลของทีม** (ราว 15 นาที) บนกระดาษหรือในบันทึกการเรียน ยังไม่ต้องเขียนโค้ด
 
 - [ ] วาดภาพบอร์ด · broker · MQTT Explorer พร้อมลูกศรทิศของ telemetry ขาออกและคำสั่งขากลับ
-- [ ] เขียน topic ของทีมทั้งสองแบบ (broker สาธารณะที่กันชนด้วยชื่อทีม และ TESAIoT CE ที่ช่องที่สองคือ device_id) แล้วตรวจกับกติกาตั้งชื่อสี่ข้อ
+- [ ] เขียน topic ของทีมทั้งสองแบบ (broker สาธารณะที่กันชนด้วยรหัสที่ไม่ซ้ำใคร และ TESAIoT CE ที่ช่องที่สองคือ device_id) แล้วตรวจกับกติกาตั้งชื่อสี่ข้อ
 - [ ] เขียน subscription หนึ่งบรรทัดที่รับทุก topic ของทีม และอีกบรรทัดที่รับ telemetry ของทุกทีม ด้วย `#` หรือ `+`
 - [ ] เขียน JSON payload ที่มีค่าเซนเซอร์เป็นตัวเลขอย่างน้อยสามฟิลด์ นับไบต์ แล้วคำนวณ B/s ที่รอบละ 5 วินาที เทียบกับถ้าส่งทุก 100 ms
 - [ ] เขียน payload ของคำสั่งที่ไม่เกิน 255 ไบต์ และตั้ง client_id ที่ไม่เกิน 31 ตัวอักษร

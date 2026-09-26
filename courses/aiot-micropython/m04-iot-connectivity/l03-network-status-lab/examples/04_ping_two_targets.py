@@ -15,7 +15,7 @@ import lcd
 import ui
 import time
 
-WIFI_SSID = "AIoT-Class"
+WIFI_SSID = "my-hotspot"      # WiFi บ้านหรือ Hotspot มือถือของคุณ
 WIFI_PASS = "<รหัสผ่าน WiFi ของคุณ>"
 INTERNET_IP = "8.8.8.8"      # Google Public DNS ตอบ ping และอยู่นอกบ้านเราแน่นอน
 TIMEOUT_MS = 1500
@@ -66,8 +66,8 @@ if not wifi.connect(WIFI_SSID, WIFI_PASS):
 
 ip = wifi.ip()
 
-# เกตเวย์ของวงแลนห้องเรียนและบ้านเกือบทั้งหมดคือเลข .1 ของวงเดียวกัน
-# ถ้าห้องนี้ไม่ได้ใช้ .1 ให้แก้บรรทัดนี้เป็นเลขจริงที่ผู้สอนบอก
+# เกตเวย์ของวงแลนบ้านและที่ทำงานเกือบทั้งหมดคือเลข .1 ของวงเดียวกัน
+# ถ้าวงนี้ไม่ได้ใช้ .1 ให้แก้เป็นเลขจริง (ดูจากโน้ตบุ๊กที่ต่อวงเดียวกัน: ipconfig / ip route)
 parts = ip.split(".")
 gateway = parts[0] + "." + parts[1] + "." + parts[2] + ".1"
 l_verdict.color(COL_DIM)

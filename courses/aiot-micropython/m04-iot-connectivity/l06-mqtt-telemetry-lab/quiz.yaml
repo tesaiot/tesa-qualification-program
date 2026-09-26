@@ -21,8 +21,8 @@ items:
   objective: 2
   type: single
   prompt:
-    th: ทีมหนึ่งเขียนลูปเป็น publish แล้ว `time.sleep(5)` แล้วค่อย `get_message()` หนึ่งครั้ง ระหว่างนั้นเพื่อนส่ง `{"cmd":"toggle"}` มาสามครั้งรวดเดียว จะเกิดอะไรขึ้น
-    en: A team's loop publishes, sleeps 5 seconds, then calls get_message() once. Meanwhile a classmate sends three toggle commands in a row. What happens?
+    th: ทีมหนึ่งเขียนลูปเป็น publish แล้ว `time.sleep(5)` แล้วค่อย `get_message()` หนึ่งครั้ง ระหว่างนั้นมีคนส่ง `{"cmd":"toggle"}` มาสามครั้งรวดเดียว จะเกิดอะไรขึ้น
+    en: A team's loop publishes, sleeps 5 seconds, then calls get_message() once. Meanwhile someone sends three toggle commands in a row. What happens?
   choices:
   - th: LED สลับสามครั้งตามลำดับ เพราะ broker เก็บคิวไว้ให้
   - th: บอร์ดเห็นแค่ข้อความล่าสุด อีกสองข้อความถูกทับหายเงียบ ๆ เพราะช่องรับมีช่องเดียว
@@ -42,7 +42,7 @@ items:
   - th: '`client_id` ที่ส่งให้ `mqtt.connect()`'
   - th: '`username` ที่ส่งให้ `mqtt.connect()`'
   - th: ช่องที่สองของ topic เช่น `device/team03/telemetry`
-  - th: '`WIFI_SSID` ของห้อง'
+  - th: '`WIFI_SSID` ของวงที่บอร์ดต่อ'
   answer:
   - 0
   - 1
@@ -68,14 +68,14 @@ items:
   objective: 4
   type: single
   prompt:
-    th: ไฟล์ 08 วัดทุก 200 ms แต่ส่งทุก 2000 ms ถ้าเปลี่ยนให้ส่งทุก 200 ms เท่ากับรอบวัด ในห้องที่มีสิบห้าโต๊ะจะเกิดอะไรกับ broker ตัวเดียว
-    en: File 08 reads every 200 ms but sends every 2000 ms. If it sent every 200 ms instead, what would a single broker face in a room of fifteen desks?
+    th: ไฟล์ 08 วัดทุก 200 ms แต่ส่งทุก 2000 ms ถ้าเปลี่ยนให้ส่งทุก 200 ms เท่ากับรอบวัด และมีบอร์ดสิบห้าตัวส่งเข้า broker ตัวเดียวแบบนี้ จะเกิดอะไรขึ้น
+    en: File 08 reads every 200 ms but sends every 2000 ms. If it sent every 200 ms instead, what would a single broker face with fifteen boards sending like this?
   choices:
   - th: ไม่ต่างกัน เพราะข้อความเล็กมาก
-  - th: ราว 75 ข้อความต่อวินาที (5 ต่อวินาทีต่อบอร์ด) ห้องล่มได้โดยไม่มีใครเขียนโค้ดผิด
-  - th: ราว 15 ข้อความต่อวินาที เพราะหนึ่งโต๊ะหนึ่งข้อความ
+  - th: ราว 75 ข้อความต่อวินาที (5 ต่อวินาทีต่อบอร์ด) broker ล่มได้โดยไม่มีใครเขียนโค้ดผิด
+  - th: ราว 15 ข้อความต่อวินาที เพราะหนึ่งบอร์ดหนึ่งข้อความ
   - th: broker จะรวมข้อความให้เองจนเหลือทุก 2 วินาที
   answer:
   - 1
   explain:
-    th: ส่งทุก 200 ms คือ 5 ข้อความต่อวินาทีต่อบอร์ด สิบห้าโต๊ะเป็น 75 ข้อความต่อวินาทีเข้า broker ตัวเดียว การวัดไม่กวนใคร แต่การส่งกวน broker และเพื่อนร่วมห้อง สองตัวเลขนี้จึงไม่ควรเท่ากัน
+    th: ส่งทุก 200 ms คือ 5 ข้อความต่อวินาทีต่อบอร์ด สิบห้าบอร์ดเป็น 75 ข้อความต่อวินาทีเข้า broker ตัวเดียว การวัดไม่กวนใคร แต่การส่งกวน broker และคนอื่นที่ใช้ broker เดียวกัน สองตัวเลขนี้จึงไม่ควรเท่ากัน

@@ -38,7 +38,7 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 
 ต้องมี canvas ห้าช่องและตาราง schema ของทีมจากบทเรียน 5.1 และรู้จักห้าท่าของโครงตั้งต้นจากบทเรียน 5.2
 เตรียม WiFi หรือ Hotspot ที่บอร์ดต่อได้ และโปรแกรมดูข้อความบน broker (เช่น MQTT Explorer)
-แก้บล็อก CONFIG ของไฟล์ฝึกให้เป็นของทีมก่อน: `DEVICE_ID` ที่ไม่ซ้ำทีมอื่น, WiFi, broker และ topic
+แก้บล็อก CONFIG ของไฟล์ฝึกให้เป็นของคุณก่อน: `DEVICE_ID` ที่ไม่ซ้ำใคร (เช่น `nok4821` เพราะ broker เป็นของสาธารณะ), WiFi, broker และ topic ที่ใช้รหัสเดียวกัน
 
 - **อุปกรณ์:** บอร์ด Eva Kit หรือ TESAIoT Dev Kit ที่ลงเฟิร์มแวร์ MicroPython ของ BENTO แล้ว หรือ BENTO Emulator ใน [BENTO IDE](https://ide.tesaiot.dev/) (โครงและหน้าจอรันบน Emulator ได้ แต่การทดสอบเกณฑ์ด้วยมือกับเซนเซอร์จริงและการตัดเน็ตให้ดูต้องใช้บอร์ดจริง เพราะค่าเซนเซอร์บน Emulator เป็นค่าจำลอง)
 - **เรียนมาก่อน:** [บทเรียน 5.2 — โครงตั้งต้น: Sense Decide Show Send](../l02-capstone-starter/README.md)
@@ -162,7 +162,7 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 
 ## แล็บ
 
-**เกณฑ์ผ่านของงานจบ** (ตรวจเองก่อน แล้วให้เพื่อนหรือผู้สอนดู)
+**เกณฑ์ผ่านของงานจบ** (ตรวจเองก่อน ถ้าเรียนเป็นกลุ่มให้เพื่อนหรือผู้จัดดูด้วย)
 
 - [ ] canvas ห้าช่องในบันทึกการเรียนกรอกครบ และเล่าโจทย์ได้ใน 30 วินาที
 - [ ] บอร์ดอ่านเซนเซอร์ → ตัดสิน → แสดงบนจอ ครบวงจร รันต่อเนื่องได้อย่างน้อย 10 นาที

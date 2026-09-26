@@ -72,8 +72,8 @@ items:
   objective: 2
   type: single
   prompt:
-    th: บอร์ดผ่านขั้นเข้าร่วมวง WiFi แล้ว แต่ DHCP ของห้องเต็ม อาการที่เห็นคืออะไร
-    en: The board has joined the WiFi network, but the room's DHCP pool is full. What symptom do you see?
+    th: บอร์ดผ่านขั้นเข้าร่วมวง WiFi แล้ว แต่ DHCP ของวงเต็ม อาการที่เห็นคืออะไร
+    en: The board has joined the WiFi network, but the network's DHCP pool is full. What symptom do you see?
   choices:
   - th: ต่อ WiFi ติด แต่ไม่มีเลข IP ซึ่งดูเหมือนต่อไม่ติด
   - th: wifi.scan() ไม่เจอวงใดเลย

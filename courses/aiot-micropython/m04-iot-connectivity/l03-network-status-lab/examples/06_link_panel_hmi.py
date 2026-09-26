@@ -1,7 +1,7 @@
 # 06_link_panel_hmi.py - หน้าจอสถานะลิงก์ ที่ทุกตัวเลขบนจอวัดมาจริง
 #
 # ก่อนกด Run แก้ 2 บรรทัดนี้ก่อน:
-#   WIFI_SSID = ชื่อวงที่ผู้สอนแจก
+#   WIFI_SSID = ชื่อ WiFi บ้านหรือ Hotspot มือถือของคุณ (ตั้งตามบทเรียน 1.4)
 #   WIFI_PASS = รหัสผ่านของวงนั้น
 #
 # ไฟล์นี้สอน: ตัวเลขทุกตัวบนจอสถานะ ต้องบอกได้ว่าวัดมาจากไหน
@@ -21,7 +21,7 @@ import wifi
 import ui
 import time
 
-WIFI_SSID = "AIoT-Class"
+WIFI_SSID = "my-hotspot"
 WIFI_PASS = "<รหัสผ่าน WiFi ของคุณ>"
 
 # ping ไปที่ Google Public DNS - อยู่นอกบ้านเราแน่นอน และตอบ ping เสมอ
