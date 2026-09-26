@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+#
+# Every image in this course that you did not make yourself gets one entry here.
+# Images you made yourself may be listed with license: own. CREDITS.md is generated from these files.
+# Keep `images: []` if the course has no third-party images.
+images: []
+# images:
+#   - path: m01-<slug>/l01-<slug>/img/<file>.png   # relative to the course folder
+#     title: "<title of the image>"
+#     author: "<creator>"
+#     source: https://<where you got it>
+#     license: CC-BY-SA-4.0                        # SPDX id, or "Infineon-permission", or "own"
+#     modified: false                               # true if you changed it (e.g. added Thai labels)

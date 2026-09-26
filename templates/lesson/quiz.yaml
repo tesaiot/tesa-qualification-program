@@ -1,0 +1,61 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+#
+# Check for understanding (เช็กความเข้าใจ) — 3–5 items, every lesson objective covered by at least one item.
+# objective: 1-based index into the lesson's objectives.
+# type: single (one answer) | multi (several) | order (Parsons: put lines in order) | short (short text answer)
+# answer: indices into choices (0-based); for `order` the correct order of the choices; for `short` the accepted strings.
+# Add one or two items from earlier lessons for spaced practice. These are learning items, never live exam items.
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: "ถ้า COUNT_FROM = 5 ตัวเลขสุดท้ายที่พิมพ์ก่อนคำว่า go คืออะไร"
+      en: "With COUNT_FROM = 5, what is the last number printed before go?"
+    choices:
+      - {th: "0"}
+      - {th: "1"}
+      - {th: "5"}
+    answer: [1]
+    explain:
+      th: "range(5, 0, -1) ให้ 5, 4, 3, 2, 1 และหยุดก่อนถึง 0 จึงจบที่ 1"
+
+  - id: q2
+    objective: 1
+    type: order
+    prompt:
+      th: "เรียงบรรทัดให้เป็นโปรแกรมนับถอยหลังที่ถูกต้อง"
+      en: "Put the lines in order to make a working countdown."
+    choices:
+      - {th: "print(\"go\")"}
+      - {th: "for n in range(COUNT_FROM, 0, -1):"}
+      - {th: "COUNT_FROM = 3"}
+      - {th: "    print(n)"}
+    answer: [2, 1, 3, 0]
+    explain:
+      th: "กำหนดค่าก่อน แล้ววนพิมพ์ในลูป และพิมพ์ go หลังลูปจบ"
+
+  - id: q3
+    objective: 2
+    type: multi
+    prompt:
+      th: "ข้อใดทำให้ลูปไม่ทำงานเลยสักรอบ (เลือกได้หลายข้อ)"
+      en: "Which of these make the loop run zero times? (choose all that apply)"
+    choices:
+      - {th: "range(3, 0)"}
+      - {th: "range(3, 0, -1)"}
+      - {th: "range(0, 3, -1)"}
+    answer: [0, 2]
+    explain:
+      th: "ถ้าไม่ใส่ step ค่าเริ่มต้นคือ +1 ซึ่งนับขึ้นจาก 3 ไป 0 ไม่ได้ ส่วน range(0, 3, -1) นับลงจาก 0 ไป 3 ไม่ได้"
+
+  - id: q4
+    objective: 2
+    type: short
+    prompt:
+      th: "range(3, 0, -1) ให้ตัวเลขกี่ตัว ตอบเป็นตัวเลข"
+      en: "How many numbers does range(3, 0, -1) produce? Answer with a number."
+    answer: ["3"]
+    explain:
+      th: "ได้ 3, 2, 1 รวมสามตัว"

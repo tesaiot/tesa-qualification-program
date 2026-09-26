@@ -1,0 +1,35 @@
+TESA Open Knowledge
+Copyright 2026 Thai Embedded Systems Association (TESA), สมาคมสมองกลฝังตัวไทย
+
+This product includes material developed by TESA
+(https://github.com/tesaiot/tesa-qualification-program).
+
+Credit TESA whenever you reuse this material:
+  "<title>" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA),
+  https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0
+Add "(adapted)" when you change it. See ATTRIBUTION.md for the full rules and examples.
+
+Upstream material included in this product:
+
+- Portions are adapted from "AIoT in Action - Embedded Systems for AIoT Developer",
+  Copyright (c) 2026 Wiroon Sriborrirux (รศ.วิรุฬห์ ศรีบริรักษ์), Advance Innovation Centre (AIC),
+  Burapha University. BENTO & TESAIoT.
+  https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer
+  Content licensed under CC BY 4.0; code licensed under the MIT License.
+
+- Portions are based on original course material by drsanti (https://github.com/drsanti),
+  TESAIoT-Courses C1-C3 (https://github.com/drsanti/TESAIoT-Courses), produced with funding
+  from the Thai Embedded Systems Association (TESA).
+
+- The skill map in skills/ is adapted from "Embedded Systems Engineering Roadmap" by
+  Meysam Parvizi (https://github.com/m3y54m/Embedded-Engineering-Roadmap),
+  licensed under CC BY-SA 4.0. See skills/NOTICE.md.
+
+- CODE_OF_CONDUCT.en.md is the Contributor Covenant, version 3.0, stewarded by the
+  Organization for Ethical Source, licensed under CC BY-SA 4.0.
+
+Infineon code examples are referenced by link and are not included. Any Infineon file that is
+included keeps its original copyright header and licence file next to it.
+
+Infineon, PSOC, ModusToolbox and OPTIGA are trademarks of Infineon Technologies AG.
+See TRADEMARKS.md.

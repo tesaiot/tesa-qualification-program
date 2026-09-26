@@ -1,0 +1,52 @@
+name: แจ้งเนื้อหาผิด / Erratum
+description: เนื้อหาผิด ลิงก์เสีย ภาพผิด หรือโค้ดรันไม่ผ่าน / Wrong content, a broken link or image, or code that does not run.
+title: "[erratum] "
+labels: ["erratum"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ขอบคุณที่ช่วยแจ้ง ถ้าเป็นช่องโหว่หรือข้อมูลลับหลุด อย่าแจ้งที่นี่ ให้ดู SECURITY.md
+        Thank you. For a vulnerability or a leaked secret, do not use this form: see SECURITY.md.
+  - type: input
+    id: location
+    attributes:
+      label: ตำแหน่ง / Where
+      description: lesson id (เช่น aiot-mpy.m02.l03), path ของไฟล์ หรือ URL ของหน้า / Lesson id, file path or page URL.
+      placeholder: courses/aiot-micropython/m02-.../l03-.../README.md
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: ประเภท / Kind
+      options:
+        - เนื้อหาผิดหรือไม่ชัด / Wrong or unclear content
+        - โค้ดรันไม่ผ่าน / Code does not run
+        - ลิงก์เสีย / Broken link
+        - ภาพผิดหรือไม่มีเครดิต / Wrong image or missing credit
+        - คำผิดหรือภาษา / Typo or wording
+        - อื่น ๆ / Other
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: พบอะไร / What is wrong
+      description: ยกข้อความหรือโค้ดที่ผิดมาด้วย / Quote the text or code.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: ควรเป็นอย่างไร / What it should be
+    validations:
+      required: false
+  - type: input
+    id: tested-on
+    attributes:
+      label: ทดสอบบน (ถ้าเป็นเรื่องโค้ด) / Tested on (for code)
+      description: บอร์ด เวอร์ชันเฟิร์มแวร์ หรือเวอร์ชัน BENTO Emulator / Board, firmware version or BENTO Emulator version.
+      placeholder: Eva Kit, BENTO MicroPython firmware x.y.z
+    validations:
+      required: false

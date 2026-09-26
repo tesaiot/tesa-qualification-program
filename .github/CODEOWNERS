@@ -1,0 +1,40 @@
+# CODEOWNERS — who reviews what. The last matching pattern wins.
+# Governance: GOVERNANCE.md. Turn on "Require review from Code Owners" in branch protection for main.
+#
+# Interim: until the editorial board and course leads are appointed, the repository maintainer owns everything.
+
+*                                   @wiroon
+
+# ---- Editorial board (licences, governance, skill map, credentials design)
+/LICENSE                            @wiroon
+/LICENSES/                          @wiroon
+/NOTICE                             @wiroon
+/NOTICE.md                          @wiroon
+/ATTRIBUTION.md                     @wiroon
+/TRADEMARKS.md                      @wiroon
+/GOVERNANCE.md                      @wiroon
+/CODE_OF_CONDUCT.md                 @wiroon
+/CODE_OF_CONDUCT.en.md              @wiroon
+/REUSE.toml                         @wiroon
+/skills/                            @wiroon
+/tqp/                               @wiroon
+/catalog/                           @wiroon
+/.github/                           @wiroon
+
+# ---- Course leads (replace the placeholder with the lead's GitHub handle when appointed)
+# /courses/explorer/                    @<course-lead>
+# /courses/aiot-micropython/            @<course-lead>
+# /courses/edge-ai-iot-for-business/    @<course-lead>
+# /courses/product-design/              @<course-lead>
+# /courses/electronics-and-instruments/ @<course-lead>
+# /courses/embedded-c-foundations/      @<course-lead>
+# /courses/firmware-sdk-edge-ai/        @<course-lead>
+# /courses/digital-twin/                @<course-lead>
+# /courses/secure-iot-optiga/           @<course-lead>
+# /courses/edge-ai-developer/           @<course-lead>
+# /courses/educator-kit/                @<course-lead>
+
+# ---- Tooling and site (replace when maintainers are appointed)
+# /tools/                               @<tools-maintainer>
+# /schemas/                             @<tools-maintainer>
+# /site/                                @<site-maintainer>

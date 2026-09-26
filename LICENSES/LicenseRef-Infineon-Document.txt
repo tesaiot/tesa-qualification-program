@@ -1,0 +1,14 @@
+LicenseRef-Infineon-Document
+
+Figures and images reproduced from documentation published by Infineon Technologies AG
+(kit user guides, datasheets, application notes).
+
+Copyright (c) Infineon Technologies AG. All rights reserved by Infineon Technologies AG.
+
+TESA Open Knowledge is a joint programme of the Thai Embedded Systems Association (TESA) and
+Infineon Technologies. These figures are used here with attribution to the source document named
+in CREDITS.md and in the course's credits.yaml.
+
+These figures are NOT licensed under CC BY 4.0 or any other licence in this repository. Reuse
+outside TESA Open Knowledge requires permission from Infineon Technologies AG; link to the original
+Infineon document instead.

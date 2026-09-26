@@ -1,0 +1,87 @@
+name: เสนอบทเรียนหรือหลักสูตร / Lesson proposal
+description: เสนอบทเรียน โมดูล หรือหลักสูตรใหม่ก่อนลงมือเขียน / Propose a new lesson, module or course before writing it.
+title: "[proposal] "
+labels: ["lesson-proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ตกลงเป้าหมาย ระดับ และ skill ID กับหัวหน้าหลักสูตรก่อน จะได้ไม่ต้องเขียนใหม่ทีหลัง ดูแม่แบบใน templates/ และคู่มือ templates/AUTHORING.md
+        Agree the goal, level and skill IDs with the course lead first. See templates/ and templates/AUTHORING.md.
+  - type: input
+    id: course
+    attributes:
+      label: หลักสูตร / Course
+      description: id ใน catalog/courses.yaml หรือ "หลักสูตรใหม่" / A course id from catalog/courses.yaml, or "new course".
+      placeholder: aiot-micropython
+    validations:
+      required: true
+  - type: input
+    id: title
+    attributes:
+      label: ชื่อบทเรียน / Lesson title
+      description: ภาษาไทย และภาษาอังกฤษถ้ามี / Thai, and English if you have it.
+    validations:
+      required: true
+  - type: dropdown
+    id: level
+    attributes:
+      label: ระดับ / Level
+      description: ดู tqp/levels.md / See tqp/levels.md.
+      options:
+        - L1 รู้จัก / Aware
+        - L2 ทำตามแนวทาง / Guided
+        - L3 ทำได้เอง / Independent
+        - L4 มืออาชีพ / Professional
+        - L5 ออกแบบและนำทีม / Design & Lead
+    validations:
+      required: true
+  - type: textarea
+    id: objectives
+    attributes:
+      label: เป้าหมาย 2–4 ข้อ / Objectives (2–4)
+      description: กริยาที่วัดผลได้ + เงื่อนไข (+ เกณฑ์) / Measurable verb + condition (+ criterion).
+      placeholder: |
+        1. เขียนโปรแกรมให้ LED กะพริบด้วยคาบเวลา 500 ms บน BENTO Emulator ได้
+        2. อธิบายได้ว่าทำไมต้องกันเด้งปุ่ม โดยชี้จุดในกราฟสัญญาณ
+    validations:
+      required: true
+  - type: textarea
+    id: skills
+    attributes:
+      label: skill ID ที่พัฒนาหรือประเมิน / Skill IDs developed or assessed
+      description: ต้องมีอยู่ใน skills/skills.yaml พร้อมระดับ / Must exist in skills/skills.yaml, with levels.
+      placeholder: "develops: mcu.gpio → 2, mcu.timers → 2"
+    validations:
+      required: true
+  - type: input
+    id: time
+    attributes:
+      label: เวลาโดยประมาณ (นาที) / Estimated time (minutes)
+      description: รวม 20–75 นาที / 20–75 minutes in total.
+      placeholder: "concept 10, practise 20, lab 20, check 5"
+    validations:
+      required: true
+  - type: checkboxes
+    id: hardware
+    attributes:
+      label: ฮาร์ดแวร์ / Hardware
+      options:
+        - label: ทำบน BENTO Emulator ได้ / Works in the BENTO Emulator
+        - label: ใช้ Eva Kit / Uses the Eva Kit
+        - label: ใช้ TESAIoT Dev Kit / Uses the TESAIoT Dev Kit
+        - label: ไม่ต้องใช้ฮาร์ดแวร์ / No hardware needed
+  - type: textarea
+    id: sources
+    attributes:
+      label: แหล่งที่มาและสัญญาอนุญาต / Sources and licences
+      description: ถ้านำเนื้อหา โค้ด หรือภาพจากที่อื่นมา ระบุแหล่งและสัญญาอนุญาต / Where any borrowed content, code or images come from, with licences.
+    validations:
+      required: false
+  - type: checkboxes
+    id: agree
+    attributes:
+      label: ข้อตกลง / Agreement
+      options:
+        - label: ฉันยอมรับว่างานจะเผยแพร่ใน TESA Open Knowledge พร้อมเครดิตของ TESA ตาม ATTRIBUTION.md และจะ sign-off ทุก commit (DCO) / My work will be published in TESA Open Knowledge with TESA credit per ATTRIBUTION.md, and I will sign off every commit (DCO).
+          required: true

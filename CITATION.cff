@@ -1,0 +1,74 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+#
+# type: dataset — this release is mainly course content and structured data (skills/skills.yaml,
+# catalog/, course.yaml and lesson front matter), not a software package. CFF 1.2.0 offers only
+# `software` or `dataset`, and `dataset` is the closer fit.
+#
+# license: CFF 1.2.0 reads a list of licences as alternatives (OR). Our licences apply by path (AND),
+# so a list would misstate them. The single value is the licence of the content; the others are
+# named in `abstract` and set out in NOTICE.md and REUSE.toml.
+cff-version: 1.2.0
+message: >-
+  If you use TESA Open Knowledge, please cite it as below and credit TESA as described in
+  ATTRIBUTION.md. หากนำ TESA Open Knowledge ไปใช้ โปรดอ้างอิงตามข้อมูลนี้ และให้เครดิต TESA ตาม ATTRIBUTION.md
+type: dataset
+title: "TESA Open Knowledge"
+abstract: >-
+  Open courses in embedded systems, IoT, embedded security and Edge AI (slides, lessons and example
+  code, learned lesson by lesson), with a machine-readable skill map. Published by the Thai Embedded
+  Systems Association (TESA), สมาคมสมองกลฝังตัวไทย. The skill map feeds the Skillset Mapping of the
+  TESA Qualification Program (TQP), a joint TESA × Infineon programme whose certification design
+  (v0.1) is not yet open for candidates. Licences apply by path: lesson content and slides CC-BY-4.0;
+  new code Apache-2.0; code imported from the AIC course MIT; skills/ CC-BY-SA-4.0; third-party
+  images keep their own licences (see NOTICE.md and CREDITS.md).
+authors:
+  - name: "Thai Embedded Systems Association (TESA)"
+    alias: "สมาคมสมองกลฝังตัวไทย"
+    country: TH
+    website: "https://www.tesa.or.th"
+contact:
+  - name: "Thai Embedded Systems Association (TESA)"
+    email: contact@tesa.or.th
+    website: "https://www.tesa.or.th/contact"
+version: "2026.09"
+date-released: "2026-09-25"
+repository-code: "https://github.com/tesaiot/tesa-qualification-program"
+url: "https://tesaiot.github.io/tesa-qualification-program/"
+license: CC-BY-4.0
+keywords:
+  - embedded systems
+  - IoT
+  - Edge AI
+  - embedded security
+  - MicroPython
+  - PSOC Edge
+  - open educational resources
+  - skill map
+  - TESA Qualification Program
+  - Thai
+references:
+  - type: generic
+    title: "AIoT in Action — Embedded Systems for AIoT Developer"
+    authors:
+      - family-names: Sriborrirux
+        given-names: Wiroon
+        affiliation: "Advance Innovation Centre (AIC), Burapha University"
+    repository-code: "https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer"
+    year: 2026
+    notes: "Content CC-BY-4.0, code MIT. Source of courses/aiot-micropython/."
+  - type: generic
+    title: "TESAIoT Training Handbooks (C1–C3)"
+    authors:
+      - alias: drsanti
+    repository-code: "https://github.com/drsanti/TESAIoT-Courses"
+    notes: "Original course material produced with funding from TESA."
+  - type: generic
+    title: "Embedded Systems Engineering Roadmap"
+    authors:
+      - family-names: Parvizi
+        given-names: Meysam
+    repository-code: "https://github.com/m3y54m/Embedded-Engineering-Roadmap"
+    version: "v1.2.3"
+    license: CC-BY-SA-4.0
+    notes: "skills/ is adapted from this work (diagram v1.2.3, 2023-12-23; README @a9f4eac5)."

@@ -1,0 +1,50 @@
+name: งานแปล / Translation
+description: แปลบทเรียนหรือหน้าเอกสาร หรือแจ้งว่าฉบับแปลล้าหลังต้นฉบับ / Translate a lesson or page, or report an outdated translation.
+title: "[translation] "
+labels: ["translation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ภาษาไทยเป็นต้นฉบับ ฉบับอังกฤษอยู่ข้างกันเป็น README.en.md ร่างจากเครื่องแปลใช้ได้ถ้ามีคนตรวจทานและบอกไว้ใน PR
+        Thai is the source; English sits next to it as README.en.md. Machine drafts are fine if a person reviews them and the PR says so.
+  - type: input
+    id: location
+    attributes:
+      label: บทเรียนหรือไฟล์ / Lesson or file
+      placeholder: aiot-mpy.m01.l02 หรือ courses/aiot-micropython/README.md
+    validations:
+      required: true
+  - type: dropdown
+    id: direction
+    attributes:
+      label: ทิศทาง / Direction
+      options:
+        - ไทย → อังกฤษ / Thai → English
+        - อังกฤษ → ไทย / English → Thai
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: งานที่ต้องการ / Request
+      options:
+        - แปลใหม่ / New translation
+        - ฉบับแปลล้าหลังต้นฉบับ / Translation is out of date
+        - คำแปลผิดหรือไม่เป็นธรรมชาติ / Translation is wrong or unnatural
+        - ศัพท์ไม่ตรงกับอภิธานศัพท์ / Term does not match the glossary
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: รายละเอียด / Details
+      description: ถ้าเป็นเรื่องศัพท์ ดู glossary/terms.yaml / For terms, see glossary/terms.yaml.
+    validations:
+      required: false
+  - type: checkboxes
+    id: volunteer
+    attributes:
+      label: อาสา / Volunteer
+      options:
+        - label: ฉันจะทำงานแปลนี้เอง / I will do this translation myself

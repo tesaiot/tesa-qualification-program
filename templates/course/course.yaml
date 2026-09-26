@@ -1,0 +1,47 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+#
+# Course template. Copy this folder to courses/<course-id>/ and replace every <...>.
+# The course id and short prefix must already be registered in catalog/courses.yaml (ask the editorial board).
+# Guide: templates/AUTHORING.md
+id: "<course-id>"                     # = folder name = catalog id, lowercase ascii with hyphens
+short: "<short>"                      # = catalog short; every lesson id starts with it: <short>.mNN.lNN
+title:
+  th: "<ชื่อหลักสูตรภาษาไทย>"
+  en: "<Course title in English>"
+summary:                              # 1–3 sentences each
+  th: "<หลักสูตรนี้พาผู้เรียนไปทำอะไรได้ และเหมาะกับใคร>"
+  en: "<What learners will be able to do, and who it is for>"
+level: L2                             # L1..L5, see tqp/levels.md
+status: pre-alpha                     # pre-alpha | alpha | beta | stable — see GOVERNANCE.md
+audience: [student, developer]        # subset of: public, student, developer, entrepreneur, educator
+hours: 12                             # total learner hours (estimate)
+hardware:
+  emulator: true                      # true if the course can be done in the BENTO Emulator with no board
+  boards: [eva-kit, devkit]           # subset of: eva-kit, devkit, none
+toolchain:                            # free-form version pins, fill what applies
+  bento-firmware: "<x.y.z>"
+  micropython: "<x.y.z>"
+  modustoolbox: "<x.y>"
+prerequisites:
+  courses: []                         # course ids from catalog/courses.yaml
+  skills:                             # skill ids from skills/skills.yaml
+    - {skill: lang.python, level: 1}
+outcomes:                             # course learning outcomes: measurable verb + condition (+ criterion)
+  - th: "<เขียนโปรแกรม ... บนบอร์ดหรือ BENTO Emulator ให้ ... ได้ภายใน ...>"
+    en: "<Write a program that ... on a board or the BENTO Emulator, within ...>"
+authors:
+  - {name: "<ชื่อผู้เขียน>", url: "https://github.com/<handle>", role: author}   # role: author | adapter | reviewer
+sponsors: [TESA]
+license:
+  content: CC-BY-4.0
+  code: Apache-2.0                    # Apache-2.0 for new code; MIT only for code imported from the AIC course; none if no code
+# source:                             # only for imported material, pinned to a commit
+#   repo: https://github.com/<owner>/<repo>
+#   ref: <commit sha>
+#   note: "<what was imported and how it was changed>"
+modules:
+  - id: m01-<slug>
+    title:
+      th: "<ชื่อโมดูล>"
+      en: "<Module title>"

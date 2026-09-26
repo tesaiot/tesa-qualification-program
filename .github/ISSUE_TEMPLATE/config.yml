@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: แจ้งปัญหาความปลอดภัยแบบส่วนตัว / Report a security issue privately
+    url: https://github.com/tesaiot/tesa-qualification-program/security/advisories/new
+    about: ช่องโหว่หรือข้อมูลลับหลุด อย่าเปิด issue สาธารณะ / Vulnerabilities and leaked secrets must not be reported in public issues.
+  - name: วิธีให้เครดิต TESA / How to credit TESA
+    url: https://github.com/tesaiot/tesa-qualification-program/blob/main/ATTRIBUTION.md
+    about: ข้อความเครดิตที่ต้องใช้เมื่อนำเนื้อหาไปใช้ / The attribution wording to use when you reuse the material.
+  - name: สมาคมสมองกลฝังตัวไทย (TESA)
+    url: https://www.tesa.or.th/contact
+    about: ติดต่อ TESA เรื่องอื่นนอกเหนือจากเนื้อหาในคลังนี้ / Contact TESA about anything other than this repository's content.

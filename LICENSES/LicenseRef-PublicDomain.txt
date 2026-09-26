@@ -1,0 +1,9 @@
+LicenseRef-PublicDomain
+
+Works in the public domain, for example works of the United States federal government
+(such as NOAA, DARPA or NHTSA images) or works whose copyright term has expired.
+
+No copyright restrictions apply to these works. The source and creator are credited in CREDITS.md
+and in the course's credits.yaml as a courtesy and so that readers can check the status themselves.
+Public-domain status can differ between jurisdictions; check it before reusing a work outside
+Thailand or the United States.

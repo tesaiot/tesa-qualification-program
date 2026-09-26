@@ -1,0 +1,103 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+#
+# Thai ↔ English terms used across TESA Open Knowledge. Lessons write the Thai term with the English term
+# in brackets the first time, e.g. "อินเทอร์รัปต์ (interrupt)". Thai spellings follow skills/skills.yaml
+# where the same term appears there. Propose changes with the "translation" issue form.
+schema_version: 1
+terms:
+  # ---- Learning structure
+  - {th: เส้นทางการเรียนรู้, en: pathway, note: "กลุ่มหลักสูตรสำหรับผู้เรียนกลุ่มหนึ่ง นิยามใน catalog/tracks.yaml ไม่ใช่โฟลเดอร์"}
+  - {th: หลักสูตร, en: course, note: "8–30 ชั่วโมง อยู่ในระดับเดียว มี capstone"}
+  - {th: โมดูล, en: module, note: "2–6 ชั่วโมง สร้างความสามารถหนึ่งอย่าง ปิดด้วย checkpoint ในหลักสูตร AIoT in Action ใช้คำว่า ตอน แทนได้"}
+  - {th: บทเรียน, en: lesson, note: "30–60 นาที เป็นหน่วยที่ติด skill ID ห้ามเรียกว่า คาบ หรือ session"}
+  - {th: ผู้เรียน, en: learner}
+  - {th: ผู้สอน, en: educator, note: "หรือ instructor ในบริบทการสอนสด"}
+  - {th: เป้าหมายการเรียนรู้, en: learning objective, note: "ระดับบทเรียน เขียนด้วยกริยาที่วัดผลได้ + เงื่อนไข (+ เกณฑ์)"}
+  - {th: ผลลัพธ์การเรียนรู้, en: learning outcome, note: "ระดับหลักสูตร"}
+  - {th: ตัวอย่างสมบูรณ์, en: worked example}
+  - {th: ฝึกเติม, en: practice (fill-in), note: "ไฟล์ที่มีช่องว่างให้เติม ช่องว่างเพิ่มขึ้นทีละบท"}
+  - {th: เฉลย, en: solution}
+  - {th: เช็กความเข้าใจ, en: check for understanding}
+  - {th: แล็บ, en: lab}
+  - {th: โจทย์เรียงโค้ด, en: Parsons problem, note: "เรียงบรรทัดโค้ดที่ให้มาให้ถูกลำดับ"}
+  - {th: งานปิดท้ายหลักสูตร, en: capstone}
+  - {th: แฟ้มผลงาน, en: portfolio}
+  - {th: ทักษะ, en: skill}
+  - {th: สมรรถนะ, en: competency}
+  - {th: ระดับ, en: level, note: "L1–L5 ตัวเลขตรงกับระดับคุณวุฒิวิชาชีพของ TPQI"}
+  - {th: แผนที่ทักษะ, en: skill map}
+  - {th: คุณวุฒิวิชาชีพ, en: professional qualification}
+  - {th: ใบแสดงการเรียนจบ, en: completion record, note: "T0 ไม่ใช่การรับรองสมรรถนะ"}
+  - {th: ใบรับรองทักษะ, en: certificate, note: "ผลการประเมินทักษะ ณ วันสอบ ไม่ต่ออายุ (T1)"}
+  - {th: การรับรอง, en: certification, note: "มีอายุและต้องต่ออายุ (T2, T3, Trainer)"}
+  - {th: วงจรชีวิตของบทเรียน, en: lesson life cycle, note: "pre-alpha → alpha → beta → stable"}
+  - {th: การระบุที่มา, en: attribution}
+  - {th: สัญญาอนุญาต, en: licence, note: "ในโค้ดและชื่อไฟล์ใช้การสะกดแบบอเมริกัน license"}
+  # ---- Microcontroller
+  - {th: ไมโครคอนโทรลเลอร์, en: microcontroller (MCU)}
+  - {th: ระบบสมองกลฝังตัว, en: embedded system}
+  - {th: เฟิร์มแวร์, en: firmware}
+  - {th: ขาเข้า–ออกทั่วไป, en: GPIO, note: "general-purpose input/output"}
+  - {th: ตัวต้านทานพูลอัป, en: pull-up resistor}
+  - {th: การกันเด้ง, en: debouncing}
+  - {th: อินเทอร์รัปต์, en: interrupt}
+  - {th: ตัวจัดการอินเทอร์รัปต์, en: interrupt handler, note: "หรือ interrupt service routine (ISR)"}
+  - {th: ตัวจับเวลา, en: timer}
+  - {th: คาบเวลา, en: period (of a signal), note: "ใช้กับสัญญาณเท่านั้น เช่น คาบเวลาของ PWM ห้ามใช้ คาบ ในความหมายของช่วงเวลาเรียน"}
+  - {th: ความถี่, en: frequency}
+  - {th: ดิวตีไซเคิล, en: duty cycle}
+  - {th: การมอดูเลตความกว้างพัลส์, en: pulse-width modulation (PWM)}
+  - {th: ตัวแปลงสัญญาณแอนะล็อกเป็นดิจิทัล, en: analogue-to-digital converter (ADC)}
+  - {th: ตัวแปลงสัญญาณดิจิทัลเป็นแอนะล็อก, en: digital-to-analogue converter (DAC)}
+  - {th: อัตราการสุ่มตัวอย่าง, en: sampling rate}
+  - {th: สัญญาณนาฬิกา, en: clock}
+  - {th: การจัดการพลังงาน, en: power management}
+  - {th: โหมดหลับ, en: sleep mode, note: "รวมถึง deep sleep"}
+  - {th: การเข้าถึงหน่วยความจำโดยตรง, en: direct memory access (DMA)}
+  - {th: หน่วยความจำแฟลช, en: flash memory}
+  - {th: รีจิสเตอร์, en: register}
+  - {th: บูตโหลดเดอร์, en: bootloader}
+  - {th: ระบบปฏิบัติการเวลาจริง, en: real-time operating system (RTOS)}
+  - {th: งาน (ใน RTOS), en: task}
+  - {th: เซมาฟอร์, en: semaphore}
+  - {th: มิวเท็กซ์, en: mutex}
+  - {th: เครื่องสถานะ, en: state machine}
+  # ---- Tools and practice
+  - {th: ชุดเครื่องมือพัฒนา, en: toolchain}
+  - {th: คอมไพเลอร์, en: compiler}
+  - {th: การดีบัก, en: debugging}
+  - {th: การทดสอบหน่วย, en: unit test}
+  - {th: อีมูเลเตอร์, en: emulator, note: "เช่น BENTO Emulator"}
+  - {th: มัลติมิเตอร์, en: multimeter}
+  - {th: ออสซิลโลสโคป, en: oscilloscope}
+  - {th: เครื่องวิเคราะห์สัญญาณลอจิก, en: logic analyzer}
+  # ---- Interfaces and IoT
+  - {th: การสื่อสารแบบอนุกรม, en: serial communication, note: "UART, I2C, SPI"}
+  - {th: อัตราบอด, en: baud rate}
+  - {th: เซนเซอร์, en: sensor}
+  - {th: แอคชูเอเตอร์, en: actuator}
+  - {th: โบรกเกอร์, en: broker (MQTT)}
+  - {th: หัวข้อ (MQTT), en: topic}
+  - {th: เผยแพร่, en: publish (MQTT)}
+  - {th: สมัครรับ, en: subscribe (MQTT)}
+  - {th: ข้อมูลตรวจวัดระยะไกล, en: telemetry}
+  - {th: แพลตฟอร์ม IoT, en: IoT platform}
+  - {th: การอัปเดตเฟิร์มแวร์ทางไกล, en: over-the-air update (OTA)}
+  - {th: ดิจิทัลทวิน, en: digital twin}
+  # ---- Security
+  - {th: การเข้ารหัส, en: encryption}
+  - {th: ลายเซ็นดิจิทัล, en: digital signature}
+  - {th: ใบรับรองดิจิทัล, en: digital certificate (X.509), note: "คนละเรื่องกับใบรับรองของ TQP"}
+  - {th: กุญแจส่วนตัว, en: private key}
+  - {th: ชิปความปลอดภัย, en: secure element, note: "เช่น OPTIGA™ Trust M"}
+  - {th: การบูตอย่างปลอดภัย, en: secure boot}
+  # ---- Edge AI
+  - {th: ปัญญาประดิษฐ์บนอุปกรณ์, en: edge AI}
+  - {th: การอนุมาน, en: inference}
+  - {th: การฝึกโมเดล, en: model training}
+  - {th: ชุดข้อมูล, en: dataset}
+  - {th: การควอนไทซ์, en: quantisation}
+  - {th: การประมวลผลสัญญาณดิจิทัล, en: digital signal processing (DSP)}
+  # ---- Product
+  - {th: รายการวัสดุ, en: bill of materials (BOM)}
