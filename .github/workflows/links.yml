@@ -5,7 +5,7 @@
 #   pull_request              links between files in this repo only (--offline) — BLOCKING
 #   schedule / workflow_dispatch   external links too — never blocking; when a link is broken the report
 #                                  goes into ONE open issue labelled "broken-links" (created or updated), so
-#                                  the team sees it instead of a job summary nobody opens
+#                                  the team sees it instead of a job summary nobody opens; a clean run closes it
 name: links
 
 on:
@@ -72,3 +72,13 @@ jobs:
           n=$(gh issue list --label broken-links --state open --json number --jq '.[0].number // empty')
           if [ -n "$n" ]; then gh issue edit "$n" --body-file lychee/issue.md
           else gh issue create --title "Broken external links" --label broken-links --body-file lychee/issue.md; fi
+
+      - name: Close the broken-links issue when every link works again
+        if: ${{ steps.lychee.outputs.exit_code == 0 }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          n=$(gh issue list --label broken-links --state open --json number --jq '.[0].number // empty')
+          if [ -n "$n" ]; then gh issue close "$n" --comment "Every external link answered in $RUN_URL."; fi
