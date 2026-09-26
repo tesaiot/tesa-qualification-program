@@ -18,7 +18,7 @@ develops:
 - {skill: soft.problem-solving, to: 3}
 context: {platform: psoc-edge-e84, lang: c, toolchain: modustoolbox, sdk: tesaiot-pse84-devkit-sdk}
 status: alpha
-translation: pending
+translation: done
 ---
 
 ## เป้าหมาย
