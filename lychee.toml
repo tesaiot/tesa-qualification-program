@@ -20,6 +20,14 @@ exclude = [
   '^https?://(localhost|127\.0\.0\.1|0\.0\.0\.0)',
   '^https?://([a-z0-9-]+\.)*example\.(com|org|net)',
   '^mailto:',
+  # These refuse every non-browser client (403, or 404 for Marketplace item pages; seen 2026-09-26), so an
+  # automated check says nothing about them. Check them in a browser. The Bitstream Studio extension
+  # (TERNIONDEV.bitstream-studio) was confirmed to exist through the Marketplace extension-query API.
+  '^https://developer\.arm\.com/',
+  '^https://www\.cloudflare\.com/learning/',
+  '^https://stocksnap\.io/',
+  '^https://www\.rawpixel\.com/',
+  '^https://marketplace\.visualstudio\.com/items',
 ]
 
 exclude_path = [

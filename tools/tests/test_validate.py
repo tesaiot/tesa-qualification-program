@@ -163,6 +163,10 @@ def m_credits_path(r: Path):
     edit(r / C / "credits.yaml", "img/led_commons.png", "img/led_commons2.png")
 
 
+def m_credits_source_cut(r: Path):
+    edit(r / C / "credits.yaml", "File:Example.png", "File:Example_(2019")
+
+
 def m_credits_uncredited(r: Path):
     shutil.copy(r / L1 / "img/led.png", r / L1 / "img/chip_wikimedia.png")
     edit(r / L1 / "README.md", "## ฝึกเติม", "![ชิปจาก Wikimedia](img/chip_wikimedia.png)\n\n## ฝึกเติม")
@@ -300,6 +304,7 @@ CASES = [
     (m_translation_done, "translation", "error"),
     (m_translation_lang, "translation", "error"),
     (m_credits_path, "credits", "error"),
+    (m_credits_source_cut, "credits", "error"),
     (m_credits_uncredited, "credits", "warning"),
     (m_terms_course, "terms", "error"),
     (m_terms_root, "terms", "warning"),

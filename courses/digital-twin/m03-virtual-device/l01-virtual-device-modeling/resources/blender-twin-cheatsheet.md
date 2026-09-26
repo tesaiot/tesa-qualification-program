@@ -30,8 +30,8 @@ Modes you will use most: **Object** · **Edit** · **Shading** · **Animation** 
 | Mesh intro | https://docs.blender.org/manual/en/4.5/modeling/meshes/introduction.html |
 | Edit Mode tools | https://docs.blender.org/manual/en/4.5/modeling/meshes/editing/index.html |
 | Extrude | https://docs.blender.org/manual/en/4.5/modeling/meshes/editing/mesh/extrude.html |
-| Loop Cut | https://docs.blender.org/manual/en/4.5/modeling/meshes/editing/mesh/loopcut_slide.html |
-| Bevel | https://docs.blender.org/manual/en/4.5/modeling/meshes/editing/mesh/bevel.html |
+| Loop Cut | https://docs.blender.org/manual/en/4.5/modeling/meshes/tools/loop.html |
+| Bevel | https://docs.blender.org/manual/en/4.5/modeling/meshes/editing/edge/bevel.html |
 | Modifiers | https://docs.blender.org/manual/en/4.5/modeling/modifiers/introduction.html |
 | Fundamentals — Modeling chapter | https://studio.blender.org/training/blender-fundamentals-45-lts/chapter/blender_4_5_lts_modeling/ |
 
@@ -76,7 +76,7 @@ What typically exports to glTF: object/bone **location · rotation · scale**, s
 | Topic | Start here |
 |---|---|
 | glTF 2.0 add-on (4.5) | https://docs.blender.org/manual/en/4.5/addons/import_export/scene_gltf2.html |
-| glTF 2.0 (latest) | https://docs.blender.org/manual/en/latest/addons/import_export/scene_gltf2.html |
+| glTF 2.0 add-on source and docs (Khronos) | https://github.com/KhronosGroup/glTF-Blender-IO |
 | Khronos glTF overview | https://www.khronos.org/gltf/ |
 
 Checklist:

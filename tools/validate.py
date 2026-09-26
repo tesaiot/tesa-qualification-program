@@ -677,6 +677,11 @@ def check_credits(ctx: Ctx, cid: str, cdir: Path) -> None:
                 credited.add(p)
                 if not (cdir / p).is_file():
                     ctx.rep.error("credits", rp, line, f"credited file {p!r} does not exist in courses/{cid}/")
+                src = im.get("source")
+                if isinstance(src, str) and src.count("(") != src.count(")"):
+                    # A URL cut at "(" or ")" when it was copied from a Markdown link: the credit then points nowhere.
+                    ctx.rep.error("credits", rp, doc.line_of(("images", i, "source")),
+                                  f"source URL looks cut off (unbalanced parentheses): {src!r}")
                 lic = im.get("license")
                 if spdx and isinstance(lic, str) and lic not in ("own", "Infineon-permission"):
                     for tok in re.split(r"\s+(?:AND|OR|WITH)\s+", lic):

@@ -3,7 +3,9 @@
 #
 # Link checking with lychee (settings in lychee.toml).
 #   pull_request              links between files in this repo only (--offline) — BLOCKING
-#   schedule / workflow_dispatch   external links too — a report in the job summary, never blocking
+#   schedule / workflow_dispatch   external links too — never blocking; when a link is broken the report
+#                                  goes into ONE open issue labelled "broken-links" (created or updated), so
+#                                  the team sees it instead of a job summary nobody opens
 name: links
 
 on:
@@ -37,6 +39,9 @@ jobs:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
+    permissions:
+      contents: read
+      issues: write   # only to open or update the "broken-links" issue
     steps:
       - name: Check out
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -44,8 +49,26 @@ jobs:
           persist-credentials: false
 
       - name: All links (report only)
+        id: lychee
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
           args: --config lychee.toml --no-progress './**/*.md'
+          output: lychee/report.md
           fail: false
           jobSummary: true
+
+      - name: Open or update the broken-links issue
+        if: ${{ steps.lychee.outputs.exit_code != 0 }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          test -s lychee/report.md
+          { echo "The weekly link check found broken external links ([run]($RUN_URL))."
+            echo "Fix the link at its source (lesson, credits.yaml) — CREDITS.md is generated."
+            echo; cat lychee/report.md; } > lychee/issue.md
+          gh label create broken-links --color d93f0b --description "Weekly external link check" --force
+          n=$(gh issue list --label broken-links --state open --json number --jq '.[0].number // empty')
+          if [ -n "$n" ]; then gh issue edit "$n" --body-file lychee/issue.md
+          else gh issue create --title "Broken external links" --label broken-links --body-file lychee/issue.md; fi
