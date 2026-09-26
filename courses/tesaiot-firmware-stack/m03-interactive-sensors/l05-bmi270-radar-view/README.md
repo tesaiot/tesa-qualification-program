@@ -25,6 +25,7 @@ develops:
 context: {platform: psoc-edge-e84, lang: c, ide: modustoolbox}
 status: alpha
 translation: done
+slides: slides.md
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "int_ep05_bmi270_radar_view"

@@ -23,6 +23,7 @@ develops:
 context: {platform: host-pc, lang: c}
 status: alpha
 translation: done
+slides: slides.md
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "examples/embedded-devices/advanced/c_ota_client"

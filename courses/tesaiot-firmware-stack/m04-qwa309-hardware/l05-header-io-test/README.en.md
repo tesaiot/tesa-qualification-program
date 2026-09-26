@@ -25,6 +25,7 @@ develops:
 context: {platform: psoc-edge-e84, lang: c, ide: modustoolbox}
 status: alpha
 translation: done
+slides: slides.md
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "prac_qwa309_header_hw_test"

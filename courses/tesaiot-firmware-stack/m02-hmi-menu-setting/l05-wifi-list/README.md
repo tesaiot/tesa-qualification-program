@@ -26,6 +26,7 @@ develops:
 context: {platform: psoc-edge-e84, lang: c, ide: modustoolbox}
 status: alpha
 translation: done
+slides: slides.md
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "hmi_ep05_wifi_list"
