@@ -23,7 +23,7 @@ develops:
   - {skill: soft.communication, to: 1}
 context: {platform: none, lang: none, audience: public}
 status: alpha
-translation: pending
+translation: done
 ---
 
 ## เป้าหมาย

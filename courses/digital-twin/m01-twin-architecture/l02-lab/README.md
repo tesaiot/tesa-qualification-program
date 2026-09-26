@@ -36,7 +36,7 @@ context:
   ide: vscode
   simulator: Bitstream Simulator (not the BENTO Emulator)
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/drsanti/TESAIoT-Courses
   path: C2/M01/lab.md

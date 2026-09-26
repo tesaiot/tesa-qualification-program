@@ -26,7 +26,7 @@ assesses:
   - {skill: mcu.gpio, level: 1, evidence: practice/blink_count.py}
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide, emulator: bento-emulator}
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer
   path: examples/s03/02_led_blink.py
@@ -92,6 +92,13 @@ source:
 ไฟล์ [examples/01_hello_screen.py](examples/01_hello_screen.py) ย่อมาจาก
 [`examples/s01/01_first_line.py`](https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer/blob/a80bbe88a34bcb9bb8d991f42f9252b77cdab079/examples/s01/01_first_line.py)
 ใช้ท่าที่ 3 แบบเดียวกัน
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/01_hello_screen.webp" alt="จอของ examples/01_hello_screen.py ขณะรันใน BENTO Emulator" width="800" height="480" loading="lazy"><figcaption><a href="examples/01_hello_screen.py"><code>01_hello_screen.py</code></a></figcaption></figure>
+<figure><img src="img/screens/02_blink.webp" alt="จอของ examples/02_blink.py ขณะรันใน BENTO Emulator" width="800" height="480" loading="lazy"><figcaption><a href="examples/02_blink.py"><code>02_blink.py</code></a></figcaption></figure>
+</div>
 
 ## ฝึกเติม
 

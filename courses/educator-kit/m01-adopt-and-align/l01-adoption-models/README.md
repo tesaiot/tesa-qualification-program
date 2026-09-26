@@ -23,7 +23,7 @@ develops:
   - {skill: edu.facilitation, to: 2}
 context: {audience: educator, lang: none}
 status: alpha
-translation: pending
+translation: done
 ---
 
 ## เป้าหมาย

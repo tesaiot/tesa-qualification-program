@@ -47,7 +47,7 @@ context:
   ide: modustoolbox-vscode
   firmware: tesaiot-bitstream (HEX; source not public yet)
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/drsanti/TESAIoT-Courses
   path: C1/M03/README.md

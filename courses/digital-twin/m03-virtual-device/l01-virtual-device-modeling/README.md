@@ -40,7 +40,7 @@ context:
   ide: vscode
   simulator: Bitstream Simulator (not the BENTO Emulator)
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/drsanti/TESAIoT-Courses
   path: C2/M03/README.md
@@ -323,7 +323,7 @@ Modeling ใน Blender มักเริ่มจาก **mesh primitive** (cu
 | ทักษะ | ทำไมสำคัญต่อ Twin | เอกสาร |
 |---|---|---|
 | เลือก / Extrude | สร้างผนังเคส, ขอบหนา | [Extrude](https://docs.blender.org/manual/en/4.5/modeling/meshes/editing/mesh/extrude.html) |
-| Loop Cut / Bevel | ขอบมน, แบ่งหน้าสำหรับ UV | [Loop Cut](https://docs.blender.org/manual/en/4.5/modeling/meshes/editing/mesh/loopcut_slide.html) · [Bevel](https://docs.blender.org/manual/en/4.5/modeling/meshes/editing/mesh/bevel.html) |
+| Loop Cut / Bevel | ขอบมน, แบ่งหน้าสำหรับ UV | [Loop Cut](https://docs.blender.org/manual/en/4.5/modeling/meshes/tools/loop.html) · [Bevel](https://docs.blender.org/manual/en/4.5/modeling/meshes/editing/edge/bevel.html) |
 | Modifiers (Mirror, Solidify, Subdivision) | สร้างสมมาตร/ความหนาโดยไม่ทำซ้ำมือ | [Modifiers](https://docs.blender.org/manual/en/4.5/modeling/modifiers/introduction.html) |
 | Apply Scale / origin | กันโมเดลบิดเมื่อใส่ Twin หรือ animation | [Transforms](https://docs.blender.org/manual/en/4.5/scene_layout/object/editing/transform/index.html) |
 

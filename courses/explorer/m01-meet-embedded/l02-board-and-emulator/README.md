@@ -23,7 +23,7 @@ develops:
   - {skill: hw.architecture, to: 1}
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide, emulator: bento-emulator}
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer
   path: examples/s01/10_board_knows_itself.py
@@ -107,6 +107,12 @@ source:
 - **ท่าที่ 2 ล้างจอ** `ui.screen()` ลบของเก่าบนจอ แล้วรอ 200 มิลลิวินาทีให้จอพร้อม
 - **ท่าที่ 3 วางป้าย** `ui.Label(ข้อความ, x=..., y=..., color=..., value=ขนาดตัวอักษร)` แล้วเคาะ `ui.poll()` ให้ป้ายขึ้นทันที
 - **ท่าที่ 4 เขียนลงลิ้นชัก** `lcd.print(...)` สำหรับรายละเอียดที่ยาวเกินจอ
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/01_board_knows_itself.webp" alt="จอของ examples/01_board_knows_itself.py ขณะรันใน BENTO Emulator" width="800" height="480" loading="lazy"><figcaption><a href="examples/01_board_knows_itself.py"><code>01_board_knows_itself.py</code></a></figcaption></figure>
+</div>
 
 ## ฝึกเติม
 

@@ -26,7 +26,7 @@ assesses:
   - {skill: sys.sensors-actuators, level: 1, evidence: practice/tilt_alarm.py}
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide, emulator: bento-emulator}
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer
   path: examples/s01/12_every_sense_at_once.py
@@ -94,6 +94,12 @@ source:
 - **ท่าที่ 3 ขอค่าอย่างปลอดภัย** `try: s = sensors.snapshot()` ถ้า `OSError` ก็รอแล้วลองใหม่
 - **ท่าที่ 4 ถามก่อนหยิบ** `if "pot" in s:` แล้วแปลงเปอร์เซ็นต์เป็นจำนวนเต็มด้วย `int()` ก่อนส่งให้วงแหวน
 - **ท่าที่ 5 เปลี่ยนสีตามความหมาย** เขียวเมื่อวางราบ ส้มเมื่อเอียง
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/01_knob_and_tilt.webp" alt="จอของ examples/01_knob_and_tilt.py ขณะรันใน BENTO Emulator" width="800" height="480" loading="lazy"><figcaption><a href="examples/01_knob_and_tilt.py"><code>01_knob_and_tilt.py</code></a></figcaption></figure>
+</div>
 
 ## ฝึกเติม
 

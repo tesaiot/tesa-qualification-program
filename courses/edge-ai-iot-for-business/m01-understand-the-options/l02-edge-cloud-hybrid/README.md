@@ -24,7 +24,7 @@ develops:
   - {skill: iot.fundamentals, to: 2}
 context: {audience: entrepreneur, lang: none, code: none}
 status: alpha
-translation: pending
+translation: done
 ---
 
 ## เป้าหมาย

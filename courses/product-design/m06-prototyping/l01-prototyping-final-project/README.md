@@ -37,7 +37,7 @@ context:
   twin-host: bitstream-studio
   output: glb, stl
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/drsanti/TESAIoT-Courses
   path: C3/M06/README.md
@@ -74,7 +74,7 @@ source:
 | [M04 — GLB / Twin](../../m04-blender-to-twin/l01-blender-to-twin/README.md) | ไฟล์ Twin-ready ที่ต้องส่งควบคู่ STL |
 | [M01 — Scale & block](../../m01-design-fundamentals/l01-industrial-design-fundamentals/README.md) | หน่วย mm · clearance ที่ล็อกไว้ |
 | **[3D Print Toolbox (Blender Manual)](https://docs.blender.org/manual/en/4.1/addons/mesh/3d_print_toolbox.html)** | ตรวจ non-manifold / Make Manifold |
-| **[STL export (Blender Manual latest)](https://docs.blender.org/manual/en/latest/files/import_export.html)** | `File → Export → STL` (ตามเวอร์ชัน) |
+| **[STL export (Blender Manual latest)](https://docs.blender.org/manual/en/latest/files/import_export/stl.html)** | `File → Export → STL` (ตามเวอร์ชัน) |
 | **[Protolabs — Enclosure for 3D printing](https://www.hubs.com/knowledge-base/enclosure-design-3d-printing-step-step-guide/)** | ผนัง · clearance · bosses |
 | **[All About Circuits — enclosure steps](https://www.allaboutcircuits.com/industry-articles/six-steps-for-designing-a-custom-3d-printed-electronics-enclosure/)** | ลำดับก่อนพิมพ์ |
 | **[3DDFM enclosure guide](https://www.3ddfm.com/design-guides/electronic-enclosure-design-guide/)** | fitment / assembly mindset |
@@ -262,7 +262,7 @@ Concept (M01) → Detail + PBR (M02) → Motion (M03)
 ## References and Further Reading
 
 1. [3D Print Toolbox](https://docs.blender.org/manual/en/4.1/addons/mesh/3d_print_toolbox.html)  
-2. [Blender import/export overview](https://docs.blender.org/manual/en/latest/files/import_export.html)  
+2. [Blender import/export overview](https://docs.blender.org/manual/en/latest/files/import_export/index.html)  
 3. [Protolabs enclosure for 3D printing](https://www.hubs.com/knowledge-base/enclosure-design-3d-printing-step-step-guide/)  
 4. [All About Circuits — 3D-printed electronics enclosure](https://www.allaboutcircuits.com/industry-articles/six-steps-for-designing-a-custom-3d-printed-electronics-enclosure/)  
 5. [3DDFM electronic enclosure guide](https://www.3ddfm.com/design-guides/electronic-enclosure-design-guide/)  

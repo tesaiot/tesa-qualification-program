@@ -24,7 +24,7 @@ develops:
   - {skill: edu.assessment, to: 2}
 context: {audience: educator, credential: TQP Certified Trainer}
 status: alpha
-translation: pending
+translation: done
 ---
 
 ## เป้าหมาย

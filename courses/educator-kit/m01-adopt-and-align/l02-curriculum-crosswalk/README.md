@@ -25,7 +25,7 @@ assesses:
   - {skill: edu.lesson-design, level: 3, evidence: resources/crosswalk-template.md}
 context: {audience: educator, frameworks: [TQF-2565, TPQI, IEA-GAPC-2021]}
 status: alpha
-translation: pending
+translation: done
 ---
 
 ## เป้าหมาย
@@ -75,7 +75,7 @@ translation: pending
   และ ICT-FYNH-108B (พัฒนาซอฟต์แวร์ระบบสมองกลฝังตัว) ([TPQI-Net](https://tpqi-net.tpqi.go.th/qualifications/standard/book?id=81&cer_level_id=2865))
   ใส่หน่วยเหล่านี้เฉพาะบทเรียนที่เกี่ยวข้องจริง บทเรียนระดับ L1–L2 มักยังไม่ถึงเกณฑ์ของหน่วยสมรรถนะ แต่เป็นฐานของมัน
 - **TABEE** การรับรองหลักสูตรวิศวกรรมของสภาวิศวกรใช้เกณฑ์คุณลักษณะบัณฑิตตาม Washington Accord
-  ([TABEE](https://tabee.coe.or.th/washington-accord/)) ซึ่งกำหนดไว้ใน IEA Graduate Attributes and Professional Competencies ฉบับ 2021
+  (สภาวิศวกรอยู่ในรายชื่อ provisional signatory ของ Washington Accord ตาม[รายชื่อของ IEA](https://www.internationalengineeringalliance.org/accords/washington-accord#list-of-signatories)) ซึ่งกำหนดไว้ใน IEA Graduate Attributes and Professional Competencies ฉบับ 2021
   ([IEA GAPC 2021](https://www.internationalengineeringalliance.org/assets/Uploads/IEA-Graduate-Attributes-and-Professional-Competencies-2021.1-Sept-2021.pdf))
   มี 11 ข้อ WA1–WA11 รายชื่ออยู่ท้ายแม่แบบ
 

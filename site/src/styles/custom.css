@@ -816,3 +816,35 @@ mark.tok-missing {
 	font-size: var(--sl-text-xs);
 	color: var(--sl-color-gray-3);
 }
+
+/* ------------------------------------------------------------------ lesson screen galleries (README HTML) */
+/* A lesson README may hold <div class="tok-screens"><figure>…</figure>…</div>: pictures of its example
+   programs running in the BENTO Emulator (tools/screens/). On GitHub they simply stack. */
+.sl-markdown-content .tok-screens {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+	gap: 0.9rem;
+	margin-block: 1rem 1.5rem;
+}
+.sl-markdown-content .tok-screens figure {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+}
+.sl-markdown-content .tok-screens img {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 5 / 3;
+	object-fit: contain;
+	background: #1c1a19;
+	border: 1px solid var(--tok-box-border);
+	border-radius: calc(var(--tok-radius) - 0.15rem);
+	margin: 0;
+}
+.sl-markdown-content .tok-screens figcaption {
+	margin: 0;
+	font-size: var(--sl-text-xs);
+	line-height: 1.45;
+	color: var(--sl-color-gray-2);
+}

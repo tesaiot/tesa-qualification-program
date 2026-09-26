@@ -25,7 +25,7 @@ assesses:
   - {skill: edu.facilitation, level: 3, evidence: resources/hardware-checklist.md}
 context: {audience: educator, platform: psoc-edge-e84, ide: bento-ide, emulator: bento-emulator}
 status: alpha
-translation: pending
+translation: done
 ---
 
 ## เป้าหมาย

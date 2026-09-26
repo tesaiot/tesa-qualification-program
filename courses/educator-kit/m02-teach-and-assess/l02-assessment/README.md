@@ -25,7 +25,7 @@ assesses:
   - {skill: edu.assessment, level: 3, evidence: resources/lab-rubric-template.md}
 context: {audience: educator}
 status: alpha
-translation: pending
+translation: done
 ---
 
 ## เป้าหมาย

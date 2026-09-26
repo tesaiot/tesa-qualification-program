@@ -26,7 +26,7 @@ develops:
   - {skill: test.standards, to: 1}
 context: {audience: entrepreneur, lang: none, code: none, jurisdiction: Thailand}
 status: alpha
-translation: pending
+translation: done
 ---
 
 ## เป้าหมาย

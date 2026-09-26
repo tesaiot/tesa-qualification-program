@@ -36,7 +36,7 @@ context:
   twin-host: bitstream-studio
   output: glb, stl
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/drsanti/TESAIoT-Courses
   path: C3/M01/README.md
@@ -77,7 +77,7 @@ source:
 | **[Set Origin](https://docs.blender.org/manual/en/4.5/scene_layout/object/origin.html)** | ตั้งจุดหมุน / จุดวางบนโต๊ะ |
 | **[Blender Fundamentals 4.5 LTS](https://studio.blender.org/training/blender-fundamentals-45-lts/)** | วิดีโอสอนทางการ (ภาษาอังกฤษ) |
 | **[INC111-2021 Blender (Thai)](https://www.youtube.com/playlist?list=PLBPFpqyTjzeVCRoOEIDrqF07M8cXTfIXY)** | Tutorial ภาษาไทย |
-| **[IDSA — What is Industrial Design?](https://www.idsa.org/about-idsa/what-is-industrial-design/)** | นิยามวิชาชีพ industrial design |
+| **[IDSA — What is Industrial Design?](https://www.idsa.org/about-idsa/advocacy/what-industrial-design/)** | นิยามวิชาชีพ industrial design |
 | **[All About Circuits — 3D-printed electronics enclosure](https://www.allaboutcircuits.com/industry-articles/six-steps-for-designing-a-custom-3d-printed-electronics-enclosure/)** | ลำดับงาน PCB → เปลือกกล่อง → เจาะช่อง · ระยะเผื่อ |
 | **[Protolabs Network — Enclosure design for 3D printing](https://www.hubs.com/knowledge-base/enclosure-design-3d-printing-step-step-guide/)** | ผนังประมาณ 2 mm · ระยะเผื่อประมาณ 0.5 mm |
 | **[KIT_PSE84_EVAL kit guide (Infineon)](https://documentation.infineon.com/psocedge/docs/lne1762692969598)** | หาเอกสารและไฟล์แบบของบอร์ดที่ใช้ |
@@ -90,7 +90,7 @@ source:
 
 ## 1. Why Industrial Design Matters for Edge AI Devices
 
-[Industrial Design](https://www.idsa.org/about-idsa/what-is-industrial-design/) (ตาม IDSA) คือการออกแบบผลิตภัณฑ์ที่คนใช้จริงทุกวัน — ไม่ใช่แค่ “รูปสวยในจอ” แต่ต้อง **ใช้งานได้ ผลิตได้ และประกอบกับวิศวกรรมภายในได้**
+[Industrial Design](https://www.idsa.org/about-idsa/advocacy/what-industrial-design/) (ตาม IDSA) คือการออกแบบผลิตภัณฑ์ที่คนใช้จริงทุกวัน — ไม่ใช่แค่ “รูปสวยในจอ” แต่ต้อง **ใช้งานได้ ผลิตได้ และประกอบกับวิศวกรรมภายในได้**
 
 สำหรับอุปกรณ์ **Edge AI / IoT** กล่องหุ้ม (enclosure) ต้องรับมือกับอย่างน้อย:
 
@@ -126,7 +126,7 @@ Concept sketch
 | **Material & Manufacturing** | พิมพ์ 3D / ฉีดพลาสติก / CNC ได้จริงไหม | ผนังบางเกิน · โพรงพิมพ์ยาก |
 | **User Experience** | เปิดฝา ดู LED เสียบสายได้โดยไม่พึ่งคู่มือยาวไหม | ช่อง USB หันผิดทาง |
 
-อ่านนิยามวิชาชีพเพิ่ม: [IDSA — What is Industrial Design?](https://www.idsa.org/about-idsa/what-is-industrial-design/)
+อ่านนิยามวิชาชีพเพิ่ม: [IDSA — What is Industrial Design?](https://www.idsa.org/about-idsa/advocacy/what-industrial-design/)
 
 สำหรับอุปกรณ์ที่มี PCB ภายใน ให้เพิ่มเลนส์ที่ห้าในใจตลอดคอร์ส:
 
@@ -367,7 +367,7 @@ outer ≈ 81+4 × 56+4 × …  → ประมาณ 85 × 60 × ความ�
 
 ### Industrial design & enclosure practice
 
-8. [IDSA — What is Industrial Design?](https://www.idsa.org/about-idsa/what-is-industrial-design/)  
+8. [IDSA — What is Industrial Design?](https://www.idsa.org/about-idsa/advocacy/what-industrial-design/)  
 9. [Six Steps for Designing a Custom 3D Printed Electronics Enclosure (All About Circuits)](https://www.allaboutcircuits.com/industry-articles/six-steps-for-designing-a-custom-3d-printed-electronics-enclosure/)  
 10. [How do you design enclosures for 3D printing? (Protolabs Network)](https://www.hubs.com/knowledge-base/enclosure-design-3d-printing-step-step-guide/)  
 11. [Blender for 3D Printing — Units](https://daler.github.io/blender-for-3d-printing/interface/transforms.html) (แนวทาง Unit Scale กับงาน mm)  

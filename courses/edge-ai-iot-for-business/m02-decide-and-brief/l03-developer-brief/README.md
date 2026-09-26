@@ -26,7 +26,7 @@ assesses:
   - {skill: biz.product-decision, level: 2, evidence: resources/decision-canvas.md}
 context: {audience: entrepreneur, lang: none, code: none, deliverable: decision canvas}
 status: alpha
-translation: pending
+translation: done
 ---
 
 ## เป้าหมาย

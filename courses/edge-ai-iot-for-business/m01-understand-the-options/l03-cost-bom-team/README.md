@@ -23,7 +23,7 @@ develops:
   - {skill: biz.product-decision, to: 1}
 context: {audience: entrepreneur, lang: none, code: none}
 status: alpha
-translation: pending
+translation: done
 ---
 
 ## เป้าหมาย

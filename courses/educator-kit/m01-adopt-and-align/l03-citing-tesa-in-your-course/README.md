@@ -27,7 +27,7 @@ assesses:
   - {skill: edu.lesson-design, level: 3, evidence: resources/syllabus-attribution.md}
 context: {audience: educator, licence: CC-BY-4.0}
 status: alpha
-translation: pending
+translation: done
 ---
 
 ## เป้าหมาย

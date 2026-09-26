@@ -35,7 +35,7 @@ context:
   twin-host: bitstream-studio
   output: glb, stl
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/drsanti/TESAIoT-Courses
   path: C3/M05/lab.md

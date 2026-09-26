@@ -25,7 +25,7 @@ develops:
   - {skill: edu.facilitation, to: 3}
 context: {audience: educator, platform: psoc-edge-e84, emulator: bento-emulator}
 status: alpha
-translation: pending
+translation: done
 ---
 
 ## เป้าหมาย

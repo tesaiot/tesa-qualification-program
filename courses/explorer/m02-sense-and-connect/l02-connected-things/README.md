@@ -24,7 +24,7 @@ develops:
   - {skill: sec.fundamentals, to: 1}
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide, emulator: bento-emulator, broker: broker.hivemq.com}
 status: alpha
-translation: pending
+translation: done
 source:
   repo: https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer
   path: examples/s02/05_value_leaves_the_board.py
@@ -111,6 +111,12 @@ source:
 - **ท่าที่ 3 broker** `mqtt.connect(BROKER, port=1883, client_id=..., keepalive=60)` คืน `True` เมื่อต่อสำเร็จ
 - **ท่าที่ 4 publish** อ่านเซนเซอร์ ประกอบ JSON แล้ว `mqtt.publish(TOPIC, body)` ทุก 2 วินาที ดักทั้ง `False` และ `OSError`
 - **ท่าที่ 5 สรุป** `mqtt.is_connected()` ตอบว่า "ตอนนี้" ยังต่ออยู่ไหม
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/01_send_to_dashboard.webp" alt="จอของ examples/01_send_to_dashboard.py ขณะรันใน BENTO Emulator" width="800" height="480" loading="lazy"><figcaption><a href="examples/01_send_to_dashboard.py"><code>01_send_to_dashboard.py</code></a></figcaption></figure>
+</div>
 
 ## เช็กความเข้าใจ
 
