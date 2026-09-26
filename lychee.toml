@@ -9,8 +9,10 @@ max_retries = 3
 retry_wait_time = 5
 timeout = 30
 max_concurrency = 8
-# 429 = rate limited: the page exists.
-accept = ["200..=299", "429"]
+# 429 = rate limited: the page exists. 403 = the server refuses robots (doi.org publishers, Infineon docs,
+# Thai government sites, MathWorks, ...): it says nothing about the page, and reporting it buried the real
+# 404s in the weekly issue. A dead page answers 404/410 or does not resolve, and those are still reported.
+accept = ["200..=299", "403", "429"]
 # Code samples are not links to check.
 include_verbatim = false
 # Private and loopback addresses in lessons are examples (a board on the local network).
@@ -20,13 +22,8 @@ exclude = [
   '^https?://(localhost|127\.0\.0\.1|0\.0\.0\.0)',
   '^https?://([a-z0-9-]+\.)*example\.(com|org|net)',
   '^mailto:',
-  # These refuse every non-browser client (403, or 404 for Marketplace item pages; seen 2026-09-26), so an
-  # automated check says nothing about them. Check them in a browser. The Bitstream Studio extension
-  # (TERNIONDEV.bitstream-studio) was confirmed to exist through the Marketplace extension-query API.
-  '^https://developer\.arm\.com/',
-  '^https://www\.cloudflare\.com/learning/',
-  '^https://stocksnap\.io/',
-  '^https://www\.rawpixel\.com/',
+  # Marketplace item pages answer 404 to every non-browser client (seen 2026-09-26). The Bitstream Studio
+  # extension (TERNIONDEV.bitstream-studio) was confirmed to exist through the Marketplace extension-query API.
   '^https://marketplace\.visualstudio\.com/items',
 ]
 

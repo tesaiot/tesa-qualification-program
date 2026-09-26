@@ -19,7 +19,7 @@ images:
 - path: assets/img/board_top_callouts.png
   title: 'Figure 2: KIT_PSE84_EVAL board top view (p. 9)'
   author: Infineon Technologies AG
-  source: https://www.infineon.com/product-information/kitpse84eval
+  source: https://www.infineon.com/evaluation-board/KIT-pse84-eval
   license: LicenseRef-Infineon-Document
   modified: false
   note: KIT_PSE84_EVAL PSOC™ Edge E84 Evaluation Kit guide, Infineon Technologies AG, document 002-39007 Rev. *B · รูปจากคู่มือบอร์ดของ Infineon ใช้เพื่อการเรียนการสอน สิทธิ์เป็นของ Infineon Technologies AG ไม่อยู่ภายใต้ CC BY 4.0 ของหลักสูตร · TESA Open Knowledge เป็นโครงการร่วม TESA × Infineon (Infineon figure used for teaching; rights remain with Infineon; TESA × Infineon joint programme)
@@ -38,7 +38,7 @@ images:
 - path: assets/img/user_leds_schematic.png
   title: 'Figure 78: user LEDs circuit (p. 89)'
   author: Infineon Technologies AG
-  source: https://www.infineon.com/product-information/kitpse84eval
+  source: https://www.infineon.com/evaluation-board/KIT-pse84-eval
   license: LicenseRef-Infineon-Document
   modified: false
   note: KIT_PSE84_EVAL PSOC™ Edge E84 Evaluation Kit guide, Infineon Technologies AG, document 002-39007 Rev. *B · รูปจากคู่มือบอร์ดของ Infineon ใช้เพื่อการเรียนการสอน สิทธิ์เป็นของ Infineon Technologies AG ไม่อยู่ภายใต้ CC BY 4.0 ของหลักสูตร · TESA Open Knowledge เป็นโครงการร่วม TESA × Infineon (Infineon figure used for teaching; rights remain with Infineon; TESA × Infineon joint programme)
@@ -187,14 +187,14 @@ images:
 - path: m02-ui-to-hardware/l07-adc-capsense/img/capsense_fig52.png
   title: 'Figure 52: CapSense circuit (p. 65)'
   author: Infineon Technologies AG
-  source: https://www.infineon.com/product-information/kitpse84eval
+  source: https://www.infineon.com/evaluation-board/KIT-pse84-eval
   license: LicenseRef-Infineon-Document
   modified: false
   note: KIT_PSE84_EVAL PSOC™ Edge E84 Evaluation Kit guide, Infineon Technologies AG, document 002-39007 Rev. *B · รูปจากคู่มือบอร์ดของ Infineon ใช้เพื่อการเรียนการสอน สิทธิ์เป็นของ Infineon Technologies AG ไม่อยู่ภายใต้ CC BY 4.0 ของหลักสูตร · TESA Open Knowledge เป็นโครงการร่วม TESA × Infineon (Infineon figure used for teaching; rights remain with Infineon; TESA × Infineon joint programme)
 - path: m02-ui-to-hardware/l07-adc-capsense/img/pot_thermistor_schematic.png
   title: 'Figure 77: potentiometer and thermistor circuit (p. 88)'
   author: Infineon Technologies AG
-  source: https://www.infineon.com/product-information/kitpse84eval
+  source: https://www.infineon.com/evaluation-board/KIT-pse84-eval
   license: LicenseRef-Infineon-Document
   modified: false
   note: KIT_PSE84_EVAL PSOC™ Edge E84 Evaluation Kit guide, Infineon Technologies AG, document 002-39007 Rev. *B · รูปจากคู่มือบอร์ดของ Infineon ใช้เพื่อการเรียนการสอน สิทธิ์เป็นของ Infineon Technologies AG ไม่อยู่ภายใต้ CC BY 4.0 ของหลักสูตร · TESA Open Knowledge เป็นโครงการร่วม TESA × Infineon (Infineon figure used for teaching; rights remain with Infineon; TESA × Infineon joint programme)
