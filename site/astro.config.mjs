@@ -25,6 +25,13 @@ function generated(name) {
 
 const siteConfig = generated('site-config.json');
 const sidebar = generated('sidebar.json');
+const base = String(siteConfig.site.base || '').replace(/\/$/, '');
+
+// Frame widths the reader dragged (public/tok-layout.js) are applied before first paint, so the page
+// does not jump. Wrapped in try: storage can be blocked, and the default widths are then used.
+const restoreWidths =
+	"try{var r=document.documentElement,l=localStorage.getItem('tok-left-width'),t=localStorage.getItem('tok-toc-width');" +
+	"if(l)r.style.setProperty('--sl-sidebar-width',l+'px');if(t)r.style.setProperty('--tok-toc-width',t+'px')}catch(e){}";
 
 export default defineConfig({
 	site: siteConfig.site.origin,
@@ -57,6 +64,10 @@ export default defineConfig({
 				// Lesson header box, review questions and the "cite this lesson" box.
 				MarkdownContent: './src/components/MarkdownContent.astro',
 			},
+			head: [
+				{ tag: 'script', content: restoreWidths },
+				{ tag: 'script', attrs: { src: `${base}/tok-layout.js`, defer: true } },
+			],
 			favicon: '/favicon.svg',
 			lastUpdated: false,
 			pagination: true,

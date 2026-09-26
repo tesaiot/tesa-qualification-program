@@ -420,6 +420,16 @@ class Builder:
             course.modules.append(module)
         return course
 
+    PAGE_ONLY_FILES = {"README.md", "README.en.md", "quiz.yaml"}
+
+    def lesson_has_material(self, repo_dir: str) -> bool:
+        """True when a lesson folder holds files beyond its own page (README/quiz), e.g. code or slides."""
+        root = self.repo / repo_dir
+        for f in root.rglob("*"):
+            if f.is_file() and not (f.parent == root and f.name in self.PAGE_ONLY_FILES):
+                return True
+        return False
+
     def load_lesson(self, course: Course, module: Module, ldir: Path):
         lrel = self.rel(ldir)
         readme = ldir / "README.md"
@@ -638,8 +648,13 @@ class Builder:
             assesses.append({"skill": a["skill"], "name": self.skill_name(a["skill"]), "level": as_int(a.get("level")),
                              "evidence": str(ev or ""), "evidence_url": ev_urls})
         ctx = fm.get("context") if isinstance(fm.get("context"), dict) else {}
+        # "Open BENTO IDE" only for MicroPython/BENTO lessons that have real material; C lessons build with
+        # ModusToolbox and an outline (pre-alpha) lesson has nothing to open yet.
+        status = str(fm.get("status") or "").lower()
+        has_material = self.lesson_has_material(lesson.dir)
         ide = None
-        if "bento" in str(ctx.get("ide", "")).lower() or (fm.get("hardware") or {}).get("emulator"):
+        is_bento = "bento" in str(ctx.get("ide", "")).lower() or str(ctx.get("lang", "")).lower() == "micropython"
+        if is_bento and status != "pre-alpha" and has_material:
             ide = self.cfg.ide_origin + "/"
         # Material TESA itself adapted keeps its upstream credit (BUILD_SPEC §1.9).
         upstream = None
@@ -672,7 +687,8 @@ class Builder:
             "slides": {"th": slides_url(self.cfg, lesson.deck) if lesson.deck else None,
                        "en": slides_url(self.cfg, lesson.deck_en) if lesson.deck_en else None},
             "ide": ide,
-            "source_url": self.cfg.gh_tree(lesson.dir, self.ref),
+            # The GitHub button only when the folder holds more than the page itself (code, slides, lab, ...).
+            "source_url": self.cfg.gh_tree(lesson.dir, self.ref) if has_material else None,
             "quiz": lesson.quiz,
             "cite": {
                 "th": self.attribution(lesson.title["th"], "th"),
@@ -683,9 +699,14 @@ class Builder:
         }
 
     def evidence_url(self, lesson: Lesson, ev, lang: str = "th", report: bool = False):
-        """Evidence may be a file ('practice/x.py') or a section ('README.md#checklist')."""
+        """Evidence may be a file ('practice/x.py'), a section ('README.md#checklist'), or free text that
+        describes what the learner hands in ('video of the board ...'). Same rule as tools/validate.py:
+        only a single path-like token (no whitespace, has '/' or a file extension) must resolve."""
         if not ev:
             return None
+        target = str(ev).split("#", 1)[0].strip()
+        if target and (re.search(r"\s", target) or not ("/" in target or re.search(r"\.[A-Za-z0-9]{1,5}$", target))):
+            return None  # free-text deliverable: shown as text, nothing to link
         m = re.match(r"^([^#?]*)(.*)$", str(ev))
         path, frag = m.group(1), m.group(2)
         evp = posixpath.normpath(posixpath.join(lesson.dir, path)) if path else f"{lesson.dir}/README.md"

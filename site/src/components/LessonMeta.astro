@@ -185,28 +185,28 @@ const licence = tqp.license ? Object.entries(tqp.license).map(([k, v]) => `${k}:
 		{
 			slides.th && (
 				<li>
-					<a class="tok-button" href={slides.th}>{t.openSlides}</a>
+					<a class="tok-button" href={slides.th} target="_blank" rel="noopener">{t.openSlides}</a>
 				</li>
 			)
 		}
 		{
 			slides.en && (
 				<li>
-					<a class="tok-button" href={slides.en}>{t.openSlidesEn}</a>
+					<a class="tok-button" href={slides.en} target="_blank" rel="noopener">{t.openSlidesEn}</a>
 				</li>
 			)
 		}
 		{
 			tqp.ide && (
 				<li>
-					<a class="tok-button" href={tqp.ide} rel="noopener">{t.openIde}</a>
+					<a class="tok-button" href={tqp.ide} target="_blank" rel="noopener noreferrer">{t.openIde}</a>
 				</li>
 			)
 		}
 		{
 			tqp.source_url && (
 				<li>
-					<a class="tok-button tok-button-quiet" href={tqp.source_url}>{isLesson ? t.sourceFiles : t.courseFiles}</a>
+					<a class="tok-button tok-button-quiet" href={tqp.source_url} target="_blank" rel="noopener noreferrer">{isLesson ? t.sourceFiles : t.courseFiles}</a>
 				</li>
 			)
 		}

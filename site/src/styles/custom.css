@@ -504,3 +504,85 @@ mark.tok-missing {
 .tok-cov-icon .tok-tick {
 	stroke: var(--tok-check-ink);
 }
+
+/* ---- Frame widths ---------------------------------------------------------------------------
+ * Readers found the default layout cramped. The content column is wider, and the course navigation
+ * (left) and "On this page" (right) can each be resized with a drag handle (public/tok-layout.js).
+ * Starlight sizes BOTH side columns with --sl-sidebar-width; the right one gets its own
+ * --tok-toc-width here so the two can differ. These rules are unlayered, so they win over
+ * Starlight's @layer starlight.core. */
+:root {
+	--sl-content-width: 52rem;
+	--tok-toc-width: 15rem;
+}
+@media (min-width: 72rem) {
+	.right-sidebar-container {
+		width: var(--tok-toc-width);
+	}
+	[data-has-sidebar][data-has-toc] .main-pane {
+		--sl-content-margin-inline: auto;
+		width: calc(100% - var(--tok-toc-width));
+	}
+	.right-sidebar-panel .sl-container {
+		width: auto;
+		max-width: none;
+	}
+}
+.tok-resizer {
+	display: none;
+	position: fixed;
+	top: var(--sl-nav-height);
+	bottom: 0;
+	width: 10px;
+	z-index: 20;
+	cursor: col-resize;
+	touch-action: none;
+}
+.tok-resizer::after {
+	content: '';
+	position: absolute;
+	inset-block: 0;
+	inset-inline-start: 4px;
+	width: 2px;
+	background: transparent;
+	transition: background-color 0.15s;
+}
+.tok-resizer:hover::after,
+.tok-resizer:focus-visible::after,
+.tok-resizing .tok-resizer::after {
+	background: var(--sl-color-accent);
+}
+.tok-resizer:focus-visible {
+	outline: none;
+}
+.tok-resizer-left {
+	left: calc(var(--sl-sidebar-width) - 5px);
+}
+.tok-resizer-right {
+	right: calc(var(--tok-toc-width) - 5px);
+}
+@media (min-width: 50rem) {
+	[data-has-sidebar] .tok-resizer-left {
+		display: block;
+	}
+}
+@media (min-width: 72rem) {
+	[data-has-toc] .tok-resizer-right {
+		display: block;
+	}
+}
+.tok-resizing,
+.tok-resizing * {
+	cursor: col-resize !important;
+	user-select: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+	.tok-resizer::after {
+		transition: none;
+	}
+}
+@media print {
+	.tok-resizer {
+		display: none !important;
+	}
+}
