@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: sys.dsp, to: 3}, {skill: ai.data-collection, to: 2}, {skill: hw.math, to: 2}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {note: Adapted from the author's Edge AI Developer course (2026-09)}
 ---

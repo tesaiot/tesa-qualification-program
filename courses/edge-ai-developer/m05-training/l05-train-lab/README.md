@@ -15,7 +15,7 @@ develops: [{skill: ai.model-training, to: 3}, {skill: build.docker, to: 2}, {ski
 assesses: [{skill: ai.model-training, level: 2, evidence: practice/s12_train.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {note: Adapted from the author's Edge AI Developer course (2026-09)}
 ---

@@ -15,7 +15,7 @@ develops: [{skill: build.vendor-sdk, to: 2}, {skill: ai.model-deploy, to: 3}, {s
 assesses: [{skill: build.vendor-sdk, level: 2, evidence: practice/s19_extend_model.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {note: Adapted from the author's Edge AI Developer course (2026-09)}
 ---

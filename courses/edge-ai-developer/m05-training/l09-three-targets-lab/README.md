@@ -15,7 +15,7 @@ develops: [{skill: ai.model-deploy, to: 3}, {skill: lang.python, to: 2}, {skill:
 assesses: [{skill: ai.model-deploy, level: 2, evidence: practice/s14_tflite_board.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {note: Adapted from the author's Edge AI Developer course (2026-09)}
 ---

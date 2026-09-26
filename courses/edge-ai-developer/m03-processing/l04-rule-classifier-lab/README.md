@@ -15,7 +15,7 @@ develops: [{skill: prog.algo-ds, to: 2}, {skill: lang.micropython, to: 2}, {skil
 assesses: [{skill: prog.algo-ds, level: 2, evidence: practice/s07_rule_classifier.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {note: Adapted from the author's Edge AI Developer course (2026-09)}
 ---

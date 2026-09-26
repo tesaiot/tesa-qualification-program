@@ -15,7 +15,7 @@ develops: [{skill: lang.micropython, to: 2}, {skill: sys.sensors-actuators, to: 
 assesses: [{skill: lang.micropython, level: 2, evidence: practice/s02_anatomy_sensor.py}, {skill: sys.sensors-actuators, level: 2, evidence: practice/s02_anatomy_sensor.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {note: Adapted from the author's Edge AI Developer course (2026-09)}
 ---

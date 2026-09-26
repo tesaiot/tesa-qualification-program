@@ -6,7 +6,7 @@
 > and board steps may change before release. You can study and try it in the BENTO Emulator; if something does not match what
 > you see, please open a [GitHub issue](https://github.com/tesaiot/tesa-qualification-program/issues).
 
-Thai version: [README.md](README.md). The lessons, slides and code comments are in Thai (technical terms and code in English).
+Thai version: [README.md](README.md). The lessons are in English and Thai; the slides and code comments are in Thai (technical terms and code in English).
 
 Learn **edge AI** end to end on a real PSoC Edge board (**TESAIoT Dev Kit**: Cortex-M33 + Cortex-M55 + Ethos-U55 NPU) in **MicroPython**. You start by running the models that ship on the board, so you see where the course ends, then follow the five pillars of the data lifecycle:
 
@@ -162,6 +162,15 @@ the tools are corrected in the lessons. The main ones:
 - `train.py` gains the `--save-keras` option that `convert_web.py` needs.
 
 Accuracy and latency figures in the lessons are the author's and have not been re-measured on a board.
+
+## How to use the solutions
+
+The solutions are open on purpose, but they are there **to compare with after you have tried**, not to copy and paste.
+
+1. **Try on your own for at least 15 minutes.** Read the `# เติม` (fill in) hints in the practice file, fill them in and run it. If there is an error, read the whole message first.
+2. **Open the solution, read it, then close it.** Understand why it is written that way, then close the solution before you go back to your own file.
+3. **Type it yourself, do not paste.** Fingers that type and eyes that copy remember differently.
+4. **Change a number and watch the result**, such as the confidence threshold, the window size or the number of epochs. Knowing "what happens if I change this" is real understanding.
 
 ## Licences
 

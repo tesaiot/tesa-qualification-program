@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: ai.data-collection, to: 2}, {skill: sys.dsp, to: 1}, {skill: sys.memory-fs, to: 1}, {skill: sys.sensors-actuators, to: 2}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {note: Adapted from the author's Edge AI Developer course (2026-09)}
 ---

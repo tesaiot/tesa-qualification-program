@@ -15,7 +15,7 @@ develops: [{skill: ai.edge, to: 3}, {skill: prog.state-machines, to: 2}, {skill:
 assesses: [{skill: ai.edge, level: 3, evidence: practice/s16_action_pipeline.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {note: Adapted from the author's Edge AI Developer course (2026-09)}
 ---

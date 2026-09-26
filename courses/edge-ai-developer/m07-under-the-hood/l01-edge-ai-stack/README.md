@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: hw.architecture, to: 3}, {skill: rtos.multicore-ipc, to: 2}, {skill: ai.model-deploy, to: 3}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {note: Adapted from the author's Edge AI Developer course (2026-09)}
 ---

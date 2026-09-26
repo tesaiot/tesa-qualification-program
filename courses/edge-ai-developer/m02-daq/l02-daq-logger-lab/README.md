@@ -15,7 +15,7 @@ develops: [{skill: ai.data-collection, to: 2}, {skill: lang.micropython, to: 2},
 assesses: [{skill: ai.data-collection, level: 2, evidence: practice/s04_daq_logger.py}, {skill: sys.memory-fs, level: 2, evidence: practice/s04_daq_logger.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {note: Adapted from the author's Edge AI Developer course (2026-09)}
 ---
