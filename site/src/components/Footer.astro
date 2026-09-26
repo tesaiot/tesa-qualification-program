@@ -1,0 +1,20 @@
+---
+// SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+// SPDX-License-Identifier: Apache-2.0
+//
+// Starlight footer + the TESA credit line on every page, Thai and English (BUILD_SPEC §1.9).
+// The wording comes from site.config.yaml (credit.line) through src/generated/site-config.json.
+import Default from '@astrojs/starlight/components/Footer.astro';
+import siteConfig from '../generated/site-config.json';
+import { S, href, langOf } from '../lib/strings';
+
+const lang = langOf(Astro.locals.starlightRoute.lang);
+const t = S[lang];
+const citeHref = href('attribution', lang) ?? undefined;
+---
+
+<Default><slot /></Default>
+<div class="tok-credit not-content" data-pagefind-ignore>
+	<p class="tok-credit-line"><a href={citeHref}>{siteConfig.credit.line}</a></p>
+	<p class="tok-credit-note">{t.footerNote} · <a href={citeHref}>{t.howToCite}</a></p>
+</div>

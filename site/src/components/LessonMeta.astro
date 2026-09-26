@@ -1,0 +1,214 @@
+---
+// SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+// SPDX-License-Identifier: Apache-2.0
+//
+// The small box at the top of a lesson (or course) page: level, time, hardware, skills (linked to
+// /skills/<id>/), prerequisites, status and the slides / IDE / GitHub links. All values are
+// resolved by scripts/sync_content.py into the page's `tqp` front matter; this only renders them.
+import { S, href, langOf, pick } from '../lib/strings';
+
+interface Props {
+	tqp: Record<string, any>;
+}
+
+const { tqp } = Astro.props;
+const lang = langOf(Astro.locals.starlightRoute.lang);
+const t = S[lang];
+const isLesson = tqp.kind === 'lesson';
+
+const hw = tqp.hardware ?? { emulator: false, boards: [] };
+const boards: any[] = hw.boards ?? [];
+const hardware: string[] = [
+	...(hw.emulator ? [t.emulator] : []),
+	...boards.filter((b) => !(hw.emulator && b.id === 'none')).map((b) => pick(b.label, lang, b.id)),
+];
+
+const time = tqp.time ?? { total: 0, parts: [] };
+const timeParts = (time.parts ?? []).map((p: any) => `${pick(p.label, lang, p.key)} ${p.min}`).join(' · ');
+const develops: any[] = tqp.develops ?? [];
+const assesses: any[] = tqp.assesses ?? [];
+const prereq: any[] = tqp.prerequisites ?? [];
+const level = tqp.level?.code ? pick(tqp.level.name, lang, tqp.level.code) : '';
+const status = pick(tqp.status?.label, lang, tqp.status?.code ?? '');
+const slides = tqp.slides ?? {};
+const audience: string[] = (tqp.audience ?? []).map((a: any) => pick(a, lang));
+const licence = tqp.license ? Object.entries(tqp.license).map(([k, v]) => `${k}: ${v}`).join(' · ') : '';
+---
+
+<aside class="tok-meta-box not-content" aria-label={isLesson ? t.lessonInfo : t.courseInfo} data-pagefind-ignore>
+	<dl class="tok-facts">
+		{
+			isLesson && tqp.course?.title && (
+				<div>
+					<dt>{t.course}</dt>
+					<dd>
+						{tqp.course.route ? (
+							<a href={href(tqp.course.route, lang)}>{pick(tqp.course.title, lang)}</a>
+						) : (
+							pick(tqp.course.title, lang)
+						)}
+						{tqp.module?.title && (
+							<span class="tok-sub">
+								{' · '}
+								{tqp.module.route ? (
+									<a href={href(tqp.module.route, lang)}>{pick(tqp.module.title, lang)}</a>
+								) : (
+									pick(tqp.module.title, lang)
+								)}
+							</span>
+						)}
+					</dd>
+				</div>
+			)
+		}
+		{
+			level && (
+				<div>
+					<dt>{t.level}</dt>
+					<dd>{level}</dd>
+				</div>
+			)
+		}
+		{
+			isLesson && time.total > 0 && (
+				<div>
+					<dt>{t.time}</dt>
+					<dd>
+						{time.total} {t.minutes}
+						{timeParts && <span class="tok-sub"> ({timeParts})</span>}
+					</dd>
+				</div>
+			)
+		}
+		{
+			!isLesson && tqp.hours && (
+				<div>
+					<dt>{t.time}</dt>
+					<dd>
+						{tqp.hours} {t.hours} · {tqp.modules} {t.modules} · {tqp.lessons} {t.lessons}
+					</dd>
+				</div>
+			)
+		}
+		{
+			hardware.length > 0 && (
+				<div>
+					<dt>{t.hardware}</dt>
+					<dd>{hardware.join(' · ')}</dd>
+				</div>
+			)
+		}
+		{
+			!isLesson && audience.length > 0 && (
+				<div>
+					<dt>{t.audience}</dt>
+					<dd>{audience.join(' · ')}</dd>
+				</div>
+			)
+		}
+		{
+			develops.length > 0 && (
+				<div>
+					<dt>{t.develops}</dt>
+					<dd>
+						<ul class="tok-inline-list">
+							{develops.map((d) => (
+								<li>
+									<a href={href(`skills/${d.skill}`, lang)}>{pick(d.name, lang, d.skill)}</a>
+									{d.to ? <span class="tok-sub"> {t.toLevel} L{d.to}</span> : null}
+								</li>
+							))}
+						</ul>
+					</dd>
+				</div>
+			)
+		}
+		{
+			assesses.length > 0 && (
+				<div>
+					<dt>{t.assesses}</dt>
+					<dd>
+						<ul class="tok-inline-list">
+							{assesses.map((a) => (
+								<li>
+									<a href={href(`skills/${a.skill}`, lang)}>{pick(a.name, lang, a.skill)}</a>
+									{a.level ? <span class="tok-sub"> {t.atLevel} L{a.level}</span> : null}
+									{a.evidence_url?.[lang] ? (
+										<span class="tok-sub">
+											{' · '}
+											<a href={a.evidence_url[lang]}>{t.evidence}</a>
+										</span>
+									) : null}
+								</li>
+							))}
+						</ul>
+					</dd>
+				</div>
+			)
+		}
+		{
+			isLesson && (
+				<div>
+					<dt>{t.prereq}</dt>
+					<dd>
+						{prereq.length === 0 ? (
+							t.none
+						) : (
+							<ul class="tok-inline-list">
+								{prereq.map((p) => (
+									<li>{p.route ? <a href={href(p.route, lang)}>{pick(p.title, lang, p.id)}</a> : pick(p.title, lang, p.id)}</li>
+								))}
+							</ul>
+						)}
+					</dd>
+				</div>
+			)
+		}
+		{
+			status && (
+				<div>
+					<dt>{t.status}</dt>
+					<dd>{status}</dd>
+				</div>
+			)
+		}
+		{
+			licence && (
+				<div>
+					<dt>{t.licence}</dt>
+					<dd>{licence}</dd>
+				</div>
+			)
+		}
+	</dl>
+	<ul class="tok-actions">
+		{
+			slides.th && (
+				<li>
+					<a class="tok-button" href={slides.th}>{t.openSlides}</a>
+				</li>
+			)
+		}
+		{
+			slides.en && (
+				<li>
+					<a class="tok-button" href={slides.en}>{t.openSlidesEn}</a>
+				</li>
+			)
+		}
+		{
+			tqp.ide && (
+				<li>
+					<a class="tok-button" href={tqp.ide} rel="noopener">{t.openIde}</a>
+				</li>
+			)
+		}
+		{
+			tqp.source_url && (
+				<li>
+					<a class="tok-button tok-button-quiet" href={tqp.source_url}>{isLesson ? t.sourceFiles : t.courseFiles}</a>
+				</li>
+			)
+		}
+	</ul>
+</aside>

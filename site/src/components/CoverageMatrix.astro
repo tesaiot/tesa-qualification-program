@@ -1,0 +1,110 @@
+---
+// SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+// SPDX-License-Identifier: Apache-2.0
+//
+// /coverage/: skill x course matrix. Each filled cell shows an icon (shape) + a letter + the level,
+// with a full sentence for screen readers. The table scrolls sideways inside its own region.
+import CovIcon from './CovIcon.astro';
+import { siteData } from '../lib/data';
+import { S, href, pick, type Lang } from '../lib/strings';
+
+interface Props {
+	lang: Lang;
+}
+const { lang } = Astro.props;
+const t = S[lang];
+const { skills, areas, courses, matrix } = siteData;
+const rows = areas.flatMap((area) =>
+	area.groups.filter((g) => g.skills.length > 0).map((g) => ({ area, group: g }))
+);
+---
+
+<p>{t.coverageIntro}</p>
+
+<div class="tok-legend not-content">
+	<div>
+		<p class="tok-legend-title">{t.legendCov}</p>
+		<ul>
+			<li class="tok-cov tok-cov-developed"><CovIcon state="developed" /> {t.covDevLong}</li>
+			<li class="tok-cov tok-cov-assessed"><CovIcon state="assessed" /> {t.covAssLong}</li>
+		</ul>
+		<p class="tok-sub">{t.legendCells}</p>
+	</div>
+</div>
+
+<p>
+	<a href={href('roadmap', lang)}>{t.roadmapTitle}</a> · <a href={href('skills', lang)}>{t.tableView}</a>
+</p>
+
+{
+	courses.length === 0 ? (
+		<p>{t.noCourses}</p>
+	) : (
+		<div class="tok-matrix-wrap not-content" role="region" aria-label={t.tableLabel} tabindex="0">
+			<table class="tok-matrix">
+				<thead>
+					<tr>
+						<th scope="col" class="tok-matrix-skill">{t.colSkill}</th>
+						{courses.map((c) => (
+							<th scope="col">
+								{c.route ? (
+									<a href={href(c.route, lang)} title={pick(c.title, lang)}>
+										{c.short}
+									</a>
+								) : (
+									<span title={pick(c.title, lang)}>{c.short}</span>
+								)}
+							</th>
+						))}
+						<th scope="col">{t.colTotal}</th>
+					</tr>
+				</thead>
+				{rows.map(({ area, group }) => (
+					<tbody>
+						<tr class="tok-matrix-group">
+							<th scope="rowgroup" colspan={courses.length + 2}>
+								{pick(area, lang)} · {pick(group, lang)}
+							</th>
+						</tr>
+						{group.skills.map((id) => {
+							const s = skills[id];
+							if (!s) return null;
+							const row = matrix[id] ?? {};
+							const count = Object.keys(row).filter((k) => k && k !== 'null').length;
+							const imp = s.importance ?? 'none';
+							return (
+								<tr>
+									<th scope="row" class="tok-matrix-skill">
+										<a href={href(`skills/${id}`, lang)}>{pick(s, lang, id)}</a>{' '}
+										<span class={`tok-imp-code tok-imp-${imp}`}>{imp === 'none' ? 'TESA' : imp}</span>
+									</th>
+									{courses.map((c) => {
+										const cell = row[c.id];
+										if (!cell) return <td class="tok-empty"></td>;
+										const assessed = cell.ass != null;
+										const level = assessed ? cell.ass : cell.dev;
+										const levelText = level ? `${level}` : '';
+										return (
+											<td class={`tok-cov tok-cov-${assessed ? 'assessed' : 'developed'}`}>
+												<CovIcon state={assessed ? 'assessed' : 'developed'} />
+												<span aria-hidden="true">
+													{' '}
+													{assessed ? t.assAbbr : t.devAbbr}
+													{levelText}
+												</span>
+												<span class="sr-only">
+													{assessed ? t.assAt : t.devTo} {level ? `L${level}` : ''}
+												</span>
+											</td>
+										);
+									})}
+									<td class="tok-matrix-total">{count > 0 ? count : '—'}</td>
+								</tr>
+							);
+						})}
+					</tbody>
+				))}
+			</table>
+		</div>
+	)
+}

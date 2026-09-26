@@ -1,0 +1,14 @@
+---
+// SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+// SPDX-License-Identifier: Apache-2.0
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import CoverageMatrix from '../../components/CoverageMatrix.astro';
+import { S } from '../../lib/strings';
+
+const lang = 'en';
+const t = S[lang];
+---
+
+<StarlightPage frontmatter={{ title: t.coverageTitle, description: t.coverageDesc, tableOfContents: false }}>
+	<CoverageMatrix lang={lang} />
+</StarlightPage>

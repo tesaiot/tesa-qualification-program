@@ -1,0 +1,38 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: Apache-2.0
+#
+# The one place that says where the site lives and how TESA is credited.
+# Read by site/scripts/*.py (the Starlight site) and by tools/ (validators, exports).
+# Never copy these values into code: read this file.
+
+site:
+  origin: https://tesaiot.github.io
+  base: /tesa-qualification-program
+  title: TESA Open Knowledge
+  description:
+    th: "คอร์สเปิดด้านระบบสมองกลฝังตัว AIoT และ Edge AI จากสมาคมสมองกลฝังตัวไทย (TESA) เรียนทีละบท มีสไลด์ ตัวอย่างโค้ด และแบบฝึก"
+    en: "Open courses on embedded systems, AIoT and Edge AI from the Thai Embedded Systems Association (TESA), learned lesson by lesson with slides, example code and practice."
+
+repo:
+  url: https://github.com/tesaiot/tesa-qualification-program
+  branch: main
+
+ide:
+  origin: https://ide.tesaiot.dev
+
+# How every page, deck and reuse credits TESA (BUILD_SPEC §1.9). One wording, used everywhere.
+credit:
+  # Short credit line: every site page footer and every Marp deck footer.
+  line: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY 4.0"
+  org:
+    th: "สมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA)"
+    en: "Thai Embedded Systems Association (TESA)"
+  # Required attribution for reuse. {title} = lesson or course title, {repo} = repo.url above.
+  attribution:
+    th: "\"{title}\" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) {repo} สัญญาอนุญาต CC BY 4.0"
+    en: "\"{title}\" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), {repo}, licensed under CC BY 4.0"
+  adapted_suffix:
+    th: " (ดัดแปลง)"
+    en: " (adapted)"
+  # Repo file rendered as the "วิธีอ้างอิง TESA / How to cite TESA" page (/attribution/).
+  page_source: ATTRIBUTION.md

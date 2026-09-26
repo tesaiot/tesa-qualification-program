@@ -1,0 +1,104 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: Apache-2.0
+#
+# Build the TESA Open Knowledge site (Astro Starlight + Pagefind + Marp) and deploy it to GitHub Pages.
+# Repo setting needed once: Settings > Pages > Build and deployment > Source = "GitHub Actions".
+# Every action is pinned to a full commit SHA (tag in the comment).
+name: site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time; let an in-progress production deploy finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: |
+          if [ -f tools/requirements.txt ]; then
+            echo "==> pip install -r tools/requirements.txt"
+            pip install -r tools/requirements.txt
+          else
+            echo "::warning::tools/requirements.txt not found; installing pinned pyyaml + jsonschema"
+            pip install "pyyaml==6.0.3" "jsonschema==4.26.0"
+          fi
+
+      - name: Export skill/course data (tools/export.py)
+        run: |
+          if [ -f tools/export.py ]; then
+            echo "==> python tools/export.py --out site/src/data"
+            python tools/export.py --out site/src/data
+          else
+            echo "::warning::tools/export.py not found; the site computes coverage from the YAML itself"
+          fi
+
+      - name: Generate site content (site/scripts/sync_content.py --strict)
+        run: python site/scripts/sync_content.py --strict
+
+      - name: Set up Node 22 (LTS)
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22"
+          # No lockfile committed yet, so no dependency cache. Once site/package-lock.json exists:
+          # set cache: npm + cache-dependency-path: site/package-lock.json and use `npm ci` below.
+          package-manager-cache: false
+
+      - name: Install site dependencies (npm install; no lockfile yet)
+        working-directory: site
+        run: |
+          node --version
+          npm --version
+          npm install --no-audit --no-fund
+
+      - name: Render slides (Marp -> site/public/slides)
+        run: bash site/scripts/render_slides.sh
+
+      - name: Build site (astro build + Pagefind)
+        working-directory: site
+        run: npm run build
+
+      - name: Check built site (lang, credit footer, cite box, skill pages, Thai search index)
+        run: python site/scripts/check_dist.py
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: site/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

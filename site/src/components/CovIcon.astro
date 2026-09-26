@@ -1,0 +1,24 @@
+---
+// SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+// SPDX-License-Identifier: Apache-2.0
+//
+// Coverage state as a SHAPE (empty / half / full circle with a tick), always shown next to text,
+// so the state never depends on colour alone (WCAG 1.4.1).
+interface Props {
+	state: string;
+}
+const { state } = Astro.props;
+---
+
+<svg class="tok-cov-icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false">
+	<circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+	{state === 'developed' && <path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor"></path>}
+	{
+		state === 'assessed' && (
+			<>
+				<circle cx="8" cy="8" r="6.25" fill="currentColor"></circle>
+				<path class="tok-tick" d="M4.9 8.3l2.1 2.1 4.2-4.6" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+			</>
+		)
+	}
+</svg>

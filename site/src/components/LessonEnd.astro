@@ -1,0 +1,122 @@
+---
+// SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+// SPDX-License-Identifier: Apache-2.0
+//
+// Bottom of a lesson page: the review questions from quiz.yaml (answers behind <details>) and the
+// "อ้างอิงบทเรียนนี้ / Cite this lesson" box with the required TESA attribution (BUILD_SPEC §1.9),
+// pre-filled with this lesson's title and link.
+import siteConfig from '../generated/site-config.json';
+import { S, fill, href, langOf, pick } from '../lib/strings';
+
+interface Props {
+	tqp: Record<string, any>;
+}
+
+const { tqp } = Astro.props;
+const lang = langOf(Astro.locals.starlightRoute.lang);
+const other = lang === 'th' ? 'en' : 'th';
+const t = S[lang];
+const quiz: any[] = tqp.quiz ?? [];
+const cite = tqp.cite ?? {};
+const letter = (i: number) => String.fromCharCode(65 + i);
+
+function answerText(q: any): string {
+	const answers: any[] = q.answer ?? [];
+	const parts = answers.map((a) =>
+		a.index != null ? `${letter(a.index)}. ${pick(a.text, lang)}` : pick(a.text, lang)
+	);
+	return parts.join(q.type === 'order' ? ' → ' : ' · ');
+}
+const adapted = pick((siteConfig.credit as any).adapted_suffix, lang);
+---
+
+{
+	quiz.length > 0 && (
+		<section class="tok-quiz" id="tok-quiz" aria-labelledby="tok-quiz-title">
+			<h2 id="tok-quiz-title">{t.quizTitle}</h2>
+			<p>{t.quizIntro}</p>
+			<ol class="tok-quiz-list">
+				{quiz.map((q) => (
+					<li>
+						<p>
+							{pick(q.prompt, lang)}
+							{q.objective ? (
+								<span class="tok-sub">
+									{' '}
+									({t.objective} {q.objective})
+								</span>
+							) : null}
+						</p>
+						{q.choices?.length > 0 && (
+							<ol class="tok-quiz-choices" type="A">
+								{q.choices.map((c) => (
+									<li>{pick(c, lang)}</li>
+								))}
+							</ol>
+						)}
+						{q.answer?.length > 0 && (
+							<details>
+								<summary>{t.showAnswer}</summary>
+								<p>
+									<strong>{q.type === 'order' ? t.correctOrder : t.answer}:</strong> {answerText(q)}
+								</p>
+								{q.explain && <p>{pick(q.explain, lang)}</p>}
+							</details>
+						)}
+					</li>
+				))}
+			</ol>
+		</section>
+	)
+}
+
+<section class="tok-cite not-content" aria-labelledby="tok-cite-title" data-pagefind-ignore>
+	<h2 id="tok-cite-title">{t.citeTitle}</h2>
+	<p>{fill(t.citeIntro, { adapted })}</p>
+	<div class="tok-cite-row">
+		<p class="tok-cite-text" id="tok-cite-text" lang={lang}>{cite[lang]}</p>
+		<button type="button" class="tok-copy" data-copy-target="tok-cite-text" data-done={t.copied} hidden>{t.copy}</button>
+	</div>
+	<p class="tok-cite-alt">
+		<span class="tok-sub">{t.citeOther}:</span> <span lang={other}>{cite[other]}</span>
+	</p>
+	{
+		cite.url && (
+			<p>
+				{t.lessonLink}: <a href={cite.url[lang]}>{cite.url[lang]}</a>
+			</p>
+		)
+	}
+	{
+		cite.upstream?.url && (
+			<p class="tok-cite-upstream">
+				{t.upstream}
+				<br />
+				<a href={cite.upstream.url}>{cite.upstream.url}</a>
+				{cite.upstream.note && <span class="tok-sub"> · {cite.upstream.note}</span>}
+			</p>
+		)
+	}
+	<p><a href={href('attribution', lang)}>{t.citeGuide}</a></p>
+</section>
+
+<script>
+	// Progressive enhancement: the button appears only where the Clipboard API exists;
+	// without it the attribution text is still there to select and copy by hand.
+	for (const button of document.querySelectorAll<HTMLButtonElement>('button.tok-copy')) {
+		if (!navigator.clipboard) continue;
+		button.hidden = false;
+		const label = button.textContent ?? '';
+		button.addEventListener('click', async () => {
+			const target = document.getElementById(button.dataset.copyTarget ?? '');
+			if (!target) return;
+			try {
+				await navigator.clipboard.writeText((target.textContent ?? '').trim());
+				button.textContent = button.dataset.done ?? label;
+				setTimeout(() => (button.textContent = label), 2000);
+			} catch {
+				// Clipboard refused (permissions): leave the text selectable.
+			}
+		});
+	}
+</script>

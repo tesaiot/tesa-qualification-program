@@ -1,0 +1,113 @@
+---
+// SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+// SPDX-License-Identifier: Apache-2.0
+//
+// /roadmap/: areas -> groups -> skill chips. Each chip shows the roadmap importance (background
+// colour AND a code: R / Rec / P / TESA) and the coverage state (icon shape AND text), and links to
+// /skills/<id>/. Plain HTML + CSS, no client-side JavaScript.
+import CovIcon from './CovIcon.astro';
+import { siteData, type Coverage } from '../lib/data';
+import { S, fill, href, pick, type Lang } from '../lib/strings';
+
+interface Props {
+	lang: Lang;
+}
+const { lang } = Astro.props;
+const t = S[lang];
+const { skills, areas, totals, importance } = siteData;
+const covShort: Record<Coverage, string> = { none: t.covNone, developed: t.covDev, assessed: t.covAss };
+const covLong: Record<Coverage, string> = { none: t.covNoneLong, developed: t.covDevLong, assessed: t.covAssLong };
+const r = totals.by_importance['R'] ?? { total: 0, covered: 0 };
+const summary = fill(t.summary, {
+	covered: totals.developed + totals.assessed,
+	n: totals.skills,
+	assessed: totals.assessed,
+	rCovered: r.covered,
+	rTotal: r.total,
+});
+const impKeys = ['R', 'Rec', 'P', 'none'];
+const covKeys: Coverage[] = ['none', 'developed', 'assessed'];
+---
+
+<p>{fill(t.roadmapIntro, { n: totals.skills })}</p>
+<p><strong>{summary}</strong></p>
+
+<div class="tok-legend not-content">
+	<div>
+		<p class="tok-legend-title">{t.legendImp}</p>
+		<ul>
+			{
+				impKeys.map((k) => (
+					<li>
+						<span class={`tok-swatch tok-imp-${k}`}>{k === 'none' ? 'TESA' : k}</span> {pick(importance[k], lang, k)}
+					</li>
+				))
+			}
+		</ul>
+	</div>
+	<div>
+		<p class="tok-legend-title">{t.legendCov}</p>
+		<ul>
+			{
+				covKeys.map((k) => (
+					<li class={`tok-cov tok-cov-${k}`}>
+						<CovIcon state={k} /> {covLong[k]}
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</div>
+
+<p>
+	<a href={href('skills', lang)}>{t.tableView}</a> · <a href={href('coverage', lang)}>{t.matrixView}</a>
+</p>
+
+{
+	areas.map((area) => {
+		const groups = area.groups.filter((g) => g.skills.length > 0);
+		if (groups.length === 0) return null;
+		return (
+			<>
+				<h2 id={`area-${area.id}`}>{pick(area, lang)}</h2>
+				<div class="tok-groups not-content">
+					{groups.map((g) => {
+						const n = g.skills.length;
+						const covered = g.skills.filter((id) => skills[id] && skills[id].coverage !== 'none').length;
+						return (
+							<section class="tok-group" aria-labelledby={`group-${g.id}`}>
+								<h3 id={`group-${g.id}`}>
+									{pick(g, lang)} <span class="tok-count">{fill(t.groupCount, { covered, n })}</span>
+								</h3>
+								<ul class="tok-chips">
+									{g.skills.map((id) => {
+										const s = skills[id];
+										if (!s) return null;
+										const imp = s.importance ?? 'none';
+										const lvl = s.coverage === 'assessed' ? s.ass_max : s.coverage === 'developed' ? s.dev_max : null;
+										return (
+											<li>
+												<a class={`tok-chip tok-imp-${imp}`} href={href(`skills/${id}`, lang)}>
+													<span class="tok-chip-name">{pick(s, lang, id)}</span>
+													<span class="tok-chip-meta">
+														<span class="tok-imp-code">{imp === 'none' ? 'TESA' : imp}</span>
+														<span class={`tok-cov tok-cov-${s.coverage}`}>
+															<CovIcon state={s.coverage} /> {covShort[s.coverage]}
+															{lvl ? ` L${lvl}` : ''}
+														</span>
+													</span>
+												</a>
+											</li>
+										);
+									})}
+								</ul>
+							</section>
+						);
+					})}
+				</div>
+			</>
+		);
+	})
+}
+
+<p class="tok-note">{t.eerCredit}</p>

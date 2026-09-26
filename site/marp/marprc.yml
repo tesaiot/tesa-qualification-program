@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: Apache-2.0
+#
+# Marp CLI config used by scripts/render_slides.sh (passed with --config-file).
+# `lang` has no CLI flag: without it Marp writes the build machine's locale into <html lang>
+# (the published AIC decks shipped lang="C"). A deck's own `lang:` directive still wins,
+# and scripts/slides.py adds one to every deck that lacks it.
+lang: th
+html: true
+allowLocalFiles: false

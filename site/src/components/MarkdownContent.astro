@@ -1,0 +1,20 @@
+---
+// SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+// SPDX-License-Identifier: Apache-2.0
+//
+// Wraps Starlight's MarkdownContent. Pages generated from a lesson (or course) README carry a
+// `tqp` front-matter object (scripts/sync_content.py); for those we add the lesson header box
+// above the text and the review questions + "cite this lesson" box below it.
+import Default from '@astrojs/starlight/components/MarkdownContent.astro';
+import LessonEnd from './LessonEnd.astro';
+import LessonMeta from './LessonMeta.astro';
+
+const tqp = (Astro.locals.starlightRoute.entry.data as { tqp?: Record<string, any> }).tqp;
+const kind = tqp?.kind;
+---
+
+<Default>
+	{tqp && (kind === 'lesson' || kind === 'course') && <LessonMeta tqp={tqp} />}
+	<slot />
+	{tqp && kind === 'lesson' && <LessonEnd tqp={tqp} />}
+</Default>

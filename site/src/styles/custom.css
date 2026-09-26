@@ -1,0 +1,506 @@
+/* SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * TESA Open Knowledge on top of Starlight. Starlight's own colour variables (--sl-color-*) switch
+ * between dark (default :root) and light ([data-theme='light']); everything here builds on them,
+ * so both themes work. Thai text: self-hosted IBM Plex Sans Thai, line-height >= 1.6, no ZWSP.
+ */
+
+:root {
+	--sl-font: 'IBM Plex Sans Thai', system-ui, sans-serif;
+	--sl-font-mono: 'IBM Plex Mono', 'IBM Plex Sans Thai', ui-monospace, monospace;
+	--sl-line-height: 1.75;
+	--sl-line-height-headings: 1.35; /* Thai stacked vowels and tone marks need room above and below */
+
+	/* Roadmap importance: the colours of the original roadmap legend (R yellow, Rec peach, P grey).
+	 * The chips keep the same pastel fill in both themes and always use dark ink on it. */
+	--tok-imp-R: #fff27a;
+	--tok-imp-Rec: #fbd7bb;
+	--tok-imp-P: #e3e5e3;
+	--tok-imp-ink: #1c1c1a;
+	/* The tick inside a filled "assessed" circle is drawn in the colour behind it. */
+	--tok-check-ink: var(--sl-color-bg);
+
+	--tok-box-bg: var(--sl-color-gray-6);
+	--tok-box-border: var(--sl-color-gray-5);
+	--tok-radius: 0.5rem;
+}
+
+:root[data-theme='light'] {
+	--tok-box-bg: var(--sl-color-gray-7, #f6f7f9);
+	--tok-box-border: var(--sl-color-gray-5);
+}
+
+/* Thai reads better slightly larger; keep headings from breaking inside words where possible. */
+:root:lang(th) {
+	--sl-text-body: 1.0625rem;
+}
+.sl-markdown-content :is(h1, h2, h3, h4) {
+	text-wrap: balance;
+}
+.sl-markdown-content :is(p, li, td) {
+	overflow-wrap: break-word;
+}
+
+/* ---------------------------------------------------------------- lesson / course header box */
+.tok-meta-box {
+	border: 1px solid var(--tok-box-border);
+	background: var(--tok-box-bg);
+	border-radius: var(--tok-radius);
+	padding: 0.9rem 1rem;
+	margin-block-end: 1.5rem;
+	font-size: var(--sl-text-sm);
+	line-height: 1.6;
+}
+.tok-facts {
+	display: grid;
+	grid-template-columns: minmax(7rem, max-content) 1fr;
+	gap: 0.35rem 1rem;
+	margin: 0;
+}
+.tok-facts > div {
+	display: contents;
+}
+.tok-facts dt {
+	color: var(--sl-color-gray-2);
+	font-weight: 600;
+}
+.tok-facts dd {
+	margin: 0;
+	color: var(--sl-color-white);
+}
+.tok-sub {
+	color: var(--sl-color-gray-3);
+}
+.tok-inline-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.15rem 1rem;
+}
+.tok-actions {
+	list-style: none;
+	margin: 0.8rem 0 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+.tok-button {
+	display: inline-block;
+	padding: 0.35rem 0.8rem;
+	border-radius: 999px;
+	/* Starlight swaps these per theme: light blue + near-black (dark), dark blue + white (light). */
+	background: var(--sl-color-accent-high);
+	color: var(--sl-color-black);
+	font-weight: 600;
+	text-decoration: none;
+}
+.tok-button:hover,
+.tok-button:focus-visible {
+	filter: brightness(1.1);
+}
+.tok-button-quiet {
+	background: transparent;
+	color: var(--sl-color-text-accent);
+	border: 1px solid var(--sl-color-gray-4);
+}
+:root[data-theme='light'] .tok-button-quiet {
+	background: transparent;
+	color: var(--sl-color-text-accent);
+}
+@media (max-width: 30rem) {
+	.tok-facts {
+		grid-template-columns: 1fr;
+		gap: 0.1rem;
+	}
+	.tok-facts dd {
+		margin-block-end: 0.45rem;
+	}
+}
+
+/* ---------------------------------------------------------------- quiz + cite box */
+.tok-quiz-list > li + li {
+	margin-block-start: 1rem;
+}
+.tok-quiz details {
+	margin-block-start: 0.4rem;
+}
+.tok-quiz summary {
+	cursor: pointer;
+	color: var(--sl-color-text-accent);
+}
+.tok-cite {
+	margin-block-start: 2.5rem;
+	border: 1px solid var(--tok-box-border);
+	border-inline-start: 4px solid var(--sl-color-accent);
+	background: var(--tok-box-bg);
+	border-radius: var(--tok-radius);
+	padding: 1rem 1.1rem;
+	font-size: var(--sl-text-sm);
+	line-height: 1.65;
+}
+.tok-cite h2 {
+	font-size: var(--sl-text-lg);
+	margin: 0 0 0.4rem;
+	color: var(--sl-color-white);
+}
+.tok-cite p {
+	margin: 0.4rem 0 0;
+}
+.tok-cite a {
+	color: var(--sl-color-text-accent);
+	overflow-wrap: anywhere;
+}
+.tok-cite-row {
+	display: flex;
+	gap: 0.75rem;
+	align-items: flex-start;
+	margin-block-start: 0.5rem;
+}
+.tok-cite-text {
+	flex: 1;
+	margin: 0 !important;
+	padding: 0.6rem 0.75rem;
+	background: var(--sl-color-bg);
+	border-radius: 0.35rem;
+	color: var(--sl-color-white);
+	user-select: all;
+}
+.tok-copy {
+	flex: none;
+	min-height: 2.25rem;
+	padding: 0.3rem 0.8rem;
+	border-radius: 0.35rem;
+	border: 1px solid var(--sl-color-gray-4);
+	background: transparent;
+	color: var(--sl-color-white);
+	font: inherit;
+	cursor: pointer;
+}
+@media (max-width: 30rem) {
+	.tok-cite-row {
+		flex-direction: column;
+	}
+}
+
+/* ---------------------------------------------------------------- footer credit (every page) */
+.tok-credit {
+	margin-block-start: 2rem;
+	padding-block-start: 1rem;
+	border-block-start: 1px solid var(--sl-color-hairline-light);
+	font-size: var(--sl-text-xs);
+	color: var(--sl-color-gray-3);
+	text-align: center;
+	line-height: 1.6;
+}
+.tok-credit p {
+	margin: 0.2rem 0;
+}
+.tok-credit-line a {
+	color: var(--sl-color-gray-2);
+	font-weight: 600;
+	text-decoration: none;
+}
+.tok-credit a:hover,
+.tok-credit a:focus-visible {
+	text-decoration: underline;
+}
+.tok-credit-note a {
+	color: var(--sl-color-text-accent);
+}
+
+/* ---------------------------------------------------------------- importance + coverage marks */
+.tok-imp-R {
+	--tok-imp: var(--tok-imp-R);
+}
+.tok-imp-Rec {
+	--tok-imp: var(--tok-imp-Rec);
+}
+.tok-imp-P {
+	--tok-imp: var(--tok-imp-P);
+}
+.tok-imp-none {
+	--tok-imp: transparent;
+}
+.tok-imp,
+.tok-swatch,
+.tok-imp-code {
+	display: inline-block;
+	border-radius: 0.3rem;
+	padding: 0 0.4rem;
+	background: var(--tok-imp);
+	color: var(--tok-imp-ink);
+	font-weight: 600;
+	font-size: 0.85em;
+	line-height: 1.6;
+}
+.tok-imp.tok-imp-none,
+.tok-swatch.tok-imp-none,
+.tok-imp-code.tok-imp-none {
+	color: var(--sl-color-white);
+	border: 1px dashed var(--sl-color-gray-3);
+}
+.tok-cov {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.3rem;
+}
+.tok-cov-icon {
+	flex: none;
+	vertical-align: -0.15em;
+}
+.tok-cov-none .tok-cov-icon {
+	opacity: 0.75;
+}
+
+/* ---------------------------------------------------------------- roadmap */
+.tok-legend {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem 2.5rem;
+	padding: 0.8rem 1rem;
+	margin-block: 1rem;
+	border: 1px solid var(--tok-box-border);
+	border-radius: var(--tok-radius);
+	background: var(--tok-box-bg);
+	font-size: var(--sl-text-sm);
+}
+.tok-legend ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 0.3rem;
+}
+.tok-legend-title {
+	font-weight: 600;
+	margin: 0 0 0.35rem;
+	color: var(--sl-color-white);
+}
+.tok-legend .tok-swatch {
+	min-width: 3.2rem;
+	text-align: center;
+	margin-inline-end: 0.35rem;
+}
+.tok-groups {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+	gap: 1rem;
+	margin-block: 1rem 2rem;
+}
+.tok-group {
+	border: 1px solid var(--tok-box-border);
+	border-radius: var(--tok-radius);
+	padding: 0.75rem;
+	background: var(--tok-box-bg);
+}
+.tok-group h3 {
+	margin: 0 0 0.6rem;
+	font-size: var(--sl-text-base);
+	line-height: 1.4;
+	color: var(--sl-color-white);
+	scroll-margin-top: calc(var(--sl-nav-height) + 1rem);
+}
+.tok-count {
+	display: block;
+	font-size: var(--sl-text-xs);
+	font-weight: 400;
+	color: var(--sl-color-gray-3);
+}
+.tok-chips {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 0.4rem;
+}
+.tok-chip {
+	display: flex;
+	flex-direction: column;
+	gap: 0.15rem;
+	padding: 0.4rem 0.6rem;
+	border-radius: 0.4rem;
+	background: var(--tok-imp);
+	color: var(--tok-imp-ink);
+	text-decoration: none;
+	line-height: 1.45;
+	border: 1px solid rgb(0 0 0 / 0.12);
+}
+.tok-chip.tok-imp-none {
+	color: var(--sl-color-white);
+	border: 1px dashed var(--sl-color-gray-3);
+}
+.tok-chip:hover,
+.tok-chip:focus-visible {
+	outline: 2px solid var(--sl-color-accent);
+	outline-offset: 1px;
+}
+.tok-chip-name {
+	font-weight: 600;
+	font-size: var(--sl-text-sm);
+}
+.tok-chip-meta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.2rem 0.6rem;
+	font-size: var(--sl-text-xs);
+}
+.tok-chip .tok-imp-code {
+	background: rgb(0 0 0 / 0.1);
+	color: inherit;
+	border: 0;
+	padding: 0 0.3rem;
+}
+.tok-chip.tok-imp-none .tok-imp-code {
+	background: transparent;
+	border: 1px dashed currentColor;
+}
+.tok-chip .tok-cov-assessed .tok-cov-icon {
+	--tok-check-ink: var(--tok-imp);
+}
+.tok-chip.tok-imp-none .tok-cov-assessed .tok-cov-icon {
+	--tok-check-ink: var(--sl-color-bg);
+}
+.tok-note {
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-3);
+}
+
+/* ---------------------------------------------------------------- coverage matrix */
+.tok-matrix-wrap {
+	overflow-x: auto;
+	max-width: 100%;
+	margin-block: 1rem;
+	border: 1px solid var(--tok-box-border);
+	border-radius: var(--tok-radius);
+}
+.tok-matrix-wrap:focus-visible {
+	outline: 2px solid var(--sl-color-accent);
+}
+.tok-matrix {
+	border-collapse: collapse;
+	font-size: var(--sl-text-xs);
+	min-width: max-content;
+	width: 100%;
+}
+.tok-matrix th,
+.tok-matrix td {
+	padding: 0.3rem 0.55rem;
+	border-block-end: 1px solid var(--sl-color-hairline-light);
+	text-align: center;
+	white-space: nowrap;
+}
+.tok-matrix thead th {
+	position: sticky;
+	top: 0;
+	background: var(--sl-color-gray-6);
+	color: var(--sl-color-white);
+	z-index: 1;
+}
+:root[data-theme='light'] .tok-matrix thead th {
+	background: var(--sl-color-gray-7, #f6f7f9);
+}
+.tok-matrix .tok-matrix-skill {
+	position: sticky;
+	left: 0;
+	z-index: 1;
+	text-align: start;
+	background: var(--sl-color-bg);
+	max-width: 16rem;
+	white-space: normal;
+	font-weight: 400;
+}
+.tok-matrix thead .tok-matrix-skill {
+	z-index: 2;
+	background: var(--sl-color-gray-6);
+}
+.tok-matrix-group th {
+	text-align: start;
+	background: var(--tok-box-bg);
+	color: var(--sl-color-white);
+	font-weight: 600;
+}
+.tok-matrix td.tok-cov {
+	display: table-cell;
+}
+.tok-matrix-total {
+	color: var(--sl-color-gray-2);
+}
+
+/* ---------------------------------------------------------------- skill page, catalog, home cards */
+.tok-skill-meta {
+	display: grid;
+	grid-template-columns: minmax(8rem, max-content) 1fr;
+	gap: 0.35rem 1rem;
+	padding: 0.9rem 1rem;
+	border: 1px solid var(--tok-box-border);
+	border-radius: var(--tok-radius);
+	background: var(--tok-box-bg);
+	font-size: var(--sl-text-sm);
+}
+.tok-skill-meta > div {
+	display: contents;
+}
+.tok-skill-meta dt {
+	font-weight: 600;
+	color: var(--sl-color-gray-2);
+}
+.tok-skill-meta dd {
+	margin: 0;
+}
+@media (max-width: 30rem) {
+	.tok-skill-meta {
+		grid-template-columns: 1fr;
+	}
+}
+.tok-meta {
+	color: var(--sl-color-gray-3);
+	font-size: var(--sl-text-sm);
+}
+.tok-cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+	gap: 1rem;
+	margin-block: 1rem;
+}
+.tok-card {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+	padding: 1rem;
+	border: 1px solid var(--tok-box-border);
+	border-radius: var(--tok-radius);
+	background: var(--tok-box-bg);
+	color: var(--sl-color-white);
+	text-decoration: none;
+	line-height: 1.6;
+}
+a.tok-card:hover,
+a.tok-card:focus-visible {
+	border-color: var(--sl-color-accent);
+}
+.tok-card-title {
+	font-weight: 600;
+	font-size: var(--sl-text-lg);
+	line-height: 1.4;
+}
+.tok-card-meta {
+	font-size: var(--sl-text-xs);
+	color: var(--sl-color-gray-3);
+}
+.tok-card-body {
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-2);
+}
+mark.tok-missing {
+	background: #ffd7d7;
+	color: #5c0000;
+	padding: 0 0.3rem;
+}
+.tok-cov-icon .tok-tick {
+	stroke: var(--tok-check-ink);
+}
