@@ -256,6 +256,21 @@ def m_authorship_generated(r: Path):
     edit(r / "README.md", "# ชุดทดสอบ", f"# ชุดทดสอบ\n\n🤖 Generated with {AI_NAME} Code")
 
 
+def m_sections_empty(r: Path):
+    edit(r / L2 / "README.md", "## แนวคิด\n", "## ยังไม่ได้เขียน\n\n<!-- รอเนื้อหา -->\n\n## แนวคิด\n")
+
+
+def m_sections_empty_last(r: Path):
+    p = r / L2 / "README.md"
+    p.write_text(p.read_text(encoding="utf-8").rstrip("\n") + "\n\n### ไปต่อ\n", encoding="utf-8")
+
+
+def test_sections_heading_in_code_is_not_a_section(green: Path) -> None:
+    edit(green / L2 / "README.md", "## แนวคิด\n", "## แนวคิด\n\n```sh\n## not a heading\n```\n")
+    rep = validate.run(green)
+    assert not [f for f in rep.errors if f.check == "sections"], rep.errors
+
+
 def m_footer(r: Path):
     edit(r / L1 / "slides.md", 'footer: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY 4.0"',
          'footer: "AIoT in Action"')
@@ -351,6 +366,8 @@ CASES = [
     (m_leaks, "leaks", "error"),
     (m_leaks_path, "leaks", "error"),
     (m_leaks_scratch, "leaks", "error"),
+    (m_sections_empty, "sections", "error"),
+    (m_sections_empty_last, "sections", "error"),
     (m_authorship_trailer, "authorship", "error"),
     (m_authorship_generated, "authorship", "error"),
     (m_footer, "tesa-footer", "error"),

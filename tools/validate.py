@@ -30,7 +30,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import check_terms  # noqa: E402
 from _authorship import authorship_findings  # noqa: E402
 from _common import (FIXTURES_REL, REPO_ROOT, SCHEMA_DIR, YamlDoc, is_text_file,  # noqa: E402
-                     iter_files, load_policy, load_site_config, load_yaml, mask_code,
+                     iter_files, load_policy, load_site_config, load_yaml, mask_code, mask_front_matter,
                      parse_yaml, read_text, split_front_matter)
 
 try:
@@ -62,6 +62,7 @@ CHECKS: dict[str, str] = {
     "size": "no file over the size limit under courses/",
     "secrets": "no literal passwords/tokens/private keys under courses/",
     "leaks": "no internal paths or retired domain in published files",
+    "sections": "no empty section: every heading in a course/module/lesson page or lab has content under it",
     "authorship": "no AI assistant credited as author, co-author or generator in any file",
     "tesa-footer": "every courses/**/slides.md footer credits TESA",
     "tesa-cite": "every course README.md / README.en.md has the TESA citation block",
@@ -1128,6 +1129,26 @@ def check_leaks(ctx: Ctx, relpath: str, text: str) -> None:
                 ctx.rep.error("leaks", relpath, n, f"{what}: {rx.search(line).group(0)!r}")
 
 
+_HEADING = re.compile(r"^(#{2,6})[ \t]+\S.*$", re.M)
+_MEANINGFUL = re.compile(r"[A-Za-z0-9\u0E00-\u0E7F]")
+_COMMENT = re.compile(r"<!--.*?-->", re.S)
+SECTION_FILES = re.compile(r"^(README(\.[a-z]{2})?|lab(\.[a-z]{2})?)\.md$")
+
+
+def check_sections(ctx: Ctx, relpath: str, text: str) -> None:
+    """A heading with nothing under it is a promise the page does not keep (owner, 2026-09-26: every part
+    must really have content). A section may hold only sub-sections, code, an image or a table."""
+    masked = mask_front_matter(mask_code(text))       # headings inside code or front matter are not headings
+    heads = [(m.start(), m.end(), len(m.group(1)), m.group(0).strip()) for m in _HEADING.finditer(masked)]
+    for i, (start, end, level, title) in enumerate(heads):
+        stop = next((h[0] for h in heads[i + 1:] if h[2] <= level), len(text))
+        body = _COMMENT.sub("", text[end:stop])
+        if len(_MEANINGFUL.findall(body)) >= 3 or re.search(r"!\[|<img\b|<svg\b", body):
+            continue
+        ctx.rep.error("sections", relpath, text.count("\n", 0, start) + 1, f"empty section {title!r}: write its "
+                      "content or remove the heading")
+
+
 def check_terms_file(ctx: Ctx, relpath: str, text: str, kind: str) -> None:
     in_courses = relpath.startswith("courses/")
     for f in check_terms.scan_text(text, kind):
@@ -1195,6 +1216,8 @@ def scan_files(ctx: Ctx) -> None:
                 check_markdown_links(ctx, f, text, is_marp)
             if in_courses and re.match(r"^slides(\.[a-z]{2})?\.md$", PurePosixPath(f).name):
                 check_slides_footer(ctx, f, text)
+            if in_courses and SECTION_FILES.match(PurePosixPath(f).name):
+                check_sections(ctx, f, text)
         elif kind == "yaml" and (in_courses or f == "catalog/tracks.yaml"):
             check_terms_file(ctx, f, text, "yaml")
 
