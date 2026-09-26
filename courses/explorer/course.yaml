@@ -1,0 +1,61 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+id: explorer
+short: explore
+title:
+  th: "Explorer: เปิดโลกระบบสมองกลฝังตัว"
+  en: "Explorer: Meet Embedded Systems"
+summary:
+  th: >-
+    หลักสูตรสั้นสำหรับบุคคลทั่วไป หกบทเรียน บทละ 20–30 นาที ไม่ต้องมีบอร์ด เริ่มจากมองหาระบบสมองกลฝังตัวรอบตัว
+    แล้วเขียน MicroPython บรรทัดแรกใน BENTO Emulator ให้ขึ้นจอ เปิดไฟ อ่านเซนเซอร์ และส่งค่าขึ้นแดชบอร์ด
+  en: >-
+    A short course for the general public: six lessons of 20–30 minutes, no board required. Spot the embedded
+    systems around you, then write your first MicroPython in the BENTO Emulator to draw on a screen, light an LED,
+    read a sensor and send a value to a dashboard.
+level: L1
+status: alpha
+audience: [public, student, entrepreneur, educator]
+hours: 3
+hardware:
+  emulator: true
+  boards: [none, eva-kit, devkit]
+toolchain:
+  ide: "BENTO IDE https://ide.tesaiot.dev/ (BENTO Emulator built in)"
+  micropython: "BENTO MicroPython firmware for PSoC Edge E84 (API as used by AIoT in Action @a80bbe88)"
+prerequisites:
+  courses: []
+  skills: []
+outcomes:
+  - th: ยกตัวอย่างระบบสมองกลฝังตัวในชีวิตประจำวัน และแยกส่วนรับรู้ ตัดสินใจ และสั่งงานของมันได้
+    en: Give everyday examples of embedded systems and separate their sensing, deciding and acting parts.
+  - th: รันโปรแกรม MicroPython ใน BENTO Emulator หรือบนบอร์ด ให้แสดงข้อความบนจอและควบคุมหลอด LED ได้
+    en: Run a MicroPython program in the BENTO Emulator or on a board that shows text on screen and controls an LED.
+  - th: อ่านค่าเซนเซอร์และแสดงค่าที่เปลี่ยนไปบนจอได้ โดยดักกรณีที่ยังอ่านค่าไม่ได้
+    en: Read a sensor and display its changing value, handling the case where no reading is available yet.
+  - th: อธิบายการทำงานของ MQTT (broker, topic, publish, subscribe) และส่งค่าหนึ่งค่าไปแสดงบนหน้าเว็บตามตัวอย่างนำทางได้
+    en: Explain how MQTT works (broker, topic, publish, subscribe) and send one value to a web page by following a guided example.
+  - th: เลือกเส้นทางเรียนต่อที่ตรงกับเป้าหมาย และอ้างอิง TESA ได้ถูกต้องเมื่อแบ่งปันหรือดัดแปลงเนื้อหา
+    en: Choose a next pathway that fits their goal, and credit TESA correctly when sharing or adapting the material.
+authors:
+  - name: TESA Open Knowledge contributors
+    url: https://github.com/tesaiot/tesa-qualification-program
+    role: author
+  - name: รศ.วิรุฬห์ ศรีบริรักษ์ (Wiroon Sriborrirux), Advance Innovation Centre (AIC) มหาวิทยาลัยบูรพา
+    url: https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer
+    role: author
+sponsors: [TESA]
+license:
+  content: CC-BY-4.0
+  code: MIT
+source:
+  repo: https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer
+  ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079
+  note: >-
+    ตัวอย่างโค้ดทุกไฟล์ในหลักสูตรนี้ย่อและดัดแปลงจากตัวอย่างของ AIoT in Action (MIT)
+    ใช้ API ของ BENTO MicroPython ตามที่ตัวอย่างต้นฉบับใช้ ไม่มีการเพิ่มคำสั่งใหม่
+modules:
+  - id: m01-meet-embedded
+    title: {th: รู้จักระบบสมองกลฝังตัวและเขียนโปรแกรมแรก, en: Meet embedded systems and write a first program}
+  - id: m02-sense-and-connect
+    title: {th: "รับรู้ เชื่อมต่อ แล้วไปต่อ", en: "Sense, connect, and choose what next"}

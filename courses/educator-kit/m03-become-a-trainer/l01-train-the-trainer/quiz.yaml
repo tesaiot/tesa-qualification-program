@@ -1,0 +1,60 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: multi
+    prompt:
+      th: เงื่อนไขของ TQP Certified Trainer ตาม tqp/certification.md มีอะไรบ้าง (เลือกได้มากกว่าหนึ่งข้อ)
+      en: What are the conditions of TQP Certified Trainer in tqp/certification.md? (choose all that apply)
+    choices:
+      - {th: ถือใบรับรองระดับ L4 ในเรื่องที่สอน}
+      - {th: ผ่านหลักสูตรการสอน}
+      - {th: สาธิตการสอนให้กรรมการดู}
+      - {th: เป็นสมาชิก TESA}
+    answer: [0, 1, 2]
+    explain:
+      th: สิทธิ์ของ TQP ไม่ผูกกับการเป็นสมาชิก TESA เงื่อนไขมีสามข้อคือ L4 ในเรื่องที่สอน หลักสูตรการสอน และการสาธิตการสอน
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: ใบ TQP Certified Trainer มีอายุเท่าไร
+      en: How long is TQP Certified Trainer valid?
+    choices:
+      - {th: ไม่หมดอายุ}
+      - {th: 2 ปี}
+      - {th: 3 ปี}
+      - {th: 5 ปี}
+    answer: [1]
+    explain:
+      th: ตามตารางใน tqp/certification.md ใบ Trainer มีอายุ 2 ปี
+  - id: q3
+    objective: 2
+    type: order
+    prompt:
+      th: เรียงช่วงของการสาธิตการสอน 20 นาทีให้ถูกลำดับ
+      en: Order the parts of a 20-minute teaching demonstration.
+    choices:
+      - {th: เช็กความเข้าใจที่ผูกกับเป้าหมาย}
+      - {th: คำถามทวนบทก่อน}
+      - {th: "ตัวอย่างที่มีป้ายท่าที่ 1, 2, 3"}
+      - {th: ให้ทำนายแล้วรันของที่ทำงานได้}
+      - {th: อธิบายแนวคิดช่วงสั้น}
+    answer: [1, 3, 4, 2, 0]
+    explain:
+      th: ทวน เห็นของจริง แนวคิดสั้น ตัวอย่างที่มีป้ายขั้นตอน แล้วปิดด้วยเช็กความเข้าใจ
+  - id: q4
+    objective: 3
+    type: single
+    prompt:
+      th: ข้อใดขัดกับกติกาความเป็นกลางของ TQP
+      en: Which breaks the TQP impartiality rules?
+    choices:
+      - {th: ผู้สอนแนะนำให้ผู้เรียนอ่านวัตถุประสงค์ของการสอบที่เปิดสาธารณะ}
+      - {th: ผู้สอนเป็นผู้สอบผู้เรียนของตนในการสอบ TQP ภายในหนึ่งปีหลังสอน}
+      - {th: ผู้สมัครที่เรียนจากมหาวิทยาลัยอื่นสมัครสอบได้}
+      - {th: ผู้สอนใช้แล็บฝึกที่เปิดสาธารณะในรายวิชา}
+    answer: [1]
+    explain:
+      th: ผู้สอนต้องไม่สอบคนที่ตนสอนภายใน 2 ปี ส่วนวัตถุประสงค์ของการสอบและแล็บฝึกเปิดให้ทุกคนใช้ได้

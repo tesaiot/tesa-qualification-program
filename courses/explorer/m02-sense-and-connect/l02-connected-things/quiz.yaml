@@ -1,0 +1,72 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: ใน MQTT ใครทำหน้าที่ส่งต่อข้อความจากผู้ส่งไปยังผู้ที่บอกรับหัวข้อนั้น
+      en: In MQTT, who forwards a message from the sender to everyone subscribed to that topic?
+    choices:
+      - {th: บอร์ดที่ publish}
+      - {th: broker}
+      - {th: เราเตอร์ WiFi}
+      - {th: หน้าเว็บที่ subscribe}
+    answer: [1]
+    explain:
+      th: broker เป็นตัวกลาง ผู้ส่งกับผู้รับไม่ต้องรู้จักกันเลย รู้แค่ชื่อหัวข้อก็พอ
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: หน้าเว็บ subscribe หัวข้อ bento-aiot/team37/# จะได้รับข้อความจากหัวข้อใด
+      en: A page subscribed to bento-aiot/team37/# receives messages from which topic?
+    choices:
+      - {th: bento-aiot/team38/telemetry}
+      - {th: bento-aiot/team37/telemetry}
+      - {th: team37/bento-aiot/telemetry}
+      - {th: ทุกหัวข้อบน broker}
+    answer: [1]
+    explain:
+      th: "# แปลว่าทุกหัวข้อย่อยที่อยู่ใต้ bento-aiot/team37/ เท่านั้น ไม่รวมทีมอื่น"
+  - id: q3
+    objective: 2
+    type: order
+    prompt:
+      th: เรียงบันไดสามขั้นที่ข้อมูลต้องผ่านก่อนออกจากบอร์ด
+      en: Order the three steps data must pass before leaving the board.
+    choices:
+      - {th: publish ข้อความ}
+      - {th: WiFi ได้เลข IP}
+      - {th: แนะนำตัวกับ broker}
+    answer: [1, 2, 0]
+    explain:
+      th: ไม่มี IP ก็คุยกับ broker ไม่ได้ ไม่ได้แนะนำตัวกับ broker ก็ publish ไม่ได้
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: ป้ายขั้นที่ 1 เป็นสีเขียว แต่ขั้นที่ 2 เป็นสีแดงว่า "ต่อไม่ได้ เน็ตอาจกันพอร์ต 1883" สาเหตุที่เป็นไปได้มากที่สุดคือข้อใด
+      en: Step 1 is green but step 2 is red saying the broker could not be reached. What is the most likely cause?
+    choices:
+      - {th: รหัส WiFi ผิด}
+      - {th: เครือข่ายที่ใช้อยู่ปิดกั้นพอร์ต 1883 หรือ broker ไม่ตอบ}
+      - {th: ลูกบิดเสีย}
+      - {th: หน้าเว็บยังไม่ได้เปิด}
+    answer: [1]
+    explain:
+      th: ขั้นที่ 1 ผ่านแปลว่า WiFi กับ IP ใช้ได้แล้ว ปัญหาอยู่ระหว่างบอร์ดกับ broker เช่นเครือข่ายองค์กรที่กันพอร์ตนี้ หน้าเว็บไม่เกี่ยวกับขั้นนี้
+  - id: q5
+    objective: 3
+    type: multi
+    prompt:
+      th: ข้อใดคือความเสี่ยงของการใช้ broker สาธารณะที่พอร์ต 1883 (เลือกได้มากกว่าหนึ่งข้อ)
+      en: Which are risks of using a public broker on port 1883? (choose all that apply)
+    choices:
+      - {th: คนอื่น subscribe อ่านข้อมูลของเราได้}
+      - {th: คนอื่น publish ข้อมูลปลอมเข้ามาในหัวข้อเดียวกันได้}
+      - {th: ข้อมูลเดินทางโดยไม่เข้ารหัส}
+      - {th: บอร์ดจะเสียหายทางกายภาพ}
+    answer: [0, 1, 2]
+    explain:
+      th: broker สาธารณะไม่ยืนยันตัวตนและพอร์ต 1883 ไม่เข้ารหัส เหมาะกับการเรียนเท่านั้น งานจริงใช้ MQTTs กับ broker ที่ยืนยันตัวตน

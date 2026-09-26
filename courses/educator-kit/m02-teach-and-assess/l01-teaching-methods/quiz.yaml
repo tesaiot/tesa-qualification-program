@@ -1,0 +1,88 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: order
+    prompt:
+      th: เรียงขั้นของ PRIMM ให้ถูกลำดับ
+      en: Put the PRIMM stages in order.
+    choices:
+      - {th: Modify แก้โค้ดเดิม}
+      - {th: Predict ทำนายผล}
+      - {th: Make สร้างของใหม่}
+      - {th: Run รันเทียบกับคำทำนาย}
+      - {th: Investigate สืบว่าแต่ละส่วนทำอะไร}
+    answer: [1, 3, 4, 0, 2]
+    explain:
+      th: Predict, Run, Investigate, Modify, Make ทำนายก่อนทำให้ผู้เรียนอ่านโค้ดอย่างตั้งใจ และสร้างของใหม่เป็นขั้นสุดท้าย
+  - id: q2
+    objective: 2
+    type: single
+    prompt:
+      th: ข้อใดตรงกับหลักการลดตัวช่วย (fading) ในหนึ่งโมดูล
+      en: Which matches the fading principle within one module?
+    choices:
+      - {th: ทุกไฟล์ฝึกมีโค้ดให้ราว 70% เท่ากันตลอด}
+      - {th: ตัวอย่างเต็ม แล้วราว 2 ช่องว่าง แล้วราว 6 ช่องว่าง จนเป็นไฟล์เปล่าในงานปลายทาง}
+      - {th: เริ่มจากไฟล์เปล่าแล้วค่อยให้ตัวอย่างเต็มตอนท้าย}
+      - {th: ไม่ต้องมีไฟล์ฝึก ให้ดูเฉลยอย่างเดียว}
+    answer: [1]
+    explain:
+      th: ตัวช่วยควรลดลงเมื่อผู้เรียนเก่งขึ้น ตัวช่วยที่มากเท่าเดิมตลอดจะกลายเป็นภาระ (expertise reversal)
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: ใน quiz.yaml ของคลังนี้ แบบฝึก Parsons สร้างด้วยชนิดข้อใด
+      en: In this repository's quiz.yaml, which item type builds a Parsons problem?
+    choices:
+      - {th: "type: single"}
+      - {th: "type: multi"}
+      - {th: "type: order"}
+      - {th: "type: short"}
+    answer: [2]
+    explain:
+      th: type order ให้เรียงรายการตามลำดับ ใช้กับบรรทัดโค้ดได้โดยตรง
+  - id: q4
+    objective: 3
+    type: multi
+    prompt:
+      th: กิจกรรมใดควรทำบนบอร์ดจริง (เลือกได้มากกว่าหนึ่งข้อ)
+      en: Which activities belong on a real board? (choose all that apply)
+    choices:
+      - {th: วัดแรงดันจริงด้วยมัลติมิเตอร์}
+      - {th: ดีบักเมื่อผลบนบอร์ดต่างจากอีมูเลเตอร์}
+      - {th: ทำความเข้าใจว่า ui.Label รับอาร์กิวเมนต์อะไร}
+      - {th: ทดสอบการเชื่อมต่อเครือข่ายจริงและพลังงาน}
+    answer: [0, 1, 3]
+    explain:
+      th: การทำความเข้าใจ API ทำในอีมูเลเตอร์ได้ ส่วนการวัด การดีบักฮาร์ดแวร์ เครือข่ายจริง และพลังงานต้องใช้บอร์ด
+  - id: q5
+    objective: 4
+    type: single
+    prompt:
+      th: งานทบทวนของ Dunlosky และคณะ (2013) จัดเทคนิคใดเป็นประโยชน์สูง
+      en: Which techniques did Dunlosky et al. (2013) rate as high utility?
+    choices:
+      - {th: การขีดเส้นใต้และการอ่านซ้ำ}
+      - {th: การฝึกตอบคำถามและการเว้นระยะทบทวน}
+      - {th: การสรุปย่อและการจินตนาการภาพ}
+      - {th: การฟังบรรยายยาวต่อเนื่อง}
+    answer: [1]
+    explain:
+      th: practice testing และ distributed practice ได้คะแนนประโยชน์สูงสุด จึงให้ทุกบทมีเช็กความเข้าใจและคำถามทวนบทก่อน
+  - id: q6
+    objective: 4
+    type: single
+    prompt:
+      th: งานทบทวนของ Brinson (2015) เรื่องแล็บเสมือนและแล็บทางไกล สรุปแนวโน้มว่าอย่างไร
+      en: What trend did Brinson's (2015) review of virtual and remote labs report?
+    choices:
+      - {th: แล็บเสมือนแย่กว่าแล็บลงมือจริงเสมอ}
+      - {th: งานวิจัยส่วนใหญ่รายงานผลสัมฤทธิ์เท่ากันหรือดีกว่าแล็บลงมือจริง}
+      - {th: ไม่มีงานวิจัยเรื่องนี้}
+      - {th: ควรเลิกใช้บอร์ดจริงทั้งหมด}
+    answer: [1]
+    explain:
+      th: ผลส่วนใหญ่เท่ากันหรือดีกว่า แต่ทักษะอย่างการวัดและการดีบักฮาร์ดแวร์ยังต้องใช้บอร์ดจริง จึงใช้แบบผสม

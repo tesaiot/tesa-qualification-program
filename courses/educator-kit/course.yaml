@@ -1,0 +1,52 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+id: educator-kit
+short: edu
+title:
+  th: "ชุดสำหรับผู้สอน (Educator Kit)"
+  en: "Educator Kit"
+summary:
+  th: >-
+    ชุดสำหรับอาจารย์และผู้สอนที่จะนำหลักสูตรของ TESA Open Knowledge ไปใช้ ตั้งแต่เลือกรูปแบบการนำไปใช้ ทำตารางเทียบผลลัพธ์การเรียนรู้
+    กับมาตรฐานคุณวุฒิ 2565 TPQI และ Washington Accord อ้างอิง TESA ในรายวิชาให้ถูก เลือกวิธีสอนและการประเมิน วางแผนฮาร์ดแวร์
+    ไปจนถึงเส้นทางสู่ TQP Certified Trainer
+  en: >-
+    For lecturers and trainers adopting TESA Open Knowledge: choose an adoption model, build an outcome crosswalk to the 2022 Thai
+    qualification standard, TPQI and the Washington Accord, cite TESA correctly in a course, pick teaching and assessment methods,
+    plan hardware, and prepare for TQP Certified Trainer.
+level: L3
+status: alpha
+audience: [educator]
+hours: 6
+hardware:
+  emulator: true
+  boards: [none, eva-kit, devkit]
+prerequisites:
+  courses: [explorer]
+  skills: []
+outcomes:
+  - th: เลือกรูปแบบการนำหลักสูตรไปใช้ที่เหมาะกับบริบทของสถาบัน และจัดบทเรียนลงช่วงสอน 1.5 หรือ 3 ชั่วโมงได้
+    en: Choose an adoption model that fits the institution and fit lessons into 1.5-hour or 3-hour slots.
+  - th: ทำตารางเทียบรายบทเรียนกับ CLO ที่วัดผลได้ ด้าน K/S/E/C หน่วยสมรรถนะ TPQI และคุณลักษณะ WA ได้ครบทุกคอลัมน์
+    en: Build a lesson-level crosswalk to measurable CLOs, K/S/E/C domains, TPQI units and WA attributes in every column.
+  - th: ใส่ข้อความอ้างอิง TESA ในเอกสารรายวิชา สไลด์ เอกสารแจก และหน้า LMS ได้ถูกต้อง โดยไม่อ้างการรับรองที่ไม่มี
+    en: Put the TESA attribution into course documents, slides, handouts and LMS pages correctly, without claiming a certification that does not exist.
+  - th: ออกแบบกิจกรรมตาม PRIMM ไฟล์ฝึกที่ตัวช่วยลดลง แบบฝึก Parsons และงานให้คะแนนที่ผูกกับเป้าหมาย พร้อมแผนฮาร์ดแวร์
+    en: Design PRIMM activities, fading practice, Parsons problems and objective-aligned graded work, with a hardware plan.
+  - th: วางแผนการสาธิตการสอนและเตรียมตัวสู่ TQP Certified Trainer ตามกติกาของ TESA
+    en: Plan a teaching demonstration and prepare for TQP Certified Trainer under TESA's rules.
+authors:
+  - name: TESA Open Knowledge contributors
+    url: https://github.com/tesaiot/tesa-qualification-program
+    role: author
+sponsors: [TESA]
+license:
+  content: CC-BY-4.0
+  code: none
+modules:
+  - id: m01-adopt-and-align
+    title: {th: "นำไปใช้และเทียบมาตรฐาน", en: "Adopt and align"}
+  - id: m02-teach-and-assess
+    title: {th: "สอนและประเมิน", en: "Teach and assess"}
+  - id: m03-become-a-trainer
+    title: {th: "เป็นผู้สอนที่ได้รับการรับรอง", en: "Become a certified trainer"}

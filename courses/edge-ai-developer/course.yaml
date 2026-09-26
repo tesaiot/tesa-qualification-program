@@ -1,0 +1,45 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+id: edge-ai-developer
+short: edgeai-dev
+title: {th: 'Edge AI Developer: จากเซนเซอร์สู่โมเดลบนอุปกรณ์', en: 'Edge AI Developer: From Sensor to On-Device Model'}
+summary: {th: โครงร่างของหลักสูตร Edge AI แบบครบวงจร เรียน MicroPython เป็นหลัก ห้าเสาหลักตั้งแต่เก็บข้อมูลจากเซนเซอร์ ประมวลผล วิเคราะห์สัญญาณ ฝึกโมเดล ไปจนถึงแอป Edge AI บนอุปกรณ์ หลักสูตรเต็มจะเผยแพร่เมื่อผู้เขียนเปิดให้, en: 'Outline of an end-to-end, MicroPython-first edge AI course across five pillars, from sensor data acquisition, processing and signal analysis to training and on-device edge AI apps. The full course will be published once the author releases it.'}
+level: L3
+status: pre-alpha
+audience: [developer, student]
+hours: 40
+hardware:
+  emulator: true
+  boards: [devkit]
+prerequisites:
+  courses: [aiot-micropython]
+  skills:
+  - {skill: lang.micropython, level: 2}
+  - {skill: lang.python, level: 2}
+outcomes:
+- {th: อธิบายวงจรชีวิตของข้อมูลใน Edge AI ห้าขั้น และบอกได้ว่าโจทย์หนึ่งควรใช้โมเดลบนอุปกรณ์หรือกฎธรรมดา, en: Explain the five-stage edge AI data lifecycle and decide whether a problem needs an on-device model or a plain rule.}
+- {th: เก็บข้อมูลจากเซนเซอร์หลายตัวบนเส้นเวลาเดียวกัน และเตรียมเป็นชุดข้อมูลที่ติดป้ายและแบ่งส่วนถูกต้อง, en: Capture multi-sensor data on one timeline and prepare a correctly labelled and split dataset.}
+- {th: ประมวลผลและวิเคราะห์สัญญาณด้วยฟิลเตอร์ FFT และการแบ่งหน้าต่าง เพื่อสร้าง feature ที่โมเดลใช้, en: 'Process and analyse signals with filters, FFT and windowing to build the features a model uses.'}
+- {th: ฝึกโมเดลขนาดเล็ก แปลงให้ใช้ได้บนหลายเป้าหมาย และเทียบผลบนเครื่อง PC เว็บ และบอร์ด, en: 'Train a small model, convert it for several targets, and compare results on PC, web and board.'}
+- {th: สร้างแอป Edge AI ที่ลงมือทำตามผลของโมเดลอย่างเชื่อถือได้ และส่งเหตุการณ์ขึ้นแพลตฟอร์ม IoT, en: Build an edge AI app that acts reliably on model results and sends events to an IoT platform.}
+authors:
+- {name: ทีมผู้เขียนหลักสูตรต้นฉบับ Edge AI Developer (TESAIoT), role: author}
+- {name: TESA Open Knowledge contributors, url: 'https://github.com/tesaiot/tesa-qualification-program', role: adapter}
+sponsors: [TESA]
+license: {content: CC-BY-4.0, code: Apache-2.0}
+note: {th: เผยแพร่เฉพาะโครงร่าง (ชื่อและโครงสร้าง) หลักสูตรต้นฉบับอยู่ระหว่างการตรวจทานของผู้เขียน เนื้อหาเต็ม สไลด์ และโค้ดจะเผยแพร่เมื่อผู้เขียนเปิดให้, en: 'Outline only (titles and structure). The source course is under the author''s review; full content, slides and code will be published when the author releases them.'}
+modules:
+- id: m01-onboarding
+  title: {th: เริ่มต้นและแกะแอปที่ทำงานได้, en: Getting started and taking working apps apart}
+- id: m02-daq
+  title: {th: เก็บข้อมูลจากเซนเซอร์ (DAQ), en: Data acquisition (DAQ)}
+- id: m03-processing
+  title: {th: ประมวลผลด้วยคณิตศาสตร์และฟิสิกส์, en: Processing with maths and physics}
+- id: m04-analysis
+  title: {th: วิเคราะห์สัญญาณ, en: Signal analysis}
+- id: m05-training
+  title: {th: ฝึกโมเดลและนำไปใช้หลายเป้าหมาย, en: Training and deploying to several targets}
+- id: m06-apps
+  title: {th: แอป Edge AI, en: Edge AI apps}
+- id: m07-under-the-hood
+  title: {th: ใต้ฝากระโปรง ต่อเติม และงานปลายทาง, en: 'Under the hood, extending, and the capstone'}

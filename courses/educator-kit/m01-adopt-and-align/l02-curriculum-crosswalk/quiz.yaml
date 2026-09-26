@@ -1,0 +1,88 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: ผลลัพธ์การเรียนรู้ข้อใดเขียนได้ตามหลัก "กริยาวัดผลได้ + เงื่อนไข + เกณฑ์"
+      en: Which learning outcome follows "measurable verb + condition + criterion"?
+    choices:
+      - {th: ผู้เรียนเข้าใจเรื่อง ADC}
+      - {th: ผู้เรียนรู้จักเซนเซอร์หลายชนิด}
+      - {th: ผู้เรียนแปลงค่าที่ ADC อ่านได้เป็นโวลต์จากค่าอ้างอิงที่กำหนด คลาดเคลื่อนไม่เกินร้อยละ 5 เมื่อเทียบกับมัลติมิเตอร์}
+      - {th: ผู้เรียนสนใจการวัดสัญญาณ}
+    answer: [2]
+    explain:
+      th: กริยา "แปลง" วัดได้ เงื่อนไขคือค่าอ้างอิงที่กำหนด และเกณฑ์คือคลาดเคลื่อนไม่เกินร้อยละ 5 ส่วนคำว่าเข้าใจ รู้จัก สนใจ วัดตรง ๆ ไม่ได้
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: CLO "เปรียบเทียบสถาปัตยกรรม edge กับ cloud แล้วเลือกให้โจทย์ที่กำหนดพร้อมเหตุผล" อยู่ระดับใดของ Bloom ฉบับปรับปรุงเป็นหลัก
+      en: The outcome "compare edge and cloud architectures and choose one for a given case with reasons" mainly sits at which revised Bloom level?
+    choices:
+      - {th: จำ (remember)}
+      - {th: เข้าใจ (understand)}
+      - {th: วิเคราะห์และประเมิน (analyse/evaluate)}
+      - {th: ไม่มีระดับ}
+    answer: [2]
+    explain:
+      th: การเปรียบเทียบคือการวิเคราะห์ และการเลือกพร้อมเหตุผลคือการประเมิน
+  - id: q3
+    objective: 2
+    type: multi
+    prompt:
+      th: ประกาศมาตรฐานคุณวุฒิระดับอุดมศึกษา พ.ศ. 2565 กำหนดผลลัพธ์การเรียนรู้อย่างน้อยด้านใดบ้าง (เลือกได้มากกว่าหนึ่งข้อ)
+      en: Which domains does the 2022 higher-education qualification standard require at minimum? (choose all that apply)
+    choices:
+      - {th: ความรู้ (Knowledge)}
+      - {th: ทักษะ (Skills)}
+      - {th: จริยธรรม (Ethics)}
+      - {th: ลักษณะบุคคล (Character)}
+      - {th: ความสามารถในการใช้ภาษาต่างประเทศเป็นด้านแยก}
+    answer: [0, 1, 2, 3]
+    explain:
+      th: ประกาศกำหนดอย่างน้อยสี่ด้าน คือ ความรู้ ทักษะ จริยธรรม และลักษณะบุคคล
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: CLO "อ้างอิงแหล่งที่มาของสื่อที่นำมาดัดแปลงได้ถูกต้องตามสัญญาอนุญาต" ควรจัดลงด้านใดเป็นหลัก
+      en: The outcome "credit adapted material correctly under its licence" belongs mainly to which domain?
+    choices:
+      - {th: ความรู้}
+      - {th: ทักษะ}
+      - {th: จริยธรรม}
+      - {th: ไม่เข้าด้านใดเลย}
+    answer: [2]
+    explain:
+      th: การให้เครดิตผู้สร้างงานอย่างซื่อตรงเป็นพฤติกรรมเชิงจริยธรรมและจรรยาบรรณ
+  - id: q5
+    objective: 3
+    type: single
+    prompt:
+      th: หน่วยสมรรถนะใดของคุณวุฒิ นักพัฒนาระบบสมองกลฝังตัว ระดับ 4 ที่ควรใส่ในแถวของบทเรียนเขียนเฟิร์มแวร์ภาษา C
+      en: Which TPQI Embedded Systems Developer level 4 unit belongs in the row of a C firmware lesson?
+    choices:
+      - {th: ICT-CSOS-107B พัฒนาฮาร์ดแวร์ระบบสมองกลฝังตัว}
+      - {th: ICT-FYNH-108B พัฒนาซอฟต์แวร์ระบบสมองกลฝังตัว}
+      - {th: ไม่มีหน่วยใดเกี่ยวข้อง}
+      - {th: ใส่ทั้งสองหน่วยในทุกแถวเสมอ}
+    answer: [1]
+    explain:
+      th: งานเขียนเฟิร์มแวร์เป็นงานพัฒนาซอฟต์แวร์ระบบสมองกลฝังตัว ใส่หน่วยเฉพาะที่อธิบายได้ว่าเกี่ยวจริง
+  - id: q6
+    objective: 3
+    type: single
+    prompt:
+      th: ในตารางเทียบ ควรอ้างบทเรียนด้วยอะไร
+      en: In the crosswalk, how should a lesson be referenced?
+    choices:
+      - {th: เลขลำดับโฟลเดอร์ เช่น l03}
+      - {th: id ถาวรของบทเรียน เช่น explore.m01.l03}
+      - {th: ชื่อไฟล์สไลด์}
+      - {th: วันที่สอน}
+    answer: [1]
+    explain:
+      th: id ของบทเรียนเป็นค่าถาวร ไม่เปลี่ยนแม้มีการจัดลำดับโฟลเดอร์ใหม่ ตารางเทียบจึงไม่เสียเมื่อหลักสูตรปรับปรุง

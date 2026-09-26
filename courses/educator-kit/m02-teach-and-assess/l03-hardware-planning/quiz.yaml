@@ -1,0 +1,72 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: รายวิชามีผู้เรียน 24 คน ใช้อัตราบอร์ดหนึ่งตัวต่อสี่คน และสำรองสองตัว ต้องมีบอร์ดกี่ตัว
+      en: A course has 24 learners, one board per four learners, plus two spares. How many boards are needed?
+    choices:
+      - {th: "6"}
+      - {th: "8"}
+      - {th: "12"}
+      - {th: "24"}
+    answer: [1]
+    explain:
+      th: 24 ÷ 4 = 6 กลุ่ม บวกสำรอง 2 เป็น 8 ตัว
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: ข้อใดคือสิ่งที่มักถูกลืมในรายการฮาร์ดแวร์
+      en: Which item is most often forgotten in the hardware list?
+    choices:
+      - {th: สาย USB ที่ส่งข้อมูลได้ ไม่ใช่สายชาร์จอย่างเดียว}
+      - {th: จอภาพสำรอง}
+      - {th: ลำโพง}
+      - {th: เมาส์ไร้สาย}
+    answer: [0]
+    explain:
+      th: สายชาร์จอย่างเดียวจ่ายไฟได้แต่ส่งข้อมูลไม่ได้ IDE จะหาบอร์ดไม่เจอ ทั้งที่บอร์ดติดไฟ
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: ในกลุ่มที่มีบอร์ดตัวเดียว บทบาทผู้ทดสอบ (tester) ทำอะไร
+      en: In a one-board group, what does the tester do?
+    choices:
+      - {th: พิมพ์โค้ดบนบอร์ด}
+      - {th: รันโค้ดเดียวกันในอีมูเลเตอร์แล้วเทียบผลกับบอร์ด}
+      - {th: รอจนถึงคิวของตัวเอง}
+      - {th: ให้คะแนนเพื่อนในกลุ่ม}
+    answer: [1]
+    explain:
+      th: ผู้ทดสอบทำงานคู่ขนานในอีมูเลเตอร์ ทำให้เห็นความต่างระหว่างบอร์ดกับอีมูเลเตอร์ และไม่มีใครนั่งรอเฉย ๆ
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: ทำไมจึงหมุนบทบาททุกประมาณ 15 นาที
+      en: Why rotate roles about every 15 minutes?
+    choices:
+      - {th: เพื่อให้บอร์ดได้พัก}
+      - {th: เพื่อไม่ให้คนเดียวพิมพ์ทั้งแล็บ และทุกคนได้ลงมือบนบอร์ด}
+      - {th: เพราะบอร์ดทำงานได้ครั้งละ 15 นาที}
+      - {th: เพื่อให้แล็บจบเร็วขึ้น}
+    answer: [1]
+    explain:
+      th: กลุ่มที่ไม่หมุนบทบาทมักจบที่คนเก่งที่สุดทำคนเดียว คนอื่นได้แค่ดู
+  - id: q5
+    objective: 3
+    type: order
+    prompt:
+      th: เรียงขั้นตอนการใช้ TESAIoT Remote Flash ตามที่หน้าบริการแสดง
+      en: Order the TESAIoT Remote Flash steps as the service page shows them.
+    choices:
+      - {th: เลือกไฟล์ .hex แล้วสั่งแฟลช}
+      - {th: สร้างรหัสจับคู่บนหน้าเว็บ}
+      - {th: ใส่รหัสในแอป TESAIoT Programmer บนเครื่องที่ต่อบอร์ด}
+    answer: [1, 2, 0]
+    explain:
+      th: จับคู่เบราว์เซอร์กับเครื่องที่ต่อบอร์ดก่อน แล้วจึงส่งไฟล์ไปแฟลช

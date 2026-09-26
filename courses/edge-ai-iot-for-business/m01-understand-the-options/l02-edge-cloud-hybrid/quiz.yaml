@@ -1,0 +1,74 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: ข้อใดเป็นจุดแข็งของ edge เมื่อเทียบกับ cloud
+      en: Which is a strength of edge compared with cloud?
+    choices:
+      - {th: อุปกรณ์แต่ละตัวราคาถูกกว่าเสมอ}
+      - {th: ทำงานต่อได้แม้เครือข่ายหลุด และข้อมูลดิบไม่ต้องออกจากอุปกรณ์}
+      - {th: อัปเดตโมเดลได้ง่ายกว่าเพราะอยู่ที่เดียว}
+      - {th: ไม่ต้องคิดเรื่องพลังงาน}
+    answer: [1]
+    explain:
+      th: จุดแข็งของ edge คือความหน่วงต่ำ ทำงานได้เมื่อไม่มีเน็ต และความเป็นส่วนตัว แต่ต้องแลกกับอุปกรณ์ที่แพงขึ้นและการอัปเดตที่ยากขึ้น
+  - id: q2
+    objective: 1
+    type: multi
+    prompt:
+      th: มิติใดบ้างที่ใช้เทียบ edge กับ cloud ในบทนี้ (เลือกได้มากกว่าหนึ่งข้อ)
+      en: Which dimensions does this lesson use to compare edge and cloud? (choose all that apply)
+    choices:
+      - {th: ความหน่วง}
+      - {th: ความเป็นส่วนตัว}
+      - {th: สีของตัวเครื่อง}
+      - {th: ต้นทุน}
+      - {th: การเชื่อมต่อ}
+    answer: [0, 1, 3, 4]
+    explain:
+      th: สี่มิติหลักคือความหน่วง ความเป็นส่วนตัว ต้นทุน และการเชื่อมต่อ บวกเรื่องการอัปเดตและพลังงานที่มักถูกลืม
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: ระบบแจ้งเหตุผู้สูงอายุหกล้มในห้องนอน ใช้เรดาร์แทนกล้อง ควรเอนไปทางใด
+      en: A fall alert for elderly people in the bedroom, using radar instead of a camera. Which way should it lean?
+    choices:
+      - {th: cloud ล้วน ส่งข้อมูลเรดาร์ดิบขึ้นไปตลอดเวลา}
+      - {th: edge หรือ hybrid ตรวจการล้มบนอุปกรณ์ แล้วส่งเฉพาะเหตุการณ์}
+      - {th: ไม่ต้องใช้เครือข่ายเลย ไม่ต้องแจ้งใคร}
+      - {th: รอสรุปผลรายเดือน}
+    answer: [1]
+    explain:
+      th: ความหน่วงและความเป็นส่วนตัวสำคัญที่สุด จึงควรตัดสินบนอุปกรณ์ และส่งออกเฉพาะเหตุการณ์ที่ต้องแจ้งญาติ
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: รายงานการใช้ไฟฟ้าของอาคาร 30 แห่งเพื่อประชุมผู้บริหารทุกสิ้นเดือน ควรเอนไปทางใด
+      en: A monthly electricity report across 30 buildings for the management meeting. Which way should it lean?
+    choices:
+      - {th: edge ล้วน ประมวลผลบนมิเตอร์แต่ละตัวแล้วไม่ส่งอะไรออกมา}
+      - {th: cloud หรือ hybrid เพราะความหน่วงไม่สำคัญ และต้องรวมข้อมูลหลายอาคาร}
+      - {th: ต้องใช้ Edge AI บนมิเตอร์ทุกตัว}
+      - {th: ไม่ควรเก็บข้อมูลเลย}
+    answer: [1]
+    explain:
+      th: งานสรุปรวมหลายแห่งที่ไม่ต้องตอบสนองทันที เหมาะกับการรวมข้อมูลบนคลาวด์
+  - id: q5
+    objective: 3
+    type: multi
+    prompt:
+      th: คำถามใดควรถามทีมเทคนิคก่อนเลือกสถาปัตยกรรม (เลือกได้มากกว่าหนึ่งข้อ)
+      en: Which questions should you ask the technical team before choosing an architecture? (choose all that apply)
+    choices:
+      - {th: ถ้าเน็ตหลุดหนึ่งวัน ระบบยังทำอะไรได้บ้าง}
+      - {th: ข้อมูลดิบชนิดไหนออกจากอุปกรณ์ ไปเก็บที่ไหน นานเท่าไร}
+      - {th: ค่าใช้จ่ายรายเดือนต่ออุปกรณ์ขึ้นกับอะไร}
+      - {th: จะอัปเดตโมเดลหรือเฟิร์มแวร์ของอุปกรณ์หน้างานอย่างไร}
+    answer: [0, 1, 2, 3]
+    explain:
+      th: ทั้งสี่ข้อเป็นคำถามที่ควรได้คำตอบก่อนตกลง เพราะแต่ละข้อเปลี่ยนต้นทุนและความเสี่ยงของโครงการได้มาก

@@ -1,0 +1,63 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# All figures below are hypothetical, chosen for easy arithmetic. They are not market prices.
+items:
+  - id: q1
+    objective: 1
+    type: multi
+    prompt:
+      th: รายการใดเป็นต้นทุนครั้งเดียว (NRE) (เลือกได้มากกว่าหนึ่งข้อ)
+      en: Which items are one-time (NRE) costs? (choose all that apply)
+    choices:
+      - {th: ค่าทำแม่พิมพ์ตัวเครื่อง}
+      - {th: ค่าซิมการ์ดรายเดือน}
+      - {th: ค่าทดสอบรับรองมาตรฐานก่อนวางขาย}
+      - {th: ค่าเซนเซอร์บนบอร์ดแต่ละเครื่อง}
+      - {th: ค่าเก็บข้อมูลและฝึกโมเดลรอบแรก}
+      - {th: ค่าคลาวด์รายปี}
+    answer: [0, 2, 4]
+    explain:
+      th: แม่พิมพ์ การทดสอบรับรอง และการฝึกโมเดลรอบแรกจ่ายครั้งเดียว ค่าเซนเซอร์เป็นต้นทุนต่อชิ้น ส่วนซิมการ์ดกับคลาวด์เป็นต้นทุนต่อเนื่อง
+  - id: q2
+    objective: 2
+    type: single
+    prompt:
+      th: "ตัวเลขสมมติ: NRE 600,000 บาท ต่อชิ้น 900 บาท ต่อเนื่อง 120 บาทต่อปี ใช้ 3 ปี ผลิต 1,000 เครื่อง ต้นทุนต่อเครื่องตลอดอายุเท่าไร"
+      en: "Hypothetical: NRE 600,000 baht, 900 baht per unit, 120 baht per year, 3 years, 1,000 units. What is the lifetime cost per unit?"
+    choices:
+      - {th: 900 บาท}
+      - {th: "1,500 บาท"}
+      - {th: "1,860 บาท"}
+      - {th: "2,460 บาท"}
+    answer: [2]
+    explain:
+      th: 600,000 / 1,000 = 600 บวก 900 บวก 120 x 3 = 360 รวม 1,860 บาท ตัวเลขทั้งหมดเป็นตัวเลขสมมติ
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: เมื่อจำนวนผลิตเพิ่มจาก 1,000 เป็น 5,000 เครื่อง ก้อนใดลดลงต่อเครื่องมากที่สุด
+      en: When volume grows from 1,000 to 5,000 units, which cost falls most per unit?
+    choices:
+      - {th: ต้นทุนครั้งเดียว (NRE) ที่เฉลี่ยต่อเครื่อง}
+      - {th: ต้นทุนต่อเนื่องต่อปี}
+      - {th: ค่าซิมการ์ด}
+      - {th: ไม่มีก้อนไหนเปลี่ยน}
+    answer: [0]
+    explain:
+      th: NRE ถูกหารด้วยจำนวนเครื่อง ยิ่งผลิตมากยิ่งเหลือต่อเครื่องน้อย ส่วนต้นทุนต่อเนื่องต่อเครื่องไม่ได้ลดตามจำนวน
+  - id: q4
+    objective: 3
+    type: multi
+    prompt:
+      th: บทบาทใดที่โครงการ Edge AI และ IoT ต้องมี (เลือกได้มากกว่าหนึ่งข้อ)
+      en: Which roles does an edge AI and IoT project need? (choose all that apply)
+    choices:
+      - {th: เฟิร์มแวร์}
+      - {th: ฮาร์ดแวร์และ PCB}
+      - {th: ข้อมูลและ AI}
+      - {th: ทดสอบและมาตรฐาน}
+      - {th: คลาวด์และแอป}
+    answer: [0, 1, 2, 3, 4]
+    explain:
+      th: ทุกบทบาทจำเป็น คนเดียวอาจทำหลายบทบาทได้ในโครงการเล็ก แต่ต้องมีคนรับผิดชอบครบทุกเรื่อง

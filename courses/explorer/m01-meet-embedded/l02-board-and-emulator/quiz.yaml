@@ -1,0 +1,59 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: order
+    prompt:
+      th: เรียงขั้นตอนรันโปรแกรมใน BENTO Emulator ให้ถูกลำดับ
+      en: Put the steps for running a program in the BENTO Emulator in order.
+    choices:
+      - {th: กด ▶ Run ในแผงอีมูเลเตอร์}
+      - {th: "เปิด https://ide.tesaiot.dev/ แล้วสลับเป็นมุมมอง Python"}
+      - {th: วางโค้ดลงในช่องแก้โค้ด}
+      - {th: กดปุ่ม BENTO Emulator บนแถบเครื่องมือ}
+    answer: [1, 2, 3, 0]
+    explain:
+      th: เปิด IDE วางโค้ด เปิดแผงอีมูเลเตอร์ แล้วจึงกดรัน ถ้ามีบอร์ดจริงใช้ Connect กับ Program to Device แทนสองขั้นสุดท้าย
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: หลังสร้าง ui.Label แล้ว ควรเรียกคำสั่งใดเพื่อให้ป้ายขึ้นจอทันที
+      en: After creating a ui.Label, which call makes it appear on screen right away?
+    choices:
+      - {th: print()}
+      - {th: ui.poll()}
+      - {th: lcd.clear()}
+      - {th: gpio.board_info()}
+    answer: [1]
+    explain:
+      th: ui.poll() ให้จอประมวลผลงานที่ค้างอยู่ ถ้าไม่เรียก ป้ายก็ขึ้นในที่สุดแต่ช้ากว่า จนดูเหมือนโค้ดพัง
+  - id: q3
+    objective: 2
+    type: multi
+    prompt:
+      th: ข้อใดคือความต่างระหว่าง Eva Kit กับ TESAIoT Dev Kit (เลือกได้มากกว่าหนึ่งข้อ)
+      en: Which are differences between the Eva Kit and the TESAIoT Dev Kit? (choose all that apply)
+    choices:
+      - {th: จำนวนหลอด LED ที่ Python สั่งได้ (3 ดวง กับ 5 ดวง)}
+      - {th: Dev Kit มีเซนเซอร์อุณหภูมิและความชื้น ความกดอากาศ และเรดาร์เพิ่ม}
+      - {th: Eva Kit ใช้ภาษา C ได้อย่างเดียว เขียน MicroPython ไม่ได้}
+      - {th: ขนาดจอต่างกันมาก โค้ดชุดเดียวใช้ร่วมกันไม่ได้}
+    answer: [0, 1]
+    explain:
+      th: ทั้งสองบอร์ดรัน MicroPython ของ BENTO และมีจอ 800 x 480 เท่ากัน ตัวอย่างชุดเดียวกันจึงรันได้ทั้งสองบอร์ด
+  - id: q4
+    objective: 3
+    type: single
+    prompt:
+      th: คำถามใดที่ BENTO Emulator ตอบได้น่าเชื่อถือที่สุด
+      en: Which question can the BENTO Emulator answer most reliably?
+    choices:
+      - {th: สัญญาณ WiFi ในห้องเรียนแรงพอไหม}
+      - {th: โปรแกรมรันจบโดยไม่มีข้อผิดพลาด และหน้าจอออกมาตามที่ตั้งใจไหม}
+      - {th: ค่าเซนเซอร์บนบอร์ดของฉันแม่นยำแค่ไหน}
+      - {th: บอร์ดกินไฟเท่าไรระหว่างรัน}
+    answer: [1]
+    explain:
+      th: อีมูเลเตอร์เหมาะกับการเรียนแนวคิดและตรวจโปรแกรม ส่วนเรื่องสัญญาณ ความแม่นของเซนเซอร์ และพลังงาน ต้องวัดบนบอร์ดจริง

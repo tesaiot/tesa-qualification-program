@@ -1,0 +1,41 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+id: secure-iot-optiga
+short: sec-iot
+title: {th: Secure IoT กับ OPTIGA™ Trust M, en: Secure IoT with OPTIGA™ Trust M}
+summary: {th: การทำ threat model และพื้นฐานวิทยาการเข้ารหัส การใช้ชิปความปลอดภัย OPTIGA™ Trust M การเชื่อมต่อ mTLS กับ TESAIoT Platform secure boot และ Protected Update ไปจนถึงการลงทะเบียนอุปกรณ์ด้วย CSR โดยอ้างอิงตัวอย่างและเอกสารใน TESAIoT PSE84 Dev Kit SDK, en: 'Threat modelling and crypto basics, the OPTIGA™ Trust M secure element, mTLS to the TESAIoT Platform, secure boot and Protected Update, and CSR-based device enrolment, grounded in the examples and docs of the TESAIoT PSE84 Dev Kit SDK.'}
+level: L3
+status: pre-alpha
+audience: [developer, student]
+hours: 20
+hardware:
+  emulator: false
+  boards: [devkit]
+toolchain: {sdk: tesaiot-pse84-devkit-sdk @ef72c1b658178eee8c38b1e47d28b006f80a59b5}
+prerequisites:
+  courses: [embedded-c-foundations]
+  skills:
+  - {skill: lang.c, level: 3}
+  - {skill: proto.mqtt, level: 2}
+outcomes:
+- {th: ทำ threat model ของอุปกรณ์ IoT หนึ่งชิ้น ระบุทรัพย์สิน ผู้โจมตี และมาตรการป้องกันที่ตรวจได้, en: 'Threat-model an IoT device, naming assets, attackers and verifiable mitigations.'}
+- {th: อธิบายและเลือกใช้ hash ลายเซ็นดิจิทัล การเข้ารหัสแบบสมมาตรและอสมมาตร และใบรับรองได้เหมาะกับงาน, en: 'Explain and choose hashes, signatures, symmetric and asymmetric encryption and certificates for a task.'}
+- {th: ใช้ OPTIGA™ Trust M ผ่าน SDK ตามกติกาการเข้าถึงชิป โดยกุญแจลับไม่ออกจากชิป, en: 'Use OPTIGA™ Trust M through the SDK under the chip-access rules, keeping private keys inside the chip.'}
+- {th: เชื่อมต่ออุปกรณ์กับ TESAIoT Platform ด้วย mTLS และอธิบายทุกขั้นของ handshake ได้, en: Connect a device to the TESAIoT Platform over mTLS and explain every handshake step.}
+- {th: 'อธิบาย secure boot, Protected Update และการลงทะเบียนด้วย CSR และระบุการเปลี่ยนแปลงที่ย้อนกลับไม่ได้บนชิป', en: 'Explain secure boot, Protected Update and CSR enrolment, and identify irreversible changes on the chip.'}
+authors:
+- {name: TESA Open Knowledge contributors, url: 'https://github.com/tesaiot/tesa-qualification-program', role: author}
+sponsors: [TESA]
+license: {content: CC-BY-4.0, code: Apache-2.0}
+source: {repo: 'https://github.com/tesaiot/tesaiot-pse84-devkit-sdk', ref: ef72c1b658178eee8c38b1e47d28b006f80a59b5, license: Apache-2.0, note: 'SDK security examples and docs are linked at this commit, not copied into this course.'}
+modules:
+- id: m01-threats-and-crypto
+  title: {th: Threat model และพื้นฐานวิทยาการเข้ารหัส, en: Threat modelling and crypto basics}
+- id: m02-optiga-trust-m
+  title: {th: ชิปความปลอดภัย OPTIGA™ Trust M, en: The OPTIGA™ Trust M secure element}
+- id: m03-mtls-to-platform
+  title: {th: mTLS สู่ TESAIoT Platform, en: mTLS to the TESAIoT Platform}
+- id: m04-secure-boot-and-update
+  title: {th: Secure boot และ Protected Update, en: Secure boot and Protected Update}
+- id: m05-provisioning
+  title: {th: การลงทะเบียนอุปกรณ์อย่างปลอดภัย, en: Secure provisioning}

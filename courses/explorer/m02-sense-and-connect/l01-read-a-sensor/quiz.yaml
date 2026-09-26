@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: ถ้า s = sensors.snapshot() เราอ่านเปอร์เซ็นต์ของลูกบิดได้ด้วยนิพจน์ใด
+      en: If s = sensors.snapshot(), which expression reads the knob percentage?
+    choices:
+      - {th: 's["percent"]'}
+      - {th: 's["pot"]["percent"]'}
+      - {th: 's.pot.percent()'}
+      - {th: 'sensors.pot()'}
+    answer: [1]
+    explain:
+      th: snapshot() คืน dict ซ้อน dict ก้อนย่อย "pot" มีช่อง "percent" อยู่ข้างใน
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: วางบอร์ดราบบนโต๊ะ ค่า az ควรอยู่ราวเท่าไร
+      en: With the board lying flat on a table, roughly what should az read?
+    choices:
+      - {th: "0"}
+      - {th: "9.8"}
+      - {th: "100"}
+      - {th: "-50"}
+    answer: [1]
+    explain:
+      th: แรงโน้มถ่วงของโลกราว 9.8 m/s^2 ชี้ลงแกน z ตอนวางราบ พอเอียง ค่านี้จะลดลง
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: ทำไมจึงเขียน if "pot" in s ก่อนอ่าน s["pot"]
+      en: Why write if "pot" in s before reading s["pot"]?
+    choices:
+      - {th: เพื่อให้โปรแกรมเร็วขึ้น}
+      - {th: เพราะคีย์ในก้อนมีเท่าที่บอร์ดมีให้ ถ้าไม่มีแล้วอ่านตรง ๆ จะได้ KeyError}
+      - {th: เพราะ MicroPython อ่าน dict ได้ครั้งเดียว}
+      - {th: เพื่อเปิดลูกบิดให้ทำงาน}
+    answer: [1]
+    explain:
+      th: บอร์ดต่างรุ่นมีเซนเซอร์ไม่เท่ากัน การถามก่อนหยิบทำให้โค้ดชุดเดียวรันได้ทุกบอร์ดโดยไม่หยุดกลางทาง
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: บนบอร์ดจริง ถ้า sensors.snapshot() โยน OSError ตอนเพิ่งเปิดเครื่อง ควรทำอย่างไร
+      en: On a real board, if sensors.snapshot() raises OSError right after power-up, what should the program do?
+    choices:
+      - {th: หยุดโปรแกรมทันที เพราะเซนเซอร์เสีย}
+      - {th: ดักไว้ด้วย try/except แล้วรอลองใหม่รอบหน้า}
+      - {th: รีเซ็ตบอร์ดทุกครั้ง}
+      - {th: เปลี่ยนไปใช้อีมูเลเตอร์แทน}
+    answer: [1]
+    explain:
+      th: ช่วงแรกหลังเปิดเครื่องบอร์ดอาจยังไม่พร้อมตอบ ไม่ใช่ของเสีย ดักไว้แล้วลองใหม่ คือวิธีที่ตัวอย่างใช้
+  - id: q5
+    objective: 3
+    type: order
+    prompt:
+      th: เรียงบรรทัดของไฟเตือนเมื่อเอียงให้ถูกลำดับ
+      en: Order the lines of the tilt warning.
+    choices:
+      - {th: 'if az < LIMIT:'}
+      - {th: 's = sensors.snapshot()'}
+      - {th: '    led.on()'}
+      - {th: 'az = s["bmi270"]["az"]'}
+    answer: [1, 3, 0, 2]
+    explain:
+      th: ขอค่าก่อน หยิบ az ออกมา เทียบกับเกณฑ์ แล้วจึงสั่งไฟ (ในโค้ดจริงต้องถาม "bmi270" in s ก่อนหยิบ az ด้วย)

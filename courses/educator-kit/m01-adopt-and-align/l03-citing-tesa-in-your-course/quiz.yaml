@@ -1,0 +1,74 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: multi
+    prompt:
+      th: ข้อความอ้างอิง TESA ในเอกสารรายละเอียดรายวิชาต้องมีส่วนใดบ้าง (เลือกได้มากกว่าหนึ่งข้อ)
+      en: Which parts must the TESA attribution in a course specification contain? (choose all that apply)
+    choices:
+      - {th: ชื่อบทเรียนหรือหลักสูตรที่ใช้}
+      - {th: "ผู้สร้าง: สมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA)"}
+      - {th: "แหล่งที่มา https://github.com/tesaiot/tesa-qualification-program"}
+      - {th: สัญญาอนุญาต CC BY 4.0}
+      - {th: ลายเซ็นของนายกสมาคม}
+    answer: [0, 1, 2, 3]
+    explain:
+      th: ข้อความอ้างอิงครบสี่ส่วนตามหลัก TASL คือ ชื่องาน ผู้สร้าง แหล่งที่มา และสัญญาอนุญาต ไม่ต้องมีลายเซ็นใด ๆ
+  - id: q2
+    objective: 2
+    type: single
+    prompt:
+      th: สไลด์ที่นำมาจาก TESA Open Knowledge ต้องมีเครดิตอย่างไร
+      en: How must slides taken from TESA Open Knowledge carry the credit?
+    choices:
+      - {th: ใส่เครดิตครั้งเดียวในอีเมลถึงผู้เรียน}
+      - {th: บรรทัดเครดิตสั้นท้ายทุกหน้าที่นำมาใช้ และข้อความเต็มในหน้าปกหรือหน้าสุดท้าย}
+      - {th: ไม่ต้องใส่ถ้าใช้ในห้องเรียนเท่านั้น}
+      - {th: ใส่โลโก้ TESA แทนข้อความ}
+    answer: [1]
+    explain:
+      th: เครดิตต้องอยู่ในจุดที่ผู้เรียนเห็นได้จริง บรรทัดสั้นท้ายสไลด์ทุกหน้า และข้อความเต็มอย่างน้อยหนึ่งที่ในชุดเดียวกัน ส่วนโลโก้เป็นเครื่องหมายที่ใช้ไม่ได้
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: ใบงานแบบพิมพ์ควรมีข้อความอ้างอิงอย่างไร
+      en: How should a printed worksheet carry the attribution?
+    choices:
+      - {th: ใส่เฉพาะคำว่า TESA ตัวเล็ก ๆ}
+      - {th: บรรทัดเครดิตสั้นท้ายทุกหน้า และข้อความเต็มพร้อม URL เต็มในหน้าแรกหรือหน้าสุดท้าย}
+      - {th: ใส่ QR code อย่างเดียวโดยไม่มีข้อความ}
+      - {th: ไม่ต้องใส่เพราะพิมพ์ใช้ภายใน}
+    answer: [1]
+    explain:
+      th: ผู้อ่านกระดาษกดลิงก์ไม่ได้ จึงต้องพิมพ์ URL เต็ม และต้องมีข้อความเต็มอย่างน้อยหนึ่งที่
+  - id: q4
+    objective: 3
+    type: multi
+    prompt:
+      th: กรณีใดต้องเติม (ดัดแปลง) ต่อท้ายข้อความอ้างอิง (เลือกได้มากกว่าหนึ่งข้อ)
+      en: In which cases must "(adapted)" be added? (choose all that apply)
+    choices:
+      - {th: แปลบทเรียนเป็นภาษาอังกฤษ}
+      - {th: ตัดแล็บออกหนึ่งแล็บ}
+      - {th: ใช้บทเรียนตามต้นฉบับทุกตัวอักษร}
+      - {th: เพิ่มตัวอย่างบอร์ดของรายวิชาลงในสไลด์}
+    answer: [0, 1, 3]
+    explain:
+      th: การแปล ตัด หรือเพิ่ม ล้วนเป็นการดัดแปลง ส่วนการใช้ตามต้นฉบับทุกตัวอักษรไม่ต้องเติม
+  - id: q5
+    objective: 4
+    type: single
+    prompt:
+      th: ข้อความใดใส่ในเอกสารรายวิชาได้ โดยยังไม่ได้เทียบรายวิชากับ TQP ผ่าน TESA
+      en: Which statement may appear in a course document when the course has not been aligned with TQP through TESA?
+    choices:
+      - {th: หลักสูตรที่ TESA รับรอง}
+      - {th: หลักสูตรเตรียมสอบ TQP}
+      - {th: รายวิชานี้ใช้สื่อเปิดจาก TESA Open Knowledge แต่ไม่ได้รับการรับรองจาก TESA หรือ Infineon}
+      - {th: Certified by TESA and Infineon}
+    answer: [2]
+    explain:
+      th: การอ้างอิงที่มาทำได้เสมอ แต่การอ้างว่าได้รับการรับรองทำได้เฉพาะเมื่อผ่านการเทียบกับ TQP ผ่าน TESA และได้รับอนุญาตเป็นลายลักษณ์อักษร

@@ -1,0 +1,40 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+id: electronics-and-instruments
+short: elec
+title: {th: อิเล็กทรอนิกส์และเครื่องมือวัดสำหรับนักพัฒนาระบบฝังตัว, en: Electronics & Test Instruments for Embedded Developers}
+summary: {th: หลักการวงจรและอิเล็กทรอนิกส์พื้นฐาน วงจรดิจิทัล การใช้มัลติมิเตอร์ logic analyzer และออสซิลโลสโคป การต่อวงจรบนเบรดบอร์ด การบัดกรี การอ่านวงจร และพื้นฐาน PCB กับ EMC สำหรับนักพัฒนาที่ต้องทำงานกับบอร์ดจริง, en: 'Circuit and electronics fundamentals, digital logic, using a multimeter, logic analyzer and oscilloscope, breadboarding, soldering, reading schematics, and PCB and EMC basics for developers who work with real boards.'}
+level: L2
+status: pre-alpha
+audience: [student, developer, public]
+hours: 20
+hardware:
+  emulator: false
+  boards: [eva-kit, devkit]
+prerequisites:
+  courses: []
+  skills:
+  - {skill: hw.math, level: 1}
+outcomes:
+- {th: คำนวณแรงดัน กระแส ความต้านทาน และกำลังในวงจรพื้นฐาน และออกแบบวงจรแบ่งแรงดันกับตัวต้านทานจำกัดกระแสได้, en: 'Compute voltage, current, resistance and power in basic circuits and design dividers and current-limiting resistors.'}
+- {th: อธิบายระดับลอจิก pull-up และ pull-down และต่อปุ่มแบบ active-low ได้ถูกต้อง, en: 'Explain logic levels, pull-ups and pull-downs, and wire an active-low button correctly.'}
+- {th: วัดแรงดัน ความต่อเนื่อง และกระแสด้วยมัลติมิเตอร์อย่างปลอดภัย, en: 'Measure voltage, continuity and current safely with a multimeter.'}
+- {th: จับและถอดรหัสสัญญาณดิจิทัลด้วย logic analyzer และวัดสัญญาณด้วยออสซิลโลสโคปได้, en: Capture and decode digital signals with a logic analyzer and measure signals with an oscilloscope.}
+- {th: ต่อวงจรบนเบรดบอร์ด บัดกรีอย่างปลอดภัย อ่านแผนผังวงจร และอธิบายหลัก PCB และ EMC เบื้องต้นได้, en: 'Breadboard, solder safely, read schematics, and explain basic PCB and EMC principles.'}
+authors:
+- {name: TESA Open Knowledge contributors, url: 'https://github.com/tesaiot/tesa-qualification-program', role: author}
+sponsors: [TESA]
+license: {content: CC-BY-4.0, code: Apache-2.0}
+modules:
+- id: m01-circuits
+  title: {th: วงจรและอิเล็กทรอนิกส์พื้นฐาน, en: Circuits and electronics fundamentals}
+- id: m02-digital-logic
+  title: {th: วงจรดิจิทัล, en: Digital logic}
+- id: m03-multimeter
+  title: {th: มัลติมิเตอร์, en: The multimeter}
+- id: m04-logic-analyzer
+  title: {th: Logic analyzer และ protocol analyzer, en: Logic and protocol analyzers}
+- id: m05-oscilloscope
+  title: {th: ออสซิลโลสโคป, en: The oscilloscope}
+- id: m06-build-and-read
+  title: {th: ต่อวงจร บัดกรี อ่านแผนผัง และพื้นฐาน PCB กับ EMC, en: 'Breadboarding, soldering, schematics, PCB and EMC basics'}

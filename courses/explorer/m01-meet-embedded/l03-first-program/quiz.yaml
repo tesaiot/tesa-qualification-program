@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: คำสั่ง lcd.print("สวัสดี") ทำให้ข้อความไปปรากฏที่ใด
+      en: Where does lcd.print("hello") put its text?
+    choices:
+      - {th: คอนโซลฝั่งคอมพิวเตอร์}
+      - {th: ลิ้นชัก Console บนจอบอร์ด}
+      - {th: "ป้ายตรงตำแหน่ง x, y บนจอ"}
+      - {th: ไม่ปรากฏที่ใดเลย}
+    answer: [1]
+    explain:
+      th: lcd.print เขียนลงลิ้นชัก Console ต้องเปิดลิ้นชักด้วยปุ่มสีเขียวมุมขวาล่างถึงจะเห็น ส่วน print() ไปที่คอมพิวเตอร์ และ ui.Label ไปที่จอตรง ๆ
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: "โค้ด ui.Label(\"สวัสดี\", x=24, y=8, color=0xE8EAED, value=28) ตัวเลข value=28 หมายถึงอะไร"
+      en: "In ui.Label(\"hello\", x=24, y=8, color=0xE8EAED, value=28), what does value=28 set?"
+    choices:
+      - {th: ตำแหน่งแนวตั้ง}
+      - {th: สีของตัวอักษร}
+      - {th: ขนาดตัวอักษร}
+      - {th: จำนวนครั้งที่แสดง}
+    answer: [2]
+    explain:
+      th: สำหรับป้าย value คือขนาดตัวอักษร ตำแหน่งคือ x กับ y และสีคือ color
+  - id: q3
+    objective: 2
+    type: order
+    prompt:
+      th: เรียงบรรทัดในลูปกะพริบให้ถูกลำดับ (กะพริบหนึ่งครั้ง)
+      en: Order the lines inside the blink loop (one blink).
+    choices:
+      - {th: "led.off()"}
+      - {th: "time.sleep_ms(ON_MS)"}
+      - {th: "led.on()"}
+      - {th: "time.sleep_ms(OFF_MS)"}
+    answer: [2, 1, 0, 3]
+    explain:
+      th: สั่งติด รอ สั่งดับ รอ ถ้าไม่มีช่วงรอ ไฟจะติดดับเร็วเกินกว่าตาจะเห็น
+  - id: q4
+    objective: 3
+    type: single
+    prompt:
+      th: ถ้า ROUNDS = 6, ON_MS = 250, OFF_MS = 250 โปรแกรมกะพริบใช้เวลาประมาณเท่าไร (ไม่นับเวลาวาดจอ)
+      en: With ROUNDS = 6, ON_MS = 250 and OFF_MS = 250, roughly how long does the blinking take (ignoring drawing time)?
+    choices:
+      - {th: 0.5 วินาที}
+      - {th: 1.5 วินาที}
+      - {th: 3 วินาที}
+      - {th: 6 วินาที}
+    answer: [2]
+    explain:
+      th: หนึ่งรอบคือ 250 + 250 = 500 ms หกรอบจึงราว 3000 ms เวลาจริงจะนานกว่านี้เล็กน้อยเพราะการวาดจอก็ใช้เวลา
+  - id: q5
+    objective: 3
+    type: single
+    prompt:
+      th: ทำไมตัวอย่างจึงเรียก led.off() อีกครั้งหลังจบลูป
+      en: Why does the example call led.off() again after the loop?
+    choices:
+      - {th: เพราะ MicroPython บังคับให้ทุกโปรแกรมจบด้วย off()}
+      - {th: เพื่อให้แน่ใจว่าโปรแกรมจบที่สถานะที่รู้แน่ ไม่ปล่อยไฟค้างติดโดยไม่ตั้งใจ}
+      - {th: เพื่อให้ไฟกะพริบเพิ่มอีกหนึ่งครั้ง}
+      - {th: เพื่อประหยัดหน่วยความจำ}
+    answer: [1]
+    explain:
+      th: โปรแกรมที่จบแล้วควรบอกได้แน่ว่าไฟอยู่สถานะไหน ในงานจริงไฟที่ค้างติดผิดจังหวะทำให้คนเข้าใจผิดได้

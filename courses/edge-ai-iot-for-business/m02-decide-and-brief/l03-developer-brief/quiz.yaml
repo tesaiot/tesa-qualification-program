@@ -1,0 +1,59 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: ถ้ายังไม่รู้ต้นทุนต่อชิ้นจริง ควรเติมช่อง "ต้นทุนสามก้อน" ใน decision canvas อย่างไร
+      en: If you do not yet know the real unit cost, how should you fill the "three cost parts" field?
+    choices:
+      - {th: เดาตัวเลขที่ฟังดูดี}
+      - {th: เว้นว่างไว้}
+      - {th: เขียนตัวเลขที่รู้แล้ว และระบุว่าตัวไหนยังต้องขอใบเสนอราคาจากใคร}
+      - {th: ใช้ราคาจากอินเทอร์เน็ตโดยไม่บอกที่มา}
+    answer: [2]
+    explain:
+      th: canvas ที่ดีบอกทั้งสิ่งที่รู้และสิ่งที่ยังไม่รู้ พร้อมบอกว่าต้องถามใคร ดีกว่าตัวเลขที่เดาขึ้นมา
+  - id: q2
+    objective: 2
+    type: single
+    prompt:
+      th: ข้อใดเป็นโจทย์ที่ตรวจรับงานได้
+      en: Which requirement can be checked at hand-over?
+    choices:
+      - {th: ระบบต้องใช้ง่ายและทันสมัย}
+      - {th: ต้องเตือนผิดไม่เกินเดือนละ 2 ครั้งต่อสาขา และผู้จัดการตั้งเกณฑ์ใหม่ได้เองภายใน 1 นาที}
+      - {th: ใช้ AI ที่เก่งที่สุด}
+      - {th: ทำให้เสร็จเร็วที่สุด}
+    answer: [1]
+    explain:
+      th: ตัวเลขและเงื่อนไขที่ชัดทำให้ทั้งสองฝ่ายตรวจได้ตรงกันว่างานเสร็จหรือยัง
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: ทำไมจึงควรเขียนสิ่งที่ "ไม่ทำ" ในรอบนี้ลงในโจทย์
+      en: Why write what is "not in scope" this round?
+    choices:
+      - {th: เพื่อให้เอกสารยาวขึ้น}
+      - {th: เพื่อกันงานงอก และทำให้ใบเสนอราคาจากหลายรายเทียบกันได้}
+      - {th: เพื่อให้ผู้รับจ้างทำงานน้อยลงโดยไม่มีเหตุผล}
+      - {th: ไม่จำเป็น เพราะทุกคนเข้าใจตรงกันอยู่แล้ว}
+    answer: [1]
+    explain:
+      th: ขอบเขตที่บอกทั้งสิ่งที่ทำและไม่ทำ ช่วยให้ราคาและเวลาตรงกับความคาดหวังของทั้งสองฝ่าย
+  - id: q4
+    objective: 3
+    type: single
+    prompt:
+      th: คุณเพิ่มช่อง "งบการตลาด" ลงในแม่แบบ decision canvas แล้วแจกให้ลูกค้า ข้อความอ้างอิงข้อใดถูกต้องที่สุด
+      en: You added a "marketing budget" field to the canvas template and gave it to clients. Which credit is most correct?
+    choices:
+      - {th: "แม่แบบโดยบริษัทของเรา"}
+      - {th: "\"Edge AI และ IoT สำหรับการตัดสินใจเชิงผลิตภัณฑ์\" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0 (ดัดแปลง: เพิ่มช่องงบการตลาด)"}
+      - {th: "แม่แบบที่ TESA รับรองแล้ว"}
+      - {th: "\"Edge AI และ IoT สำหรับการตัดสินใจเชิงผลิตภัณฑ์\" จาก TESA Open Knowledge"}
+    answer: [1]
+    explain:
+      th: ต้องมีชื่อ ผู้สร้าง แหล่งที่มา และสัญญาอนุญาตครบ และเมื่อแก้ไขต้องเติม (ดัดแปลง) ห้ามเขียนว่า TESA รับรอง

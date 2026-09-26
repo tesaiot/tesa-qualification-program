@@ -1,0 +1,102 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: multi
+    prompt:
+      th: ข้อใดเป็นหลักความปลอดภัยพื้นฐานของอุปกรณ์ IoT (เลือกได้มากกว่าหนึ่งข้อ)
+      en: Which are basic IoT device security practices? (choose all that apply)
+    choices:
+      - {th: ใช้รหัสผ่านเริ่มต้นเดียวกันทุกเครื่องเพื่อให้ซัพพอร์ตง่าย}
+      - {th: อัปเดตซอฟต์แวร์ได้อย่างปลอดภัยตลอดอายุผลิตภัณฑ์}
+      - {th: เก็บกุญแจเข้ารหัสในที่ปลอดภัย เช่น ชิปความปลอดภัย}
+      - {th: สื่อสารแบบเข้ารหัส}
+      - {th: มีช่องทางรับแจ้งช่องโหว่}
+    answer: [1, 2, 3, 4]
+    explain:
+      th: รหัสผ่านเริ่มต้นที่เหมือนกันทุกเครื่องเป็นสิ่งที่มาตรฐานอย่าง ETSI EN 303 645 ห้ามไว้ชัดเจน ข้ออื่นเป็นหลักพื้นฐานทั้งหมด
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: เอกสารใดเป็นมาตรฐานความปลอดภัยไซเบอร์สำหรับ IoT ผู้บริโภคที่ใช้อ้างอิงในบทนี้
+      en: Which document is the consumer IoT cyber-security baseline standard cited in this lesson?
+    choices:
+      - {th: ETSI EN 303 645}
+      - {th: พ.ร.บ.เครื่องมือแพทย์}
+      - {th: มาตรฐานการบัญชี}
+      - {th: คู่มือการใช้ WiFi ในบ้าน}
+    answer: [0]
+    explain:
+      th: ETSI EN 303 645 คือ Cyber Security for Consumer Internet of Things - Baseline Requirements ส่วน NIST IR 8259 และ OWASP IoT ก็ใช้อ้างอิงได้
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: อุปกรณ์วัดความดันโลหิตที่ส่งค่าพร้อมชื่อผู้ใช้ขึ้นคลาวด์ ข้อมูลนี้เป็นอะไรตาม พ.ร.บ.คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562
+      en: A blood-pressure device sends readings with the user's name to the cloud. What is this data under the PDPA?
+    choices:
+      - {th: ไม่ใช่ข้อมูลส่วนบุคคล เพราะเป็นแค่ตัวเลข}
+      - {th: ข้อมูลส่วนบุคคลที่เป็นข้อมูลอ่อนไหว เพราะเป็นข้อมูลสุขภาพที่ระบุตัวบุคคลได้}
+      - {th: ข้อมูลสาธารณะ}
+      - {th: ข้อมูลของบริษัทคลาวด์}
+    answer: [1]
+    explain:
+      th: ค่าที่ผูกกับชื่อระบุตัวบุคคลได้ และข้อมูลสุขภาพอยู่ในกลุ่มข้อมูลที่มาตรา 26 กำหนดให้ดูแลเข้มกว่า
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: หน่วยงานใดกำกับการคุ้มครองข้อมูลส่วนบุคคลในประเทศไทย
+      en: Which agency regulates personal data protection in Thailand?
+    choices:
+      - {th: สำนักงาน กสทช.}
+      - {th: สำนักงานคณะกรรมการคุ้มครองข้อมูลส่วนบุคคล (สคส.)}
+      - {th: สำนักงานมาตรฐานผลิตภัณฑ์อุตสาหกรรม (สมอ.)}
+      - {th: กรมสรรพากร}
+    answer: [1]
+    explain:
+      th: สคส. (PDPC) เป็นหน่วยงานที่ตั้งขึ้นตาม พ.ร.บ.คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562
+  - id: q5
+    objective: 3
+    type: single
+    prompt:
+      th: อุปกรณ์เฝ้าตู้แช่ที่ส่งข้อมูลผ่าน WiFi ต้องตรวจเรื่องการรับรองเครื่องวิทยุกับหน่วยงานใดเป็นอันดับแรก
+      en: "A WiFi fridge monitor: which agency do you check with first about radio equipment certification?"
+    choices:
+      - {th: สำนักงาน กสทช.}
+      - {th: อย.}
+      - {th: สคส.}
+      - {th: ไม่ต้องตรวจกับใคร}
+    answer: [0]
+    explain:
+      th: อุปกรณ์ที่ส่งหรือรับคลื่นวิทยุต้องตรวจกับสำนักงาน กสทช. ว่าต้องผ่านการรับรองหรือแจ้งแบบใดก่อนนำเข้าหรือขาย
+  - id: q6
+    objective: 3
+    type: single
+    prompt:
+      th: แอป AI ที่อ้างว่า "ตรวจพบภาวะหัวใจเต้นผิดจังหวะ" ควรตรวจกับหน่วยงานใดเรื่องการเข้าข่ายเครื่องมือแพทย์
+      en: An AI app claiming to "detect irregular heartbeat" should check with which agency about medical device status?
+    choices:
+      - {th: สำนักงานมาตรฐานผลิตภัณฑ์อุตสาหกรรม (สมอ.)}
+      - {th: กองควบคุมเครื่องมือแพทย์ สำนักงานคณะกรรมการอาหารและยา (อย.)}
+      - {th: สำนักงาน กสทช.}
+      - {th: ไม่ต้องตรวจ เพราะเป็นซอฟต์แวร์}
+    answer: [1]
+    explain:
+      th: ซอฟต์แวร์และ AI ที่อ้างสรรพคุณทางการแพทย์อาจเข้าข่ายเครื่องมือแพทย์ อย. มีหลักเกณฑ์คัดกรองเรื่องนี้โดยเฉพาะ
+  - id: q7
+    objective: 4
+    type: multi
+    prompt:
+      th: ข้อใดเป็นวิธีลดความเสี่ยงด้านห่วงโซ่อุปทาน (เลือกได้มากกว่าหนึ่งข้อ)
+      en: Which reduce supply-chain risk? (choose all that apply)
+    choices:
+      - {th: หาชิ้นส่วนทดแทนจากผู้ขายรายที่สองตั้งแต่ขั้นออกแบบ}
+      - {th: ซื้อชิ้นส่วนจากผู้แทนจำหน่ายที่ได้รับแต่งตั้ง}
+      - {th: เลือกชิ้นส่วนราคาถูกที่สุดโดยไม่ดูสถานะการผลิต}
+      - {th: ตกลงให้ชัดว่าใครถือกุญแจเข้ารหัสที่ใส่ในโรงงาน}
+    answer: [0, 1, 3]
+    explain:
+      th: ชิ้นส่วนที่ถูกที่สุดแต่ใกล้หยุดผลิตหรือมาจากแหล่งไม่น่าเชื่อถือ มักแพงที่สุดเมื่อคิดรวมความเสียหายภายหลัง

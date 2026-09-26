@@ -1,0 +1,60 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: ข้อเสียหลักของการซื้อระบบสำเร็จรูปพร้อมบริการรายเดือนคือข้อใด
+      en: What is the main drawback of buying a ready-made system with a monthly service?
+    choices:
+      - {th: ใช้เวลานานที่สุด}
+      - {th: ปรับแต่งได้น้อยและขึ้นกับผู้ขาย ข้อมูลอาจไม่อยู่ในมือเรา}
+      - {th: ต้องสร้างทีมวิศวกรเต็มทีม}
+      - {th: ต้องออกแบบวงจรเอง}
+    answer: [1]
+    explain:
+      th: การซื้อเร็วและเสี่ยงทางเทคนิคต่ำ แต่แลกกับการปรับแต่งและการพึ่งพาผู้ขาย
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: ทางเลือกใดเหมาะเมื่อส่วนนั้นเป็นจุดต่างหลักที่ทำให้ลูกค้าเลือกคุณ และคุณจะผลิตจำนวนมาก
+      en: Which option fits when that part is your key differentiator and you will produce in volume?
+    choices:
+      - {th: ซื้อของสำเร็จรูป}
+      - {th: ทำเอง หรือทำร่วมกับพันธมิตรโดยคุณเป็นเจ้าของผลงาน}
+      - {th: ไม่ทำเลย}
+      - {th: ใช้ของฟรีที่ไม่มีใครดูแล}
+    answer: [1]
+    explain:
+      th: จุดต่างทางธุรกิจควรอยู่ในมือคุณ และเมื่อผลิตมาก ต้นทุนครั้งเดียวของการทำเองจะถูกเฉลี่ยจนคุ้ม
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: "ตารางถ่วงน้ำหนัก: ปัจจัย A น้ำหนัก 60 ปัจจัย B น้ำหนัก 40 ทางเลือก X ได้ A=4, B=2 ทางเลือก Y ได้ A=2, B=5 ทางเลือกใดคะแนนรวมสูงกว่า"
+      en: "Weighted table: factor A weight 60, factor B weight 40. Option X scores A=4, B=2; option Y scores A=2, B=5. Which scores higher?"
+    choices:
+      - {th: "X (240 + 80 = 320)"}
+      - {th: "Y (120 + 200 = 320)"}
+      - {th: "เท่ากันที่ 320 ต้องใช้เหตุผลอื่นตัดสิน"}
+      - {th: "Y ชนะเพราะมีคะแนน 5"}
+    answer: [2]
+    explain:
+      th: ทั้งสองได้ 320 เท่ากัน ตารางไม่ได้ตัดสินแทนเรา เมื่อคะแนนใกล้กัน ให้กลับไปดูปัจจัยที่แก้ทีหลังไม่ได้ เช่น ความเป็นเจ้าของ
+  - id: q4
+    objective: 3
+    type: multi
+    prompt:
+      th: เรื่องใดต้องตกลงกับพันธมิตรหรือผู้รับจ้างก่อนเซ็นสัญญา (เลือกได้มากกว่าหนึ่งข้อ)
+      en: What must you settle with a partner or contractor before signing? (choose all that apply)
+    choices:
+      - {th: ใครเป็นเจ้าของซอร์สโค้ด แบบวงจร โมเดล และข้อมูล}
+      - {th: ใครถือกุญแจลงนามเฟิร์มแวร์}
+      - {th: ใครออกอัปเดตความปลอดภัย นานกี่ปี}
+      - {th: ใครรับผิดชอบการทดสอบรับรองมาตรฐาน}
+      - {th: สีโลโก้ของผู้รับจ้าง}
+    answer: [0, 1, 2, 3]
+    explain:
+      th: สี่เรื่องแรกกำหนดว่าผลิตภัณฑ์ยังเดินต่อได้ไหมเมื่อพันธมิตรเปลี่ยนไป สีโลโก้ไม่เกี่ยว

@@ -1,0 +1,43 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+id: embedded-c-foundations
+short: c-found
+title: {th: พื้นฐานเฟิร์มแวร์ภาษา C บน PSoC Edge, en: Embedded C Foundations on PSoC Edge}
+summary: {th: 'ภาษา C สำหรับไมโครคอนโทรลเลอร์และการจัดการหน่วยความจำ การ build ด้วย ModusToolbox และ Make, Git สำหรับเฟิร์มแวร์ การดีบักด้วย SWD/GDB, timer interrupt watchdog DMA และสัญญาณนาฬิกา, UART/I2C/SPI กับ logic analyzer ไปจนถึง unit test และ CI โดยอ้างอิงตัวอย่างจริงใน TESAIoT PSE84 Dev Kit SDK', en: 'C for microcontrollers and memory management, building with ModusToolbox and Make, Git for firmware, SWD/GDB debugging, timers, interrupts, watchdog, DMA and clocks, UART/I2C/SPI with a logic analyzer, and unit testing with CI, grounded in real examples from the TESAIoT PSE84 Dev Kit SDK.'}
+level: L3
+status: pre-alpha
+audience: [developer, student]
+hours: 30
+hardware:
+  emulator: false
+  boards: [devkit]
+toolchain: {sdk: tesaiot-pse84-devkit-sdk @ef72c1b658178eee8c38b1e47d28b006f80a59b5, modustoolbox: ModusToolbox (version as required by the SDK README)}
+prerequisites:
+  courses: []
+  skills:
+  - {skill: lang.python, level: 2}
+outcomes:
+- {th: เขียนโค้ดภาษา C ที่จัดการบิต รีจิสเตอร์ และหน่วยความจำบนไมโครคอนโทรลเลอร์อย่างปลอดภัย โดยอธิบายได้ว่าข้อมูลแต่ละก้อนอยู่ที่ใดในหน่วยความจำ, en: 'Write C that handles bits, registers and memory safely on a microcontroller, explaining where each piece of data lives.'}
+- {th: 'build แฟลช และจัดการเวอร์ชันของเฟิร์มแวร์ด้วย ModusToolbox, Make และ Git ได้ซ้ำได้ทุกครั้ง', en: 'Build, flash and version firmware reproducibly with ModusToolbox, Make and Git.'}
+- {th: ดีบักเฟิร์มแวร์ด้วย SWD และ GDB และวินิจฉัยความผิดพลาดจากหลักฐาน ไม่ใช่การเดา, en: Debug firmware over SWD with GDB and diagnose faults from evidence rather than guesses.}
+- {th: 'ใช้ GPIO, interrupt, timer, watchdog และ DMA ตามกติกาของบริบท ISR และ RTOS ได้ถูกต้อง', en: 'Use GPIO, interrupts, timers, the watchdog and DMA correctly under ISR and RTOS rules.'}
+- {th: 'สื่อสารผ่าน UART, I2C และ SPI และยืนยันสัญญาณด้วย logic analyzer ได้', en: 'Communicate over UART, I2C and SPI and verify the signals with a logic analyzer.'}
+- {th: แยกตรรกะออกจากฮาร์ดแวร์เพื่อเขียน unit test บนเครื่องโฮสต์ และตั้ง CI ให้ตรวจทุกการเปลี่ยนแปลง, en: 'Separate logic from hardware to unit-test it on the host, and set up CI that checks every change.'}
+authors:
+- {name: TESA Open Knowledge contributors, url: 'https://github.com/tesaiot/tesa-qualification-program', role: author}
+sponsors: [TESA]
+license: {content: CC-BY-4.0, code: Apache-2.0}
+source: {repo: 'https://github.com/tesaiot/tesaiot-pse84-devkit-sdk', ref: ef72c1b658178eee8c38b1e47d28b006f80a59b5, license: Apache-2.0, note: 'SDK examples and docs are linked at this commit, not copied into this course.'}
+modules:
+- id: m01-c-and-memory
+  title: {th: ภาษา C สำหรับไมโครคอนโทรลเลอร์และหน่วยความจำ, en: C for microcontrollers and memory}
+- id: m02-build-and-version
+  title: {th: Build ด้วย ModusToolbox และ Make และ Git สำหรับเฟิร์มแวร์, en: 'Building with ModusToolbox and Make, and Git for firmware'}
+- id: m03-debugging
+  title: {th: ดีบักด้วย SWD และ GDB, en: Debugging with SWD and GDB}
+- id: m04-peripherals
+  title: {th: 'Timer, Interrupt, Watchdog, DMA และสัญญาณนาฬิกา', en: 'Timers, interrupts, watchdog, DMA and clocks'}
+- id: m05-serial-buses
+  title: {th: 'UART, I2C และ SPI กับ logic analyzer', en: 'UART, I2C and SPI with a logic analyzer'}
+- id: m06-test-and-ci
+  title: {th: Unit test และ CI, en: Unit testing and CI}

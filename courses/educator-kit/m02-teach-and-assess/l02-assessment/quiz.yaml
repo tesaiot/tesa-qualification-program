@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: เช็กความเข้าใจ (quiz.yaml) ในคลัง TESA Open Knowledge ควรใช้อย่างไร
+      en: How should the quiz.yaml checks in TESA Open Knowledge be used?
+    choices:
+      - {th: เป็นข้อสอบปลายภาคให้คะแนนตัดสิน}
+      - {th: เป็นแบบฝึกและเกณฑ์ผ่านรายบทเรียน เพราะคำตอบเปิดสาธารณะ}
+      - {th: ห้ามให้ผู้เรียนเห็น}
+      - {th: ใช้แทนการสอบ TQP}
+    answer: [1]
+    explain:
+      th: คำตอบเปิดอยู่แล้ว จึงเหมาะกับการฝึกและการตรวจตัวเอง ไม่เหมาะเป็นข้อสอบให้คะแนนตัดสิน
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: ผู้สอนต้องการโจทย์แล็บหลายชุดสำหรับสุ่มให้แต่ละกลุ่ม พร้อมเกณฑ์ให้คะแนนละเอียด ต้องทำอย่างไร
+      en: A lecturer wants several lab variants for random assignment with detailed marking criteria. What should they do?
+    choices:
+      - {th: หาในคลังสาธารณะ}
+      - {th: ขอจาก TESA ซึ่งจัดให้ผู้สอนเมื่อขอ}
+      - {th: ขอคลังข้อสอบ TQP}
+      - {th: ใช้เฉลยในคลังเป็นโจทย์}
+    answer: [1]
+    explain:
+      th: งานให้คะแนนในรายวิชาไม่เผยแพร่สาธารณะ TESA จัดให้ผู้สอนเมื่อขอ ส่วนคลังข้อสอบ TQP ปิดสำหรับทุกคน
+  - id: q3
+    objective: 1
+    type: multi
+    prompt:
+      th: สิ่งใดอยู่ในส่วนที่ปิดของการสอบ TQP และไม่มีใครนอกหน่วยรับรองเข้าถึงได้ (เลือกได้มากกว่าหนึ่งข้อ)
+      en: Which belong to the closed part of the TQP exam, accessible to no one outside the certification body? (choose all that apply)
+    choices:
+      - {th: คลังข้อสอบ}
+      - {th: พารามิเตอร์โจทย์รายคน}
+      - {th: test vector ลับ}
+      - {th: แผนที่ทักษะใน skills/}
+    answer: [0, 1, 2]
+    explain:
+      th: แผนที่ทักษะเปิดสาธารณะ ส่วนคลังข้อสอบ พารามิเตอร์รายคน และ test vector ลับ ปิดเพื่อรักษาความน่าเชื่อถือของการสอบ
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: เกณฑ์ผ่านข้อใดเหมาะกับ rubric แบบจุดเดียวของแล็บไฟกะพริบ
+      en: Which pass criterion suits a single-point rubric for the blink lab?
+    choices:
+      - {th: ผู้เรียนเข้าใจ GPIO ดี}
+      - {th: หลอดกะพริบครบตามจำนวนที่กำหนด ตัวเลขบนจอตรง และโปรแกรมจบที่สถานะดับ}
+      - {th: โค้ดสวย}
+      - {th: ตั้งใจทำงาน}
+    answer: [1]
+    explain:
+      th: เกณฑ์ที่ดีสังเกตหรือตรวจได้ และผูกกับเป้าหมายของบทเรียนโดยตรง
+  - id: q5
+    objective: 3
+    type: multi
+    prompt:
+      th: ลักษณะใดช่วยให้งานให้คะแนนยังวัดความสามารถจริงได้ แม้มีเฉลยสาธารณะและเครื่องมือ AI (เลือกได้มากกว่าหนึ่งข้อ)
+      en: Which features keep a graded task meaningful despite public solutions and AI tools? (choose all that apply)
+    choices:
+      - {th: พารามิเตอร์ต่างกันรายกลุ่มและทำบนบอร์ดต่อหน้าผู้ประเมิน}
+      - {th: ขอให้เปลี่ยนเงื่อนไขแล้วแก้ต่อหน้า}
+      - {th: ใช้ไฟล์ฝึกในคลังเป็นข้อสอบตามเดิม}
+      - {th: ให้หาและอธิบายบั๊กที่ตั้งใจใส่ไว้}
+    answer: [0, 1, 3]
+    explain:
+      th: ไฟล์ฝึกในคลังมีเฉลยเปิดอยู่แล้ว ใช้เป็นข้อสอบตามเดิมจึงวัดได้แค่การคัดลอก

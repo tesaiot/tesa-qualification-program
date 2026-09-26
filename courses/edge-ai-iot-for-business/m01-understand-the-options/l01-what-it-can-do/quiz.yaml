@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: ร้านขายยาอยากรู้เมื่อตู้เย็นเก็บวัคซีนอุ่นเกิน 8 องศานานกว่า 10 นาที ควรใช้อะไร
+      en: A pharmacy wants to know when its vaccine fridge stays above 8 degrees for more than 10 minutes. What fits?
+    choices:
+      - {th: Edge AI ที่ฝึกจากข้อมูลหลายเดือน}
+      - {th: IoT วัดอุณหภูมิกับกฎเกณฑ์ธรรมดา}
+      - {th: ไม่ต้องใช้อะไร ให้พนักงานเดินดูทุกชั่วโมง}
+      - {th: กล้องวงจรปิดกับ AI จดจำใบหน้า}
+    answer: [1]
+    explain:
+      th: เงื่อนไขเป็นตัวเลขกับเวลาที่ชัดเจน กฎธรรมดาทำได้ครบ ถูกกว่าและอธิบายง่ายกว่าการใช้ AI
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: โรงงานอยากรู้ล่วงหน้าว่ามอเตอร์พัดลมระบายอากาศเริ่มสั่นผิดจากปกติ ข้อใดเหมาะที่สุด
+      en: A factory wants early warning when a ventilation fan motor starts vibrating abnormally. What fits best?
+    choices:
+      - {th: IoT กับกฎ "ค่าการสั่นเกินเกณฑ์เดียว"}
+      - {th: IoT ร่วมกับ Edge AI ที่เรียนรูปแบบการสั่นตอนปกติแล้วแจ้งเมื่อผิดรูป}
+      - {th: ไม่ควรใช้ทั้งคู่ เพราะการสั่นวัดไม่ได้}
+      - {th: ส่งวิดีโอขึ้นคลาวด์ตลอด 24 ชั่วโมง}
+    answer: [1]
+    explain:
+      th: ความผิดปกติของการสั่นมักเป็นรูปแบบ ไม่ใช่ตัวเลขตัวเดียว งานแบบนี้คือที่ที่ Edge AI คุ้มค่า
+  - id: q3
+    objective: 1
+    type: single
+    prompt:
+      th: ผู้บริหารอยากให้ AI ทำนายว่ายอดขายเดือนหน้าจะเท่าไร โดยติดเซนเซอร์ในร้าน ข้อใดตรงที่สุด
+      en: An executive wants in-store sensors with AI to predict next month's sales. Which is most accurate?
+    choices:
+      - {th: เหมาะกับ Edge AI เพราะต้องคิดเร็ว}
+      - {th: โจทย์นี้ไม่ใช่งานของ IoT หรือ Edge AI เป็นหลัก ควรเริ่มจากข้อมูลการขายและระบบวิเคราะห์ที่มีอยู่}
+      - {th: ใช้ IoT กับกฎเกณฑ์ธรรมดาก็พอ}
+      - {th: ต้องติดเรดาร์ทุกชั้นวาง}
+    answer: [1]
+    explain:
+      th: การพยากรณ์ยอดขายไม่ได้ขึ้นกับสัญญาณที่เซนเซอร์หน้างานจับได้โดยตรง และไม่ต้องตัดสินใจภายในเสี้ยววินาทีบนอุปกรณ์
+  - id: q4
+    objective: 2
+    type: multi
+    prompt:
+      th: ข้อใดคือข้อจำกัดของ Edge AI (เลือกได้มากกว่าหนึ่งข้อ)
+      en: Which are limits of edge AI? (choose all that apply)
+    choices:
+      - {th: มีโอกาสเตือนผิดและพลาดเหตุการณ์จริงเสมอ}
+      - {th: ต้องมีข้อมูลจากหน้างานจริงมาฝึกและทดสอบ}
+      - {th: ติดตั้งครั้งเดียวแล้วแม่นตลอดไป ไม่ต้องดูแล}
+      - {th: ถ้าเตือนแล้วไม่มีขั้นตอนรับมือ ระบบก็ไม่มีประโยชน์}
+    answer: [0, 1, 3]
+    explain:
+      th: สภาพหน้างานเปลี่ยนตามเวลา โมเดลต้องมีแผนดูแลและอัปเดต ข้อที่บอกว่าติดตั้งครั้งเดียวจบจึงผิด
+  - id: q5
+    objective: 3
+    type: single
+    prompt:
+      th: ประโยคโจทย์ใดครบทั้งสามส่วน "วัดอะไร ตัดสินใจอะไร ใครทำอะไรต่อ"
+      en: Which problem statement covers all three parts, "what is measured, what is decided, who acts"?
+    choices:
+      - {th: เราอยากใช้ AI ให้ทันสมัย}
+      - {th: วัดความชื้นดินในแปลง ถ้าต่ำกว่าเกณฑ์ให้เปิดปั๊มน้ำ 10 นาที และแจ้งผู้ดูแลแปลงถ้าปั๊มเปิดเกินวันละสามครั้ง}
+      - {th: ติดเซนเซอร์ให้ครบทุกจุดก่อนแล้วค่อยคิด}
+      - {th: ทำแดชบอร์ดให้สวยที่สุด}
+    answer: [1]
+    explain:
+      th: ข้อที่ถูกบอกครบว่าวัดอะไร เกณฑ์การตัดสินใจคืออะไร และใครหรืออะไรทำอะไรต่อ ทีมเทคนิคเอาไปออกแบบได้ทันที

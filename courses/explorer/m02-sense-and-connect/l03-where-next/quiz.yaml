@@ -1,0 +1,59 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: เจ้าของร้านอาหารอยากรู้ว่าควรลงทุนติดเซนเซอร์เฝ้าตู้แช่หรือไม่ โดยไม่ได้อยากเขียนโค้ดเอง เส้นทางใดเหมาะที่สุด
+      en: A restaurant owner wants to decide whether to invest in fridge sensors, without writing code. Which pathway fits best?
+    choices:
+      - {th: นักพัฒนา (developer)}
+      - {th: ผู้ประกอบการ (entrepreneur)}
+      - {th: ผู้สอน (educator)}
+      - {th: นักศึกษา (student)}
+    answer: [1]
+    explain:
+      th: เส้นทางผู้ประกอบการไม่ต้องเขียนโค้ด และจบด้วย decision canvas หนึ่งหน้าสำหรับตัดสินใจและคุยกับนักพัฒนา
+  - id: q2
+    objective: 2
+    type: single
+    prompt:
+      th: คุณแก้ตัวอย่างไฟกะพริบให้เป็นรหัสมอร์ส แล้วโพสต์สอนเพื่อน ข้อความอ้างอิงข้อใดถูกต้องที่สุด
+      en: You changed the blink example into Morse code and posted it for friends. Which attribution is most correct?
+    choices:
+      - {th: "ขอบคุณอินเทอร์เน็ต"}
+      - {th: "\"โปรแกรมแรก: เขียนบนจอและเปิดไฟ\" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0"}
+      - {th: "\"โปรแกรมแรก: เขียนบนจอและเปิดไฟ\" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0 (ดัดแปลง: เปลี่ยนเป็นไฟกะพริบรหัสมอร์ส)"}
+      - {th: "รับรองโดย TESA"}
+    answer: [2]
+    explain:
+      th: มีการแก้ไข จึงต้องเติม (ดัดแปลง) และต้องมีชื่อสมาคม ลิงก์ และสัญญาอนุญาตครบ ห้ามเขียนว่ารับรองโดย TESA เพราะการอ้างอิงไม่ใช่การรับรอง
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: ข้อใดถูกเกี่ยวกับสัญญาอนุญาต CC BY 4.0 ของเนื้อหาหลักสูตรนี้
+      en: Which statement about the CC BY 4.0 licence of this course content is correct?
+    choices:
+      - {th: ใช้ได้เฉพาะงานที่ไม่แสวงหากำไร}
+      - {th: แบ่งปันและดัดแปลงได้ รวมถึงเชิงพาณิชย์ โดยต้องอ้างอิงที่มา}
+      - {th: ห้ามดัดแปลงทุกกรณี}
+      - {th: ไม่ต้องอ้างอิงที่มาถ้าแจกฟรี}
+    answer: [1]
+    explain:
+      th: CC BY 4.0 อนุญาตกว้าง รวมถึงเชิงพาณิชย์ เงื่อนไขหลักคือการอ้างอิงที่มาตามที่เจ้าของงานกำหนด
+  - id: q4
+    objective: 3
+    type: multi
+    prompt:
+      th: ก่อนนำไฟล์โค้ดขึ้น portfolio สาธารณะ ต้องตรวจอะไรบ้าง (เลือกได้มากกว่าหนึ่งข้อ)
+      en: Before putting code files in a public portfolio, what must you check? (choose all that apply)
+    choices:
+      - {th: ไม่มีรหัส WiFi หรือรหัสผ่านจริงอยู่ในไฟล์}
+      - {th: บรรทัดลิขสิทธิ์ที่หัวไฟล์ตัวอย่างยังอยู่ครบ}
+      - {th: ลบชื่อผู้เขียนต้นฉบับออกให้หมด}
+      - {th: มีคำอธิบายสั้น ๆ ว่าไฟล์นี้ทำอะไรและคุณแก้อะไร}
+    answer: [0, 1, 3]
+    explain:
+      th: รหัสผ่านที่ขึ้นที่สาธารณะแล้วต้องถือว่ารั่ว บรรทัดลิขสิทธิ์ต้องคงไว้ตามสัญญาอนุญาต และคำอธิบายทำให้ portfolio เป็นหลักฐานที่คนอื่นอ่านเข้าใจ

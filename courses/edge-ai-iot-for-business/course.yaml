@@ -1,0 +1,48 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+id: edge-ai-iot-for-business
+short: biz
+title:
+  th: "Edge AI และ IoT สำหรับการตัดสินใจเชิงผลิตภัณฑ์"
+  en: "Edge AI & IoT for Product Decisions"
+summary:
+  th: >-
+    หลักสูตรไม่ต้องเขียนโค้ดสำหรับผู้ประกอบการและเจ้าของผลิตภัณฑ์ หกบทเรียน บทละราว 30 นาที ตั้งแต่ Edge AI และ IoT ทำอะไรได้
+    ไปจนถึงต้นทุน ความเสี่ยง กฎหมาย และการเลือกทำเอง ซื้อ หรือหาพันธมิตร จบด้วย decision canvas หนึ่งหน้าที่ส่งให้ทีมพัฒนาได้
+  en: >-
+    A no-code course for entrepreneurs and product owners: six lessons of about 30 minutes, from what edge AI and IoT can do to
+    cost, risk, regulation and build-buy-partner choices, ending with a one-page decision canvas for a development team.
+level: L1
+status: alpha
+audience: [entrepreneur, public, educator]
+hours: 3
+hardware:
+  emulator: false
+  boards: [none]
+prerequisites:
+  courses: []
+  skills: []
+outcomes:
+  - th: จำแนกโจทย์ธุรกิจได้ว่าเหมาะกับ IoT อย่างเดียว IoT ร่วมกับ Edge AI หรือไม่ควรใช้ทั้งคู่ และเขียนโจทย์ที่ทีมเทคนิคนำไปทำงานต่อได้
+    en: Classify business problems as IoT only, IoT with edge AI, or neither, and write a problem statement a technical team can act on.
+  - th: เลือกสถาปัตยกรรม edge, cloud หรือ hybrid พร้อมเหตุผลด้านความหน่วง ความเป็นส่วนตัว ต้นทุน และการเชื่อมต่อ
+    en: Choose an edge, cloud or hybrid architecture with reasons of latency, privacy, cost and connectivity.
+  - th: ประมาณต้นทุนสามก้อน (ครั้งเดียว ต่อชิ้น ต่อเนื่อง) และระบุบทบาทในทีมที่ต้องมี
+    en: Estimate the three cost parts (one-time, per unit, recurring) and name the team roles required.
+  - th: ทำทะเบียนความเสี่ยงที่ครอบคลุมความปลอดภัยไซเบอร์ PDPA มาตรฐานและการรับรอง และห่วงโซ่อุปทาน พร้อมหน่วยงานที่ต้องตรวจ
+    en: Build a risk register covering cyber security, the PDPA, standards and certification, and the supply chain, naming the agencies to check with.
+  - th: ส่งมอบ decision canvas หนึ่งหน้าที่ครบและตรวจรับงานได้ และอ้างอิง TESA ได้ถูกต้องเมื่อแบ่งปันแม่แบบ
+    en: Deliver a complete, checkable one-page decision canvas, and credit TESA correctly when sharing the template.
+authors:
+  - name: TESA Open Knowledge contributors
+    url: https://github.com/tesaiot/tesa-qualification-program
+    role: author
+sponsors: [TESA]
+license:
+  content: CC-BY-4.0
+  code: none
+modules:
+  - id: m01-understand-the-options
+    title: {th: "เข้าใจทางเลือก", en: "Understand the options"}
+  - id: m02-decide-and-brief
+    title: {th: "ตัดสินใจและส่งโจทย์", en: "Decide and brief"}
