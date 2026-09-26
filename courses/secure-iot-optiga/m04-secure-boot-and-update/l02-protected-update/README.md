@@ -46,3 +46,10 @@ translation: pending
 - [D2 — Enrolment and Protected Update end to end (เอกสาร SDK สร้างจาก commit ef72c1b)](https://tesaiot.github.io/tesaiot-pse84-devkit-sdk/sdk/mtb-only/group__d2__enrolment__protected__update.html)
 - [SDK: cm33/security/02_model_signature_hook.c](https://github.com/tesaiot/tesaiot-pse84-devkit-sdk/blob/ef72c1b658178eee8c38b1e47d28b006f80a59b5/bento-firmware-template-mtb-only/proj_cm33_ns/examples/security/02_model_signature_hook.c)
 - [Firmware update (BLE NUS) (เอกสาร SDK สร้างจาก commit ef72c1b)](https://tesaiot.github.io/tesaiot-pse84-devkit-sdk/sdk/mtb-only/group__ble__nus__fw__update.html)
+
+## ตัวอย่างบน TESAIoT Developer Hub
+
+ลองของจริงบน TESAIoT Dev Kit: เปิดตัวอย่างบน Developer Hub เพื่ออ่านโค้ด ดาวน์โหลด หรือ flash เฟิร์มแวร์สำเร็จรูป
+
+- [TESAIoT OTA HTTPS Client (C Version)](https://dev.tesaiot.dev/?example=developer-hub--c_ota_client&q=c_ota_client) — A C implementation of the TESAIoT OTA (Over-The-Air) update client for embedded devices.
+- [PSoC Edge E84 + OPTIGA Trust M: TESAIoT MQTT Client](https://dev.tesaiot.dev/?example=developer-hub--pse84_tesaiot_client&q=pse84_tesaiot_client) — **Firmware Version:** v3.0.0 Production

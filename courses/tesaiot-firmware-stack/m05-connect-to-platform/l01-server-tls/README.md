@@ -62,6 +62,6 @@ source:
 
 ## แหล่งอ้างอิง
 
-- [ตัวอย่างบน Developer Hub](https://dev.tesaiot.dev/?q=device-servertls)
+- [ตัวอย่างบน Developer Hub](https://dev.tesaiot.dev/?example=developer-hub--device-servertls&q=device-servertls)
 - ตัวอย่างอยู่ใน tesaiot/developer-hub (Apache-2.0) และอ้างอิงด้วยลิงก์
 

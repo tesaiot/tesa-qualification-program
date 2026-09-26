@@ -45,3 +45,9 @@ translation: pending
 - [SDK: เอกสาร tesaiot_hsm](https://github.com/tesaiot/tesaiot-pse84-devkit-sdk/blob/ef72c1b658178eee8c38b1e47d28b006f80a59b5/bento-firmware-template-mtb-only/docs/sdk/tesaiot_hsm/README.md)
 - [SDK: cm33/security/ref_hsm.c (อ่านสถานะโดยไม่เริ่มธุรกรรม)](https://github.com/tesaiot/tesaiot-pse84-devkit-sdk/blob/ef72c1b658178eee8c38b1e47d28b006f80a59b5/bento-firmware-template-mtb-only/proj_cm33_ns/examples/security/ref_hsm.c)
 - [SDK: ตัวอย่างฝั่ง CM33 (ข้อควรทราบเรื่องสถานะ LcsO)](https://github.com/tesaiot/tesaiot-pse84-devkit-sdk/blob/ef72c1b658178eee8c38b1e47d28b006f80a59b5/bento-firmware-template-mtb-only/proj_cm33_ns/examples/README.md)
+
+## ตัวอย่างบน TESAIoT Developer Hub
+
+ลองของจริงบน TESAIoT Dev Kit: เปิดตัวอย่างบน Developer Hub เพื่ออ่านโค้ด ดาวน์โหลด หรือ flash เฟิร์มแวร์สำเร็จรูป
+
+- [PSoC Edge E84 + OPTIGA Trust M: TESAIoT MQTT Client](https://dev.tesaiot.dev/?example=developer-hub--pse84_tesaiot_client&q=pse84_tesaiot_client) — **Firmware Version:** v3.0.0 Production

@@ -62,6 +62,6 @@ source:
 
 ## แหล่งอ้างอิง
 
-- [ตัวอย่างบน Developer Hub](https://dev.tesaiot.dev/?q=pse84_tesaiot_client)
+- [ตัวอย่างบน Developer Hub](https://dev.tesaiot.dev/?example=developer-hub--pse84_tesaiot_client&q=pse84_tesaiot_client)
 - โค้ดชุดนี้อยู่ภายใต้ Cypress (Infineon) EULA จึงอ้างอิงด้วยลิงก์เท่านั้น
 

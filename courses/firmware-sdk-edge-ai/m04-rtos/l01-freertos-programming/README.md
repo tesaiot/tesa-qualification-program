@@ -447,3 +447,10 @@ log_drain_task      → xQueueReceive + printf
 ลงมือต่อที่ [แล็บ: เฟิร์มแวร์หลาย task ด้วย FreeRTOS](../l02-lab/README.md)
 
 [Lab](../l02-lab/README.md) · [Cheatsheet](resources/rtos-patterns.md) · [← Table of Contents](../../README.md) · [← M03](../../m03-gpio-peripherals/l01-gpio-and-peripherals/README.md) · [M05 →](../../m05-sensor-data/l01-sensor-data-for-edge-ai/README.md)
+
+## ตัวอย่างบน TESAIoT Developer Hub
+
+ลองของจริงบน TESAIoT Dev Kit: เปิดตัวอย่างบน Developer Hub เพื่ออ่านโค้ด ดาวน์โหลด หรือ flash เฟิร์มแวร์สำเร็จรูป
+
+- [EP07 — Final WiFi Manager](https://dev.tesaiot.dev/?example=developer-hub--hmi_ep07_final_wifi_manager&q=hmi_ep07_final_wifi_manager) — รวม scan + profile + connect + auto-retry + ping watchdog เป็น WiFi manager สมบูรณ์ พร้อม state machine บนหน้าจอและ auto-connect จาก profile
+- [EP07 — SensorHub Final](https://dev.tesaiot.dev/?example=developer-hub--int_ep07_sensorhub_final&q=int_ep07_sensorhub_final) — โปรเจกต์ปิดคอร์ส: แดชบอร์ดรวมเซนเซอร์ทั้ง 4 ตัว (DPS368, SHT4x, BMI270, BMM350) + ไมโครโฟน PDM สเตอริโอ บนจอเดียว

@@ -44,7 +44,7 @@ source:
 แบบฝึกชุด QWA309 ของ Developer Hub (อ้างอิงที่ commit `372d0d8`) รันบน TESAIoT Dev Kit เท่านั้น เพราะใช้อุปกรณ์บนบอร์ดฐาน
 
 - **QWA309 — CAN Bus Monitor** — CANFD0 Classic CAN 2.0A @ 500 kbps (P16.2 RX / P16.3 TX, SN65HVD230) บน CM55 แบบ polled — TX heartbeat 1Hz + RX frame table บน LVGL
-  [README](https://github.com/tesaiot/developer-hub/blob/372d0d849578a6a49b634d3ecaab8b5958166921/prac_qwa309_can_monitor/README.md) · [โค้ด](https://github.com/tesaiot/developer-hub/tree/372d0d849578a6a49b634d3ecaab8b5958166921/prac_qwa309_can_monitor) · [Developer Hub](https://dev.tesaiot.dev/?q=prac_qwa309_can_monitor)
+  [README](https://github.com/tesaiot/developer-hub/blob/372d0d849578a6a49b634d3ecaab8b5958166921/prac_qwa309_can_monitor/README.md) · [โค้ด](https://github.com/tesaiot/developer-hub/tree/372d0d849578a6a49b634d3ecaab8b5958166921/prac_qwa309_can_monitor) · [Developer Hub](https://dev.tesaiot.dev/?example=developer-hub--prac_qwa309_can_monitor&q=prac_qwa309_can_monitor)
 
 ### build และ flash
 

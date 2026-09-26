@@ -442,3 +442,10 @@ size_t ca_len = cm33_mqtt_embedded_root_ca_size();
 ลงมือต่อที่ [แล็บ: Wi-Fi, MQTT connect, publish และ subscribe](../l02-lab/README.md)
 
 [Lab](../l02-lab/README.md) · [Cheatsheet](resources/mqtt-cloud.md) · [← Table of Contents](../../README.md) · [← M05](../../m05-sensor-data/l01-sensor-data-for-edge-ai/README.md) · [M07 BLE →](../../m07-ble/l01-ble-connectivity/README.md)
+
+## ตัวอย่างบน TESAIoT Developer Hub
+
+ลองของจริงบน TESAIoT Dev Kit: เปิดตัวอย่างบน Developer Hub เพื่ออ่านโค้ด ดาวน์โหลด หรือ flash เฟิร์มแวร์สำเร็จรูป
+
+- [TESA IoT Device → Platform (Server-TLS) — HTTPS or MQTTS via Mongoose](https://dev.tesaiot.dev/?example=developer-hub--device-servertls&q=device-servertls) — Unified, beginner-friendly C example that can send telemetry over either:
+- [TESA IoT Device → Platform (mTLS) — HTTPS or MQTTS via Mongoose](https://dev.tesaiot.dev/?example=developer-hub--device-mtls&q=device-mtls) — Unified, intermediate-level C example that can send telemetry over either:

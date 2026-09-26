@@ -477,3 +477,11 @@ void app_lab_adc_pwm(void)
 ลงมือต่อที่ [แล็บ: GPIO และอุปกรณ์ต่อพ่วงบนฮาร์ดแวร์จริง](../l02-lab/README.md)
 
 [Lab](../l02-lab/README.md) · [Cheatsheet](resources/peripheral-api-map.md) · [← Table of Contents](../../README.md) · [← M02](../../m02-toolchain/l01-modustoolbox-and-vscode/README.md) · [M04 →](../../m04-rtos/l01-freertos-programming/README.md)
+
+## ตัวอย่างบน TESAIoT Developer Hub
+
+ลองของจริงบน TESAIoT Dev Kit: เปิดตัวอย่างบน Developer Hub เพื่ออ่านโค้ด ดาวน์โหลด หรือ flash เฟิร์มแวร์สำเร็จรูป
+
+- [QWA309 — Push Button Monitor](https://dev.tesaiot.dev/?example=developer-hub--prac_qwa309_button_monitor&q=prac_qwa309_button_monitor) — อ่านปุ่มกด SW9 (P17.5) และ SW10 (P17.7) แบบ active-low pull-up แสดงสถานะกด/ปล่อย + นับจำนวนครั้งบน LVGL
+- [QWA309 — Potentiometer Monitor](https://dev.tesaiot.dev/?example=developer-hub--prac_qwa309_pot_monitor&q=prac_qwa309_pot_monitor) — อ่าน 4 potentiometers (P15.4–P15.7) ผ่าน AUTANALOG SAR ADC 12-bit (Vref 1.8V) แสดงเป็น bar + แรงดัน + เปอร์เซ็นต์ real-time — practise แรกที
+- [QWA309 — 4-Channel ADC Scope](https://dev.tesaiot.dev/?example=developer-hub--prac_qwa309_adc_scope&q=prac_qwa309_adc_scope) — plot ค่า pot 4 ตัว (P15.4-7, SAR 12-bit) เป็นเส้น scrolling บน LVGL chart 0-100% — analog oscilloscope

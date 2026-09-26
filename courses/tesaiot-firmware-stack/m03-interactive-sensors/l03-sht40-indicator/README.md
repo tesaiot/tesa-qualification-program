@@ -64,7 +64,7 @@ make build
 make program     # flash ผ่าน KitProg3
 ```
 
-หรือเปิด [ตัวอย่างนี้บน Developer Hub](https://dev.tesaiot.dev/?q=int_ep03_sht40_indicator) แล้ว flash เฟิร์มแวร์สำเร็จรูป
+หรือเปิด [ตัวอย่างนี้บน Developer Hub](https://dev.tesaiot.dev/?example=developer-hub--int_ep03_sht40_indicator&q=int_ep03_sht40_indicator) แล้ว flash เฟิร์มแวร์สำเร็จรูป
 
 ## ดูของจริงก่อน
 
@@ -89,5 +89,5 @@ make program     # flash ผ่าน KitProg3
 ## แหล่งอ้างอิง
 
 - [README ของ episode](https://github.com/tesaiot/developer-hub/blob/e48fbd2a8d786730e30aed96eb129150e2bcf66d/int_ep03_sht40_indicator/README.md) · [โฟลเดอร์โค้ด](https://github.com/tesaiot/developer-hub/tree/e48fbd2a8d786730e30aed96eb129150e2bcf66d/int_ep03_sht40_indicator) · commit `e48fbd2`
-- [ค้นหาตัวอย่างนี้บน Developer Hub](https://dev.tesaiot.dev/?q=int_ep03_sht40_indicator)
+- [เปิดตัวอย่างนี้บน Developer Hub](https://dev.tesaiot.dev/?example=developer-hub--int_ep03_sht40_indicator&q=int_ep03_sht40_indicator)
 - โค้ดเป็นของ Developer Hub และอ้างอิงด้วยลิงก์ ไม่ได้คัดลอกเข้าคลังนี้

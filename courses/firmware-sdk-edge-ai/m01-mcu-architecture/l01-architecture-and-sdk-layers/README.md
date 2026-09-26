@@ -644,3 +644,9 @@ Hardware (PSOC™ Edge)
 ลงมือต่อที่ [แล็บ: จับคู่โดเมน MCU กับชั้นของ SDK](../l02-lab/README.md)
 
 [Lab](../l02-lab/README.md) · [Cheatsheet](resources/sdk-layer-cheatsheet.md) · [← Table of Contents](../../README.md) · [M02 →](../../m02-toolchain/l01-modustoolbox-and-vscode/README.md)
+
+## ตัวอย่างบน TESAIoT Developer Hub
+
+ลองของจริงบน TESAIoT Dev Kit: เปิดตัวอย่างบน Developer Hub เพื่ออ่านโค้ด ดาวน์โหลด หรือ flash เฟิร์มแวร์สำเร็จรูป
+
+- บทเรียนที่เกี่ยวข้อง: [TESAIoT Firmware Stack 1.1 · เครื่องมือ บอร์ด และ master template](../../../tesaiot-firmware-stack/m01-getting-started/l01-toolchain-and-master-template/README.md)

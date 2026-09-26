@@ -46,3 +46,9 @@ translation: pending
 - [A1 — From the zip to your first program (เอกสาร SDK สร้างจาก commit ef72c1b)](https://tesaiot.github.io/tesaiot-pse84-devkit-sdk/sdk/mtb-only/group__a1__first__build.html)
 - [Infineon ModusToolbox software (GitHub)](https://github.com/Infineon/modustoolbox-software)
 - [Infineon mtb-example-psoc-edge-hello-world @ release-v2.1.0](https://github.com/Infineon/mtb-example-psoc-edge-hello-world/tree/release-v2.1.0)
+
+## ตัวอย่างบน TESAIoT Developer Hub
+
+ลองของจริงบน TESAIoT Dev Kit: เปิดตัวอย่างบน Developer Hub เพื่ออ่านโค้ด ดาวน์โหลด หรือ flash เฟิร์มแวร์สำเร็จรูป
+
+- บทเรียนที่เกี่ยวข้อง: [TESAIoT Firmware Stack 1.1 · เครื่องมือ บอร์ด และ master template](../../../tesaiot-firmware-stack/m01-getting-started/l01-toolchain-and-master-template/README.md)

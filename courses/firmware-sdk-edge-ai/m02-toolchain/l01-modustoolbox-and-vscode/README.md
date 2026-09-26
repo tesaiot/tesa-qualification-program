@@ -505,3 +505,9 @@ PSOC™ Edge hardware
 ลงมือต่อที่ [แล็บ: สร้าง build flash และ debug โปรเจกต์เฟิร์มแวร์](../l02-lab/README.md)
 
 [Lab](../l02-lab/README.md) · [Cheatsheet](resources/toolchain-cheatsheet.md) · [← Table of Contents](../../README.md) · [← M01](../../m01-mcu-architecture/l01-architecture-and-sdk-layers/README.md) · [M03 →](../../m03-gpio-peripherals/l01-gpio-and-peripherals/README.md)
+
+## ตัวอย่างบน TESAIoT Developer Hub
+
+ลองของจริงบน TESAIoT Dev Kit: เปิดตัวอย่างบน Developer Hub เพื่ออ่านโค้ด ดาวน์โหลด หรือ flash เฟิร์มแวร์สำเร็จรูป
+
+- บทเรียนที่เกี่ยวข้อง: [TESAIoT Firmware Stack 1.1 · เครื่องมือ บอร์ด และ master template](../../../tesaiot-firmware-stack/m01-getting-started/l01-toolchain-and-master-template/README.md)

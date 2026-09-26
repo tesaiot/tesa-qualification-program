@@ -62,6 +62,6 @@ source:
 
 ## แหล่งอ้างอิง
 
-- [ตัวอย่างบน Developer Hub](https://dev.tesaiot.dev/?q=c_ota_client)
+- [ตัวอย่างบน Developer Hub](https://dev.tesaiot.dev/?example=developer-hub--c_ota_client&q=c_ota_client)
 - ตัวอย่างอยู่ใน tesaiot/developer-hub (Apache-2.0) และอ้างอิงด้วยลิงก์
 
