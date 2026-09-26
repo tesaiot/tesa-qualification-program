@@ -157,6 +157,12 @@ async def publish(manifest: Path, only: list[str]) -> int:
             try:
                 if s["kind"] == "emulator":
                     code = (REPO / s["code"]).read_text(encoding="utf-8")
+                    # `replace: [[old, new], ...]` fills what the learner must fill before the program runs
+                    # (a team id, say) — for the photograph only; the lesson file is not changed.
+                    for old_text, new_text in s.get("replace") or []:
+                        if old_text not in code:
+                            raise ValueError(f"replace: {old_text!r} is not in {s['code']}")
+                        code = code.replace(old_text, new_text)
                     png, console = await shoot_emulator(browser, man["simulator"], code, int(s.get("wait_ms", 4000)),
                                                         bool(s.get("console")), man["viewport"])
                     status, _ = gate(png, console)
