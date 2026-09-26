@@ -91,7 +91,7 @@
 
 ## สัญญาอนุญาต
 
-- เนื้อหา CC BY 4.0
+- เนื้อหา CC BY-NC 4.0
 - หลักสูตรนี้ไม่มีไฟล์โค้ดแยก โค้ดสั้น ๆ ที่เขียนขึ้นใหม่ในหน้าบทเรียนเป็น Apache-2.0
 - โค้ดที่ยกมาสั้น ๆ พร้อมลิงก์ไปยังไฟล์และ commit มาจาก TESAIoT PSE84 Dev Kit SDK และ TESAIoT Developer Hub (Apache-2.0) และจากตัวอย่างของ Infineon optiga-trust-m (MIT) แต่ละชิ้นระบุที่มาและสัญญาอนุญาตไว้ตรงที่ยก
 - โค้ดของตัวอย่าง `pse84_tesaiot_client` อยู่ภายใต้ Cypress (Infineon) EULA หลักสูตรนี้อ้างอิงด้วยลิงก์เท่านั้น ไม่คัดลอก และไฟล์ในโมดูล `tesaiot_mqtt` ของ SDK ที่พัฒนาต่อจากโปรเจกต์นั้นก็อ้างอิงด้วยลิงก์และสรุปความเท่านั้น
@@ -100,7 +100,7 @@
 
 เมื่อนำหลักสูตรนี้ไปใช้ แบ่งปัน หรือดัดแปลง ต้องอ้างอิงดังนี้
 
-> "Secure IoT กับ OPTIGA™ Trust M" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0
+> "Secure IoT กับ OPTIGA™ Trust M" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0
 
 ถ้าแก้ไขเนื้อหา ให้เติม **(ดัดแปลง)** ต่อท้ายข้อความอ้างอิง พร้อมบอกสั้น ๆ ว่าเปลี่ยนอะไร
 การอ้างอิงไม่ได้แปลว่า TESA รับรองงานของคุณ รายละเอียดและตัวอย่างอยู่ใน [ATTRIBUTION.md](../../ATTRIBUTION.md)

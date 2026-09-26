@@ -7,7 +7,7 @@
     python3 tools/gen_reuse.py --check   # exit 1 if REUSE.toml is missing or stale
 
 Sources, in the order they appear in REUSE.toml (the LAST matching annotation wins):
-  1. tools/policy.yaml `reuse.base`      default CC-BY-4.0 (TESA), code Apache-2.0, skills CC-BY-SA-4.0 ...
+  1. tools/policy.yaml `reuse.base`      default CC-BY-NC-4.0 (TESA), code Apache-2.0, skills CC-BY-SA-4.0 ...
   2. every courses/<id>/                 content: licence from course.yaml `license.content`, TESA
                                          (+ per-course holders from the policy, e.g. AIC for aiot)
   3. every courses/<id>/ code folders    examples/ practice/ solution/ at any depth + shared/:
@@ -108,13 +108,18 @@ def build(root: Path, policy: dict) -> tuple[list[Annotation], list[str]]:
         cy = load_yaml(cdir / "course.yaml") if (cdir / "course.yaml").is_file() else None
         course = cy.data if cy is not None and not cy.error and isinstance(cy.data, dict) else {}
         if not course:
-            notes.append(f"courses/{cid}: no readable course.yaml — content defaults to CC-BY-4.0"
+            notes.append(f"courses/{cid}: no readable course.yaml — content defaults to CC-BY-NC-4.0"
                          + ("" if ov.get("code_license") else "; code folders get no code licence yet"))
         lic = course.get("license") if isinstance(course.get("license"), dict) else {}
-        c_lic = ov.get("content_license") or lic.get("content") or "CC-BY-4.0"
+        c_lic = ov.get("content_license") or lic.get("content") or "CC-BY-NC-4.0"
         c_hold = _holders(pr, ov.get("content_holders") or content.get("default_holders") or ["tesa"])
         anns.append(Annotation([f"courses/{cid}/**"], c_lic, c_hold, content.get("precedence", "aggregate"),
                                f"Course {cid}: content"))
+        res = pr.get("course_resources") or {}
+        if res.get("license"):
+            anns.append(Annotation([f"courses/{cid}/**/{d}/**" for d in res.get("dirs") or ["resources"]],
+                                   res["license"], c_hold, res.get("precedence", "aggregate"),
+                                   f"Course {cid}: templates in resources/"))
         k_lic = ov.get("code_license") or lic.get("code")
         if k_lic and k_lic != "none":
             dirs = code.get("dirs") or ["examples", "practice", "solution"]

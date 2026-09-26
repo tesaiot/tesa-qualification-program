@@ -85,7 +85,7 @@ const th = {
 	upstream: 'บทเรียนนี้ดัดแปลงจากต้นฉบับด้านล่าง เมื่ออ้างอิงให้คงเครดิตต้นฉบับไว้ด้วย',
 	citeGuide: 'วิธีอ้างอิง TESA ฉบับเต็ม',
 	howToCite: 'วิธีอ้างอิง TESA',
-	footerNote: 'เนื้อหาเผยแพร่ภายใต้ CC BY 4.0 นำไปใช้ต่อได้ โปรดอ้างอิงสมาคมสมองกลฝังตัวไทย (TESA) ทุกครั้ง',
+	footerNote: 'เนื้อหาเผยแพร่ภายใต้ CC BY-NC 4.0 นำไปใช้ต่อในงานที่ไม่ใช่เพื่อการค้าได้ โปรดอ้างอิงสมาคมสมองกลฝังตัวไทย (TESA) ทุกครั้ง',
 	// roadmap
 	roadmapTitle: 'แผนที่ทักษะ',
 	roadmapDesc: 'แผนที่ทักษะระบบสมองกลฝังตัวของ TESA พร้อมสถานะว่าทักษะใดมีบทเรียนแล้ว',
@@ -173,7 +173,7 @@ const en: typeof th = {
 	upstream: 'This lesson adapts the source below; keep its credit too.',
 	citeGuide: 'Full guide: how to cite TESA',
 	howToCite: 'How to cite TESA',
-	footerNote: 'Content is licensed CC BY 4.0. Reuse it and credit the Thai Embedded Systems Association (TESA) every time.',
+	footerNote: 'Content is licensed CC BY-NC 4.0. Reuse it non-commercially and credit the Thai Embedded Systems Association (TESA) every time.',
 	roadmapTitle: 'Skill roadmap',
 	roadmapDesc: 'The TESA embedded systems skill map, showing which skills already have lessons.',
 	roadmapIntro:

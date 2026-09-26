@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
-# SPDX-License-Identifier: CC-BY-4.0
+# SPDX-License-Identifier: CC-BY-NC-4.0
 items:
   - id: q1
     objective: 1
@@ -23,8 +23,8 @@ items:
       en: You changed the blink example into Morse code and posted it for friends. Which attribution is most correct?
     choices:
       - {th: "ขอบคุณอินเทอร์เน็ต"}
-      - {th: "\"โปรแกรมแรก: เขียนบนจอและเปิดไฟ\" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0"}
-      - {th: "\"โปรแกรมแรก: เขียนบนจอและเปิดไฟ\" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0 (ดัดแปลง: เปลี่ยนเป็นไฟกะพริบรหัสมอร์ส)"}
+      - {th: "\"โปรแกรมแรก: เขียนบนจอและเปิดไฟ\" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0"}
+      - {th: "\"โปรแกรมแรก: เขียนบนจอและเปิดไฟ\" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0 (ดัดแปลง: เปลี่ยนเป็นไฟกะพริบรหัสมอร์ส)"}
       - {th: "รับรองโดย TESA"}
     answer: [2]
     explain:
@@ -33,16 +33,16 @@ items:
     objective: 2
     type: single
     prompt:
-      th: ข้อใดถูกเกี่ยวกับสัญญาอนุญาต CC BY 4.0 ของเนื้อหาหลักสูตรนี้
-      en: Which statement about the CC BY 4.0 licence of this course content is correct?
+      th: ข้อใดถูกเกี่ยวกับสัญญาอนุญาต CC BY-NC 4.0 ของเนื้อหาหลักสูตรนี้
+      en: Which statement about the CC BY-NC 4.0 licence of this course content is correct?
     choices:
-      - {th: ใช้ได้เฉพาะงานที่ไม่แสวงหากำไร}
-      - {th: แบ่งปันและดัดแปลงได้ รวมถึงเชิงพาณิชย์ โดยต้องอ้างอิงที่มา}
+      - {th: นำไปขายหรือเปิดคอร์สเก็บเงินได้เลยโดยไม่ต้องขออนุญาต}
+      - {th: แบ่งปัน ใช้สอน และดัดแปลงได้ถ้าไม่ใช่เพื่อการค้า โดยต้องอ้างอิงที่มา}
       - {th: ห้ามดัดแปลงทุกกรณี}
       - {th: ไม่ต้องอ้างอิงที่มาถ้าแจกฟรี}
     answer: [1]
     explain:
-      th: CC BY 4.0 อนุญาตกว้าง รวมถึงเชิงพาณิชย์ เงื่อนไขหลักคือการอ้างอิงที่มาตามที่เจ้าของงานกำหนด
+      th: CC BY-NC 4.0 อนุญาตให้แบ่งปันและดัดแปลงเพื่อการที่ไม่ใช่การค้า โดยต้องอ้างอิงที่มาตามที่เจ้าของงานกำหนด การใช้เพื่อการค้าต้องขออนุญาต TESA ก่อน
   - id: q4
     objective: 3
     type: multi

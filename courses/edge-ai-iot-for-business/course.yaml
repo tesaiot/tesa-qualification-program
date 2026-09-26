@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
-# SPDX-License-Identifier: CC-BY-4.0
+# SPDX-License-Identifier: CC-BY-NC-4.0
 id: edge-ai-iot-for-business
 short: biz
 title:
@@ -40,7 +40,7 @@ authors:
     role: author
 sponsors: [TESA]
 license:
-  content: CC-BY-4.0
+  content: CC-BY-NC-4.0
   code: none
 modules:
   - id: m01-understand-the-options

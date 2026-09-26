@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
-# SPDX-License-Identifier: CC-BY-4.0
+# SPDX-License-Identifier: CC-BY-NC-4.0
 id: secure-iot-optiga
 short: sec-iot
 title: {th: Secure IoT กับ OPTIGA™ Trust M, en: Secure IoT with OPTIGA™ Trust M}
@@ -27,7 +27,7 @@ outcomes:
 authors:
 - {name: TESA Open Knowledge contributors, url: 'https://github.com/tesaiot/tesa-qualification-program', role: author}
 sponsors: [TESA]
-license: {content: CC-BY-4.0, code: Apache-2.0}
+license: {content: CC-BY-NC-4.0, code: Apache-2.0}
 source: {repo: 'https://github.com/tesaiot/tesaiot-pse84-devkit-sdk', ref: ef72c1b658178eee8c38b1e47d28b006f80a59b5, license: Apache-2.0, note: 'SDK security examples and docs are linked at this commit; lesson pages quote short excerpts with attribution and copy no files.'}
 modules:
 - id: m01-threats-and-crypto

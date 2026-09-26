@@ -136,7 +136,7 @@ def test_gen_reuse_policy_order_and_overrides(green: Path) -> None:
     assert data["version"] == 1
     anns = data["annotations"]
     first = anns[0]
-    assert first["path"] == "**" and first["SPDX-License-Identifier"] == "CC-BY-4.0"
+    assert first["path"] == "**" and first["SPDX-License-Identifier"] == "CC-BY-NC-4.0"
     assert "2026 Thai Embedded Systems Association (TESA)" in [first["SPDX-FileCopyrightText"]]
     code = next(a for a in anns if a.get("path") and "courses/demo-course/**/practice/**" in a["path"])
     assert code["SPDX-License-Identifier"] == "Apache-2.0"                     # from course.yaml
@@ -159,7 +159,9 @@ def test_gen_reuse_aiot_policy_keeps_aic_on_code_and_adds_tesa_on_content(green:
     assert content["SPDX-FileCopyrightText"] == [
         "2026 Thai Embedded Systems Association (TESA)",
         "2026 Wiroon Sriborrirux, Advance Innovation Centre (AIC), Burapha University"]
-    assert content["precedence"] == "aggregate" and content["SPDX-License-Identifier"] == "CC-BY-4.0"
+    assert content["precedence"] == "aggregate" and content["SPDX-License-Identifier"] == "CC-BY-NC-4.0"
+    res = next(a for a in anns if "courses/aiot-micropython/**/resources/**" in (a["path"] if isinstance(a["path"], list) else [a["path"]]))
+    assert res["SPDX-License-Identifier"] == "CC-BY-4.0"                       # templates stay usable at work
     code = next(a for a in anns if isinstance(a["path"], list)
                 and "courses/aiot-micropython/**/examples/**" in a["path"])
     assert code["SPDX-License-Identifier"] == "MIT"
@@ -181,7 +183,7 @@ def test_reuse_lint_passes_on_the_green_fixture_and_fails_without_a_licence(gree
     if not lic.is_dir():
         pytest.skip("repo LICENSES/ not present yet")
     (green / "LICENSES").mkdir()
-    for name in ("Apache-2.0", "CC-BY-4.0", "CC-BY-SA-4.0"):   # exactly what the fixture uses
+    for name in ("Apache-2.0", "CC-BY-4.0", "CC-BY-NC-4.0", "CC-BY-SA-4.0"):   # exactly what the fixture uses
         if not (lic / f"{name}.txt").is_file():
             pytest.skip(f"repo LICENSES/{name}.txt not present yet")
         shutil.copy(lic / f"{name}.txt", green / "LICENSES" / f"{name}.txt")

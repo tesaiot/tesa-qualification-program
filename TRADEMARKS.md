@@ -2,8 +2,8 @@
 
 *English: [below](#english)*
 
-สัญญาอนุญาตที่ใช้ในคลังนี้ (CC BY 4.0, CC BY-SA 4.0, Apache-2.0, MIT) ให้สิทธิ์ในเนื้อหาและโค้ดเท่านั้น
-**ไม่ได้ให้สิทธิ์ใช้ชื่อหรือโลโก้** (CC BY 4.0 และ CC BY-SA 4.0 ข้อ 2(b)(2), Apache-2.0 ข้อ 6)
+สัญญาอนุญาตที่ใช้ในคลังนี้ (CC BY-NC 4.0, CC BY 4.0, CC BY-SA 4.0, Apache-2.0, MIT) ให้สิทธิ์ในเนื้อหาและโค้ดเท่านั้น
+**ไม่ได้ให้สิทธิ์ใช้ชื่อหรือโลโก้** (CC BY-NC 4.0, CC BY 4.0 และ CC BY-SA 4.0 ข้อ 2(b)(2), Apache-2.0 ข้อ 6)
 
 ## ชื่อและเครื่องหมายของ TESA
 
@@ -60,8 +60,8 @@ Infineon®, PSOC™, ModusToolbox™ และ OPTIGA™ เป็นเคร�
 
 ## English
 
-The licences in this repository (CC BY 4.0, CC BY-SA 4.0, Apache-2.0, MIT) cover content and code only.
-**They grant no right to use names or logos** (CC BY 4.0 and CC BY-SA 4.0 §2(b)(2); Apache-2.0 §6).
+The licences in this repository (CC BY-NC 4.0, CC BY 4.0, CC BY-SA 4.0, Apache-2.0, MIT) cover content and code only.
+**They grant no right to use names or logos** (CC BY-NC 4.0, CC BY 4.0 and CC BY-SA 4.0 §2(b)(2); Apache-2.0 §6).
 
 **TESA's names and marks.** The following belong to the Thai Embedded Systems Association (TESA),
 สมาคมสมองกลฝังตัวไทย: TESA and สมาคมสมองกลฝังตัวไทย; TESA Open Knowledge; TESA Qualification Program and TQP,

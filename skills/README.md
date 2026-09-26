@@ -111,7 +111,7 @@ anchors: {tpqi: "...", note: "..."}
 
 แผนที่ทักษะดัดแปลงจาก Roadmap ของ Meysam Parvizi ซึ่งใช้ CC BY-SA 4.0 เงื่อนไข ShareAlike บังคับให้งานดัดแปลงใช้สัญญาอนุญาตเดียวกัน
 โฟลเดอร์นี้จึงเป็น CC BY-SA 4.0 ส่วนบทเรียนที่เพียงอ้าง skill ID ถือเป็นงานแยกที่อยู่รวมกันในชุด (collection) ไม่ใช่งานดัดแปลงของ Roadmap
-จึงยังเป็น CC BY 4.0 ได้ ข้อควรระวังคืออย่าคัดลอกข้อความหรือรายการแหล่งเรียนรู้ของ Roadmap ลงในบทเรียนหรือสไลด์ ให้ลิงก์ไปแทน
+จึงยังเป็นสัญญาอนุญาตของหลักสูตร (CC BY-NC 4.0) ได้ ข้อควรระวังคืออย่าคัดลอกข้อความหรือรายการแหล่งเรียนรู้ของ Roadmap ลงในบทเรียนหรือสไลด์ ให้ลิงก์ไปแทน
 (คำอธิบายนี้เป็นการอ่านสัญญาอนุญาตในทางปฏิบัติ ไม่ใช่คำปรึกษาทางกฎหมาย)
 
 ## เวอร์ชัน
@@ -145,6 +145,6 @@ profiles, and [NOTICE.md](NOTICE.md) gives the attribution to Meysam Parvizi and
   `null` no roadmap colour. TESA × Infineon profiles raise IoT, Edge AI, security and low-power skills; the six `soft.*` skills
   are required in every profile. SFIA is an internal reference only (publishing a SFIA mapping needs a SFIA licence).
 - **Why CC BY-SA here and CC BY in lessons:** this map adapts a CC BY-SA 4.0 work, so ShareAlike applies to `skills/`.
-  Lessons that only cite skill IDs are separate works in a collection and stay CC BY 4.0. Do not copy the roadmap's text or
+  Lessons that only cite skill IDs are separate works in a collection and keep the course licence (CC BY-NC 4.0). Do not copy the roadmap's text or
   resource lists into lessons; link to them. (A practical reading, not legal advice.)
 - **Versioning:** SemVer in `framework.version`; removing or renaming an ID is MAJOR (see [GOVERNANCE.md](../GOVERNANCE.md)).

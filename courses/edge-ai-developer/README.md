@@ -171,7 +171,7 @@
 
 ## สัญญาอนุญาต
 
-- **เนื้อหา** (สไลด์ README ภาพที่วาดเองและภาพหน้าจอ) — CC BY 4.0
+- **เนื้อหา** (สไลด์ README ภาพที่วาดเองและภาพหน้าจอ) — CC BY-NC 4.0
 - **โค้ด** (`examples/`, `practice/`, `solution/`, `shared/`) และไฟล์โมเดลอ้างอิง `shared/training/model_int8.tflite` — MIT, Copyright (c) 2026 Wiroon Sriborrirux (ข้อความสัญญาอนุญาตเต็มอยู่ที่ `LICENSES/MIT.txt` ของรีโพ)
 - **ภาพจากบุคคลที่สาม** — ใช้ตามสัญญาอนุญาตของแต่ละภาพ รายชื่อผู้สร้าง แหล่งที่มา และสัญญาอนุญาตอยู่ใน [credits.yaml](credits.yaml)
 - **โมเดล DEEPCRAFT** ที่บอร์ดใช้เป็นของ Imagimob AB (บริษัทในเครือ Infineon Technologies) สัญญาอนุญาตของคลังนี้ไม่ครอบคลุมโมเดลเหล่านั้น
@@ -184,6 +184,6 @@
 
 เมื่อนำหลักสูตรนี้หรือบางส่วนไปใช้ ดัดแปลง หรือเผยแพร่ต่อ กรุณาอ้างอิงตามนี้ (ถ้าดัดแปลง ให้เติม «(ดัดแปลง)» ต่อท้ายชื่อ และคงเครดิตผู้เขียนต้นฉบับไว้ด้วย):
 
-> "Edge AI Developer: จากเซนเซอร์สู่โมเดลบนอุปกรณ์" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0 · ดัดแปลงจาก Edge AI Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์ วิศวกรรมระบบสมองกลฝังตัว ภาควิชาวิศวกรรมไฟฟ้า คณะวิศวกรรมศาสตร์ มหาวิทยาลัยบูรพา (BUU) · BENTO & TESAIoT (CC BY 4.0 / MIT)
+> "Edge AI Developer: จากเซนเซอร์สู่โมเดลบนอุปกรณ์" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0 · ดัดแปลงจาก Edge AI Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์ วิศวกรรมระบบสมองกลฝังตัว ภาควิชาวิศวกรรมไฟฟ้า คณะวิศวกรรมศาสตร์ มหาวิทยาลัยบูรพา (BUU) · BENTO & TESAIoT (CC BY 4.0 / MIT)
 
 การอ้างอิงไม่ได้แปลว่า TESA หรือ Infineon รับรองหลักสูตรหรือผลงานที่นำไปใช้ต่อ ชื่อ TESA, TQP และ "Certified by TESA and Infineon" เป็นเครื่องหมายของโครงการ

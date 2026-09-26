@@ -49,7 +49,7 @@ Pinned sources:
 ## Scope of the ShareAlike licence
 
 Only the adapted skill map in `skills/` is CC BY-SA 4.0. Lessons and courses that merely refer to skill IDs are separate works
-in a collection, remain CC BY 4.0, and are not adaptations of the roadmap. If you adapt this skill map, your version must be
+in a collection, keep the course licence (CC BY-NC 4.0), and are not adaptations of the roadmap. If you adapt this skill map, your version must be
 licensed CC BY-SA 4.0 (or a licence CC lists as compatible) and must credit both TESA and Meysam Parvizi.
 
 ---
@@ -64,4 +64,4 @@ CC BY-SA 4.0 เช่นกัน และผู้เขียนต้นฉ
 เพิ่มฟิลด์ `origin` คงความสำคัญ R / Rec / P ตามแผนภาพ เพิ่มหัวข้อจาก README ฉบับใหม่ 5 ทักษะ เพิ่มทักษะของ TESA เอง 18 ทักษะ
 ทำโปรไฟล์บทบาทที่ยกระดับความสำคัญตามสายงาน และทำเป็นข้อมูล YAML ที่เครื่องอ่านได้ ไม่ได้คัดลอกคำอธิบายหรือรายการแหล่งเรียนรู้ของต้นฉบับ
 
-เฉพาะ `skills/` เท่านั้นที่เป็น CC BY-SA 4.0 บทเรียนที่เพียงอ้าง skill ID ยังเป็น CC BY 4.0
+เฉพาะ `skills/` เท่านั้นที่เป็น CC BY-SA 4.0 บทเรียนที่เพียงอ้าง skill ID ยังใช้สัญญาอนุญาตของหลักสูตร (CC BY-NC 4.0)

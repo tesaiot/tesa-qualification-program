@@ -86,7 +86,8 @@ Skillset Mapping ใน **TESA Qualification Program (TQP) ซึ่งเป็
 
 | ส่วน | สัญญาอนุญาต |
 |---|---|
-| เนื้อหาบทเรียน สไลด์ และภาพที่ TESA ทำเอง | [CC BY 4.0](LICENSES/CC-BY-4.0.txt) |
+| เนื้อหาบทเรียน สไลด์ และภาพที่ TESA ทำเอง | [CC BY-NC 4.0](LICENSES/CC-BY-NC-4.0.txt) สถาบันการศึกษาสอนได้ตาม[คำอนุญาตเพิ่ม](ATTRIBUTION.md) |
+| แม่แบบในโฟลเดอร์ `resources/` ของบทเรียน | [CC BY 4.0](LICENSES/CC-BY-4.0.txt) |
 | โค้ดใหม่ | [Apache-2.0](LICENSE) |
 | โค้ดที่นำเข้าจากหลักสูตร AIoT in Action ของ AIC | [MIT](LICENSES/MIT.txt) |
 | แผนที่ทักษะใน `skills/` | [CC BY-SA 4.0](LICENSES/CC-BY-SA-4.0.txt) |
@@ -107,6 +108,6 @@ Skillset Mapping ใน **TESA Qualification Program (TQP) ซึ่งเป็
 ## อ้างอิง TESA
 
 > "TESA Open Knowledge" โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA)
-> https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0
+> https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0
 
 เมื่อใช้เพียงบางบทเรียนหรือบางหลักสูตร ให้ใช้ชื่อบทเรียนหรือหลักสูตรนั้นตามแบบใน [ATTRIBUTION.md](ATTRIBUTION.md)

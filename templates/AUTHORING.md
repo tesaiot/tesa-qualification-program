@@ -55,7 +55,8 @@ ID ของบทเรียนมีรูปแบบ `<short>.mNN.lNN` เ�
 
 | สิ่งที่คุณเขียน | สัญญาอนุญาต |
 |---|---|
-| เนื้อหา Markdown สไลด์ และภาพที่ทำเอง | CC BY 4.0 |
+| เนื้อหา Markdown สไลด์ และภาพที่ทำเอง | CC BY-NC 4.0 |
+| แม่แบบในโฟลเดอร์ `resources/` | CC BY 4.0 |
 | โค้ดใหม่ | Apache-2.0 (ใส่ SPDX header ทุกไฟล์) |
 | โค้ดที่นำเข้าจากหลักสูตร AIoT in Action ของ AIC | คง MIT และบรรทัดลิขสิทธิ์เดิม |
 | ภาพหรือไฟล์ของบุคคลที่สาม | ตามต้นทาง ต้องลงใน `credits.yaml` |
@@ -122,7 +123,7 @@ courses/<course-id>/
 | `outcomes` | ผลลัพธ์การเรียนรู้ระดับหลักสูตร กริยาที่วัดผลได้ |
 | `authors` | `{name, url, role}` โดย role เป็น `author`, `adapter` หรือ `reviewer` |
 | `sponsors` | `[TESA]` |
-| `license` | `content: CC-BY-4.0` และ `code: Apache-2.0` (หรือ `MIT` สำหรับโค้ดที่นำเข้าจาก AIC หรือ `none`) |
+| `license` | `content: CC-BY-NC-4.0` และ `code: Apache-2.0` (หรือ `MIT` สำหรับโค้ดที่นำเข้าจาก AIC หรือ `none`) |
 | `source` | เฉพาะเนื้อหาที่นำเข้า: `repo`, `ref` (commit), `note` |
 | `modules` | `{id, title}` โดย `id` ตรงกับชื่อโฟลเดอร์โมดูล |
 
@@ -212,7 +213,7 @@ courses/<course-id>/
 แม่แบบ: [lesson/slides.md](lesson/slides.md)
 
 - front matter ต้องมี `marp: true` และ `lang: th` (หรือ `en`)
-- ต้องมี `footer: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY 4.0"` ถ้ามี footer ของตัวเองอยู่แล้ว ให้รวมเข้าด้วยกัน
+- ต้องมี `footer: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY-NC 4.0"` ถ้ามี footer ของตัวเองอยู่แล้ว ให้รวมเข้าด้วยกัน
   โดยคงบรรทัดเครดิตนี้ไว้
 - สไลด์เป็นสื่อประกอบ ส่วน `README.md` ของบทเรียนต้องอ่านได้ครบโดยไม่ต้องเปิดสไลด์
 - หน้าสุดท้ายใส่ข้อความเครดิตเต็มและเครดิตภาพจากบุคคลที่สาม

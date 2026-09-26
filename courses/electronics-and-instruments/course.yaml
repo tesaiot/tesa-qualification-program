@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
-# SPDX-License-Identifier: CC-BY-4.0
+# SPDX-License-Identifier: CC-BY-NC-4.0
 id: electronics-and-instruments
 short: elec
 title: {th: อิเล็กทรอนิกส์และเครื่องมือวัดสำหรับนักพัฒนาระบบฝังตัว, en: Electronics & Test Instruments for Embedded Developers}
@@ -25,7 +25,7 @@ outcomes:
 authors:
 - {name: TESA Open Knowledge contributors, url: 'https://github.com/tesaiot/tesa-qualification-program', role: author}
 sponsors: [TESA]
-license: {content: CC-BY-4.0, code: Apache-2.0}
+license: {content: CC-BY-NC-4.0, code: Apache-2.0}
 modules:
 - id: m01-circuits
   title: {th: วงจรและอิเล็กทรอนิกส์พื้นฐาน, en: Circuits and electronics fundamentals}

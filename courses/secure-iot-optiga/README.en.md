@@ -93,7 +93,7 @@ are separate optional labs that need the instructor's approval first, and provis
 
 ## Licence
 
-- Content: CC BY 4.0
+- Content: CC BY-NC 4.0
 - The course has no separate code files; the short snippets written for the lesson pages are Apache-2.0
 - Short excerpts quoted with a link to file and commit come from the TESAIoT PSE84 Dev Kit SDK and the TESAIoT Developer Hub (Apache-2.0) and from Infineon's optiga-trust-m examples (MIT); each excerpt names its source and licence where it is quoted
 - The `pse84_tesaiot_client` example is under the Cypress (Infineon) EULA and is only linked, never copied; the SDK's `tesaiot_mqtt` module files, which were developed from that project, are likewise only linked and summarised
@@ -102,7 +102,7 @@ are separate optional labs that need the instructor's approval first, and provis
 
 When you use, share or adapt this course, credit it as follows:
 
-> "Secure IoT with OPTIGA™ Trust M" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0
+> "Secure IoT with OPTIGA™ Trust M" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY-NC 4.0
 
 Add "(adapted)" at the end of the credit, with a short note of what you changed, when you change the material.
 Crediting TESA does not mean TESA endorses your work. Details and examples are in [ATTRIBUTION.md](../../ATTRIBUTION.md).

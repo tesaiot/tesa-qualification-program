@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
-# SPDX-License-Identifier: CC-BY-4.0
+# SPDX-License-Identifier: CC-BY-NC-4.0
 items:
   - id: q1
     objective: 1
@@ -11,7 +11,7 @@ items:
       - {th: ชื่อบทเรียนหรือหลักสูตรที่ใช้}
       - {th: "ผู้สร้าง: สมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA)"}
       - {th: "แหล่งที่มา https://github.com/tesaiot/tesa-qualification-program"}
-      - {th: สัญญาอนุญาต CC BY 4.0}
+      - {th: สัญญาอนุญาต CC BY-NC 4.0}
       - {th: ลายเซ็นของนายกสมาคม}
     answer: [0, 1, 2, 3]
     explain:

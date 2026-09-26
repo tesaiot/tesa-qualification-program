@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
-# SPDX-License-Identifier: CC-BY-4.0
+# SPDX-License-Identifier: CC-BY-NC-4.0
 #
 # type: dataset — this release is mainly course content and structured data (skills/skills.yaml,
 # catalog/, course.yaml and lesson front matter), not a software package. CFF 1.2.0 offers only
@@ -19,7 +19,7 @@ abstract: >-
   code, learned lesson by lesson), with a machine-readable skill map. Published by the Thai Embedded
   Systems Association (TESA), สมาคมสมองกลฝังตัวไทย. The skill map feeds the Skillset Mapping of the
   TESA Qualification Program (TQP), a joint TESA × Infineon programme whose certification design
-  (v0.1) is not yet open for candidates. Licences apply by path: lesson content and slides CC-BY-4.0;
+  (v0.1) is not yet open for candidates. Licences apply by path: lesson content and slides CC-BY-NC-4.0 (with additional permissions for education, see ATTRIBUTION.md);
   new code Apache-2.0; code imported from the AIC course MIT; skills/ CC-BY-SA-4.0; third-party
   images keep their own licences (see NOTICE.md and CREDITS.md).
 authors:
@@ -35,7 +35,7 @@ version: "2026.09"
 date-released: "2026-09-25"
 repository-code: "https://github.com/tesaiot/tesa-qualification-program"
 url: "https://tesaiot.github.io/tesa-qualification-program/"
-license: CC-BY-4.0
+license: CC-BY-NC-4.0
 keywords:
   - embedded systems
   - IoT

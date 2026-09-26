@@ -41,7 +41,7 @@
 
 - ผู้เขียน: «ชื่อ»
 - เครดิตภาพจากบุคคลที่สาม: [credits.yaml](credits.yaml)
-- สัญญาอนุญาต: เนื้อหา CC BY 4.0 · โค้ด Apache-2.0 «หรือ MIT สำหรับโค้ดที่นำเข้าจากหลักสูตร AIC»
+- สัญญาอนุญาต: เนื้อหา CC BY-NC 4.0 · โค้ด Apache-2.0 «หรือ MIT สำหรับโค้ดที่นำเข้าจากหลักสูตร AIC»
 
 ## อ้างอิง TESA / How to cite TESA
 
@@ -49,7 +49,7 @@
 ถ้าแก้ไข ให้เติม "(ดัดแปลง)" หรือ "(adapted)" และคงเครดิตต้นทางข้างบนไว้ด้วย รายละเอียดใน [ATTRIBUTION.md](../../ATTRIBUTION.md)
 
 > "«ชื่อหลักสูตรภาษาไทย»" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย
-> (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0
+> (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0
 
 > "«Course title in English»" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA),
-> https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0
+> https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY-NC 4.0

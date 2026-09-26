@@ -61,14 +61,14 @@
 
 ## สัญญาอนุญาต
 
-- เนื้อหา (Markdown และแบบทดสอบ) CC BY 4.0
+- เนื้อหา (Markdown และแบบทดสอบ) CC BY-NC 4.0
 - โค้ดตัวอย่าง ไฟล์ฝึก และเฉลย MIT (คงบรรทัดลิขสิทธิ์ของต้นฉบับไว้ที่หัวไฟล์)
 
 ## อ้างอิง TESA
 
 เมื่อนำหลักสูตรนี้ไปใช้ แบ่งปัน หรือดัดแปลง ต้องอ้างอิงดังนี้
 
-> "Explorer: เปิดโลกระบบสมองกลฝังตัว" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0
+> "Explorer: เปิดโลกระบบสมองกลฝังตัว" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0
 
 ถ้าแก้ไขเนื้อหา ให้เติม **(ดัดแปลง)** ต่อท้ายข้อความอ้างอิง พร้อมบอกสั้น ๆ ว่าเปลี่ยนอะไร และคงเครดิตของต้นฉบับ AIoT in Action ข้างบนไว้ด้วยเมื่อใช้โค้ดตัวอย่าง
 การอ้างอิงไม่ได้แปลว่า TESA รับรองงานของคุณ รายละเอียดและตัวอย่างอยู่ใน [ATTRIBUTION.md](../../ATTRIBUTION.md)

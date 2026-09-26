@@ -93,7 +93,7 @@
 
 ## สัญญาอนุญาต
 
-- เนื้อหา CC BY 4.0
+- เนื้อหา CC BY-NC 4.0
 - โค้ดของหลักสูตรนี้ (โฟลเดอร์ `examples/`, `practice/` และ `solution/` ของทุกบท) Apache-2.0
 - โค้ดของ SDK ไม่ได้คัดลอกเป็นไฟล์ บทเรียนยกมาเป็นช่วงสั้น ๆ ไม่เกิน 25 บรรทัด พร้อมลิงก์ไปยังไฟล์ที่ commit `ef72c1b` และระบุ (Apache-2.0, tesaiot-pse84-devkit-sdk)
 - โค้ดของ Infineon ไม่ได้คัดลอกมา ใช้สัญญาอนุญาตของต้นทางตามลิงก์
@@ -103,7 +103,7 @@
 
 เมื่อนำหลักสูตรนี้ไปใช้ แบ่งปัน หรือดัดแปลง ต้องอ้างอิงดังนี้
 
-> "พื้นฐานเฟิร์มแวร์ภาษา C บน PSoC Edge" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0
+> "พื้นฐานเฟิร์มแวร์ภาษา C บน PSoC Edge" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0
 
 ถ้าแก้ไขเนื้อหา ให้เติม **(ดัดแปลง)** ต่อท้ายข้อความอ้างอิง พร้อมบอกสั้น ๆ ว่าเปลี่ยนอะไร
 การอ้างอิงไม่ได้แปลว่า TESA รับรองงานของคุณ รายละเอียดและตัวอย่างอยู่ใน [ATTRIBUTION.md](../../ATTRIBUTION.md)

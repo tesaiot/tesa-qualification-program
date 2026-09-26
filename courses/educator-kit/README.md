@@ -63,13 +63,13 @@
 
 ## สัญญาอนุญาต
 
-เนื้อหาและแม่แบบทั้งหมดเผยแพร่ภายใต้ CC BY 4.0 หลักสูตรนี้ไม่มีโค้ด (ตัวอย่างโค้ดที่อ้างถึงอยู่ในหลักสูตร Explorer)
+เนื้อหาบทเรียนเผยแพร่ภายใต้ CC BY-NC 4.0 และสถาบันการศึกษานำไปสอนได้ตามคำอนุญาตเพิ่มใน [ATTRIBUTION.md](../../ATTRIBUTION.md) ส่วนแม่แบบในโฟลเดอร์ resources/ เป็น CC BY 4.0 หลักสูตรนี้ไม่มีโค้ด (ตัวอย่างโค้ดที่อ้างถึงอยู่ในหลักสูตร Explorer)
 
 ## อ้างอิง TESA
 
 เมื่อนำชุดนี้หรือแม่แบบในชุดไปใช้ แบ่งปัน หรือดัดแปลง ต้องอ้างอิงดังนี้
 
-> "ชุดสำหรับผู้สอน (Educator Kit)" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0
+> "ชุดสำหรับผู้สอน (Educator Kit)" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0
 
 ถ้าแก้ไขเนื้อหาหรือแม่แบบ ให้เติม **(ดัดแปลง)** ต่อท้ายข้อความอ้างอิง พร้อมบอกสั้น ๆ ว่าเปลี่ยนอะไร
 การอ้างอิงไม่ได้แปลว่า TESA รับรองรายวิชาของคุณ วิธีอ้างอิงในรายวิชาอยู่ในบทเรียน [edu.m01.l03](m01-adopt-and-align/l03-citing-tesa-in-your-course/README.md)

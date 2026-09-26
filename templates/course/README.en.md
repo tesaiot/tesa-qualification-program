@@ -42,7 +42,7 @@ example, has you complete practice code, checks your understanding and ends with
 
 - Author: «name»
 - Third-party image credits: [credits.yaml](credits.yaml)
-- Licences: content CC BY 4.0 · code Apache-2.0 «or MIT for code imported from the AIC course»
+- Licences: content CC BY-NC 4.0 · code Apache-2.0 «or MIT for code imported from the AIC course»
 
 ## อ้างอิง TESA / How to cite TESA
 
@@ -50,7 +50,7 @@ When you use or adapt this course, credit the Thai Embedded Systems Association 
 add "(adapted)" and keep the upstream credit above. Details: [ATTRIBUTION.md](../../ATTRIBUTION.md).
 
 > "«Course title in English»" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA),
-> https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0
+> https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY-NC 4.0
 
 > "«ชื่อหลักสูตรภาษาไทย»" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย
-> (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0
+> (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0

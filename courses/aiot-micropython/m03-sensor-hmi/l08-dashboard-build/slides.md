@@ -5,7 +5,7 @@ paginate: true
 math: katex
 lang: th
 title: "บทเรียน 3.8 — ประกอบแดชบอร์ด: สี่การ์ดในลูปเดียว"
-footer: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · ดัดแปลงจาก AIoT in Action (AIC มหาวิทยาลัยบูรพา) · CC BY 4.0"
+footer: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · ดัดแปลงจาก AIoT in Action (AIC มหาวิทยาลัยบูรพา) · CC BY-NC 4.0"
 ---
 <style>
 section { font-size: 23px; padding: 14px 44px; justify-content: flex-start; }

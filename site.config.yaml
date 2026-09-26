@@ -23,14 +23,16 @@ ide:
 # How every page, deck and reuse credits TESA (BUILD_SPEC §1.9). One wording, used everywhere.
 credit:
   # Short credit line: every site page footer and every Marp deck footer.
-  line: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY 4.0"
+  line: "TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY-NC 4.0"
   org:
     th: "สมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA)"
     en: "Thai Embedded Systems Association (TESA)"
+  # The content licence, named once; site text reads it from here.
+  licence: "CC BY-NC 4.0"
   # Required attribution for reuse. {title} = lesson or course title, {repo} = repo.url above.
   attribution:
-    th: "\"{title}\" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) {repo} สัญญาอนุญาต CC BY 4.0"
-    en: "\"{title}\" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), {repo}, licensed under CC BY 4.0"
+    th: "\"{title}\" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) {repo} สัญญาอนุญาต CC BY-NC 4.0"
+    en: "\"{title}\" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), {repo}, licensed under CC BY-NC 4.0"
   adapted_suffix:
     th: " (ดัดแปลง)"
     en: " (adapted)"

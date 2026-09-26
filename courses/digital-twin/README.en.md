@@ -64,13 +64,13 @@ The source suggests Course 1 → Course 2 → Course 3: firmware on the board, t
 
 ## Source and licence
 
-Imported from [drsanti/TESAIoT-Courses](https://github.com/drsanti/TESAIoT-Courses) folder `C2/` at commit [`287c218`](https://github.com/drsanti/TESAIoT-Courses/tree/287c21814ba8c75f693136616dcd270349a15966/C2). TESA funded the original work and holds the rights; it is published here under [CC BY 4.0](../../LICENSES/CC-BY-4.0.txt). TESA Open Knowledge kept the author's teaching text; it added the module/lesson structure, front matter, quizzes, firmware and tool notes, fixed links for the new layout, and reworded classroom-delivery phrases (training round, grading) for open learning. Third-party tools and documents keep their own licences.
+Imported from [drsanti/TESAIoT-Courses](https://github.com/drsanti/TESAIoT-Courses) folder `C2/` at commit [`287c218`](https://github.com/drsanti/TESAIoT-Courses/tree/287c21814ba8c75f693136616dcd270349a15966/C2). TESA funded the original work and holds the rights; it is published here under [CC BY-NC 4.0](../../LICENSES/CC-BY-NC-4.0.txt). TESA Open Knowledge kept the author's teaching text; it added the module/lesson structure, front matter, quizzes, firmware and tool notes, fixed links for the new layout, and reworded classroom-delivery phrases (training round, grading) for open learning. Third-party tools and documents keep their own licences.
 
 ## How to cite TESA
 
 If you reuse this course in slides, teaching material, a course specification, handouts or a code repository, credit it with:
 
-> "Firmware Development with the VS Code-based TESA Digital Twin" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0
+> "Firmware Development with the VS Code-based TESA Digital Twin" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY-NC 4.0
 
 If you change the material, add "(adapted)" and keep the original author credit:
 

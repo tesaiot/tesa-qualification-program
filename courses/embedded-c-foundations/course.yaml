@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
-# SPDX-License-Identifier: CC-BY-4.0
+# SPDX-License-Identifier: CC-BY-NC-4.0
 id: embedded-c-foundations
 short: c-found
 title: {th: พื้นฐานเฟิร์มแวร์ภาษา C บน PSoC Edge, en: Embedded C Foundations on PSoC Edge}
@@ -27,7 +27,7 @@ outcomes:
 authors:
 - {name: TESA Open Knowledge contributors, url: 'https://github.com/tesaiot/tesa-qualification-program', role: author}
 sponsors: [TESA]
-license: {content: CC-BY-4.0, code: Apache-2.0}
+license: {content: CC-BY-NC-4.0, code: Apache-2.0}
 source: {repo: 'https://github.com/tesaiot/tesaiot-pse84-devkit-sdk', ref: ef72c1b658178eee8c38b1e47d28b006f80a59b5, license: Apache-2.0, note: 'SDK examples and docs are linked at this commit, not copied into this course. Lessons quote short excerpts (at most 25 lines) with a link to the file at this commit and the credit (Apache-2.0, tesaiot-pse84-devkit-sdk).'}
 modules:
 - id: m01-c-and-memory

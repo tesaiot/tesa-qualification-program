@@ -51,13 +51,13 @@ The lessons are written in Thai; English lesson pages are pending (`translation:
 
 ## Licence
 
-All content, including the decision canvas template, is CC BY 4.0. The course has no code.
+Lesson content is CC BY-NC 4.0; the decision canvas template (in resources/) is CC BY 4.0, so you can use it in your company's work. The course has no code.
 
 ## How to cite TESA
 
 When you use, share or adapt this course or the decision canvas template, credit it as follows:
 
-> "Edge AI & IoT for Product Decisions" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0
+> "Edge AI & IoT for Product Decisions" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY-NC 4.0
 
 Add "(adapted)" at the end of the credit, with a short note of what you changed, when you change the material.
 Crediting TESA does not mean TESA endorses your work, service or project. Details and examples are in [ATTRIBUTION.md](../../ATTRIBUTION.md).

@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
-# SPDX-License-Identifier: CC-BY-4.0
+# SPDX-License-Identifier: CC-BY-NC-4.0
 items:
   - id: q1
     objective: 1
@@ -51,7 +51,7 @@ items:
       en: You added a "marketing budget" field to the canvas template and gave it to clients. Which credit is most correct?
     choices:
       - {th: "แม่แบบโดยบริษัทของเรา"}
-      - {th: "\"Edge AI และ IoT สำหรับการตัดสินใจเชิงผลิตภัณฑ์\" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0 (ดัดแปลง: เพิ่มช่องงบการตลาด)"}
+      - {th: "\"Edge AI และ IoT สำหรับการตัดสินใจเชิงผลิตภัณฑ์\" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0 (ดัดแปลง: เพิ่มช่องงบการตลาด)"}
       - {th: "แม่แบบที่ TESA รับรองแล้ว"}
       - {th: "\"Edge AI และ IoT สำหรับการตัดสินใจเชิงผลิตภัณฑ์\" จาก TESA Open Knowledge"}
     answer: [1]

@@ -80,10 +80,11 @@ slides: slides.md
 
 ### 4. แบ่งปันแม่แบบได้ แต่ต้องอ้างอิง TESA
 
-แม่แบบนี้และเนื้อหาทั้งหลักสูตรเผยแพร่ภายใต้ CC BY 4.0 คุณนำไปใช้ในบริษัท แจกให้ลูกค้า หรือใช้ในงานที่ปรึกษาได้ รวมถึงเชิงพาณิชย์
+แม่แบบนี้ ([resources/decision-canvas.md](resources/decision-canvas.md)) เผยแพร่ภายใต้ CC BY 4.0 คุณนำไปใช้ในบริษัท แจกให้ลูกค้า หรือใช้ในงานที่ปรึกษาได้ รวมถึงเชิงพาณิชย์
+(ส่วนเนื้อหาบทเรียนของหลักสูตรเป็น CC BY-NC 4.0)
 เงื่อนไขคือต้องอ้างอิงที่มาดังนี้
 
-> "Edge AI และ IoT สำหรับการตัดสินใจเชิงผลิตภัณฑ์" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA)
+> "แม่แบบ decision canvas" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA)
 > https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0
 
 ถ้าคุณแก้แม่แบบ เช่น เพิ่มช่องของบริษัท ให้เติม **(ดัดแปลง)** ต่อท้ายข้อความอ้างอิง และบอกสั้น ๆ ว่าเปลี่ยนอะไร

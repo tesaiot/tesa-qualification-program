@@ -57,13 +57,13 @@ Take the [Explorer](../explorer/README.md) course first to see the lesson format
 
 ## Licence
 
-All content and templates are CC BY 4.0. This course has no code.
+Lesson content is CC BY-NC 4.0, and educational institutions may teach with it under the additional permission in [ATTRIBUTION.md](../../ATTRIBUTION.md); the templates in resources/ are CC BY 4.0. This course has no code.
 
 ## How to cite TESA
 
 When you use, share or adapt this kit or its templates, credit it as follows:
 
-> "Educator Kit" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0
+> "Educator Kit" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY-NC 4.0
 
 Add "(adapted)" at the end of the credit, with a short note of what you changed, when you change the material.
 Crediting TESA does not mean TESA certifies your course. Lesson edu.m01.l03 shows how to cite TESA in a university course, and

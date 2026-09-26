@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
-# SPDX-License-Identifier: CC-BY-4.0
+# SPDX-License-Identifier: CC-BY-NC-4.0
 #
 # Course template. Copy this folder to courses/<course-id>/ and replace every <...>.
 # The course id and short prefix must already be registered in catalog/courses.yaml (ask the editorial board).
@@ -34,7 +34,7 @@ authors:
   - {name: "<ชื่อผู้เขียน>", url: "https://github.com/<handle>", role: author}   # role: author | adapter | reviewer
 sponsors: [TESA]
 license:
-  content: CC-BY-4.0
+  content: CC-BY-NC-4.0
   code: Apache-2.0                    # Apache-2.0 for new code; MIT only for code imported from the AIC course; none if no code
 # source:                             # only for imported material, pinned to a commit
 #   repo: https://github.com/<owner>/<repo>

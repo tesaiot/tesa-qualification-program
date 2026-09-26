@@ -94,7 +94,7 @@ every lab also says what to do on an Eva Kit (usually a short program of your ow
 ## Status
 
 This course is alpha: every lesson has concepts with worked numeric examples, a complete worked example, exercises with answers, a lab and check-for-understanding questions.
-Lesson pages are in Thai; the English lesson pages are pending. All diagrams are this course's own work (CC BY 4.0). Report a wrong number or step as described in [CONTRIBUTING.en.md](../../CONTRIBUTING.en.md).
+Lesson pages are in Thai; the English lesson pages are pending. All diagrams are this course's own work (CC BY-NC 4.0). Report a wrong number or step as described in [CONTRIBUTING.en.md](../../CONTRIBUTING.en.md).
 
 **Safety.** Every lab uses low voltage from the board or a lab supply only. Never measure mains.
 Each lesson has its own safety notes (current measurement, probe grounding, the iron, flux fume, ESD); read them before each lab.
@@ -111,7 +111,7 @@ Each lesson has its own safety notes (current measurement, probe grounding, the 
 
 ## Licence
 
-- Content and diagrams: CC BY 4.0
+- Content and diagrams: CC BY-NC 4.0
 - This course has no code files of its own yet; any added later will be Apache-2.0
 - MicroPython examples referenced belong to AIoT in Action (MIT); C examples belong to the Developer Hub and the TESAIoT Dev Kit SDK. All are linked, not copied into this repository
 
@@ -119,7 +119,7 @@ Each lesson has its own safety notes (current measurement, probe grounding, the 
 
 When you use, share or adapt this course, credit it as follows:
 
-> "Electronics & Test Instruments for Embedded Developers" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0
+> "Electronics & Test Instruments for Embedded Developers" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY-NC 4.0
 
 Add "(adapted)" at the end of the credit, with a short note of what you changed, when you change the material.
 Crediting TESA does not mean TESA endorses your work. Details and examples are in [ATTRIBUTION.md](../../ATTRIBUTION.md).

@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
-# SPDX-License-Identifier: CC-BY-4.0
+# SPDX-License-Identifier: CC-BY-NC-4.0
 id: explorer
 short: explore
 title:
@@ -47,7 +47,7 @@ authors:
     role: author
 sponsors: [TESA]
 license:
-  content: CC-BY-4.0
+  content: CC-BY-NC-4.0
   code: MIT
 source:
   repo: https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer

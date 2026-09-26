@@ -6,11 +6,11 @@
 version = 1
 
 [[annotations]]
-# Default for everything else (Markdown, YAML, images, slides) is CC BY 4.0 by TESA.
+# Default for everything else (Markdown, YAML, images, slides) is CC BY-NC 4.0 by TESA (additional permissions for education and partners in ATTRIBUTION.md).
 path = "**"
 precedence = "closest"
 SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
-SPDX-License-Identifier = "CC-BY-4.0"
+SPDX-License-Identifier = "CC-BY-NC-4.0"
 
 [[annotations]]
 # Code and repository tooling are Apache-2.0 by TESA — everything under site/ included (the site project asked for this; course pages are synced from courses/ at build time).
@@ -61,6 +61,16 @@ SPDX-FileCopyrightText = [
     "2026 Thai Embedded Systems Association (TESA)",
     "2026 Wiroon Sriborrirux, Advance Innovation Centre (AIC), Burapha University",
 ]
+SPDX-License-Identifier = "CC-BY-NC-4.0"
+
+[[annotations]]
+# Course aiot-micropython: templates in resources/
+path = "courses/aiot-micropython/**/resources/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = [
+    "2026 Thai Embedded Systems Association (TESA)",
+    "2026 Wiroon Sriborrirux, Advance Innovation Centre (AIC), Burapha University",
+]
 SPDX-License-Identifier = "CC-BY-4.0"
 
 [[annotations]]
@@ -80,11 +90,28 @@ SPDX-License-Identifier = "MIT"
 path = "courses/digital-twin/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
+SPDX-License-Identifier = "CC-BY-NC-4.0"
+
+[[annotations]]
+# Course digital-twin: templates in resources/
+path = "courses/digital-twin/**/resources/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
 SPDX-License-Identifier = "CC-BY-4.0"
 
 [[annotations]]
 # Course edge-ai-developer: content
 path = "courses/edge-ai-developer/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = [
+    "2026 Thai Embedded Systems Association (TESA)",
+    "2026 Wiroon Sriborrirux",
+]
+SPDX-License-Identifier = "CC-BY-NC-4.0"
+
+[[annotations]]
+# Course edge-ai-developer: templates in resources/
+path = "courses/edge-ai-developer/**/resources/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = [
     "2026 Thai Embedded Systems Association (TESA)",
@@ -112,6 +139,13 @@ SPDX-License-Identifier = "MIT"
 path = "courses/edge-ai-iot-for-business/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
+SPDX-License-Identifier = "CC-BY-NC-4.0"
+
+[[annotations]]
+# Course edge-ai-iot-for-business: templates in resources/
+path = "courses/edge-ai-iot-for-business/**/resources/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
 SPDX-License-Identifier = "CC-BY-4.0"
 
 [[annotations]]
@@ -119,11 +153,25 @@ SPDX-License-Identifier = "CC-BY-4.0"
 path = "courses/educator-kit/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
+SPDX-License-Identifier = "CC-BY-NC-4.0"
+
+[[annotations]]
+# Course educator-kit: templates in resources/
+path = "courses/educator-kit/**/resources/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
 SPDX-License-Identifier = "CC-BY-4.0"
 
 [[annotations]]
 # Course electronics-and-instruments: content
 path = "courses/electronics-and-instruments/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
+SPDX-License-Identifier = "CC-BY-NC-4.0"
+
+[[annotations]]
+# Course electronics-and-instruments: templates in resources/
+path = "courses/electronics-and-instruments/**/resources/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
 SPDX-License-Identifier = "CC-BY-4.0"
@@ -145,6 +193,13 @@ SPDX-License-Identifier = "Apache-2.0"
 path = "courses/embedded-c-foundations/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
+SPDX-License-Identifier = "CC-BY-NC-4.0"
+
+[[annotations]]
+# Course embedded-c-foundations: templates in resources/
+path = "courses/embedded-c-foundations/**/resources/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
 SPDX-License-Identifier = "CC-BY-4.0"
 
 [[annotations]]
@@ -162,6 +217,13 @@ SPDX-License-Identifier = "Apache-2.0"
 [[annotations]]
 # Course explorer: content
 path = "courses/explorer/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
+SPDX-License-Identifier = "CC-BY-NC-4.0"
+
+[[annotations]]
+# Course explorer: templates in resources/
+path = "courses/explorer/**/resources/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
 SPDX-License-Identifier = "CC-BY-4.0"
@@ -183,6 +245,13 @@ SPDX-License-Identifier = "MIT"
 path = "courses/firmware-sdk-edge-ai/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
+SPDX-License-Identifier = "CC-BY-NC-4.0"
+
+[[annotations]]
+# Course firmware-sdk-edge-ai: templates in resources/
+path = "courses/firmware-sdk-edge-ai/**/resources/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
 SPDX-License-Identifier = "CC-BY-4.0"
 
 [[annotations]]
@@ -190,11 +259,25 @@ SPDX-License-Identifier = "CC-BY-4.0"
 path = "courses/product-design/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
+SPDX-License-Identifier = "CC-BY-NC-4.0"
+
+[[annotations]]
+# Course product-design: templates in resources/
+path = "courses/product-design/**/resources/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
 SPDX-License-Identifier = "CC-BY-4.0"
 
 [[annotations]]
 # Course secure-iot-optiga: content
 path = "courses/secure-iot-optiga/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
+SPDX-License-Identifier = "CC-BY-NC-4.0"
+
+[[annotations]]
+# Course secure-iot-optiga: templates in resources/
+path = "courses/secure-iot-optiga/**/resources/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
 SPDX-License-Identifier = "CC-BY-4.0"
@@ -214,6 +297,13 @@ SPDX-License-Identifier = "Apache-2.0"
 [[annotations]]
 # Course tesaiot-firmware-stack: content
 path = "courses/tesaiot-firmware-stack/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
+SPDX-License-Identifier = "CC-BY-NC-4.0"
+
+[[annotations]]
+# Course tesaiot-firmware-stack: templates in resources/
+path = "courses/tesaiot-firmware-stack/**/resources/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
 SPDX-License-Identifier = "CC-BY-4.0"

@@ -826,14 +826,15 @@ class Builder:
         ex_title = "ชื่อบทเรียนหรือหลักสูตร" if lang == "th" else "Lesson or course title"
         if lang == "th":
             return (
-                "เนื้อหาใน TESA Open Knowledge เผยแพร่ภายใต้สัญญาอนุญาต CC BY 4.0 "
-                "ทุกคนนำไปใช้ต่อได้ ขอเพียงอ้างอิงสมาคมสมองกลฝังตัวไทย (TESA) ทุกครั้งตามรูปแบบนี้\n\n"
+                f"เนื้อหาใน TESA Open Knowledge เผยแพร่ภายใต้สัญญาอนุญาต {c['licence']} "
+                "นำไปใช้ต่อในงานที่ไม่ใช่เพื่อการค้าได้ สถาบันการศึกษามีคำอนุญาตเพิ่ม ขอเพียงอ้างอิงสมาคมสมองกลฝังตัวไทย (TESA) ทุกครั้งตามรูปแบบนี้\n\n"
                 f"> {self.attribution(ex_title, 'th')}\n\n"
                 f"ถ้าดัดแปลงเนื้อหา ให้ต่อท้ายว่า{pick(c.get('adapted_suffix'), 'th')}\n\n"
                 f"บรรทัดเครดิตแบบสั้น (ท้ายหน้า ท้ายสไลด์): `{c['line']}`\n"
             )
         return (
-            "TESA Open Knowledge is published under CC BY 4.0. Anyone may reuse it; "
+            f"TESA Open Knowledge is published under {c['licence']}. Anyone may reuse it non-commercially, and "
+            "educational institutions have an additional permission; "
             "please credit the Thai Embedded Systems Association (TESA) every time, in this form:\n\n"
             f"> {self.attribution(ex_title, 'en')}\n\n"
             f"If you changed the material, add{pick(c.get('adapted_suffix'), 'en')} after the title.\n\n"
@@ -1244,9 +1245,9 @@ class Builder:
                         "Embedded Systems Engineering Roadmap ข้อมูลชุดนี้เป็นฐานของ TESA Qualification Program (TQP) "
                         "โครงการร่วมระหว่าง TESA และ Infineon"),
                 "reuse_h": "นำไปใช้ต่อได้ ขอให้อ้างอิง TESA",
-                "reuse": ("เนื้อหาเผยแพร่ภายใต้ CC BY 4.0 และโค้ดภายใต้ Apache-2.0 หรือ MIT ตามที่ระบุในแต่ละหลักสูตร "
-                          "มหาวิทยาลัย บริษัท หรือผู้สอนนำไปใช้ต่อได้ โดยอ้างอิงสมาคมสมองกลฝังตัวไทย (TESA) ทุกครั้ง "
-                          "ดูรูปแบบการอ้างอิงได้ที่"),
+                "reuse": (f"เนื้อหาเผยแพร่ภายใต้ {self.cfg.credit['licence']} ใช้ต่อในงานที่ไม่ใช่เพื่อการค้าได้ "
+                          "และมหาวิทยาลัยนำไปสอนได้ตามคำอนุญาตเพิ่ม ส่วนโค้ดภายใต้ Apache-2.0 หรือ MIT ตามที่ระบุในแต่ละหลักสูตร "
+                          "อ้างอิงสมาคมสมองกลฝังตัวไทย (TESA) ทุกครั้ง ดูรูปแบบการอ้างอิงและคำอนุญาตเพิ่มได้ที่"),
                 "reuse_link": "วิธีอ้างอิง TESA",
                 "lessons": "บทเรียน",
             },
@@ -1263,9 +1264,9 @@ class Builder:
                         "Embedded Systems Engineering Roadmap. The same data underpins the TESA Qualification Program (TQP), "
                         "a joint TESA and Infineon programme."),
                 "reuse_h": "Reuse it, and credit TESA",
-                "reuse": ("Content is licensed CC BY 4.0 and code Apache-2.0 or MIT as each course states. "
-                          "Universities, companies and teachers may reuse it, crediting the Thai Embedded Systems Association (TESA) every time. "
-                          "The required wording is on"),
+                "reuse": (f"Content is licensed {self.cfg.credit['licence']}: reuse it non-commercially, and universities may teach "
+                          "with it under an additional permission. Code is Apache-2.0 or MIT as each course states. "
+                          "Credit the Thai Embedded Systems Association (TESA) every time. The wording and the permissions are on"),
                 "reuse_link": "How to cite TESA",
                 "lessons": "lessons",
             },

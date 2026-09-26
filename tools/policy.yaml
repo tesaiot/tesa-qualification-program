@@ -39,9 +39,10 @@ reuse:
     parvizi: "2023 Meysam Parvizi"
     ethical-source: "Organization for Ethical Source"
   base:
-    - comment: Default for everything else (Markdown, YAML, images, slides) is CC BY 4.0 by TESA.
+    - comment: Default for everything else (Markdown, YAML, images, slides) is CC BY-NC 4.0 by TESA
+        (additional permissions for education and partners in ATTRIBUTION.md).
       paths: ["**"]
-      license: CC-BY-4.0
+      license: CC-BY-NC-4.0
       holders: [tesa]
       precedence: closest
     - comment: Code and repository tooling are Apache-2.0 by TESA — everything under site/ included
@@ -61,11 +62,17 @@ reuse:
       license: CC-BY-SA-4.0
       holders: [tesa, parvizi]
       precedence: aggregate
-  # Course content (everything in courses/<id>/ that is not code) is CC BY 4.0. `aggregate` keeps
+  # Course content (everything in courses/<id>/ that is not code) is CC BY-NC 4.0. `aggregate` keeps
   # TESA's line even when a file carries its own copyright text (for example an upstream credit).
   course_content:
-    license_from: course.yaml license.content   # CC-BY-4.0 when course.yaml is absent
+    license_from: course.yaml license.content   # CC-BY-NC-4.0 when course.yaml is absent
     default_holders: [tesa]
+    precedence: aggregate
+  # Templates and checklists in a lesson's resources/ folder are CC BY 4.0, so they can be used in real
+  # (commercial) work. Written after the content annotation so it takes effect for those paths.
+  course_resources:
+    dirs: [resources]
+    license: CC-BY-4.0
     precedence: aggregate
   # Code folders: <course>/**/<dir>/** for each dir below, plus <course>/shared/**.
   course_code:

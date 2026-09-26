@@ -66,7 +66,7 @@ def page_sources(repo: Path) -> dict:
 
 
 def credit_segments(credit: str) -> list[str]:
-    """'TESA Open Knowledge · © 2026 ... (TESA) · CC BY 4.0' -> its ' · '-separated parts."""
+    """'TESA Open Knowledge · © 2026 ... (TESA) · CC BY-NC 4.0' -> its ' · '-separated parts."""
     return [part.strip() for part in credit.split("·") if part.strip()]
 
 

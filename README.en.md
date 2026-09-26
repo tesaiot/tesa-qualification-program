@@ -87,7 +87,8 @@ Report vulnerabilities or leaked secrets privately, as described in [SECURITY.md
 
 | Part | Licence |
 |---|---|
-| Lesson content, slides and TESA's own images | [CC BY 4.0](LICENSES/CC-BY-4.0.txt) |
+| Lesson content, slides and TESA's own images | [CC BY-NC 4.0](LICENSES/CC-BY-NC-4.0.txt); educational institutions may teach with it under the [additional permissions](ATTRIBUTION.md) |
+| Templates in lessons' `resources/` folders | [CC BY 4.0](LICENSES/CC-BY-4.0.txt) |
 | New code | [Apache-2.0](LICENSE) |
 | Code imported from the AIC AIoT in Action course | [MIT](LICENSES/MIT.txt) |
 | The skill map in `skills/` | [CC BY-SA 4.0](LICENSES/CC-BY-SA-4.0.txt) |
@@ -111,6 +112,6 @@ Full details: [NOTICE.md](NOTICE.md) · academic citation: [CITATION.cff](CITATI
 ## How to cite TESA
 
 > "TESA Open Knowledge" by the Thai Embedded Systems Association (TESA),
-> https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0
+> https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY-NC 4.0
 
 When you use only some lessons or courses, name them as shown in [ATTRIBUTION.md](ATTRIBUTION.md).

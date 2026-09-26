@@ -128,7 +128,7 @@
 
 ## สัญญาอนุญาต
 
-- **เนื้อหา** (สไลด์ README ภาพที่วาดเองและภาพหน้าจอ) — CC BY 4.0
+- **เนื้อหา** (สไลด์ README ภาพที่วาดเองและภาพหน้าจอ) — CC BY-NC 4.0
 - **โค้ด** (`examples/`, `practice/`, `solution/`, `shared/`) — MIT, Copyright (c) 2026 Wiroon Sriborrirux, Advance Innovation Centre (AIC), Burapha University (ข้อความสัญญาอนุญาตเต็มอยู่ที่ `LICENSES/MIT.txt` ของรีโพ)
 - **ภาพจากบุคคลที่สาม** — ใช้ตามสัญญาอนุญาตของแต่ละภาพ รายชื่อผู้สร้าง แหล่งที่มา และสัญญาอนุญาตอยู่ใน [credits.yaml](credits.yaml) · รูปจากคู่มือบอร์ดของ Infineon ใช้เพื่อการเรียนการสอน สิทธิ์เป็นของ Infineon Technologies AG
 
@@ -140,6 +140,6 @@
 
 เมื่อนำหลักสูตรนี้หรือบางส่วนไปใช้ ดัดแปลง หรือเผยแพร่ต่อ กรุณาอ้างอิงตามนี้ (ถ้าดัดแปลง ให้เติม «(ดัดแปลง)» ต่อท้ายชื่อ และคงเครดิตต้นฉบับของ AIC ไว้ด้วย):
 
-> "AIoT in Action: จากหน้าจอสัมผัสสู่แพลตฟอร์ม IoT (MicroPython)" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0 · ดัดแปลงจาก AIoT in Action — Embedded Systems for AIoT Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์ วิศวกรรมระบบสมองกลฝังตัว ภาควิชาวิศวกรรมไฟฟ้า คณะวิศวกรรมศาสตร์ มหาวิทยาลัยบูรพา (BUU) · Advance Innovation Centre (AIC) · BENTO & TESAIoT (CC BY 4.0 / MIT)
+> "AIoT in Action: จากหน้าจอสัมผัสสู่แพลตฟอร์ม IoT (MicroPython)" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY-NC 4.0 · ดัดแปลงจาก AIoT in Action — Embedded Systems for AIoT Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์ วิศวกรรมระบบสมองกลฝังตัว ภาควิชาวิศวกรรมไฟฟ้า คณะวิศวกรรมศาสตร์ มหาวิทยาลัยบูรพา (BUU) · Advance Innovation Centre (AIC) · BENTO & TESAIoT (CC BY 4.0 / MIT)
 
 การอ้างอิงไม่ได้แปลว่า TESA หรือ Infineon รับรองหลักสูตรหรือผลงานที่นำไปใช้ต่อ ชื่อ TESA, TQP และ "Certified by TESA and Infineon" เป็นเครื่องหมายของโครงการ

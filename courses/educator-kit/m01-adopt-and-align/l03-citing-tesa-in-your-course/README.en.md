@@ -25,11 +25,11 @@ develops:
   - {skill: soft.communication, to: 2}
 assesses:
   - {skill: edu.lesson-design, level: 3, evidence: resources/syllabus-attribution.md}
-context: {audience: educator, licence: CC-BY-4.0}
+context: {audience: educator, licence: CC-BY-NC-4.0}
 status: alpha
 translation: done
 slides: slides.md
-source_sha256: 7262dcb461f888eac90aa5d8cb2abf2a1811639088be2236e2d792438427838a
+source_sha256: d289addb28e2779de5d6c12b850b96220218c2c8316a7276082c5ff5cbb59b33
 ---
 
 ## Objectives
@@ -54,10 +54,11 @@ Every course in the repository has this section; you can copy it directly.
 
 ### 1. Why attribution is required
 
-Content in TESA Open Knowledge is published under the **CC BY 4.0** licence. Your institution may teach with it, adapt it, and use it in courses that charge tuition.
-The one main condition is that you credit the source in the manner the owner specifies, and TESA specifies one form of wording, used everywhere.
+Content in TESA Open Knowledge is published under the **CC BY-NC 4.0** licence, which allows non-commercial use only, and TESA gives educational institutions an additional permission.
+Your institution may therefore teach with it, adapt it, and use it in its regular courses that charge tuition ([ATTRIBUTION.md](../../../../ATTRIBUTION.md)); other commercial use, such as paid training for outside participants, needs TESA's permission first.
+The condition every time is that you credit the source in the manner the owner specifies, and TESA specifies one form of wording, used everywhere.
 
-> "«title»" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0
+> "«title»" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY-NC 4.0
 
 Attribution is also a matter of academic integrity. When learners see their instructor crediting sources correctly, they learn to do the same
 (this is why the crosswalk table in the previous lesson placed this under the Ethics domain).
@@ -74,7 +75,7 @@ Attribution is also a matter of academic integrity. When learners see their inst
 The short credit line is
 
 ```
-TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY 4.0
+TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY-NC 4.0
 ```
 
 Ready-to-paste wording for every case is at [resources/syllabus-attribution.md](resources/syllabus-attribution.md).
@@ -89,7 +90,7 @@ If the course you use has its own upstream source (stated at the bottom of the c
 
 ### 4. Attribution is not the same as certification
 
-CC BY 4.0 does not allow implying that the owner certifies or endorses the user's work, and the names TESA, TQP and "Certified by TESA and Infineon" are marks
+CC BY-NC 4.0 does not allow implying that the owner certifies or endorses the user's work, and the names TESA, TQP and "Certified by TESA and Infineon" are marks
 not covered by the CC licence ([TRADEMARKS.md](../../../../TRADEMARKS.md)). So
 
 - **You may write** "This course uses open material from TESA Open Knowledge", together with the attribution text.
@@ -103,7 +104,7 @@ TQP certification belongs to the individual who passes the exam, not to the cour
 An instructor uses Explorer's first module in the first two weeks of a microcontroller course, converts the slides to the faculty's own template, and drops lesson 3.
 
 - **Move 1: the course document** Place the "adapted" wording from resources under teaching materials:
-  `"Explorer: Meet Embedded Systems" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0 (adapted: used the first module only, dropped lesson 3, and converted to the faculty's slide template)`
+  `"Explorer: Meet Embedded Systems" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY-NC 4.0 (adapted: used the first module only, dropped lesson 3, and converted to the faculty's slide template)`
   followed by the upstream AIoT in Action credit from the bottom of the Explorer course page, because the example code comes from there.
 - **Move 2: slides** Keep the original footer, add the course code in front of it on the same line, and put the full wording on the last slide.
 - **Move 3: LMS** Place the full wording at the end of the page for those two weeks.
