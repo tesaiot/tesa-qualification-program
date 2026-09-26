@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: proto.mqtt, to: 2}, {skill: iot.cloud-platform, to: 2}, {skill: sec.fundamentals, to: 1}, {skill: soft.problem-solving, to: 1}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-10.html (slides 16–27), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -114,6 +114,18 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 
 - [m04-iot-connectivity/l06-mqtt-telemetry-lab/practice/s10_mqtt_telemetry.py](../l06-mqtt-telemetry-lab/practice/s10_mqtt_telemetry.py) — ส่ง telemetry ขึ้น broker และรับคำสั่งกลับ (ฉบับฝึกเติมโค้ด)
 - [m04-iot-connectivity/l08-tesaiot-module/examples/06_secure_publish_loop.py](../l08-tesaiot-module/examples/06_secure_publish_loop.py) — ส่งขึ้นแพลตฟอร์มผ่าน TLS แล้วโชว์หลักฐานบนจอ
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/01_topic_design.webp" alt="จอของ examples/01_topic_design.py ขณะรันใน BENTO Emulator: ออกแบบชื่อ topic ก่อนเขียนโค้ดส่ง" width="800" height="480" loading="lazy"><figcaption><a href="examples/01_topic_design.py"><code>01_topic_design.py</code></a> ออกแบบชื่อ topic ก่อนเขียนโค้ดส่ง</figcaption></figure>
+<figure><img src="img/screens/02_payload_shape.webp" alt="จอของ examples/02_payload_shape.py ขณะรันใน BENTO Emulator: รูปร่างของ payload ตัดสินว่าฝั่งรับทำงานง่ายหรือยาก" width="800" height="480" loading="lazy"><figcaption><a href="examples/02_payload_shape.py"><code>02_payload_shape.py</code></a> รูปร่างของ payload ตัดสินว่าฝั่งรับทำงานง่ายหรือยาก</figcaption></figure>
+<figure><img src="img/screens/03_connect_and_publish.webp" alt="จอของ examples/03_connect_and_publish.py ขณะรันใน BENTO Emulator: ต่อ broker แล้วส่งค่าขึ้นไปหนึ่งชุด" width="800" height="480" loading="lazy"><figcaption><a href="examples/03_connect_and_publish.py"><code>03_connect_and_publish.py</code></a> ต่อ broker แล้วส่งค่าขึ้นไปหนึ่งชุด</figcaption></figure>
+<figure><img src="img/screens/04_subscribe_command.webp" alt="จอของ examples/04_subscribe_command.py ขณะรันใน BENTO Emulator: รับคำสั่งจากข้างนอก แล้วทำตาม" width="800" height="480" loading="lazy"><figcaption><a href="examples/04_subscribe_command.py"><code>04_subscribe_command.py</code></a> รับคำสั่งจากข้างนอก แล้วทำตาม</figcaption></figure>
+<figure><img src="img/screens/05_send_every_5s_still_listen.webp" alt="จอของ examples/05_send_every_5s_still_listen.py ขณะรันใน BENTO Emulator: ส่งทุก 5 วินาที แต่ยังรับคำสั่งได้ทุก 100 ms" width="800" height="480" loading="lazy"><figcaption><a href="examples/05_send_every_5s_still_listen.py"><code>05_send_every_5s_still_listen.py</code></a> ส่งทุก 5 วินาที แต่ยังรับคำสั่งได้ทุก 100 ms</figcaption></figure>
+<figure><img src="img/screens/06_sent_is_not_delivered.webp" alt="จอของ examples/06_sent_is_not_delivered.py ขณะรันใน BENTO Emulator: publish คืน True แปลว่าอะไร และไม่แปลว่าอะไร" width="800" height="480" loading="lazy"><figcaption><a href="examples/06_sent_is_not_delivered.py"><code>06_sent_is_not_delivered.py</code></a> publish คืน True แปลว่าอะไร และไม่แปลว่าอะไร</figcaption></figure>
+<figure><img src="img/screens/07_disconnect_frees_id.webp" alt="จอของ examples/07_disconnect_frees_id.py ขณะรันใน BENTO Emulator: บอกลา broker ให้ถูกวิธี แล้วต่อใหม่ด้วยชื่อเดิมได้ทันที" width="800" height="480" loading="lazy"><figcaption><a href="examples/07_disconnect_frees_id.py"><code>07_disconnect_frees_id.py</code></a> บอกลา broker ให้ถูกวิธี แล้วต่อใหม่ด้วยชื่อเดิมได้ทันที</figcaption></figure>
+</div>
 
 ## เช็กความเข้าใจ
 

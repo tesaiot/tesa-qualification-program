@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: iot.cloud-platform, to: 2}, {skill: sec.tls, to: 2}, {skill: proto.mqtt, to: 2}, {skill: sec.secure-element, to: 1}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-11.html (slides 19–27), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -106,6 +106,16 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 - [m04-iot-connectivity/l05-mqtt-platform/examples/03_connect_and_publish.py](../l05-mqtt-platform/examples/03_connect_and_publish.py) — ต่อ broker แล้วส่งค่าขึ้นไปหนึ่งชุด
 - [m04-iot-connectivity/l05-mqtt-platform/examples/06_sent_is_not_delivered.py](../l05-mqtt-platform/examples/06_sent_is_not_delivered.py) — publish คืน True แปลว่าอะไร และไม่แปลว่าอะไร
 - [m04-iot-connectivity/l09-secure-telemetry-lab/practice/s11_secure_telemetry.py](../l09-secure-telemetry-lab/practice/s11_secure_telemetry.py) — ส่ง telemetry ขึ้นแพลตฟอร์มผ่าน TLS (ฉบับฝึกเติมโค้ด)
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/01_config_store.webp" alt="จอของ examples/01_config_store.py ขณะรันใน BENTO Emulator: คลังค่าตั้งของแพลตฟอร์ม อ่านให้ครบก่อนจะต่ออะไร" width="800" height="480" loading="lazy"><figcaption><a href="examples/01_config_store.py"><code>01_config_store.py</code></a> คลังค่าตั้งของแพลตฟอร์ม อ่านให้ครบก่อนจะต่ออะไร</figcaption></figure>
+<figure><img src="img/screens/02_config_reset_reload.webp" alt="จอของ examples/02_config_reset_reload.py ขณะรันใน BENTO Emulator: ล้างค่าตั้ง กับ ย้อนค่าตั้ง เป็นคนละเรื่องกัน" width="800" height="480" loading="lazy"><figcaption><a href="examples/02_config_reset_reload.py"><code>02_config_reset_reload.py</code></a> ล้างค่าตั้ง กับ ย้อนค่าตั้ง เป็นคนละเรื่องกัน</figcaption></figure>
+<figure><img src="img/screens/04_disconnect_and_republish.webp" alt="จอของ examples/04_disconnect_and_republish.py ขณะรันใน BENTO Emulator: ปิดงานให้เรียบร้อย แล้วเปิดใหม่" width="800" height="480" loading="lazy"><figcaption><a href="examples/04_disconnect_and_republish.py"><code>04_disconnect_and_republish.py</code></a> ปิดงานให้เรียบร้อย แล้วเปิดใหม่</figcaption></figure>
+<figure><img src="img/screens/05_wait_for_connected.webp" alt="จอของ examples/05_wait_for_connected.py ขณะรันใน BENTO Emulator: connect() คืนค่าก่อนต่อเสร็จ ต้องรอด้วย is_connected()" width="800" height="480" loading="lazy"><figcaption><a href="examples/05_wait_for_connected.py"><code>05_wait_for_connected.py</code></a> connect() คืนค่าก่อนต่อเสร็จ ต้องรอด้วย is_connected()</figcaption></figure>
+<figure><img src="img/screens/06_secure_publish_loop.webp" alt="จอของ examples/06_secure_publish_loop.py ขณะรันใน BENTO Emulator: ส่งขึ้นแพลตฟอร์มผ่าน TLS แล้วโชว์หลักฐานบนจอ" width="800" height="480" loading="lazy"><figcaption><a href="examples/06_secure_publish_loop.py"><code>06_secure_publish_loop.py</code></a> ส่งขึ้นแพลตฟอร์มผ่าน TLS แล้วโชว์หลักฐานบนจอ</figcaption></figure>
+</div>
 
 ## เช็กความเข้าใจ
 

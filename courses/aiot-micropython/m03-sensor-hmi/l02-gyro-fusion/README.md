@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: sys.dsp, to: 2}, {skill: sys.sensors-actuators, to: 2}, {skill: gui.hmi, to: 2}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-06.html (slides 13–32), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -96,6 +96,13 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 
 - [m03-sensor-hmi/l03-digital-level-lab/practice/s06_digital_level.py](../l03-digital-level-lab/practice/s06_digital_level.py) — เครื่องวัดระดับดิจิทัลสองแกน (ฉบับฝึกเติมโค้ด)
 - [shared/lvgl_ports/sec3_sensor_viz/eva/ex10_scale_pitch.py](../../shared/lvgl_ports/sec3_sensor_viz/eva/ex10_scale_pitch.py)
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/04_compass_and_magnetometer.webp" alt="จอของ examples/04_compass_and_magnetometer.py ขณะรันใน BENTO Emulator: เข็มทิศบนบอร์ด และตัวเลขหนึ่งตัวที่ยังไม่มีใครตอบได้" width="800" height="480" loading="lazy"><figcaption><a href="examples/04_compass_and_magnetometer.py"><code>04_compass_and_magnetometer.py</code></a> เข็มทิศบนบอร์ด และตัวเลขหนึ่งตัวที่ยังไม่มีใครตอบได้</figcaption></figure>
+<figure><img src="img/screens/05_madgwick_and_pedometer.webp" alt="จอของ examples/05_madgwick_and_pedometer.py ขณะรันใน BENTO Emulator: สองคลาส IMU ที่เหลือใน dsp และหน่วยที่ดักไว้ทั้งคู่" width="800" height="480" loading="lazy"><figcaption><a href="examples/05_madgwick_and_pedometer.py"><code>05_madgwick_and_pedometer.py</code></a> สองคลาส IMU ที่เหลือใน dsp และหน่วยที่ดักไว้ทั้งคู่</figcaption></figure>
+</div>
 
 ## เช็กความเข้าใจ
 

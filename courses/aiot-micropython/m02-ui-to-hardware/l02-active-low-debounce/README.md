@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: mcu.gpio, to: 2}, {skill: hw.circuits, to: 1}, {skill: prog.state-machines, to: 1}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-03.html (slides 13–27), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -106,6 +106,15 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 สไลด์ของบทเรียนนี้อ้างถึงไฟล์ที่อยู่ในบทเรียนอื่นด้วย:
 
 - [m02-ui-to-hardware/l03-led-button-lab/practice/s03_led_button.py](../l03-led-button-lab/practice/s03_led_button.py) — ไฟวิ่งทุกดวง + ปุ่มนับครั้งแบบกันเด้ง (ฉบับฝึกเติมโค้ด)
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/02_led_blink.webp" alt="จอของ examples/02_led_blink.py ขณะรันใน BENTO Emulator: ทำให้ไฟกะพริบเป็นจังหวะ แล้วนับรอบที่กะพริบไปแล้ว" width="800" height="480" loading="lazy"><figcaption><a href="examples/02_led_blink.py"><code>02_led_blink.py</code></a> ทำให้ไฟกะพริบเป็นจังหวะ แล้วนับรอบที่กะพริบไปแล้ว</figcaption></figure>
+<figure><img src="img/screens/04_button_active_low.webp" alt="จอของ examples/04_button_active_low.py ขณะรันใน BENTO Emulator: ปุ่มนี้ 0 คือกด ไม่ใช่ 1" width="800" height="480" loading="lazy"><figcaption><a href="examples/04_button_active_low.py"><code>04_button_active_low.py</code></a> ปุ่มนี้ 0 คือกด ไม่ใช่ 1</figcaption></figure>
+<figure><img src="img/screens/05_debounce_count.webp" alt="จอของ examples/05_debounce_count.py ขณะรันใน BENTO Emulator: นับการกดให้ตรง ด้วยการรอให้ปุ่มนิ่งก่อน" width="800" height="480" loading="lazy"><figcaption><a href="examples/05_debounce_count.py"><code>05_debounce_count.py</code></a> นับการกดให้ตรง ด้วยการรอให้ปุ่มนิ่งก่อน</figcaption></figure>
+<figure><img src="img/screens/06_button_picks_led.webp" alt="จอของ examples/06_button_picks_led.py ขณะรันใน BENTO Emulator: ปุ่มเดียวคุมไฟทุกดวง ด้วยการจำสถานะเอง" width="800" height="480" loading="lazy"><figcaption><a href="examples/06_button_picks_led.py"><code>06_button_picks_led.py</code></a> ปุ่มเดียวคุมไฟทุกดวง ด้วยการจำสถานะเอง</figcaption></figure>
+</div>
 
 ## เช็กความเข้าใจ
 

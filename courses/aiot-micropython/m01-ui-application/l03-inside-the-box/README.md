@@ -16,7 +16,7 @@ develops: [{skill: hw.architecture, to: 1}, {skill: rtos.multicore-ipc, to: 1}, 
 assesses: [{skill: lang.micropython, level: 2, evidence: practice/s01_hello_lcd.py}, {skill: gui.embedded, level: 1, evidence: practice/s01_hello_lcd.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-01.html (slides 23–51), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -97,6 +97,17 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 - [m01-ui-application/l02-first-lines-on-screen/examples/08_status_screen.py](../l02-first-lines-on-screen/examples/08_status_screen.py) — จอสถานะหนึ่งใบ ที่สามโมดูลแบ่งงานกันทำ
 - [m01-ui-application/l02-first-lines-on-screen/examples/09_your_level_rule.py](../l02-first-lines-on-screen/examples/09_your_level_rule.py) — ไฟล์นี้รันได้ แต่ยังตอบผิดทุกข้อ งานของคุณคือทำให้มันถูก
 - [shared/web/my_first_reader.html](../../shared/web/my_first_reader.html) — อ่านค่าจากบอร์ด
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/10_board_knows_itself.webp" alt="จอของ examples/10_board_knows_itself.py ขณะรันใน BENTO Emulator: ถามบอร์ดว่าตัวเองมีอะไร แทนที่จะเปิดคู่มือหา" width="800" height="480" loading="lazy"><figcaption><a href="examples/10_board_knows_itself.py"><code>10_board_knows_itself.py</code></a> ถามบอร์ดว่าตัวเองมีอะไร แทนที่จะเปิดคู่มือหา</figcaption></figure>
+<figure><img src="img/screens/11_lights_and_a_button.webp" alt="จอของ examples/11_lights_and_a_button.py ขณะรันใน BENTO Emulator: หลอดไฟกับปุ่มจริง สั่งได้จาก Python บรรทัดเดียว" width="800" height="480" loading="lazy"><figcaption><a href="examples/11_lights_and_a_button.py"><code>11_lights_and_a_button.py</code></a> หลอดไฟกับปุ่มจริง สั่งได้จาก Python บรรทัดเดียว</figcaption></figure>
+<figure><img src="img/screens/12_every_sense_at_once.webp" alt="จอของ examples/12_every_sense_at_once.py ขณะรันใน BENTO Emulator: คำสั่งเดียว ได้ทุกเซนเซอร์พร้อมกัน" width="800" height="480" loading="lazy"><figcaption><a href="examples/12_every_sense_at_once.py"><code>12_every_sense_at_once.py</code></a> คำสั่งเดียว ได้ทุกเซนเซอร์พร้อมกัน</figcaption></figure>
+<figure><img src="img/screens/13_raw_and_filtered.webp" alt="จอของ examples/13_raw_and_filtered.py ขณะรันใน BENTO Emulator: เส้นดิบที่สั่น กับเส้นเดียวกันที่นิ่ง อยู่บนกราฟใบเดียว" width="800" height="480" loading="lazy"><figcaption><a href="examples/13_raw_and_filtered.py"><code>13_raw_and_filtered.py</code></a> เส้นดิบที่สั่น กับเส้นเดียวกันที่นิ่ง อยู่บนกราฟใบเดียว</figcaption></figure>
+<figure><img src="img/screens/14_the_board_hears_you.webp" alt="จอของ examples/14_the_board_hears_you.py ขณะรันใน BENTO Emulator: พูดใส่บอร์ด แล้วดูมันขยับตาม" width="800" height="480" loading="lazy"><figcaption><a href="examples/14_the_board_hears_you.py"><code>14_the_board_hears_you.py</code></a> พูดใส่บอร์ด แล้วดูมันขยับตาม</figcaption></figure>
+<figure><img src="img/screens/15_one_number_many_faces.webp" alt="จอของ examples/15_one_number_many_faces.py ขณะรันใน BENTO Emulator: ตัวเลขตัวเดียว กับสิบวิธีที่จอเล่ามันออกมา" width="800" height="480" loading="lazy"><figcaption><a href="examples/15_one_number_many_faces.py"><code>15_one_number_many_faces.py</code></a> ตัวเลขตัวเดียว กับสิบวิธีที่จอเล่ามันออกมา</figcaption></figure>
+</div>
 
 ## ฝึกเติม
 

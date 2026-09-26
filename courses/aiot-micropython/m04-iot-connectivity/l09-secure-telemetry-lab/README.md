@@ -16,7 +16,7 @@ develops: [{skill: sec.tls, to: 2}, {skill: iot.cloud-platform, to: 2}, {skill: 
 assesses: [{skill: sec.tls, level: 2, evidence: practice/s11_secure_telemetry.py}, {skill: iot.cloud-platform, level: 2, evidence: practice/s11_secure_telemetry.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-11.html (slides 28–45), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -82,6 +82,12 @@ MVP ของชุดบทเรียนนี้มีสองครึ่�
 | ไฟล์ | ไฟล์นี้สอน |
 |---|---|
 | [examples/07_real_reading_over_tls.py](examples/07_real_reading_over_tls.py) | ค่าที่วัดได้จริง ออกไปแบบที่คนกลางอ่านไม่ได้ |
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/07_real_reading_over_tls.webp" alt="จอของ examples/07_real_reading_over_tls.py ขณะรันใน BENTO Emulator: ค่าที่วัดได้จริง ออกไปแบบที่คนกลางอ่านไม่ได้" width="800" height="480" loading="lazy"><figcaption><a href="examples/07_real_reading_over_tls.py"><code>07_real_reading_over_tls.py</code></a> ค่าที่วัดได้จริง ออกไปแบบที่คนกลางอ่านไม่ได้</figcaption></figure>
+</div>
 
 ## ฝึกเติม
 

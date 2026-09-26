@@ -15,7 +15,7 @@ develops: [{skill: prog.state-machines, to: 2}, {skill: gui.hmi, to: 2}, {skill:
 assesses: [{skill: prog.state-machines, level: 2, evidence: practice/s12_capstone_starter.py}, {skill: gui.hmi, level: 2, evidence: practice/s12_capstone_starter.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-12.html (slides 35–58), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -76,6 +76,15 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 | [examples/07_spangroup_event_log.py](examples/07_spangroup_event_log.py) | บันทึกเหตุการณ์บนจอ ที่ยังอ่านออกตอนถ่ายเอกสารขาวดำ |
 | [examples/08_calendar_sets_the_clock.py](examples/08_calendar_sets_the_clock.py) | บอร์ดไม่รู้ว่าวันนี้วันที่เท่าไร แล้วใครบอกมัน |
 | [examples/09_tileview_swipe_only.py](examples/09_tileview_swipe_only.py) | จอที่นิ้วพาไปได้ แต่โปรแกรมพาไปไม่ได้ |
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/06_sense_decide_act_report.webp" alt="จอของ examples/06_sense_decide_act_report.py ขณะรันใน BENTO Emulator: วงจรเต็มสี่ขั้นในไฟล์เดียว" width="800" height="480" loading="lazy"><figcaption><a href="examples/06_sense_decide_act_report.py"><code>06_sense_decide_act_report.py</code></a> วงจรเต็มสี่ขั้นในไฟล์เดียว</figcaption></figure>
+<figure><img src="img/screens/07_spangroup_event_log.webp" alt="จอของ examples/07_spangroup_event_log.py ขณะรันใน BENTO Emulator: บันทึกเหตุการณ์บนจอ ที่ยังอ่านออกตอนถ่ายเอกสารขาวดำ" width="800" height="480" loading="lazy"><figcaption><a href="examples/07_spangroup_event_log.py"><code>07_spangroup_event_log.py</code></a> บันทึกเหตุการณ์บนจอ ที่ยังอ่านออกตอนถ่ายเอกสารขาวดำ</figcaption></figure>
+<figure><img src="img/screens/08_calendar_sets_the_clock.webp" alt="จอของ examples/08_calendar_sets_the_clock.py ขณะรันใน BENTO Emulator: บอร์ดไม่รู้ว่าวันนี้วันที่เท่าไร แล้วใครบอกมัน" width="800" height="480" loading="lazy"><figcaption><a href="examples/08_calendar_sets_the_clock.py"><code>08_calendar_sets_the_clock.py</code></a> บอร์ดไม่รู้ว่าวันนี้วันที่เท่าไร แล้วใครบอกมัน</figcaption></figure>
+<figure><img src="img/screens/09_tileview_swipe_only.webp" alt="จอของ examples/09_tileview_swipe_only.py ขณะรันใน BENTO Emulator: จอที่นิ้วพาไปได้ แต่โปรแกรมพาไปไม่ได้" width="800" height="480" loading="lazy"><figcaption><a href="examples/09_tileview_swipe_only.py"><code>09_tileview_swipe_only.py</code></a> จอที่นิ้วพาไปได้ แต่โปรแกรมพาไปไม่ได้</figcaption></figure>
+</div>
 
 ## ฝึกเติม
 

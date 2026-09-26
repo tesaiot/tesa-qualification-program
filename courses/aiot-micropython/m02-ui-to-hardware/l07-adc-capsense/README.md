@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: mcu.adc-dac, to: 2}, {skill: sys.sensors-actuators, to: 2}, {skill: hw.circuits, to: 1}, {skill: proto.i2c, to: 1}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-05.html (slides 1–20), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -103,6 +103,13 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 สไลด์ของบทเรียนนี้อ้างถึงไฟล์ที่อยู่ในบทเรียนอื่นด้วย:
 
 - [m02-ui-to-hardware/l06-touch-panel-lab/examples/09_scale_led_spinbox.py](../l06-touch-panel-lab/examples/09_scale_led_spinbox.py) — สาม widget ที่แยกหน้าจอ HMI ออกจากหน้าจอเล่น ๆ
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/01_capsense_dimmer.webp" alt="จอของ examples/01_capsense_dimmer.py ขณะรันใน BENTO Emulator: สไลเดอร์สัมผัสเป็นสวิตช์หรี่ไฟ" width="800" height="480" loading="lazy"><figcaption><a href="examples/01_capsense_dimmer.py"><code>01_capsense_dimmer.py</code></a> สไลเดอร์สัมผัสเป็นสวิตช์หรี่ไฟ</figcaption></figure>
+<figure><img src="img/screens/09_sensors_api_tour.webp" alt="จอของ examples/09_sensors_api_tour.py ขณะรันใน BENTO Emulator: เรียกทุกชื่อในโมดูล sensors แล้วดูว่าใครตอบ ใครปฏิเสธ" width="800" height="480" loading="lazy"><figcaption><a href="examples/09_sensors_api_tour.py"><code>09_sensors_api_tour.py</code></a> เรียกทุกชื่อในโมดูล sensors แล้วดูว่าใครตอบ ใครปฏิเสธ</figcaption></figure>
+</div>
 
 ## เช็กความเข้าใจ
 

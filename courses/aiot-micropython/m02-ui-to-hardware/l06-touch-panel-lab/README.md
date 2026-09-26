@@ -15,7 +15,7 @@ develops: [{skill: gui.embedded, to: 2}, {skill: gui.hmi, to: 2}, {skill: mcu.gp
 assesses: [{skill: gui.embedded, level: 2, evidence: practice/s04_touch_panel.py}, {skill: mcu.gpio, level: 2, evidence: practice/s04_touch_panel.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-04.html (slides 36–68), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -109,6 +109,22 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 - [m02-ui-to-hardware/l05-event-loop/examples/05_sound_feedback.py](../l05-event-loop/examples/05_sound_feedback.py) — เสียงตอบรับตอนแตะปุ่ม
 - [m02-ui-to-hardware/l05-event-loop/examples/06_layout_budget.py](../l05-event-loop/examples/06_layout_budget.py) — พื้นที่ 792x398 กับงบ widget: งบของคอร์ส 32 ตัว (เพดานเฟิร์มแวร์ 64)
 - [shared/usecase/07_hold_to_confirm.py](../../shared/usecase/07_hold_to_confirm.py) — กดค้างเพื่อยืนยันคำสั่งที่ย้อนกลับไม่ได้
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/07_find_move_hide_delete.webp" alt="จอของ examples/07_find_move_hide_delete.py ขณะรันใน BENTO Emulator: จัดการ widget ที่สร้างไปแล้ว" width="800" height="480" loading="lazy"><figcaption><a href="examples/07_find_move_hide_delete.py"><code>07_find_move_hide_delete.py</code></a> จัดการ widget ที่สร้างไปแล้ว</figcaption></figure>
+<figure><img src="img/screens/08_dropdown_textarea.webp" alt="จอของ examples/08_dropdown_textarea.py ขณะรันใน BENTO Emulator: อีกสามชนิดที่รับอินพุตได้ และค่าที่ถามกลับได้จริง" width="800" height="480" loading="lazy"><figcaption><a href="examples/08_dropdown_textarea.py"><code>08_dropdown_textarea.py</code></a> อีกสามชนิดที่รับอินพุตได้ และค่าที่ถามกลับได้จริง</figcaption></figure>
+<figure><img src="img/screens/09_scale_led_spinbox.webp" alt="จอของ examples/09_scale_led_spinbox.py ขณะรันใน BENTO Emulator: สาม widget ที่แยกหน้าจอ HMI ออกจากหน้าจอเล่น ๆ" width="800" height="480" loading="lazy"><figcaption><a href="examples/09_scale_led_spinbox.py"><code>09_scale_led_spinbox.py</code></a> สาม widget ที่แยกหน้าจอ HMI ออกจากหน้าจอเล่น ๆ</figcaption></figure>
+<figure><img src="img/screens/10_tabview_second_screen.webp" alt="จอของ examples/10_tabview_second_screen.py ขณะรันใน BENTO Emulator: จอที่สองที่ไม่ต้องเขียนโปรแกรมที่สอง" width="800" height="480" loading="lazy"><figcaption><a href="examples/10_tabview_second_screen.py"><code>10_tabview_second_screen.py</code></a> จอที่สองที่ไม่ต้องเขียนโปรแกรมที่สอง</figcaption></figure>
+<figure><img src="img/screens/11_menu_settings_tree.webp" alt="จอของ examples/11_menu_settings_tree.py ขณะรันใน BENTO Emulator: จอที่สองแบบที่สอง เมื่อของไม่ได้เท่ากันทุกหัวข้อ" width="800" height="480" loading="lazy"><figcaption><a href="examples/11_menu_settings_tree.py"><code>11_menu_settings_tree.py</code></a> จอที่สองแบบที่สอง เมื่อของไม่ได้เท่ากันทุกหัวข้อ</figcaption></figure>
+<figure><img src="img/screens/12_table_and_list.webp" alt="จอของ examples/12_table_and_list.py ขณะรันใน BENTO Emulator: หลายค่าพร้อมกัน ต้องเป็นตาราง ไม่ใช่ป้ายเรียงกัน" width="800" height="480" loading="lazy"><figcaption><a href="examples/12_table_and_list.py"><code>12_table_and_list.py</code></a> หลายค่าพร้อมกัน ต้องเป็นตาราง ไม่ใช่ป้ายเรียงกัน</figcaption></figure>
+<figure><img src="img/screens/13_confirm_before_acting.webp" alt="จอของ examples/13_confirm_before_acting.py ขณะรันใน BENTO Emulator: คำสั่งที่ทำให้ของจริงขยับ ต้องถามก่อนหนึ่งครั้ง" width="800" height="480" loading="lazy"><figcaption><a href="examples/13_confirm_before_acting.py"><code>13_confirm_before_acting.py</code></a> คำสั่งที่ทำให้ของจริงขยับ ต้องถามก่อนหนึ่งครั้ง</figcaption></figure>
+<figure><img src="img/screens/14_container_coordinates.webp" alt="จอของ examples/14_container_coordinates.py ขณะรันใน BENTO Emulator: กล่องที่คอนเทนเนอร์คืนมา และระบบพิกัดของมัน" width="800" height="480" loading="lazy"><figcaption><a href="examples/14_container_coordinates.py"><code>14_container_coordinates.py</code></a> กล่องที่คอนเทนเนอร์คืนมา และระบบพิกัดของมัน</figcaption></figure>
+<figure><img src="img/screens/15_press_and_hold.webp" alt="จอของ examples/15_press_and_hold.py ขณะรันใน BENTO Emulator: ปุ่มที่ต้องกดค้าง และเหตุการณ์ที่ clicked บอกไม่ได้" width="800" height="480" loading="lazy"><figcaption><a href="examples/15_press_and_hold.py"><code>15_press_and_hold.py</code></a> ปุ่มที่ต้องกดค้าง และเหตุการณ์ที่ clicked บอกไม่ได้</figcaption></figure>
+<figure><img src="img/screens/16_swipe_scroll_focus.webp" alt="จอของ examples/16_swipe_scroll_focus.py ขณะรันใน BENTO Emulator: ปัดนิ้ว เลื่อนรายการ และช่องไหนกำลังถูกเลือก" width="800" height="480" loading="lazy"><figcaption><a href="examples/16_swipe_scroll_focus.py"><code>16_swipe_scroll_focus.py</code></a> ปัดนิ้ว เลื่อนรายการ และช่องไหนกำลังถูกเลือก</figcaption></figure>
+<figure><img src="img/screens/17_panel_to_broker.webp" alt="จอของ examples/17_panel_to_broker.py ขณะรันใน BENTO Emulator: แตะบนจอบอร์ด แล้วหน้าเว็บของเพื่อนเห็น สั่งจากเว็บ แล้วแถบบนจอขยับ" width="800" height="480" loading="lazy"><figcaption><a href="examples/17_panel_to_broker.py"><code>17_panel_to_broker.py</code></a> แตะบนจอบอร์ด แล้วหน้าเว็บของเพื่อนเห็น สั่งจากเว็บ แล้วแถบบนจอขยับ</figcaption></figure>
+</div>
 
 ## ฝึกเติม
 

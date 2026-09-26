@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: gui.hmi, to: 2}, {skill: gui.embedded, to: 2}, {skill: sys.sensors-actuators, to: 2}, {skill: lang.micropython, to: 2}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-08.html (slides 18–31), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -106,6 +106,13 @@ widget ราวสองวินาทีแล้วกลับมาวน 
 
 - [m03-sensor-hmi/l09-dashboard-lab/practice/s08_dashboard.py](../l09-dashboard-lab/practice/s08_dashboard.py) — Mini-HMI แดชบอร์ด 4 การ์ด บน Eva Kit / Dev Kit (ฉบับฝึกเติมโค้ด)
 - [shared/usecase/14_hard_iron_calibration.py](../../shared/usecase/14_hard_iron_calibration.py) — การคาลิเบรตเข็มทิศ เป็นสิ่งที่วัดได้
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/02_mic_sound_level_meter.webp" alt="จอของ examples/02_mic_sound_level_meter.py ขณะรันใน BENTO Emulator: เครื่องวัดระดับเสียงในห้อง" width="800" height="480" loading="lazy"><figcaption><a href="examples/02_mic_sound_level_meter.py"><code>02_mic_sound_level_meter.py</code></a> เครื่องวัดระดับเสียงในห้อง</figcaption></figure>
+<figure><img src="img/screens/04_magnet_presence.webp" alt="จอของ examples/04_magnet_presence.py ขณะรันใน BENTO Emulator: ตรวจว่ามีแม่เหล็กอยู่ใกล้หรือไม่" width="800" height="480" loading="lazy"><figcaption><a href="examples/04_magnet_presence.py"><code>04_magnet_presence.py</code></a> ตรวจว่ามีแม่เหล็กอยู่ใกล้หรือไม่</figcaption></figure>
+</div>
 
 ## เช็กความเข้าใจ
 

@@ -16,7 +16,7 @@ develops: [{skill: proto.wifi, to: 2}, {skill: proto.mqtt, to: 2}, {skill: soft.
 assesses: [{skill: proto.wifi, level: 2, evidence: practice/s02_ai_observer.py}, {skill: lang.micropython, level: 2, evidence: practice/s02_ai_observer.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-02.html (slides 27–38), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---

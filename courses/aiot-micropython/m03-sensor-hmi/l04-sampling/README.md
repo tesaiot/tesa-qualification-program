@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: sys.dsp, to: 2}, {skill: gui.embedded, to: 2}, {skill: rtos.multicore-ipc, to: 1}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-07.html (slides 1–14), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -103,6 +103,12 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 สไลด์ของบทเรียนนี้อ้างถึงไฟล์ที่อยู่ในบทเรียนอื่นด้วย:
 
 - [shared/lvgl_ports/sec3_sensor_viz/eva/ex16_spectrum_analyzer.py](../../shared/lvgl_ports/sec3_sensor_viz/eva/ex16_spectrum_analyzer.py)
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/03_aliasing_nyquist.webp" alt="จอของ examples/03_aliasing_nyquist.py ขณะรันใน BENTO Emulator: สุ่มช้าเกินไป แล้วได้ความถี่ที่ไม่เคยมีอยู่จริง" width="800" height="480" loading="lazy"><figcaption><a href="examples/03_aliasing_nyquist.py"><code>03_aliasing_nyquist.py</code></a> สุ่มช้าเกินไป แล้วได้ความถี่ที่ไม่เคยมีอยู่จริง</figcaption></figure>
+</div>
 
 ## เช็กความเข้าใจ
 

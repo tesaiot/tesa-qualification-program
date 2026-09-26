@@ -14,7 +14,7 @@ objectives:
 develops: [{skill: sys.sensors-actuators, to: 1}, {skill: iot.fundamentals, to: 1}, {skill: gui.embedded, to: 1}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-01.html (slides 1–7), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---

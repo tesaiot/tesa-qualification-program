@@ -15,7 +15,7 @@ develops: [{skill: sys.sensors-actuators, to: 2}, {skill: sys.dsp, to: 2}, {skil
 assesses: [{skill: sys.sensors-actuators, level: 2, evidence: practice/s05_pot_capsense.py}, {skill: sys.dsp, level: 2, evidence: practice/s05_pot_capsense.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-05.html (slides 42–67), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -93,6 +93,17 @@ spinbox แตะแล้วค่าไม่เปลี่ยนจึงต
 - [m02-ui-to-hardware/l07-adc-capsense/examples/01_capsense_dimmer.py](../l07-adc-capsense/examples/01_capsense_dimmer.py) — สไลเดอร์สัมผัสเป็นสวิตช์หรี่ไฟ
 - [m02-ui-to-hardware/l08-filters/examples/06_ema_time_constant.py](../l08-filters/examples/06_ema_time_constant.py) — alpha ของ EMA แปลว่าอะไรในหน่วยเวลาจริง
 - [m03-sensor-hmi/l06-accel-chart-lab/examples/01_imu_vibration_monitor.py](../../m03-sensor-hmi/l06-accel-chart-lab/examples/01_imu_vibration_monitor.py) — เฝ้าการสั่นของเครื่องจักร
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/02_capsense_menu_wet_hand.webp" alt="จอของ examples/02_capsense_menu_wet_hand.py ขณะรันใน BENTO Emulator: เมนูสัมผัสสองปุ่ม และเรื่องมือเปียก" width="800" height="480" loading="lazy"><figcaption><a href="examples/02_capsense_menu_wet_hand.py"><code>02_capsense_menu_wet_hand.py</code></a> เมนูสัมผัสสองปุ่ม และเรื่องมือเปียก</figcaption></figure>
+<figure><img src="img/screens/03_pot_setpoint_deadband.webp" alt="จอของ examples/03_pot_setpoint_deadband.py ขณะรันใน BENTO Emulator: ลูกบิดตั้งค่า พร้อมแถบตาย" width="800" height="480" loading="lazy"><figcaption><a href="examples/03_pot_setpoint_deadband.py"><code>03_pot_setpoint_deadband.py</code></a> ลูกบิดตั้งค่า พร้อมแถบตาย</figcaption></figure>
+<figure><img src="img/screens/04_pot_taper_volume.webp" alt="จอของ examples/04_pot_taper_volume.py ขณะรันใน BENTO Emulator: ทำไมลูกบิดเสียงต้องเป็นเส้นโค้ง" width="800" height="480" loading="lazy"><figcaption><a href="examples/04_pot_taper_volume.py"><code>04_pot_taper_volume.py</code></a> ทำไมลูกบิดเสียงต้องเป็นเส้นโค้ง</figcaption></figure>
+<figure><img src="img/screens/05_adc_counts_to_volts.webp" alt="จอของ examples/05_adc_counts_to_volts.py ขณะรันใน BENTO Emulator: เลขดิบจาก ADC ไม่ใช่แรงดัน มันคือจำนวนขั้น" width="800" height="480" loading="lazy"><figcaption><a href="examples/05_adc_counts_to_volts.py"><code>05_adc_counts_to_volts.py</code></a> เลขดิบจาก ADC ไม่ใช่แรงดัน มันคือจำนวนขั้น</figcaption></figure>
+<figure><img src="img/screens/07_median_beats_mean.webp" alt="จอของ examples/07_median_beats_mean.py ขณะรันใน BENTO Emulator: ค่าหลุดหนึ่งค่า ทำลายค่าเฉลี่ย แต่ทำอะไร median ไม่ได้" width="800" height="480" loading="lazy"><figcaption><a href="examples/07_median_beats_mean.py"><code>07_median_beats_mean.py</code></a> ค่าหลุดหนึ่งค่า ทำลายค่าเฉลี่ย แต่ทำอะไร median ไม่ได้</figcaption></figure>
+<figure><img src="img/screens/10_roller_picks_the_filter.webp" alt="จอของ examples/10_roller_picks_the_filter.py ขณะรันใน BENTO Emulator: เลือกด้วยการปัดนิ้ว ไม่ใช่กดวนทีละครั้ง" width="800" height="480" loading="lazy"><figcaption><a href="examples/10_roller_picks_the_filter.py"><code>10_roller_picks_the_filter.py</code></a> เลือกด้วยการปัดนิ้ว ไม่ใช่กดวนทีละครั้ง</figcaption></figure>
+</div>
 
 ## ฝึกเติม
 

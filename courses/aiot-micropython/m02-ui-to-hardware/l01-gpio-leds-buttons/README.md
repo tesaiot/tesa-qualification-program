@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: mcu.gpio, to: 1}, {skill: mcu.pwm, to: 1}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-03.html (slides 1–12), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -102,6 +102,13 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 สไลด์ของบทเรียนนี้อ้างถึงไฟล์ที่อยู่ในบทเรียนอื่นด้วย:
 
 - [m01-ui-application/l03-inside-the-box/examples/11_lights_and_a_button.py](../../m01-ui-application/l03-inside-the-box/examples/11_lights_and_a_button.py) — หลอดไฟกับปุ่มจริง สั่งได้จาก Python บรรทัดเดียว
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/01_board_info.webp" alt="จอของ examples/01_board_info.py ขณะรันใน BENTO Emulator: ถามบอร์ดก่อนว่ามีอะไรให้เล่นบ้าง" width="800" height="480" loading="lazy"><figcaption><a href="examples/01_board_info.py"><code>01_board_info.py</code></a> ถามบอร์ดก่อนว่ามีอะไรให้เล่นบ้าง</figcaption></figure>
+<figure><img src="img/screens/03_led_brightness.webp" alt="จอของ examples/03_led_brightness.py ขณะรันใน BENTO Emulator: หรี่ไฟค้างไว้ให้นานพอที่ตาจะเทียบสองระดับได้" width="800" height="480" loading="lazy"><figcaption><a href="examples/03_led_brightness.py"><code>03_led_brightness.py</code></a> หรี่ไฟค้างไว้ให้นานพอที่ตาจะเทียบสองระดับได้</figcaption></figure>
+</div>
 
 ## เช็กความเข้าใจ
 

@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: proto.mqtt, to: 2}, {skill: iot.fundamentals, to: 2}, {skill: sec.fundamentals, to: 1}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-02.html (slides 14–26), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -102,6 +102,15 @@ broker นี้เป็นของสาธารณะ ไม่มีรห
 - [m01-ui-application/l04-wifi-first-connect/examples/02_link_uptime.py](../l04-wifi-first-connect/examples/02_link_uptime.py) — ต่อติดแล้ว กับยังต่ออยู่ ไม่ใช่คำถามเดียวกัน
 - [m01-ui-application/l04-wifi-first-connect/examples/04_scan_the_room.py](../l04-wifi-first-connect/examples/04_scan_the_room.py) — ให้บอร์ดฟังคลื่นทั้งห้อง แล้วบอกว่าใครอยู่ตรงไหนบ้าง
 - [shared/web/my_first_reader.html](../../shared/web/my_first_reader.html) — อ่านค่าจากบอร์ด
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/03_your_link_rule.webp" alt="จอของ examples/03_your_link_rule.py ขณะรันใน BENTO Emulator: ไฟล์นี้รันได้ แต่มันมองไม่เห็นปัญหาแบบที่สอง" width="800" height="480" loading="lazy"><figcaption><a href="examples/03_your_link_rule.py"><code>03_your_link_rule.py</code></a> ไฟล์นี้รันได้ แต่มันมองไม่เห็นปัญหาแบบที่สอง</figcaption></figure>
+<figure><img src="img/screens/05_value_leaves_the_board.webp" alt="จอของ examples/05_value_leaves_the_board.py ขณะรันใน BENTO Emulator: ค่าที่วัดได้บนโต๊ะนี้ ไปโผล่บนเครื่องคนอื่น" width="800" height="480" loading="lazy"><figcaption><a href="examples/05_value_leaves_the_board.py"><code>05_value_leaves_the_board.py</code></a> ค่าที่วัดได้บนโต๊ะนี้ ไปโผล่บนเครื่องคนอื่น</figcaption></figure>
+<figure><img src="img/screens/06_command_comes_back.webp" alt="จอของ examples/06_command_comes_back.py ขณะรันใน BENTO Emulator: คนอื่นพิมพ์คำสั่งจากที่ไกล แล้วไฟบนโต๊ะเราติด" width="800" height="480" loading="lazy"><figcaption><a href="examples/06_command_comes_back.py"><code>06_command_comes_back.py</code></a> คนอื่นพิมพ์คำสั่งจากที่ไกล แล้วไฟบนโต๊ะเราติด</figcaption></figure>
+<figure><img src="img/screens/07_platform_in_one_call.webp" alt="จอของ examples/07_platform_in_one_call.py ขณะรันใน BENTO Emulator: บอร์ดจำได้เองว่าจะต่อไปที่ไหน แม้ถอดไฟแล้วเสียบใหม่" width="800" height="480" loading="lazy"><figcaption><a href="examples/07_platform_in_one_call.py"><code>07_platform_in_one_call.py</code></a> บอร์ดจำได้เองว่าจะต่อไปที่ไหน แม้ถอดไฟแล้วเสียบใหม่</figcaption></figure>
+</div>
 
 ## เช็กความเข้าใจ
 

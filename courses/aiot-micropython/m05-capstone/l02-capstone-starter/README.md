@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: prog.state-machines, to: 2}, {skill: gui.hmi, to: 2}, {skill: proto.mqtt, to: 2}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-12.html (slides 22–34), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -105,6 +105,16 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 - [m03-sensor-hmi/l08-dashboard-build/examples/02_mic_sound_level_meter.py](../../m03-sensor-hmi/l08-dashboard-build/examples/02_mic_sound_level_meter.py) — เครื่องวัดระดับเสียงในห้อง
 - [m05-capstone/l03-build-and-present/practice/s12_capstone_starter.py](../l03-build-and-present/practice/s12_capstone_starter.py) — โครงเริ่มต้นของ mini-product: Sense -> Decide -> Show -> Send
 - [shared/usecase/02_heartbeat_liveness.py](../../shared/usecase/02_heartbeat_liveness.py) — ไฟหัวใจเต้น บอกว่าลูปยังไม่ตาย
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/01_state_machine.webp" alt="จอของ examples/01_state_machine.py ขณะรันใน BENTO Emulator: สามสถานะ และเส้นแบ่งที่ต้องตัดสินใจไว้ล่วงหน้า" width="800" height="480" loading="lazy"><figcaption><a href="examples/01_state_machine.py"><code>01_state_machine.py</code></a> สามสถานะ และเส้นแบ่งที่ต้องตัดสินใจไว้ล่วงหน้า</figcaption></figure>
+<figure><img src="img/screens/02_confirm_n.webp" alt="จอของ examples/02_confirm_n.py ขณะรันใน BENTO Emulator: ต้องเห็นติดกันกี่รอบถึงจะเชื่อ" width="800" height="480" loading="lazy"><figcaption><a href="examples/02_confirm_n.py"><code>02_confirm_n.py</code></a> ต้องเห็นติดกันกี่รอบถึงจะเชื่อ</figcaption></figure>
+<figure><img src="img/screens/03_reconnect_backoff.webp" alt="จอของ examples/03_reconnect_backoff.py ขณะรันใน BENTO Emulator: ต่อใหม่แบบถอยห่างขึ้นเรื่อย ๆ ไม่ใช่รัวติดกัน" width="800" height="480" loading="lazy"><figcaption><a href="examples/03_reconnect_backoff.py"><code>03_reconnect_backoff.py</code></a> ต่อใหม่แบบถอยห่างขึ้นเรื่อย ๆ ไม่ใช่รัวติดกัน</figcaption></figure>
+<figure><img src="img/screens/04_heartbeat_and_alert.webp" alt="จอของ examples/04_heartbeat_and_alert.py ขณะรันใน BENTO Emulator: ข้อความสองชนิด สองจังหวะ คนละหน้าที่" width="800" height="480" loading="lazy"><figcaption><a href="examples/04_heartbeat_and_alert.py"><code>04_heartbeat_and_alert.py</code></a> ข้อความสองชนิด สองจังหวะ คนละหน้าที่</figcaption></figure>
+<figure><img src="img/screens/05_hmi_survives_offline.webp" alt="จอของ examples/05_hmi_survives_offline.py ขณะรันใน BENTO Emulator: เน็ตหลุดแล้วจอต้องยังทำงาน" width="800" height="480" loading="lazy"><figcaption><a href="examples/05_hmi_survives_offline.py"><code>05_hmi_survives_offline.py</code></a> เน็ตหลุดแล้วจอต้องยังทำงาน</figcaption></figure>
+</div>
 
 ## เช็กความเข้าใจ
 

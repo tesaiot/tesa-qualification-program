@@ -16,7 +16,7 @@ develops: [{skill: gui.embedded, to: 2}, {skill: gui.hmi, to: 1}, {skill: prog.d
 assesses: [{skill: gui.embedded, level: 1, evidence: practice/s04b_layout_widgets.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-04.html (slides 15–35), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -109,6 +109,17 @@ Tabview สูง 336 ไม่ใช่ 398 เพราะมุมขวา�
 สไลด์ของบทเรียนนี้อ้างถึงไฟล์ที่อยู่ในบทเรียนอื่นด้วย:
 
 - [m02-ui-to-hardware/l06-touch-panel-lab/practice/s04_touch_panel.py](../l06-touch-panel-lab/practice/s04_touch_panel.py) — แผงควบคุม LED บนจอสัมผัส (ฉบับฝึกเติมโค้ด)
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/01_first_widgets.webp" alt="จอของ examples/01_first_widgets.py ขณะรันใน BENTO Emulator: widget ตัวแรก และเหตุผลที่ต้องใส่ x กับ y ทุกครั้ง" width="800" height="480" loading="lazy"><figcaption><a href="examples/01_first_widgets.py"><code>01_first_widgets.py</code></a> widget ตัวแรก และเหตุผลที่ต้องใส่ x กับ y ทุกครั้ง</figcaption></figure>
+<figure><img src="img/screens/02_event_types.webp" alt="จอของ examples/02_event_types.py ขณะรันใน BENTO Emulator: เหตุการณ์หน้าตาเป็นอย่างไร และใครส่งอะไร" width="800" height="480" loading="lazy"><figcaption><a href="examples/02_event_types.py"><code>02_event_types.py</code></a> เหตุการณ์หน้าตาเป็นอย่างไร และใครส่งอะไร</figcaption></figure>
+<figure><img src="img/screens/03_switch_matches_led.webp" alt="จอของ examples/03_switch_matches_led.py ขณะรันใน BENTO Emulator: จอกับไฟจริงต้องพูดตรงกันเสมอ" width="800" height="480" loading="lazy"><figcaption><a href="examples/03_switch_matches_led.py"><code>03_switch_matches_led.py</code></a> จอกับไฟจริงต้องพูดตรงกันเสมอ</figcaption></figure>
+<figure><img src="img/screens/04_seg7_takes_text.webp" alt="จอของ examples/04_seg7_takes_text.py ขณะรันใน BENTO Emulator: Seg7 รับได้ทั้งสองทาง แต่ให้ผลไม่เท่ากัน" width="800" height="480" loading="lazy"><figcaption><a href="examples/04_seg7_takes_text.py"><code>04_seg7_takes_text.py</code></a> Seg7 รับได้ทั้งสองทาง แต่ให้ผลไม่เท่ากัน</figcaption></figure>
+<figure><img src="img/screens/05_sound_feedback.webp" alt="จอของ examples/05_sound_feedback.py ขณะรันใน BENTO Emulator: เสียงตอบรับตอนแตะปุ่ม" width="800" height="480" loading="lazy"><figcaption><a href="examples/05_sound_feedback.py"><code>05_sound_feedback.py</code></a> เสียงตอบรับตอนแตะปุ่ม</figcaption></figure>
+<figure><img src="img/screens/06_layout_budget.webp" alt="จอของ examples/06_layout_budget.py ขณะรันใน BENTO Emulator: พื้นที่ 792x398 กับงบ widget: งบของคอร์ส 32 ตัว (เพดานเฟิร์มแวร์ 64)" width="800" height="480" loading="lazy"><figcaption><a href="examples/06_layout_budget.py"><code>06_layout_budget.py</code></a> พื้นที่ 792x398 กับงบ widget: งบของคอร์ส 32 ตัว (เพดานเฟิร์มแวร์ 64)</figcaption></figure>
+</div>
 
 ## ฝึกเติม
 

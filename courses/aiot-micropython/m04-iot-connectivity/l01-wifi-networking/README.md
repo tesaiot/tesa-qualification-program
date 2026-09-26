@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: proto.wifi, to: 2}, {skill: proto.tcp-ip, to: 1}, {skill: hw.math, to: 1}, {skill: soft.problem-solving, to: 1}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-09.html (slides 1–16), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---

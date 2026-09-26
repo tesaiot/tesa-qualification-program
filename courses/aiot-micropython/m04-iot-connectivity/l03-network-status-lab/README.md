@@ -16,7 +16,7 @@ develops: [{skill: proto.wifi, to: 2}, {skill: gui.embedded, to: 2}, {skill: pro
 assesses: [{skill: proto.wifi, level: 2, evidence: practice/s09_network_status.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-09.html (slides 29–49), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -110,6 +110,20 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 - [m02-ui-to-hardware/l06-touch-panel-lab/examples/09_scale_led_spinbox.py](../../m02-ui-to-hardware/l06-touch-panel-lab/examples/09_scale_led_spinbox.py) — สาม widget ที่แยกหน้าจอ HMI ออกจากหน้าจอเล่น ๆ
 - [m04-iot-connectivity/l02-network-status-code/examples/08_softap_fallback.py](../l02-network-status-code/examples/08_softap_fallback.py) — ถ้าหาวงที่ตั้งไว้ไม่เจอ บอร์ดปล่อยวงของตัวเองได้
 - [m05-capstone/l02-capstone-starter/examples/03_reconnect_backoff.py](../../m05-capstone/l02-capstone-starter/examples/03_reconnect_backoff.py) — ต่อใหม่แบบถอยห่างขึ้นเรื่อย ๆ ไม่ใช่รัวติดกัน
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/01_scan_tuples.webp" alt="จอของ examples/01_scan_tuples.py ขณะรันใน BENTO Emulator: ผลของ wifi.scan() หน้าตาเป็นอย่างไร" width="800" height="480" loading="lazy"><figcaption><a href="examples/01_scan_tuples.py"><code>01_scan_tuples.py</code></a> ผลของ wifi.scan() หน้าตาเป็นอย่างไร</figcaption></figure>
+<figure><img src="img/screens/02_rank_by_rssi.webp" alt="จอของ examples/02_rank_by_rssi.py ขณะรันใน BENTO Emulator: เรียงวงจากแรงไปอ่อน แล้วแปลง dBm ให้คนอ่านออก" width="800" height="480" loading="lazy"><figcaption><a href="examples/02_rank_by_rssi.py"><code>02_rank_by_rssi.py</code></a> เรียงวงจากแรงไปอ่อน แล้วแปลง dBm ให้คนอ่านออก</figcaption></figure>
+<figure><img src="img/screens/03_connect_says_first.webp" alt="จอของ examples/03_connect_says_first.py ขณะรันใน BENTO Emulator: บอกก่อนแล้วค่อยรอ เพราะ connect() บล็อก" width="800" height="480" loading="lazy"><figcaption><a href="examples/03_connect_says_first.py"><code>03_connect_says_first.py</code></a> บอกก่อนแล้วค่อยรอ เพราะ connect() บล็อก</figcaption></figure>
+<figure><img src="img/screens/04_ping_two_targets.webp" alt="จอของ examples/04_ping_two_targets.py ขณะรันใน BENTO Emulator: เกตเวย์ตอบ แต่อินเทอร์เน็ตไม่ตอบ แปลว่าอะไร" width="800" height="480" loading="lazy"><figcaption><a href="examples/04_ping_two_targets.py"><code>04_ping_two_targets.py</code></a> เกตเวย์ตอบ แต่อินเทอร์เน็ตไม่ตอบ แปลว่าอะไร</figcaption></figure>
+<figure><img src="img/screens/05_status_dict.webp" alt="จอของ examples/05_status_dict.py ขณะรันใน BENTO Emulator: อ่านสถานะครั้งเดียว แล้วใช้ค่าชุดนั้นทั้งรอบ" width="800" height="480" loading="lazy"><figcaption><a href="examples/05_status_dict.py"><code>05_status_dict.py</code></a> อ่านสถานะครั้งเดียว แล้วใช้ค่าชุดนั้นทั้งรอบ</figcaption></figure>
+<figure><img src="img/screens/06_link_panel_hmi.webp" alt="จอของ examples/06_link_panel_hmi.py ขณะรันใน BENTO Emulator: หน้าจอสถานะลิงก์ ที่ทุกตัวเลขบนจอวัดมาจริง" width="800" height="480" loading="lazy"><figcaption><a href="examples/06_link_panel_hmi.py"><code>06_link_panel_hmi.py</code></a> หน้าจอสถานะลิงก์ ที่ทุกตัวเลขบนจอวัดมาจริง</figcaption></figure>
+<figure><img src="img/screens/09_link_gates_a_real_reading.webp" alt="จอของ examples/09_link_gates_a_real_reading.py ขณะรันใน BENTO Emulator: ค่าจริงรออยู่ ลิงก์เป็นคนบอกว่าไปได้หรือยัง" width="800" height="480" loading="lazy"><figcaption><a href="examples/09_link_gates_a_real_reading.py"><code>09_link_gates_a_real_reading.py</code></a> ค่าจริงรออยู่ ลิงก์เป็นคนบอกว่าไปได้หรือยัง</figcaption></figure>
+<figure><img src="img/screens/10_keyboard_types_the_password.webp" alt="จอของ examples/10_keyboard_types_the_password.py ขณะรันใน BENTO Emulator: รหัสผ่านควรพิมพ์บนจอ ไม่ใช่ฝังในโค้ด" width="800" height="480" loading="lazy"><figcaption><a href="examples/10_keyboard_types_the_password.py"><code>10_keyboard_types_the_password.py</code></a> รหัสผ่านควรพิมพ์บนจอ ไม่ใช่ฝังในโค้ด</figcaption></figure>
+<figure><img src="img/screens/11_two_fields_one_keyboard.webp" alt="จอของ examples/11_two_fields_one_keyboard.py ขณะรันใน BENTO Emulator: ฟอร์มสองช่อง แป้นพิมพ์เดียว และการอ่านค่ากลับ" width="800" height="480" loading="lazy"><figcaption><a href="examples/11_two_fields_one_keyboard.py"><code>11_two_fields_one_keyboard.py</code></a> ฟอร์มสองช่อง แป้นพิมพ์เดียว และการอ่านค่ากลับ</figcaption></figure>
+</div>
 
 ## ฝึกเติม
 

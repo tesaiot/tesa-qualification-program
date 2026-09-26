@@ -16,7 +16,7 @@ develops: [{skill: gui.hmi, to: 2}, {skill: gui.embedded, to: 2}, {skill: sys.se
 assesses: [{skill: gui.hmi, level: 2, evidence: practice/s08_dashboard.py}, {skill: gui.embedded, level: 2, evidence: practice/s08_dashboard.py}, {skill: sys.sensors-actuators, level: 2, evidence: practice/s08_dashboard.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-08.html (slides 32–50), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -102,6 +102,16 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 - [shared/usecase/01_andon_severity_lamp.py](../../shared/usecase/01_andon_severity_lamp.py) — เสาไฟสถานะแบบโรงงาน (andon light)
 - [shared/usecase/05_short_long_press.py](../../shared/usecase/05_short_long_press.py) — ปุ่มเดียว สองความหมาย
 - [shared/usecase/14_hard_iron_calibration.py](../../shared/usecase/14_hard_iron_calibration.py) — การคาลิเบรตเข็มทิศ เป็นสิ่งที่วัดได้
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/03_mic_clap_trigger.webp" alt="จอของ examples/03_mic_clap_trigger.py ขณะรันใน BENTO Emulator: ตบมือแล้วไฟสลับ" width="800" height="480" loading="lazy"><figcaption><a href="examples/03_mic_clap_trigger.py"><code>03_mic_clap_trigger.py</code></a> ตบมือแล้วไฟสลับ</figcaption></figure>
+<figure><img src="img/screens/05_door_open_switch.webp" alt="จอของ examples/05_door_open_switch.py ขณะรันใน BENTO Emulator: สวิตช์แม่เหล็กบอกว่าประตูเปิดหรือปิด" width="800" height="480" loading="lazy"><figcaption><a href="examples/05_door_open_switch.py"><code>05_door_open_switch.py</code></a> สวิตช์แม่เหล็กบอกว่าประตูเปิดหรือปิด</figcaption></figure>
+<figure><img src="img/screens/06_compass_readout.webp" alt="จอของ examples/06_compass_readout.py ขณะรันใน BENTO Emulator: เข็มทิศที่ใช้งานได้จริง พร้อมตัวเลของศา" width="800" height="480" loading="lazy"><figcaption><a href="examples/06_compass_readout.py"><code>06_compass_readout.py</code></a> เข็มทิศที่ใช้งานได้จริง พร้อมตัวเลของศา</figcaption></figure>
+<figure><img src="img/screens/07_mic_window_stats.webp" alt="จอของ examples/07_mic_window_stats.py ขณะรันใน BENTO Emulator: รูปคลื่นดิบ สามค่าจากหน้าต่างเดียว และคิวที่ค้างอยู่" width="800" height="480" loading="lazy"><figcaption><a href="examples/07_mic_window_stats.py"><code>07_mic_window_stats.py</code></a> รูปคลื่นดิบ สามค่าจากหน้าต่างเดียว และคิวที่ค้างอยู่</figcaption></figure>
+<figure><img src="img/screens/08_win_titled_card.webp" alt="จอของ examples/08_win_titled_card.py ขณะรันใน BENTO Emulator: การ์ดที่มีชื่อกำกับมาในตัว และหัวเรื่องที่แก้ไม่ได้" width="800" height="480" loading="lazy"><figcaption><a href="examples/08_win_titled_card.py"><code>08_win_titled_card.py</code></a> การ์ดที่มีชื่อกำกับมาในตัว และหัวเรื่องที่แก้ไม่ได้</figcaption></figure>
+</div>
 
 ## ฝึกเติม
 

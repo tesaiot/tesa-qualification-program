@@ -16,7 +16,7 @@ develops: [{skill: gui.embedded, to: 2}, {skill: sys.sensors-actuators, to: 2}, 
 assesses: [{skill: gui.embedded, level: 2, evidence: practice/s07_accel_chart.py}, {skill: sys.sensors-actuators, level: 2, evidence: practice/s07_accel_chart.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-07.html (slides 33–45), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -99,6 +99,12 @@ BENTO Playground บนจอบอร์ดค้างไว้ แล้ว�
 - [m03-sensor-hmi/l04-sampling/examples/03_aliasing_nyquist.py](../l04-sampling/examples/03_aliasing_nyquist.py) — สุ่มช้าเกินไป แล้วได้ความถี่ที่ไม่เคยมีอยู่จริง
 - [m03-sensor-hmi/l05-realtime-chart/examples/02_fft64_two_tones.py](../l05-realtime-chart/examples/02_fft64_two_tones.py) — FFT radix-2 เขียนเองทั้งตัว 64 จุด
 - [shared/lvgl_ports/sec3_sensor_viz/eva/ex16_spectrum_analyzer.py](../../shared/lvgl_ports/sec3_sensor_viz/eva/ex16_spectrum_analyzer.py)
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/01_imu_vibration_monitor.webp" alt="จอของ examples/01_imu_vibration_monitor.py ขณะรันใน BENTO Emulator: เฝ้าการสั่นของเครื่องจักร" width="800" height="480" loading="lazy"><figcaption><a href="examples/01_imu_vibration_monitor.py"><code>01_imu_vibration_monitor.py</code></a> เฝ้าการสั่นของเครื่องจักร</figcaption></figure>
+</div>
 
 ## ฝึกเติม
 

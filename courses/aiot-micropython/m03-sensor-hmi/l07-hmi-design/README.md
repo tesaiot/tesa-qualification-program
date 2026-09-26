@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: gui.hmi, to: 2}, {skill: gui.embedded, to: 2}, {skill: prog.memory, to: 1}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-08.html (slides 1–17), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---

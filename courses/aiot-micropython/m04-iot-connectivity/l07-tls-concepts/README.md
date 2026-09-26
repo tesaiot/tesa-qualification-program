@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: sec.tls, to: 2}, {skill: sec.fundamentals, to: 2}, {skill: sec.crypto, to: 1}, {skill: proto.tcp-ip, to: 1}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-11.html (slides 1–18), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---

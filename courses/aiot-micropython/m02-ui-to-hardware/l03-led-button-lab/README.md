@@ -16,7 +16,7 @@ develops: [{skill: mcu.gpio, to: 2}, {skill: prog.state-machines, to: 2}, {skill
 assesses: [{skill: mcu.gpio, level: 2, evidence: practice/s03_led_button.py}, {skill: prog.state-machines, level: 2, evidence: practice/s03_led_button.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-03.html (slides 28–52), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -96,6 +96,13 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 - [shared/web/class_game.html](../../shared/web/class_game.html) — เกมกดเร็วทั้งห้อง
 - [shared/web/mqtt_dashboard.html](../../shared/web/mqtt_dashboard.html) — แดชบอร์ดทั้งห้อง
 - [shared/web/my_first_reader.html](../../shared/web/my_first_reader.html) — อ่านค่าจากบอร์ด
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/07_button_to_broker.webp" alt="จอของ examples/07_button_to_broker.py ขณะรันใน BENTO Emulator: ปุ่มกับไฟบนโต๊ะเรา ขึ้นไปอยู่บน broker ให้หน้าเว็บอ่านได้" width="800" height="480" loading="lazy"><figcaption><a href="examples/07_button_to_broker.py"><code>07_button_to_broker.py</code></a> ปุ่มกับไฟบนโต๊ะเรา ขึ้นไปอยู่บน broker ให้หน้าเว็บอ่านได้</figcaption></figure>
+<figure><img src="img/screens/08_class_race.webp" alt="จอของ examples/08_class_race.py ขณะรันใน BENTO Emulator: เกมกดเร็วทั้งห้อง ผู้สอนกดเริ่มรอบ บอร์ดทุกทีมจับเวลาเอง" width="800" height="480" loading="lazy"><figcaption><a href="examples/08_class_race.py"><code>08_class_race.py</code></a> เกมกดเร็วทั้งห้อง ผู้สอนกดเริ่มรอบ บอร์ดทุกทีมจับเวลาเอง</figcaption></figure>
+</div>
 
 ## ฝึกเติม
 

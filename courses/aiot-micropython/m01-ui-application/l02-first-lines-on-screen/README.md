@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: gui.embedded, to: 2}, {skill: lang.micropython, to: 2}, {skill: mcu.timers, to: 1}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-01.html (slides 8–22), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -93,6 +93,20 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 | [examples/07_ticks_and_beat.py](examples/07_ticks_and_beat.py) | ลูปที่สั่ง sleep เท่าเดิมทุกรอบ ไม่ได้เดินตรงเวลา |
 | [examples/08_status_screen.py](examples/08_status_screen.py) | จอสถานะหนึ่งใบ ที่สามโมดูลแบ่งงานกันทำ |
 | [examples/09_your_level_rule.py](examples/09_your_level_rule.py) | ไฟล์นี้รันได้ แต่ยังตอบผิดทุกข้อ งานของคุณคือทำให้มันถูก |
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/01_first_line.webp" alt="จอของ examples/01_first_line.py ขณะรันใน BENTO Emulator: บรรทัดแรกที่ขึ้นจอบอร์ด" width="800" height="480" loading="lazy"><figcaption><a href="examples/01_first_line.py"><code>01_first_line.py</code></a> บรรทัดแรกที่ขึ้นจอบอร์ด</figcaption></figure>
+<figure><img src="img/screens/02_markup_tags.webp" alt="จอของ examples/02_markup_tags.py ขณะรันใน BENTO Emulator: ทำให้บรรทัดที่ต้องรีบอ่าน เด่นออกมาจากบรรทัดอื่น" width="800" height="480" loading="lazy"><figcaption><a href="examples/02_markup_tags.py"><code>02_markup_tags.py</code></a> ทำให้บรรทัดที่ต้องรีบอ่าน เด่นออกมาจากบรรทัดอื่น</figcaption></figure>
+<figure><img src="img/screens/03_byte_limit.webp" alt="จอของ examples/03_byte_limit.py ขณะรันใน BENTO Emulator: ข้อความยาวเกิน 127 ไบต์ จะถูกตัดหายเงียบ ๆ" width="800" height="480" loading="lazy"><figcaption><a href="examples/03_byte_limit.py"><code>03_byte_limit.py</code></a> ข้อความยาวเกิน 127 ไบต์ จะถูกตัดหายเงียบ ๆ</figcaption></figure>
+<figure><img src="img/screens/04_console_drawer.webp" alt="จอของ examples/04_console_drawer.py ขณะรันใน BENTO Emulator: ลิ้นชัก Console กับการ์ดสรุปที่ไม่ต้องเปิดลิ้นชัก" width="800" height="480" loading="lazy"><figcaption><a href="examples/04_console_drawer.py"><code>04_console_drawer.py</code></a> ลิ้นชัก Console กับการ์ดสรุปที่ไม่ต้องเปิดลิ้นชัก</figcaption></figure>
+<figure><img src="img/screens/05_clear_and_refresh.webp" alt="จอของ examples/05_clear_and_refresh.py ขณะรันใน BENTO Emulator: อัปเดตซ้ำที่เดิม ต่างจากไล่พิมพ์ลงมา" width="800" height="480" loading="lazy"><figcaption><a href="examples/05_clear_and_refresh.py"><code>05_clear_and_refresh.py</code></a> อัปเดตซ้ำที่เดิม ต่างจากไล่พิมพ์ลงมา</figcaption></figure>
+<figure><img src="img/screens/06_safe_print.webp" alt="จอของ examples/06_safe_print.py ขณะรันใน BENTO Emulator: ฟังก์ชันช่วยพิมพ์ที่ไม่มีวันโดนตัดเงียบ" width="800" height="480" loading="lazy"><figcaption><a href="examples/06_safe_print.py"><code>06_safe_print.py</code></a> ฟังก์ชันช่วยพิมพ์ที่ไม่มีวันโดนตัดเงียบ</figcaption></figure>
+<figure><img src="img/screens/07_ticks_and_beat.webp" alt="จอของ examples/07_ticks_and_beat.py ขณะรันใน BENTO Emulator: ลูปที่สั่ง sleep เท่าเดิมทุกรอบ ไม่ได้เดินตรงเวลา" width="800" height="480" loading="lazy"><figcaption><a href="examples/07_ticks_and_beat.py"><code>07_ticks_and_beat.py</code></a> ลูปที่สั่ง sleep เท่าเดิมทุกรอบ ไม่ได้เดินตรงเวลา</figcaption></figure>
+<figure><img src="img/screens/08_status_screen.webp" alt="จอของ examples/08_status_screen.py ขณะรันใน BENTO Emulator: จอสถานะหนึ่งใบ ที่สามโมดูลแบ่งงานกันทำ" width="800" height="480" loading="lazy"><figcaption><a href="examples/08_status_screen.py"><code>08_status_screen.py</code></a> จอสถานะหนึ่งใบ ที่สามโมดูลแบ่งงานกันทำ</figcaption></figure>
+<figure><img src="img/screens/09_your_level_rule.webp" alt="จอของ examples/09_your_level_rule.py ขณะรันใน BENTO Emulator: ไฟล์นี้รันได้ แต่ยังตอบผิดทุกข้อ งานของคุณคือทำให้มันถูก" width="800" height="480" loading="lazy"><figcaption><a href="examples/09_your_level_rule.py"><code>09_your_level_rule.py</code></a> ไฟล์นี้รันได้ แต่ยังตอบผิดทุกข้อ งานของคุณคือทำให้มันถูก</figcaption></figure>
+</div>
 
 ## เช็กความเข้าใจ
 

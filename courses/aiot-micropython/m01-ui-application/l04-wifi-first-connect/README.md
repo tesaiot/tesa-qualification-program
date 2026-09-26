@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: proto.wifi, to: 2}, {skill: iot.fundamentals, to: 1}, {skill: soft.problem-solving, to: 1}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-02.html (slides 1–13), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -99,6 +99,14 @@ WiFi ขององค์กรต้อง login ผ่านหน้าเ�
 - [m01-ui-application/l05-values-out-commands-back/examples/06_command_comes_back.py](../l05-values-out-commands-back/examples/06_command_comes_back.py) — คนอื่นพิมพ์คำสั่งจากที่ไกล แล้วไฟบนโต๊ะเราติด
 - [m04-iot-connectivity/l03-network-status-lab/examples/04_ping_two_targets.py](../../m04-iot-connectivity/l03-network-status-lab/examples/04_ping_two_targets.py) — เกตเวย์ตอบ แต่อินเทอร์เน็ตไม่ตอบ แปลว่าอะไร
 - [shared/web/my_first_reader.html](../../shared/web/my_first_reader.html) — อ่านค่าจากบอร์ด
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/01_wifi_first_connect.webp" alt="จอของ examples/01_wifi_first_connect.py ขณะรันใน BENTO Emulator: พาบอร์ดออกเน็ตครั้งแรก แล้วอ่านเลขที่อยู่ของมัน" width="800" height="480" loading="lazy"><figcaption><a href="examples/01_wifi_first_connect.py"><code>01_wifi_first_connect.py</code></a> พาบอร์ดออกเน็ตครั้งแรก แล้วอ่านเลขที่อยู่ของมัน</figcaption></figure>
+<figure><img src="img/screens/02_link_uptime.webp" alt="จอของ examples/02_link_uptime.py ขณะรันใน BENTO Emulator: ต่อติดแล้ว กับยังต่ออยู่ ไม่ใช่คำถามเดียวกัน" width="800" height="480" loading="lazy"><figcaption><a href="examples/02_link_uptime.py"><code>02_link_uptime.py</code></a> ต่อติดแล้ว กับยังต่ออยู่ ไม่ใช่คำถามเดียวกัน</figcaption></figure>
+<figure><img src="img/screens/04_scan_the_room.webp" alt="จอของ examples/04_scan_the_room.py ขณะรันใน BENTO Emulator: ให้บอร์ดฟังคลื่นทั้งห้อง แล้วบอกว่าใครอยู่ตรงไหนบ้าง" width="800" height="480" loading="lazy"><figcaption><a href="examples/04_scan_the_room.py"><code>04_scan_the_room.py</code></a> ให้บอร์ดฟังคลื่นทั้งห้อง แล้วบอกว่าใครอยู่ตรงไหนบ้าง</figcaption></figure>
+</div>
 
 ## เช็กความเข้าใจ
 

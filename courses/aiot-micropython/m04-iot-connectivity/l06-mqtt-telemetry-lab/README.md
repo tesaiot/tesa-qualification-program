@@ -16,7 +16,7 @@ develops: [{skill: proto.mqtt, to: 2}, {skill: iot.cloud-platform, to: 2}, {skil
 assesses: [{skill: proto.mqtt, level: 2, evidence: practice/s10_mqtt_telemetry.py}, {skill: iot.cloud-platform, level: 2, evidence: practice/s10_mqtt_telemetry.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-10.html (slides 28–44), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -80,6 +80,12 @@ IP ของเครื่องที่รัน CE และ MQTT Explorer �
 | ไฟล์ | ไฟล์นี้สอน |
 |---|---|
 | [examples/08_real_sensor_leaves_the_board.py](examples/08_real_sensor_leaves_the_board.py) | ค่าที่วัดได้จริงบนโต๊ะนี้ ออกไปหาคนอื่น |
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/08_real_sensor_leaves_the_board.webp" alt="จอของ examples/08_real_sensor_leaves_the_board.py ขณะรันใน BENTO Emulator: ค่าที่วัดได้จริงบนโต๊ะนี้ ออกไปหาคนอื่น" width="800" height="480" loading="lazy"><figcaption><a href="examples/08_real_sensor_leaves_the_board.py"><code>08_real_sensor_leaves_the_board.py</code></a> ค่าที่วัดได้จริงบนโต๊ะนี้ ออกไปหาคนอื่น</figcaption></figure>
+</div>
 
 ## ฝึกเติม
 

@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: proto.mqtt, to: 2}, {skill: iot.fundamentals, to: 2}, {skill: iot.cloud-platform, to: 1}, {skill: hw.architecture, to: 1}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-10.html (slides 1–15), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---

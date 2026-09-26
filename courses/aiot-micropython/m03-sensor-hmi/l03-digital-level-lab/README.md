@@ -16,7 +16,7 @@ develops: [{skill: sys.sensors-actuators, to: 2}, {skill: gui.hmi, to: 2}, {skil
 assesses: [{skill: sys.sensors-actuators, level: 2, evidence: practice/s06_digital_level.py}, {skill: gui.hmi, level: 2, evidence: practice/s06_digital_level.py}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-06.html (slides 33–46), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -100,6 +100,14 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 - [m03-sensor-hmi/l02-gyro-fusion/examples/04_compass_and_magnetometer.py](../l02-gyro-fusion/examples/04_compass_and_magnetometer.py) — เข็มทิศบนบอร์ด และตัวเลขหนึ่งตัวที่ยังไม่มีใครตอบได้
 - [m03-sensor-hmi/l02-gyro-fusion/examples/05_madgwick_and_pedometer.py](../l02-gyro-fusion/examples/05_madgwick_and_pedometer.py) — สองคลาส IMU ที่เหลือใน dsp และหน่วยที่ดักไว้ทั้งคู่
 - [m03-sensor-hmi/l06-accel-chart-lab/examples/01_imu_vibration_monitor.py](../l06-accel-chart-lab/examples/01_imu_vibration_monitor.py) — เฝ้าการสั่นของเครื่องจักร
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/01_imu_step_counter.webp" alt="จอของ examples/01_imu_step_counter.py ขณะรันใน BENTO Emulator: นับก้าวจากความเร่ง" width="800" height="480" loading="lazy"><figcaption><a href="examples/01_imu_step_counter.py"><code>01_imu_step_counter.py</code></a> นับก้าวจากความเร่ง</figcaption></figure>
+<figure><img src="img/screens/02_imu_fall_detection.webp" alt="จอของ examples/02_imu_fall_detection.py ขณะรันใน BENTO Emulator: ตรวจการล้มด้วยลำดับสองเหตุการณ์" width="800" height="480" loading="lazy"><figcaption><a href="examples/02_imu_fall_detection.py"><code>02_imu_fall_detection.py</code></a> ตรวจการล้มด้วยลำดับสองเหตุการณ์</figcaption></figure>
+<figure><img src="img/screens/03_tilt_from_gravity.webp" alt="จอของ examples/03_tilt_from_gravity.py ขณะรันใน BENTO Emulator: dsp.tilt() ทำอะไรกับสามตัวเลข และทำไมลำดับถึงสำคัญ" width="800" height="480" loading="lazy"><figcaption><a href="examples/03_tilt_from_gravity.py"><code>03_tilt_from_gravity.py</code></a> dsp.tilt() ทำอะไรกับสามตัวเลข และทำไมลำดับถึงสำคัญ</figcaption></figure>
+</div>
 
 ## ฝึกเติม
 

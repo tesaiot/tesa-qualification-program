@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: gui.embedded, to: 2}, {skill: gui.hmi, to: 2}, {skill: lang.micropython, to: 2}, {skill: sys.dsp, to: 1}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-07.html (slides 15–32), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -110,6 +110,12 @@ X ฟ้า `0x4A9EFF` · Y ม่วง `0x8E7BFF` · Z เขียวน้�
 - [m03-sensor-hmi/l06-accel-chart-lab/practice/s07_accel_chart.py](../l06-accel-chart-lab/practice/s07_accel_chart.py) — กราฟความเร่งสามแกนแบบสด + ตารางสรุปสามแกน (ฉบับฝึกเติมโค้ด)
 - [m03-sensor-hmi/l06-accel-chart-lab/solution/s07_accel_chart.py](../l06-accel-chart-lab/solution/s07_accel_chart.py) — กราฟความเร่งสามแกนแบบสด + ตารางสรุปสามแกน
 - [m03-sensor-hmi/l09-dashboard-lab/examples/05_door_open_switch.py](../l09-dashboard-lab/examples/05_door_open_switch.py) — สวิตช์แม่เหล็กบอกว่าประตูเปิดหรือปิด
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/02_fft64_two_tones.webp" alt="จอของ examples/02_fft64_two_tones.py ขณะรันใน BENTO Emulator: FFT radix-2 เขียนเองทั้งตัว 64 จุด" width="800" height="480" loading="lazy"><figcaption><a href="examples/02_fft64_two_tones.py"><code>02_fft64_two_tones.py</code></a> FFT radix-2 เขียนเองทั้งตัว 64 จุด</figcaption></figure>
+</div>
 
 ## เช็กความเข้าใจ
 

@@ -15,7 +15,7 @@ objectives:
 develops: [{skill: proto.wifi, to: 2}, {skill: lang.micropython, to: 2}, {skill: gui.embedded, to: 2}, {skill: soft.problem-solving, to: 1}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-09.html (slides 17–28), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -100,6 +100,13 @@ RSSI หนึ่งค่าเดินทางผ่านห้าจุด
 |---|---|
 | [examples/07_disconnect_rejoin.py](examples/07_disconnect_rejoin.py) | สร้างสถานะ "เน็ตหลุด" ขึ้นมาดูเองตามสั่ง |
 | [examples/08_softap_fallback.py](examples/08_softap_fallback.py) | ถ้าหาวงที่ตั้งไว้ไม่เจอ บอร์ดปล่อยวงของตัวเองได้ |
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/07_disconnect_rejoin.webp" alt="จอของ examples/07_disconnect_rejoin.py ขณะรันใน BENTO Emulator: สร้างสถานะ &quot;เน็ตหลุด&quot; ขึ้นมาดูเองตามสั่ง" width="800" height="480" loading="lazy"><figcaption><a href="examples/07_disconnect_rejoin.py"><code>07_disconnect_rejoin.py</code></a> สร้างสถานะ &quot;เน็ตหลุด&quot; ขึ้นมาดูเองตามสั่ง</figcaption></figure>
+<figure><img src="img/screens/08_softap_fallback.webp" alt="จอของ examples/08_softap_fallback.py ขณะรันใน BENTO Emulator: ถ้าหาวงที่ตั้งไว้ไม่เจอ บอร์ดปล่อยวงของตัวเองได้" width="800" height="480" loading="lazy"><figcaption><a href="examples/08_softap_fallback.py"><code>08_softap_fallback.py</code></a> ถ้าหาวงที่ตั้งไว้ไม่เจอ บอร์ดปล่อยวงของตัวเองได้</figcaption></figure>
+</div>
 
 ## เช็กความเข้าใจ
 

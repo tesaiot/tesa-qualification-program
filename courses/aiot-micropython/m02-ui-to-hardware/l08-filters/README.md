@@ -14,7 +14,7 @@ objectives:
 develops: [{skill: sys.dsp, to: 2}, {skill: gui.hmi, to: 2}, {skill: hw.math, to: 1}, {skill: sys.sensors-actuators, to: 2}]
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide}
 status: alpha
-translation: pending
+translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-05.html (slides 21–41), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
 ---
@@ -92,6 +92,13 @@ source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-system
 - [m01-ui-application/l03-inside-the-box/examples/13_raw_and_filtered.py](../../m01-ui-application/l03-inside-the-box/examples/13_raw_and_filtered.py) — เส้นดิบที่สั่น กับเส้นเดียวกันที่นิ่ง อยู่บนกราฟใบเดียว
 - [m02-ui-to-hardware/l06-touch-panel-lab/examples/09_scale_led_spinbox.py](../l06-touch-panel-lab/examples/09_scale_led_spinbox.py) — สาม widget ที่แยกหน้าจอ HMI ออกจากหน้าจอเล่น ๆ
 - [m02-ui-to-hardware/l09-pot-capsense-lab/practice/s05_pot_capsense.py](../l09-pot-capsense-lab/practice/s05_pot_capsense.py) — ลูกบิด + แถบสัมผัส + ฟิลเตอร์ EMA (ฉบับฝึกเติมโค้ด)
+
+**ภาพจอจาก BENTO Emulator** ของตัวอย่างในบทนี้ (คลิกชื่อไฟล์เพื่อเปิดโค้ด)
+
+<div class="tok-screens">
+<figure><img src="img/screens/06_ema_time_constant.webp" alt="จอของ examples/06_ema_time_constant.py ขณะรันใน BENTO Emulator: alpha ของ EMA แปลว่าอะไรในหน่วยเวลาจริง" width="800" height="480" loading="lazy"><figcaption><a href="examples/06_ema_time_constant.py"><code>06_ema_time_constant.py</code></a> alpha ของ EMA แปลว่าอะไรในหน่วยเวลาจริง</figcaption></figure>
+<figure><img src="img/screens/08_six_filters_one_signal.webp" alt="จอของ examples/08_six_filters_one_signal.py ขณะรันใน BENTO Emulator: ตัวกรองทั้งหกตัวของ dsp บนสัญญาณเส้นเดียวกัน" width="800" height="480" loading="lazy"><figcaption><a href="examples/08_six_filters_one_signal.py"><code>08_six_filters_one_signal.py</code></a> ตัวกรองทั้งหกตัวของ dsp บนสัญญาณเส้นเดียวกัน</figcaption></figure>
+</div>
 
 ## เช็กความเข้าใจ
 
