@@ -19,6 +19,7 @@ develops:
 context: {platform: psoc-edge-e84, lang: c, secure_element: optiga-trust-m, sdk: tesaiot-pse84-devkit-sdk}
 status: alpha
 translation: done
+slides: slides.md
 source:
 - {repo: 'https://github.com/tesaiot/tesaiot-pse84-devkit-sdk', path: bento-firmware-template-mtb-only/proj_cm33_ns/examples/security, ref: ef72c1b658178eee8c38b1e47d28b006f80a59b5, license: Apache-2.0}
 source_sha256: b05cd27af97d08cefdf4a3fea83335f6b9b5bc6c649bd2b93da7b3c05e9eb8d1

@@ -20,6 +20,7 @@ context:
   instruments: [multimeter, logic-analyzer, oscilloscope]
 status: alpha
 translation: done
+slides: slides.md
 ---
 
 ## เป้าหมาย

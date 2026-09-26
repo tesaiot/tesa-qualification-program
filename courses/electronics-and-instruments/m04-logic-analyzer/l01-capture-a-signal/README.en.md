@@ -21,6 +21,7 @@ context:
   instruments: [multimeter, logic-analyzer, oscilloscope]
 status: alpha
 translation: done
+slides: slides.md
 source_sha256: ef6d053edd152c43f76eccf2da203add9d76ea37d8c4856578236100af489a4b
 ---
 
