@@ -243,10 +243,10 @@ section blockquote { font-size: .78em; margin: .1em 0; }
 
 ![หน้าจอจาก BENTO Emulator ของ 15_one_number_many_faces.py ตัวเลขเดียวขับ widget ทุกตัวบนจอ w:540](img/emu/s01.png)
 
-<div style="font-size:.58em;color:#78909c;margin-top:-.3em">หน้าจอจริงจากการรัน <a href="https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m01-ui-application/l03-inside-the-box/examples/15_one_number_many_faces.py"><code>15_one_number_many_faces.py</code></a> บน BENTO Emulator ที่ 800x480 เท่าจอของทั้งสองบอร์ด — ไม่ใช่ภาพวาด ไม่ใช่ mock-up · <b>ภาพนี้เก่า</b> ถ่ายตอนไฟล์ยังพิมพ์ว่า "จาก 32" ปัจจุบันไฟล์พิมพ์ "จาก 64" แล้ว รอถ่ายใหม่</div>
+<div style="font-size:.58em;color:#78909c;margin-top:-.3em">หน้าจอจริงจากการรัน <a href="https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m01-ui-application/l03-inside-the-box/examples/15_one_number_many_faces.py"><code>15_one_number_many_faces.py</code></a> บน BENTO Emulator ที่ 800x480 เท่าจอของทั้งสองบอร์ด — ไม่ใช่ภาพวาด ไม่ใช่ mock-up</div>
 
-- **เลขตัวเดียว 76 ขับทุกอย่างบนจอพร้อมกัน** — Arc, Compass, Seg7, Bar, Slider, Switch, Checkbox, Chart, Spinner
-- มุมล่างเขียนว่า `ui.list() นับได้ 24 ตัว จาก 64` — บอร์ดนับ widget ของตัวเองได้ · 64 คือเพดานของเฟิร์มแวร์ ส่วนงบที่คอร์สตั้งให้ตัวเองคือ 32 ต่อหน้า (บทเรียน 2.4–2.6 อธิบายว่าทำไม)
+- **เลขตัวเดียวขับทุกอย่างบนจอพร้อมกัน** (ในภาพคือ 64) — Arc, Compass, Seg7, Bar, Slider, Switch, Checkbox, Chart, Spinner, Image
+- มุมล่างเขียนว่า `ui.list() นับได้ 23 ตัว จาก 64` — บอร์ดนับ widget ของตัวเองได้ · 64 คือเพดานของเฟิร์มแวร์ ส่วนงบที่คอร์สตั้งให้ตัวเองคือ 32 ต่อหน้า (บทเรียน 2.4–2.6 อธิบายว่าทำไม)
 - ปุ่ม "แตะฟังเสียง" มีจริง กดแล้วดัง — บน Eva Kit ดังจากลำโพงบนบอร์ด (Dev Kit: ฟังที่บอร์ดของทีม)
 
 > ทั้งหมดนี้เขียนด้วย Python บนบอร์ด ไม่มี LVGL ไม่มี C สักบรรทัด — และวันนี้ผู้เรียนจะได้เขียนเอง
