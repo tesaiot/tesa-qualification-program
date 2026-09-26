@@ -28,6 +28,7 @@ assesses:
 context: {audience: educator, licence: CC-BY-4.0}
 status: alpha
 translation: done
+slides: slides.md
 source_sha256: 7262dcb461f888eac90aa5d8cb2abf2a1811639088be2236e2d792438427838a
 ---
 

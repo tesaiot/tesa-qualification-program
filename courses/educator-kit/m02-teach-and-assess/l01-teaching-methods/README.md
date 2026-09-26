@@ -26,6 +26,7 @@ develops:
 context: {audience: educator, platform: psoc-edge-e84, emulator: bento-emulator}
 status: alpha
 translation: done
+slides: slides.md
 ---
 
 ## เป้าหมาย

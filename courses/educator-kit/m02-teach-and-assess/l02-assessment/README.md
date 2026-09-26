@@ -26,6 +26,7 @@ assesses:
 context: {audience: educator}
 status: alpha
 translation: done
+slides: slides.md
 ---
 
 ## เป้าหมาย

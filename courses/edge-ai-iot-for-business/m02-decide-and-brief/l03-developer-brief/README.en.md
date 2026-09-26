@@ -27,6 +27,7 @@ assesses:
 context: {audience: entrepreneur, lang: none, code: none, deliverable: decision canvas}
 status: alpha
 translation: done
+slides: slides.md
 source_sha256: bbd92273389fcad6a0b1fd7c6c1e1e4266ee3c9154a28e5a5232765521a6091d
 ---
 

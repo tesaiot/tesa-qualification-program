@@ -26,6 +26,7 @@ assesses:
 context: {audience: educator, frameworks: [TQF-2565, TPQI, IEA-GAPC-2021]}
 status: alpha
 translation: done
+slides: slides.md
 source_sha256: a5560a6a71d88d2e7cd388decd7ffd7e69aedebc30244af8af1b28ab7de68f8e
 ---
 

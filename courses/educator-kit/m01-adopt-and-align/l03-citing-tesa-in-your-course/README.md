@@ -28,6 +28,7 @@ assesses:
 context: {audience: educator, licence: CC-BY-4.0}
 status: alpha
 translation: done
+slides: slides.md
 ---
 
 ## เป้าหมาย

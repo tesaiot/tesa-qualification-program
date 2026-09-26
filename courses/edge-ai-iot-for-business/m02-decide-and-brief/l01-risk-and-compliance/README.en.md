@@ -27,6 +27,7 @@ develops:
 context: {audience: entrepreneur, lang: none, code: none, jurisdiction: Thailand}
 status: alpha
 translation: done
+slides: slides.md
 source_sha256: aae5951e50d212135eef8516fff003e90444c5c10b2371a69016fa1cea258bd0
 ---
 

@@ -24,6 +24,7 @@ develops:
 context: {audience: entrepreneur, lang: none, code: none}
 status: alpha
 translation: done
+slides: slides.md
 source_sha256: 2871af5cbf2ee0f4a0a1c74939595f4ee18bdb228a396ebf9b1acee66b1ef6d7
 ---
 

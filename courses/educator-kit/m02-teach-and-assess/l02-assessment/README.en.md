@@ -26,6 +26,7 @@ assesses:
 context: {audience: educator}
 status: alpha
 translation: done
+slides: slides.md
 source_sha256: d2348d9d87008620a706071c1179d2ad3eff3f0dd7c372316585a7cb90228821
 ---
 

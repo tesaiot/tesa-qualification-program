@@ -26,6 +26,7 @@ assesses:
 context: {audience: educator, frameworks: [TQF-2565, TPQI, IEA-GAPC-2021]}
 status: alpha
 translation: done
+slides: slides.md
 ---
 
 ## เป้าหมาย

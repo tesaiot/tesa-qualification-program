@@ -26,6 +26,7 @@ assesses:
 context: {audience: educator, platform: psoc-edge-e84, ide: bento-ide, emulator: bento-emulator}
 status: alpha
 translation: done
+slides: slides.md
 ---
 
 ## เป้าหมาย

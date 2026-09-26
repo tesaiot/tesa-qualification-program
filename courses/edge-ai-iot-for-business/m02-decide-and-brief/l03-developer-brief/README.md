@@ -27,6 +27,7 @@ assesses:
 context: {audience: entrepreneur, lang: none, code: none, deliverable: decision canvas}
 status: alpha
 translation: done
+slides: slides.md
 ---
 
 ## เป้าหมาย

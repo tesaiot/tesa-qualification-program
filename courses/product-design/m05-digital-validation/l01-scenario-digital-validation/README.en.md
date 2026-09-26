@@ -38,6 +38,7 @@ context:
   output: glb, stl
 status: alpha
 translation: done
+slides: slides.md
 source_sha256: d713fce36cb75d636f4ee907510cf0dbef49e67141f37e56dc02073e59ddd338
 source:
   repo: https://github.com/drsanti/TESAIoT-Courses

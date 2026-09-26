@@ -25,6 +25,7 @@ develops:
 context: {audience: educator, credential: TQP Certified Trainer}
 status: alpha
 translation: done
+slides: slides.md
 source_sha256: 66626de0dbc7061589997bf2735dd20651985157eab13b1b62659c799ebcef59
 ---
 

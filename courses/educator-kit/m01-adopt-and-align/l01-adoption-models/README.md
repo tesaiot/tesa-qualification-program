@@ -24,6 +24,7 @@ develops:
 context: {audience: educator, lang: none}
 status: alpha
 translation: done
+slides: slides.md
 ---
 
 ## เป้าหมาย

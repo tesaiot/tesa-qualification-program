@@ -27,6 +27,7 @@ develops:
 context: {audience: entrepreneur, lang: none, code: none, jurisdiction: Thailand}
 status: alpha
 translation: done
+slides: slides.md
 ---
 
 ## เป้าหมาย

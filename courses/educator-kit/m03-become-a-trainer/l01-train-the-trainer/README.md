@@ -25,6 +25,7 @@ develops:
 context: {audience: educator, credential: TQP Certified Trainer}
 status: alpha
 translation: done
+slides: slides.md
 ---
 
 ## เป้าหมาย

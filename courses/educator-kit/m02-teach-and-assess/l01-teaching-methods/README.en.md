@@ -26,6 +26,7 @@ develops:
 context: {audience: educator, platform: psoc-edge-e84, emulator: bento-emulator}
 status: alpha
 translation: done
+slides: slides.md
 source_sha256: f9c4579cf1ff54388808e4673718d03aa77a1378adde7eb92ef67015819f8686
 ---
 
