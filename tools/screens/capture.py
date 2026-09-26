@@ -172,9 +172,17 @@ async def publish(manifest: Path, only: list[str]) -> int:
             dest = REPO / s["out"]
             dest.parent.mkdir(parents=True, exist_ok=True)
             im = Image.open(io.BytesIO(png)).convert("RGB")
+            if s.get("size"):   # centre-crop to the screen itself (the canvas element adds a CSS border)
+                w, h = (int(v) for v in s["size"])
+                if im.width >= w and im.height >= h:
+                    x, y = (im.width - w) // 2, (im.height - h) // 2
+                    im = im.crop((x, y, x + w, y + h))
             if s.get("width") and im.width > int(s["width"]):
                 im = im.resize((int(s["width"]), round(im.height * int(s["width"]) / im.width)), Image.LANCZOS)
-            im.save(dest, "WEBP", quality=int(s.get("quality", 82)), method=6)
+            if dest.suffix.lower() == ".png":   # replacing a picture a slide already uses: keep its format
+                im.save(dest, "PNG", optimize=True)
+            else:
+                im.save(dest, "WEBP", quality=int(s.get("quality", 82)), method=6)
             print(f"ok   {s['id']} -> {s['out']} ({dest.stat().st_size // 1024} KB)")
         await browser.close()
     return 1 if failed else 0
