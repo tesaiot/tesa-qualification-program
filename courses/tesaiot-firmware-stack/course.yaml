@@ -11,7 +11,7 @@ summary:
 level: L3
 status: alpha
 audience: [developer, student, educator]
-hours: 26
+hours: 25
 cover: {image: cover.webp}
 hardware:
   emulator: false
@@ -33,8 +33,8 @@ outcomes:
     en: "Read every on-board sensor and the PDM microphone and combine them into a smooth dashboard"
   - th: "ใช้ GPIO ADC I2C CAN UART SPI และ PWM บนบอร์ดฐาน QWA309 และยืนยันสัญญาณด้วยเครื่องมือวัด"
     en: "Use GPIO, ADC, I2C, CAN, UART, SPI and PWM on the QWA309 base board and confirm signals with an instrument"
-  - th: "ส่งข้อมูลขึ้น TESAIoT Platform ด้วย Server-TLS และ mTLS และอธิบายบทบาทของ OPTIGA™ Trust M และ OTA"
-    en: "Send data to the TESAIoT Platform with Server-TLS and mTLS, and explain the roles of OPTIGA™ Trust M and OTA"
+  - th: "ส่งข้อมูลขึ้น TESAIoT Platform ด้วย Server-TLS และ mTLS และอธิบายบทบาทของ OPTIGA™ Trust M"
+    en: "Send data to the TESAIoT Platform with Server-TLS and mTLS, and explain the role of OPTIGA™ Trust M"
 authors:
   - {name: "Thai Embedded Systems Association (TESA) — TESAIoT Firmware Stack team", url: "https://github.com/tesaiot/developer-hub", role: author}
 sponsors: [TESA]

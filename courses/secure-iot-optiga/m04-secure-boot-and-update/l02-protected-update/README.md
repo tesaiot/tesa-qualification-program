@@ -48,7 +48,6 @@ Protected Update ของ OPTIGA™ Trust M แก้ปัญหานี้�
 
 - **เรียนมาก่อน:** [บทเรียน 4.1: Secure boot และ chain of trust](../l01-secure-boot/README.md) และตาราง metadata ใน [บทเรียน 2.1](../../m02-optiga-trust-m/l01-secure-element-role/README.md) (tag `C0` `C1` `D0`)
 - **บอร์ด:** แม่แบบของ SDK ที่ build ได้ แล็บหลักไม่ส่งคำขอจริง ส่วนแล็บเสริมที่ส่งคำขอจริงต้องมีอุปกรณ์ที่ลงทะเบียนและเชื่อมต่อแพลตฟอร์มได้แล้ว และต้องได้รับอนุญาตจากผู้สอน
-- **อ่านคู่กัน:** [บทเรียน 5.4 ของ TESAIoT Firmware Stack: อัปเดตเฟิร์มแวร์ทางไกลด้วย OTA client](../../../tesaiot-firmware-stack/m05-connect-to-platform/l04-ota-client/README.md)
 
 ## ดูของจริงก่อน
 

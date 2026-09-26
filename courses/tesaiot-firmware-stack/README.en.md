@@ -8,7 +8,7 @@ Every lesson is tied to a real example on the [TESAIoT Developer Hub](https://de
 | | |
 |---|---|
 | Level | L3 Independent |
-| Time | about 26 hours |
+| Time | about 25 hours |
 | Board | TESAIoT Dev Kit (lesson 5.3 uses the Eva Kit, as its example's BSP does) |
 | Tools | ModusToolbox 3.6 or later, git, a USB-C cable for KitProg3 |
 | You should know | C at level L2 (variables, functions, basic pointers and structs) |
@@ -19,7 +19,7 @@ Every lesson is tied to a real example on the [TESAIoT Developer Hub](https://de
 2. Build a touch-screen HMI with LVGL, from a label to a Wi-Fi manager with a state machine and NVM profiles.
 3. Read every on-board sensor and the PDM microphone and combine them into a smooth dashboard.
 4. Use GPIO, ADC, I2C, CAN, UART, SPI and PWM on the QWA309 base board and confirm signals with an instrument.
-5. Send data to the TESAIoT Platform with Server-TLS and mTLS, and explain the roles of OPTIGA™ Trust M and OTA.
+5. Send data to the TESAIoT Platform with Server-TLS and mTLS, and explain the role of OPTIGA™ Trust M.
 
 ## Modules
 

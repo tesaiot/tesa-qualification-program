@@ -24,7 +24,7 @@ source:
 - {repo: 'https://github.com/tesaiot/tesaiot-pse84-devkit-sdk', path: bento-firmware-template-mtb-only/proj_cm33_ns/examples/security/06_protected_update.c, ref: ef72c1b658178eee8c38b1e47d28b006f80a59b5, license: Apache-2.0}
 - {repo: 'https://github.com/tesaiot/developer-hub', path: examples/embedded-devices/advanced/c_ota_client, ref: d2ed42c4a31232f553b6b8cef9ee7373db348c21, license: Apache-2.0}
 - {repo: 'https://github.com/Infineon/optiga-trust-m', path: examples/tools/protected_update_data_set/README.md, ref: release-v5.3.0, license: MIT}
-source_sha256: 8e95a38c9c6942aebe72364834226337ba4a7995207189d93db8bcf550bd511e
+source_sha256: 56f34a1398aedc48c938379f680328cad2f469eea2fd042fade34e5c8725c1d9
 ---
 
 # Lesson 4.2: Protected Update
@@ -49,7 +49,6 @@ By the end of this lesson you will:
 
 - **Already covered:** [Lesson 4.1: Secure boot and the chain of trust](../l01-secure-boot/README.md), and the metadata table in [lesson 2.1](../../m02-optiga-trust-m/l01-secure-element-role/README.md) (tags `C0`, `C1`, `D0`)
 - **Board:** the SDK's template, already building. The main lab does not send a real request; the optional lab that sends a real request needs a device already registered and able to reach the platform, and needs the instructor's permission.
-- **Read alongside:** [Lesson 5.4 of TESAIoT Firmware Stack: Remote firmware update with the OTA client](../../../tesaiot-firmware-stack/m05-connect-to-platform/l04-ota-client/README.md)
 
 ## See it work first
 
