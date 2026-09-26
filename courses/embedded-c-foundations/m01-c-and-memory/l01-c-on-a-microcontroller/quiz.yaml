@@ -1,0 +1,74 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: "uint8_t level = 200; แล้ว level = (uint8_t)(level + 100); ค่าของ level คือเท่าไร"
+      en: "uint8_t level = 200; then level = (uint8_t)(level + 100); what is level?"
+    choices:
+      - {th: "300"}
+      - {th: "255 เพราะค่าถูกตรึงไว้ที่ค่าสูงสุด"}
+      - {th: "44"}
+      - {th: "ไม่แน่นอน ขึ้นกับคอมไพเลอร์"}
+    answer: [2]
+    explain:
+      th: "uint8_t เก็บ 0 ถึง 255 และ overflow ของ unsigned นิยามให้วนกลับแบบ modulo 256 จึงได้ 300 - 256 = 44 ไม่ได้ตรึงค่าไว้ และไม่ใช่ undefined behaviour (ที่ไม่แน่นอนคือ overflow ของชนิด signed)"
+  - id: q2
+    objective: 1
+    type: multi
+    prompt:
+      th: "จับคู่ข้อมูลกับชนิดข้อมูล ข้อใดเหมาะสม (เลือกได้หลายข้อ)"
+      en: "Which data-to-type pairings are appropriate? (choose all that apply)"
+    choices:
+      - {th: "ค่าดิบความเร่งจาก BMI270 ซึ่งเป็นเลข 16 บิตที่ติดลบได้ → int16_t"}
+      - {th: "ไบต์หนึ่งไบต์ที่อ่านจากบัส I2C → uint8_t"}
+      - {th: "ผลคูณ 175000 * 65535 ระหว่างทางคำนวณ → uint32_t ก็พอ"}
+      - {th: "ตัวนับมิลลิวินาทีตั้งแต่บูต → uint32_t"}
+    answer: [0, 1, 3]
+    explain:
+      th: "175000 * 65535 = 11,468,625,000 เกิน UINT32_MAX (4,294,967,295) ตัวอย่าง 06_raw_register_access.c ของ SDK จึงขยายเป็น 64 บิตก่อนคูณ ข้ออื่นเลือกชนิดตรงกับช่วงค่าและรูปแบบข้อมูลจริง"
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: "บรรทัดใดล้างบิตที่ 3 ของ reg โดยไม่เปลี่ยนบิตอื่น"
+      en: "Which line clears bit 3 of reg without changing any other bit?"
+    choices:
+      - {th: "reg = ~(1u << 3);"}
+      - {th: "reg &= (1u << 3);"}
+      - {th: "reg &= ~(1u << 3);"}
+      - {th: "reg ^= (1u << 3);"}
+    answer: [2]
+    explain:
+      th: "~(1u << 3) มี 0 เฉพาะบิตที่ 3 และ 1 ที่บิตอื่น AND จึงล้างเฉพาะบิตนั้น ข้อแรกเขียนทับทั้งตัว ข้อสองลบทุกบิตยกเว้นบิต 3 ข้อสี่สลับบิต ถ้าบิตเป็น 0 อยู่แล้วจะกลายเป็น 1"
+  - id: q4
+    objective: 2
+    type: order
+    prompt:
+      th: "เรียงบรรทัดให้เป็นการเขียนฟิลด์ MODE แบบ read-modify-write ที่อ่านครั้งเดียวและเขียนครั้งเดียว"
+      en: "Order the lines into a read-modify-write of the MODE field with one read and one write."
+    choices:
+      - {th: "v |= (mode << MODE_POS) & MODE_MSK;"}
+      - {th: "*reg = v;"}
+      - {th: "uint32_t v = *reg;"}
+      - {th: "v &= ~MODE_MSK;"}
+    answer: [2, 3, 0, 1]
+    explain:
+      th: "อ่านค่าเดิมมาไว้ในตัวแปร ล้างฟิลด์ ใส่ค่าใหม่ที่ตัดด้วย mask แล้วเขียนกลับครั้งเดียว ถ้าใส่ค่าก่อนล้าง บิตเก่าในฟิลด์จะค้างอยู่"
+  - id: q5
+    objective: 3
+    type: multi
+    prompt:
+      th: "ตัวแปรใดควรประกาศเป็น volatile (เลือกได้หลายข้อ)"
+      en: "Which variables should be declared volatile? (choose all that apply)"
+    choices:
+      - {th: "ธงที่ ISR ตั้งเป็น 1 แล้ว task วนอ่านรอ"}
+      - {th: "ตัวนับในลูปหน่วงเวลา for (d = 0; d < 300000; d++) {} ที่ไม่มีคำสั่งอื่นในลูป"}
+      - {th: "ตัวแปร local ที่ใช้รวมผลในฟังก์ชันคำนวณค่าเฉลี่ยธรรมดา"}
+      - {th: "ตารางค่าคงที่ const ที่ไม่มีใครเขียน"}
+      - {th: "ตัวนับ radar_drdy_events ที่ ISR เพิ่มค่าและ task อ่าน"}
+    answer: [0, 1, 4]
+    explain:
+      th: "volatile ใช้เมื่อค่าเปลี่ยนนอกโฟลว์ที่คอมไพเลอร์เห็น (ISR ฮาร์ดแวร์ อีกคอร์) หรือเมื่อต้องการให้การอ่านเขียนเกิดจริงเช่นลูปหน่วงเวลา ตัวแปรคำนวณธรรมดาและค่าคงที่ไม่ต้องใช้ และ volatile ไม่ได้ทำให้ count++ เป็น atomic"

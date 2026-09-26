@@ -1,0 +1,31 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: Apache-2.0
+#
+# examples/firmware.gitignore — จุดเริ่มต้นของ .gitignore สำหรับโปรเจกต์ที่แตกจากแม่แบบ mtb-only ของ SDK
+# คัดลอกไปไว้ที่รากของ repository แล้วเปลี่ยนชื่อเป็น .gitignore
+# ห้ามเขียนคอมเมนต์ต่อท้ายบรรทัดรูปแบบ ทุกบรรทัดคือรูปแบบหนึ่งตัว
+
+# ผลของการ build: สร้างใหม่ได้จากซอร์สที่ commit ไว้ทุกไบต์ (รูปแบบเดียวกับ .gitignore ของ SDK)
+build/
+build-*/
+*.o
+*.elf
+*.map
+
+# ไฟล์ hex ที่ปล่อยจริงให้แนบไว้กับ release พร้อม SHA-256 ไม่ใช่ commit ลงประวัติ
+*.hex
+
+# dependency ที่ make getlibs ดึงมา (ราว 1.9 GB) ดึงใหม่ได้จากไฟล์ deps/*.mtb ที่ commit ไว้
+mtb_shared/
+
+# ข้อมูลลับของเครื่องคุณเอง: commit ไฟล์ *_example.h ที่มีแต่ค่าตัวแทน <...> ไว้ข้าง ๆ แทน
+*_secrets.h
+*.local
+
+# ไฟล์ของระบบปฏิบัติการ
+.DS_Store
+
+# ไลบรารี prebuilt (lib/**/*.a) ที่มากับ zip ของ release: .gitignore ของ SDK ตัด *.a ทิ้งทั้งหมด
+# โปรเจกต์ของคุณต้องเลือกเองว่าจะ commit มันไว้ (แล้วตรวจด้วย lib/verify.sh) หรือจดไว้ว่าดึงจาก release ไหน
+# ถ้าเลือกไม่ commit ให้เอาเครื่องหมาย # หน้าบรรทัดข้างล่างออก
+# *.a

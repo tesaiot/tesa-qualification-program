@@ -9,7 +9,7 @@ Third-party images and media used by the TESA Open Knowledge courses, with autho
 - การอ้างอิงต้นฉบับที่ดัดแปลงมา (รศ.วิรุฬห์ ศรีบริรักษ์ BUU/AIC, ผศ.ดร.สันติ นุราช KMUTT, Meysam Parvizi, Infineon) อยู่ใน [NOTICE.md](NOTICE.md) · Upstream attributions: [NOTICE.md](NOTICE.md)
 - วิธีให้เครดิต TESA เมื่อนำไปใช้ต่อ อยู่ใน [ATTRIBUTION.md](ATTRIBUTION.md) · How to credit TESA when you reuse this material: [ATTRIBUTION.md](ATTRIBUTION.md)
 
-รวม 138 รายการ จาก 11 หลักสูตร · 138 item(s) from 11 course(s).
+รวม 139 รายการ จาก 12 หลักสูตร · 139 item(s) from 12 course(s).
 
 ## Explorer: เปิดโลกระบบสมองกลฝังตัว (`explorer`)
 
@@ -173,6 +173,12 @@ Third-party images and media used by the TESA Open Knowledge courses, with autho
 | ไฟล์ · File | ชื่อ · Title | ผู้สร้าง · Author | แหล่งที่มา · Source | สัญญาอนุญาต · Licence | การดัดแปลง · Changes |
 |---|---|---|---|---|---|
 | [`cover.webp`](courses/electronics-and-instruments/cover.webp) | Loud Objects at iMAL | Marc Wathieu | [https://www.flickr.com/photos/88133570@N00/5183937859](https://www.flickr.com/photos/88133570@N00/5183937859) | CC-BY-2.0 | ดัดแปลง · modified |
+
+## พื้นฐานเฟิร์มแวร์ภาษา C บน PSoC Edge (`embedded-c-foundations`)
+
+| ไฟล์ · File | ชื่อ · Title | ผู้สร้าง · Author | แหล่งที่มา · Source | สัญญาอนุญาต · Licence | การดัดแปลง · Changes |
+|---|---|---|---|---|---|
+| [`cover.webp`](courses/embedded-c-foundations/cover.webp) | Programming Code | One Idea LLC | [https://stocksnap.io/photo/programming-code-1STVFMTBJY](https://stocksnap.io/photo/programming-code-1STVFMTBJY) | CC0-1.0 | ดัดแปลง · modified |
 
 ## TESA Firmware SDK สำหรับ Edge AI (`firmware-sdk-edge-ai`)
 

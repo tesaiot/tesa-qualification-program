@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: "บอร์ดรันเฟิร์มแวร์ mtb-only อยู่ และคุณต้องการหยุดที่ฟังก์ชันหนึ่ง วิธีใดตรงกับคำแนะนำของเอกสาร SDK"
+      en: "A board is running mtb-only firmware and you want to stop in a function. Which approach follows the SDK docs?"
+    choices:
+      - {th: "attach debugger เข้ากับบอร์ดที่กำลังทำงานอยู่ แล้วตั้ง breakpoint"}
+      - {th: "เรียก openocd ตรง ๆ ด้วย -f target/cat1d.cfg แล้วต่อ GDB เอง"}
+      - {th: "เริ่ม launch configuration แบบ Debug ที่ program แล้วเริ่มจาก reset จากนั้นตั้ง breakpoint ที่ฟังก์ชัน"}
+      - {th: "ใส่ printf ใน CM55 แล้วอ่านจาก console"}
+    answer: [2]
+    explain:
+      th: "Appendix X #16: การ attach กับบอร์ด mtb-only ที่กำลังทำงานทำให้ CM33 ค้างในลูปของ boot ROM ส่วน README เตือนว่าเรียก openocd ตรง ๆ แล้วเขียนได้ 0 ไบต์และทำให้เฟิร์มแวร์เสีย และ CM55 ไม่มี console เอกสาร G2 แนะนำให้ flash แล้ว halt-on-reset จาก session ใหม่"
+  - id: q2
+    objective: 1
+    type: order
+    prompt:
+      th: "เรียงสายโซ่การดีบักจากเครื่องของคุณไปจนถึง CPU"
+      en: "Order the debug chain from your computer to the CPU."
+    choices:
+      - {th: "KitProg3 บนบอร์ด"}
+      - {th: "GDB"}
+      - {th: "CPU ใน PSOC Edge ผ่านสาย SWD"}
+      - {th: "OpenOCD (GDB server)"}
+    answer: [1, 3, 0, 2]
+    explain:
+      th: "GDB ส่งคำสั่งให้ OpenOCD ทาง TCP OpenOCD คุยกับ KitProg3 ทาง USB และ KitProg3 คุยกับ debug port ของชิปผ่าน SWD"
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: "ค่าของ rec.count เพี้ยนโดยไม่รู้ว่าใครเขียน คำสั่ง GDB ใดตอบคำถามนี้ได้ตรงที่สุด"
+      en: "rec.count is corrupted and you do not know who writes it. Which GDB command answers that most directly?"
+    choices:
+      - {th: "print rec.count ทุก ๆ บรรทัด"}
+      - {th: "watch -l rec.count แล้ว continue"}
+      - {th: "break main"}
+      - {th: "info registers"}
+    answer: [1]
+    explain:
+      th: "watchpoint ให้ฮาร์ดแวร์หยุด CPU ทันทีที่มีการเขียนลงที่อยู่นั้น แล้ว bt บอกได้ว่าใครเขียน -l ทำให้เฝ้าที่อยู่ต่อได้แม้ออกจาก frame ที่ตั้ง"
+  - id: q4
+    objective: 2
+    type: multi
+    prompt:
+      th: "หยุดอยู่ในฟังก์ชันหนึ่งบนบอร์ดที่ build แบบ Release แล้ว GDB แสดง <optimized out> ข้อใดถูก (เลือกได้หลายข้อ)"
+      en: "Stopped in a function of a Release build, GDB shows <optimized out>. Which are true? (choose all that apply)"
+    choices:
+      - {th: "คอมไพเลอร์อาจเก็บตัวแปรไว้ในรีจิสเตอร์หรือตัดทิ้ง จึงไม่มีตำแหน่งให้ GDB อ่าน"}
+      - {th: "แปลว่า debugger หรือบอร์ดเสีย ต้องเปลี่ยนสาย"}
+      - {th: "build ใหม่ด้วย CONFIG=Debug บน command line จะชนะ CONFIG=Release ใน common.mk และมักเห็นตัวแปรครบขึ้น"}
+      - {th: "next อาจกระโดดข้ามหรือย้อนบรรทัด เพราะคำสั่งเครื่องถูกจัดลำดับใหม่"}
+    answer: [0, 2, 3]
+    explain:
+      th: "optimisation เปลี่ยนความสัมพันธ์ระหว่างบรรทัดกับคำสั่งเครื่อง ไม่ใช่ความเสียหายของเครื่องมือ ค่าจาก command line ชนะการกำหนดด้วย = ในไฟล์ (บทเรียน 2.2) และควรจดลงบันทึกการ build ว่าใช้ config ไหน"
+  - id: q5
+    objective: 3
+    type: multi
+    prompt:
+      th: "ขณะที่ CM33 หยุดที่ breakpoint อยู่ ข้อใดน่าจะเกิดขึ้น (เลือกได้หลายข้อ)"
+      en: "While CM33 is halted at a breakpoint, which are likely? (choose all that apply)"
+    choices:
+      - {th: "บรรทัด [HB] บน console หยุด"}
+      - {th: "CM55 หยุดตามทันทีเพราะเป็นชิปเดียวกัน"}
+      - {th: "การกดปุ่มที่เกิดระหว่างหยุดอาจหายไป เพราะโค้ดที่ถามปุ่มไม่ได้รัน"}
+      - {th: "คอร์อีกตัวที่รอคำตอบทาง IPC จาก CM33 จะรอต่อไปโดยไม่ได้คำตอบ"}
+    answer: [0, 2, 3]
+    explain:
+      th: "breakpoint หยุดแค่คอร์ที่ดีบัก เอกสาร G2 ของ SDK บันทึกว่า [HB] หยุดทันทีแต่ CM55 ยังวาดเฟรมล่าสุดต่อ โลกภายนอกและคอร์อีกตัวเดินต่อ จังหวะเวลาของระบบจึงเปลี่ยนเมื่อถูกดีบัก"

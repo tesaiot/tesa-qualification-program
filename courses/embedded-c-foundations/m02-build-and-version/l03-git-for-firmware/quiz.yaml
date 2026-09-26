@@ -1,0 +1,74 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: multi
+    prompt:
+      th: "ในโปรเจกต์ที่แตกจากแม่แบบ mtb-only ไฟล์หรือโฟลเดอร์ใดไม่ควร commit (เลือกได้หลายข้อ)"
+      en: "In a project unpacked from the mtb-only template, which should not be committed? (choose all that apply)"
+    choices:
+      - {th: "build/ และ proj_cm55/build/"}
+      - {th: "mtb_shared/ ที่ make getlibs ดึงมา"}
+      - {th: "ไฟล์ deps/*.mtb ของแต่ละโปรเจกต์"}
+      - {th: "ไฟล์ .o และ .elf"}
+      - {th: "ไฟล์ LICENSE และ NOTICE ของแม่แบบ"}
+    answer: [0, 1, 3]
+    explain:
+      th: "ผลของ build และ dependency ที่ดึงมาสร้างใหม่ได้จากสิ่งที่ commit ไว้ ส่วน deps/*.mtb คือรายการที่บอกว่าจะดึงอะไร ต้องเก็บไว้ และ LICENSE กับ NOTICE ต้องคงไว้ตามสัญญาอนุญาต Apache-2.0"
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: "เพิ่ม build/ ลงใน .gitignore แล้ว แต่ git status ยังแสดงว่าไฟล์ใน build/ ถูกแก้ไข เพราะอะไร และแก้อย่างไร"
+      en: "build/ is now in .gitignore, but git status still shows files in build/ as modified. Why, and what fixes it?"
+    choices:
+      - {th: ".gitignore ต้องอยู่ในโฟลเดอร์ build/ เอง"}
+      - {th: "ไฟล์เหล่านั้นถูก track ไปแล้วก่อนมี .gitignore ต้องเอาออกจาก index ด้วย git rm -r --cached build แล้ว commit"}
+      - {th: "ต้องลบ repository แล้วสร้างใหม่เท่านั้น"}
+      - {th: "Git ไม่อ่าน .gitignore จนกว่าจะ push"}
+    answer: [1]
+    explain:
+      th: ".gitignore มีผลกับไฟล์ที่ยังไม่ถูก track เท่านั้น ไฟล์ที่ commit ไปแล้วต้องเอาออกจาก index โดยไม่ลบไฟล์จริง ด้วย git rm --cached"
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: "เฟิร์มแวร์ที่ส่งให้ลูกค้าวันนี้มาจาก commit หนึ่ง วิธีใดทำให้หา commit นั้นเจอได้แน่นอนในอีกหนึ่งปี"
+      en: "Firmware shipped today came from one commit. What makes that commit findable for certain a year from now?"
+    choices:
+      - {th: "จำชื่อ branch ที่ใช้ตอนนั้นไว้"}
+      - {th: "commit ไฟล์ .hex ลงใน repository"}
+      - {th: "สร้าง annotated tag เช่น fw-v1.0.0 บน commit นั้นแล้ว push tag และแนบ hex กับ SHA-256 ไว้ที่ release"}
+      - {th: "เขียนวันที่ไว้ในข้อความ commit"}
+    answer: [2]
+    explain:
+      th: "branch ขยับไปเรื่อย ๆ แต่ tag ตรึงชื่อไว้กับ commit เดียว release ของ SDK ก็ใช้ tag แบบ fw-c-only-v1.10.0 และแนบ hex กับ SHA256SUMS ไว้ที่ release แทนการ commit hex"
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: "ข้อความ commit ใดมีประโยชน์ที่สุดกับผู้อ่านในอนาคต"
+      en: "Which commit message helps a future reader most?"
+    choices:
+      - {th: "update"}
+      - {th: "fix bug in main.c line 212"}
+      - {th: "Debounce SW2 in time, not by reading the pin twice — พร้อมเนื้อความที่บอกอาการ หลักฐานบนบอร์ด และสิ่งที่ยังไม่ได้ตรวจ"}
+      - {th: "แก้ตามที่คุยกันเมื่อวาน"}
+    answer: [2]
+    explain:
+      th: "diff บอกได้ว่าเปลี่ยนอะไรแต่บอกไม่ได้ว่าทำไม ข้อความที่ดีบอกเหตุผล หลักฐาน และขอบเขตที่ยังไม่ได้พิสูจน์ ข้อความที่อ้างเลขบรรทัดหรือบทสนทนาจะไร้ความหมายเมื่อไฟล์เปลี่ยนหรือคนลืม"
+  - id: q5
+    objective: 3
+    type: single
+    prompt:
+      th: "พบว่ารหัส WiFi จริงถูก commit ไปเมื่อสองสัปดาห์ก่อนใน repository ที่เพื่อนหลายคน clone ไปแล้ว ควรทำอะไรเป็นอย่างแรก"
+      en: "A real WiFi password was committed two weeks ago to a repository several people have cloned. What comes first?"
+    choices:
+      - {th: "commit ใหม่ที่ลบบรรทัดนั้นออก ถือว่าจบ"}
+      - {th: "เปลี่ยนรหัสของเครือข่ายนั้นทันที แล้วค่อยล้างประวัติและย้ายค่าไปไว้ในที่เก็บที่ไม่อยู่ในซอร์ส"}
+      - {th: "force push ประวัติที่เขียนใหม่ แล้วรหัสจะหายจากทุกเครื่อง"}
+      - {th: "ไม่ต้องทำอะไรถ้า repository เป็นแบบ private"}
+    answer: [1]
+    explain:
+      th: "Git เก็บทุกรุ่น commit ที่ลบบรรทัดไม่ได้ลบของเดิม และ force push ไม่ได้ลบสำเนาในเครื่องคนอื่น สิ่งที่หยุดความเสียหายได้จริงคือทำให้รหัสที่หลุดใช้ไม่ได้ SDK จึงไม่ใส่ข้อมูลรับรองใน #define เลย: a credential compiled into an example is a credential in a public repository"

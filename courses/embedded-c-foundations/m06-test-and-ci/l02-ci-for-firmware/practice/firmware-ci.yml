@@ -1,0 +1,56 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: Apache-2.0
+#
+# practice/firmware-ci.yml — ฝึกเติม: workflow ที่ตรวจทุกการเปลี่ยนแปลงด้วยสี่ job
+# job "tests" ให้มาแล้ว อีก 6 จุดให้เติม (มองหา TODO) ไฟล์นี้เป็น YAML ที่ถูกต้องตลอด
+# ตรวจในเครื่องได้ก่อน push:
+#     .venv/bin/python ../examples/check_workflow.py firmware-ci.yml
+# ก่อนเติม ตัวตรวจจะขึ้น FAIL ลองเองก่อนอย่างน้อย 15 นาที แล้วค่อยเปิด solution/firmware-ci.yml
+name: firmware-ci
+
+on:
+  # TODO 1: ให้ workflow รันกับทุก pull request ด้วย ไม่ใช่เฉพาะ push เข้า main
+  push:
+    branches: [main]
+
+# TODO 2: ให้ GITHUB_TOKEN มีสิทธิ์น้อยที่สุดที่พอ คืออ่านโค้ดได้อย่างเดียว
+
+jobs:
+  tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      # TODO 3: tag อย่าง v7 ถูกย้ายได้ ล็อก action ทุกตัวในไฟล์นี้ด้วย commit SHA เต็ม 40 ตัว
+      #         (หาได้จาก git ls-remote https://github.com/actions/checkout refs/tags/v7.0.1)
+      - uses: actions/checkout@v7
+      - name: Fetch Unity v2.7.0
+        run: git clone --depth 1 --branch v2.7.0 https://github.com/ThrowTheSwitch/Unity.git host-tests/unity
+      - name: Unit tests, then prove they can fail
+        run: bash ci.sh tests
+
+  format:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      # TODO 4: ติดตั้ง clang-format รุ่น 18.1.3 (รุ่นเดียวกับในเครื่อง) แล้วรัน bash ci.sh format
+      - name: Check formatting
+        run: echo "TODO 4" && exit 1
+
+  static-analysis:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      # TODO 5: ติดตั้ง cppcheck ด้วย apt แล้วรัน bash ci.sh static
+      - name: Static analysis
+        run: echo "TODO 5" && exit 1
+
+  cross-compile:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      # TODO 6: ติดตั้ง gcc-arm-none-eabi ด้วย apt แล้วรัน bash ci.sh cross
+      - name: Compile the logic for Cortex-M33 and Cortex-M55
+        run: echo "TODO 6" && exit 1

@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: "ฟังก์ชันหนึ่งอ่านปุ่มด้วย Cy_GPIO_Read() แล้วตัดสินใจกันเด้งในฟังก์ชันเดียวกัน วิธีใดทำให้ทดสอบตรรกะกันเด้งบนคอมพิวเตอร์ได้โดยไม่แก้ตรรกะ"
+      en: "One function reads a button with Cy_GPIO_Read() and debounces in the same body. Which change lets the debounce logic be tested on a host without changing the logic?"
+    choices:
+      - {th: "ให้ตรรกะรับค่าที่อ่านได้ผ่านพารามิเตอร์หรือ function pointer แล้วให้โค้ดบนบอร์ดเป็นผู้เรียก Cy_GPIO_Read()"}
+      - {th: "ใส่ #include ของ PDL ในไฟล์ test แล้วคอมไพล์ด้วย gcc บนคอมพิวเตอร์"}
+      - {th: "ทดสอบบนบอร์ดเท่านั้น เพราะโค้ดที่เกี่ยวกับปุ่มทดสอบบนคอมพิวเตอร์ไม่ได้"}
+      - {th: "ใช้ printf ในฟังก์ชันแล้วอ่านผลด้วยตา"}
+    answer: [0]
+    explain:
+      th: "แยกตะเข็บ ให้ตรรกะไม่รู้จักฮาร์ดแวร์ แบบเดียวกับ level_sensor_t ของบทนี้ และ arduino_ops_t ที่ host test ของ SDK ใส่ stub แทน ส่วน PDL ของบอร์ดคอมไพล์บนคอมพิวเตอร์ไม่ได้ Makefile ของ SDK จึงแทนครึ่งที่เป็น PDL ด้วย stub"
+  - id: q2
+    objective: 1
+    type: multi
+    prompt:
+      th: "ไฟล์ .c ใดบ้างที่ควรคอมไพล์ได้ทั้งบนคอมพิวเตอร์และบนบอร์ดโดยไม่แก้ (เลือกได้หลายข้อ)"
+      en: "Which .c files should compile unchanged on both the host and the board? (choose all that apply)"
+    choices:
+      - {th: "state machine แจ้งเตือนระดับที่อ่านค่าผ่าน function pointer"}
+      - {th: "ตัวถอดรหัสเฟรม UART ที่รับอาร์เรย์ของไบต์"}
+      - {th: "ตัวตั้งค่า SCB ที่เรียก Cy_SCB_UART_Init()"}
+      - {th: "ตัวจัดการ interrupt ที่อ่านรีจิสเตอร์ของ TCPWM"}
+    answer: [0, 1]
+    explain:
+      th: "สองข้อแรกเป็นตรรกะล้วน รับข้อมูลเข้าและคืนผล สองข้อหลังแตะฮาร์ดแวร์โดยตรง เป็นครึ่งที่อยู่บนบอร์ดและควรบางที่สุด"
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: "state machine ของบทนี้เปลี่ยนเป็น ACTIVE เมื่อค่ามากกว่าหรือเท่ากับ on_mv ติดกัน confirm ครั้ง test ข้อใดเป็นกรณีขอบ"
+      en: "The lesson's state machine goes ACTIVE after confirm consecutive readings at or above on_mv. Which test is an edge case?"
+    choices:
+      - {th: "ค่าเท่ากับ on_mv พอดี confirm ครั้ง ต้องเป็น ACTIVE"}
+      - {th: "ค่าต่ำกว่า on_mv มาก ต้องเป็น NORMAL"}
+      - {th: "เซนเซอร์อ่านไม่ได้ ต้องเป็น FAULT"}
+      - {th: "เรียก level_alarm_init() แล้วตรวจว่าไม่ crash"}
+    answer: [0]
+    explain:
+      th: "กรณีขอบอยู่ตรงเส้น เท่ากับเกณฑ์พอดี ข้อสองเป็นกรณีปกติ ข้อสามเป็นกรณีผิดพลาด ถ้าเปลี่ยน >= เป็น > ใน level_alarm.c มีเพียง test แบบข้อแรกที่จับได้"
+  - id: q4
+    objective: 3
+    type: single
+    prompt:
+      th: "prove_red.sh รายงาน SURVIVED สำหรับบั๊ก 'no reset on a gap' หมายความว่าอะไร"
+      en: "prove_red.sh reports SURVIVED for the 'no reset on a gap' bug. What does that mean?"
+    choices:
+      - {th: "ไม่มี test ใดล้มเมื่อโค้ดไม่ล้างตัวนับตอนค่าขาดช่วง จึงยังไม่มี test เฝ้าพฤติกรรม 'ต้องติดกัน'"}
+      - {th: "โค้ดจริงมีบั๊กนี้อยู่"}
+      - {th: "mutant คอมไพล์ไม่ผ่าน"}
+      - {th: "test ทั้งหมดผ่าน จึงเสร็จแล้ว"}
+    answer: [0]
+    explain:
+      th: "SURVIVED คือ test ผ่านทั้งที่โค้ดผิด แก้ด้วยการเพิ่ม test ที่ใส่ค่าสูง ต่ำ สูง แล้วคาดหวังว่ายังไม่ ACTIVE ส่วน mutant ที่คอมไพล์ไม่ผ่านสคริปต์รายงานเป็น BROKEN และนับเป็นความล้มเหลว เพราะไม่ได้พิสูจน์อะไร"
+  - id: q5
+    objective: 3
+    type: multi
+    prompt:
+      th: "ข้อใดเป็นหลักฐานที่ดีว่า test ชุดหนึ่งทดสอบอะไรจริง (เลือกได้หลายข้อ)"
+      en: "Which are good evidence that a test suite really tests something? (choose all that apply)"
+    choices:
+      - {th: "เคยเห็น test ล้มเมื่อจงใจใส่บั๊กที่มันควรจับ แล้วผ่านเมื่อเอาบั๊กออก"}
+      - {th: "test เขียนก่อนโค้ดและขึ้นสีแดงก่อนเขียนโค้ด"}
+      - {th: "ขึ้น OK ตั้งแต่รันครั้งแรก"}
+      - {th: "จำนวน test มากกว่าจำนวนฟังก์ชัน"}
+    answer: [0, 1]
+    explain:
+      th: "สองข้อแรกคือการเห็นสีแดงจริง ข้อสามไม่พิสูจน์อะไร test สองข้อแรกของบทนี้ขึ้น OK แต่บั๊กสามในสี่แบบรอด ข้อสี่เป็นจำนวน ไม่ใช่ความสามารถในการจับบั๊ก"

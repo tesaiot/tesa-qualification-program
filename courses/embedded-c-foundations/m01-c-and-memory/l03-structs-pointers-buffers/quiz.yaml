@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: "ฟังก์ชัน print_sample() แค่อ่านค่าจาก imu_sample_t แล้วพิมพ์ ควรประกาศพารามิเตอร์แบบใด"
+      en: "print_sample() only reads an imu_sample_t and prints it. How should its parameter be declared?"
+    choices:
+      - {th: "void print_sample(imu_sample_t s)"}
+      - {th: "void print_sample(imu_sample_t *s)"}
+      - {th: "void print_sample(const imu_sample_t *s)"}
+      - {th: "void print_sample(volatile imu_sample_t *s)"}
+    answer: [2]
+    explain:
+      th: "const pointer ไม่คัดลอกทั้งก้อนลง stack และคอมไพเลอร์จะไม่ยอมถ้าฟังก์ชันเผลอแก้ค่า by value ใช้ได้แต่เสียการคัดลอก pointer ธรรมดาไม่บอกว่าฟังก์ชันจะไม่แก้ ส่วน volatile ไม่เกี่ยวกับเรื่องนี้"
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: "struct { uint8_t a; uint32_t b; uint8_t c; } บน Cortex-M ด้วย GCC มักมีขนาดเท่าไร และจะลดได้อย่างไร"
+      en: "struct { uint8_t a; uint32_t b; uint8_t c; } on Cortex-M with GCC is usually how big, and how can it shrink?"
+    choices:
+      - {th: "6 ไบต์ ลดไม่ได้"}
+      - {th: "12 ไบต์ เรียงใหม่เป็น b, a, c จะเหลือ 8 ไบต์"}
+      - {th: "8 ไบต์ เรียงใหม่แล้วเหลือ 6 ไบต์"}
+      - {th: "12 ไบต์ เรียงแบบไหนก็ได้ 12 ไบต์"}
+    answer: [1]
+    explain:
+      th: "b ต้องเริ่มที่ขอบ 4 ไบต์ จึงมีช่องว่าง 3 ไบต์หลัง a และ struct ทั้งก้อนต้องยาวเป็นพหุคูณของ 4 จึงได้ 12 เรียงตัวใหญ่ก่อนเป็น b, a, c ได้ 4 + 1 + 1 แล้วเติมท้ายเป็น 8"
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: "บัฟเฟอร์วงแหวนความจุ 16 ใช้ตัวนับ uint32_t แบบเดินไปเรื่อย ๆ ตอนนี้ head = 5 และ tail = 0xFFFFFFF9 มีข้อมูลที่ยังไม่อ่านกี่ตัว"
+      en: "A capacity-16 ring uses free-running uint32_t counters with head = 5 and tail = 0xFFFFFFF9. How many unread items are there?"
+    choices:
+      - {th: "ติดลบ แปลว่าบัฟเฟอร์เสีย"}
+      - {th: "12"}
+      - {th: "16 เพราะเต็ม"}
+      - {th: "4294967284"}
+    answer: [1]
+    explain:
+      th: "5 - 0xFFFFFFF9 ใน uint32_t วนกลับได้ 12 (0xFFFFFFF9 คือ -7 ถ้ามองแบบมีเครื่องหมาย 5 - (-7) = 12) การลบของ unsigned เป็น modulo 2^32 ตัวนับจึงวนผ่านศูนย์ได้โดย count ยังถูก"
+  - id: q4
+    objective: 2
+    type: order
+    prompt:
+      th: "เรียงขั้นของ rb_push() ที่ไม่ทับข้อมูลเก่าและปลอดภัยเมื่อผู้อ่านเป็นอีกบริบท"
+      en: "Order the steps of an rb_push() that never overwrites and is safe with a reader in another context."
+    choices:
+      - {th: "rb->head = h + 1u;  (ประกาศว่ามีข้อมูลใหม่)"}
+      - {th: "if (rb_is_full(rb)) return false;"}
+      - {th: "atomic_thread_fence(memory_order_release);  (หรือ __DMB() บน Cortex-M)"}
+      - {th: "rb->data[h & RB_MASK] = byte;"}
+    answer: [1, 3, 2, 0]
+    explain:
+      th: "ตรวจเต็มก่อนเพื่อไม่ทับข้อมูลที่ยังไม่ถูกอ่าน เขียนข้อมูลลงช่อง ใส่ barrier ให้ข้อมูลถึงหน่วยความจำ แล้วจึงเลื่อน head ถ้าเลื่อน head ก่อน ผู้อ่านอาจหยิบช่องที่ยังว่างไป"
+  - id: q5
+    objective: 3
+    type: multi
+    prompt:
+      th: "ISR ได้รับข้อความจากอีกคอร์และต้องส่งให้ task ทำงานต่อ วิธีใดเหมาะสม (เลือกได้หลายข้อ)"
+      en: "An ISR receives a message from the other core and must hand it to a task. Which approaches are sound? (choose all that apply)"
+    choices:
+      - {th: "คัดลอกข้อความเข้าคิวด้วย xQueueSendFromISR() แล้วเรียก portYIELD_FROM_ISR()"}
+      - {th: "เรียก malloc() สร้างก้อนใหม่ใน ISR แล้วส่ง pointer ให้ task"}
+      - {th: "ใส่ลง ring buffer ที่ ISR แก้เฉพาะ head และ task แก้เฉพาะ tail โดยเขียนข้อมูลก่อนเลื่อน head"}
+      - {th: "ประกาศตัวแปรร่วมเป็น volatile แล้วให้ทั้ง ISR และ task ทำ count++ กับมันได้เลย"}
+    answer: [0, 2]
+    explain:
+      th: "คิวของ RTOS คัดลอกข้อมูลให้และปลุก task ส่วน ring แบบผู้เขียนหนึ่ง ผู้อ่านหนึ่งให้แต่ละฝ่ายแก้เฉพาะตัวนับของตัวเอง malloc ใน ISR ผิดกติกาของบทเรียน 1.2 และ volatile ไม่ได้ทำให้ count++ ที่สองฝ่ายแก้พร้อมกันปลอดภัย"

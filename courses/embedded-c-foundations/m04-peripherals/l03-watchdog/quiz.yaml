@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: "ถ้าเฟิร์มแวร์ไม่ป้อน hardware watchdog ภายในเวลาที่ตั้ง จะเกิดอะไร"
+      en: "If the firmware does not feed the hardware watchdog in time, what happens?"
+    choices:
+      - {th: "watchdog พิมพ์ข้อความเตือนลง console แล้วรอต่อ"}
+      - {th: "ชิปถูกรีเซ็ต และสาเหตุถูกบันทึกให้อ่านได้ด้วย Cy_SysLib_GetResetReason() หลังบูต"}
+      - {th: "task ที่ค้างถูกลบทิ้งอัตโนมัติ ส่วนที่เหลือทำงานต่อ"}
+      - {th: "ไม่มีอะไรเกิดจนกว่าจะถอดไฟ"}
+    answer: [1]
+    explain:
+      th: "watchdog รีเซ็ตทั้งชิป ไม่เลือก task เอกสาร cy_wdt.h แนะนำให้ใช้ Cy_SysLib_GetResetReason() ตรวจว่า WDT เป็นสาเหตุหรือไม่ (บิต CY_SYSLIB_RESET_HWWDT)"
+  - id: q2
+    objective: 1
+    type: multi
+    prompt:
+      th: "ข้อใดเป็นข้อควรระวังเมื่อเลือกเวลาของ watchdog ตามเอกสารของ PDL (เลือกได้หลายข้อ)"
+      en: "Which cautions from the PDL docs apply when choosing a watchdog timeout? (choose all that apply)"
+    choices:
+      - {th: "เวลาของ watchdog ต้องยาวกว่าเวลาบูตของชิป"}
+      - {th: "oscillator ความถี่ต่ำอาจคลาดได้มาก ต้องเผื่อ margin"}
+      - {th: "การเปลี่ยนค่าของ WDT มีผลทันทีในคำสั่งถัดไปเสมอ"}
+      - {th: "ยิ่งสั้นยิ่งดี เพราะจับการค้างได้เร็ว"}
+    answer: [0, 1]
+    explain:
+      th: "เอกสารเตือนว่า WDT reset อาจเกิดเร็วกว่าเวลาบูต ความแม่นยำของ oscillator ต้องเผื่อ และการเปลี่ยนค่ามีผลช้าไปสองสามจังหวะ เวลาที่สั้นเกินจะทำให้รีเซ็ตผิดเมื่อระบบแค่ช้า"
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: "ทำไมการป้อน watchdog ใน ISR ของ timer จึงเป็นกับดัก"
+      en: "Why is feeding the watchdog from a timer ISR a trap?"
+    choices:
+      - {th: "เพราะ ISR ป้อน watchdog ไม่ได้ทางเทคนิค"}
+      - {th: "เพราะ ISR ของ timer ยังทำงานแม้ task ทุกตัวค้าง watchdog จึงไม่เคยรีเซ็ตทั้งที่ระบบตายแล้ว"}
+      - {th: "เพราะทำให้ timer ช้าลง"}
+      - {th: "เพราะ watchdog จะรีเซ็ตทุกครั้งที่ interrupt เกิด"}
+    answer: [1]
+    explain:
+      th: "คนป้อนต้องพิสูจน์ว่าระบบคืบหน้า ISR ของ timer พิสูจน์ได้แค่ว่า interrupt ยังทำงาน การจำลองในบทนี้แสดงว่ากลยุทธ์นี้ไม่รีเซ็ตเลยแม้ task ค้างไป 60 tick"
+  - id: q4
+    objective: 2
+    type: order
+    prompt:
+      th: "เรียงขั้นของรูปแบบ check-in กับผู้ดูแลหนึ่งคนในหนึ่งรอบ"
+      en: "Order one round of the check-in supervisor pattern."
+    choices:
+      - {th: "ผู้ดูแลล้างบิตทั้งหมดสำหรับรอบหน้า"}
+      - {th: "แต่ละ task ตั้งบิตของตัวเองเมื่อทำงานคืบหน้าจริง"}
+      - {th: "ผู้ดูแลเรียก Cy_WDT_ClearWatchdog()"}
+      - {th: "ผู้ดูแลตรวจว่าบิตของทุก task ครบ"}
+    answer: [1, 3, 2, 0]
+    explain:
+      th: "task รายงานความคืบหน้า ผู้ดูแลตรวจว่าครบ ป้อน แล้วล้าง ถ้าไม่ล้าง บิตเก่าจะป้อนแทน task ที่ตายไปแล้วตลอดไป"
+  - id: q5
+    objective: 3
+    type: multi
+    prompt:
+      th: "ออกแบบให้รู้ว่า watchdog รีเซ็ตเมื่อไรและเพราะ task ไหน ข้อใดควรทำ (เลือกได้หลายข้อ)"
+      en: "Designing so you know when the watchdog reset and which task caused it — which should you do? (choose all that apply)"
+    choices:
+      - {th: "อ่าน Cy_SysLib_GetResetReason() ตอนบูต ทดสอบบิต CY_SYSLIB_RESET_HWWDT ด้วย & แล้วล้างด้วย Cy_SysLib_ClearResetReason()"}
+      - {th: "ให้ผู้ดูแลเขียน task ที่ยังไม่ check in ลงบันทึกใน section .noinit ทุกรอบ พร้อม magic number"}
+      - {th: "เก็บบันทึกไว้ในตัวแปร .bss ธรรมดา เพราะ startup ไม่แตะมัน"}
+      - {th: "นับจำนวนครั้งที่ watchdog รีเซ็ต แล้วพิมพ์หรือส่งออกตอนบูต"}
+    answer: [0, 1, 3]
+    explain:
+      th: ".bss ถูกล้างเป็นศูนย์ตอนบูต บันทึกจึงหาย ต้องใช้ .noinit ที่ linker script ของ SDK เตรียมไว้ และต้องมี magic เพราะหลังเปิดไฟครั้งแรกค่าใน .noinit เป็นขยะ สาเหตุการรีเซ็ตเป็นชุดบิตจึงทดสอบด้วย &"

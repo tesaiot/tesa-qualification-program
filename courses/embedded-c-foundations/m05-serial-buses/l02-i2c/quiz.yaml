@@ -1,0 +1,74 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: "สแกนบัสเซนเซอร์ของบอร์ดแล้วพบ 0x44, 0x68, 0x77 แต่ไม่พบ 0x15 ข้อใดสรุปได้ถูกต้อง"
+      en: "A scan of the board's sensor bus finds 0x44, 0x68 and 0x77 but not 0x15. Which conclusion is right?"
+    choices:
+      - {th: "แมกนีโตมิเตอร์ BMM350 เสีย"}
+      - {th: "พบ SHT40, BMI270 และ DPS368 ส่วน BMM350 (0x15) อยู่บน I3C ซึ่งเป็นอุปกรณ์คนละตัว การสแกนนี้จึงไม่มีวันเห็นมัน"}
+      - {th: "ต้องสแกนซ้ำด้วยความเร็วต่ำกว่านี้"}
+      - {th: "บัส SDA ค้าง"}
+    answer: [1]
+    explain:
+      th: "ตัวอย่าง 01_i2c_bus_scan ของ SDK เขียนไว้ว่า BMM350 lives on I3C P3[0]/P3[1] and never appears here การสแกนตอบได้เฉพาะอุปกรณ์บนบัสที่สแกน"
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: "พบอุปกรณ์ตอบ ACK ที่ 0x68 ขั้นต่อไปที่ดีที่สุดก่อนเรียก bmi270_init() คืออะไร"
+      en: "A device ACKs at 0x68. What is the best next step before calling bmi270_init()?"
+    choices:
+      - {th: "เรียก init เลย ถ้าผ่านแปลว่าถูกชิป"}
+      - {th: "อ่านรีจิสเตอร์ chip id (0x00) ถ้าได้ 0x24 คือ BMI270 จริง ค่าอื่นคือชิปคนละตัวที่ address เดียวกัน"}
+      - {th: "เขียนค่าทดสอบลงทุกรีจิสเตอร์"}
+      - {th: "สแกนซ้ำสิบครั้ง"}
+    answer: [1]
+    explain:
+      th: "02_read_imu ของ SDK สอนว่า PROVE THE WIRE FIRST การอ่านหนึ่งไบต์เปลี่ยนคำว่า init failed ให้กลายเป็นการวินิจฉัย และการเขียนมั่วอาจเปลี่ยนสถานะของชิปที่ไดรเวอร์พึ่งอยู่"
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: "ต้องอ่าน accelerometer, gyro และอุณหภูมิของ BMI270 เป็นชุดเดียวกัน วิธีถือ lock ใดถูกต้อง"
+      en: "You must read the BMI270 accelerometer, gyro and temperature as one set. How should the lock be held?"
+    choices:
+      - {th: "lock และ unlock รอบการอ่านแต่ละค่า สามครั้ง"}
+      - {th: "lock ครั้งเดียว อ่านทั้งสาม unlock แล้วจึงหน่วงเวลาก่อนรอบถัดไป"}
+      - {th: "lock ครั้งเดียวตอนบูต แล้วไม่ต้อง unlock"}
+      - {th: "ไม่ต้อง lock เพราะไดรเวอร์ถือให้แล้ว"}
+    answer: [1]
+    explain:
+      th: "หนึ่ง lock ต่อหนึ่งชุดข้อมูล ทำให้สามค่ามาจากจังหวะเดียวกัน และห้ามถือ lock ข้ามการหน่วงเวลา ส่วนฟังก์ชันของ SDK ไม่ถือ lock ให้ ผู้เรียกต้องครอบเอง"
+  - id: q4
+    objective: 2
+    type: order
+    prompt:
+      th: "เรียงขั้นของการสแกนบัสอย่างปลอดภัยตามตัวอย่าง 01_i2c_bus_scan ของ SDK"
+      en: "Order the steps of a safe bus scan, following the SDK's 01_i2c_bus_scan."
+    choices:
+      - {th: "sensor_i2c_unlock()"}
+      - {th: "หยุด task เบื้องหลังที่อ่านเซนเซอร์ (ถ้ากำลังทำงาน)"}
+      - {th: "sensor_i2c_scan(addrs, max)"}
+      - {th: "sensor_i2c_lock(timeout) และคืน BUSY ถ้าหมดเวลา"}
+      - {th: "เปิด task เบื้องหลังกลับเหมือนเดิม"}
+    answer: [1, 3, 2, 0, 4]
+    explain:
+      th: "เอาอีกเจ้าของออกจากสายก่อน ถือ lock สแกน คืน lock ทุกทาง แล้วคืนสภาพระบบเหมือนที่พบ การสแกนถือบัสราว 30 ถึง 60 ms ตัวอย่างจึงหยุด task เบื้องหลังแทนการแย่ง lock กับมัน"
+  - id: q5
+    objective: 3
+    type: single
+    prompt:
+      th: "decoder แสดงลำดับ S, D1, ACK, 24, NACK, P ข้อใดอธิบายถูก"
+      en: "A decoder shows S, D1, ACK, 24, NACK, P. Which reading is right?"
+    choices:
+      - {th: "master เขียนค่า 0x24 ไปที่อุปกรณ์ 0xD1"}
+      - {th: "master อ่านหนึ่งไบต์จากอุปกรณ์ 0x68 ได้ 0x24 แล้วตอบ NACK เพราะเป็นไบต์สุดท้าย ก่อน STOP"}
+      - {th: "อุปกรณ์ไม่มีอยู่บนบัส"}
+      - {th: "เกิด error เพราะมี NACK"}
+    answer: [1]
+    explain:
+      th: "0xD1 คือ address 0x68 เลื่อนซ้ายแล้วบิต R/W = 1 (อ่าน) อุปกรณ์ตอบ ACK แล้วส่ง 0x24 master ตอบ NACK เพื่อบอกว่าพอแล้ว NACK ตรงนี้คือสิ่งที่ถูกต้อง ไม่ใช่ความผิดพลาด"

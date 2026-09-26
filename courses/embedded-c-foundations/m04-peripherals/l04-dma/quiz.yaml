@@ -1,0 +1,59 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: "ข้อใดอธิบายการทำงานของ DMA ได้ถูกต้องที่สุด"
+      en: "Which best describes how DMA works?"
+    choices:
+      - {th: "CPU คัดลอกข้อมูลเร็วขึ้นเพราะใช้คำสั่งพิเศษ"}
+      - {th: "CPU ตั้ง descriptor ครั้งเดียว แล้ว DMA ย้ายข้อมูลเองทุกครั้งที่อุปกรณ์ส่ง trigger และแจ้งด้วย interrupt เมื่อครบ"}
+      - {th: "DMA ประมวลผลข้อมูลแทน CPU เช่นกรองสัญญาณ"}
+      - {th: "DMA ทำงานได้ทันทีที่เปิด channel โดยไม่ต้องเปิด DMA block"}
+    answer: [1]
+    explain:
+      th: "DMA ย้ายข้อมูล ไม่ได้ประมวลผล CPU ว่างไปทำงานอื่นระหว่างนั้น และเอกสาร PDL เตือนว่า channel ที่เปิดแล้วยังไม่ทำงานจนกว่าจะเรียก Cy_DMA_Enable() ให้ DMA block"
+  - id: q2
+    objective: 1
+    type: multi
+    prompt:
+      th: "กรณีใดที่ DMA มักไม่คุ้ม (เลือกได้หลายข้อ)"
+      en: "When is DMA usually not worth it? (choose all that apply)"
+    choices:
+      - {th: "ส่ง 8 ไบต์ครั้งเดียวตอนทดสอบบอร์ด"}
+      - {th: "รับภาพจากกล้องทีละบรรทัดต่อเนื่อง"}
+      - {th: "ข้อมูลต้องถูกตรวจและแปลงทีละไบต์ระหว่างทางอยู่แล้ว"}
+      - {th: "ช่อง DMA เหลือน้อยและอุปกรณ์อื่นที่ข้อมูลมากกว่ากำลังต้องการ"}
+    answer: [0, 2, 3]
+    explain:
+      th: "งานเล็กและครั้งคราวเสียเวลาตั้ง descriptor มากกว่าคัดลอกเอง งานที่ต้องประมวลผลทีละไบต์ได้ประโยชน์น้อย และช่อง DMA เป็นทรัพยากรจำกัด ส่วนภาพจากกล้องคือกรณีที่ DMA คุ้มที่สุด ไดรเวอร์กล้องของ SDK จึงใช้ DMA"
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: "บน CM55 ที่มี data cache DMA เพิ่งเขียนบัฟเฟอร์ใน RAM ปกติที่ผ่าน cache เสร็จ CPU ต้องทำอะไรก่อนอ่าน"
+      en: "On a CM55 with data cache, DMA has just filled a buffer in normal cacheable RAM. What must the CPU do before reading it?"
+    choices:
+      - {th: "clean cache ของบัฟเฟอร์นั้น"}
+      - {th: "invalidate cache ของบัฟเฟอร์นั้น เพื่อทิ้งสำเนาเก่าแล้วอ่านจากหน่วยความจำจริง"}
+      - {th: "ไม่ต้องทำอะไร cache รู้เองว่า DMA เขียน"}
+      - {th: "ปิด interrupt ทั้งหมด"}
+    answer: [1]
+    explain:
+      th: "DMA เขียนหน่วยความจำจริงโดยไม่ผ่าน cache สำเนาใน cache จึงอาจเก่า ต้อง invalidate ก่อนอ่าน ส่วน clean ใช้เมื่อ CPU เขียนแล้ว DMA จะอ่าน อีกทางคือวางบัฟเฟอร์ในหน่วยความจำที่ไม่ผ่าน cache แบบ line_buffer ของไดรเวอร์กล้อง"
+  - id: q4
+    objective: 2
+    type: multi
+    prompt:
+      th: "ไดรเวอร์กล้องใน SDK ป้องกันความเสี่ยงของบัฟเฟอร์ร่วมอย่างไร (เลือกได้หลายข้อ)"
+      en: "How does the SDK camera driver guard its shared buffers? (choose all that apply)"
+    choices:
+      - {th: "ใช้บัฟเฟอร์สองก้อนสลับกันด้วย row_buffer_flag ให้ DMA กับฝั่งที่อ่านไม่ใช้ก้อนเดียวกันพร้อมกัน"}
+      - {th: "วาง line_buffer ใน .cy_sharedmem ที่ไม่ผ่าน cache จึงไม่ต้อง invalidate"}
+      - {th: "clean cache ของ descriptor ด้วย SCB_CleanDCache_by_Addr() ทุกครั้งที่ CPU แก้ก่อนเปิด channel"}
+      - {th: "ให้ CPU อ่านบัฟเฟอร์ระหว่างที่ DMA เขียนเพื่อประหยัดเวลา"}
+    answer: [0, 1, 2]
+    explain:
+      th: "ping-pong กันการอ่านก่อนเสร็จ หน่วยความจำที่ไม่ผ่าน cache ตัดปัญหา invalidate และ descriptor ที่อยู่ในหน่วยความจำผ่าน cache ต้อง clean ก่อน DMA อ่าน คอมเมนต์ในไฟล์เขียนเหตุผลของแต่ละจุดไว้"

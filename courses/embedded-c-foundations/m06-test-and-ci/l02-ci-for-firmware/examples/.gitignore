@@ -1,0 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: Apache-2.0
+#
+# virtualenv ที่สร้างตอนฝึก ไม่ใช่ส่วนหนึ่งของบทเรียน
+.venv/

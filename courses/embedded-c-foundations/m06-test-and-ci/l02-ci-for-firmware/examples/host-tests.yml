@@ -1,0 +1,30 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: Apache-2.0
+#
+# examples/host-tests.yml — workflow ที่เล็กที่สุดที่ใช้ได้จริง: หนึ่ง job รัน unit test ของบทเรียน 6.1
+# วางไว้ที่ .github/workflows/host-tests.yml ของ repo คุณ (GitHub อ่าน workflow จากโฟลเดอร์นั้นเท่านั้น)
+#
+# workflow  = ไฟล์นี้ทั้งไฟล์ ถูกปลุกด้วยเหตุการณ์ใน on:
+# job       = งานหนึ่งชิ้นบนเครื่องเสมือนใหม่หนึ่งเครื่อง (runs-on) job ต่างกันรันขนานกันได้
+# step      = คำสั่งหนึ่งขั้นใน job ขั้นที่คืนค่าไม่ใช่ 0 ทำให้ job ล้มและขั้นที่เหลือไม่รัน
+name: host-tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      # ล็อกด้วย commit SHA เต็ม ความเห็นท้ายบรรทัดบอกว่าคือรุ่นไหน
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Fetch Unity v2.7.0
+        run: git clone --depth 1 --branch v2.7.0 https://github.com/ThrowTheSwitch/Unity.git host-tests/unity
+      - name: Unit tests, then prove they can fail
+        run: bash ci.sh tests

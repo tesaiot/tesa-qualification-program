@@ -1,0 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: Apache-2.0
+#
+# Unity ที่ clone มาเอง และผลของ make ไม่ใช่ส่วนหนึ่งของบทเรียน
+unity/
+build/

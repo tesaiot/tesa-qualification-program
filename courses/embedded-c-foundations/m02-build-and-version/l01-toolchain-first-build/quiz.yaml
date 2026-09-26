@@ -1,0 +1,76 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: order
+    prompt:
+      th: "เรียงขั้นตอนตั้งแต่ clone จนเห็นว่าบอร์ดทำงาน สำหรับแม่แบบ mtb-only"
+      en: "Order the steps from clone to a running board for the mtb-only template."
+    choices:
+      - {th: "make build -j"}
+      - {th: "ใส่แพตช์ตาม series ด้วย patch -F0 แล้วตรวจด้วย PATCHED.sha256"}
+      - {th: "ถอดสาย USB ให้สุด เสียบใหม่ แล้วรอบรรทัด [HB] บน console 115200 8N1"}
+      - {th: "รัน make getlibs ในทั้ง proj_cm33_s, proj_cm33_ns และ proj_cm55"}
+      - {th: "make program"}
+      - {th: "./setup.sh --check หรือ ./bento.sh doctor"}
+    answer: [5, 3, 1, 0, 4, 2]
+    explain:
+      th: "ตรวจเครื่องก่อน ดึง dependency ให้ครบทุกโปรเจกต์ ใส่แพตช์ลงใน mtb_shared ที่เพิ่งดึงมา แล้วจึง build และ flash สุดท้ายต้องบูตเย็นด้วยการถอดสาย เพราะรีเซ็ตจาก debugger ทำให้จอดำ"
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: "ผู้เรียนรัน make getlibs เฉพาะใน proj_cm33_ns แล้ว build อาการที่ README ของแม่แบบบอกไว้คืออะไร"
+      en: "A learner runs make getlibs only in proj_cm33_ns, then builds. What does the template README say happens?"
+    choices:
+      - {th: "build ผ่านแต่จอไม่ติด"}
+      - {th: "ได้ 33 จาก 41 asset แล้ว build หยุดใน ninja เพราะหาไฟล์ของ optiga-trust-m ไม่เจอ"}
+      - {th: "make ดึงของที่ขาดให้เองระหว่าง build"}
+      - {th: "ไม่มีผลอะไร เพราะ getlibs ระดับโปรเจกต์ไหนก็ดึงของทั้งแอปพลิเคชัน"}
+    answer: [1]
+    explain:
+      th: "แต่ละโปรเจกต์ประกาศ deps/*.mtb ของตัวเอง และแม่แบบนี้ไม่มี getlibs ระดับบนสุด จึงต้องรันครบทั้งสามโปรเจกต์ทุกครั้ง"
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: "ในแม่แบบ mtb-only คอร์ใดเป็นเจ้าของ UART console ตัวเดียวของบอร์ด และคอร์ใดวาดหน้าจอ"
+      en: "In the mtb-only template, which core owns the board's only UART console, and which one draws the screen?"
+    choices:
+      - {th: "CM33_S ถือ console, CM33_NS วาดจอ"}
+      - {th: "CM55 ถือ console, CM33_NS วาดจอ"}
+      - {th: "CM33_NS ถือ console, CM55 วาดจอด้วย LVGL"}
+      - {th: "ทั้งสามคอร์พิมพ์ console ได้พร้อมกัน"}
+    answer: [2]
+    explain:
+      th: "CM33_S ทำ secure boot, CM33_NS รัน FreeRTOS WiFi เซนเซอร์และเป็นเจ้าของ UART ส่วน CM55 ทำจอ LVGL, UI และ Edge AI และไม่มี console printf บน CM55 จึงไม่ออกไปไหน"
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: "ข้อใดอธิบายลำดับการเริ่มทำงานของสามคอร์ได้ถูกต้อง"
+      en: "Which describes the start-up order of the three cores correctly?"
+    choices:
+      - {th: "CM55 บูตก่อน แล้วปลุก CM33 ทั้งสองฝั่ง"}
+      - {th: "extended boot ปล่อย CM33 secure, CM33 secure ตั้งการป้องกันแล้วปล่อย CM33 non-secure, แล้ว CM33 non-secure เปิด CM55"}
+      - {th: "ทั้งสามคอร์เริ่มพร้อมกันจาก RAM"}
+      - {th: "CM33 non-secure บูตก่อน แล้วค่อยเปิดฝั่ง secure ทีหลัง"}
+    answer: [1]
+    explain:
+      th: "README ของตัวอย่าง hello world ของ Infineon อธิบายลำดับนี้ ทั้งสาม image อยู่ใน flash QSPI ภายนอกและรันแบบ execute in place"
+  - id: q5
+    objective: 3
+    type: multi
+    prompt:
+      th: "เพื่อนต้อง build เฟิร์มแวร์ตัวเดียวกับคุณในเดือนหน้า ข้อมูลใดต้องอยู่ในบันทึกการ build (เลือกได้หลายข้อ)"
+      en: "A colleague must rebuild your exact firmware next month. What belongs in the build record? (choose all that apply)"
+    choices:
+      - {th: "รุ่นของ ModusToolbox และผลของ arm-none-eabi-gcc --version"}
+      - {th: "ชื่อ release และ SHA-256 ของ zip ที่แตกมา build พร้อม commit ของโปรเจกต์จาก git rev-parse HEAD และผลของ git status --short"}
+      - {th: "คำสั่ง build ทั้งบรรทัดรวมตัวแปร เช่น ENABLE_PAGE_EXAMPLES=1"}
+      - {th: "SHA-256 ของ app_combined.hex ที่ได้"}
+      - {th: "คำว่า 'ใช้รุ่นล่าสุด' แทนเลขรุ่น เพราะใหม่กว่าย่อมดีกว่า"}
+    answer: [0, 1, 2, 3]
+    explain:
+      th: "รุ่นเครื่องมือ แพ็กเกจและ commit ที่ใช้ ไฟล์ที่ยังไม่ commit ตัวแปรของ build และ digest ของผลลัพธ์ ทำให้ทำซ้ำและตรวจได้ ส่วน 'รุ่นล่าสุด' เปลี่ยนไปทุกเดือน และ README ของ SDK บอกชัดว่า ModusToolbox ที่ใหม่กว่า 3.6 ทำให้ build ล้มในไฟล์ที่คุณไม่เคยแตะ"

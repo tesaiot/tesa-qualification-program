@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: Apache-2.0
+#
+# examples/commit-template.txt — แม่แบบข้อความ commit คัดลอกไปไว้ในโปรเจกต์ เช่น docs/commit-template.txt แล้ว
+#     git config commit.template "$PWD/docs/commit-template.txt"      (ใช้ path เต็ม)
+# บรรทัดที่ขึ้นต้นด้วย # จะถูกตัดทิ้งตอน commit
+#
+# บรรทัดแรก: ทำอะไร เป็นประโยคคำสั่งสั้น ๆ ไม่เกินราว 50 ตัวอักษร เช่น
+#   Debounce SW2 in time, not by reading the pin twice
+#
+# เว้นหนึ่งบรรทัด แล้วตอบสามข้อ
+#   ทำไม:        อาการหรือเหตุผลที่ทำให้ต้องเปลี่ยน
+#   หลักฐาน:     วัดหรือเห็นอะไร บนบอร์ดไหน เฟิร์มแวร์ commit ไหน
+#   ยังไม่ได้ตรวจ: สิ่งที่ commit นี้ยังไม่ได้พิสูจน์

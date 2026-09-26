@@ -60,7 +60,7 @@ courses:
     short: c-found
     in_tree: true
     level: L3
-    status: pre-alpha
+    status: alpha
     title: {th: "พื้นฐานเฟิร์มแวร์ภาษา C บน PSoC Edge", en: "Embedded C Foundations on PSoC Edge"}
     nav: {th: "พื้นฐานภาษา C สำหรับระบบฝังตัว", en: "Embedded C Foundations"}
 

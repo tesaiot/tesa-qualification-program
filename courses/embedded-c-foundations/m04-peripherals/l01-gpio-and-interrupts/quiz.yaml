@@ -1,0 +1,74 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: "ปุ่มต่อจากขาลงกราวด์ ไม่มีตัวต้านทานภายนอก การเรียกใดตั้งขานี้ได้ถูกต้อง"
+      en: "A button connects the pin to ground with no external resistor. Which call configures the pin correctly?"
+    choices:
+      - {th: "Cy_GPIO_Pin_FastInit(port, pin, CY_GPIO_DM_STRONG, 0, HSIOM_SEL_GPIO)"}
+      - {th: "Cy_GPIO_Pin_FastInit(port, pin, CY_GPIO_DM_PULLUP, 0, HSIOM_SEL_GPIO)"}
+      - {th: "Cy_GPIO_Pin_FastInit(port, pin, CY_GPIO_DM_PULLUP, 1, HSIOM_SEL_GPIO)"}
+      - {th: "Cy_GPIO_Pin_FastInit(port, pin, CY_GPIO_DM_HIGHZ, 1, HSIOM_SEL_GPIO)"}
+    answer: [2]
+    explain:
+      th: "ต้องมี pull-up ให้ขาอยู่ที่ 1 ตอนไม่กด และสำหรับ drive mode แบบ pull-up ค่า outVal คือสิ่งที่เปิด pull ตัวอย่างของ SDK เตือนว่าส่ง 0 แล้วปุ่มจะดูเหมือนถูกกดตลอด HIGHZ ไม่มี pull ขาจะลอย ส่วน STRONG เป็นขาออก"
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: "ทำไมตัวอย่าง GPIO ของ SDK ให้ outVal ของ LED เป็น CYBSP_LED_STATE_OFF และใช้ชื่อนี้แทนเลข 0"
+      en: "Why does the SDK GPIO example pass CYBSP_LED_STATE_OFF as the LED outVal, by name instead of 0?"
+    choices:
+      - {th: "เพื่อให้ขาไม่กะพริบตอนเริ่ม และค่าขั้วมาจาก BSP ซึ่งบอร์ดรุ่นอื่นอาจกลับขั้ว"}
+      - {th: "เพราะ PDL ไม่รับเลข 0"}
+      - {th: "เพื่อให้ LED สว่างที่สุดตอนเริ่ม"}
+      - {th: "ไม่มีเหตุผล เป็นแค่สไตล์"}
+    answer: [0]
+    explain:
+      th: "ค่าเริ่มต้นกำหนดระดับขาตั้งแต่รอบแรกที่เป็นขาออก และคอมเมนต์ของ SDK บอกว่า polarity comes from the BSP, not from you เลข 1 ที่เขียนเองจะกลับด้านเงียบ ๆ บนบอร์ดที่ LED ต่อแบบ sink"
+  - id: q3
+    objective: 2
+    type: multi
+    prompt:
+      th: "ข้อใดควรอยู่ใน ISR ของขา GPIO (เลือกได้หลายข้อ)"
+      en: "Which belong in a GPIO ISR? (choose all that apply)"
+    choices:
+      - {th: "ล้าง interrupt flag ของขาด้วย Cy_GPIO_ClearInterrupt()"}
+      - {th: "ปลุก task ด้วย xSemaphoreGiveFromISR() แล้ว portYIELD_FROM_ISR()"}
+      - {th: "printf เวลาที่เกิดเหตุการณ์ลง console"}
+      - {th: "vTaskDelay(pdMS_TO_TICKS(30)) เพื่อรอให้ปุ่มหยุดเด้ง"}
+      - {th: "เพิ่มตัวนับ volatile แบบไม่วนกลับ"}
+    answer: [0, 1, 4]
+    explain:
+      th: "ISR ควรสั้น บันทึกเหตุการณ์ ล้าง flag และส่งงานต่อ SDK ห้าม printf ในบริบท ISR และ ISR ห้ามรอหรือเรียก API ของ FreeRTOS ที่ไม่ได้ลงท้ายด้วย FromISR"
+  - id: q4
+    objective: 2
+    type: order
+    prompt:
+      th: "เรียงขั้นการเปิด interrupt ของขา GPIO ตามแบบของ driver เรดาร์ใน SDK"
+      en: "Order the steps to enable a GPIO pin interrupt, following the SDK radar driver."
+    choices:
+      - {th: "NVIC_ClearPendingIRQ() แล้ว NVIC_EnableIRQ()"}
+      - {th: "Cy_GPIO_SetInterruptEdge() และ Cy_GPIO_SetInterruptMask(..., 1u)"}
+      - {th: "Cy_GPIO_ClearInterrupt() แล้ว Cy_GPIO_Pin_FastInit() ของขา"}
+      - {th: "Cy_SysInt_Init(&cfg, isr) ผูก ISR กับหมายเลข IRQ และลำดับความสำคัญ"}
+    answer: [2, 1, 3, 0]
+    explain:
+      th: "ตั้งขาก่อน เลือกขอบและเปิด mask ของขา ผูก ISR กับแหล่ง interrupt แล้วจึงเปิดที่ NVIC ถ้าเปิด NVIC ก่อนผูก ISR interrupt ที่ค้างอยู่อาจกระโดดไปหา handler ที่ยังไม่ได้ตั้ง"
+  - id: q5
+    objective: 3
+    type: single
+    prompt:
+      th: "อ่านปุ่มทุก 10 ms และเชื่อเมื่อค่าตรงกัน 3 ครั้งติด ถ้าปุ่มเด้ง 5 ms หลังกด การกดจะถูกรายงานหลังจากแตะครั้งแรกนานราวเท่าไร และใช้วิธีรอแบบไหน"
+      en: "Polling every 10 ms and believing 3 agreeing reads, with 5 ms of bounce, about how long after first contact is the press reported, and how is the wait done?"
+    choices:
+      - {th: "ทันที เพราะอ่านได้ 1 ครั้งแรกก็รายงาน"}
+      - {th: "ราว 30 ms โดยไม่มีการรอในฟังก์ชันกันเด้งเลย ผู้เรียกเรียกมันหนึ่งครั้งต่อการอ่าน"}
+      - {th: "ราว 30 ms โดยฟังก์ชันกันเด้งเรียก delay 30 ms ข้างใน"}
+      - {th: "ไม่รายงานเลย เพราะมีการเด้ง"}
+    answer: [1]
+    explain:
+      th: "สามการอ่านห่างกัน 10 ms คือราว 30 ms หลังค่านิ่ง ตัวกันเด้งเก็บสถานะใน struct แล้วคืนทันที การรอเป็นหน้าที่ของ task หรือ timer ที่เรียกมัน จึงไม่บล็อกงานอื่น"

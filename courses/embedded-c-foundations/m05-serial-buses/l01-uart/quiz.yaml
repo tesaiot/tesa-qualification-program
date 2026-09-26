@@ -1,0 +1,74 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: "เฟรม 8N1 หนึ่งเฟรมมีระดับตามลำดับเวลาเป็น 0 1 1 0 0 0 0 0 0 1 (บิตแรกคือ start บิตสุดท้ายคือ stop) ไบต์ข้อมูลคืออะไร"
+      en: "An 8N1 frame reads, in time order, 0 1 1 0 0 0 0 0 0 1 (first is start, last is stop). What is the data byte?"
+    choices:
+      - {th: "0x60"}
+      - {th: "0x03"}
+      - {th: "0xC0"}
+      - {th: "0x06"}
+    answer: [1]
+    explain:
+      th: "ตัด start กับ stop ออก เหลือ 1 1 0 0 0 0 0 0 ซึ่งเป็น D0 ถึง D7 เพราะ UART ส่ง LSB ก่อน D0 = 1 และ D1 = 1 จึงได้ 0x03 ถ้าอ่านแบบ MSB ก่อนจะได้ 0xC0 ซึ่งผิด"
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: "decoder ขึ้น framing error เกือบทุกเฟรม สาเหตุที่น่าสงสัยก่อนสิ่งอื่นคืออะไร"
+      en: "The decoder reports a framing error on almost every frame. What should you suspect first?"
+    choices:
+      - {th: "parity ผิด"}
+      - {th: "baud rate ของผู้ส่งกับผู้รับ (หรือ decoder) ไม่ตรงกัน ทำให้ตำแหน่งของ stop bit คลาด"}
+      - {th: "ข้อมูลมีค่า 0xFF มากเกินไป"}
+      - {th: "สายยาวเกินไปเพียงอย่างเดียว"}
+    answer: [1]
+    explain:
+      th: "framing error คือผู้รับเห็น 0 ตรงตำแหน่งที่ควรเป็น stop bit ซึ่งเกิดบ่อยที่สุดเมื่อ baud ไม่ตรงกัน parity ผิดจะขึ้น parity error ต่างหาก และ 0xFF เป็นข้อมูลปกติ"
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: "task A กับ task B ต่างเรียกฟังก์ชันอ่าน UART พอร์ตเดียวกันวนไปเรื่อย ๆ จะเกิดอะไร"
+      en: "Tasks A and B both keep calling the read function of the same UART port. What happens?"
+    choices:
+      - {th: "ทั้งสองได้ข้อมูลครบเหมือนกัน"}
+      - {th: "ไบต์ถูกแบ่งไปคนละ task ไม่มีใครได้ข้อความครบ เช่น magic byte ไปที่ A แต่ command byte ไปที่ B"}
+      - {th: "UART จะส่งข้อมูลซ้ำให้ task ที่สอง"}
+      - {th: "ปลอดภัยถ้าใช้ volatile"}
+    answer: [1]
+    explain:
+      th: "แต่ละไบต์ถูกอ่านได้ครั้งเดียว ตัวอย่าง TACP ของ SDK จึงตั้งกติกา ONE OWNER. EXACTLY ONE. แล้วส่งต่อข้อมูลให้งานอื่นผ่าน ring buffer"
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: "ทำไมตัวรันตัวอย่างของ SDK ที่ใช้ printf จึงตั้งไว้ที่ priority ต่ำที่สุดเหนือ idle"
+      en: "Why does the SDK example runner, which uses printf, run at the lowest priority above idle?"
+    choices:
+      - {th: "เพราะ printf ช้า"}
+      - {th: "เพราะ printf ถือ mutex ที่ไม่มี priority inheritance task ที่ต่ำที่สุดจึงเป็นได้แค่ฝ่ายรอ ไม่มีวันถือ mutex ขวาง task ที่สำคัญกว่า"}
+      - {th: "เพราะ UART ทำงานได้เฉพาะ priority 1"}
+      - {th: "เพราะต้องการให้ log ออกช้าที่สุด"}
+    answer: [1]
+    explain:
+      th: "ผู้ส่งบนพอร์ตเดียวกันก็ต้องมีวินัย คอมเมนต์ใน sdk_examples_cm33.c อธิบายว่า mutex ของ retarget-io ไม่มี priority inheritance จึงเสี่ยง priority inversion ถ้า task ต่ำถือมันไว้"
+  - id: q5
+    objective: 3
+    type: multi
+    prompt:
+      th: "ต้องถอดรหัส UART บนขา P15.1 ของ header ด้วย logic analyzer ค่าตั้งใดถูกต้อง (เลือกได้หลายข้อ)"
+      en: "Decoding the header UART on P15.1 with a logic analyzer — which settings are right? (choose all that apply)"
+    choices:
+      - {th: "baud 115200, data 8, parity none, stop 1"}
+      - {th: "bit order LSB first"}
+      - {th: "ต่อกราวด์ของ analyzer เข้ากับกราวด์ของบอร์ด"}
+      - {th: "อัตราสุ่มเท่ากับ baud พอดี คือ 115200 ครั้งต่อวินาที"}
+      - {th: "ตั้ง trigger ที่ขอบขาลงของสาย TX"}
+    answer: [0, 1, 2, 4]
+    explain:
+      th: "UART บน header ของบอร์ดนี้เป็น 115200 8N1 ส่ง LSB ก่อน สายว่างอยู่ที่ 1 และ start bit เป็นขอบขาลง อัตราสุ่มต้องสูงกว่า baud หลายเท่าจึงจะหากลางบิตได้ และต้องมีกราวด์ร่วม"

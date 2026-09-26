@@ -5,9 +5,10 @@ short: c-found
 title: {th: พื้นฐานเฟิร์มแวร์ภาษา C บน PSoC Edge, en: Embedded C Foundations on PSoC Edge}
 summary: {th: 'ภาษา C สำหรับไมโครคอนโทรลเลอร์และการจัดการหน่วยความจำ การ build ด้วย ModusToolbox และ Make, Git สำหรับเฟิร์มแวร์ การดีบักด้วย SWD/GDB, timer interrupt watchdog DMA และสัญญาณนาฬิกา, UART/I2C/SPI กับ logic analyzer ไปจนถึง unit test และ CI โดยอ้างอิงตัวอย่างจริงใน TESAIoT PSE84 Dev Kit SDK', en: 'C for microcontrollers and memory management, building with ModusToolbox and Make, Git for firmware, SWD/GDB debugging, timers, interrupts, watchdog, DMA and clocks, UART/I2C/SPI with a logic analyzer, and unit testing with CI, grounded in real examples from the TESAIoT PSE84 Dev Kit SDK.'}
 level: L3
-status: pre-alpha
+status: alpha
 audience: [developer, student]
 hours: 30
+cover: {image: cover.webp}
 hardware:
   emulator: false
   boards: [devkit]
@@ -27,7 +28,7 @@ authors:
 - {name: TESA Open Knowledge contributors, url: 'https://github.com/tesaiot/tesa-qualification-program', role: author}
 sponsors: [TESA]
 license: {content: CC-BY-4.0, code: Apache-2.0}
-source: {repo: 'https://github.com/tesaiot/tesaiot-pse84-devkit-sdk', ref: ef72c1b658178eee8c38b1e47d28b006f80a59b5, license: Apache-2.0, note: 'SDK examples and docs are linked at this commit, not copied into this course.'}
+source: {repo: 'https://github.com/tesaiot/tesaiot-pse84-devkit-sdk', ref: ef72c1b658178eee8c38b1e47d28b006f80a59b5, license: Apache-2.0, note: 'SDK examples and docs are linked at this commit, not copied into this course. Lessons quote short excerpts (at most 25 lines) with a link to the file at this commit and the credit (Apache-2.0, tesaiot-pse84-devkit-sdk).'}
 modules:
 - id: m01-c-and-memory
   title: {th: ภาษา C สำหรับไมโครคอนโทรลเลอร์และหน่วยความจำ, en: C for microcontrollers and memory}

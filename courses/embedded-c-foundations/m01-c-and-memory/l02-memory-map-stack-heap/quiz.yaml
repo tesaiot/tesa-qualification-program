@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: "ในฟังก์ชัน void task(void) { static uint8_t buf[512]; uint8_t tmp[16]; uint8_t *p = malloc(32); } ข้อใดจำแนกถูก"
+      en: "In void task(void) { static uint8_t buf[512]; uint8_t tmp[16]; uint8_t *p = malloc(32); } which classification is right?"
+    choices:
+      - {th: "buf อยู่ใน stack เพราะประกาศในฟังก์ชัน, tmp อยู่ใน stack, ก้อน 32 ไบต์อยู่ใน heap"}
+      - {th: "buf เป็น static (.bss), tmp อยู่ใน stack, ตัวชี้ p อยู่ใน stack แต่ก้อน 32 ไบต์ที่มันชี้อยู่ใน heap"}
+      - {th: "buf เป็น static (.data), tmp อยู่ใน heap, p อยู่ใน heap"}
+      - {th: "ทั้งสามอยู่ใน heap เพราะเป็นอาร์เรย์"}
+    answer: [1]
+    explain:
+      th: "static ในฟังก์ชันมีอายุเท่าโปรแกรม และไม่มีค่าเริ่มต้นจึงอยู่ .bss ตัวแปร local ธรรมดาอยู่ใน stack frame ส่วน malloc ให้ก้อนใน heap โดยตัวชี้ที่เก็บที่อยู่ของก้อนนั้นเป็นตัวแปร local อยู่ใน stack"
+  - id: q2
+    objective: 1
+    type: multi
+    prompt:
+      th: "จาก linker script ของ CM33 ใน SDK ข้อใดถูก (เลือกได้หลายข้อ)"
+      en: "From the SDK's CM33 linker script, which statements are true? (choose all that apply)"
+    choices:
+      - {th: "ค่าเริ่มต้นของ .data เก็บใน flash และถูกคัดลอกมาไว้ RAM ตอนบูต"}
+      - {th: "heap เริ่มหลัง .bss ดังนั้นเพิ่มตัวแปร static ขนาดใหญ่แล้ว heap เล็กลง"}
+      - {th: ".bss กินพื้นที่ใน flash เท่ากับขนาดของมันเพื่อเก็บค่าศูนย์"}
+      - {th: "stack อยู่บนสุดของ RAM ก้อนนั้นและโตลงหาที่อยู่ต่ำ"}
+    answer: [0, 1, 3]
+    explain:
+      th: ".data วางแบบ > m33_data AT > m33_nvm_sel และมีตาราง copy จาก flash ไป RAM ส่วน .heap ขยายจากท้าย .bss จนถึงก่อน stack คอมเมนต์จึงเตือนว่าทุกไบต์ของ .bss กินไบต์ของ heap ส่วน .bss เป็น NOLOAD ถูกล้างเป็นศูนย์ตอนบูต ไม่ต้องเก็บค่าใน flash"
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: "ตัวอย่าง 07_engine_health รายงานว่า task inference ได้ stack 2048 words และ stack_free_words เป็น 96 ข้อสรุปใดดีที่สุด"
+      en: "07_engine_health reports 2048 words granted and stack_free_words = 96. Which conclusion is best?"
+    choices:
+      - {th: "ใช้ไป 4.7% ปลอดภัยมาก"}
+      - {th: "ใช้ไปราว 95% ตอนที่ลึกที่สุด เหลือน้อยกว่าหนึ่งในสี่ ควรขยาย stack หรือหาบัฟเฟอร์ใหญ่ที่อยู่บน stack"}
+      - {th: "ค่านี้เป็นค่าตอนนี้เท่านั้น อีกวินาทีอาจกลับมาเหลือ 2000 words ไม่ต้องสนใจ"}
+      - {th: "task ล้นไปแล้ว เพราะเลขไม่เป็นศูนย์"}
+    answer: [1]
+    explain:
+      th: "(2048 - 96) * 100 / 2048 ได้ราว 95% และ stack_free_words เป็นค่าต่ำสุดตลอดอายุ ลดได้อย่างเดียว ไม่กลับขึ้น ค่า 96 words ยังไม่ล้นแต่ต่ำกว่าหนึ่งในสี่ของทั้งหมดมาก ตามหลักของหลักสูตรถือว่าต่ำ"
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: "ทำไมการตั้ง configCHECK_FOR_STACK_OVERFLOW = 2 อย่างเดียวจึงไม่พอ"
+      en: "Why is configCHECK_FOR_STACK_OVERFLOW = 2 alone not enough?"
+    choices:
+      - {th: "เพราะมันตรวจเฉพาะตอนสลับ task stack ที่ล้นระหว่างนั้นทับข้อมูลข้าง ๆ ได้ก่อน hook จะทำงาน"}
+      - {th: "เพราะมันทำให้เฟิร์มแวร์ช้าจนใช้งานไม่ได้"}
+      - {th: "เพราะมันทำงานเฉพาะบน CM55"}
+      - {th: "เพราะมันลบค่า 0xA5 ออกจาก stack"}
+    answer: [0]
+    explain:
+      th: "คอมเมนต์ใน linker script ของ SDK เขียนไว้ว่ามัน only samples at a context switch จึงควรวัด high-water mark ตอนระบบทำงานหนัก แล้วเผื่อที่ว่าง แทนการรอให้ hook จับได้"
+  - id: q5
+    objective: 3
+    type: multi
+    prompt:
+      th: "ข้อใดเป็นเหตุผลที่ไม่ควรเรียก malloc() ใน ISR หรือในลูปที่ต้องตรงเวลา (เลือกได้หลายข้อ)"
+      en: "Which are reasons not to call malloc() in an ISR or a time-critical loop? (choose all that apply)"
+    choices:
+      - {th: "เวลาที่ malloc ใช้ขึ้นกับสภาพ heap ในตอนนั้น จึงเดาเวลาไม่ได้"}
+      - {th: "heap อาจเหลือรวมพอแต่ไม่มีช่องต่อเนื่องใหญ่พอ (fragmentation) แล้วล้มกลางทาง"}
+      - {th: "pvPortMalloc ของ heap_3 หยุดและปล่อย scheduler ซึ่งไม่ใช่ฟังก์ชัน FromISR"}
+      - {th: "malloc คืนหน่วยความจำจาก flash ซึ่งช้ากว่า RAM"}
+    answer: [0, 1, 2]
+    explain:
+      th: "heap อยู่ใน RAM ไม่ใช่ flash ข้อที่เหลือเป็นเหตุผลจริงทั้งหมด SDK จึงจองบัฟเฟอร์แบบ static เช่น s_buf[512] และ build littlefs ด้วย LFS2_NO_MALLOC ให้โค้ดที่ต้องใช้ heap คอมไพล์ไม่ผ่านไปเลย"

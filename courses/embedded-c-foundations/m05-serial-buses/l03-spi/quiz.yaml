@@ -1,0 +1,74 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: "datasheet ของอุปกรณ์หนึ่งบอกว่า SCLK ว่างที่ระดับสูง และอุปกรณ์อ่านข้อมูลที่ขอบขาขึ้น ซึ่งเป็นขอบที่สองหลังออกจากระดับว่าง ต้องตั้งโหมดใด"
+      en: "A datasheet says SCLK idles high and the device samples on the rising edge, the second edge after leaving idle. Which mode?"
+    choices:
+      - {th: "โหมด 0 (CPOL 0, CPHA 0)"}
+      - {th: "โหมด 1 (CPOL 0, CPHA 1)"}
+      - {th: "โหมด 2 (CPOL 1, CPHA 0)"}
+      - {th: "โหมด 3 (CPOL 1, CPHA 1)"}
+    answer: [3]
+    explain:
+      th: "ว่างที่ระดับสูงคือ CPOL = 1 อ่านที่ขอบที่สองคือ CPHA = 1 จึงเป็นโหมด 3 ซึ่งใน PDL คือ CY_SCB_SPI_CPHA1_CPOL1"
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: "SPI ที่ต่อกับเรดาร์ในค่าตั้งของ BSP ใช้ sclkMode = CY_SCB_SPI_CPHA0_CPOL0 และ enableMsbFirst = true ข้อใดถูก"
+      en: "The radar SPI in the BSP uses sclkMode = CY_SCB_SPI_CPHA0_CPOL0 and enableMsbFirst = true. Which is right?"
+    choices:
+      - {th: "โหมด 0 SCLK ว่างที่ระดับต่ำ อ่านที่ขอบขาขึ้น ส่ง MSB ก่อน"}
+      - {th: "โหมด 3 SCLK ว่างที่ระดับสูง ส่ง LSB ก่อน"}
+      - {th: "โหมด 0 แต่ส่ง LSB ก่อนเหมือน UART"}
+      - {th: "ไม่ใช่ SPI แบบ Motorola"}
+    answer: [0]
+    explain:
+      th: "CPHA0_CPOL0 คือโหมด 0 และ MSB first ตรงข้ามกับ UART ที่ส่ง LSB ก่อน subMode ของค่าตั้งนี้คือ CY_SCB_SPI_MOTOROLA"
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: "จับสัญญาณ SPI โหมด 0 ได้ CS ต่ำ แล้ว MOSI ที่ขอบขาขึ้นแปดครั้งติดกันเป็น 0 0 1 1 0 0 0 1 ไบต์ที่ master ส่งคืออะไร"
+      en: "In a mode 0 capture with CS low, MOSI at eight consecutive rising edges reads 0 0 1 1 0 0 0 1. What byte did the master send?"
+    choices:
+      - {th: "0x31"}
+      - {th: "0x8C"}
+      - {th: "0x13"}
+      - {th: "0xC8"}
+    answer: [0]
+    explain:
+      th: "SPI ส่ง MSB ก่อน 0011 0001 คือ 0x31 ซึ่งเป็นไบต์ที่สองในเฟรมของตัวอย่าง Header I/O Test ถ้าอ่านแบบ LSB ก่อนจะได้ 0x8C ซึ่งผิด"
+  - id: q4
+    objective: 2
+    type: multi
+    prompt:
+      th: "decoder SPI ให้ไบต์ที่ดูเลื่อนไปหนึ่งบิตทุกไบต์ สาเหตุใดเป็นไปได้ (เลือกได้หลายข้อ)"
+      en: "An SPI decoder shows bytes that look shifted by one bit. Which causes are possible? (choose all that apply)"
+    choices:
+      - {th: "ตั้ง CPHA ของ decoder ไม่ตรงกับอุปกรณ์ จึงอ่านที่ขอบที่ข้อมูลกำลังเปลี่ยน"}
+      - {th: "ตั้ง CS ของ decoder ผิดขั้ว หรือผิดช่อง ทำให้นับบิตเริ่มผิดจุด"}
+      - {th: "สาย MISO ยาวเกินไปเพียงอย่างเดียว"}
+      - {th: "SPI ไม่มี ACK จึงเลื่อนเสมอ"}
+    answer: [0, 1]
+    explain:
+      th: "decoder ต้องรู้ขอบที่อ่านและจุดเริ่มของไบต์ ถ้าอ่านผิดขอบจะได้บิตของรอบก่อน ถ้า CS ผิดจุดเริ่มก็ผิด แบบฝึกของบทนี้มี test ที่พิสูจน์ข้อแรก ส่วนการไม่มี ACK ไม่ได้ทำให้บิตเลื่อน"
+  - id: q5
+    objective: 3
+    type: multi
+    prompt:
+      th: "ข้อใดเปรียบเทียบ SPI กับ I2C ได้ถูกต้อง (เลือกได้หลายข้อ)"
+      en: "Which comparisons of SPI and I2C are correct? (choose all that apply)"
+    choices:
+      - {th: "SPI เลือกอุปกรณ์ด้วยสาย CS แยกต่อ slave ส่วน I2C เลือกด้วย address บนสายร่วม"}
+      - {th: "บนบอร์ดนี้ SPI ของเรดาร์ทำงานที่ 25 MHz ขณะที่บัสเซนเซอร์ I2C ทำงานที่ 400 kHz"}
+      - {th: "SPI มี ACK ทุกไบต์เหมือน I2C"}
+      - {th: "SPI รับและส่งพร้อมกันได้ (full-duplex)"}
+      - {th: "เพิ่มอุปกรณ์ I2C อีกตัวต้องเพิ่มสายอีกเส้นเสมอ"}
+    answer: [0, 1, 3]
+    explain:
+      th: "SPI ไม่มี ACK จึงต้องพิสูจน์สายด้วยการอ่านค่าที่รู้คำตอบ ส่วน I2C เพิ่มอุปกรณ์บนสองสายเดิมได้ตราบที่ address ไม่ชนกัน"

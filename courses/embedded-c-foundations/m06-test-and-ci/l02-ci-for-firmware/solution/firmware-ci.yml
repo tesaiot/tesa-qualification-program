@@ -1,0 +1,65 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: Apache-2.0
+#
+# solution/firmware-ci.yml — เฉลย: วางไว้ที่ .github/workflows/firmware-ci.yml ของ repo คุณ
+# โครงของ repo ที่ไฟล์นี้คาดไว้ (ดู README ของบทเรียน 6.2)
+#     ci.sh  .clang-format  host-tests/ (ตรรกะ, Makefile, prove_red.sh, test_level_alarm.c)
+# ทุก job เรียก ci.sh ขั้นเดียวกับที่คุณรันในเครื่อง workflow มีหน้าที่แค่เตรียมเครื่องมือ
+name: firmware-ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# สิทธิ์น้อยที่สุดที่พอ: อ่านโค้ดได้อย่างเดียว
+permissions:
+  contents: read
+
+# push ใหม่เข้า pull request เดิม ยกเลิกรอบเก่าที่ยังรันอยู่
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Fetch Unity v2.7.0
+        run: git clone --depth 1 --branch v2.7.0 https://github.com/ThrowTheSwitch/Unity.git host-tests/unity
+      - name: Unit tests, then prove they can fail
+        run: bash ci.sh tests
+
+  format:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install clang-format 18.1.3 (the same version as your machine)
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install clang-format==18.1.3
+      - name: Check formatting
+        run: CLANG_FORMAT=.venv/bin/clang-format bash ci.sh format
+
+  static-analysis:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install cppcheck
+        run: sudo apt-get update && sudo apt-get install -y cppcheck
+      - name: Static analysis
+        run: bash ci.sh static
+
+  cross-compile:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install the Arm GNU toolchain
+        run: sudo apt-get update && sudo apt-get install -y gcc-arm-none-eabi
+      - name: Compile the logic for Cortex-M33 and Cortex-M55
+        run: bash ci.sh cross

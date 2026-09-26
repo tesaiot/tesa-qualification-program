@@ -1068,6 +1068,13 @@ SPDX-FileCopyrightText = "Marc Wathieu"
 SPDX-License-Identifier = "CC-BY-2.0"
 
 [[annotations]]
+# Third-party (embedded-c-foundations/credits.yaml)
+path = "courses/embedded-c-foundations/cover.webp"
+precedence = "override"
+SPDX-FileCopyrightText = "One Idea LLC"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
 # Third-party (explorer/credits.yaml)
 path = "courses/explorer/cover.webp"
 precedence = "override"

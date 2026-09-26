@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: "สัญญาณนาฬิกาต้นทาง 100 MHz ผ่านตัวหารที่ตั้งค่า 4999 แล้วเข้า timer ที่นับขึ้นจาก 0 ถึง period ต้องการให้เกิดทุก 10 ms period ต้องเป็นเท่าไร"
+      en: "A 100 MHz source goes through a divider set to 4999 into an up-counting timer. For a 10 ms period, what must period be?"
+    choices:
+      - {th: "200"}
+      - {th: "199"}
+      - {th: "2000"}
+      - {th: "4999"}
+    answer: [1]
+    explain:
+      th: "ค่าตัวหาร 4999 หารด้วย 5000 ได้ 20 kHz ใน 10 ms มี 200 จังหวะ และ timer ที่นับ 0 ถึง period ใช้ period + 1 จังหวะต่อรอบ period จึงเป็น 199"
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: "UART ใช้สัญญาณนาฬิกา 100 MHz ตัวหารค่า 86 และ oversample 10 ได้ baud เท่าไรโดยประมาณ และคลาดจาก 115200 เท่าไร"
+      en: "A UART uses 100 MHz, divider value 86 and oversample 10. What baud does it get, and how far is it from 115200?"
+    choices:
+      - {th: "115200 พอดี"}
+      - {th: "ราว 114943 คลาดราว -0.22%"}
+      - {th: "ราว 116279 คลาดราว +0.94%"}
+      - {th: "ราว 1149425 คลาดสิบเท่า"}
+    answer: [1]
+    explain:
+      th: "100 MHz / (86 + 1) = 1,149,425 Hz หารด้วย oversample 10 ได้ราว 114,943 baud นี่คือค่าที่ BSP ของ SDK ตั้งไว้ให้ debug UART ความคลาดเกิดจากการหารที่ไม่ลงตัว ไม่ใช่ความผิดพลาด"
+  - id: q3
+    objective: 2
+    type: multi
+    prompt:
+      th: "งานใดเหมาะกับ timer ของฮาร์ดแวร์ (TCPWM) มากกว่า software timer ของ RTOS (เลือกได้หลายข้อ)"
+      en: "Which jobs suit a hardware timer (TCPWM) better than an RTOS software timer? (choose all that apply)"
+    choices:
+      - {th: "สร้างคลื่น PWM ที่ขาเพื่อหรี่ไฟ"}
+      - {th: "วัดความกว้างพัลส์ระดับไมโครวินาที"}
+      - {th: "ส่งข้อมูลขึ้นคลาวด์ทุก 30 วินาที"}
+      - {th: "ตรวจสถานะแบตเตอรี่ทุก 5 วินาทีแล้วอัปเดตตัวแปร"}
+    answer: [0, 1]
+    explain:
+      th: "PWM และการวัดระดับไมโครวินาทีต้องการฮาร์ดแวร์ที่นับเองโดยไม่ขึ้นกับภาระของ CPU ส่วนงานระดับวินาทีทำใน task หรือ software timer ได้ ความละเอียดหนึ่ง tick (1 ms ในแม่แบบ) เหลือเฟือ"
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: "task หนึ่งทำงาน 8 ms แล้วเรียก vTaskDelay(pdMS_TO_TICKS(50)) ทุกรอบ รอบจริงยาวเท่าไร และควรใช้อะไรแทนถ้าต้องการรอบละ 50 ms พอดี"
+      en: "A task works for 8 ms then calls vTaskDelay(pdMS_TO_TICKS(50)) each loop. What is the real period, and what gives exactly 50 ms?"
+    choices:
+      - {th: "50 ms ใช้แบบเดิมได้"}
+      - {th: "ราว 58 ms ใช้ vTaskDelayUntil() ซึ่งกำหนดเวลาตื่นแบบสัมบูรณ์"}
+      - {th: "42 ms ใช้ software timer"}
+      - {th: "ราว 58 ms ใช้ vTaskDelay(42) ตายตัว"}
+    answer: [1]
+    explain:
+      th: "vTaskDelay นับจากตอนที่เรียก จึงบวกเวลาทำงานเข้าไปทุกรอบ vTaskDelayUntil นับจากเวลาตื่นครั้งก่อน รอบจึงคงที่ ส่วนการลดค่าหน่วงเองใช้ไม่ได้เพราะเวลาทำงานไม่คงที่"
+  - id: q5
+    objective: 3
+    type: single
+    prompt:
+      th: "ผู้ใช้ตั้ง sensor_auto_set_rate(20) เพื่อให้ค่าเซนเซอร์ทุกตัวบนหน้าจอเร็วขึ้น จากตัวอย่าง 05_auto_push_task ของ SDK จะเกิดอะไร"
+      en: "A user calls sensor_auto_set_rate(20) to make every sensor on screen update faster. Per the SDK's 05_auto_push_task, what happens?"
+    choices:
+      - {th: "ทุกเซนเซอร์อัปเดตเร็วขึ้นห้าเท่า"}
+      - {th: "ฟังก์ชันคืน error เพราะต่ำกว่าขั้นต่ำ"}
+      - {th: "ต่ำกว่า 50 ms ลูปอ่านเฉพาะ accelerometer เซนเซอร์อื่นหยุดส่งโดยไม่มี error ใด ๆ"}
+      - {th: "บอร์ดรีเซ็ต"}
+    answer: [2]
+    explain:
+      th: "งบเวลา 20 ms ไม่พอสำหรับเวลาบนบัสของเซนเซอร์ทุกตัว task จึงเข้าโหมดอ่าน IMU อย่างเดียว ตัวอย่างเขียนไว้ว่า quietly stops publishing five of your six sensors. Nothing returns an error อัตราที่สูงขึ้นมีราคาเป็นภาระของบัสและ CPU เสมอ"

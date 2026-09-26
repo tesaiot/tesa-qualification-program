@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: "ต้องการรันตัวอย่างอ่านปุ่มและ LED ฝั่ง CM33 ตอนบูต คำสั่งใดถูกต้องสำหรับ commit ที่หลักสูตรนี้ใช้"
+      en: "You want the CM33 LED-and-button example to run at boot. Which command is right for the commit this course uses?"
+    choices:
+      - {th: "make build ENABLE_PAGE_EXAMPLES=1 SDK_EXAMPLE_CM33=cm33/io/04_gpio_led_button"}
+      - {th: "make build SDK_EXAMPLE_CM33=cm33/io/04_gpio_led_button (ไม่ต้องเปิดธงอื่น)"}
+      - {th: "make build ENABLE_PAGE_EXAMPLES=1 SDK_EXAMPLE_CM33=04_gpio_led_button.c"}
+      - {th: "make build ENABLE_PAGE_EXAMPLES=0 SDK_EXAMPLE_CM33=cm33/io/04_gpio_led_button"}
+    answer: [0]
+    explain:
+      th: "ต้องเปิดธงหลัก ENABLE_PAGE_EXAMPLES=1 ก่อน ไม่อย่างนั้นโฟลเดอร์ examples ถูก CY_IGNORE และไม่มีตัวรัน ส่วน id ต้องตรงกับรายการใน sdk_examples_cm33_table.c ซึ่งมีรูปแบบ cm33/<กลุ่ม>/<ชื่อ> ตัวรันเทียบด้วย strcmp ชื่อไฟล์จึงใช้ไม่ได้"
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: "build ด้วย ENABLE_PAGE_EXAMPLES=1 แต่ไม่ได้ตั้ง SDK_EXAMPLE_CM33 จะเกิดอะไรบน serial console"
+      en: "You build with ENABLE_PAGE_EXAMPLES=1 and leave SDK_EXAMPLE_CM33 empty. What appears on the console?"
+    choices:
+      - {th: "ตัวรันรันตัวอย่างทุกตัวเรียงกัน"}
+      - {th: "ไม่มีอะไรเลย เพราะไม่ได้เลือกตัวอย่าง"}
+      - {th: "ตัวรันพิมพ์รายการตัวอย่างทั้งหมดพร้อมวิธีรัน แล้วไม่รันอะไร"}
+      - {th: "build ล้มเพราะ SDK_EXAMPLE_CM33 ว่าง"}
+    answer: [2]
+    explain:
+      th: "Makefile เขียนไว้ว่าค่าว่างคือ list them and run nothing เพราะคำถามแรกของนักพัฒนาคือมีอะไรให้เรียกบ้าง และการไม่รันอะไรโดยปริยายกันไม่ให้การเปิดธงเดียวไปเปิดวิทยุหรือแตะ secure element โดยไม่ตั้งใจ"
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: "Makefile มีบรรทัด FLAG = 0 แล้วผู้ใช้รัน FLAG=1 make build (ตั้งใน environment) ค่าของ FLAG ระหว่าง build คืออะไร และถ้าเปลี่ยนเป็น FLAG ?= 0 จะเป็นอะไร"
+      en: "The Makefile has FLAG = 0 and the user runs FLAG=1 make build (environment). What is FLAG, and what if the line were FLAG ?= 0?"
+    choices:
+      - {th: "เป็น 1 ทั้งสองแบบ"}
+      - {th: "เป็น 0 กับ = และเป็น 1 กับ ?="}
+      - {th: "เป็น 1 กับ = และเป็น 0 กับ ?="}
+      - {th: "เป็น 0 ทั้งสองแบบ"}
+    answer: [1]
+    explain:
+      th: "ค่าจาก environment แพ้การกำหนดค่าในไฟล์ด้วย = หรือ := แต่ ?= ให้ค่าเฉพาะเมื่อตัวแปรยังไม่ถูกนิยาม และค่าจาก environment นับว่านิยามแล้ว ถ้าส่งเป็น make build FLAG=1 (command line) จะเป็น 1 ทั้งสองแบบ"
+  - id: q4
+    objective: 2
+    type: single
+    prompt:
+      th: "ใน Makefile มี A = x$(B) แล้วบรรทัดถัดไป C := x$(B) และบรรทัดสุดท้าย B = y เมื่อใช้งาน A กับ C มีค่าอะไร"
+      en: "A Makefile has A = x$(B), then C := x$(B), then B = y. What are A and C when used?"
+    choices:
+      - {th: "A = xy และ C = x"}
+      - {th: "A = x และ C = xy"}
+      - {th: "ทั้งคู่เป็น xy"}
+      - {th: "ทั้งคู่เป็น x"}
+    answer: [0]
+    explain:
+      th: "= เก็บข้อความไว้และขยายตอนใช้ ซึ่งตอนนั้น B เป็น y แล้ว ส่วน := ขยายทันทีตอนอ่านบรรทัด ขณะนั้น B ยังว่าง"
+  - id: q5
+    objective: 3
+    type: multi
+    prompt:
+      th: "ข้อใดอธิบายได้ถูกว่าทำไมเมื่อ ENABLE_PAGE_EXAMPLES=0 ตัวอย่างของ SDK ไม่เพิ่มขนาดเฟิร์มแวร์ (เลือกได้หลายข้อ)"
+      en: "Why do the SDK examples add nothing to the image when ENABLE_PAGE_EXAMPLES=0? (choose all that apply)"
+    choices:
+      - {th: "โฟลเดอร์ examples ถูก CY_IGNORE ทั้งโฟลเดอร์ จึงไม่มีไฟล์ใดถูกคอมไพล์"}
+      - {th: "main.c เรียกตัวรันตัวอย่างเฉพาะใน #if ENABLE_PAGE_EXAMPLES จึงไม่มีการอ้างถึงโค้ดตัวอย่าง"}
+      - {th: "ตัวอย่างถูกคอมไพล์แล้วบีบอัดใน flash จึงไม่กินที่"}
+      - {th: "ใช้ ifeq ครอบ SOURCES += ของโฟลเดอร์ examples ก็ตัดไฟล์ออกได้เหมือนกัน"}
+    answer: [0, 1]
+    explain:
+      th: "ModusToolbox หาซอร์สจากการเดินโฟลเดอร์ SOURCES += เพิ่มได้แต่ลบไม่ได้ Makefile ของ SDK จึงบอกว่าการครอบ SOURCES += ด้วย ifeq does NOTHING มีแต่ CY_IGNORE ที่ตัดออก และไม่มีการบีบอัดโค้ดอะไรแบบนั้น"

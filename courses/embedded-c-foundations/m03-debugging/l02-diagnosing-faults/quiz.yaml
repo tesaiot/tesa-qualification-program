@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: multi
+    prompt:
+      th: "อาการคือ 'หน้าจอ Edge AI ขึ้น 0% และไม่เปลี่ยน' ข้อใดเป็นสมมติฐานที่แยกกันได้ด้วยหลักฐานต่างกัน (เลือกได้หลายข้อ)"
+      en: "Symptom: 'the Edge AI screen shows 0% and never changes'. Which are hypotheses that different evidence can separate? (choose all that apply)"
+    choices:
+      - {th: "ไม่มีข้อมูลเซนเซอร์ไปถึงโมเดล (feeds ไม่ขยับ)"}
+      - {th: "task ประมวลผลไม่ทำงานหรือค้าง (feeds ขยับ แต่ dq_calls ไม่ขยับ)"}
+      - {th: "ประมวลผลได้แต่ไม่มีผล (dq_calls ขยับ แต่ dq_ok ไม่ขยับ)"}
+      - {th: "เฟิร์มแวร์มีบั๊ก (ไม่ระบุว่าที่ไหน)"}
+    answer: [0, 1, 2]
+    explain:
+      th: "สามข้อแรกทำนายส่วนต่างของตัวนับต่างกัน จึงแยกกันได้ด้วยการวัดครั้งเดียว ส่วน 'เฟิร์มแวร์มีบั๊ก' เป็นจริงกับทุกกรณีและไม่บอกว่าควรไปดูที่ไหน จึงไม่ใช่สมมติฐานที่ทดสอบได้"
+  - id: q2
+    objective: 1
+    type: single
+    prompt:
+      th: "ตัวเฝ้าการค้างของเซนเซอร์เรดาร์อยู่ท้ายลูปของ task เรดาร์ แล้ว task ค้างกลางลูป ตัวเฝ้าจะรายงานอะไร และบทเรียนคืออะไร"
+      en: "The radar stall watchdog sits at the bottom of the radar task loop, and the task hangs mid-loop. What does the watchdog report, and what is the lesson?"
+    choices:
+      - {th: "รายงานว่าค้าง เพราะมันถูกออกแบบมาเพื่อจับการค้าง"}
+      - {th: "รายงาน 0 ครั้ง เพราะมันอยู่ใต้จุดที่ค้างและไม่เคยได้ทำงาน หลักฐานต้องมาจากนอกสิ่งที่มันวัด"}
+      - {th: "รีเซ็ตบอร์ดเอง"}
+      - {th: "รายงานค่าสุ่ม"}
+    answer: [1]
+    explain:
+      th: "หัวไฟล์ bento_bgt60trxx_platform.c ของ SDK บันทึกเหตุการณ์นี้ไว้จริง: sensor's own stall watchdog reporting 0 attempts because it sits at the BOTTOM of the same loop that was stuck"
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: "07_engine_health วัดหนึ่งวินาทีได้ feeds +50, dq_calls +50, dq_ok +0 ความผิดพลาดอยู่ขั้นใด"
+      en: "Over one second 07_engine_health reads feeds +50, dq_calls +50, dq_ok +0. Where is the fault?"
+    choices:
+      - {th: "แหล่งข้อมูล: เซนเซอร์ไม่ส่ง"}
+      - {th: "task ประมวลผลไม่ทำงาน"}
+      - {th: "ประมวลผลครบรอบแต่ไม่มีผล: หน้าต่างข้อมูลยังไม่เต็ม หรือ NPU ค้าง"}
+      - {th: "ปกติดี"}
+    answer: [2]
+    explain:
+      th: "ข้อมูลมาถึงและรอบประมวลผลจบ แต่ไม่มีผลออกมา ตัวอย่างของ SDK เรียกรูปแบบนี้ว่า the signature of a stalled NPU ถ้ามันไม่หายไปหลังหน้าต่างข้อมูลเต็ม"
+  - id: q4
+    objective: 2
+    type: order
+    prompt:
+      th: "เรียงลำดับการตรวจของการวินิจฉัยการโหลดโมเดลแบบ 10_model_load_diagnosis (ข้อแรกคือข้อที่ต้องตัดทิ้งก่อน)"
+      en: "Order the checks of a 10_model_load_diagnosis-style load diagnosis (first to rule out comes first)."
+    choices:
+      - {th: "last_rc != 0 → โมเดลปฏิเสธ"}
+      - {th: "init_calls == 0 → ไม่เคยถูกเรียก"}
+      - {th: "inits == 0 → โหลดไม่จบ"}
+      - {th: "init_returns < init_calls → ค้างอยู่ใน init"}
+    answer: [1, 3, 0, 2]
+    explain:
+      th: "แต่ละข้อมีความหมายเมื่อข้อก่อนหน้าถูกตัดทิ้งแล้วเท่านั้น: ถ้าไม่เคยถูกเรียก การดูรหัสผลลัพธ์ไม่มีความหมาย ถ้ายังค้างอยู่ รหัสล่าสุดก็ยังไม่ได้เขียน"
+  - id: q5
+    objective: 3
+    type: single
+    prompt:
+      th: "ฟังก์ชันอ่านความชื้นจาก cache ยังไม่เคยอ่านเซนเซอร์สำเร็จเลย ควรทำอย่างไร"
+      en: "A humidity read-from-cache function has never had a successful sensor read. What should it do?"
+    choices:
+      - {th: "คืน 0 พร้อมรหัสสำเร็จ หน้าจอจะได้ไม่ว่าง"}
+      - {th: "คืนค่าที่อ่านได้ครั้งล่าสุดของเซนเซอร์ตัวอื่นแทน"}
+      - {th: "คืนรหัสแบบ NO_DATA (หรือ UNAVAILABLE ถ้าไม่มีเซนเซอร์) และไม่แตะค่าที่ผู้เรียกถืออยู่"}
+      - {th: "หยุดโปรแกรมด้วย assert"}
+    answer: [2]
+    explain:
+      th: "ผลที่บอกความจริงให้ผู้เรียกตัดสินใจเองได้ เช่นแสดง '--' แทน 0% ที่ดูน่าเชื่อ แคตตาล็อกของ SDK ตั้งกติกาว่า if the hardware is absent the example says so rather than pretending to succeed"

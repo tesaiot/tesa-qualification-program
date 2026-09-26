@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+items:
+  - id: q1
+    objective: 1
+    type: single
+    prompt:
+      th: "ทีมตกลงให้ทุก pull request ผ่าน unit test ก่อน merge ส่วนใดของ workflow ที่ทำให้ GitHub รันมันเมื่อมีคนเปิดหรือ push เข้า pull request"
+      en: "The team wants every pull request to pass the unit tests before merging. Which part of the workflow makes GitHub run it when a pull request is opened or updated?"
+    choices:
+      - {th: "pull_request ใต้ on:"}
+      - {th: "runs-on: ubuntu-24.04"}
+      - {th: "permissions: contents: read"}
+      - {th: "timeout-minutes: 10"}
+    answer: [0]
+    explain:
+      th: "on: บอกว่าเหตุการณ์ใดปลุก workflow runs-on เลือกเครื่อง permissions จำกัดสิทธิ์ของ token และ timeout-minutes จำกัดเวลา ไม่มีข้อไหนนอกจาก on: ที่กำหนดว่าจะรันเมื่อไร"
+  - id: q2
+    objective: 1
+    type: multi
+    prompt:
+      th: "ข้อใดทำให้ workflow ให้ผลเหมือนเดิมเมื่อรันซ้ำในอีกหลายเดือน (เลือกได้หลายข้อ)"
+      en: "Which make a workflow behave the same when it runs again months later? (choose all that apply)"
+    choices:
+      - {th: "ล็อก action ด้วย commit SHA เต็ม 40 ตัว แทน tag อย่าง v7"}
+      - {th: "ใช้ runs-on: ubuntu-24.04 แทน ubuntu-latest"}
+      - {th: "ติดตั้ง clang-format ด้วย pip ที่รุ่น 18.1.3"}
+      - {th: "ใช้ ubuntu-latest เพื่อให้ได้เครื่องมือรุ่นใหม่เสมอ"}
+    answer: [0, 1, 2]
+    explain:
+      th: "tag ของ action ย้ายได้ และเอกสาร GitHub ระบุว่าการล็อกด้วย SHA เต็มเป็นทางเดียวที่ได้รุ่นที่ไม่เปลี่ยน ubuntu-latest ชี้รุ่นล่าสุดของระบบปฏิบัติการ จึงเปลี่ยนรุ่นของเครื่องมือที่ apt ให้ได้ ส่วน clang-format รุ่นต่างกันจัดรูปแบบต่างกันได้"
+  - id: q3
+    objective: 2
+    type: single
+    prompt:
+      th: "ขั้น format ของ CI รัน clang-format --dry-run กับไฟล์ที่จัดรูปแบบผิด log มีคำเตือน แต่ job เขียว สาเหตุที่น่าจะเป็นที่สุดคืออะไร"
+      en: "The CI format step runs clang-format --dry-run on a misformatted file. The log shows warnings but the job is green. What is the most likely cause?"
+    choices:
+      - {th: "ขาด --Werror จึงพิมพ์คำเตือนแต่คืน 0"}
+      - {th: "runner ไม่มี clang-format"}
+      - {th: "ไฟล์ .clang-format เสีย"}
+      - {th: "GitHub ไม่อ่านค่าที่คืนจาก step"}
+    answer: [0]
+    explain:
+      th: "เราทดลองกับ clang-format 18.1.3 แล้ว --dry-run อย่างเดียวคืน 0 แม้เจอโค้ดที่จัดรูปแบบผิด ต้องเติม --Werror จึงคืน 1 ถ้าไม่มีเครื่องมือหรือ config เสีย จะคืนค่าที่ไม่ใช่ 0 และ job จะแดง"
+  - id: q4
+    objective: 2
+    type: multi
+    prompt:
+      th: "ข้อใดทำให้ขั้นตรวจใน CI เขียวได้แม้เครื่องมือพบปัญหา (เลือกได้หลายข้อ)"
+      en: "Which can make a CI check green even when the tool found a problem? (choose all that apply)"
+    choices:
+      - {th: "cppcheck ที่ไม่มี --error-exitcode"}
+      - {th: "ต่อท้ายคำสั่งด้วย || true"}
+      - {th: "ตั้ง continue-on-error: true ให้ step"}
+      - {th: "ล็อก action ด้วย commit SHA"}
+    answer: [0, 1, 2]
+    explain:
+      th: "cppcheck พิมพ์ error แต่คืน 0 ถ้าไม่ระบุ --error-exitcode ส่วน || true และ continue-on-error กลืนความล้มเหลวทั้งหมด การล็อก SHA ไม่เกี่ยวกับผลของการตรวจ วิธีจับคือจงใจใส่บั๊กแล้วดูให้ขั้นนั้นแดง แบบเดียวกับบทเรียน 6.1"
+  - id: q5
+    objective: 3
+    type: multi
+    prompt:
+      th: "CI บน runner สาธารณะเขียวครบทั้งสี่ขั้น ข้อใดยังต้องตรวจบนบอร์ดจริง (เลือกได้หลายข้อ)"
+      en: "CI on public runners is green on all four stages. Which still need checking on a real board? (choose all that apply)"
+    choices:
+      - {th: "ข้อมูลที่ DMA เขียนแล้ว CPU อ่านผ่าน cache ถูกต้อง"}
+      - {th: "watchdog รีเซ็ตบอร์ดจริงเมื่องานค้าง"}
+      - {th: "ตรรกะของ state machine เปลี่ยนสถานะเมื่อค่าถึงเกณฑ์พอดี"}
+      - {th: "ไฟล์ C คอมไพล์ได้สำหรับ Cortex-M33"}
+    answer: [0, 1]
+    explain:
+      th: "cache กับ DMA และการรีเซ็ตของ watchdog เกิดในฮาร์ดแวร์ test บนคอมพิวเตอร์จำลองได้แต่พิสูจน์ไม่ได้ ส่วนตรรกะของ state machine ตรวจด้วย unit test และการคอมไพล์สำหรับ Cortex-M33 ตรวจด้วยขั้น cross บน runner ได้แล้ว"
