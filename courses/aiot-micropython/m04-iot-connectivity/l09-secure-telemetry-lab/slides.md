@@ -546,7 +546,7 @@ section p { margin: .2em 0; }
 - Transport Layer Security (TLS) — Computerphile — <https://www.youtube.com/watch?v=0TLDTodL7Lc>
 - TLS Handshake — EVERYTHING that happens when you visit an HTTPS website — Practical Networking — <https://www.youtube.com/watch?v=ZkL10eoG1PY>
 
-**ภาพ** (ทุกไฟล์เก็บไว้ใน `slides/img/` ไม่ได้ลิงก์ข้ามเว็บ)
+**ภาพ** (ทุกไฟล์เก็บไว้ในโฟลเดอร์ `img/` ของบทเรียน 4.7–4.9 ไม่ได้ลิงก์ข้ามเว็บ)
 
 - Wikimedia Commons — สาธารณสมบัติ: `s11_keypair_encrypt.svg`, `s11_signature_verify.svg` (Davidgothberg) · `s11_hash_function.svg` (Jorge Stolfi ต่อยอดจาก Helix84) · `s11_tls12_handshake.svg`, `s11_tls13_handshake.svg` (Fleshgrinder และ The Tango! Desktop Project)
 - Wikimedia Commons — CC BY-SA 4.0: `s11_chain_of_trust.svg` (Yuhkih) · `s11_mitm_tls_inspection.svg` (Rudolf.Achter) · `s11_mqtt_broker_tls.svg` (Ademant) · `s11_secure_element.jpg` (Raimond Spekking) — CC BY 3.0: `s11_mutual_auth.svg` (Essich)

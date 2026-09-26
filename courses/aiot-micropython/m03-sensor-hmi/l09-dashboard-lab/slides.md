@@ -154,7 +154,7 @@ pass
 pass
 ```
 
-ลำดับที่แนะนำ: เติมจุดที่ 1–2 ก่อนแล้วรัน (ควรเห็นการ์ดว่างหนึ่งใบ) · เติม 3–6 ทีละจุดแล้วรัน (ค่าจะมาทีละการ์ด) · เติมจุดที่ 7 เป็นอันสุดท้าย — **จงใจลองผิดหนึ่งรอบ:** ก่อนเติมจุดที่ 7 ให้รันดูสักครึ่งนาที แล้วจดว่าจอมีอาการอะไร นั่นคืออาการของการลืม `ui.poll()`
+ลำดับที่แนะนำ: เติมจุดที่ 1–2 ก่อนแล้วรัน (ควรเห็นการ์ดครบสี่ใบ เพราะอีกสามใบเขียนไว้ให้แล้ว) · เติม 3–6 ทีละจุดแล้วรัน (ค่าจะมาทีละการ์ด) · เติมจุดที่ 7 เป็นอันสุดท้าย — **จงใจลองผิดหนึ่งรอบ:** ก่อนเติมจุดที่ 7 ให้รันดูสักครึ่งนาที แล้วจดว่าจอมีอาการอะไร นั่นคืออาการของการลืม `ui.poll()`
 
 > เติมทีละจุดแล้วรัน คือวิธีเดียวที่ทำให้รู้ว่าจุดไหนพัง เมื่อโค้ดยาวเกินสามสิบบรรทัด
 
@@ -311,9 +311,9 @@ section h2 { font-size: 1.25em; }
   <text x="34" y="70" font-size="18" font-family="monospace" fill="#7ee787">#   หัวเรื่อง + ไฟค่าค้าง + สถานะ = 4</text>
   <text x="34" y="94" font-size="18" font-family="monospace" fill="#7ee787">#   การ์ด IMU                     = 4</text>
   <text x="34" y="118" font-size="18" font-family="monospace" fill="#7ee787">#   การ์ดเข็มทิศ                  = 5</text>
-  <text x="34" y="142" font-size="18" font-family="monospace" fill="#7ee787">#   การ์ดสัมผัส (ไฟ 2 + Scale)    = 9</text>
-  <text x="34" y="166" font-size="18" font-family="monospace" fill="#7ee787">#   การ์ด pot                     = 5</text>
-  <text x="34" y="190" font-size="18" font-family="monospace" fill="#7ee787">#   แถบคำสั่ง (ปุ่ม Spinbox ไฟ)   = 5</text>
+  <text x="34" y="142" font-size="18" font-family="monospace" fill="#7ee787">#   การ์ดสัมผัส (ไฟ 2 + Bar)      = 8</text>
+  <text x="34" y="166" font-size="18" font-family="monospace" fill="#7ee787">#   การ์ด pot + เกณฑ์ 4 ชิ้น      = 9</text>
+  <text x="34" y="190" font-size="18" font-family="monospace" fill="#7ee787">#   ปุ่มสั่งงานในแถบหัว           = 2</text>
   <rect x="580" y="16" width="346" height="180" rx="9" fill="#eceff1" stroke="#455a64" stroke-width="2"/>
   <text x="753" y="46" text-anchor="middle" font-size="19" font-weight="700" fill="#455a64">เอกสารอยู่บรรทัดบนโค้ด</text>
   <line x1="619" y1="77" x2="887" y2="77" stroke="#cfd8dc" stroke-width="30" stroke-linecap="round"/>
@@ -333,9 +333,9 @@ section h2 { font-size: 1.25em; }
 #   หัวเรื่อง 1 + ไฟค่าค้าง 1 + ป้ายค่าค้าง 1 + แถบสถานะ 1              =  4
 #   การ์ด IMU      Panel + หัวข้อ + Chart + Label ค่า                  =  4
 #   การ์ดเข็มทิศ   Panel + หัวข้อ + Compass + Label องศา + Label ทิศ   =  5
-#   การ์ดสัมผัส    Panel + หัวข้อ + ไฟ 2 ดวง + ป้าย 2 + Bar + Scale + % =  9
-#   การ์ด pot      Panel + หัวข้อ + Arc + Seg7 + Label โวลต์           =  5
-#   แถบคำสั่ง      ปุ่ม 2 + ป้ายเกณฑ์ + Spinbox + ไฟเตือน + ป้าย       =  5
+#   การ์ดสัมผัส    Panel + หัวข้อ + ไฟ 2 ดวง + ป้าย 2 + Bar + %       =  8
+#   การ์ด pot      Panel + หัวข้อ + Arc + Seg7 + โวลต์ + เกณฑ์ 4 ชิ้น  =  9
+#   ปุ่มสั่งงานในแถบหัว                                              =  2
 
 import ui
 import sensors

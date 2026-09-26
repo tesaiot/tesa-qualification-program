@@ -441,7 +441,7 @@ print(mqtt.is_connected())        # False ทันที ไม่ต้อง�
 |---|---|---|
 | **1 · ตั้งชื่อ topic ก่อนต่อ broker** · 8 นาที | [`01_topic_design.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l05-mqtt-platform/examples/01_topic_design.py) | ตั้ง topic ของทีมที่ไม่ชนกับอีกเก้าทีม และรู้ว่า wildcard ใส่ใน publish ไม่ได้ · จะเข้าใจว่าชื่อ topic เป็นของที่ออกแบบก่อนต่อ broker ไม่ใช่ค่อยคิดตอนโค้ดพร้อมส่งแล้ว |
 | **2 · บันไดสามขั้น WiFi → TCP → MQTT** · 15 นาที | [`03_connect_and_publish.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l05-mqtt-platform/examples/03_connect_and_publish.py) | ส่ง JSON ใบแรกขึ้น broker ได้ และรู้ว่าพังขั้นไหนเมื่อมันพัง · จะเห็นว่าการต่อคือบันไดสามขั้น WiFi → TCP → MQTT ที่ล้มได้คนละแบบ |
-| **3 · สั่งกลับจากคอมพิวเตอร์** · 12 นาที | [`04_subscribe_command.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l05-mqtt-platform/examples/04_subscribe_command.py) | ทำครึ่งหลังของ MVP — รับ `{"cmd":"toggle"}` แล้วสลับ LED จริง · จะเข้าใจว่าการสั่งกลับมาที่บอร์ดคือฝั่ง subscribe ไม่ใช่ฝั่ง publish |
+| **3 · สั่งกลับจากคอมพิวเตอร์** · 12 นาที | [`04_subscribe_command.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m04-iot-connectivity/l05-mqtt-platform/examples/04_subscribe_command.py) | ซ้อมครึ่งหลังของ MVP — รับ `{"cmd":"beep"}` กับ `{"cmd":"count"}` แล้วบอร์ดตอบทันที (คำสั่ง `toggle` ที่สลับ LED จริงอยู่ในไฟล์ฝึก `s10_mqtt_telemetry.py` ของบทเรียน 4.6) · จะเข้าใจว่าการสั่งกลับมาที่บอร์ดคือฝั่ง subscribe ไม่ใช่ฝั่ง publish |
 
 **ติดตรงไหน เปิดอันนี้**
 

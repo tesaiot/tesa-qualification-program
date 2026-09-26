@@ -177,7 +177,7 @@ section table td, section table th { padding: .16em .55em; }
 | `ui.Label` / `ui.Bar` / `ui.Panel` และ `x, y, w, h, color` | สร้างการ์ด แถบค่า และบรรทัดตัวเลข |
 | `ui.poll()` ทุกลูป | ยังบังคับเหมือนเดิม ไม่เรียกแล้ว widget หายไปได้ถึง 2 วินาที และปุ่มบนจอกดไม่ติด |
 | `time.sleep_ms()` คุมจังหวะ | ชุดบทเรียนนี้ใช้ 200 ms เพราะจอมีของหลายชิ้น |
-| เพดาน 64 widgets | โปรแกรมวันนี้ใช้ 33 ชิ้น เหลือที่ให้ต่อยอดอีก 31 |
+| งบของคอร์ส 32 widget (เพดานเฟิร์มแวร์ 64) | เฉลยวันนี้ใช้ 33 ชิ้น เกินงบของคอร์สไปหนึ่งชิ้น ต่อยอดเมื่อไรต้องเอาชิ้นเดิมออกก่อน |
 
 **ของใหม่ที่เพิ่มเข้ามา:** โมดูล `sensors` (ลูกบิด + สัมผัส) · โมดูล `dsp` (ฟิลเตอร์) · widget สามตัวของหน้าจอ HMI คือ `ui.Scale` (ไม้บรรทัด) `ui.Led` (ไฟสถานะ) `ui.Spinbox` (ช่องป้อนเลข) — ตัวอย่างประกอบที่ [`09_scale_led_spinbox.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m02-ui-to-hardware/l06-touch-panel-lab/examples/09_scale_led_spinbox.py)
 

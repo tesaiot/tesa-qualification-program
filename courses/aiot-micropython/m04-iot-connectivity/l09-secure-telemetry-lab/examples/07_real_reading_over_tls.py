@@ -11,8 +11,8 @@
 # กับดัก : การเข้ารหัสไม่ได้ทำให้ข้อมูลถูกต้องขึ้น มันแค่ทำให้คนกลางอ่านไม่ได้
 #         ถ้าค่าที่วัดผิดตั้งแต่ต้น มันก็จะผิดอย่างปลอดภัยไปถึงปลายทาง
 #
-# บน Eva Kit: sensors.snapshot() ใช้ได้ · tesaiot.publish() ใช้การตั้งค่าที่เก็บไว้
-#             ในบอร์ดจากไฟล์ 01 และ 02 ของชุดบทเรียนนี้ ต้องรันสองไฟล์นั้นก่อน
+# บน Eva Kit: sensors.snapshot() ใช้ได้ · tesaiot.publish() ใช้การตั้งค่าที่เก็บไว้ในบอร์ด
+#             ต้องรัน 06_secure_publish_loop.py ของบทเรียน 4.8 (ตั้งตัวตนครบ รวม mqtt_pass) ให้ผ่านก่อน
 
 import json
 import lcd
@@ -52,6 +52,7 @@ def read_temp(snap):
     return None, ""
 
 SEND_MS = 5000
+WAIT_MS = 30000     # รอ is_connected() นานสุดเท่านี้ แล้วยอมแพ้ (เพดานเดียวกับไฟล์ 05)
 ROUNDS = 160
 
 COL_TEXT, COL_DIM = 0xE8EAED, 0x9AA3AF
@@ -85,13 +86,25 @@ lcd.clear()
 lcd.console("<h2>ค่าจริงผ่านช่องเข้ารหัส</h2>")
 
 if not tesaiot.connect():
-    lbl_tls.text("ต่อไม่ได้ - รัน 01_config_store.py ก่อน")
+    lbl_tls.text("ต่อไม่ได้ - รัน 06_secure_publish_loop.py ก่อน")
     lbl_tls.color(COL_BAD)
     ui.poll()
     raise SystemExit
 
+# connect() คืนค่าทันทีที่รับคำสั่ง ยังไม่ได้แปลว่าต่อเสร็จ - รอ is_connected() แบบไฟล์ 05 พร้อมเพดานเวลา
+t_wait = time.ticks_ms()
+while not tesaiot.is_connected():
+    if time.ticks_diff(time.ticks_ms(), t_wait) > WAIT_MS:
+        lbl_tls.text("ต่อไม่สำเร็จภายใน " + str(WAIT_MS // 1000) + " วินาที")
+        lbl_tls.color(COL_BAD)
+        ui.poll()
+        raise SystemExit
+    ui.poll()
+    time.sleep_ms(250)
+
 led_tls.value(1)
-lbl_tls.text("ช่องเข้ารหัสพร้อม - " + tesaiot.device_id())
+# device_id() ไม่ใช่ชื่อตัวตนของเรา มันถามชิป OPTIGA ข้ามคอร์ (โยน OSError บนสองบอร์ดนี้) - อ่านจากคลังค่าตั้งแทน
+lbl_tls.text("ช่องเข้ารหัสพร้อม - " + tesaiot.config()["device_id"])
 lbl_tls.color(COL_OK)
 ui.poll()
 

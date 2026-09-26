@@ -30,7 +30,7 @@ import ui
 import wifi
 import mqtt
 
-# แก้สามบรรทัดนี้ให้ตรงกับที่ผู้สอนแจกหน้าห้อง WIFI_SSID WIFI_PASS และ TEAM
+# แก้สามบรรทัดนี้ให้ตรงกับของทีม WIFI_SSID WIFI_PASS (Hotspot มือถือ) และ TEAM
 WIFI_SSID = "bento-teamXX"            # ชื่อ Hotspot มือถือของทีม (WiFi ขององค์กรต้อง login บอร์ดใช้ไม่ได้)
 WIFI_PASS = "<รหัส Hotspot ของทีม>"     # อย่างน้อย 8 ตัว
 TEAM = "teamXX"                   # ผู้สอนแจก team01 ถึง team19 ต้องแก้ ไม่งั้นโปรแกรมไม่ยอมรัน

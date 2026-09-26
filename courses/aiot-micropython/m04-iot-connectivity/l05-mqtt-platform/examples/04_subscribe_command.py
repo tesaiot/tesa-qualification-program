@@ -16,7 +16,7 @@ import time
 
 WIFI_SSID = "AIoT-Class"
 WIFI_PASS = "<รหัสผ่าน WiFi ของคุณ>"
-BROKER = "192.168.1.50"
+BROKER = "192.168.1.50"          # broker ฝึกที่ไม่ตรวจตัวตน (เช่น mosquitto ในแลน) ไม่ใช่ CE: ไฟล์นี้ต่อโดยไม่มี username/password และใช้ topic bento/... ซึ่ง CE ปฏิเสธตั้งแต่ CONNECT
 DEVICE_ID = "team03"
 TOPIC_CMD = "bento/team03/command"
 

@@ -437,7 +437,7 @@ cap_bar.value(int(cap['slider']))
   <text x="560" y="162" text-anchor="middle" font-size="15" fill="#e65100">ตาราง 64 ช่อง</text>
   <rect x="690" y="70" width="240" height="115" rx="10" fill="#eceff1" stroke="#455a64" stroke-width="2"/>
   <text x="810" y="104" text-anchor="middle" font-size="18" font-weight="700" fill="#455a64">CM55 + LVGL</text>
-  <text x="810" y="132" text-anchor="middle" font-size="15" fill="#37474f">วาดการ์ดสี่ใบ 23 widgets</text>
+  <text x="810" y="132" text-anchor="middle" font-size="15" fill="#37474f">วาดการ์ดสี่ใบ 32 widgets</text>
   <text x="810" y="158" text-anchor="middle" font-size="15" fill="#37474f">จอ 792 x 398</text>
   <line x1="163" y1="43" x2="212" y2="95" stroke="#455a64" stroke-width="2" marker-end="url(#a8)"/>
   <line x1="163" y1="99" x2="212" y2="115" stroke="#455a64" stroke-width="2" marker-end="url(#a8)"/>
@@ -542,7 +542,7 @@ $$\text{level} = \frac{\bigl(\log_2(\text{rms})\times 256 - 1024\bigr)\times 100
 2. เปิด [`s08_dashboard.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m03-sensor-hmi/l09-dashboard-lab/practice/s08_dashboard.py) ใน BENTO IDE
 3. **วาดผังบนกระดาษก่อน** — กรอกตารางงบ widget ในบันทึกการเรียน ให้ครบก่อนแตะคีย์บอร์ด
 4. เติมช่องว่างทั้ง 7 จุด **ทีละจุด** แล้วกด Program to Device ดูผลทุกครั้ง
-5. เมื่อครบทั้งเจ็ดจุดแล้ว แก้ชื่อทีมในบรรทัด `head` ให้เป็นของทีมเรา
+5. เมื่อครบทั้งเจ็ดจุดแล้ว แก้ชื่อทีมในบรรทัด `TEAM` ให้เป็นของทีมเรา
 6. รันทิ้งไว้ 10 นาที พร้อมจับเวลาและจดเลขรอบตามบันทึกการเรียน
 
 ถ้าจอค้างระหว่างทาง กด RESTART บนหน้า Playground แล้วเริ่มจับเวลาใหม่ตั้งแต่ศูนย์ — ห้ามนับต่อ

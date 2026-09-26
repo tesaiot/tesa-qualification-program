@@ -149,7 +149,7 @@ $$R_{\text{series}} = \frac{V_{\text{supply}} - V_F}{I_F} \qquad\Longrightarrow\
 <div style="flex:1 1 auto;font-size:.84em;line-height:1.26">ตัวเลข 220 Ω มาจากคู่มือ Eva Kit จริง ส่วน <i>V</i><sub>F</sub> ≈ 2.0 V เป็นค่า <b>สมมติทั่วไปของ LED แดง</b> — Dev Kit ยังไม่ได้เปิดคู่มือดูค่าตัวต้านทาน ทีมที่ถือ Dev Kit ใช้สูตรเดียวกันได้ทันทีที่หาค่าเจอ</div>
 </div>
 
-> ทำไมน้ำเงินใช้ 2.4 kΩ ทั้งที่แดงใช้ 220 Ω — $V_F$ ของ LED น้ำเงินสูงกว่า ลองแทนเลขในสูตรเดียวกันแล้วเทียบดู
+> ทำไมน้ำเงินใช้ 2.4 kΩ ทั้งที่แดงใช้ 220 Ω — ลองแทนเลขในสูตรเดียวกัน (สมมติ $V_F$ ของ LED น้ำเงินราว 3.0 V) ดวงน้ำเงินได้กระแสกี่ mA และทำไมผู้ออกแบบยอมให้กระแสต่ำขนาดนั้น · ระวัง: $V_F$ สูงกว่าที่กระแสเท่ากัน ต้องใช้ R **น้อยกว่า** ไม่ใช่มากกว่า
 
 ---
 
@@ -269,7 +269,7 @@ elif raw != stable and time.ticks_diff(now, last_change) >= DEBOUNCE_MS:
 
 `DEBOUNCE_MS` 40 ms ใช้ได้ดีกับปุ่มทั่วไป น้อยกว่า 10 ยังเด้งหลุด มากกว่า 200 จะรู้สึกว่าปุ่มหน่วง
 
-อยากเห็นตัวเลขจริง เปิด [`05_debounce_count.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m02-ui-to-hardware/l02-active-low-debounce/examples/05_debounce_count.py) แล้วลดค่า `DEBOUNCE_MS` ลงทีละ 10 จนเลขนับดิบกับเลขนับกันเด้งเริ่มแยกจากกัน นั่นคือจุดที่หน้าต่างเวลาสั้นเกินไปจนรับการเด้งตอนปล่อยมาเป็นการกดครั้งใหม่
+อยากเห็นตัวเลขจริง เปิด [`05_debounce_count.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m02-ui-to-hardware/l02-active-low-debounce/examples/05_debounce_count.py) แล้วลดค่า `DEBOUNCE_MS` ลงทีละ 10 จนเลขนับกันเด้งเริ่มเกินจำนวนครั้งที่กดจริง (ไล่เข้าหาเลขนับดิบ) นั่นคือจุดที่หน้าต่างเวลาสั้นเกินไปจนรับการเด้งตอนปล่อยมาเป็นการกดครั้งใหม่
 
 > การกันเด้งคือ **การไม่รีบเชื่อข้อมูลที่เพิ่งมาถึง** — แนวคิดเดียวกันนี้จะกลับมาอีกตอนกรองสัญญาณเซนเซอร์ในบทเรียน 2.7–2.9
 
@@ -462,7 +462,7 @@ if chase_on and time.ticks_diff(now, last_step) >= STEP_MS:
 
 `last_step = now` ต้องอยู่ใน `if` เท่านั้น ถ้าเลื่อนออกไปนอก `if` เงื่อนไขจะไม่มีวันเป็นจริง แล้วไฟจะไม่วิ่งเลย
 
-เทียบกับ [`02_led_blink.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m02-ui-to-hardware/l02-active-low-debounce/examples/02_led_blink.py) ได้เลย ไฟล์นั้นกะพริบดวงเดียวพร้อมนับรอบขึ้นจอ ตัวเลขที่เดินขึ้นทีละหนึ่งคือหลักฐานว่าลูปยังวิ่งอยู่ ไม่ได้ถูกอะไรบล็อกไว้
+เทียบกับ [`02_led_blink.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m02-ui-to-hardware/l02-active-low-debounce/examples/02_led_blink.py) ได้เลย ไฟล์นั้นกะพริบดวงเดียวพร้อมนับรอบขึ้นจอ แต่จับเวลาด้วย `time.sleep_ms()` ซึ่งบล็อกทั้งลูประหว่างรอ ตัวเลขที่เดินขึ้นบอกแค่ว่าโปรแกรมยังไม่ค้าง ส่วนท่าไฟวิ่งนี้ใช้ `ticks_diff` ลูปจึงยังว่างไปอ่านปุ่มระหว่างรอ
 
 > ปรับ `STEP_MS` แล้วรันใหม่ — นี่คือ "ปรับจังหวะได้" ตามเกณฑ์ผ่านของชุดบทเรียนนี้
 

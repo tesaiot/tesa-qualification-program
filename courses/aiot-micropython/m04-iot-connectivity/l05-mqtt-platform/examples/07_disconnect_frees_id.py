@@ -18,7 +18,7 @@ import time
 
 WIFI_SSID = "AIoT-Class"
 WIFI_PASS = "<รหัสผ่าน WiFi ของคุณ>"
-BROKER = "192.168.1.50"          # IP ของเครื่องที่รัน broker ในแลน ไม่ใช่ localhost
+BROKER = "192.168.1.50"          # IP ของเครื่องในแลน ไม่ใช่ localhost · broker ฝึกที่ไม่ตรวจตัวตน (เช่น mosquitto ในแลน) ไม่ใช่ CE: ไฟล์นี้ต่อโดยไม่มี username/password และใช้ topic bento/... ซึ่ง CE ปฏิเสธตั้งแต่ CONNECT
 DEVICE_ID = "team03"         # ใช้ตัวเดียวกันทั้งสองรอบ นั่นคือประเด็นของไฟล์นี้
 TOPIC = "bento/team03/telemetry"
 

@@ -147,7 +147,7 @@ section table td, section table th { padding: .16em .55em; }
 
 - การ์ดสี่ใบเต็มจอ: IMU chart, Compass 013 deg, CapSense และ Potentiometer
 - แต่ละใบคือ Panel หนึ่งใบที่ให้สีขอบต่างกัน ใช้แยกกลุ่มข้อมูลด้วยสายตาก่อนอ่านตัวหนังสือ
-- แถบล่างบอกชื่อทีมกับ "รอบที่ 17" ส่วนตัวเลข loop ทางขวาถูกปุ่มลอยมุมขวาบังไปบางส่วน — เป็นข้อจำกัดพื้นที่ที่ต้องออกแบบเผื่อ
+- แถบล่างบอกชื่อทีมกับ "รอบที่ 27" และตัวเลข loop ทางขวา · ภาพนี้เป็นเฉลยรุ่นก่อน ผังปัจจุบันย้ายตัวนับรอบกับปุ่มสั่งงานขึ้นแถบหัว (ดูผังพิกัดข้างหน้า) รอถ่ายใหม่
 
 > งบ widget มีจำกัด การจัดวางจึงเป็นการตัดสินใจ ไม่ใช่การตกแต่ง
 
@@ -288,10 +288,10 @@ section table td, section table th { padding: .16em .55em; }
   <line x1="438" y1="100" x2="462" y2="100" stroke="#b0bec5" stroke-width="2"/>
   <line x1="438" y1="146" x2="462" y2="146" stroke="#b0bec5" stroke-width="2"/>
   <line x1="438" y1="188" x2="462" y2="188" stroke="#b0bec5" stroke-width="2"/>
-  <text x="472" y="52" font-size="19" fill="#78909c">ชั้น 3 · ชื่อการ์ด — font 20 สีจาง</text>
+  <text x="472" y="52" font-size="19" fill="#78909c">ชั้น 3 · ชื่อการ์ด — font 16</text>
   <text x="472" y="106" font-size="19" font-weight="700" fill="#c62828">ชั้น 1 · ค่าหลัก — font 28 อ่านจาก 3 เมตร</text>
   <text x="472" y="152" font-size="19" fill="#6a1b9a">ชั้น 2 · ค่าประกอบ — font 24 อ่านตอนเดินเข้ามา</text>
-  <text x="472" y="194" font-size="19" fill="#78909c">ชั้น 3 · รายละเอียด — font 16-18</text>
+  <text x="472" y="194" font-size="19" fill="#78909c">ชั้น 3 · รายละเอียด — font 14-16</text>
   <circle cx="454" cy="100" r="7" fill="#c62828">
     <animate attributeName="r" values="5;10;5" dur="1.8s" repeatCount="indefinite"/></circle>
 </svg>
@@ -309,7 +309,7 @@ section table td, section table th { padding: .16em .55em; }
 
 ใน `ui` เรามีเครื่องมือคุมสามชั้นนี้อยู่แค่สองอย่าง: `value=` ของ Label (ขนาดฟอนต์ 14/16/20/24/28) และ `color=` เท่านั้น จึงต้องใช้ให้ตรงเป้า อย่าใส่ 28 ให้ทุกตัวเพราะ "ใหญ่แล้วดูดี" — ถ้าทุกอย่างเด่น แปลว่าไม่มีอะไรเด่น
 
-ในโค้ดวันนี้ ตัวเลของศาของเข็มทิศได้ 28 px ส่วนชื่อการ์ดได้ 20 px และหน่วยได้สีเทา นั่นคือการตัดสินใจ ไม่ใช่ความบังเอิญ
+ในโค้ดวันนี้ ตัวเลของศาของเข็มทิศได้ 28 px ส่วนชื่อการ์ดได้ 16 px และหน่วยได้สีเทา นั่นคือการตัดสินใจ ไม่ใช่ความบังเอิญ
 
 </div>
 <div style="flex:0 0 330px">
@@ -460,35 +460,35 @@ COL_ALERT = 0xE5484D   # แดง "ต้องลงมือ"
 <svg viewBox="0 0 800 406" style="max-height:400px" xmlns="http://www.w3.org/2000/svg">
   <g transform="translate(4,4)">
   <rect x="0" y="0" width="792" height="398" fill="#0b1224" stroke="#7aa7d9" stroke-width="2"/>
-  <text x="10" y="24" font-size="19" fill="#00E676">หัวเรื่อง/แถบบน  y=6</text>
-  <rect x="8" y="34" width="386" height="176" rx="12" fill="#142240" stroke="#4CAF50" stroke-width="3"/>
-  <text x="24" y="66" font-size="23" font-weight="700" fill="#4CAF50">การ์ด 1 · IMU + Chart</text>
-  <text x="24" y="98" font-size="20" fill="#cfe3ff">x=8  y=34</text>
-  <text x="24" y="126" font-size="20" fill="#cfe3ff">w=386  h=176</text>
-  <text x="24" y="158" font-size="18" fill="#A0B4CC">Chart อยู่ใน x=18 y=66 w=366 h=102</text>
-  <text x="24" y="188" font-size="18" fill="#A0B4CC">4 widgets</text>
-  <rect x="402" y="34" width="382" height="176" rx="12" fill="#142240" stroke="#E040FB" stroke-width="3"/>
-  <text x="418" y="66" font-size="23" font-weight="700" fill="#E040FB">การ์ด 2 · Compass</text>
-  <text x="418" y="98" font-size="20" fill="#cfe3ff">x=402  y=34</text>
-  <text x="418" y="126" font-size="20" fill="#cfe3ff">w=382  h=176</text>
-  <text x="418" y="158" font-size="18" fill="#A0B4CC">Compass x=420 y=68 w=126</text>
-  <text x="418" y="188" font-size="18" fill="#A0B4CC">5 widgets</text>
-  <rect x="8" y="218" width="386" height="140" rx="12" fill="#142240" stroke="#00BCD4" stroke-width="3"/>
-  <text x="24" y="250" font-size="23" font-weight="700" fill="#00BCD4">การ์ด 3 · CapSense</text>
-  <text x="24" y="282" font-size="20" fill="#cfe3ff">x=8  y=218  w=386  h=140</text>
-  <text x="24" y="312" font-size="18" fill="#A0B4CC">Bar x=22 y=300 w=350 h=20</text>
-  <text x="24" y="340" font-size="18" fill="#A0B4CC">6 widgets</text>
-  <rect x="402" y="218" width="382" height="140" rx="12" fill="#142240" stroke="#8BC34A" stroke-width="3"/>
-  <text x="418" y="250" font-size="23" font-weight="700" fill="#8BC34A">การ์ด 4 · Pot</text>
-  <text x="418" y="282" font-size="20" fill="#cfe3ff">x=402  y=218  w=382  h=140</text>
-  <text x="418" y="312" font-size="18" fill="#A0B4CC">Arc w=100 · Seg7 w=150</text>
-  <text x="418" y="340" font-size="18" fill="#A0B4CC">5 widgets</text>
-  <text x="10" y="384" font-size="19" fill="#00E676">แถบสถานะ  y=370  (รอบที่ N | loop ms)</text>
-  <text x="470" y="384" font-size="18" fill="#A0B4CC">ช่องไฟ 8 px รอบขอบและระหว่างการ์ด</text>
+  <rect x="24" y="4" width="744" height="88" rx="8" fill="none" stroke="#00E676" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="40" y="38" font-size="19" fill="#00E676">แถบหัว  y=4..92 · ชื่อทีม ไฟค่าค้าง ปุ่มสั่งงานสูง 88</text>
+  <text x="40" y="70" font-size="18" fill="#A0B4CC">รอบที่ N | loop ms  y=52 · ขอบซ้าย 24 · ช่องไฟระหว่างการ์ด 16</text>
+  <rect x="24" y="100" width="368" height="136" rx="12" fill="#142240" stroke="#4CAF50" stroke-width="3"/>
+  <text x="40" y="126" font-size="21" font-weight="700" fill="#4CAF50">การ์ด 1 · IMU + Chart</text>
+  <text x="40" y="152" font-size="18" fill="#cfe3ff">x=24  y=100</text>
+  <text x="40" y="176" font-size="18" fill="#cfe3ff">w=368  h=136</text>
+  <text x="40" y="200" font-size="17" fill="#A0B4CC">Chart x=40 y=136 w=336 h=56</text>
+  <text x="40" y="224" font-size="17" fill="#A0B4CC">4 widgets</text>
+  <rect x="408" y="100" width="360" height="136" rx="12" fill="#142240" stroke="#E040FB" stroke-width="3"/>
+  <text x="424" y="126" font-size="21" font-weight="700" fill="#E040FB">การ์ด 2 · Compass</text>
+  <text x="424" y="152" font-size="18" fill="#cfe3ff">x=408  y=100</text>
+  <text x="424" y="176" font-size="18" fill="#cfe3ff">w=360  h=136</text>
+  <text x="424" y="200" font-size="17" fill="#A0B4CC">Compass x=424 y=132 w=96</text>
+  <text x="424" y="224" font-size="17" fill="#A0B4CC">5 widgets</text>
+  <rect x="24" y="252" width="320" height="136" rx="12" fill="#142240" stroke="#00BCD4" stroke-width="3"/>
+  <text x="40" y="278" font-size="21" font-weight="700" fill="#00BCD4">การ์ด 3 · CapSense</text>
+  <text x="40" y="304" font-size="18" fill="#cfe3ff">x=24  y=252  w=320  h=136</text>
+  <text x="40" y="330" font-size="17" fill="#A0B4CC">Bar x=40 y=348 w=288 h=16</text>
+  <text x="40" y="356" font-size="17" fill="#A0B4CC">8 widgets</text>
+  <rect x="360" y="252" width="408" height="136" rx="12" fill="#142240" stroke="#8BC34A" stroke-width="3"/>
+  <text x="376" y="278" font-size="21" font-weight="700" fill="#8BC34A">การ์ด 4 · Pot + เกณฑ์</text>
+  <text x="376" y="304" font-size="18" fill="#cfe3ff">x=360  y=252  w=408  h=136</text>
+  <text x="376" y="330" font-size="17" fill="#A0B4CC">Arc w=88 · Seg7 w=112 · Spinbox w=88</text>
+  <text x="376" y="356" font-size="17" fill="#A0B4CC">9 widgets</text>
   </g>
 </svg>
 
-เลขที่ต้องตรวจให้ตรงเสมอ: **x + w ต้องไม่เกิน 792** และ **y + h ต้องไม่เกิน 398** (การ์ด 2: 402+382 = 784 เหลือขอบขวา 8 px พอดี)
+เลขที่ต้องตรวจให้ตรงเสมอ: **x + w ต้องไม่เกิน 792** และ **y + h ต้องไม่เกิน 398** (การ์ด 2: 408+360 = 768 เหลือขอบขวา 24 px · การ์ดแถวล่าง: 252+136 = 388 เหลือขอบล่าง 10 px)
 
 > วางของทับกันแล้วจอไม่ error มันแค่วาดทับ — เลขที่ผิดจะเงียบจนกว่าเราจะมองเห็นด้วยตา
 

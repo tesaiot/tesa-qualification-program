@@ -57,7 +57,7 @@ loudest = 0
 loud = False
 
 for _ in range(900):
-    # level() คือ rms() แปลงเป็นเปอร์เซ็นต์ของสเกลเต็ม 16 บิต
+    # level() คือ rms() บนสเกลอ็อกเทฟ 0-100 (log2) ไม่ใช่เปอร์เซ็นต์ของสเกลเต็ม - rms เพิ่มเท่าตัว level ขึ้นราว 9
     lv = mic.level()
 
     if lv > loudest:

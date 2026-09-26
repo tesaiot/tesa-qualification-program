@@ -24,7 +24,7 @@
 #
 # ครึ่งหนึ่งของโมดูลนี้ใช้ไม่ได้บนบอร์ดชุดนี้ ตัวที่เกี่ยวกับชิปนิรภัย OPTIGA
 # ทั้งหมด (sign encrypt hmac cred_read cred_write protected_update ฯลฯ) วิ่งไปหา
-# คอร์ CM55 ซึ่งบิลด์มาโดยปิดสวิตช์นั้นไว้ (ENABLE_OPTIGA ?= 0 ใน proj_cm55/Makefile)
+# คอร์ CM55 ซึ่งบิลด์มาโดยปิดสวิตช์นั้นไว้ทั้งสองบอร์ด (ENABLE_OPTIGA ?= 0 ใน proj_cm55/Makefile คนละตัวกับ ENABLE_OPTIGA_CLM ฝั่ง CM33 ที่ Dev Kit เปิด Eva Kit ปิด)
 # เรียกไปก็ได้แต่รอจนหมดเวลาราวสิบวินาทีแล้วล้มเหลว ไฟล์นี้จึงไม่แตะเลยสักตัว
 # เรื่องความปลอดภัยของจริงเป็นงานของบทเรียน 4.7–4.9 ไม่ใช่ของชุดบทเรียนนี้
 
@@ -36,7 +36,7 @@ import ui
 import wifi
 import tesaiot
 
-# แก้ให้ตรงกับที่ผู้สอนแจกหน้าห้อง
+# แก้ให้ตรงกับ Hotspot มือถือของทีม
 WIFI_SSID = "bento-teamXX"            # ชื่อ Hotspot มือถือของทีม (WiFi ขององค์กรต้อง login บอร์ดใช้ไม่ได้)
 WIFI_PASS = "<รหัส Hotspot ของทีม>"     # อย่างน้อย 8 ตัว
 DEVICE_ID = "team03"

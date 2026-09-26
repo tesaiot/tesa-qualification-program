@@ -24,7 +24,7 @@ import ui
 import wifi
 import mqtt
 
-# แก้บรรทัดเหล่านี้ให้ตรงกับที่ผู้สอนแจก ชื่อชุดนี้ใช้เหมือนกันทั้งคอร์ส
+# แก้บรรทัดเหล่านี้ให้ตรงกับของทีม (Hotspot มือถือ broker และเลขทีม) ชื่อชุดนี้ใช้เหมือนกันทั้งคอร์ส
 WIFI_SSID = "bento-teamXX"            # ชื่อ Hotspot มือถือของทีม (WiFi ขององค์กรต้อง login บอร์ดใช้ไม่ได้)
 WIFI_PASS = "<รหัส Hotspot ของทีม>"     # อย่างน้อย 8 ตัว
 BROKER = "broker.hivemq.com"      # สำรอง: "test.mosquitto.org"

@@ -131,7 +131,7 @@ section.cover img{filter:none}
 | `tesaiot.config()` | dict **19 คีย์** | คีย์ครบชุด: `tls_mode` `device_id` `factory_uid` `api_key` `broker` `port` `sni_hostname` `qos` `keepalive` `timeout_ms` `max_retries` `retry_interval_ms` `api_host` `api_port` `api_endpoint` `wifi_ssid` `sntp_server` `sntp_timezone` `debug_level` |
 | `tesaiot.config_set(key, value)` | `True` / `False` | รับ **สตริงทั้งสองช่อง** ตัวเลขก็ต้องส่งเป็นสตริง · คีย์ผิดคืน `False` เงียบ ๆ ต้องรับค่ากลับมาดู · ตั้ง `"tls_mode","server_tls"` แล้วอ่านกลับได้ `"serverTLS"` เพราะมันแปลงชื่อให้ |
 | `tesaiot.config_reset()` | `None` | ล้างกลับเป็นค่าโรงงาน **ทั้ง 19 คีย์** ตัวตนของทีมหายหมด ต้องตั้งใหม่ทุกค่า |
-| `tesaiot.config_reload()` | `True` / `False` | อ่านไฟล์ตั้งค่าจากแฟลชขึ้นมาใหม่ ทับค่าที่แก้ไว้ในหน่วยความจำ · ใช้ทิ้งการแก้ที่ยังไม่พอใจ |
+| `tesaiot.config_reload()` | `True` / `False` | อ่านไฟล์ตั้งค่าจากแฟลชขึ้นมาใหม่ ทับค่าที่แก้ไว้ในหน่วยความจำ · ใช้ทิ้งการแก้ที่ยังไม่พอใจ (ข้อควรรู้: ในซอร์ส `tesaiot_config_store.c` ปัจจุบัน `config_set()` เซฟลงแฟลชทุกครั้ง reload จึงอาจย้อนค่าที่ตั้งด้วย `config_set()` ไม่ได้ — ต้องยืนยันบนบอร์ด) |
 | `tesaiot.connect()` | `True` / `False` | `True` แปลว่า **งานเริ่มแล้ว** ไม่ใช่ต่อเสร็จแล้ว ต้องวนรอ `is_connected()` เอง |
 | `tesaiot.disconnect()` | `True` / `False` | ตัวนี้คืน bool ไม่เหมือน `mqtt.disconnect()` ที่คืน `None` — สองโมดูลไม่เหมือนกัน |
 | `tesaiot.is_connected()` | `True` / `False` | ตัวจริงที่ตอบว่าต่อเสร็จหรือยัง |

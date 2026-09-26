@@ -16,8 +16,8 @@
 #
 # broker.hivemq.com เป็น broker สาธารณะ พอร์ต 1883 ไม่เข้ารหัส ใครก็ subscribe อ่านได้
 # ห้ามส่งของที่เป็นความลับ
-# บน Emulator โมดูล mqtt เป็นของจำลอง ไม่มีอะไรออกจากเบราว์เซอร์ คนที่ไม่ได้นั่งบอร์ด
-# ให้ดูและสั่งบอร์ดของทีมผ่านหน้าเว็บแทน
+# บน Emulator โมดูล mqtt ต่อ broker สาธารณะนี้ได้จริงผ่าน WebSocket และเติม -emu ท้าย client_id
+# จึงไม่เตะบอร์ดจริงของทีม (ต่อไม่ได้ใน 5 วินาทีจะถอยไปใช้ broker จำลองและบอกใน Console)
 
 import gpio
 import json
@@ -28,7 +28,7 @@ import ui
 import wifi
 import mqtt
 
-# แก้สี่บรรทัดนี้ให้ตรงกับที่ผู้สอนแจกหน้าห้อง
+# แก้สี่บรรทัดนี้ให้ตรงกับของทีม (Hotspot มือถือ broker และเลขทีม)
 WIFI_SSID = "bento-teamXX"            # ชื่อ Hotspot มือถือของทีม (WiFi ขององค์กรต้อง login บอร์ดใช้ไม่ได้)
 WIFI_PASS = "<รหัส Hotspot ของทีม>"     # อย่างน้อย 8 ตัว
 BROKER = "broker.hivemq.com"      # สำรอง: "test.mosquitto.org"
@@ -271,7 +271,7 @@ def handle(raw):
         last_lbl.color(COL_OK)
         last_lbl.text("beep")
     elif action == "say":
-        # ข้อความจากคนอื่นยาวแค่ไหนก็ได้ ตัดที่ 24 ตัวเหมือนไฟล์ 06 และกรองอักขระก่อนขึ้นจอ
+        # ข้อความจากคนอื่นยาวแค่ไหนก็ได้ ตัดที่ 24 ตัวเหมือน 06_command_comes_back.py และกรองอักขระก่อนขึ้นจอ
         text = screen_safe(str(cmd.get("text", "")), 24)
         last_lbl.color(COL_ACCENT)
         last_lbl.text(text if text != "" else "say ว่าง")

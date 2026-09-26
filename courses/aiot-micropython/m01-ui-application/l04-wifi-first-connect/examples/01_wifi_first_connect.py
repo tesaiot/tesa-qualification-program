@@ -13,7 +13,7 @@ import time
 import ui
 import wifi
 
-# แก้สองบรรทัดนี้ให้ตรงกับเครือข่ายที่ผู้สอนแจกหน้าห้อง
+# แก้สองบรรทัดนี้ให้ตรงกับ Hotspot มือถือของทีม
 WIFI_SSID = "bento-teamXX"            # ชื่อ Hotspot มือถือของทีม (WiFi ขององค์กรต้อง login บอร์ดใช้ไม่ได้)
 WIFI_PASS = "<รหัส Hotspot ของทีม>"     # อย่างน้อย 8 ตัว
 

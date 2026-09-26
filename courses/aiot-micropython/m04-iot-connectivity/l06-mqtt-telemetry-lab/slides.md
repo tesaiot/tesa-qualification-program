@@ -529,7 +529,7 @@ section p { margin: .2em 0; }
 - เรียนรู้ MQTT และควบคุมอุปกรณ์ IoTs จากทุกมุมโลกด้วย MQTT เข้าใจง่าย — IT around U — <https://www.youtube.com/watch?v=Gu9txMng_nQ>
 - MQTT และการใช้งานสำหรับ Linux (ตอนที่ 1) — IoT Engineering Education, KMUTNB — <https://iot-kmutnb.github.io/blogs/training/mqtt_linux_part-1/>
 
-**ภาพ** (ทุกไฟล์เก็บไว้ใน `slides/img/` ไม่ได้ลิงก์ข้ามเว็บ) — จาก Wikimedia Commons:
+**ภาพ** (ทุกไฟล์เก็บไว้ในโฟลเดอร์ `img/` ของบทเรียน 4.4–4.6 ไม่ได้ลิงก์ข้ามเว็บ) — จาก Wikimedia Commons:
 
 - `s10_mqtt_publish_flow.png` (Brivadeneira, CC BY-SA 4.0) · `s10_mqtt_topic_wildcards.svg` (Ademant, CC BY-SA 4.0) · `s10_mqtt_session_flow.svg` (Simon A. Eugster, CC BY-SA 4.0)
 - `s10_mqtt_publish_packet.svg` (Blacktron, CC BY-SA 4.0) · `s10_clientserver_sequence.png` (Michel Bakni, CC BY-SA 4.0) · `s10_pubsub_topic_decoupling.svg` (Mathieu.clabaut, CC BY-SA 4.0) · `s10_mitm_attack.svg` (Miraceti, CC BY-SA 3.0)

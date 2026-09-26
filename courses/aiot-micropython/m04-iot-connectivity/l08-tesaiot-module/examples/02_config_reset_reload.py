@@ -16,9 +16,10 @@ import lcd
 import ui
 import time
 
-# ตัวตนของทีม - แก้สามค่านี้เป็นของทีมตัวเองก่อนรัน
+# ตัวตนของทีม - แก้สี่ค่านี้เป็นของทีมตัวเองก่อนรัน (config_reset() ล้าง mqtt_pass ด้วย จึงต้องตั้งคืนเหมือนกัน)
 DEVICE_ID = "team03"
 API_KEY = "<api key ของทีม>"
+MQTT_PASS = "<รหัสผ่าน MQTT ของทีม>"
 BROKER = "mqtt.tesaiot.dev"
 
 COL_TEXT, COL_DIM = 0xE8EAED, 0x9AA3AF
@@ -98,9 +99,10 @@ ui.poll()
 # config_set() รับสตริงทั้งสองช่อง และคืน True/False บอกว่าคีย์นั้นมีจริงไหม
 ok_id = tesaiot.config_set("device_id", DEVICE_ID)
 ok_key = tesaiot.config_set("api_key", API_KEY)
+ok_pw = tesaiot.config_set("mqtt_pass", MQTT_PASS)
 ok_brk = tesaiot.config_set("broker", BROKER)
 ok_sni = tesaiot.config_set("sni_hostname", BROKER)
-print("config_set คืนค่า:", ok_id, ok_key, ok_brk, ok_sni)
+print("config_set คืนค่า:", ok_id, ok_key, ok_pw, ok_brk, ok_sni)
 
 # คีย์ที่สะกดผิดคืน False เงียบ ๆ ไม่โยน error - ต้องรับค่ากลับมาดูเสมอ
 typo = tesaiot.config_set("devise_id", "ผิดแน่ ๆ")
@@ -137,6 +139,7 @@ if after_reload != after_set:
     l_step.text("reload ทับค่าที่เพิ่งตั้ง - ต้องตั้งใหม่อีกรอบ")
     tesaiot.config_set("device_id", DEVICE_ID)
     tesaiot.config_set("api_key", API_KEY)
+    tesaiot.config_set("mqtt_pass", MQTT_PASS)
     tesaiot.config_set("broker", BROKER)
     tesaiot.config_set("sni_hostname", BROKER)
     l_n3.text("ตั้งกลับให้แล้ว ตอนนี้ device_id = {}".format(id_now()))

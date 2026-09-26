@@ -76,7 +76,7 @@ section blockquote { font-size: .78em; margin: .1em 0; }
 | [`14_the_board_hears_you.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m01-ui-application/l03-inside-the-box/examples/14_the_board_hears_you.py) | **`mic`** | `mic.start()` `mic.level()` `mic.stats()` `mic.lag()` — และหน้าจอ DotMatrix |
 | [`15_one_number_many_faces.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m01-ui-application/l03-inside-the-box/examples/15_one_number_many_faces.py) | **`ui` เต็มรูปแบบ** | เลขตัวเดียวขับ **เก้า widget พร้อมกัน** — Arc Bar Chart Seg7 Slider Switch Checkbox Spinner Compass · บวก `ui.sfx()` `ui.tone()` |
 
-**ครูเปิดทีละไฟล์บนจอหน้าห้อง ห้องรันตาม แล้วถามคำถามเดียวต่อไฟล์** — "ของนี้เอาไปทำอะไรได้ในงานของคุณ" คำตอบที่ได้คือวัตถุดิบของโปรเจกต์จบในบทเรียน 5.1–5.3
+**เปิดทีละไฟล์ รันตาม แล้วตอบคำถามเดียวต่อไฟล์** (ถ้าเรียนเป็นห้อง ผู้สอนเปิดบนจอหน้าห้องให้ทุกทีมรันตามพร้อมกัน) — "ของนี้เอาไปทำอะไรได้ในงานของคุณ" คำตอบที่ได้คือวัตถุดิบของโปรเจกต์จบในบทเรียน 5.1–5.3
 
 > ไฟล์ [`12_every_sense_at_once.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m01-ui-application/l03-inside-the-box/examples/12_every_sense_at_once.py) กับ [`15_one_number_many_faces.py`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m01-ui-application/l03-inside-the-box/examples/15_one_number_many_faces.py) คือสองไฟล์ที่ต้องได้เล่นแน่ ๆ ถ้าเวลาไม่พอ — ตัวแรกแสดงว่าบอร์ดรับรู้โลกได้กี่ทาง ตัวหลังแสดงว่าเลขหนึ่งตัวเล่าเรื่องได้กี่แบบ
 
@@ -317,7 +317,7 @@ section blockquote { font-size: .76em; margin: .1em 0; }
 | จอสัมผัส 4.3" | หน้าต่างของทุกอย่าง — พื้นที่วาด 792×398 เท่ากันทั้งสองบอร์ด | ทุกเมนู · วันนี้เลย |
 | เฉพาะ Dev Kit | SHT40 (อุณหภูมิ/ความชื้น) · DPS368 (ความกดอากาศ) · เรดาร์ · RGB dot matrix · CAN · ปุ่มเสริมสองปุ่ม (`import buttons`) | Home (แถว Temp / Humid) · บทเรียน 4.1–5.3 ใช้ SHT40 เมื่อบอร์ดมี |
 
-> จำตารางนี้ไว้ — คอลัมน์ขวาคือแผนที่ของทั้งเทอม เราจะไล่หยิบของในตารางนี้มาสั่งงานเองทีละตัว · ตัวเลขที่ต่างกันระหว่างสองบอร์ด (จำนวน LED, จำนวนลูกบิด) ให้ถามบอร์ดด้วยโค้ดเสมอ ไม่ต้องจำ
+> จำตารางนี้ไว้ — คอลัมน์ขวาคือแผนที่ของทั้งหลักสูตร เราจะไล่หยิบของในตารางนี้มาสั่งงานเองทีละตัว · ตัวเลขที่ต่างกันระหว่างสองบอร์ด (จำนวน LED, จำนวนลูกบิด) ให้ถามบอร์ดด้วยโค้ดเสมอ ไม่ต้องจำ
 
 ---
 
@@ -357,7 +357,7 @@ section blockquote { font-size: .76em; margin: .1em 0; }
 
 - [ ] เล่นครบ 5 เมนู: Home, Sensor Dashboard, Smart Watch, Wi-Fi Setting, BENTO Playground (ห้าเมนูนี้มีทั้งบน Eva Kit และ Dev Kit — Controls มีเฉพาะ Eva Kit จึงไม่อยู่ในเกณฑ์)
 - [ ] ตารางสำรวจเมนูในบันทึกการเรียน กรอกครบ 5 แถวแรก (แถว Controls กรอกเฉพาะทีมที่ถือ Eva Kit)
-- [ ] ชี้ได้ว่าเมนูไหนใช้เซนเซอร์ตัวไหน (ตอบปากเปล่ากับผู้สอนได้)
+- [ ] ชี้ได้ว่าเมนูไหนใช้เซนเซอร์ตัวไหน (อธิบายปากเปล่าได้)
 - [ ] จอบอร์ดขึ้นหัวเรื่อง `<h2>` ของชุดบทเรียนนี้
 - [ ] จอบอร์ดขึ้นชื่อทีมและชื่อสมาชิกครบทุกคน ไล่ทีละคน
 - [ ] จอบอร์ดขึ้นบรรทัดสีเขียวปิดท้าย
@@ -500,7 +500,7 @@ print("ส่งข้อความทักทายขึ้นจอบอ�
 
 ถ้าใช้จุลภาคกับแท็ก จะได้ `<span class=muted> ทีม </span>` ที่มีช่องว่างเกินติดขอบแท็ก
 
-ทำไมต้อง `lcd.clear()` ก่อนเสมอ — ลิ้นชักอาจมีข้อความจากโปรแกรมของกลุ่มก่อนหน้าค้างอยู่ **การเริ่มจากสถานะที่เรารู้แน่นอน** เป็นนิสัยของงาน embedded จริง ไม่ใช่แค่ความเรียบร้อย
+ทำไมต้อง `lcd.clear()` ก่อนเสมอ — ลิ้นชักอาจมีข้อความจากโปรแกรมที่รันก่อนหน้าค้างอยู่ **การเริ่มจากสถานะที่เรารู้แน่นอน** เป็นนิสัยของงาน embedded จริง ไม่ใช่แค่ความเรียบร้อย
 
 > เลือกวิธีต่อสตริงตามว่า "มีแท็กมาเกี่ยวไหม" ไม่ใช่ตามความเคยชิน
 
