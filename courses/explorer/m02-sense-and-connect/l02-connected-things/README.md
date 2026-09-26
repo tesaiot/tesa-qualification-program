@@ -25,6 +25,7 @@ develops:
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide, emulator: bento-emulator, broker: broker.hivemq.com}
 status: alpha
 translation: done
+slides: slides.md
 source:
   repo: https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer
   path: examples/s02/05_value_leaves_the_board.py

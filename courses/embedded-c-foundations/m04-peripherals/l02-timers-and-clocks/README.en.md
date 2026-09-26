@@ -20,6 +20,7 @@ develops:
 context: {platform: psoc-edge-e84, lang: c, toolchain: modustoolbox, sdk: tesaiot-pse84-devkit-sdk}
 status: alpha
 translation: done
+slides: slides.md
 source_sha256: 3ee4856f3633fd13d750e5a3c4c05e16aea55106cf3d7f17f5ab574990adf2f8
 ---
 

@@ -24,6 +24,7 @@ develops:
 context: {platform: none, lang: none, audience: public}
 status: alpha
 translation: done
+slides: slides.md
 source_sha256: 70c4dd924a3ae8ddc879e4de925f84a7214086d27e507c8a8fa25c349919c0cd
 ---
 

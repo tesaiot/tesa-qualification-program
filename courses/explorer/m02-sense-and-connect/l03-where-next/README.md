@@ -24,6 +24,7 @@ develops:
 context: {platform: none, lang: none, audience: public}
 status: alpha
 translation: done
+slides: slides.md
 ---
 
 ## เป้าหมาย

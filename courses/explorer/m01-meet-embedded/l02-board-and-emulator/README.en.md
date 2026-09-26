@@ -24,6 +24,7 @@ develops:
 context: {platform: psoc-edge-e84, lang: micropython, ide: bento-ide, emulator: bento-emulator}
 status: alpha
 translation: done
+slides: slides.md
 source_sha256: 9d5f990e06ba5aff789f429ce301f2ccd70e70847c6b311b26a4261ab0071de3
 source:
   repo: https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer
