@@ -28,7 +28,7 @@ translation: pending
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "int_ep05_bmi270_radar_view"
-  ref: e48fbd2a8d786730e30aed96eb129150e2bcf66d
+  ref: 9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465
 ---
 
 # Motion radar: วาดทิศการเคลื่อนไหวแบบ polar
@@ -45,14 +45,14 @@ source:
 
 ## ตัวอย่างสมบูรณ์
 
-โค้ดของ episode นี้อยู่ใน Developer Hub (อ้างอิงที่ commit `e48fbd2`) อ่าน **Why / What / How** ฉบับเต็มก่อนใน [README ของ episode](https://github.com/tesaiot/developer-hub/blob/e48fbd2a8d786730e30aed96eb129150e2bcf66d/int_ep05_bmi270_radar_view/README.md) แล้วไล่โค้ดตามลำดับนี้
+โค้ดของ episode นี้อยู่ใน Developer Hub (อ้างอิงที่ commit `9a8e3ed`) อ่าน **Why / What / How** ฉบับเต็มก่อนใน [README ของ episode](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/README.md) แล้วไล่โค้ดตามลำดับนี้
 
-- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/e48fbd2a8d786730e30aed96eb129150e2bcf66d/int_ep05_bmi270_radar_view/main_example.c)
-- [`app_sensor/bmi270/bmi270_config.h`](https://github.com/tesaiot/developer-hub/blob/e48fbd2a8d786730e30aed96eb129150e2bcf66d/int_ep05_bmi270_radar_view/app_sensor/bmi270/bmi270_config.h)
-- [`app_sensor/bmi270/bmi270_driver.c`](https://github.com/tesaiot/developer-hub/blob/e48fbd2a8d786730e30aed96eb129150e2bcf66d/int_ep05_bmi270_radar_view/app_sensor/bmi270/bmi270_driver.c)
-- [`app_sensor/bmi270/bmi270_driver.h`](https://github.com/tesaiot/developer-hub/blob/e48fbd2a8d786730e30aed96eb129150e2bcf66d/int_ep05_bmi270_radar_view/app_sensor/bmi270/bmi270_driver.h)
-- [`app_sensor/bmi270/bmi270_reader.c`](https://github.com/tesaiot/developer-hub/blob/e48fbd2a8d786730e30aed96eb129150e2bcf66d/int_ep05_bmi270_radar_view/app_sensor/bmi270/bmi270_reader.c)
-- และอีก 6 ไฟล์ใน [โฟลเดอร์ของ episode](https://github.com/tesaiot/developer-hub/tree/e48fbd2a8d786730e30aed96eb129150e2bcf66d/int_ep05_bmi270_radar_view)
+- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/main_example.c)
+- [`app_sensor/bmi270/bmi270_config.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/app_sensor/bmi270/bmi270_config.h)
+- [`app_sensor/bmi270/bmi270_driver.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/app_sensor/bmi270/bmi270_driver.c)
+- [`app_sensor/bmi270/bmi270_driver.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/app_sensor/bmi270/bmi270_driver.h)
+- [`app_sensor/bmi270/bmi270_reader.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/app_sensor/bmi270/bmi270_reader.c)
+- และอีก 6 ไฟล์ใน [โฟลเดอร์ของ episode](https://github.com/tesaiot/developer-hub/tree/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view)
 
 ### build และ flash
 
@@ -68,7 +68,7 @@ make program     # flash ผ่าน KitProg3
 
 ## ดูของจริงก่อน
 
-![หน้าจอของ EP05 — BMI270 Radar View บน TESAIoT Dev Kit](https://raw.githubusercontent.com/tesaiot/developer-hub/e48fbd2a8d786730e30aed96eb129150e2bcf66d/int_ep05_bmi270_radar_view/int_ep05_bmi270_radar_view.png)
+![หน้าจอของ EP05 — BMI270 Radar View บน TESAIoT Dev Kit](https://raw.githubusercontent.com/tesaiot/developer-hub/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/int_ep05_bmi270_radar_view.png)
 
 ก่อนอ่านโค้ด ให้ทายว่าหน้าจอนี้มี object อะไรบ้าง และอะไรเปลี่ยนเมื่อผู้ใช้แตะหรือเมื่อค่าเซนเซอร์เปลี่ยน
 
@@ -88,6 +88,6 @@ make program     # flash ผ่าน KitProg3
 
 ## แหล่งอ้างอิง
 
-- [README ของ episode](https://github.com/tesaiot/developer-hub/blob/e48fbd2a8d786730e30aed96eb129150e2bcf66d/int_ep05_bmi270_radar_view/README.md) · [โฟลเดอร์โค้ด](https://github.com/tesaiot/developer-hub/tree/e48fbd2a8d786730e30aed96eb129150e2bcf66d/int_ep05_bmi270_radar_view) · commit `e48fbd2`
+- [README ของ episode](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view/README.md) · [โฟลเดอร์โค้ด](https://github.com/tesaiot/developer-hub/tree/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/int_ep05_bmi270_radar_view) · commit `9a8e3ed`
 - [เปิดตัวอย่างนี้บน Developer Hub](https://dev.tesaiot.dev/?example=developer-hub--int_ep05_bmi270_radar_view&q=int_ep05_bmi270_radar_view)
 - โค้ดเป็นของ Developer Hub และอ้างอิงด้วยลิงก์ ไม่ได้คัดลอกเข้าคลังนี้

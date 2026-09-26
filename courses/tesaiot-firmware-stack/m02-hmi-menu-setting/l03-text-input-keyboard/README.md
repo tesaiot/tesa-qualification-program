@@ -28,7 +28,7 @@ translation: pending
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "hmi_ep03_text_input_keyboard"
-  ref: e48fbd2a8d786730e30aed96eb129150e2bcf66d
+  ref: 9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465
 ---
 
 # รับข้อความด้วย textarea และ keyboard
@@ -45,14 +45,14 @@ lv_textarea + lv_keyboard — รับ input แบบ realtime และแบ
 
 ## ตัวอย่างสมบูรณ์
 
-โค้ดของ episode นี้อยู่ใน Developer Hub (อ้างอิงที่ commit `e48fbd2`) อ่าน **Why / What / How** ฉบับเต็มก่อนใน [README ของ episode](https://github.com/tesaiot/developer-hub/blob/e48fbd2a8d786730e30aed96eb129150e2bcf66d/hmi_ep03_text_input_keyboard/README.md) แล้วไล่โค้ดตามลำดับนี้
+โค้ดของ episode นี้อยู่ใน Developer Hub (อ้างอิงที่ commit `9a8e3ed`) อ่าน **Why / What / How** ฉบับเต็มก่อนใน [README ของ episode](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep03_text_input_keyboard/README.md) แล้วไล่โค้ดตามลำดับนี้
 
-- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/e48fbd2a8d786730e30aed96eb129150e2bcf66d/hmi_ep03_text_input_keyboard/main_example.c)
-- [`text_input_logic.c`](https://github.com/tesaiot/developer-hub/blob/e48fbd2a8d786730e30aed96eb129150e2bcf66d/hmi_ep03_text_input_keyboard/text_input_logic.c)
-- [`text_input_logic.h`](https://github.com/tesaiot/developer-hub/blob/e48fbd2a8d786730e30aed96eb129150e2bcf66d/hmi_ep03_text_input_keyboard/text_input_logic.h)
-- [`ui_text_input_keyboard.c`](https://github.com/tesaiot/developer-hub/blob/e48fbd2a8d786730e30aed96eb129150e2bcf66d/hmi_ep03_text_input_keyboard/ui_text_input_keyboard.c)
-- [`ui_text_input_keyboard.h`](https://github.com/tesaiot/developer-hub/blob/e48fbd2a8d786730e30aed96eb129150e2bcf66d/hmi_ep03_text_input_keyboard/ui_text_input_keyboard.h)
-- [`ui_text_input_layout.h`](https://github.com/tesaiot/developer-hub/blob/e48fbd2a8d786730e30aed96eb129150e2bcf66d/hmi_ep03_text_input_keyboard/ui_text_input_layout.h)
+- [`main_example.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep03_text_input_keyboard/main_example.c)
+- [`text_input_logic.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep03_text_input_keyboard/text_input_logic.c)
+- [`text_input_logic.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep03_text_input_keyboard/text_input_logic.h)
+- [`ui_text_input_keyboard.c`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep03_text_input_keyboard/ui_text_input_keyboard.c)
+- [`ui_text_input_keyboard.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep03_text_input_keyboard/ui_text_input_keyboard.h)
+- [`ui_text_input_layout.h`](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep03_text_input_keyboard/ui_text_input_layout.h)
 
 ### build และ flash
 
@@ -68,7 +68,7 @@ make program     # flash ผ่าน KitProg3
 
 ## ดูของจริงก่อน
 
-![หน้าจอของ EP03 — Text Input Keyboard บน TESAIoT Dev Kit](https://raw.githubusercontent.com/tesaiot/developer-hub/e48fbd2a8d786730e30aed96eb129150e2bcf66d/hmi_ep03_text_input_keyboard/hmi_ep03_text_input_keyboard.png)
+![หน้าจอของ EP03 — Text Input Keyboard บน TESAIoT Dev Kit](https://raw.githubusercontent.com/tesaiot/developer-hub/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep03_text_input_keyboard/hmi_ep03_text_input_keyboard.png)
 
 ก่อนอ่านโค้ด ให้ทายว่าหน้าจอนี้มี object อะไรบ้าง และอะไรเปลี่ยนเมื่อผู้ใช้แตะหรือเมื่อค่าเซนเซอร์เปลี่ยน
 
@@ -88,6 +88,6 @@ make program     # flash ผ่าน KitProg3
 
 ## แหล่งอ้างอิง
 
-- [README ของ episode](https://github.com/tesaiot/developer-hub/blob/e48fbd2a8d786730e30aed96eb129150e2bcf66d/hmi_ep03_text_input_keyboard/README.md) · [โฟลเดอร์โค้ด](https://github.com/tesaiot/developer-hub/tree/e48fbd2a8d786730e30aed96eb129150e2bcf66d/hmi_ep03_text_input_keyboard) · commit `e48fbd2`
+- [README ของ episode](https://github.com/tesaiot/developer-hub/blob/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep03_text_input_keyboard/README.md) · [โฟลเดอร์โค้ด](https://github.com/tesaiot/developer-hub/tree/9a8e3ed1d813bfd67fabf6b7ac15c6ff9750b465/hmi_ep03_text_input_keyboard) · commit `9a8e3ed`
 - [เปิดตัวอย่างนี้บน Developer Hub](https://dev.tesaiot.dev/?example=developer-hub--hmi_ep03_text_input_keyboard&q=hmi_ep03_text_input_keyboard)
 - โค้ดเป็นของ Developer Hub และอ้างอิงด้วยลิงก์ ไม่ได้คัดลอกเข้าคลังนี้

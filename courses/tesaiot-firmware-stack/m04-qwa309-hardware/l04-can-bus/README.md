@@ -25,7 +25,7 @@ translation: pending
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "prac_qwa309_can_monitor"
-  ref: 372d0d849578a6a49b634d3ecaab8b5958166921
+  ref: e5c772252e7d20f715463e0d27df9ece4e569c38
 ---
 
 # CAN bus 500 kbps: ส่ง heartbeat และอ่านเฟรม
@@ -41,10 +41,10 @@ source:
 
 ## ตัวอย่างสมบูรณ์
 
-แบบฝึกชุด QWA309 ของ Developer Hub (อ้างอิงที่ commit `372d0d8`) รันบน TESAIoT Dev Kit เท่านั้น เพราะใช้อุปกรณ์บนบอร์ดฐาน
+แบบฝึกชุด QWA309 ของ Developer Hub (อ้างอิงที่ commit `e5c7722`) รันบน TESAIoT Dev Kit เท่านั้น เพราะใช้อุปกรณ์บนบอร์ดฐาน
 
 - **QWA309 — CAN Bus Monitor** — CANFD0 Classic CAN 2.0A @ 500 kbps (P16.2 RX / P16.3 TX, SN65HVD230) บน CM55 แบบ polled — TX heartbeat 1Hz + RX frame table บน LVGL
-  [README](https://github.com/tesaiot/developer-hub/blob/372d0d849578a6a49b634d3ecaab8b5958166921/prac_qwa309_can_monitor/README.md) · [โค้ด](https://github.com/tesaiot/developer-hub/tree/372d0d849578a6a49b634d3ecaab8b5958166921/prac_qwa309_can_monitor) · [Developer Hub](https://dev.tesaiot.dev/?example=developer-hub--prac_qwa309_can_monitor&q=prac_qwa309_can_monitor)
+  [README](https://github.com/tesaiot/developer-hub/blob/e5c772252e7d20f715463e0d27df9ece4e569c38/prac_qwa309_can_monitor/README.md) · [โค้ด](https://github.com/tesaiot/developer-hub/tree/e5c772252e7d20f715463e0d27df9ece4e569c38/prac_qwa309_can_monitor) · [Developer Hub](https://dev.tesaiot.dev/?example=developer-hub--prac_qwa309_can_monitor&q=prac_qwa309_can_monitor)
 
 ### build และ flash
 
@@ -71,5 +71,5 @@ make program     # flash ผ่าน KitProg3
 
 ## แหล่งอ้างอิง
 
-- [แบบฝึกทั้งหมดของ TESAIoT Dev Kit](https://github.com/tesaiot/developer-hub/tree/372d0d849578a6a49b634d3ecaab8b5958166921) · commit `372d0d8`
+- [แบบฝึกทั้งหมดของ TESAIoT Dev Kit](https://github.com/tesaiot/developer-hub/tree/e5c772252e7d20f715463e0d27df9ece4e569c38) · commit `e5c7722`
 - โค้ดเป็นของ Developer Hub และอ้างอิงด้วยลิงก์ ไม่ได้คัดลอกเข้าคลังนี้

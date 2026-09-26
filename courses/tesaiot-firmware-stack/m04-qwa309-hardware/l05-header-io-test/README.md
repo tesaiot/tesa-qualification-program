@@ -28,7 +28,7 @@ translation: pending
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "prac_qwa309_header_hw_test"
-  ref: 372d0d849578a6a49b634d3ecaab8b5958166921
+  ref: e5c772252e7d20f715463e0d27df9ece4e569c38
 ---
 
 # ทดสอบ I/O บน header: I2C UART SPI GPIO PWM ADC
@@ -44,10 +44,10 @@ source:
 
 ## ตัวอย่างสมบูรณ์
 
-แบบฝึกชุด QWA309 ของ Developer Hub (อ้างอิงที่ commit `372d0d8`) รันบน TESAIoT Dev Kit เท่านั้น เพราะใช้อุปกรณ์บนบอร์ดฐาน
+แบบฝึกชุด QWA309 ของ Developer Hub (อ้างอิงที่ commit `e5c7722`) รันบน TESAIoT Dev Kit เท่านั้น เพราะใช้อุปกรณ์บนบอร์ดฐาน
 
 - **QWA309 — Header I/O Test** — diagnostic: ทดสอบ Arduino header I/O ครบ (I2C 3V3, UART SCB9, SPI bit-bang, GPIO P13, PWM, ADC net, 4000T EZI2C) พร้อม console UI
-  [README](https://github.com/tesaiot/developer-hub/blob/372d0d849578a6a49b634d3ecaab8b5958166921/prac_qwa309_header_hw_test/README.md) · [โค้ด](https://github.com/tesaiot/developer-hub/tree/372d0d849578a6a49b634d3ecaab8b5958166921/prac_qwa309_header_hw_test) · [Developer Hub](https://dev.tesaiot.dev/?example=developer-hub--prac_qwa309_header_hw_test&q=prac_qwa309_header_hw_test)
+  [README](https://github.com/tesaiot/developer-hub/blob/e5c772252e7d20f715463e0d27df9ece4e569c38/prac_qwa309_header_hw_test/README.md) · [โค้ด](https://github.com/tesaiot/developer-hub/tree/e5c772252e7d20f715463e0d27df9ece4e569c38/prac_qwa309_header_hw_test) · [Developer Hub](https://dev.tesaiot.dev/?example=developer-hub--prac_qwa309_header_hw_test&q=prac_qwa309_header_hw_test)
 
 ### build และ flash
 
@@ -74,5 +74,5 @@ make program     # flash ผ่าน KitProg3
 
 ## แหล่งอ้างอิง
 
-- [แบบฝึกทั้งหมดของ TESAIoT Dev Kit](https://github.com/tesaiot/developer-hub/tree/372d0d849578a6a49b634d3ecaab8b5958166921) · commit `372d0d8`
+- [แบบฝึกทั้งหมดของ TESAIoT Dev Kit](https://github.com/tesaiot/developer-hub/tree/e5c772252e7d20f715463e0d27df9ece4e569c38) · commit `e5c7722`
 - โค้ดเป็นของ Developer Hub และอ้างอิงด้วยลิงก์ ไม่ได้คัดลอกเข้าคลังนี้

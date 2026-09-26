@@ -36,8 +36,8 @@ The lesson pages are in Thai for now; the code and every example README they lin
 ## Where the code lives
 
 All code stays in the Developer Hub and is linked at pinned commits, never copied, so there is one source.
-The episode and practice branches carry no licence file yet, and the master template and the OPTIGA client are
-under Infineon/Cypress EULAs; the examples on `main` are Apache-2.0.
+The episodes, the practice codes and the examples on `main` are Apache-2.0; the master template and the OPTIGA
+client are under Infineon/Cypress EULAs.
 
 ## How to cite TESA
 

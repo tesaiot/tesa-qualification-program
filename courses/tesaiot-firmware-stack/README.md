@@ -42,8 +42,8 @@
 ## โค้ดอยู่ที่ไหน
 
 โค้ดทั้งหมดอยู่ใน Developer Hub และถูกอ้างอิงด้วยลิงก์ที่ pin ไว้ ไม่ได้คัดลอกเข้าคลังนี้ เพื่อให้มีต้นฉบับเดียว
-branch ของ episode และแบบฝึกยังไม่มีไฟล์สัญญาอนุญาต และ master template กับตัวอย่าง OPTIGA อยู่ภายใต้ EULA ของ
-Infineon/Cypress ส่วนตัวอย่างใน branch `main` เป็น Apache-2.0
+episode แบบฝึก และตัวอย่างใน branch `main` เป็น Apache-2.0 ส่วน master template กับตัวอย่าง OPTIGA อยู่ภายใต้ EULA ของ
+Infineon/Cypress
 
 ## ความสัมพันธ์กับหลักสูตรอื่น
 

@@ -30,7 +30,7 @@ translation: pending
 source:
   repo: https://github.com/tesaiot/developer-hub
   path: "README.md"
-  ref: 89d147742fca276703c1212f0084aa5449447be7
+  ref: 082fd3e76595b62cfdb213499a093c233dbb4b53
 ---
 
 # เครื่องมือ บอร์ด และ master template
@@ -64,11 +64,8 @@ master template เตรียมทุกอย่างให้พร้อ�
    make getlibs
    ```
 
-   > README ของ master template อ้างถึง repo `TESA-AIoT-Platform/tesaiot_dev_kit_master` ซึ่งยังไม่เปิดสาธารณะ
-   > บทเรียนนี้จึงใช้ branch ของ `tesaiot/developer-hub` ที่ commit
-   > [`89d1477`](https://github.com/tesaiot/developer-hub/tree/89d147742fca276703c1212f0084aa5449447be7/proj_cm55) แทน
 
-2. build และ flash ตามขั้นตอนใน [README ของ master template](https://github.com/tesaiot/developer-hub/blob/89d147742fca276703c1212f0084aa5449447be7/README.md)
+2. build และ flash ตามขั้นตอนใน [README ของ master template](https://github.com/tesaiot/developer-hub/blob/082fd3e76595b62cfdb213499a093c233dbb4b53/README.md)
 
 ```sh
 # ในโฟลเดอร์ master template (ดูบทเรียน 1.1)
@@ -89,6 +86,6 @@ make program     # flash ผ่าน KitProg3
 
 ## แหล่งอ้างอิง
 
-- [README ของ master template (ภาษาไทย)](https://github.com/tesaiot/developer-hub/blob/89d147742fca276703c1212f0084aa5449447be7/README.md) · commit `89d1477`
+- [README ของ master template (ภาษาไทย)](https://github.com/tesaiot/developer-hub/blob/082fd3e76595b62cfdb213499a093c233dbb4b53/README.md) · commit `082fd3e`
 - [TESAIoT Developer Hub](https://dev.tesaiot.dev/) · [tesaiot/developer-hub](https://github.com/tesaiot/developer-hub)
 - [TESAIoT Dev Kit SDK](https://github.com/tesaiot/tesaiot-pse84-devkit-sdk)
