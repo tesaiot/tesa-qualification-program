@@ -6,7 +6,7 @@
 
 Third-party images and media used by the TESA Open Knowledge courses, with author, source and licence. Each item keeps its owner's licence; everything else is licensed as stated in [REUSE.toml](REUSE.toml).
 
-- การอ้างอิงต้นฉบับที่ดัดแปลงมา (AIC, drsanti, Meysam Parvizi, Infineon) อยู่ใน [NOTICE.md](NOTICE.md) · Upstream attributions: [NOTICE.md](NOTICE.md)
+- การอ้างอิงต้นฉบับที่ดัดแปลงมา (รศ.วิรุฬห์ ศรีบริรักษ์ BUU/AIC, ผศ.ดร.สันติ นุราช KMUTT, Meysam Parvizi, Infineon) อยู่ใน [NOTICE.md](NOTICE.md) · Upstream attributions: [NOTICE.md](NOTICE.md)
 - วิธีให้เครดิต TESA เมื่อนำไปใช้ต่อ อยู่ใน [ATTRIBUTION.md](ATTRIBUTION.md) · How to credit TESA when you reuse this material: [ATTRIBUTION.md](ATTRIBUTION.md)
 
 รวม 138 รายการ จาก 11 หลักสูตร · 138 item(s) from 11 course(s).

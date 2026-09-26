@@ -1,6 +1,6 @@
 # AIoT in Action: จากหน้าจอสัมผัสสู่แพลตฟอร์ม IoT (MicroPython)
 
-> ดัดแปลงจาก AIoT in Action — Embedded Systems for AIoT Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์, Advance Innovation Centre (AIC) มหาวิทยาลัยบูรพา · BENTO & TESAIoT (CC BY 4.0 / MIT)
+> ดัดแปลงจาก AIoT in Action — Embedded Systems for AIoT Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์ วิศวกรรมระบบสมองกลฝังตัว ภาควิชาวิศวกรรมไฟฟ้า คณะวิศวกรรมศาสตร์ มหาวิทยาลัยบูรพา (BUU) · Advance Innovation Centre (AIC) · BENTO & TESAIoT (CC BY 4.0 / MIT)
 
 เรียน **AIoT** จากของจริงบนบอร์ด PSoC Edge — **Eva Kit** หรือ **TESAIoT Dev Kit** — ด้วยภาษา **MicroPython** เริ่มจากเล่นแอปที่มากับเครื่องให้เห็นปลายทางก่อน แล้วค่อย ๆ แกะลงไปทีละชั้นจนสร้างเองได้ทั้งวงจร:
 
@@ -134,12 +134,12 @@
 
 ## ที่มา
 
-หลักสูตรนี้ดัดแปลงจาก **AIoT in Action — Embedded Systems for AIoT Developer** ของ รศ.วิรุฬห์ ศรีบริรักษ์ Advance Innovation Centre (AIC) มหาวิทยาลัยบูรพา ([รีโพ](https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer) @ `a80bbe88` · [เว็บสไลด์](https://advance-innovation-centre-aic.github.io/embedded-systems-for-aiot-developer/)) โดยแบ่งสไลด์สิบสองชุดเป็นบทเรียน จัดเป็นห้าโมดูล และปรับถ้อยคำให้เหมาะกับผู้เรียนทั่วไป · BENTO & TESAIoT
+หลักสูตรนี้ดัดแปลงจาก **AIoT in Action — Embedded Systems for AIoT Developer** ของ รศ.วิรุฬห์ ศรีบริรักษ์ วิศวกรรมระบบสมองกลฝังตัว ภาควิชาวิศวกรรมไฟฟ้า คณะวิศวกรรมศาสตร์ มหาวิทยาลัยบูรพา (BUU) · Advance Innovation Centre (AIC) ([รีโพ](https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer) @ `a80bbe88` · [เว็บสไลด์](https://advance-innovation-centre-aic.github.io/embedded-systems-for-aiot-developer/)) โดยแบ่งสไลด์สิบสองชุดเป็นบทเรียน จัดเป็นห้าโมดูล และปรับถ้อยคำให้เหมาะกับผู้เรียนทั่วไป · BENTO & TESAIoT
 
 ## อ้างอิง TESA
 
 เมื่อนำหลักสูตรนี้หรือบางส่วนไปใช้ ดัดแปลง หรือเผยแพร่ต่อ กรุณาอ้างอิงตามนี้ (ถ้าดัดแปลง ให้เติม «(ดัดแปลง)» ต่อท้ายชื่อ และคงเครดิตต้นฉบับของ AIC ไว้ด้วย):
 
-> "AIoT in Action: จากหน้าจอสัมผัสสู่แพลตฟอร์ม IoT (MicroPython)" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0 · ดัดแปลงจาก AIoT in Action — Embedded Systems for AIoT Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์, Advance Innovation Centre (AIC) มหาวิทยาลัยบูรพา · BENTO & TESAIoT (CC BY 4.0 / MIT)
+> "AIoT in Action: จากหน้าจอสัมผัสสู่แพลตฟอร์ม IoT (MicroPython)" จาก TESA Open Knowledge โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA) https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0 · ดัดแปลงจาก AIoT in Action — Embedded Systems for AIoT Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์ วิศวกรรมระบบสมองกลฝังตัว ภาควิชาวิศวกรรมไฟฟ้า คณะวิศวกรรมศาสตร์ มหาวิทยาลัยบูรพา (BUU) · Advance Innovation Centre (AIC) · BENTO & TESAIoT (CC BY 4.0 / MIT)
 
 การอ้างอิงไม่ได้แปลว่า TESA หรือ Infineon รับรองหลักสูตรหรือผลงานที่นำไปใช้ต่อ ชื่อ TESA, TQP และ "Certified by TESA and Infineon" เป็นเครื่องหมายของโครงการ

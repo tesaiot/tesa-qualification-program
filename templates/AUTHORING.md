@@ -63,9 +63,8 @@ ID ของบทเรียนมีรูปแบบ `<short>.mNN.lNN` เ�
 - **เครดิต TESA ต้องอยู่ทุกชั้น** ทุก `slides.md` มี `footer:` เป็นบรรทัดเครดิตสั้น และทุก `README.md` / `README.en.md` ของหลักสูตร
   จบด้วยหัวข้อ "อ้างอิง TESA / How to cite TESA" ที่มีข้อความเครดิตเต็มของหลักสูตรนั้น แม่แบบใส่ไว้ให้แล้ว อย่าลบ รายละเอียดใน [ATTRIBUTION.md](../ATTRIBUTION.md)
 - **เนื้อหาที่นำเข้าจากงานอื่น** ใส่เครดิตต้นทางใน README ของหลักสูตรและใน `course.yaml` (`authors`, `source`) เช่น
-  - หลักสูตร AIoT: "ดัดแปลงจาก AIoT in Action — Embedded Systems for AIoT Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์,
-    Advance Innovation Centre (AIC) มหาวิทยาลัยบูรพา · BENTO & TESAIoT (CC BY 4.0 / MIT)"
-  - หลักสูตร C1–C3: "เนื้อหาต้นฉบับโดย drsanti (https://github.com/drsanti) ภายใต้การสนับสนุนของสมาคม TESA"
+  - หลักสูตร AIoT: "ดัดแปลงจาก AIoT in Action — Embedded Systems for AIoT Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์ วิศวกรรมระบบสมองกลฝังตัว ภาควิชาวิศวกรรมไฟฟ้า คณะวิศวกรรมศาสตร์ มหาวิทยาลัยบูรพา (BUU) · Advance Innovation Centre (AIC) · BENTO & TESAIoT (CC BY 4.0 / MIT)"
+  - หลักสูตร C1–C3: "เนื้อหาต้นฉบับโดย ผศ.ดร.สันติ นุราช ภาควิชาวิศวกรรมระบบควบคุมและเครื่องมือวัด คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี (KMUTT) (https://github.com/drsanti) ภายใต้การสนับสนุนของสมาคม TESA"
 - **โค้ดของ Infineon** ลิงก์ไปยัง repository และ tag เป็นค่าเริ่มต้น ถ้าจำเป็นต้องคัดลอก ต้องคง header และไฟล์สัญญาอนุญาตเดิม และอ้างอิงแหล่งให้ครบ
 - **แผนที่ทักษะ** เป็น CC BY-SA 4.0 อย่าคัดลอกข้อความหรือรายการแหล่งเรียนรู้ของ Embedded Systems Engineering Roadmap ลงในบทเรียน ให้ลิงก์ไปแทน
 - เขียนชื่อ Infineon®, PSOC™, ModusToolbox™, OPTIGA™ ให้ถูก และใส่สัญลักษณ์ครั้งแรกในแต่ละหน้า ดู [TRADEMARKS.md](../TRADEMARKS.md)

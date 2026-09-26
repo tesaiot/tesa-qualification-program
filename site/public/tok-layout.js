@@ -5,7 +5,7 @@
 //  1. Drag handles between the frames: the reader sets the width of the course navigation (left)
 //     and of "On this page" (right). Double-click or Home resets; arrow keys move 16 px.
 //     Widths are remembered in this browser only (localStorage; the page works without it).
-//  2. Links to other sites (GitHub, Developer Hub, ...) open in a new tab, so the lesson stays open.
+//  2. Links in the page content (and any link to another site) open in a new tab, so the lesson stays open.
 (() => {
 	const root = document.documentElement;
 	const th = (root.lang || 'th').startsWith('th');
@@ -112,17 +112,29 @@
 		document.body.appendChild(h);
 	}
 
-	function openExternalInNewTab() {
+	// Links in the document open in a new tab so the lesson stays where it was (owner's request):
+	// every link inside the page content and the lesson boxes, plus any link to another site.
+	// Navigation stays in the same tab: sidebar, header, previous/next, course cards, and anchors
+	// within the same page.
+	const CONTENT = '.sl-markdown-content, .tok-meta-box, .tok-cite, .tok-lesson-end';
+	const NAVIGATION = '.tok-card, nav, .sidebar-content, .pagination-links, header, .tok-credit, .right-sidebar';
+	function openLinksInNewTab() {
 		for (const a of document.querySelectorAll('a[href]')) {
+			const href = a.getAttribute('href') || '';
+			if (href.startsWith('#')) continue;
 			let url;
-			try { url = new URL(a.getAttribute('href'), location.href); } catch { continue; }
-			if ((url.protocol === 'http:' || url.protocol === 'https:') && url.origin !== location.origin) {
-				a.target = '_blank';
-				const rel = new Set((a.getAttribute('rel') || '').split(/\s+/).filter(Boolean));
-				rel.add('noopener');
-				rel.add('noreferrer');
-				a.setAttribute('rel', [...rel].join(' '));
-			}
+			try { url = new URL(href, location.href); } catch { continue; }
+			if (url.protocol !== 'http:' && url.protocol !== 'https:') continue;
+			const samePage = url.origin === location.origin && url.pathname === location.pathname;
+			if (samePage) continue;
+			const external = url.origin !== location.origin;
+			const inContent = !!a.closest(CONTENT) && !a.closest(NAVIGATION);
+			if (!external && !inContent) continue;
+			a.target = '_blank';
+			const rel = new Set((a.getAttribute('rel') || '').split(/\s+/).filter(Boolean));
+			rel.add('noopener');
+			if (external) rel.add('noreferrer');
+			a.setAttribute('rel', [...rel].join(' '));
 		}
 	}
 
@@ -130,7 +142,7 @@
 		for (const side of Object.keys(SIDES)) {
 			if (root.hasAttribute(SIDES[side].attr)) makeHandle(side);
 		}
-		openExternalInNewTab();
+		openLinksInNewTab();
 	}
 
 	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

@@ -47,8 +47,8 @@ CC BY 4.0 ข้อ 3(a)(1)(B) กำหนดให้บอกเมื่อ�
 
 | หลักสูตร | เครดิตต้นทางที่ต้องคงไว้ |
 |---|---|
-| `courses/aiot-micropython/` | ดัดแปลงจาก AIoT in Action — Embedded Systems for AIoT Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์, Advance Innovation Centre (AIC) มหาวิทยาลัยบูรพา · BENTO & TESAIoT (CC BY 4.0 / MIT) |
-| `courses/firmware-sdk-edge-ai/`, `courses/digital-twin/`, `courses/product-design/` | เนื้อหาต้นฉบับโดย drsanti (https://github.com/drsanti) ภายใต้การสนับสนุนของสมาคม TESA |
+| `courses/aiot-micropython/` | ดัดแปลงจาก AIoT in Action — Embedded Systems for AIoT Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์ วิศวกรรมระบบสมองกลฝังตัว ภาควิชาวิศวกรรมไฟฟ้า คณะวิศวกรรมศาสตร์ มหาวิทยาลัยบูรพา (BUU) · Advance Innovation Centre (AIC) · BENTO & TESAIoT (CC BY 4.0 / MIT) |
+| `courses/firmware-sdk-edge-ai/`, `courses/digital-twin/`, `courses/product-design/` | เนื้อหาต้นฉบับโดย ผศ.ดร.สันติ นุราช ภาควิชาวิศวกรรมระบบควบคุมและเครื่องมือวัด คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี (KMUTT) (https://github.com/drsanti) ภายใต้การสนับสนุนของสมาคม TESA |
 | `skills/` | ดัดแปลงจาก Embedded Systems Engineering Roadmap โดย Meysam Parvizi (CC BY-SA 4.0) ดู [skills/NOTICE.md](skills/NOTICE.md) |
 
 ภาพจากบุคคลที่สามมีสัญญาอนุญาตของตัวเอง ถ้านำภาพไปใช้ ให้ใส่เครดิตของภาพนั้นตาม `credits.yaml` ของหลักสูตรด้วย
@@ -102,8 +102,7 @@ TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตั�
 1. "AIoT in Action: จากหน้าจอสัมผัสสู่แพลตฟอร์ม IoT (MicroPython)" จาก TESA Open Knowledge
    โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA)
    https://github.com/tesaiot/tesa-qualification-program สัญญาอนุญาต CC BY 4.0 (ดัดแปลง)
-   ดัดแปลงจาก AIoT in Action — Embedded Systems for AIoT Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์,
-   Advance Innovation Centre (AIC) มหาวิทยาลัยบูรพา · BENTO & TESAIoT (CC BY 4.0 / MIT)
+   ดัดแปลงจาก AIoT in Action — Embedded Systems for AIoT Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์ วิศวกรรมระบบสมองกลฝังตัว ภาควิชาวิศวกรรมไฟฟ้า คณะวิศวกรรมศาสตร์ มหาวิทยาลัยบูรพา (BUU) · Advance Innovation Centre (AIC) · BENTO & TESAIoT (CC BY 4.0 / MIT)
 หมายเหตุ: รายวิชานี้ใช้สื่อเปิดของ TESA แต่ไม่ได้รับการรับรองจาก TESA หรือ Infineon
 ```
 
@@ -181,7 +180,7 @@ https://creativecommons.org/licenses/by/4.0/ wherever a link is possible).
 - **Changed it? Add "(adapted)".** CC BY 4.0 §3(a)(1)(B) requires you to indicate modifications. Append "(adapted)"
   (Thai: "(ดัดแปลง)") and, where you can, say briefly what changed.
 - **Keep upstream credits.** Where TESA itself adapted material, keep the upstream credit as well: the AIC credit for
-  `courses/aiot-micropython/`, drsanti's credit for `courses/firmware-sdk-edge-ai/`, `courses/digital-twin/` and
+  `courses/aiot-micropython/`, the credit of Asst. Prof. Dr. Santi Nuratch (KMUTT) for `courses/firmware-sdk-edge-ai/`, `courses/digital-twin/` and
   `courses/product-design/`, and Meysam Parvizi's for `skills/`. Each course README ends with the full block.
 - **Third-party images** keep their own licence; credit them as listed in the course `credits.yaml`.
 - **Short credit line for footers:** `TESA Open Knowledge · © 2026 สมาคมสมองกลฝังตัวไทย (TESA) · CC BY 4.0`.

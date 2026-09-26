@@ -2,7 +2,7 @@
 
 A hands-on course in designing smart-product enclosures with Blender: concept, block model, PBR materials, rendering and animation, then GLB export to a Digital Twin, digital validation and a physical prototype with a design report.
 
-> Original content by drsanti (https://github.com/drsanti), supported by the Thai Embedded Systems Association (TESA). Imported from [drsanti/TESAIoT-Courses — C3](https://github.com/drsanti/TESAIoT-Courses/tree/287c21814ba8c75f693136616dcd270349a15966/C3) (commit `287c218`) under CC BY 4.0.
+> Original content by Asst. Prof. Dr. Santi Nuratch, Department of Control Systems and Instrumentation Engineering, Faculty of Engineering, King Mongkut's University of Technology Thonburi (KMUTT) (https://github.com/drsanti), supported by the Thai Embedded Systems Association (TESA). Imported from [drsanti/TESAIoT-Courses — C3](https://github.com/drsanti/TESAIoT-Courses/tree/287c21814ba8c75f693136616dcd270349a15966/C3) (commit `287c218`) under CC BY 4.0.
 
 | | |
 |---|---|
@@ -72,6 +72,8 @@ If you reuse this course in slides, teaching material, a course specification, h
 
 If you change the material, add "(adapted)" and keep the original author credit:
 
-> Original content by drsanti (https://github.com/drsanti), supported by the Thai Embedded Systems Association (TESA)
+> Original content by Asst. Prof. Dr. Santi Nuratch, Department of Control Systems and Instrumentation Engineering, Faculty of Engineering, King Mongkut's University of Technology Thonburi (KMUTT) (https://github.com/drsanti), supported by the Thai Embedded Systems Association (TESA)
+>
+> The Bitstream Studio (VS Code) and Ternion tools used in this course are by Asst. Prof. Dr. Santi Nuratch (KMUTT).
 
 Citing TESA does not mean that TESA or Infineon endorses your course or work. More formats and examples (slides, course specifications, handouts, code repositories) are in [ATTRIBUTION.md](../../ATTRIBUTION.md).

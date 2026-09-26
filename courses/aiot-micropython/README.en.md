@@ -1,6 +1,6 @@
 # AIoT in Action: From Touch Screen to IoT Platform (MicroPython)
 
-> Adapted from AIoT in Action — Embedded Systems for AIoT Developer, © 2026 Assoc. Prof. Wiroon Sriborrirux, Advance Innovation Centre (AIC), Burapha University · BENTO & TESAIoT (CC BY 4.0 / MIT)
+> Adapted from AIoT in Action — Embedded Systems for AIoT Developer, © 2026 Assoc. Prof. Wiroon Sriborrirux, Embedded Systems Engineering, Department of Electrical Engineering, Faculty of Engineering, Burapha University (BUU), Advance Innovation Centre (AIC) · BENTO & TESAIoT (CC BY 4.0 / MIT)
 
 Thai version: [README.md](README.md). The lessons, slides and code comments are in Thai (technical terms and code in English).
 
@@ -110,12 +110,12 @@ Five modules, 36 lessons: about 36 hours as in the source course (twelve 3-hour 
 
 ## Source
 
-Adapted from **AIoT in Action — Embedded Systems for AIoT Developer** by Assoc. Prof. Wiroon Sriborrirux, Advance Innovation Centre (AIC), Burapha University ([repository](https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer) @ `a80bbe88` · [slides site](https://advance-innovation-centre-aic.github.io/embedded-systems-for-aiot-developer/)). The twelve decks were split into lessons, grouped into five modules, and the wording was adapted for a general audience. BENTO & TESAIoT.
+Adapted from **AIoT in Action — Embedded Systems for AIoT Developer** by Assoc. Prof. Wiroon Sriborrirux, Embedded Systems Engineering, Department of Electrical Engineering, Faculty of Engineering, Burapha University (BUU), Advance Innovation Centre (AIC) ([repository](https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer) @ `a80bbe88` · [slides site](https://advance-innovation-centre-aic.github.io/embedded-systems-for-aiot-developer/)). The twelve decks were split into lessons, grouped into five modules, and the wording was adapted for a general audience. BENTO & TESAIoT.
 
 ## How to cite TESA
 
 When you use, adapt or redistribute this course or part of it, credit it as follows (add "(adapted)" after the title if you changed it, and keep the upstream AIC credit):
 
-> "AIoT in Action: From Touch Screen to IoT Platform (MicroPython)" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0 · Adapted from AIoT in Action — Embedded Systems for AIoT Developer, © 2026 Assoc. Prof. Wiroon Sriborrirux, Advance Innovation Centre (AIC), Burapha University · BENTO & TESAIoT (CC BY 4.0 / MIT)
+> "AIoT in Action: From Touch Screen to IoT Platform (MicroPython)" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0 · Adapted from AIoT in Action — Embedded Systems for AIoT Developer, © 2026 Assoc. Prof. Wiroon Sriborrirux, Embedded Systems Engineering, Department of Electrical Engineering, Faculty of Engineering, Burapha University (BUU), Advance Innovation Centre (AIC) · BENTO & TESAIoT (CC BY 4.0 / MIT)
 
 Attribution does not mean that TESA or Infineon endorse or certify your course or work. "TESA", "TQP" and "Certified by TESA and Infineon" are marks of the programme.

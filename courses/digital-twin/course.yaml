@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
 # SPDX-License-Identifier: CC-BY-4.0
-# Original content by drsanti (https://github.com/drsanti), funded by TESA; imported from drsanti/TESAIoT-Courses/C2.
+# Original content by Asst. Prof. Dr. Santi Nuratch, Department of Control Systems and Instrumentation Engineering, Faculty of Engineering, King Mongkut's University of Technology Thonburi (KMUTT) (https://github.com/drsanti), funded by TESA; imported from drsanti/TESAIoT-Courses/C2.
 id: digital-twin
 short: twin
 title:
@@ -51,7 +51,7 @@ outcomes:
 - th: ทดสอบระบบแบบ end-to-end ด้วยตารางเทสอย่างน้อย 3 เคส และส่งมอบ README ที่รันซ้ำได้
   en: Test the system end to end with at least three test cases and hand over a reproducible README.
 authors:
-- name: drsanti
+- name: "ผศ.ดร.สันติ นุราช (Asst. Prof. Dr. Santi Nuratch), KMUTT"
   url: https://github.com/drsanti
   role: author
 sponsors:
@@ -62,7 +62,7 @@ license:
 source:
   repo: https://github.com/drsanti/TESAIoT-Courses
   ref: 287c21814ba8c75f693136616dcd270349a15966
-  note: Course 2 (C2/) of drsanti/TESAIoT-Courses. TESA funded the work and holds the rights; imported under CC BY 4.0. The upstream repository carries no licence file. Text kept faithful; structure, front matter, quizzes and notes added by TESA Open Knowledge.
+  note: "Original content by Asst. Prof. Dr. Santi Nuratch (ผศ.ดร.สันติ นุราช), KMUTT. Course 2 (C2/) of drsanti/TESAIoT-Courses. TESA funded the work and holds the rights; imported under CC BY 4.0. The upstream repository carries no licence file. Text kept faithful; structure, front matter, quizzes and notes added by TESA Open Knowledge."
 modules:
 - id: m01-twin-architecture
   title:

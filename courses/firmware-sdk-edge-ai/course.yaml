@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
 # SPDX-License-Identifier: CC-BY-4.0
-# Original content by drsanti (https://github.com/drsanti), funded by TESA; imported from drsanti/TESAIoT-Courses/C1.
+# Original content by Asst. Prof. Dr. Santi Nuratch, Department of Control Systems and Instrumentation Engineering, Faculty of Engineering, King Mongkut's University of Technology Thonburi (KMUTT) (https://github.com/drsanti), funded by TESA; imported from drsanti/TESAIoT-Courses/C1.
 id: firmware-sdk-edge-ai
 short: fw-sdk
 title:
@@ -48,7 +48,7 @@ outcomes:
 - th: ส่งมอบมินิโปรเจกต์ที่รวม sensor, RTOS และ connectivity พร้อม README ที่ผู้อื่นทำซ้ำได้
   en: Deliver a mini project that combines sensing, RTOS and connectivity, with a README others can reproduce.
 authors:
-- name: drsanti
+- name: "ผศ.ดร.สันติ นุราช (Asst. Prof. Dr. Santi Nuratch), KMUTT"
   url: https://github.com/drsanti
   role: author
 sponsors:
@@ -59,7 +59,7 @@ license:
 source:
   repo: https://github.com/drsanti/TESAIoT-Courses
   ref: 287c21814ba8c75f693136616dcd270349a15966
-  note: Course 1 (C1/) of drsanti/TESAIoT-Courses. TESA funded the work and holds the rights; imported under CC BY 4.0. The upstream repository carries no licence file. Text kept faithful; structure, front matter, quizzes and notes added by TESA Open Knowledge.
+  note: "Original content by Asst. Prof. Dr. Santi Nuratch (ผศ.ดร.สันติ นุราช), KMUTT. Course 1 (C1/) of drsanti/TESAIoT-Courses. TESA funded the work and holds the rights; imported under CC BY 4.0. The upstream repository carries no licence file. Text kept faithful; structure, front matter, quizzes and notes added by TESA Open Knowledge."
 modules:
 - id: m01-mcu-architecture
   title:

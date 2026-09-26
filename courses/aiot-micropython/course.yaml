@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
 # SPDX-License-Identifier: CC-BY-4.0
-# Adapted from AIoT in Action — Embedded Systems for AIoT Developer, © 2026 Assoc. Prof. Wiroon Sriborrirux, Advance Innovation Centre (AIC), Burapha University · BENTO & TESAIoT (CC BY 4.0 / MIT)
+# Adapted from AIoT in Action — Embedded Systems for AIoT Developer, © 2026 Assoc. Prof. Wiroon Sriborrirux, Embedded Systems Engineering, Department of Electrical Engineering, Faculty of Engineering, Burapha University (BUU), Advance Innovation Centre (AIC) · BENTO & TESAIoT (CC BY 4.0 / MIT)
 
 schema_version: 1
 id: aiot-micropython
@@ -48,7 +48,7 @@ outcomes:
 - th: ประกอบทั้งหมดเป็น AIoT mini-product ที่แก้โจทย์จริงหนึ่งเรื่อง ทำงานต่อได้เมื่อเน็ตหลุด ส่งข้อมูลตาม schema ที่ออกแบบเอง และนำเสนอได้ภายใน 10 นาที
   en: Assemble everything into an AIoT mini-product that solves one real problem, keeps working when the network drops, sends data in a schema you designed, and present it in 10 minutes.
 authors:
-- name: รศ.วิรุฬห์ ศรีบริรักษ์ (Wiroon Sriborrirux)
+- name: "รศ.วิรุฬห์ ศรีบริรักษ์ (Assoc. Prof. Wiroon Sriborrirux), BUU"
   role: author
 - name: 'สมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA)'
   url: https://github.com/tesaiot/tesa-qualification-program
@@ -64,7 +64,7 @@ source:
   site: https://advance-innovation-centre-aic.github.io/embedded-systems-for-aiot-developer/
   title: AIoT in Action — Embedded Systems for AIoT Developer (published slides and code)
   license: CC-BY-4.0 (content) / MIT (code)
-  note: Code, images and the newer slide text (public MQTT broker, team hotspots) come from this published copy of 2026-09-25.
+  note: "Adapted from AIoT in Action by Assoc. Prof. Wiroon Sriborrirux (รศ.วิรุฬห์ ศรีบริรักษ์), BUU. Code, images and the newer slide text (public MQTT broker, team hotspots) come from this published copy of 2026-09-25."
 modules:
 - id: m01-ui-application
   title:

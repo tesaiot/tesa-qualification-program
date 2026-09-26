@@ -39,11 +39,11 @@ TESA เป็นเจ้าของและผู้เผยแพร่ TE
 `Copyright (c) 2026 Wiroon Sriborrirux, Advance Innovation Centre (AIC), Burapha University`
 ส่วนที่ดัดแปลง เช่น การแบ่งเป็นบทเรียน การเพิ่มเช็กความเข้าใจ และการปรับไฟล์ฝึก บันทึกไว้ใน README ของหลักสูตร
 
-## 3. หลักสูตร C1–C3 ของ drsanti
+## 3. หลักสูตร C1–C3 ของ ผศ.ดร.สันติ นุราช (KMUTT)
 
 หลักสูตร `courses/firmware-sdk-edge-ai/`, `courses/digital-twin/` และ `courses/product-design/`
 
-> เนื้อหาต้นฉบับโดย drsanti (<https://github.com/drsanti>) ภายใต้การสนับสนุนของสมาคม TESA
+> เนื้อหาต้นฉบับโดย ผศ.ดร.สันติ นุราช ภาควิชาวิศวกรรมระบบควบคุมและเครื่องมือวัด คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี (KMUTT) (https://github.com/drsanti) ภายใต้การสนับสนุนของสมาคม TESA
 > ต้นทาง: <https://github.com/drsanti/TESAIoT-Courses>
 
 งานชุดนี้จัดทำด้วยงบสนับสนุนจาก TESA และ TESA เผยแพร่ฉบับที่เรียบเรียงใหม่ในคลังนี้ภายใต้ CC BY 4.0
@@ -92,12 +92,11 @@ Third-party images: their own licence. Names and logos are not licensed; see [TR
 1. **TESA** owns and publishes TESA Open Knowledge. Everyone who reuses it must credit TESA as set out in
    [ATTRIBUTION.md](ATTRIBUTION.md).
 2. **AIoT in Action (AIC, Burapha University).** `courses/aiot-micropython/` is adapted from "AIoT in Action —
-   Embedded Systems for AIoT Developer", © 2026 Assoc. Prof. Wiroon Sriborrirux, Advance Innovation Centre (AIC),
-   Burapha University · BENTO & TESAIoT (CC BY 4.0 / MIT),
+   Embedded Systems for AIoT Developer", © 2026 Assoc. Prof. Wiroon Sriborrirux, Embedded Systems Engineering, Department of Electrical Engineering, Faculty of Engineering, Burapha University (BUU), Advance Innovation Centre (AIC) · BENTO & TESAIoT (CC BY 4.0 / MIT),
    <https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer>.
    Imported code keeps the MIT licence and its original copyright line.
-3. **drsanti's C1–C3.** `courses/firmware-sdk-edge-ai/`, `courses/digital-twin/` and `courses/product-design/` are based on
-   original material by drsanti (<https://github.com/drsanti>), <https://github.com/drsanti/TESAIoT-Courses>,
+3. **C1–C3 by Asst. Prof. Dr. Santi Nuratch (KMUTT).** `courses/firmware-sdk-edge-ai/`, `courses/digital-twin/` and `courses/product-design/` are based on
+   original material by Asst. Prof. Dr. Santi Nuratch, Department of Control Systems and Instrumentation Engineering, Faculty of Engineering, King Mongkut's University of Technology Thonburi (KMUTT) (https://github.com/drsanti), <https://github.com/drsanti/TESAIoT-Courses>,
    produced with funding from TESA. TESA publishes the reworked version here under CC BY 4.0 and names the
    original author on every course page.
 4. **Meysam Parvizi.** `skills/` is adapted from the "Embedded Systems Engineering Roadmap"

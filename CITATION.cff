@@ -53,14 +53,17 @@ references:
     authors:
       - family-names: Sriborrirux
         given-names: Wiroon
-        affiliation: "Advance Innovation Centre (AIC), Burapha University"
+        affiliation: "Embedded Systems Engineering, Department of Electrical Engineering, Faculty of Engineering, Burapha University (BUU); Advance Innovation Centre (AIC)"
     repository-code: "https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer"
     year: 2026
     notes: "Content CC-BY-4.0, code MIT. Source of courses/aiot-micropython/."
   - type: generic
     title: "TESAIoT Training Handbooks (C1–C3)"
     authors:
-      - alias: drsanti
+      - family-names: Nuratch
+        given-names: Santi
+        alias: drsanti
+        affiliation: "Department of Control Systems and Instrumentation Engineering, Faculty of Engineering, King Mongkut's University of Technology Thonburi (KMUTT)"
     repository-code: "https://github.com/drsanti/TESAIoT-Courses"
     notes: "Original course material produced with funding from TESA."
   - type: generic

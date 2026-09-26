@@ -101,8 +101,7 @@ The TESA, TQP, TESAIoT and BENTO names and logos and Infineon's trademarks are n
 - Made and published by the Thai Embedded Systems Association (TESA), สมาคมสมองกลฝังตัวไทย.
 - The AIoT in Action course is adapted from "AIoT in Action — Embedded Systems for AIoT Developer", © 2026 Assoc. Prof. Wiroon
   Sriborrirux, Advance Innovation Centre (AIC), Burapha University · BENTO & TESAIoT (CC BY 4.0 / MIT).
-- The TESA Firmware SDK, Digital Twin and Product Design courses are based on original material by drsanti
-  (https://github.com/drsanti), produced with funding from TESA.
+- The TESA Firmware SDK, Digital Twin and Product Design courses are based on original material by Asst. Prof. Dr. Santi Nuratch, Department of Control Systems and Instrumentation Engineering, Faculty of Engineering, King Mongkut's University of Technology Thonburi (KMUTT) (https://github.com/drsanti), produced with funding from TESA.
 - The skill map is adapted from the Embedded Systems Engineering Roadmap by Meysam Parvizi (CC BY-SA 4.0).
 - Infineon®, PSOC™, ModusToolbox™ and OPTIGA™ are trademarks of Infineon Technologies AG. Infineon code examples are referenced
   by link.

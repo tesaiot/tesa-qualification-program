@@ -97,9 +97,8 @@ Skillset Mapping ใน **TESA Qualification Program (TQP) ซึ่งเป็
 ## ที่มาและเครดิต
 
 - จัดทำและเผยแพร่โดยสมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA)
-- หลักสูตร AIoT in Action ดัดแปลงจาก AIoT in Action — Embedded Systems for AIoT Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์,
-  Advance Innovation Centre (AIC) มหาวิทยาลัยบูรพา · BENTO & TESAIoT (CC BY 4.0 / MIT)
-- หลักสูตร TESA Firmware SDK, Digital Twin และการออกแบบผลิตภัณฑ์: เนื้อหาต้นฉบับโดย drsanti (https://github.com/drsanti) ภายใต้การสนับสนุนของสมาคม TESA
+- หลักสูตร AIoT in Action ดัดแปลงจาก AIoT in Action — Embedded Systems for AIoT Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์ วิศวกรรมระบบสมองกลฝังตัว ภาควิชาวิศวกรรมไฟฟ้า คณะวิศวกรรมศาสตร์ มหาวิทยาลัยบูรพา (BUU) · Advance Innovation Centre (AIC) · BENTO & TESAIoT (CC BY 4.0 / MIT)
+- หลักสูตร TESA Firmware SDK, Digital Twin และการออกแบบผลิตภัณฑ์: เนื้อหาต้นฉบับโดย ผศ.ดร.สันติ นุราช ภาควิชาวิศวกรรมระบบควบคุมและเครื่องมือวัด คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี (KMUTT) (https://github.com/drsanti) ภายใต้การสนับสนุนของสมาคม TESA
 - แผนที่ทักษะดัดแปลงจาก Embedded Systems Engineering Roadmap โดย Meysam Parvizi (CC BY-SA 4.0)
 - Infineon®, PSOC™, ModusToolbox™ และ OPTIGA™ เป็นเครื่องหมายการค้าของ Infineon Technologies AG ตัวอย่างโค้ดของ Infineon อ้างอิงด้วยลิงก์
 

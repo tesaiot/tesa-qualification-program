@@ -54,7 +54,7 @@
 ตัวอย่างโค้ดทุกไฟล์ในหลักสูตรนี้ย่อและดัดแปลงจากตัวอย่างของหลักสูตร AIoT in Action
 ใช้ API ของ BENTO MicroPython ตามที่ต้นฉบับใช้ ไม่มีคำสั่งที่แต่งขึ้นใหม่ และทุกไฟล์บอกไว้ที่หัวไฟล์ว่าดัดแปลงมาจากไฟล์ใด
 
-> ดัดแปลงจาก AIoT in Action — Embedded Systems for AIoT Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์, Advance Innovation Centre (AIC) มหาวิทยาลัยบูรพา · BENTO & TESAIoT (CC BY 4.0 / MIT)
+> ดัดแปลงจาก AIoT in Action — Embedded Systems for AIoT Developer, © 2026 รศ.วิรุฬห์ ศรีบริรักษ์ วิศวกรรมระบบสมองกลฝังตัว ภาควิชาวิศวกรรมไฟฟ้า คณะวิศวกรรมศาสตร์ มหาวิทยาลัยบูรพา (BUU) · Advance Innovation Centre (AIC) · BENTO & TESAIoT (CC BY 4.0 / MIT)
 > https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer (commit a80bbe88)
 
 หน้าเว็บอ่านค่าในบทเรื่อง MQTT เป็นของหลักสูตร AIoT in Action เช่นกัน
