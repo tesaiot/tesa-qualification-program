@@ -4,7 +4,9 @@
 # Screenshots for lessons, taken here on a GitHub runner (tools/screens/capture.py).
 #   survey   run every lesson program matching `glob` in the public BENTO simulator; the pictures,
 #            a report and contact sheets come back as a workflow artifact, for review only
-#   publish  take the shots listed in tools/screens/screens.yaml and open a pull request with them
+#   publish  take the shots listed in tools/screens/screens.yaml and push them to a screens/<run> branch;
+#            a person opens the pull request from it after looking at the pictures (this repository does
+#            not let workflows open pull requests, on purpose)
 # Run by hand from the Actions tab (workflow_dispatch). Actions are pinned to full commit SHAs.
 name: screens
 
@@ -12,7 +14,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: survey (artifact only) or publish (pull request)
+        description: survey (artifact only) or publish (a branch to review)
         type: choice
         options: [survey, publish]
         default: survey
@@ -36,7 +38,6 @@ jobs:
     timeout-minutes: 60
     permissions:
       contents: write        # publish: push the screens/<run> branch
-      pull-requests: write   # publish: open the pull request
     env:
       PYTHONDONTWRITEBYTECODE: "1"
     steps:
@@ -79,10 +80,9 @@ jobs:
           # shellcheck disable=SC2086  # ONLY is a space-separated list of ids on purpose
           python tools/screens/capture.py publish --only $ONLY
 
-      - name: Open a pull request
+      - name: Push a branch for review
         if: ${{ inputs.mode == 'publish' }}
         env:
-          GH_TOKEN: ${{ github.token }}
           ACTOR: ${{ github.actor }}
           ACTOR_ID: ${{ github.actor_id }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
@@ -97,5 +97,5 @@ jobs:
           git add -- courses
           git commit -s -m "Screenshots from the screens workflow" -m "Taken by tools/screens/capture.py in $RUN_URL"
           git push origin "$branch"
-          gh pr create --base main --head "$branch" --title "Screenshots from run ${GITHUB_RUN_ID}" \
-            --body "Taken by tools/screens/capture.py in $RUN_URL. Check every picture before merging."
+          compare="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/compare/main...${branch}?expand=1"
+          echo "Pictures pushed to $branch. Look at them, then open the pull request: $compare" | tee -a "$GITHUB_STEP_SUMMARY"
