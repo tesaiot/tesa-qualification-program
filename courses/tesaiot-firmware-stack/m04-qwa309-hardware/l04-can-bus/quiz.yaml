@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m04.l04 บทเรียน 4.4 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ e5c7722
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: CANFD0 ได้ clock 100 MHz ตั้ง prescaler 10, TS1 15, TS2 4 จึงได้ 500 kbps ถ้าเปลี่ยน prescaler เป็น 20 โดยไม่แตะ TS1/TS2 bit rate จะเป็นเท่าไร
+    en: CANFD0 runs from 100 MHz with prescaler 10, TS1 15, TS2 4 to get 500 kbps. If the prescaler becomes 20 with TS1/TS2 unchanged, what is the bit rate?
+  choices:
+  - th: 1 Mbps
+  - th: 250 kbps
+  - th: 125 kbps
+  - th: 500 kbps เพราะ TS1/TS2 เป็นตัวกำหนด bit rate
+  answer:
+  - 1
+  explain:
+    th: '1 บิต = sync 1 + TS1 15 + TS2 4 = 20 time quanta: 100 MHz / 10 = 10 MHz → 10 MHz / 20 = 500 kbps เปลี่ยน prescaler เป็น 20 ได้ 5 MHz / 20 = 250 kbps โดย sample point ยังอยู่ที่ (1 + 15) / 20 = 80 % ทุก node บน bus ต้องตั้ง bit rate ตรงกัน'
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: ต่อบอร์ดไว้ตัวเดียวไม่มี node อื่นบน bus ตัวนับ TX frames ยังเพิ่มทีละ 1 ทุกวินาที แปลว่ามีผู้ได้รับเฟรมหรือไม่
+    en: With the board alone on the bus, the TX frames counter still rises by one each second. Does that mean someone received the frames?
+  choices:
+  - th: ได้รับแน่นอน เพราะ CAN มี ACK ทุกเฟรม
+  - th: ได้รับ เพราะ transceiver สะท้อนเฟรมกลับมา
+  - th: บอกไม่ได้ ตัวอย่างตั้งบิต DAR (ปิดการส่งซ้ำอัตโนมัติ) การส่งจึงไม่ค้างรอ ACK และตัวนับนับเมื่อสั่งส่งสำเร็จ ต้องมี node อื่นหรือ USB-CAN analyzer มายืนยัน
+  - th: ไม่ได้รับ และแปลว่าโค้ดผิด
+  answer:
+  - 2
+  explain:
+    th: 'comment ในโค้ดเขียนว่า One-shot TX: disable automatic retransmission so a frame is not held pending an ACK when no peer node is on the bus ตัวนับ g_tx_count เพิ่มเมื่อ Cy_CANFD_UpdateAndTransmitMsgBuffer() คืน SUCCESS ซึ่งไม่ใช่หลักฐานว่ามีผู้รับ บน bus จริงเฟรมจะได้ ACK ตามปกติ'
+- id: q3
+  objective: 1
+  type: single
+  prompt:
+    th: ทำไมต้องใส่ termination 120 Ω (jumper ที่ P9) เมื่อต่อบอร์ดเข้ากับ CAN bus จริง
+    en: Why must the 120 Ω termination (jumper P9) be fitted when the board joins a real CAN bus?
+  choices:
+  - th: เพื่อจำกัดกระแสของ transceiver
+  - th: เพื่อปิดปลายสาย CANH/CANL ด้วยค่าที่เท่ากับ impedance ของสาย ลดการสะท้อนของสัญญาณ และช่วยให้ bus กลับสู่สถานะ recessive โดยใส่เฉพาะปลายสายสองด้าน
+  - th: เพื่อเพิ่ม bit rate
+  - th: เพื่อป้องกันไฟฟ้าสถิต
+  answer:
+  - 1
+  explain:
+    th: README ของตัวอย่างระบุว่าต้องมี terminator 120 Ω เมื่อต่อเข้าบัสจริง CAN เป็นสายคู่ differential ถ้าปลายไม่มี termination สัญญาณจะสะท้อนกลับ ทำให้อ่านบิตผิดโดยเฉพาะที่ความเร็วสูง แต่ถ้าใส่ทุก node ความต้านทานรวมจะต่ำเกินไป
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: มี node อื่นส่งเฟรมเข้ามา 20 เฟรมต่อวินาที แต่ตัวนับ RX บนจอเพิ่มเพียงราว 4 ต่อวินาที เพราะอะไร
+    en: A peer sends 20 frames per second, but the RX counter on screen rises by only about 4 per second. Why?
+  choices:
+  - th: timer ทำงานทุก 250 ms และ can_poll_rx() หยิบเฟรมจาก RX FIFO 0 ครั้งละเฟรมเดียว FIFO มี 4 ช่องแบบ blocking เมื่อเต็มเฟรมใหม่จะถูกทิ้ง ต้องวนอ่านจน FIFO ว่างหรือใช้ interrupt
+  - th: เพราะไม่ได้ตั้ง SID filter จึงรับได้แค่บาง ID
+  - th: เพราะ bit rate ไม่ตรงกัน
+  - th: เพราะ LVGL วาดตัวเลขไม่ทัน
+  answer:
+  - 0
+  explain:
+    th: CAN_REFRESH_PERIOD_MS = 250 และในแต่ละรอบโค้ดเรียก Cy_CANFD_GetFIFOTop() กับ Cy_CANFD_AckRxFifo() ครั้งเดียว จึงรับได้ราว 4 เฟรมต่อวินาที global filter ตั้งให้รับทุก ID เข้า FIFO 0 อยู่แล้ว และถ้า bit rate ไม่ตรงจะรับไม่ได้เลย ไม่ใช่ได้บางส่วน
+- id: q5
+  objective: 2
+  type: single
+  prompt:
+    th: สอง node เริ่มส่งพร้อมกัน เฟรมหนึ่ง ID 0x123 อีกเฟรม ID 0x100 เกิดอะไรขึ้น
+    en: Two nodes start transmitting at the same moment, one with ID 0x123 and one with ID 0x100. What happens?
+  choices:
+  - th: เฟรมทั้งสองชนกันและเสียทั้งคู่
+  - th: 0x123 ชนะเพราะเลขมากกว่า
+  - th: node ที่เริ่มก่อนเพียงเล็กน้อยชนะเสมอ
+  - th: 0x100 ชนะ arbitration และส่งต่อได้โดยเฟรมไม่เสีย ส่วน 0x123 ต้องหยุดส่ง ID จึงบอกลำดับความสำคัญ (เลขน้อยสำคัญกว่า) ไม่ใช่แค่ชื่อข้อความ
+  answer:
+  - 3
+  explain:
+    th: ระหว่างส่ง ID แต่ละ node อ่านบิตบน bus กลับมา บิต 0 (dominant) ชนะบิต 1 (recessive) ID ที่มีค่าน้อยกว่าจึงชนะโดยเฟรมไม่เสีย ปกติ controller จะส่งเฟรมที่แพ้ซ้ำเอง แต่ตัวอย่างนี้ตั้ง DAR ไว้ เฟรมที่แพ้จึงไม่ถูกส่งซ้ำอัตโนมัติ ต้องส่งใหม่ในรอบถัดไปของโค้ด

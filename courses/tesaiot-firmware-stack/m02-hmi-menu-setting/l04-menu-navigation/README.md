@@ -5,15 +5,15 @@ title:
   th: "โครง navigation: แถบเมนู หน้า และการสลับหน้า"
   en: "Navigation shell: menu bar, pages and page routing"
 summary:
-  th: "โครง navigation หลัก — top nav bar พร้อมปุ่มสลับหน้า + icon action buttons + stage container ที่โหลดหน้าใหม่เมื่อผู้ใช้เลือกเมนู"
+  th: "โครง navigation หลัก — top nav bar พร้อมปุ่มสลับหน้า + icon action buttons + หน้าต่าง ๆ ที่ lv_menu สร้างไว้ครั้งเดียวแล้วสลับตามเมนูที่เลือก (README ของ episode เล่าแบบ stage container แต่โค้ดใช้ lv_menu ให้ยึดตามโค้ด)"
   en: "Navigation shell: menu bar, pages and page routing"
 level: L2
 time_min: {concept: 15, practise: 25, lab: 20, check: 5}
 hardware: {emulator: false, boards: [devkit]}
 prerequisites: [fw-stack.m02.l03]
 objectives:
-  - th: "สร้าง top nav bar ที่สลับหน้าใน stage container ตามเมนูที่เลือก"
-    en: "Build a top nav bar that swaps pages in a stage container"
+  - th: "สร้างเมนูนำทางด้วย lv_menu ที่สร้างทุกหน้าไว้ครั้งเดียว แล้วสลับหน้าที่แสดงตามเมนูที่เลือก"
+    en: "Build navigation with lv_menu that creates every page once and switches the visible page from the menu"
   - th: "แยก layout, navigation logic และหน้าแต่ละหน้าออกจากกันตามโครงไฟล์ของ episode"
     en: "Keep layout, navigation logic and pages apart, following the episode file structure"
   - th: "เพิ่มหน้าใหม่หนึ่งหน้าเข้าเมนูโดยไม่แก้หน้าที่มีอยู่"
@@ -35,13 +35,13 @@ source:
 
 ## เป้าหมาย
 
-1. สร้าง top nav bar ที่สลับหน้าใน stage container ตามเมนูที่เลือก
+1. สร้างเมนูนำทางด้วย lv_menu ที่สร้างทุกหน้าไว้ครั้งเดียว แล้วสลับหน้าที่แสดงตามเมนูที่เลือก
 2. แยก layout, navigation logic และหน้าแต่ละหน้าออกจากกันตามโครงไฟล์ของ episode
 3. เพิ่มหน้าใหม่หนึ่งหน้าเข้าเมนูโดยไม่แก้หน้าที่มีอยู่
 
 ## แนวคิด
 
-โครง navigation หลัก — top nav bar พร้อมปุ่มสลับหน้า + icon action buttons + stage container ที่โหลดหน้าใหม่เมื่อผู้ใช้เลือกเมนู
+โครง navigation หลัก — top nav bar พร้อมปุ่มสลับหน้า + icon action buttons + หน้าต่าง ๆ ที่ lv_menu สร้างไว้ครั้งเดียวแล้วสลับตามเมนูที่เลือก (README ของ episode เล่าแบบ stage container แต่โค้ดใช้ lv_menu ให้ยึดตามโค้ด)
 
 ## ตัวอย่างสมบูรณ์
 
@@ -58,7 +58,7 @@ source:
 
 ```sh
 # ในโฟลเดอร์ master template (ดูบทเรียน 1.1)
-# 1) ลบไฟล์ episode เก่าใน proj_cm55/apps/ (เก็บ app_interface.h และ _default/ ไว้)
+# 1) ลบไฟล์ของ episode เก่าใน proj_cm55/apps/
 # 2) คัดลอกไฟล์ทั้งหมดของ episode นี้ลงใน proj_cm55/apps/
 make build
 make program     # flash ผ่าน KitProg3
@@ -80,9 +80,9 @@ make program     # flash ผ่าน KitProg3
 
 ## เช็กความเข้าใจ
 
-- stage container ทำหน้าที่อะไร
+- lv_menu เก็บหน้าทั้งหมดไว้อย่างไร และการสร้างทุกหน้าไว้ครั้งเดียวมีข้อดีข้อเสียอะไร
 - ถ้าเพิ่มหน้าใหม่ ต้องแก้ไฟล์ใดบ้าง
-- ทำไมจึงควรลบ object ของหน้าเก่าก่อนสร้างหน้าใหม่
+- ถ้าเปลี่ยนเป็นสร้างหน้าใหม่ทุกครั้งที่สลับเมนู โดยไม่ลบหน้าเก่า จะเกิดอะไรกับหน่วยความจำ
 
 คำตอบอยู่ใน README ของตัวอย่างและในโค้ด ถ้าตอบข้อใดไม่ได้ ให้กลับไปอ่านส่วน Why / What / How อีกครั้ง
 

@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m04.l05 บทเรียน 4.5 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ e5c7722
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: การทดสอบ UART/SPI/I2C กับ ESP32 ใช้ magic byte + counter + XOR checksum ผล PASS จึงยืนยันอะไร
+    en: The UART/SPI/I2C tests with the ESP32 use a magic byte, a counter and an XOR checksum. What does a PASS therefore prove?
+  choices:
+  - th: แค่ว่าสายไม่ขาด
+  - th: 'ว่า ESP32 คู่ทดสอบได้รับคำขอ ‘ครั้งนี้’ และตอบกลับครบโดยข้อมูลไม่เพี้ยน: magic บอกว่าเป็นโปรโตคอลที่ถูก counter กันคำตอบเก่าค้าง checksum จับบิตที่ผิด'
+  - th: ว่าความเร็ว UART เป็น 115200 เป๊ะ
+  - th: ว่าขาทุกขาบน header ใช้งานได้
+  answer:
+  - 1
+  explain:
+    th: โค้ดตรวจ header ของคำตอบ counter และ xor_checksum() ก่อนสรุป PASS และมี retry ถ้าไม่ผ่านจะขึ้น FAIL - bad … header/counter/checksum การทดสอบแบบนี้ยืนยันเฉพาะเส้นทางที่ถูกทดสอบ ขาอื่นต้องทดสอบของมันเอง
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: ทำไมการสแกน I2C จึงไล่ address 0x08–0x77 แทน 0x00–0x7F
+    en: Why does the I2C scan cover addresses 0x08–0x77 instead of 0x00–0x7F?
+  choices:
+  - th: เพราะ SCB ส่ง address ได้แค่ 7 บิต
+  - th: เพื่อให้สแกนเร็วขึ้นเท่านั้น
+  - th: เพราะ 0x78–0x7F เป็นของจอสัมผัส
+  - th: address 0x00–0x07 และ 0x78–0x7F ถูกสงวนไว้ในมาตรฐาน I2C (เช่น general call และ 10-bit addressing) อุปกรณ์ทั่วไปจึงไม่ใช้
+  answer:
+  - 3
+  explain:
+    th: I2C_SCAN_MIN_ADDR = 0x08 และ I2C_SCAN_MAX_ADDR = 0x77 ตรงกับช่วงที่อุปกรณ์ทั่วไปใช้ การ probe address ที่สงวนไว้อาจไปกระตุ้นพฤติกรรมพิเศษ เช่น general call ที่อุปกรณ์หลายตัวตอบพร้อมกัน ทั้ง 0x00–0x7F ล้วนเป็น address 7 บิต จึงไม่ใช่เรื่องความกว้างของ address
+- id: q3
+  objective: 1
+  type: single
+  prompt:
+    th: SPI ในตัวอย่างนี้เป็น bit-bang ด้วย Cy_GPIO_Write/Read และ Cy_SysLib_DelayUs ต่างจาก SPI ของฮาร์ดแวร์ (SCB) อย่างไร
+    en: The SPI here is bit-banged with Cy_GPIO_Write/Read and Cy_SysLib_DelayUs. How does it differ from hardware SPI (SCB)?
+  choices:
+  - th: เร็วกว่า เพราะไม่ผ่าน peripheral
+  - th: เหมือนกันทุกอย่าง ต่างแค่ชื่อฟังก์ชัน
+  - th: CPU สลับขา SCK/MOSI และอ่าน MISO เองทีละบิต ใช้ขาใดก็ได้ แต่ช้ากว่า CPU ไม่ว่างระหว่างส่ง และจังหวะ clock แกว่งได้เมื่อมี interrupt ส่วน SCB เลื่อนบิตเองด้วยฮาร์ดแวร์ที่ clock สม่ำเสมอกว่า
+  - th: bit-bang ใช้ได้เฉพาะ mode 3
+  answer:
+  - 2
+  explain:
+    th: README ระบุว่า SPI บน P9.0–P9.3 เป็น bit-bang mode 0 ข้อดีคือยืดหยุ่นเรื่องขาและเหมาะกับงานทดสอบ ข้อเสียคือความเร็วและความสม่ำเสมอของ clock ซึ่งเห็นได้ชัดเมื่อวัดด้วย logic analyzer
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: PWM Out รายงานผลเป็น “SENT” แทน PASS ถ้าวัดด้วย logic analyzer ที่ P13.3 (PWM5+) และ P13.4 (PWM5−) ควรเห็นอะไรจึงยืนยันได้ว่าถูกต้อง
+    en: PWM Out reports ‘SENT’, not PASS. With a logic analyzer on P13.3 (PWM5+) and P13.4 (PWM5−), what should you see to confirm it works?
+  choices:
+  - th: สัญญาณเหลี่ยมราว 25 Hz (HIGH 20 ms, LOW 20 ms) ราว 50 รอบ โดยสองขากลับเฟสกันและไม่มีช่วงที่ HIGH พร้อมกัน
+  - th: สัญญาณ 1 kHz ที่สองขาเหมือนกัน
+  - th: ขาเดียวที่ขึ้น HIGH ค้าง
+  - th: ไม่ต้องวัด เพราะ SENT แปลว่าผ่านแล้ว
+  answer:
+  - 0
+  explain:
+    th: PWM_TEST_HALF_PERIOD_MS = 20 ให้คาบเวลา 40 ms (25 Hz) และ PWM_TEST_CYCLES = 50 บอร์ดสั่งขาออกได้แต่ตรวจเองไม่ได้ว่าสัญญาณไปถึงปลายทาง จึงรายงานว่า SENT และให้ยืนยันจากฝั่ง ESP32 หรือเครื่องมือวัด จุดที่ต้องดูเป็นพิเศษคือ both-high fault ซึ่งอันตรายกับวงจรที่ขับด้วยสัญญาณคู่กลับเฟส
+- id: q5
+  objective: 2
+  type: single
+  prompt:
+    th: UART Echo ขึ้น PASS แต่ logic analyzer ที่ต่อ P15.1 ไม่เห็นสัญญาณเลย ควรเชื่ออะไรก่อน
+    en: UART Echo shows PASS, but the logic analyzer on P15.1 sees nothing. What should you trust first?
+  choices:
+  - th: เชื่อ logic analyzer แล้วสรุปว่าโปรแกรมรายงานผิด
+  - th: 'PASS ต้องมีคำตอบจาก ESP32 ที่ counter และ checksum ถูก ข้อมูลจึงเดินทางจริง ให้ตรวจการวัดก่อน: ขาและกราวด์ที่ต่อ ระดับ threshold, sample rate และ trigger แล้ววัดซ้ำจนเห็นสัญญาณ'
+  - th: สรุปว่าขา TX เสีย
+  - th: ไม่ต้องสนใจ เพราะผลทดสอบของซอฟต์แวร์สำคัญกว่าเสมอ
+  answer:
+  - 1
+  explain:
+    th: ก่อนใช้เครื่องมือวัดตัดสินผล ต้องแน่ใจว่าเครื่องมือถูกต่อและตั้งค่าถูก ลองวัดสัญญาณที่รู้ผลแน่นอนก่อน เช่นขาที่กำลังส่งอยู่ระหว่างการทดสอบ เมื่อเห็นสัญญาณแล้วจึงเทียบกับผลของโปรแกรม ถ้ายังไม่ตรงกันจึงค่อยสงสัยโค้ดหรือฮาร์ดแวร์

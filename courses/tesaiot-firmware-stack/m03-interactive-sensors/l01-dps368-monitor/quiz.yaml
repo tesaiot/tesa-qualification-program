@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m03.l01 บทเรียน 3.1 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ 9a8e3ed
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ถ้า DPS368 ไม่ตอบบน I2C ตอนเริ่มต้น จะเห็นอะไร
+    en: If the DPS368 does not answer on I2C at start-up, what do you see?
+  choices:
+  - th: บอร์ดรีเซ็ตวนไม่หยุด
+  - th: ค่าความดันเป็น 0.00 hPa แต่สถานะขึ้น ready
+  - th: 'driver ลอง address หลักแล้วลอง address สำรอง ถ้าไม่ตอบทั้งคู่จะ log INIT_FAIL จอขึ้น “Sensor: init failed” และไม่สร้าง timer อ่านค่า'
+  - th: presenter ลองใหม่ทุก 1 วินาทีจนกว่าเซนเซอร์จะตอบ
+  answer:
+  - 2
+  explain:
+    th: dps368_driver_init() เรียก mtb_xensiv_dps3xx_init_i2c() ด้วย DPS368_I2C_ADDR_PRIMARY ก่อนแล้วจึง ALTERNATE เมื่อยังล้ม dps368_presenter_start() เรียก dps368_view_set_init_failed() แล้ว return ก่อน lv_timer_create() จึงไม่มีการอ่านซ้ำ ต้องแก้สายหรือบอร์ดแล้วรีเซ็ต ส่วน I2C bus เองถูก master เตรียมไว้ให้แล้ว episode แค่รับ handle sensor_i2c_controller_hal_obj
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ระหว่างทำงาน การอ่าน I2C ล้มเหลว ข้อความ error บนจอเกิดจากการทำงานร่วมกันของแต่ละชั้นอย่างไร
+    en: An I2C read fails at run time. How do the layers cooperate to put the error on screen?
+  choices:
+  - th: driver คืนรหัส error, reader เก็บเป็น last error, presenter ตัดสินใจแสดงเมื่อรหัสเปลี่ยน แล้วเรียก view ให้เขียนข้อความ
+  - th: driver เรียก lv_label_set_text() เองทันทีที่อ่านล้ม
+  - th: view อ่าน I2C เองเพื่อตรวจว่าเซนเซอร์ยังอยู่
+  - th: master template ตรวจแล้วแสดงข้อความให้
+  answer:
+  - 0
+  explain:
+    th: dps368_reader_poll() เก็บ s_last_error presenter อ่านด้วย dps368_reader_get_last_error() และเรียก dps368_view_set_read_error() เฉพาะเมื่อรหัสต่างจากครั้งก่อน เพื่อไม่ให้จอกระพริบและ log ท่วม view ไม่รู้จัก I2C และ driver ไม่รู้จัก LVGL แต่ละชั้นจึงเปลี่ยนแยกกันได้
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: บางรอบ xensiv_dps3xx_read() คืน XENSIV_DPS3XX_RSLT_ERR_DATA_NOT_READY โค้ดจัดการอย่างไร และทำไม
+    en: Sometimes xensiv_dps3xx_read() returns XENSIV_DPS3XX_RSLT_ERR_DATA_NOT_READY. How does the code handle it, and why?
+  choices:
+  - th: ถือเป็น error ร้ายแรงและแสดงบนจอทันที
+  - th: init เซนเซอร์ใหม่ทุกครั้ง
+  - th: หน่วงเวลา 100 ms แล้วอ่านซ้ำในรอบเดียวกัน
+  - th: reader คืน false แต่ไม่ถือเป็น error presenter จึงข้ามรอบนั้นเงียบ ๆ และจอคงค่าเดิม เพราะที่อัตรา 1 ครั้งต่อวินาทีกับ oversampling 8 เท่า การ poll อาจมาถึงก่อนการแปลงค่าเสร็จ ซึ่งเป็นเรื่องปกติ
+  answer:
+  - 3
+  explain:
+    th: comment ใน dps368_reader.c เขียนว่า At low sample rate, polling can happen before conversion is ready. จึงตั้ง s_last_error = CY_RSLT_SUCCESS เพื่อไม่ให้ presenter แสดง error ปลอม ตัวอย่างนี้ poll ผ่าน lv_timer ทุก DPS368_SAMPLE_PERIOD_MS (1000 ms) ในขณะที่เซนเซอร์วัดอยู่เบื้องหลัง (background mode)
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ยกบอร์ดขึ้นสูงหนึ่งชั้นตึก (ราว 3 เมตร) ค่าความดันที่อ่านได้ควรเปลี่ยนอย่างไร
+    en: You carry the board up one floor (about 3 m). How should the pressure reading change?
+  choices:
+  - th: เพิ่มขึ้นราว 0.35 hPa
+  - th: ลดลงราว 0.35 hPa
+  - th: ลดลงราว 3.5 hPa
+  - th: ไม่เปลี่ยน เพราะเซนเซอร์ละเอียดไม่พอ
+  answer:
+  - 1
+  explain:
+    th: README ของ episode ให้ตัวเลขว่ายกขึ้น 1 เมตร ความดันลดราว 0.12 hPa (ใกล้ระดับน้ำทะเล) 3 เมตรจึงลดราว 0.36 hPa ความละเอียดของ DPS368 ราว ±0.002 hPa จึงเห็นได้ชัด แต่ควรดูค่าเฉลี่ยหลายวินาที เพราะลมและแอร์ในห้องทำให้ค่าแกว่งได้
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: บอร์ดอ่านได้ 1005 hPa ขณะที่สถานีอุตุนิยมวิทยาใกล้เคียงรายงาน 1012 hPa ข้อใดอธิบายส่วนต่างได้ดีที่สุด
+    en: The board reads 1005 hPa while a nearby weather station reports 1012 hPa. What best explains the difference?
+  choices:
+  - th: เซนเซอร์เสีย ต้องเปลี่ยนตัวใหม่
+  - th: ค่าจากบอร์ดเป็นหน่วย kPa
+  - th: ค่าที่สถานีรายงานมักปรับเป็นระดับน้ำทะเลแล้ว ส่วนบอร์ดวัดความดันจริงตรงความสูงที่วางอยู่ ส่วนต่างราว 7 hPa ตรงกับความสูงราว 60 เมตร จึงต้องเทียบในเกณฑ์เดียวกันก่อน
+  - th: ความดันในอาคารสูงกว่าภายนอกเสมอ
+  answer:
+  - 2
+  explain:
+    th: สูตร barometric ใน README คือ h = 44330 × (1 − (P/P0)^0.1903) แทนค่า 1005 กับ 1012 hPa ได้ราว 58 เมตร ให้ตรวจก่อนว่าค่าอ้างอิงเป็นความดันที่ปรับเป็นระดับน้ำทะเลหรือความดันที่สถานี และจุดที่วัดสูงเท่าไร ก่อนสรุปว่าเซนเซอร์คลาด

@@ -1,0 +1,81 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m04.l01 บทเรียน 4.1 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ e5c7722
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ทำไมโค้ดถือว่าปุ่มถูกกดเมื่อ Cy_GPIO_Read() คืน 0
+    en: Why does the code treat the button as pressed when Cy_GPIO_Read() returns 0?
+  choices:
+  - th: เพราะ PDL กลับค่าให้อัตโนมัติ
+  - th: เพราะขาถูกตั้งเป็น CY_GPIO_DM_PULLUP ตอนปล่อย pull-up ภายในดึงขาเป็น HIGH เมื่อกด ปุ่มต่อขาลงกราวด์จึงอ่านได้ LOW
+  - th: เพราะปุ่มต่อกับไฟ 3.3 V เมื่อกด
+  - th: เพราะ 0 หมายถึงยังไม่มีการอ่านค่า
+  answer:
+  - 1
+  explain:
+    th: button_inputs_init() เรียก Cy_GPIO_Pin_FastInit(…, CY_GPIO_DM_PULLUP, 1UL, HSIOM_SEL_GPIO) และ update_button() ใช้ sampled_pressed = (0U == Cy_GPIO_Read(…)) รูปแบบ active-low นี้นิยมเพราะใช้ pull-up ภายในชิปได้โดยไม่ต้องมีตัวต้านทานภายนอก
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: ถ้าตั้งขาปุ่มเป็น input แบบ high-Z ไม่มี pull-up ขณะที่ปุ่มต่อลงกราวด์อย่างเดียว จะเกิดอะไร
+    en: If the button pin is a plain high-Z input with no pull-up, while the button only connects to ground, what happens?
+  choices:
+  - th: อ่านได้ 1 ตลอดเวลา
+  - th: ทำงานเหมือนเดิมทุกอย่าง
+  - th: ตอนปล่อยปุ่มขาลอย ค่าที่อ่านได้แกว่งตามสัญญาณรบกวน ตัวนับอาจเพิ่มเองโดยไม่มีใครกด
+  - th: ชิปเสียหายทันที
+  answer:
+  - 2
+  explain:
+    th: เมื่อปุ่มเปิด ไม่มีอะไรกำหนดแรงดันให้ขา (floating) debounce กรองการแกว่งสั้น ๆ ได้บ้าง แต่ถ้าขาลอยค้างที่ LOW นานพอ โค้ดก็นับเป็นการกด pull-up ทำให้สถานะตอนปล่อยแน่นอน
+- id: q3
+  objective: 1
+  type: single
+  prompt:
+    th: ตัวอย่าง poll ทุก 25 ms และ BUTTON_DEBOUNCE_TICKS = 2 ทำไมกดครั้งเดียวจึงนับแค่หนึ่ง แม้หน้าสัมผัสจะเด้งหลายครั้งในช่วงแรก
+    en: The example polls every 25 ms with BUTTON_DEBOUNCE_TICKS = 2. Why does one press count once even though the contacts bounce at first?
+  choices:
+  - th: ระดับใหม่ต้องถูกอ่านได้เหมือนเดิมติดกันจนตัวนับครบ 2 รอบ (เห็นระดับเดียวกัน 3 ครั้งติด ราว 50 ms) จึงเปลี่ยน stable_pressed และ press_count เพิ่มเฉพาะตอน stable_pressed เปลี่ยนจาก false เป็น true
+  - th: เพราะ LVGL กรองการกดซ้ำให้
+  - th: เพราะ pull-up ภายในดูดซับการเด้ง
+  - th: เพราะ Cy_GPIO_Read() คืนค่าเฉลี่ย
+  answer:
+  - 0
+  explain:
+    th: ใน update_button() เมื่อค่าที่อ่านต่างจากครั้งก่อน debounce_count ถูกรีเซ็ตเป็น 0 ค่าต้องคงเดิมต่อไปอีกสองรอบจึงยอมรับ การเด้งที่สั้นกว่านั้นจึงไม่ทำให้สถานะเปลี่ยน ถ้าเพิ่ม BUTTON_REFRESH_PERIOD_MS เป็น 100 ms การตอบสนองจะช้าลงเป็นราว 200 ms และ hold time จะละเอียดแค่ 100 ms
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: ในเมนูปุ่มกายภาพ ถ้ากดปุ่ม MOVE (P17.5) ค้างไว้ 3 วินาที highlight จะเลื่อนกี่ครั้ง
+    en: In the hardware button menu, if you hold MOVE (P17.5) down for 3 seconds, how many times does the highlight move?
+  choices:
+  - th: ทุก 30 ms (ราว 100 ครั้ง)
+  - th: ทุกวินาที (3 ครั้ง)
+  - th: ไม่เลื่อนเลยจนกว่าจะปล่อย
+  - th: ครั้งเดียว เพราะ btn_pressed_edge() คืน true เฉพาะขอบที่สถานะเสถียรเปลี่ยนจากปล่อยเป็นกด
+  answer:
+  - 3
+  explain:
+    th: menu_timer_cb() poll ทุก MENU_POLL_MS = 30 ms แต่ทำงานเฉพาะเมื่อ btn_pressed_edge() เจอ press edge การจับขอบแทนการอ่านสถานะค้างเป็นหัวใจของ UI แบบปุ่มล้วน ถ้าอยากให้เลื่อนซ้ำเมื่อกดค้างต้องเขียน auto-repeat เพิ่มเอง
+- id: q5
+  objective: 2
+  type: multi
+  prompt:
+    th: ข้อใดถูกต้องเกี่ยวกับเมนูปุ่มกายภาพในตัวอย่างนี้ (เลือกทุกข้อที่ถูก)
+    en: Which statements about this hardware button menu are correct? (choose all that apply)
+  choices:
+  - th: อยู่ที่ Settings (รายการสุดท้าย) แล้วกด MOVE จะวนกลับไป Dashboard
+  - th: 'กด SELECT แสดง “SELECT: <ชื่อรายการ>” โดย highlight ไม่เลื่อน'
+  - th: ต้องแตะจอเพื่อยืนยันก่อน SELECT จะทำงาน
+  - th: ปุ่มแต่ละตัวมีสถานะ debounce ของตัวเอง กดสองปุ่มพร้อมกันจึงไม่รบกวนกัน
+  answer:
+  - 0
+  - 1
+  - 3
+  explain:
+    th: s_sel = (s_sel + 1) % MENU_ITEMS ทำให้วนรอบ SELECT แค่เขียนข้อความสถานะ และ s_move กับ s_selb เป็น btn_t คนละตัวที่เก็บ stable, last และ cnt ของตัวเอง เมนูนี้ไม่ใช้ touch เลย จึงเหมาะกับอุปกรณ์แบบ kiosk หรือเครื่องที่ไม่มีจอสัมผัส

@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m05.l01 บทเรียน 5.1 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ d2ed42c
+items:
+- id: q1
+  objective: 2
+  type: single
+  prompt:
+    th: ในโหมด Server-TLS ของตัวอย่างนี้ ใครพิสูจน์ตัวตนด้วยอะไร
+    en: In this example's Server-TLS mode, who proves identity, and with what?
+  choices:
+  - th: ทั้งสองฝั่งพิสูจน์ด้วยใบรับรอง
+  - th: อุปกรณ์พิสูจน์ด้วยใบรับรอง ส่วนเซิร์ฟเวอร์ไม่ต้องพิสูจน์
+  - th: 'เซิร์ฟเวอร์พิสูจน์ด้วยใบรับรองที่อุปกรณ์ตรวจกับ CA ระหว่าง handshake ส่วนอุปกรณ์พิสูจน์ด้วย credential ที่ส่งในอุโมงค์ TLS: API key สำหรับ HTTPS หรือ username/password สำหรับ MQTTS'
+  - th: ไม่มีใครพิสูจน์ TLS แค่เข้ารหัส
+  answer:
+  - 2
+  explain:
+    th: main.c ตั้ง tls.client_cert และ tls.client_key เป็น NULL แต่ verify_peer = 1 จากนั้น HTTPS ส่ง header X-API-KEY และ MQTTS ใช้ username = device_id กับ password จาก bundle TLS จึงยืนยันตัวตนของเซิร์ฟเวอร์ ส่วนตัวตนของอุปกรณ์อยู่ที่ความลับที่มันถือ
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ไฟล์ ca-chain.pem ทำหน้าที่อะไรในการเชื่อมต่อ MQTTS
+    en: What role does ca-chain.pem play in the MQTTS connection?
+  choices:
+  - th: เป็นจุดเริ่มของความเชื่อถือ (trust anchor) ที่อุปกรณ์ใช้ตรวจว่าใบรับรองของ broker ออกโดย CA ที่เชื่อถือ และตรงกับชื่อเครื่องที่ตั้งใจเชื่อมต่อ (SNI/hostname) จึงกันการปลอมตัวเป็นเซิร์ฟเวอร์
+  - th: ใช้เข้ารหัส payload ก่อนส่ง
+  - th: ใช้ระบุตัวตนของอุปกรณ์กับ broker
+  - th: เป็นความลับที่ต้องเก็บแบบเดียวกับรหัสผ่าน
+  answer:
+  - 0
+  explain:
+    th: ในโหมด MQTTS โค้ดตั้ง tls.ca_chain เป็นไฟล์นี้และ tls.sni_name = mqtt_host ถ้าใบรับรองของเซิร์ฟเวอร์ไม่ได้ลงนามโดย CA ในไฟล์ handshake จะล้ม CA certificate เป็นข้อมูลสาธารณะ ไม่ใช่ความลับ ส่วนการเข้ารหัสข้อมูลใช้กุญแจชั่วคราวที่ตกลงกันระหว่าง handshake (ฝั่ง HTTPS ในตัวอย่างใช้ trust store ของระบบแทน)
+- id: q3
+  objective: 1
+  type: single
+  prompt:
+    th: ใช้ credential แบบ Server-TLS (username/password) แต่ตั้ง MQTT_PORT = 8883 จะเกิดอะไร
+    en: You use Server-TLS credentials (username/password) but set MQTT_PORT = 8883. What happens?
+  choices:
+  - th: เชื่อมต่อได้ปกติ พอร์ตไหนก็ได้
+  - th: broker ตอบ Code 5 Not authorized เสมอ
+  - th: ได้ความเร็วสูงขึ้นเพราะเป็นพอร์ตมาตรฐาน
+  - th: TLS ถูกปิดหลัง CONNECT เพราะ 8883 เป็นพอร์ตของ mTLS ที่ต้องการใบรับรองของอุปกรณ์ Server-TLS ต้องใช้พอร์ต 8884
+  answer:
+  - 3
+  explain:
+    th: 'หัวข้อ Troubleshooting ใน README ระบุว่าถ้าไป 8883 จะเจอ TLS ปิด connection หลัง CONNECT เพราะโหมดไม่ตรง แพลตฟอร์มแยกพอร์ตตามวิธีพิสูจน์ตัวตน: Server-TLS ใช้ MQTT 8884 และ HTTPS 443 ส่วน mTLS ใช้ 8883 และ 9444'
+- id: q4
+  objective: 1
+  type: single
+  prompt:
+    th: เชื่อมต่อพอร์ต 8884 ได้ แต่ broker ตอบ Code 5 (Not authorized) สาเหตุที่ README ระบุคืออะไร
+    en: The connection to port 8884 works, but the broker answers Code 5 (Not authorized). What cause does the README name?
+  choices:
+  - th: CA certificate หมดอายุ
+  - th: username ไม่ตรงกับ device_id หรือ password หมดอายุหรือยังไม่ได้รีเซ็ต ต้องดาวน์โหลด bundle ที่เลือก include_password แล้วซิงค์ใหม่
+  - th: payload ใหญ่เกินไป
+  - th: QoS ต้องเป็น 0
+  answer:
+  - 1
+  explain:
+    th: Code 5 เกิดหลัง TLS สำเร็จแล้ว จึงไม่ใช่ปัญหาใบรับรอง แต่เป็นขั้นพิสูจน์ตัวตนของอุปกรณ์ นอกจากนี้การ publish ต้องใช้ topic device/<device_id>/telemetry เท่านั้นตาม ACL ถ้าผิด topic จะถูกปฏิเสธเช่นกัน
+- id: q5
+  objective: 2
+  type: single
+  prompt:
+    th: นาฬิกาของอุปกรณ์เริ่มที่ปี 2000 หลังเปิดเครื่อง การเชื่อมต่อ TLS อาจล้มเหลวเพราะอะไร
+    en: The device clock reads the year 2000 after power-up. Why might the TLS connection fail?
+  choices:
+  - th: ใบรับรองของเซิร์ฟเวอร์มีช่วงเวลาที่ใช้ได้ (not before / not after) เมื่อเทียบกับนาฬิกาที่ผิด ใบรับรองจะดูเหมือนยังไม่ถึงเวลาใช้ การตรวจจึงล้ม ต้องตั้งเวลาให้ถูก (เช่นผ่าน SNTP) ก่อนเชื่อมต่อ
+  - th: TLS ใช้เวลาเป็นกุญแจ จึงถอดรหัสไม่ได้
+  - th: broker ปฏิเสธเพราะ timestamp ใน payload
+  - th: เวลาไม่เกี่ยวกับ TLS
+  answer:
+  - 0
+  explain:
+    th: การตรวจใบรับรองรวมถึงการตรวจว่าเวลาปัจจุบันอยู่ในช่วงอายุของใบรับรอง อุปกรณ์ฝังตัวมักเริ่มด้วยนาฬิกาที่ไม่ถูกต้อง ตัวอย่าง OPTIGA ในบทเรียน 5.3 จึงรอ NTP sync ก่อนเชื่อมต่อ ส่วน timestamp ใน payload ของตัวอย่างนี้ก็มาจาก time() เดียวกัน ถ้าเวลาเพี้ยน ข้อมูลบนแพลตฟอร์มก็จะเพี้ยนตาม

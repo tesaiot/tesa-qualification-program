@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m02.l03 บทเรียน 2.3 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ 9a8e3ed
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ผู้ใช้พิมพ์ “abc” ลงช่อง Input B (commit on OK) แต่ยังไม่กด OK ข้อความ Confirmed Label จะแสดงอะไร
+    en: The user types ‘abc’ into Input B (commit on OK) but has not pressed OK. What does the Confirmed Label show?
+  choices:
+  - th: ค่าที่ยืนยันครั้งล่าสุด (ตอนเริ่มคือ “-”) เพราะ label B อัปเดตเฉพาะเมื่อแป้นพิมพ์ส่ง LV_EVENT_READY
+  - th: “abc” ทันทีที่พิมพ์แต่ละตัว
+  - th: “abc” เมื่อผู้ใช้แตะช่องอื่น
+  - th: ข้อความว่างเสมอจนกว่าจะรีเซ็ตบอร์ด
+  answer:
+  - 0
+  explain:
+    th: ใน text_input_logic.c มีแค่ realtime textarea ที่ผูก LV_EVENT_VALUE_CHANGED กับ label A ส่วน label B ถูกอัปเดตใน text_input_logic_keyboard_event_cb() เมื่อ code == LV_EVENT_READY และช่องที่ถือแป้นพิมพ์อยู่คือ confirmed_textarea
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: ต้องการตรวจรูปแบบ IP address ที่พิมพ์ในช่อง B ก่อนนำไปใช้ ควรใส่โค้ดตรวจไว้ตรงไหน
+    en: You want to validate an IP address typed in Input B before it is used. Where should the check go?
+  choices:
+  - th: ใน handler ของ LV_EVENT_VALUE_CHANGED ของช่อง B
+  - th: ใน handler ของ LV_EVENT_FOCUSED ของช่อง B
+  - th: ในกิ่ง LV_EVENT_READY ของ text_input_logic_keyboard_event_cb() ก่อนเรียก text_input_update_confirmed_label()
+  - th: ใน text_input_logic_mode_event_cb() ของ dropdown
+  answer:
+  - 2
+  explain:
+    th: LV_EVENT_READY คือจังหวะที่ผู้ใช้กด OK บนแป้นพิมพ์ เป็นจุดเดียวที่ค่าของช่อง B ถูก commit การตรวจตอน VALUE_CHANGED จะตรวจค่าที่ยังพิมพ์ไม่เสร็จทุกตัวอักษร ส่วน FOCUSED เกิดตอนเปิดแป้นพิมพ์ซึ่งยังไม่มีค่าให้ตรวจ
+- id: q3
+  objective: 1
+  type: single
+  prompt:
+    th: ผู้ใช้แก้ข้อความในช่อง B แล้วกด Cancel บนแป้นพิมพ์ ตามโค้ดของ text_input_logic.c จะเกิดอะไร
+    en: The user edits Input B and then presses Cancel on the keyboard. According to text_input_logic.c, what happens?
+  choices:
+  - th: ข้อความในช่อง B ถูกคืนเป็นค่าที่ยืนยันล่าสุด
+  - th: แป้นพิมพ์ซ่อน label B ยังเป็นค่าเดิม แต่ข้อความที่แก้ยังค้างอยู่ในช่อง B ถ้าเปิดแป้นพิมพ์แล้วกด OK ภายหลังจะ commit ข้อความนั้น
+  - th: label B เปลี่ยนเป็นข้อความที่แก้ เพราะ Cancel ก็ถือเป็นการยืนยัน
+  - th: ทั้งช่อง B และ label B ถูกล้างเป็นค่าว่าง
+  answer:
+  - 1
+  explain:
+    th: กิ่ง LV_EVENT_CANCEL ในโค้ดแค่ log แล้วเรียก text_input_hide_keyboard() ไม่มีการคืนค่า textarea แม้ README ของ episode จะเขียนว่า Cancel คืนค่าเดิม ถ้าต้องการพฤติกรรมนั้นต้องเก็บค่าที่ยืนยันล่าสุดไว้ แล้วเรียก lv_textarea_set_text() คืนค่าเองในกิ่ง CANCEL
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: เมื่อเลือกโหมด Number โค้ดเรียกทั้ง lv_keyboard_set_mode(…, LV_KEYBOARD_MODE_NUMBER) และ lv_textarea_set_accepted_chars(target, "0123456789") ทำไมต้องมีบรรทัดที่สอง
+    en: In Number mode the code calls both lv_keyboard_set_mode(…, LV_KEYBOARD_MODE_NUMBER) and lv_textarea_set_accepted_chars(target, "0123456789"). Why is the second call needed?
+  choices:
+  - th: เพื่อให้แป้นพิมพ์เปลี่ยนเป็นโหมดตัวเลขเร็วขึ้น
+  - th: เพื่อให้ dropdown เปิดแป้นพิมพ์ได้
+  - th: เพราะ lv_keyboard_set_mode() ใช้ไม่ได้ถ้าไม่มีตัวกรอง
+  - th: แป้นพิมพ์โหมดตัวเลขยังมีปุ่มอย่าง +/- และจุด ตัวกรองที่ textarea จึงเป็นด่านที่รับประกันว่าช่องนั้นรับเฉพาะตัวเลข
+  answer:
+  - 3
+  explain:
+    th: โหมดของแป้นพิมพ์เปลี่ยนแค่ปุ่มที่แสดง ตัวกรอง accepted_chars ทำงานที่ textarea เองไม่ว่าอักขระจะมาจากปุ่มใด และเมื่อกลับโหมด Normal โค้ดตั้ง accepted_chars เป็น NULL เพื่อยกเลิกตัวกรอง การกันค่าผิดรูปแบบตั้งแต่ตอนรับเข้าช่วยให้ไม่ต้องไปแก้ทีหลัง
+- id: q5
+  objective: 3
+  type: multi
+  prompt:
+    th: ช่องใดควรเป็นแบบ commit-on-OK มากกว่าแบบ realtime (เลือกทุกข้อที่ถูก)
+    en: Which fields should commit on OK rather than update in real time? (choose all that apply)
+  choices:
+  - th: รหัสผ่าน Wi-Fi ที่จะใช้เชื่อมต่อ
+  - th: ช่องค้นหาที่กรองรายชื่อเครือข่ายขณะพิมพ์
+  - th: ค่า setpoint อุณหภูมิที่ส่งไปสั่งฮีตเตอร์
+  - th: ช่องพรีวิวที่แสดงว่าชื่ออุปกรณ์จะหน้าตาอย่างไรบนจอ
+  - th: หมายเลข IP ที่ต้องตรวจรูปแบบก่อนใช้
+  answer:
+  - 0
+  - 2
+  - 4
+  explain:
+    th: README ของ episode แยกไว้ว่า realtime เหมาะกับช่องค้นหาที่อยากเห็นผลทุกตัวอักษร ส่วน commit-on-OK เหมาะกับค่าที่ต้องตรวจก่อนนำไปใช้หรือมีผลต่อระบบจริง ค่าที่ยังพิมพ์ไม่เสร็จ เช่นรหัสผ่านครึ่งเดียว หรือ setpoint ที่เพิ่งพิมพ์เลขแรก ไม่ควรถูกนำไปใช้ทันที

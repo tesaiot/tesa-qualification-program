@@ -1,0 +1,83 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m02.l05 บทเรียน 2.5 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ 9a8e3ed
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ทำไม example_main() เรียก wifi_scan_service_preinit() ก่อนสร้าง UI
+    en: Why does example_main() call wifi_scan_service_preinit() before building the UI?
+  choices:
+  - th: เพื่อสแกนเครือข่ายรอบแรกตั้งแต่ boot
+  - th: เพื่อเชื่อมต่อ AP ที่บันทึกไว้
+  - th: เพื่อเตรียม SDIO และ cy_wcm_init() ซึ่งกินเวลาไว้ตั้งแต่ boot ผู้ใช้จะไม่เห็นจอค้างตอนแตะ Scan ครั้งแรก ถ้าล้มเหลวก็แค่ log และ UI ยังเปิดได้
+  - th: เพราะ LVGL ต้องใช้ Wi-Fi ก่อนวาดจอ
+  answer:
+  - 2
+  explain:
+    th: preinit เรียก wifi_scan_radio_init_once() ที่ตั้ง SDIO host แล้ว cy_wcm_init() แบบ STA ครั้งเดียว (มี mutex กันเรียกซ้อน) โดยยังไม่สแกนจริง ถ้า preinit ล้ม wifi_scan_service_start() จะลอง init อีกครั้งตอนผู้ใช้กด Scan
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: wifi_scan_callback() ถูก cy_wcm เรียกจาก task ของ WCM ไม่ใช่ task ของ LVGL โค้ดส่งผลสแกนเข้าหน้า UI อย่างปลอดภัยอย่างไร
+    en: wifi_scan_callback() is called by cy_wcm from a WCM task, not the LVGL task. How does the code hand results to the UI safely?
+  choices:
+  - th: callback เรียก lv_label_set_text() ตรง ๆ เพราะเร็วพอ
+  - th: callback คัดลอกข้อมูล AP ลง array ของ service ภายใน critical section และตั้งธง scan_done_pending ส่วน lv_timer ทุก 150 ms ใน LVGL context เรียก wifi_scan_service_process() แล้ววาดรายการใหม่
+  - th: callback สร้าง FreeRTOS task ใหม่เพื่อวาดรายการ
+  - th: UI หยุด LVGL ชั่วคราวระหว่างที่ callback ทำงาน
+  answer:
+  - 1
+  explain:
+    th: ในโค้ดที่ commit นี้ callback ไม่แตะ LVGL เลย มันเขียนแค่ข้อมูลและธงภายใน taskENTER_CRITICAL() ส่วน ui_wifi_poll_timer_cb() ที่สร้างด้วย lv_timer_create(…, UI_WIFI_POLL_MS = 150) เป็นผู้ตรวจธงแล้วเรียก ui_wifi_render_ap_list() ใน LVGL context ซึ่งเป็นที่เดียวที่เรียก LVGL ได้อย่างปลอดภัย
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ผู้ใช้แตะ Scan อีกครั้งระหว่างที่การสแกนครั้งแรกยังไม่จบ จะเกิดอะไร
+    en: The user taps Scan again while the first scan is still running. What happens?
+  choices:
+  - th: 'ครั้งที่สองถูกเพิกเฉย: service->scanning ยังเป็น true wifi_scan_service_start() จึงคืน false และ UI log ว่า SCAN_IGNORED busy (ปุ่มยังถูก disable ระหว่างสแกนด้วย)'
+  - th: เริ่มสแกนใหม่ซ้อนกัน ผลจึงซ้ำสองชุด
+  - th: ยกเลิกการสแกนแรกแล้วเริ่มใหม่
+  - th: บอร์ดรีเซ็ตเพราะ cy_wcm ถูกเรียกซ้อน
+  answer:
+  - 0
+  explain:
+    th: wifi_scan_service_start() ตรวจ service->scanning ก่อนเสมอ และ ui_wifi_scan_click_cb() ใส่ LV_STATE_DISABLED ให้ปุ่มจนกว่า poll timer จะเห็นว่าสแกนจบ การกันซ้อนไว้ที่ service ทำให้ปลอดภัยแม้ฝั่ง UI จะลืม disable ปุ่ม
+- id: q4
+  objective: 3
+  type: order
+  prompt:
+    th: 'สแกนเจอ 3 เครือข่าย: Cafe -85 dBm, Lab -45 dBm, Office -67 dBm เรียงตามลำดับที่จะแสดงในรายการจากบนลงล่าง'
+    en: A scan finds Cafe at -85 dBm, Lab at -45 dBm and Office at -67 dBm. Put them in the order they appear in the list, top to bottom.
+  choices:
+  - th: Cafe -85 dBm
+  - th: Lab -45 dBm
+  - th: Office -67 dBm
+  answer:
+  - 1
+  - 2
+  - 0
+  explain:
+    th: เมื่อสแกนจบ callback เรียก wifi_scan_sort_by_rssi_desc() ซึ่งเรียงจาก RSSI มากไปน้อย ค่า dBm เป็นลบ ยิ่งใกล้ 0 ยิ่งแรง -45 dBm จึงแรงที่สุดและน่าเลือกเชื่อมต่อที่สุด ส่วน -85 dBm อ่อนมาก อาจต่อได้แต่หลุดง่ายและช้า
+- id: q5
+  objective: 1
+  type: multi
+  prompt:
+    th: ข้อใดจริงเกี่ยวกับรายการที่ได้จากตัวอย่างนี้ (เลือกทุกข้อที่ถูก)
+    en: Which statements about the list this example produces are true? (choose all that apply)
+  choices:
+  - th: ถ้ามี AP รอบตัว 20 ตัว รายการเก็บได้สูงสุด 12 ตัว และเป็น 12 ตัวแรกที่การสแกนรายงาน ไม่ใช่ 12 ตัวที่แรงที่สุดเสมอ
+  - th: AP ที่ซ่อน SSID แสดงเป็น <hidden>
+  - th: รายการเรียงตามตัวอักษรของ SSID
+  - th: SSID ที่มีไบต์นอกช่วง ASCII ที่พิมพ์ได้ เช่นชื่อภาษาไทย จะไม่ถูกใส่ในรายการ
+  - th: AP แบบ OPEN ถูกกรองออกเพื่อความปลอดภัย
+  answer:
+  - 0
+  - 1
+  - 3
+  explain:
+    th: callback เพิ่ม AP เฉพาะเมื่อ ap_count < WIFI_SCAN_MAX_APS (12) และ wifi_scan_is_ssid_printable() ผ่าน ซึ่งยอมเฉพาะไบต์ 0x20–0x7E การเรียงตาม RSSI เกิดตอนสแกนจบ จึงเรียงเฉพาะ 12 ตัวที่เก็บได้ SSID ว่างถูกแทนด้วย <hidden> และชนิด security ทุกแบบรวมถึง OPEN ถูกแสดงเป็นข้อความ

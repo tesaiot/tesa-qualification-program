@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m01.l01 บทเรียน 1.1 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ 082fd3e
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: หลัง make getlibs แล้วสั่ง make build แต่ build หยุดที่ proj_cm33_s พร้อมข้อความว่าหา schema cydesignfile_v7 ไม่พบ สาเหตุที่เป็นไปได้มากที่สุดคืออะไร
+    en: After make getlibs, make build stops in proj_cm33_s saying schema cydesignfile_v7 is not found. What is the most likely cause?
+  choices:
+  - th: ยังไม่ได้วางไฟล์ episode ลงใน proj_cm55/apps/
+  - th: ไฟล์ design.modus ของ BSP ถูกเปิดแล้วบันทึกด้วย Device Configurator รุ่นใหม่กว่า (3.7) ขณะที่เครื่องใช้ ModusToolbox 3.6 schema จึงถูกยกเป็น v7
+  - th: สาย USB ของ KitProg3 ยังไม่ได้เสียบ
+  - th: make getlibs ดาวน์โหลด LVGL มาไม่ครบ
+  answer:
+  - 1
+  explain:
+    th: docs/EXTENDING.md ของ master template ข้อ 4.6 อธิบายว่า BSP ที่ถูกบันทึกด้วย ModusToolbox 3.7 จะใช้ schema v7 ซึ่งเครื่องที่ใช้ 3.6 อ่านไม่ได้ ให้ใช้ BSP schema v6 ที่มากับ template และอย่าเปิดแล้วเซฟ design.modus ด้วย configurator รุ่นใหม่กว่า การยังไม่มี episode ไม่ทำให้ build ล้ม (จะได้หน้าจอ default แทน) และ KitProg3 เกี่ยวกับขั้น make program ไม่ใช่ make build
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: build และ flash ผ่าน แต่จอขึ้นการ์ด “TESAIoT Dev Kit · Master Template Ready” และบอกว่ายังไม่มี episode ติดตั้ง แปลว่าอะไร
+    en: Build and flash succeed, but the screen shows a “Master Template Ready” card saying no episode is installed. What does this mean?
+  choices:
+  - th: บอร์ดยังรันเฟิร์มแวร์เก่า เพราะ make program ไม่ได้เขียน flash
+  - th: LVGL เริ่มทำงานไม่สำเร็จ จึงแสดงหน้าจอสำรอง
+  - th: ตอน link ไม่มี example_main() แบบ strong จากไฟล์ของ episode จึงใช้ตัว weak ใน example_main_default.c แทน ให้ตรวจว่าคัดลอกไฟล์ episode ลง proj_cm55/apps/ ถูกที่แล้ว build ใหม่
+  - th: 'ต้องเพิ่ม #include ของ episode ลงใน main.c ก่อน episode จึงจะทำงาน'
+  answer:
+  - 2
+  explain:
+    th: master ประกาศ example_main() แบบ weak ไว้ในไฟล์ default ซึ่งวาดการ์ดนี้และพิมพ์ [MASTER][STUB] ลง serial log เมื่อ episode ใน proj_cm55/apps/ ให้ example_main() แบบ strong ตัว linker จะเลือกของ episode แทน ไม่ต้องแก้ main.c เลย เพราะ main.c เรียก example_main(parent) เหมือนเดิมทุก episode ถ้า LVGL เริ่มไม่สำเร็จ main.c จะพิมพ์ error แล้วหยุด ไม่ใช่วาดการ์ดนี้
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: คัดลอก episode ใหม่ลง proj_cm55/apps/ โดยไม่ลบไฟล์ของ episode เก่าออกก่อน แล้วสั่ง build จะเกิดอะไรขึ้น
+    en: You copy a new episode into proj_cm55/apps/ without removing the previous episode's files. What happens at build time?
+  choices:
+  - th: link ล้มด้วย duplicate symbol example_main เพราะมี example_main() แบบ strong สองตัว
+  - th: build ผ่าน และบอร์ดรัน episode ที่ถูกคัดลอกเข้าไปทีหลัง
+  - th: build ผ่าน และบอร์ดรันทั้งสอง episode สลับกัน
+  - th: compiler เลือก episode ที่ชื่อไฟล์เรียงก่อนให้เอง
+  answer:
+  - 0
+  explain:
+    th: 'EXTENDING.md ข้อ 4.4: ใน build หนึ่งมี example_main() แบบ strong ได้ตัวเดียว ถ้ามีสองตัว linker จะแจ้ง duplicate symbol จึงต้องล้างไฟล์ของ episode เก่าก่อน (คำสั่ง find … -exec rm ใน README ทำขั้นนี้) แล้วค่อยวาง episode ใหม่'
+- id: q4
+  objective: 3
+  type: order
+  prompt:
+    th: เรียงลำดับสิ่งที่เกิดขึ้นตั้งแต่เปิดเครื่องจนโค้ดของ episode เริ่มทำงาน
+    en: Put in order what happens from power-on until the episode code starts.
+  choices:
+  - th: proj_cm55 สร้าง cm55_gfx_task แล้วเริ่ม FreeRTOS scheduler
+  - th: proj_cm33_s เตรียมบอร์ดแล้วกระโดดไปยังโปรแกรมฝั่ง non-secure
+  - th: cm55_gfx_task เตรียม VGLite, LVGL, จอ และ touch แล้วเรียก example_main(parent)
+  - th: proj_cm33_ns เปิดคอร์ CM55 ที่ boot address ของมัน แล้วเข้า deep sleep
+  answer:
+  - 1
+  - 3
+  - 0
+  - 2
+  explain:
+    th: 'ดูจาก main.c ของทั้งสามโปรเจกต์ที่ commit 082fd3e: proj_cm33_s เรียก cybsp_init() แล้วเรียก reset handler ของฝั่ง non-secure, proj_cm33_ns เรียก Cy_SysEnableCM55() แล้ววน deep sleep, proj_cm55 สร้าง task กราฟิกแล้วเริ่ม scheduler และ task นั้นเรียก example_main() ครั้งเดียวหลังทุกอย่างพร้อม'
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: ใน master template ของหลักสูตรนี้ งาน LVGL ไดรเวอร์เซนเซอร์ และ Wi-Fi stack (cy_wcm, lwIP, mbedTLS) ของ episode ทำงานอยู่ในโปรเจกต์ใด
+    en: In this course's master template, which project runs the episode's LVGL work, sensor drivers and the Wi-Fi stack (cy_wcm, lwIP, mbedTLS)?
+  choices:
+  - th: proj_cm33_s เพราะงานเครือข่ายต้องอยู่ฝั่ง secure
+  - th: 'แยกกัน: LVGL อยู่ proj_cm55 ส่วน Wi-Fi อยู่ proj_cm33_ns'
+  - th: proj_cm33_ns เพราะ CM33 เป็นคอร์หลักของชิป
+  - th: proj_cm55 ทั้งหมด ส่วน proj_cm33_ns แค่ปลุก CM55 แล้วหลับ
+  answer:
+  - 3
+  explain:
+    th: โฟลเดอร์ deps ของ proj_cm55 มีทั้ง lvgl, freertos, ไดรเวอร์เซนเซอร์ และ wifi-core-freertos-lwip-mbedtls ส่วน proj_cm33_ns ไม่มี library ใดเลย main.c ของมันแค่เปิด CM55 แล้วเข้า deep sleep ตัวอย่าง Wi-Fi ในโมดูล 2 ก็เรียก cy_wcm จากโค้ดใน proj_cm55/apps/ โปรเจกต์อื่นนอก master template อาจแบ่งงานต่างไป (ตัวอย่าง OPTIGA ในโมดูล 5 วางแอปไว้ที่ proj_cm33_ns) จึงต้องดูจาก deps และ main.c ของแต่ละโปรเจกต์เสมอ

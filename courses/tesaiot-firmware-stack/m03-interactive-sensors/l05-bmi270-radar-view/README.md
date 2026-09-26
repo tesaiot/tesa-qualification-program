@@ -14,8 +14,8 @@ prerequisites: [fw-stack.m03.l04]
 objectives:
   - th: "แปลงค่า accelerometer และ gyroscope เป็นมุมและขนาด แล้ววาดเป็นกราฟ polar"
     en: "Turn accelerometer and gyroscope readings into angle and magnitude and draw them in polar form"
-  - th: "ลดสัญญาณรบกวนก่อนวาด และอธิบายผลของการกรองต่อความหน่วง"
-    en: "Reduce noise before drawing and explain how filtering adds lag"
+  - th: "ใช้ baseline และ dead-band ตัดการสั่นเล็ก ๆ ก่อนวาด และคำนวณว่าถ้าใช้ moving average แทน จะเพิ่มความหน่วงเท่าไรที่คาบเวลาอ่าน 50 ms"
+    en: "Use a baseline and a dead-band to drop small jitter before drawing, and work out how much lag a moving average would add at the 50 ms read period"
   - th: "ออกแบบการแสดงผลที่ผู้ใช้อ่านทิศทางได้ในหนึ่งวินาที"
     en: "Design a view that lets a user read the direction within a second"
 develops:
@@ -36,7 +36,7 @@ source:
 ## เป้าหมาย
 
 1. แปลงค่า accelerometer และ gyroscope เป็นมุมและขนาด แล้ววาดเป็นกราฟ polar
-2. ลดสัญญาณรบกวนก่อนวาด และอธิบายผลของการกรองต่อความหน่วง
+2. ใช้ baseline และ dead-band ตัดการสั่นเล็ก ๆ ก่อนวาด และคำนวณว่าถ้าใช้ moving average แทน จะเพิ่มความหน่วงเท่าไรที่คาบเวลาอ่าน 50 ms
 3. ออกแบบการแสดงผลที่ผู้ใช้อ่านทิศทางได้ในหนึ่งวินาที
 
 ## แนวคิด
@@ -58,7 +58,7 @@ source:
 
 ```sh
 # ในโฟลเดอร์ master template (ดูบทเรียน 1.1)
-# 1) ลบไฟล์ episode เก่าใน proj_cm55/apps/ (เก็บ app_interface.h และ _default/ ไว้)
+# 1) ลบไฟล์ของ episode เก่าใน proj_cm55/apps/
 # 2) คัดลอกไฟล์ทั้งหมดของ episode นี้ลงใน proj_cm55/apps/
 make build
 make program     # flash ผ่าน KitProg3
@@ -81,7 +81,7 @@ make program     # flash ผ่าน KitProg3
 ## เช็กความเข้าใจ
 
 - atan2 ใช้ทำอะไรในการหาทิศ
-- กรองแรงขึ้นแล้วจุดบน radar ขยับช้าลงเพราะอะไร
+- dead-band ต่างจาก moving average อย่างไรในแง่ความหน่วงของจุดบน radar
 - สีหรือขนาดของจุดควรสื่อข้อมูลอะไร
 
 คำตอบอยู่ใน README ของตัวอย่างและในโค้ด ถ้าตอบข้อใดไม่ได้ ให้กลับไปอ่านส่วน Why / What / How อีกครั้ง

@@ -14,8 +14,8 @@ prerequisites: [fw-stack.m02.l07]
 objectives:
   - th: "อธิบายขั้นตอน OTA: ถามงาน อ่าน job document ดาวน์โหลด ตรวจ integrity และรายงานผล"
     en: "Explain the OTA steps: poll, read the job document, download, verify integrity and report"
-  - th: "รันตัวอย่าง OTA client และอ่านสถานะที่รายงานกลับแพลตฟอร์ม"
-    en: "Run the OTA client example and read the status it reports back"
+  - th: "อ่านโค้ด OTA client และระบุว่าขั้นตอนใด (รายงานสถานะ ดาวน์โหลด ตรวจ integrity) ยังเป็น TODO ในตัวอย่างอ้างอิง"
+    en: "Read the OTA client code and name which steps (status report, download, integrity check) are still TODO in the reference example"
 develops:
   - {skill: iot.ota, to: 2}
   - {skill: mcu.bootloader, to: 1}
@@ -34,7 +34,7 @@ source:
 ## เป้าหมาย
 
 1. อธิบายขั้นตอน OTA: ถามงาน อ่าน job document ดาวน์โหลด ตรวจ integrity และรายงานผล
-2. รันตัวอย่าง OTA client และอ่านสถานะที่รายงานกลับแพลตฟอร์ม
+2. อ่านโค้ด OTA client และระบุว่าขั้นตอนใด (รายงานสถานะ ดาวน์โหลด ตรวจ integrity) ยังเป็น TODO ในตัวอย่างอ้างอิง
 
 ## แนวคิด
 
@@ -46,6 +46,8 @@ source:
 
 - [README ของตัวอย่าง](https://github.com/tesaiot/developer-hub/blob/d2ed42c4a31232f553b6b8cef9ee7373db348c21/examples/embedded-devices/advanced/c_ota_client/README.md) · [โฟลเดอร์โค้ด](https://github.com/tesaiot/developer-hub/tree/d2ed42c4a31232f553b6b8cef9ee7373db348c21/examples/embedded-devices/advanced/c_ota_client) · commit `d2ed42c`
 - ต้องมี credential ของอุปกรณ์จาก TESAIoT Platform ตามขั้นตอนใน README ห้ามนำ credential จริงขึ้น repo สาธารณะ
+
+> **ระวัง:** ถ้าไม่ใส่ `--ca-cert` ตัวอย่าง `ota_client.c` ที่ commit นี้จะปิดการตรวจ certificate ของเซิร์ฟเวอร์ และตัวอย่างคำสั่งใน README ของตัวอย่างก็ไม่ได้ใส่ flag นี้ ให้ใส่ `--ca-cert` ทุกครั้ง อุปกรณ์จริงต้องไม่ปิดการตรวจ certificate
 
 ## ลองแก้
 

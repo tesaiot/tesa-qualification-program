@@ -14,8 +14,8 @@ prerequisites: [fw-stack.m01.l01]
 objectives:
   - th: "ส่งเฟรม heartbeat 1 Hz ผ่าน CANFD0 แบบ Classic CAN 2.0A ที่ 500 kbps"
     en: "Send a 1 Hz heartbeat on CANFD0 as Classic CAN 2.0A at 500 kbps"
-  - th: "อ่านเฟรมที่เข้ามาและแสดงเป็นตาราง ID ข้อมูล และจำนวนครั้ง"
-    en: "Receive frames and list their ID, data and count"
+  - th: "อ่านเฟรมที่เข้ามา แสดงเฟรมล่าสุด (ID และข้อมูล) และตัวนับเฟรมที่รับและส่ง"
+    en: "Receive frames and show the latest frame (ID and data) with the receive and transmit counters"
 develops:
   - {skill: proto.can, to: 2}
   - {skill: gui.hmi, to: 2}
@@ -33,7 +33,7 @@ source:
 ## เป้าหมาย
 
 1. ส่งเฟรม heartbeat 1 Hz ผ่าน CANFD0 แบบ Classic CAN 2.0A ที่ 500 kbps
-2. อ่านเฟรมที่เข้ามาและแสดงเป็นตาราง ID ข้อมูล และจำนวนครั้ง
+2. อ่านเฟรมที่เข้ามา แสดงเฟรมล่าสุด (ID และข้อมูล) และตัวนับเฟรมที่รับและส่ง
 
 ## แนวคิด
 
@@ -50,7 +50,7 @@ source:
 
 ```sh
 # ในโฟลเดอร์ master template (ดูบทเรียน 1.1)
-# 1) ลบไฟล์ episode เก่าใน proj_cm55/apps/ (เก็บ app_interface.h และ _default/ ไว้)
+# 1) ลบไฟล์ของ episode เก่าใน proj_cm55/apps/
 # 2) คัดลอกไฟล์ทั้งหมดของ episode นี้ลงใน proj_cm55/apps/
 make build
 make program     # flash ผ่าน KitProg3

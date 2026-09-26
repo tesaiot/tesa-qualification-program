@@ -1,0 +1,80 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m02.l06 บทเรียน 2.6 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ 9a8e3ed
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: lv_textarea_set_password_mode(password_ta, true) ป้องกันอะไรได้ และป้องกันอะไรไม่ได้
+    en: What does lv_textarea_set_password_mode(password_ta, true) protect against, and what not?
+  choices:
+  - th: เข้ารหัสรหัสผ่านก่อนบันทึกลง NVM
+  - th: ซ่อนตัวอักษรบนจอจากคนที่มองอยู่ แต่ lv_textarea_get_text() ยังคืนรหัสจริง และค่าที่บันทึกลง NVM เป็นข้อความจริง
+  - th: ป้องกันไม่ให้โค้ดส่วนอื่นอ่านค่าจาก textarea
+  - th: ลบรหัสผ่านออกจาก RAM หลังพิมพ์เสร็จ
+  answer:
+  - 1
+  explain:
+    th: password mode เปลี่ยนแค่การแสดงผล ui_profile_read_to_data() ยังอ่านค่าด้วย lv_textarea_get_text() แล้ว strncpy ลงโครงสร้าง profile และ wifi_profile_store_save() เขียนข้อความนั้นลง NVM ตรง ๆ
+- id: q2
+  objective: 1
+  type: multi
+  prompt:
+    th: กด Save ในกรณีใดบ้างที่โปรไฟล์ถูกบันทึกลง NVM จริง (เลือกทุกข้อที่ถูก)
+    en: In which cases does pressing Save actually store the profile in NVM? (choose all that apply)
+  choices:
+  - th: SSID “Lab”, security OPEN, รหัสผ่านว่าง
+  - th: SSID “Lab”, security WPA2-AES-PSK, รหัสผ่านว่าง
+  - th: SSID ว่าง, security OPEN
+  - th: SSID “Lab”, security WPA3-SAE, รหัสผ่าน “abcd1234”
+  answer:
+  - 0
+  - 3
+  explain:
+    th: 'ui_profile_validate_before_save() ปฏิเสธ SSID ว่าง (Save failed: SSID is empty) และปฏิเสธรหัสผ่านว่างเมื่อ security ไม่ใช่ OPEN (Save failed: Password is required) ด่านนี้อยู่ก่อนเรียก wifi_profile_store_save() ข้อมูลที่ไม่ครบจึงไม่ถูกเขียน'
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ไฟดับระหว่างเขียนโปรไฟล์ ทำให้ slot ใน NVM มีข้อมูลใหม่ครึ่งหนึ่งเก่าครึ่งหนึ่ง เมื่อเปิดเครื่องใหม่ wifi_profile_store_load() จะทำอย่างไร
+    en: Power fails mid-write, leaving the NVM slot half new and half old. On the next boot, what does wifi_profile_store_load() do?
+  choices:
+  - th: โหลดข้อมูลครึ่ง ๆ นั้นมาใช้
+  - th: ซ่อมข้อมูลให้เองจาก CRC
+  - th: ตรวจ magic, version, valid, payload_len และ CRC32 ของ payload เมื่อไม่ตรงจะไม่ใช้ slot นั้น (แล้วลอง slot legacy) ถ้าไม่มี slot ใดผ่านจะรายงานว่าไม่มีโปรไฟล์
+  - th: ลบ NVM ทั้งหมดแล้วรีเซ็ตบอร์ด
+  answer:
+  - 2
+  explain:
+    th: wifi_profile_parse_record() ตรวจ header แล้วคำนวณ CRC32 ใหม่เทียบกับค่าที่เก็บ ถ้าไม่ตรงจะ log CRC_FAIL และคืน false หน้า Profile จึงขึ้นว่าไม่มีโปรไฟล์ แทนการนำ SSID หรือรหัสผ่านที่เสียไปใช้ CRC ตรวจจับความเสียหายได้ แต่ซ่อมไม่ได้
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: กด Save ซ้ำด้วยข้อมูลเดิม wifi_profile_store_save() ทำอะไร และทำไม
+    en: Save is pressed again with identical data. What does wifi_profile_store_save() do, and why?
+  choices:
+  - th: อ่าน slot ปัจจุบันมาเทียบ ถ้าเหมือนทุกไบต์จะข้ามการเขียน (SAVE_SKIP_SAME) เพื่อลดการสึกของหน่วยความจำ ถ้าต่างจะเขียนแล้วอ่านกลับมาตรวจอีกครั้ง
+  - th: เขียนทับทุกครั้งเพื่อให้แน่ใจว่าข้อมูลเป็นปัจจุบัน
+  - th: เขียนลง slot ใหม่ถัดไปเพื่อเก็บประวัติ
+  - th: ล้าง slot ก่อนแล้วค่อยเขียน
+  answer:
+  - 0
+  explain:
+    th: โค้ดเทียบ current_block กับ block ใหม่ด้วย memcmp ก่อนเขียน เพราะหน่วยความจำไม่ลบเลือนมีจำนวนรอบการเขียนจำกัด หลังเขียนยังอ่าน slot กลับมาเทียบ (SAVE_VERIFY_FAIL ถ้าไม่ตรง) เพื่อยืนยันว่าเขียนสำเร็จจริง ไม่ใช่แค่ฟังก์ชันคืนค่าสำเร็จ
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: record ใน NVM มี CRC32 อยู่แล้ว ข้อใดสรุปความเสี่ยงของการเก็บรหัสผ่านแบบนี้ได้ถูกต้อง
+    en: The NVM record already carries a CRC32. Which statement correctly sums up the risk of storing the password this way?
+  choices:
+  - th: ปลอดภัยแล้ว เพราะ CRC32 ทำให้อ่านรหัสผ่านไม่ออก
+  - th: ปลอดภัยแล้ว เพราะ password mode เข้ารหัสไว้ก่อนเขียน
+  - th: ความเสี่ยงอยู่ที่จอเท่านั้น เพราะหน่วยความจำภายในชิปอ่านจากภายนอกไม่ได้
+  - th: CRC32 แค่ตรวจว่าข้อมูลเสียหรือไม่ รหัสผ่านยังเป็นข้อความจริงใน NVM ใครอ่านหน่วยความจำได้ (debugger หรือ dump เฟิร์มแวร์) ก็ได้รหัสไป ควรเข้ารหัสด้วยกุญแจที่เก็บในที่ปลอดภัย เช่น secure element และปิดทาง debug ในเครื่องที่ส่งมอบ
+  answer:
+  - 3
+  explain:
+    th: wifi_profile_make_record() ใช้ strncpy ใส่รหัสผ่านลง record ตรง ๆ แล้วคิด CRC32 ทับ CRC ไม่ใช่การเข้ารหัส ใครก็คำนวณใหม่ได้ บทเรียน OPTIGA Trust M ในโมดูล 5 แสดงแนวทางเก็บความลับไว้ในชิปที่อ่านกุญแจออกไม่ได้

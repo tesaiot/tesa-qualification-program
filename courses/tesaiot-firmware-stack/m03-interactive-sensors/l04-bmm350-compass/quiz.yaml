@@ -1,0 +1,81 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m03.l04 บทเรียน 3.4 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ 9a8e3ed
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ตัวอย่างคำนวณ heading จาก atan2 ของแกน X และ Y เท่านั้น ถ้าเอียงบอร์ดขึ้น 30° โดยไม่หมุนทิศ ค่า heading จะเป็นอย่างไร
+    en: The example computes heading from atan2 of X and Y only. If you tilt the board up by 30° without turning it, what happens to the heading?
+  choices:
+  - th: คงเดิม เพราะ atan2 ไม่สนความเอียง
+  - th: อาจเปลี่ยนไปหลายองศา เพราะเมื่อเอียง ส่วนแนวดิ่งของสนามแม่เหล็กโลกเข้ามาปนในแกน X/Y และโค้ดไม่มีการชดเชยความเอียง จึงควรวางบอร์ดราบขณะอ่านทิศ
+  - th: กลายเป็น 0° ทันที
+  - th: กลับทิศเป็น 180° เสมอ
+  answer:
+  - 1
+  explain:
+    th: heading_from_xy() ใช้ atan2f(y_corr, x_corr) โดยไม่ใช้แกน Z หรือข้อมูลความเอียงจาก accelerometer สนามแม่เหล็กโลกมีส่วนประกอบแนวดิ่ง การเอียงจึงเปลี่ยนสัดส่วน X/Y และทำให้ทิศคลาด การชดเชยความเอียงต้องใช้ BMI270 ร่วมด้วย
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: กด Calibrate แล้ววางบอร์ดนิ่งบนโต๊ะ 30 วินาที การ calibrate จะเป็นอย่างไร
+    en: You press Calibrate and leave the board still on the table for 30 seconds. What happens to the calibration?
+  choices:
+  - th: เสร็จหลังเก็บครบ 140 ตัวอย่าง (ราว 17 วินาที) โดยใช้ค่าคงที่ที่อ่านได้
+  - th: ล้มเหลวแล้วรีเซ็ตเซนเซอร์
+  - th: ยังไม่เสร็จ เพราะนอกจากต้องครบ 140 ตัวอย่างแล้ว ช่วง min–max ของทั้ง X และ Y ต้องกว้างอย่างน้อย 20 µT ซึ่งเกิดได้ต่อเมื่อหมุนบอร์ดรอบทิศ แถบ coverage จึงค้างต่ำกว่า 100%
+  - th: เสร็จทันทีเพราะไม่มีการเคลื่อนไหวรบกวน
+  answer:
+  - 2
+  explain:
+    th: calibration_update() ปิดงานเฉพาะเมื่อ samples ≥ BMM350_CALIBRATION_SAMPLES และ calibration_is_coverage_ready() เป็นจริง (span X และ Y ≥ BMM350_CALIBRATION_MIN_SPAN_UT) ถ้าไม่หมุน span เกือบเป็นศูนย์ offset ที่คำนวณได้จะไม่มีความหมาย โค้ดจึงรอต่อไปแทนการยอมรับผลที่ผิด
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: offset ที่คำนวณจาก (max + min) / 2 ของแต่ละแกนใช้แก้อะไร
+    en: What does the per-axis offset (max + min) / 2 correct?
+  choices:
+  - th: 'hard-iron: สนามคงที่จากชิ้นส่วนแม่เหล็กบนบอร์ดที่บวกเข้าทุกค่าอ่าน ทำให้วงกลมของค่าอ่านเมื่อหมุนครบรอบเลื่อนออกจากจุดศูนย์กลาง'
+  - th: ค่าเบี่ยงเบนระหว่างทิศเหนือจริงกับทิศเหนือแม่เหล็ก (declination)
+  - th: สัญญาณรบกวนแบบสุ่มของเซนเซอร์
+  - th: ความเอียงของบอร์ด
+  answer:
+  - 0
+  explain:
+    th: เมื่อหมุนบอร์ดครบรอบ ค่า X/Y ควรวาดเป็นวงกลมรอบศูนย์ hard-iron ทำให้วงกลมเลื่อน จุดกึ่งกลางระหว่าง max และ min คือศูนย์กลางใหม่ จึงลบออก โค้ดยังคำนวณ scale_x/scale_y จาก span เฉลี่ยเพื่อดึงวงรีให้กลมแบบง่าย declination และความเอียงต้องจัดการแยกต่างหาก
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: calibrate สำเร็จแล้ว จากนั้นกดรีเซ็ตบอร์ด ทิศที่แสดงหลังรีเซ็ตยังใช้ค่าชดเชยอยู่หรือไม่
+    en: Calibration succeeded, then the board is reset. Is the correction still applied after the reset?
+  choices:
+  - th: ใช้ เพราะเก็บไว้ใน NVM
+  - th: ใช้ เพราะ BMM350 จำค่าไว้ในชิป
+  - th: ใช้ได้ครึ่งเดียว เฉพาะแกน X
+  - th: ไม่ใช้ ค่าชดเชยอยู่ใน RAM และ bmm350_reader_init() เรียก calibration_clear() ทุกครั้ง ต้อง calibrate ใหม่
+  answer:
+  - 3
+  explain:
+    th: s_cal เป็นตัวแปร static ใน RAM ไม่มีการเขียนลงหน่วยความจำถาวร ถ้าต้องการให้จำ ต้องบันทึก offset และ scale แบบเดียวกับ profile store ในบทเรียน 2.6 และจำไว้ว่าค่าชดเชยผูกกับบอร์ดและตำแหน่งติดตั้ง
+- id: q5
+  objective: 3
+  type: multi
+  prompt:
+    th: หลัง calibrate เสร็จ สถานการณ์ใดทำให้เข็มทิศคลาดได้ (เลือกทุกข้อที่ถูก)
+    en: After a successful calibration, which situations can make the compass wrong? (choose all that apply)
+  choices:
+  - th: วางบอร์ดใกล้ขาโต๊ะเหล็กหรือลำโพงที่มีแม่เหล็ก
+  - th: มีสายไฟกระแสตรงสูงวางผ่านใกล้บอร์ด
+  - th: ชิ้นส่วนแม่เหล็กที่ติดอยู่บนบอร์ดตลอดเวลาและอยู่ที่เดิมระหว่าง calibrate
+  - th: ค่า field strength สูงกว่าช่วงสนามโลกราว 25–65 µT มาก เป็นสัญญาณว่ามีสนามรบกวนใกล้บอร์ด
+  answer:
+  - 0
+  - 1
+  - 3
+  explain:
+    th: calibration ชดเชยได้เฉพาะสนามที่เคลื่อนไปพร้อมบอร์ดและคงที่ขณะ calibrate โลหะหรือแม่เหล็กในสิ่งแวดล้อม และกระแสไฟที่สร้างสนามรอบสาย ไม่ได้ถูกรวมไว้จึงทำให้ทิศคลาด README ระบุว่าสนามโลกราว 25–65 µT ตัวอย่างคำนวณ field_strength_ut ให้ดูประกอบ ค่าที่สูงผิดปกติบอกว่าควรย้ายบอร์ดหรือ calibrate ในตำแหน่งใช้งานจริง

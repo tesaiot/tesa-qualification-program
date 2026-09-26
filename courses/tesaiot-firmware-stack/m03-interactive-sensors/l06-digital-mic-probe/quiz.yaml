@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m03.l06 บทเรียน 3.6 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ 9a8e3ed
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: pdm_probe_logger_task รู้ได้อย่างไรว่ามีเสียงเฟรมใหม่ให้คำนวณ
+    en: How does pdm_probe_logger_task know a new audio frame is ready?
+  choices:
+  - th: poll FIFO ของ PDM ทุก 1 ms
+  - th: ISR ของแต่ละช่องอ่าน FIFO ครั้งละ 32 ตัวอย่างเติม buffer ที่กำลังเขียน เมื่อครบ 160 ตัวอย่าง (10 ms ที่ 16 kHz) ทั้งซ้ายและขวา จะสลับ ping-pong buffer แล้ว set semaphore ที่ task รออยู่
+  - th: LVGL timer เรียก task ทุก 50 ms
+  - th: DMA เขียนค่าตรงเข้า label บนจอ
+  answer:
+  - 1
+  explain:
+    th: process_channel_irq() อ่าน FIFO เมื่อถึง trigger level (32) นับ block_count จนครบ PDM_INTERRUPTS_PER_FRAME แล้วสลับ active/full buffer เมื่อทั้งสองช่องพร้อม (PDM_READY_BOTH) จึงเรียก cy_rtos_semaphore_set() ฝั่ง pdm_mic_get_frame() บล็อกรอ semaphore นั้น CPU จึงคำนวณเป็นก้อน 10 ms แทนการอ่านทีละตัวอย่าง (README ของ episode พูดถึง DMA แต่โค้ดที่ commit นี้ใช้ interrupt อ่าน FIFO)
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: แถบ “UI Level” ของแต่ละช่องคำนวณจากอะไร
+    en: What is each channel's ‘UI Level’ bar computed from?
+  choices:
+  - th: ค่า RMS ของเฟรม
+  - th: ค่า peak ของเฟรม
+  - th: ค่าเฉลี่ยของค่าสัมบูรณ์ (mean |x|) ของเฟรม 10 ms แล้วแมปช่วง 80–8000 เป็น 0–100%
+  - th: จำนวนตัวอย่างที่ไม่เป็นศูนย์
+  answer:
+  - 2
+  explain:
+    th: compute_level() คำนวณทั้ง peak_abs และ avg_abs = ผลรวม |x| หารจำนวนตัวอย่าง ไม่มีการยกกำลังสองจึงไม่ใช่ RMS แล้ว to_ui_pct() แมป avg_abs จาก PDM_UI_FLOOR_ABS (80) ถึง PDM_UI_CEIL_ABS (8000) mean |x| ขึ้นลงตามความดังเหมือน RMS และคำนวณเบากว่า แต่ได้ค่าต่ำกว่า RMS สำหรับสัญญาณเดียวกัน (คลื่น sine ได้ราว 0.9 เท่าของ RMS)
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ตบมือหนึ่งครั้งใกล้ไมโครโฟน แถบ Peak (Hold) จะมีพฤติกรรมอย่างไร
+    en: You clap once near the mic. How does the Peak (Hold) bar behave?
+  choices:
+  - th: กระโดดขึ้นทันที ค้างไว้ราว 1.5 วินาที แล้วค่อยลดลง 2% ทุก 100 ms ส่วนแถบค่าเฉลี่ยตกลงเร็วกว่ามาก
+  - th: ขึ้นช้า ๆ ตามค่าเฉลี่ย
+  - th: ขึ้นแล้วค้างจนกว่าจะรีเซ็ตบอร์ด
+  - th: ไม่ขยับ เพราะ peak ถูกกรองออก
+  answer:
+  - 0
+  explain:
+    th: update_peak_hold() รับค่าใหม่ถ้าสูงกว่า hold ค้างไว้ MIC_PEAK_HOLD_MS = 1500 ms แล้วลด MIC_PEAK_DECAY_STEP_PCT = 2% ทุก MIC_PEAK_DECAY_INTERVAL_MS = 100 ms peak บอกว่าสัญญาณเข้าใกล้ขีดจำกัด (clipping) หรือยัง ส่วนค่าเฉลี่ยบอกความดังโดยรวม จึงแสดงคู่กัน
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: logger ส่งค่าทุก 10 ms แต่ UI timer อ่านทุก 50 ms แบบ latest-sample-wins เสียงกระแทกที่สั้นกว่า 10 ms อาจไม่ขึ้นบนแถบ peak เพราะอะไร
+    en: The logger publishes every 10 ms but the UI timer reads every 50 ms, latest sample wins. Why might a click shorter than 10 ms never show on the peak bar?
+  choices:
+  - th: เพราะไมโครโฟน PDM ตอบสนองช้ากว่า 10 ms
+  - th: เพราะ LVGL วาดไม่ทัน
+  - th: เพราะ ISR ทิ้งเฟรมที่ดังเกินไป
+  - th: เพราะเฟรมที่มีเสียงกระแทกอาจถูกเฟรมถัดไปเขียนทับก่อน UI มาอ่าน UI เห็นราว 1 ใน 5 เฟรม ถ้าต้องจับ peak ทุกครั้งต้องสะสมค่าสูงสุดไว้ฝั่ง producer ระหว่างรอบที่ UI อ่าน
+  answer:
+  - 3
+  explain:
+    th: mic_presenter_publish_sample() เขียน s_latest_sample ทับทุกครั้ง ส่วน mic_presenter_ui_timer_cb() อ่านทุก MIC_UI_TIMER_PERIOD_MS = 50 ms นโยบายนี้ทำให้ UI ไม่บล็อกและไม่มีคิวค้าง แต่แลกกับการพลาดเหตุการณ์ที่สั้นมาก ต้องเลือกให้เหมาะกับงาน
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: ดีดนิ้วใกล้ไมโครโฟนฝั่งซ้ายของบอร์ด ค่า Balance ควรเป็นอย่างไร และถ้าได้ผลตรงข้ามแปลว่าอะไร
+    en: You snap your fingers next to the left microphone. What should Balance show, and what does the opposite result mean?
+  choices:
+  - th: Balance เป็นลบและขึ้น “R” เสมอ เพราะสูตรคือ R − L
+  - th: Balance เป็น 0 เพราะไมค์สองตัวอยู่ใกล้กัน
+  - th: Balance เป็นบวกและขึ้น “L” ถ้ากลับเป็น “R” แปลว่าการจับคู่ช่องกับไมโครโฟนสลับกัน ต้องตรวจว่าช่อง PDM ที่ตั้งเป็นซ้าย/ขวา (channel 2/3) ตรงกับไมค์ตัวจริงบนบอร์ด
+  - th: Balance ขึ้นกับความดังรวม ไม่ใช่ทิศ
+  answer:
+  - 2
+  explain:
+    th: balance_lr = (L_avg − R_avg) × 100 / (L_avg + R_avg) และ view ขึ้น L เมื่อ > 3, R เมื่อ < −3 การทดสอบที่ดีควรทำทั้งสองฝั่งสลับกันหลายครั้งในห้องเงียบ เพราะไมค์ทั้งสองอยู่ใกล้กัน ความต่างอาจไม่มากถ้าแหล่งเสียงอยู่ไกล

@@ -16,8 +16,8 @@ objectives:
     en: "Combine scan, profile and connect into a Wi-Fi manager that auto-connects from the stored profile"
   - th: "ออกแบบ state machine ของการเชื่อมต่อ (ต่อ หลุด ลองใหม่) และแสดงสถานะบนจอ"
     en: "Design a connection state machine (connect, drop, retry) and show its state on screen"
-  - th: "ใช้ ping watchdog ตรวจว่าการเชื่อมต่อใช้งานได้จริง ไม่ใช่แค่ต่อ AP ได้"
-    en: "Use a ping watchdog to check that the link really works, not only that the AP accepted us"
+  - th: "ใช้ ping ไปยัง gateway ตรวจว่าเครือข่ายตอบจริง และอธิบายว่าในตัวอย่างนี้ผลของ ping ไม่ได้สั่งให้ต่อใหม่"
+    en: "Ping the gateway to check that the network really answers, and explain that in this example the ping result does not trigger a reconnect"
 develops:
   - {skill: prog.state-machines, to: 3}
   - {skill: proto.wifi, to: 3}
@@ -40,7 +40,7 @@ source:
 
 1. รวม scan, profile และ connect เป็น Wi-Fi manager ที่ต่ออัตโนมัติจากโปรไฟล์ที่บันทึกไว้
 2. ออกแบบ state machine ของการเชื่อมต่อ (ต่อ หลุด ลองใหม่) และแสดงสถานะบนจอ
-3. ใช้ ping watchdog ตรวจว่าการเชื่อมต่อใช้งานได้จริง ไม่ใช่แค่ต่อ AP ได้
+3. ใช้ ping ไปยัง gateway ตรวจว่าเครือข่ายตอบจริง และอธิบายว่าในตัวอย่างนี้ผลของ ping ไม่ได้สั่งให้ต่อใหม่
 
 ## แนวคิด
 
@@ -61,7 +61,7 @@ source:
 
 ```sh
 # ในโฟลเดอร์ master template (ดูบทเรียน 1.1)
-# 1) ลบไฟล์ episode เก่าใน proj_cm55/apps/ (เก็บ app_interface.h และ _default/ ไว้)
+# 1) ลบไฟล์ของ episode เก่าใน proj_cm55/apps/
 # 2) คัดลอกไฟล์ทั้งหมดของ episode นี้ลงใน proj_cm55/apps/
 make build
 make program     # flash ผ่าน KitProg3

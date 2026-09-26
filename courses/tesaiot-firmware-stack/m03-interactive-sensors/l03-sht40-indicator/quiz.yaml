@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m03.l03 บทเรียน 3.3 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ 9a8e3ed
+items:
+- id: q1
+  objective: 2
+  type: single
+  prompt:
+    th: เปิดเครื่องทำความชื้นในห้องแห้ง ค่า RH ไต่จาก 35 → 50 → 65 %RH ชิปสถานะ comfort จะแสดงข้อความตามลำดับใด
+    en: A humidifier raises RH from 35 → 50 → 65 %RH. What does the comfort chip show at each step?
+  choices:
+  - th: Comfort → Comfort → Humid
+  - th: Dry → Comfort → Comfort
+  - th: Dry → Comfort → Humid
+  - th: Dry → Humid → Humid
+  answer:
+  - 2
+  explain:
+    th: set_comfort_chip() ใช้เกณฑ์ < 40 = Dry, 40–60 = Comfort, > 60 = Humid (ข้อความ range_hint บนจอเขียนไว้ตรงกัน) README ของ episode ยังเขียนเกณฑ์ 30/60/80 ซึ่งไม่ตรงกับโค้ดที่ commit นี้
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ถ้าแก้เกณฑ์บนจาก 60 เป็น 65 เฉพาะใน hum_level_color() เมื่อ RH = 62 %RH จอจะแสดงอย่างไร
+    en: If the upper threshold is changed from 60 to 65 only inside hum_level_color(), what does the screen show at 62 %RH?
+  choices:
+  - th: ชิปขึ้น Comfort สีเขียว ตรงกันทั้งหมด
+  - th: ชิปขึ้นข้อความ Humid แต่เป็นสีเขียว เพราะข้อความใน set_comfort_chip() ยังใช้เกณฑ์ 60 ของตัวเอง
+  - th: ชิปขึ้น Humid สีน้ำเงิน ตรงกันทั้งหมด
+  - th: build ไม่ผ่าน
+  answer:
+  - 1
+  explain:
+    th: สีมาจาก hum_level_color() แต่ข้อความมาจาก if ใน set_comfort_chip() และ range_hint ก็พิมพ์ตัวเลขไว้อีกที่ เกณฑ์เดียวกันจึงซ้ำอยู่สามจุด การย้ายเกณฑ์ไปเป็นค่าคงที่ตัวเดียวแล้วให้ทุกจุดอ่านจากที่เดียวกันป้องกันความไม่ตรงกันแบบนี้ และทำให้อธิบายที่มาของเกณฑ์ได้ในที่เดียว
+- id: q3
+  objective: 1
+  type: single
+  prompt:
+    th: ระหว่างทำงาน สายหลวมจนอ่านเซนเซอร์ไม่ได้ติดต่อกันหลายวินาที แล้วกลับมาอ่านได้ presenter ทำอะไร
+    en: A loose connection makes the sensor fail for several seconds and then recover. What does the presenter do?
+  choices:
+  - th: แสดง error ใหม่ทุกวินาทีจนกว่าจะหาย
+  - th: หยุด timer ถาวรหลัง error แรก
+  - th: รีเซ็ตบอร์ด
+  - th: ขึ้นข้อความ error และ log READ_FAIL ครั้งเดียวเมื่อรหัสเปลี่ยน อ่านต่อทุก 1 วินาที และเมื่ออ่านได้อีกครั้งจะกลับเป็นสถานะ ready พร้อมค่าใหม่
+  answer:
+  - 3
+  explain:
+    th: sht4x_poll_sensor_cb() ถูกเรียกทุก SHT4X_SAMPLE_PERIOD_MS (1000 ms) ตลอด การแสดง error ถูกกันซ้ำด้วย s_last_status_error และเมื่อ has_new_sample เป็น true จะเรียก sht4x_view_set_ready() อีกครั้ง ผู้ใช้จึงเห็นสถานะจริงโดยจอไม่กระพริบ
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: บนบอร์ดเดียวกัน SHT4x อ่านได้ 31.2 °C แต่ DPS368 อ่านได้ 33.0 °C ข้อใดอธิบายได้สมเหตุสมผลที่สุด
+    en: On the same board the SHT4x reads 31.2 °C and the DPS368 reads 33.0 °C. What is the most reasonable explanation?
+  choices:
+  - th: เซนเซอร์แต่ละตัววัดอุณหภูมิของตัวเองตรงตำแหน่งที่มันอยู่บนบอร์ด ความร้อนจากชิ้นส่วนใกล้เคียง เช่นตัวประมวลผล วงจร Wi-Fi หรือจอ ไม่เท่ากัน และความแม่นยำของแต่ละตัวก็ต่างกัน
+  - th: DPS368 เสีย เพราะสองตัวควรอ่านได้เท่ากันทุกครั้ง
+  - th: ตัวหนึ่งรายงานเป็น °F
+  - th: โค้ดแปลงหน่วยจาก milli-degree ผิด
+  answer:
+  - 0
+  explain:
+    th: SHT4x ออกแบบมาวัดอุณหภูมิและความชื้นของอากาศ (README ระบุ ±0.2 °C) ส่วน DPS368 วัดอุณหภูมิเพื่อใช้ชดเชยการวัดความดันด้วย ทั้งคู่อยู่คนละตำแหน่งบน PCB ที่มีความร้อนสะสม ถ้าต้องการอุณหภูมิห้องจริงควรแยกเซนเซอร์ออกจากแหล่งความร้อน หรือเทียบกับเทอร์โมมิเตอร์อ้างอิง
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: ถ้าความร้อนจากบอร์ดทำให้อากาศรอบ SHT4x อุ่นกว่าอากาศในห้อง ค่า RH ที่อ่านได้จะเป็นอย่างไรเมื่อเทียบกับ RH ของห้อง
+    en: If heat from the board warms the air around the SHT4x above room temperature, how does the measured RH compare with the room's RH?
+  choices:
+  - th: สูงกว่า เพราะอากาศร้อนมีไอน้ำมากกว่า
+  - th: ต่ำกว่า เพราะปริมาณไอน้ำเท่าเดิม แต่อากาศที่อุ่นขึ้นรับไอน้ำได้มากขึ้น ความชื้นสัมพัทธ์จึงลดลง
+  - th: เท่ากัน เพราะ RH ไม่ขึ้นกับอุณหภูมิ
+  - th: สุ่ม ขึ้นกับจังหวะการอ่าน
+  answer:
+  - 1
+  explain:
+    th: RH คือสัดส่วนไอน้ำที่มีอยู่เทียบกับไอน้ำที่อากาศอุณหภูมินั้นรับได้เต็มที่ อากาศอุ่นรับได้มากขึ้น ถ้าไอน้ำเท่าเดิม RH จึงลดลง นี่คือเหตุที่ต้องอ่านอุณหภูมิคู่กับ RH เสมอ และต้องระวังความร้อนจากบอร์ดเมื่อเทียบกับเครื่องวัดในห้อง

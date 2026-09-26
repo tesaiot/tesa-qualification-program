@@ -1,0 +1,81 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m02.l01 บทเรียน 2.1 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ 9a8e3ed
+items:
+- id: q1
+  objective: 2
+  type: single
+  prompt:
+    th: master template เรียก example_main(parent) เมื่อไร
+    en: When does the master template call example_main(parent)?
+  choices:
+  - th: ทุกรอบของ lv_timer_handler() เพื่อให้ episode วาดจอใหม่
+  - th: ครั้งเดียว ภายใน cm55_gfx_task หลังเตรียม VGLite, LVGL, จอ และ touch เสร็จ
+  - th: ก่อนเริ่ม FreeRTOS scheduler เพื่อให้ episode ตั้งค่า clock เอง
+  - th: ทุกครั้งที่ผู้ใช้แตะจอ
+  answer:
+  - 1
+  explain:
+    th: main.c ของ master เรียก lv_init(), lv_port_disp_init(), lv_port_indev_init() แล้วเรียก example_main(lv_scr_act()) ครั้งเดียว จากนั้นวนเรียก lv_timer_handler() ให้เอง episode จึงแค่สร้าง object tree แล้ว return
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ทำไม episode เขียนแค่ example_main() แทนการเขียน main() เอง
+    en: Why does an episode only write example_main() instead of its own main()?
+  choices:
+  - th: เพราะ ModusToolbox ไม่อนุญาตให้โปรแกรมภาษา C มี main()
+  - th: เพราะ main() ต้องรันบน CM33 ส่วน episode รันบน CM55
+  - th: เพราะ example_main() ทำงานเร็วกว่า main()
+  - th: เพราะ main.c ของ master เตรียมบอร์ด FreeRTOS GPU LVGL จอ และ touch ไว้แล้ว และไม่เปลี่ยนเลยระหว่าง episode ทุก episode จึงเสียบเข้าที่จุดเดียวกันได้
+  answer:
+  - 3
+  explain:
+    th: comment ใน main.c เขียนว่า main.c NEVER changes per episode และ episode ให้แค่ example_main(parent) ถ้าทุก episode ต้องเขียนการเตรียมฮาร์ดแวร์เองจะซ้ำและพังง่าย อีกทั้ง proj_cm55 มี main() ของ master อยู่แล้ว (CM55 มี main() ของตัวเอง ไม่ได้รันบน CM33)
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: ถ้าเปลี่ยน APP_LOGO เป็นรูปที่สูงกว่าเดิม 40 px โดยไม่แก้ตัวเลขอื่นในโค้ด หน้าจอจะเป็นอย่างไร
+    en: If APP_LOGO is replaced by an image 40 px taller and no other number changes, what happens on screen?
+  choices:
+  - th: title และ subtitle เลื่อนลงตามโลโก้ ระยะห่าง 48 px และ 24 px ยังเท่าเดิม
+  - th: title ทับโลโก้ เพราะ title ถูกวางที่พิกัด y คงที่
+  - th: เฉพาะ title เลื่อนลง ส่วน subtitle อยู่ที่เดิมจึงทับ title
+  - th: โลโก้ถูกย่อให้พอดีพื้นที่เดิมโดยอัตโนมัติ
+  answer:
+  - 0
+  explain:
+    th: title ใช้ lv_obj_align_to(title, logo, LV_ALIGN_OUT_BOTTOM_MID, 0, 48) และ subtitle ใช้ align_to กับ title อีกทอด ทั้งคู่จึงยึดตำแหน่งกับ object ที่อยู่เหนือตัวเอง ไม่ใช่พิกัดตายตัว comment ในโค้ดเขียนไว้ว่าทำเพื่อกันการทับเมื่อขนาดโลโก้เปลี่ยน
+- id: q4
+  objective: 3
+  type: multi
+  prompt:
+    th: ต้องการย้าย title ลงอีก 20 px จึงเปลี่ยน y offset ใน lv_obj_align_to ของ title จาก 48 เป็น 68 ข้อใดจะเกิดขึ้น (เลือกทุกข้อที่ถูก)
+    en: To move the title down 20 px you change the title's lv_obj_align_to y offset from 48 to 68. What happens? (choose all that apply)
+  choices:
+  - th: โลโก้เลื่อนลง 20 px ด้วย
+  - th: title เลื่อนลง 20 px
+  - th: subtitle เลื่อนลง 20 px ตาม title
+  - th: ระยะระหว่าง title กับ subtitle ยังเป็น 24 px
+  answer:
+  - 1
+  - 2
+  - 3
+  explain:
+    th: offset 48 วัดจากขอบล่างของโลโก้ การเพิ่มเป็น 68 ย้ายเฉพาะ title ส่วน subtitle ถูก align_to กับ title จึงเลื่อนตามด้วยระยะ 24 px เดิม โลโก้ยึดกับ screen ด้วย LV_ALIGN_TOP_MID จึงไม่ขยับ
+- id: q5
+  objective: 1
+  type: single
+  prompt:
+    th: ลองเปลี่ยนฟอนต์ของ title เป็น lv_font_montserrat_48 แล้ว build ขึ้น error ว่า lv_font_montserrat_48 undeclared สาเหตุคืออะไร
+    en: You switch the title font to lv_font_montserrat_48 and the build fails with ‘lv_font_montserrat_48 undeclared’. Why?
+  choices:
+  - th: ต้อง include ไฟล์ฟอนต์ใน main_example.c เอง
+  - th: ต้องรัน make getlibs ใหม่เพื่อดาวน์โหลดฟอนต์
+  - th: master เปิดฟอนต์ Montserrat ไว้เฉพาะบางขนาดระหว่าง 12–40 ขนาด 48 ต้องเปิด LV_FONT_MONTSERRAT_48 ใน lv_conf.h ก่อน
+  - th: ฟอนต์ที่ใหญ่กว่า 40 px ใช้กับจอ 4.3 นิ้วไม่ได้
+  answer:
+  - 2
+  explain:
+    th: 'README ของ master ระบุฟอนต์ที่เปิดไว้แล้วคือ 12, 14, 16, 18, 20, 22, 24, 28, 30, 40 และ EXTENDING.md ข้อ 4.1 บอกว่าขนาดอื่นต้องเปิดเพิ่มด้วย #define LV_FONT_MONTSERRAT_XX 1 ใน lv_conf.h README ของ EP01 เองก็เตือนไว้ในหัวข้อทดลองเปลี่ยนฟอนต์'

@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m04.l02 บทเรียน 4.2 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ e5c7722
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ค่าดิบจาก ADC เป็น 2048 Pot Monitor จะแสดงแรงดันและเปอร์เซ็นต์ใด
+    en: The raw ADC value is 2048. What voltage and percentage does Pot Monitor show?
+  choices:
+  - th: 1.650 V · 50.0 %
+  - th: 0.900 V · 50.0 %
+  - th: 0.900 V · 25.0 %
+  - th: 2.048 V · 50.0 %
+  answer:
+  - 1
+  explain:
+    th: update_channel() ใช้ millivolts = raw × 1800 / 4095 = 900 (หารแบบจำนวนเต็ม) และ percent_tenths = raw × 1000 / 4095 = 500 จึงแสดง 0.900 V และ 50.0 % แรงดันอ้างอิงคือ 1.8 V ไม่ใช่ 3.3 V
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ADC 12 บิตที่แรงดันอ้างอิง 1.8 V แยกแรงดันได้ละเอียดราวกี่มิลลิโวลต์ต่อหนึ่งขั้น
+    en: A 12-bit ADC with a 1.8 V reference resolves roughly how many millivolts per step?
+  choices:
+  - th: 0.81 mV
+  - th: 1.76 mV
+  - th: 7.0 mV
+  - th: 0.44 mV
+  answer:
+  - 3
+  explain:
+    th: 1800 mV / 4095 ≈ 0.44 mV ต่อขั้น ตัวเลือกอื่นคือความละเอียดเมื่อใช้ 3.3 V (≈ 0.81 mV) ADC 10 บิต (≈ 1.76 mV) และ 8 บิต (≈ 7 mV) ที่ 1.8 V ความละเอียดสูงไม่ได้แปลว่าค่าจะนิ่ง เพราะ noise เพียงไม่กี่ mV ก็ขยับค่าหลายขั้นแล้ว
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ไม่ได้หมุน pot แต่ค่า raw ขยับขึ้นลงหนึ่งถึงสามขั้นตลอด ข้อใดอธิบายได้ถูกต้อง
+    en: The pot is untouched but the raw value keeps moving by one to three counts. Which explanation is right?
+  choices:
+  - th: 'เป็นเรื่องปกติ: noise ของแหล่งจ่าย แรงดันอ้างอิง และ quantization เพียงไม่กี่ mV ก็มากกว่า 0.44 mV ต่อขั้น ลดได้ด้วยการเฉลี่ยหลายตัวอย่าง'
+  - th: ADC เสีย
+  - th: เพราะ lv_timer ทำงานไม่ตรงเวลา
+  - th: เพราะหน้าจอรบกวน ADC ต้องปิดจอ
+  answer:
+  - 0
+  explain:
+    th: README ของ Pot Monitor แนะนำให้เพิ่ม moving average ใน update_channel() เพื่อลด noise ของค่า raw การแกว่ง 1–3 ขั้นคือไม่ถึง 1.5 mV ถือว่าเล็กมากสำหรับงานอ่าน pot
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: ADC Scope อ่านทุก SCOPE_PERIOD_MS = 60 และกราฟมี SCOPE_POINTS = 100 จุด ถ้าเปลี่ยนคาบเวลาเป็น 30 ms หน้าต่างเวลาบนกราฟจะยาวเท่าไร
+    en: ADC Scope samples every SCOPE_PERIOD_MS = 60 with SCOPE_POINTS = 100. If the period becomes 30 ms, how long a time window does the chart show?
+  choices:
+  - th: 6 วินาที
+  - th: 12 วินาที
+  - th: 3 วินาที
+  - th: 1.5 วินาที
+  answer:
+  - 2
+  explain:
+    th: LV_CHART_UPDATE_MODE_SHIFT เลื่อนจุดเก่าออกทีละจุด หน้าต่างเวลา = จำนวนจุด × คาบเวลา เดิม 100 × 60 ms = 6 วินาที เป็น 100 × 30 ms = 3 วินาที เห็นรายละเอียดทางเวลามากขึ้นแต่เห็นประวัติสั้นลง
+- id: q5
+  objective: 1
+  type: single
+  prompt:
+    th: หมุน pot ที่ขา P15.4 แล้ว Pot Monitor แสดงการเปลี่ยนที่การ์ด VR2 แต่ ADC Scope แสดงที่เส้น VR1 เกิดจากอะไร
+    en: Turning the pot on P15.4 moves the VR2 card in Pot Monitor but the VR1 line in ADC Scope. Why?
+  choices:
+  - th: สายต่อหลวม
+  - th: 'ชื่อบนจอเป็นแค่การแมปในซอฟต์แวร์: Pot Monitor แมป VR2 → result index 0 (P15.4) ส่วน ADC Scope แมป VR1 → index 0 สองตัวอย่างจึงตั้งชื่อช่องเดียวกันไม่ตรงกัน ต้องเทียบกับ schematic ของบอร์ด'
+  - th: ADC สลับช่องเองตามลำดับการอ่าน
+  - th: สองตัวอย่างใช้ ADC คนละตัว
+  answer:
+  - 1
+  explain:
+    th: pot_channels[] ใน Pot Monitor กำหนด VR1 = P15.5 (index 1) และ VR2 = P15.4 (index 0) ส่วน ADC Scope ใช้ s_ch[] = {0, 1, 2, 3} กับชื่อ VR1–VR4 ตามลำดับ ทั้งคู่อ่าน SAR index 0 ตัวเดียวกัน ชื่อที่ผู้ใช้เห็น ขาจริง และ index ของผลลัพธ์ เป็นสามสิ่งที่ต้องตรวจให้ตรงกันเอง

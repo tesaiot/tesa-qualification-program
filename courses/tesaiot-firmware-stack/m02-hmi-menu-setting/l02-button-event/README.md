@@ -57,7 +57,7 @@ source:
 
 ```sh
 # ในโฟลเดอร์ master template (ดูบทเรียน 1.1)
-# 1) ลบไฟล์ episode เก่าใน proj_cm55/apps/ (เก็บ app_interface.h และ _default/ ไว้)
+# 1) ลบไฟล์ของ episode เก่าใน proj_cm55/apps/
 # 2) คัดลอกไฟล์ทั้งหมดของ episode นี้ลงใน proj_cm55/apps/
 make build
 make program     # flash ผ่าน KitProg3

@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m02.l04 บทเรียน 2.4 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ 9a8e3ed
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ในโค้ดของ episode นี้ (commit 9a8e3ed) เมื่อแตะแท็บ WiFi เนื้อหากลางจอเปลี่ยนด้วยวิธีใด
+    en: In this episode's code (commit 9a8e3ed), how does the centre content change when the WiFi tab is tapped?
+  choices:
+  - th: ลบ child ทั้งหมดของ stage ด้วย lv_obj_clean() แล้วสร้างหน้าใหม่
+  - th: สร้างหน้าใหม่ทับหน้าเดิมโดยไม่ลบ
+  - th: หน้าทั้งสี่ถูกสร้างไว้ตั้งแต่เริ่มด้วย lv_menu_page_create() การแตะแท็บเพียงสั่ง lv_menu_set_page() ให้แสดงหน้าที่มีอยู่แล้ว
+  - th: ซ่อนหน้าอื่นด้วย LV_OBJ_FLAG_HIDDEN ทีละหน้าใน callback ของปุ่ม
+  answer:
+  - 2
+  explain:
+    th: ui_menu_navigation.c สร้าง home_page, page_wifi, page_display และ page_device ครั้งเดียว แล้ว menu_nav_apply_page_now() เรียก lv_menu_set_page() กับหน้าที่เลือก README ของ episode ยังบรรยายแบบ stage + lv_obj_clean() ซึ่งไม่ตรงกับโค้ดที่ commit นี้ ให้ยึดโค้ดเป็นหลัก ข้อดีคือค่าที่ผู้ใช้กรอกในหน้าไม่หายเมื่อสลับไปมา ข้อเสียคือทุกหน้ากินหน่วยความจำตลอดเวลา
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: ทำไม callback ของแท็บไม่เรียก lv_menu_set_page() ทันที แต่ส่งต่อผ่าน lv_async_call()
+    en: Why don't the tab callbacks call lv_menu_set_page() directly, and go through lv_async_call() instead?
+  choices:
+  - th: เพราะ lv_menu_set_page() ใช้ได้เฉพาะใน FreeRTOS task อื่น
+  - th: เพื่อเลื่อนการสลับหน้าไปทำหลัง event ปัจจุบันจบ (รอบ LVGL ถัดไป) หลังพับ sidebar แล้ว กันสถานะของ lv_menu ชนกัน ตามที่ comment ในโค้ดเขียนไว้
+  - th: เพื่อให้การสลับหน้ามี animation
+  - th: เพื่อให้สลับหน้าได้แม้ LVGL ยังไม่ถูก init
+  answer:
+  - 1
+  explain:
+    th: menu_nav_set_page() พับ sidebar ก่อน แล้ว menu_nav_queue_page_switch() เก็บ pending_page และเรียก lv_async_call() comment ระบุว่า Always defer actual page switching to avoid lv_menu state race after sidebar transitions งานที่ถูกเลื่อนยังทำใน LVGL context เดิม แค่ย้ายไปรอบถัดไป
+- id: q3
+  objective: 1
+  type: single
+  prompt:
+    th: ผู้ใช้แตะแท็บ WiFi แล้วแตะ Display ต่อทันที ก่อนที่ LVGL จะได้ประมวลผล async call สุดท้ายจะเห็นหน้าใด
+    en: The user taps WiFi and then Display immediately, before LVGL runs the async call. Which page ends up shown?
+  choices:
+  - th: WiFi เพราะคำสั่งแรกชนะ
+  - th: WiFi แล้วสลับเป็น Display (สลับสองครั้ง)
+  - th: Home เพราะคำสั่งที่ซ้อนกันถูกยกเลิก
+  - th: Display โดยสลับครั้งเดียว เพราะมี async call ค้างได้ตัวเดียว และ pending_page ถูกเขียนทับด้วยค่าล่าสุด
+  answer:
+  - 3
+  explain:
+    th: menu_nav_queue_page_switch() ตั้ง pending_page ทุกครั้ง แต่เรียก lv_async_call() เฉพาะเมื่อ page_switch_pending ยังเป็น false เมื่อ async call ทำงานจึงอ่าน pending_page ค่าล่าสุดแล้วสลับครั้งเดียว
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: ทีมอยากเปลี่ยนสีแท็บที่ active ทั้งแถบบนและ sidebar โดยไม่แตะ logic การสลับหน้า ต้องแก้ที่ไหน
+    en: The team wants a new colour for the active tab (top bar and sidebar) without touching the page-switch logic. Where do they change it?
+  choices:
+  - th: ค่าคงที่สีใน ui_menu_layout.h เช่น UI_MENU_NAV_ACTIVE_BG_HEX ซึ่งฟังก์ชันจัดสไตล์ใน menu_nav_logic.c อ่านไปใช้
+  - th: ใน callback ของแต่ละแท็บ
+  - th: ใน main.c ของ master template
+  - th: ใน lv_conf.h
+  answer:
+  - 0
+  explain:
+    th: 'menu_nav_set_top_tab_style() และ menu_nav_set_sidebar_link_style() อ่านสีจาก #define ใน ui_menu_layout.h การรวมค่าคงที่ของ layout ไว้ที่เดียวทำให้เปลี่ยนธีมได้โดยไม่แตะลำดับการสลับหน้า'
+- id: q5
+  objective: 3
+  type: multi
+  prompt:
+    th: ต้องการเพิ่มหน้า “Sensors” เป็นหน้าที่ห้า โดยไม่แก้เนื้อหาของหน้าที่มีอยู่ ต้องทำอะไรบ้าง (เลือกทุกข้อที่ถูก)
+    en: You add a fifth page, ‘Sensors’, without changing the existing pages. What must you do? (choose all that apply)
+  choices:
+  - th: เพิ่มค่า MENU_NAV_PAGE_SENSORS ใน enum และเพิ่ม case ใน menu_nav_get_page_obj() กับ menu_nav_page_name()
+  - th: สร้างหน้าด้วย create_full_content_page(menu, …) แล้วเก็บ pointer ไว้ใน state
+  - th: เพิ่มปุ่มแท็บพร้อม callback ที่เรียก menu_nav_set_page(state, MENU_NAV_PAGE_SENSORS, true) และให้ menu_nav_apply_active_state() ไฮไลต์ปุ่มนี้ด้วย
+  - th: เรียก lv_obj_clean() กับหน้าเดิมทุกหน้าก่อนแสดงหน้า Sensors
+  - th: แก้ main.c ของ master template ให้รู้จักหน้าใหม่
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: โครงของ episode ใช้ enum ของหน้าเป็นศูนย์กลาง หน้าใหม่ต้องมีค่า enum, object ของหน้า, ทางแมปจาก enum ไปยัง object และปุ่มที่สั่งสลับ โดยไม่ต้องแตะเนื้อหาหน้าอื่น lv_menu แสดงทีละหน้าอยู่แล้วจึงไม่ต้องลบหน้าเดิม และ main.c ของ master ไม่รู้จักหน้าใดของ episode

@@ -50,7 +50,8 @@ source:
 ## แนวคิด
 
 TESAIoT Firmware Stack แบ่งงานเป็นสามโปรเจกต์ตามคอร์ของ PSoC Edge E84 คือ `proj_cm33_s` (secure)
-`proj_cm33_ns` (non-secure: Wi-Fi และการเชื่อมต่อ) และ `proj_cm55` (จอ LVGL, GPU VGLite และแอปของเรา)
+`proj_cm33_ns` (non-secure: เปิดคอร์ CM55 แล้วเข้า deep sleep) และ `proj_cm55` (FreeRTOS, จอ LVGL, GPU VGLite,
+เซนเซอร์, Wi-Fi และแอปของเรา)
 master template เตรียมทุกอย่างให้พร้อมตั้งแต่ boot เราเขียนเฉพาะไฟล์ใน `proj_cm55/apps/` และเขียนฟังก์ชัน
 `example_main(parent)` ที่ master เรียกให้
 
@@ -69,7 +70,7 @@ master template เตรียมทุกอย่างให้พร้อ�
 
 ```sh
 # ในโฟลเดอร์ master template (ดูบทเรียน 1.1)
-# 1) ลบไฟล์ episode เก่าใน proj_cm55/apps/ (เก็บ app_interface.h และ _default/ ไว้)
+# 1) ลบไฟล์ของ episode เก่าใน proj_cm55/apps/
 # 2) คัดลอกไฟล์ทั้งหมดของ episode นี้ลงใน proj_cm55/apps/
 make build
 make program     # flash ผ่าน KitProg3
@@ -81,7 +82,7 @@ make program     # flash ผ่าน KitProg3
 ## เช็กความเข้าใจ
 
 - ไฟล์ของ episode ต้องวางไว้ที่ไหน และห้ามลบไฟล์ใดในโฟลเดอร์นั้น
-- งานจอและงาน Wi-Fi อยู่คนละคอร์เพราะอะไร
+- ใน master template งานจอและงาน Wi-Fi อยู่ใน `proj_cm55` ทั้งคู่ แล้ว `proj_cm33_ns` ทำอะไร และถ้าย้ายงานเครือข่ายไปไว้อีกคอร์จะได้และเสียอะไร
 - `make build` ผ่านแต่ `make program` ไม่เจอบอร์ด ควรตรวจอะไรก่อน
 
 ## แหล่งอ้างอิง

@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m03.l07 บทเรียน 3.7 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ 9a8e3ed
+items:
+- id: q1
+  objective: 2
+  type: single
+  prompt:
+    th: ในโค้ดที่ commit นี้ แดชบอร์ดจัดจังหวะการอ่านเซนเซอร์สี่ตัวอย่างไร
+    en: In the code at this commit, how does the dashboard schedule reading the four sensors?
+  choices:
+  - th: มี FreeRTOS task อ่านเซนเซอร์ตัวละหนึ่ง task แล้วส่งค่าเข้าคิวเดียว
+  - th: อ่านครบทั้งสี่ตัวทุกครั้งที่ timer ทำงาน
+  - th: lv_timer ตัวเดียวทุก 100 ms ใน LVGL context ตรวจเวลาถึงกำหนดของแต่ละตัว (DPS368 1000 ms, SHT4x 1000 ms, BMI270 200 ms, BMM350 120 ms) แล้วอ่านเฉพาะตัวที่ถึงรอบ ส่วนไมโครโฟนมี task ของตัวเอง
+  - th: แต่ละเซนเซอร์มี lv_timer ของตัวเอง
+  answer:
+  - 2
+  explain:
+    th: sensorhub_poll_timer_cb() ถูกสร้างด้วย HUB_UI_POLL_MS = 100 และเรียก sensorhub_poll_dps/sht/bmi/bmm ที่เทียบ now_ms กับ next_*_ms ส่วนไมค์ใช้ pdm_probe_logger task เดิม แล้ว hub หยิบค่าล่าสุดผ่าน mic_presenter_get_latest_sample() README ของ episode บรรยายแบบ reader task และคิว ซึ่งไม่ตรงกับโค้ดที่ commit นี้
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: BMM350_SAMPLE_PERIOD_MS = 120 แต่ timer ของ hub ทำงานทุก 100 ms ในทางปฏิบัติ BMM350 ถูกอ่านทุกกี่ ms
+    en: BMM350_SAMPLE_PERIOD_MS is 120 but the hub timer ticks every 100 ms. In practice, how often is the BMM350 read?
+  choices:
+  - th: 200 ms
+  - th: 100 ms
+  - th: 120 ms
+  - th: 240 ms
+  answer:
+  - 0
+  explain:
+    th: รอบ t = 100 ms ยังไม่ถึง next_bmm_ms (120) จึงข้าม มาถึงรอบ t = 200 ms จึงอ่านแล้วตั้ง next เป็น 320 ซึ่งจะได้อ่านอีกทีที่ t = 400 ms ช่วงเวลาจริงจึงถูกปัดขึ้นเป็นผลคูณของ 100 ms ผลต่อเนื่องคือ auto-calibration 140 ตัวอย่างใช้ราว 28 วินาที ไม่ใช่ 16.8 วินาทีอย่างใน EP04
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: อะไรเป็นสาเหตุหลักที่ทำให้จอกระตุกเมื่อรวมการอ่านเซนเซอร์หลายตัวไว้ใน LVGL timer และโค้ดลดปัญหาอย่างไร
+    en: What mainly makes the screen stutter when several sensor reads sit inside the LVGL timer, and how does the code limit it?
+  choices:
+  - th: ฟอนต์ภาษาไทยทำให้วาดช้า
+  - th: จอมีความละเอียดสูงเกินไป
+  - th: เพราะใช้ FreeRTOS
+  - th: การอ่าน I2C/I3C แต่ละครั้งบล็อก LVGL thread ระหว่างรอ bus โค้ดจึงกระจายการอ่านตามคาบเวลาของแต่ละตัว อ่านตัวที่เปลี่ยนช้าแค่วินาทีละครั้ง และย้ายไมโครโฟนที่ต้องรับ 16 kHz ไปไว้ใน task แยก
+  answer:
+  - 3
+  explain:
+    th: ทุกอย่างใน sensorhub_poll_timer_cb() รันใน LVGL context ระหว่างที่ driver รอ bus การวาดจอต้องรอด้วย การอ่านทุกตัวทุก 100 ms จะกินเวลามากโดยไม่จำเป็น ความดันและความชื้นเปลี่ยนช้าจึงอ่านวินาทีละครั้งก็พอ ส่วนงานเสียงหนักและต่อเนื่องจึงอยู่ใน task ที่ขับด้วย interrupt
+- id: q4
+  objective: 1
+  type: single
+  prompt:
+    th: ถ้า SHT4x เริ่มต้นไม่สำเร็จ แดชบอร์ดจะเป็นอย่างไร
+    en: If the SHT4x fails to initialise, what happens to the dashboard?
+  choices:
+  - th: แดชบอร์ดไม่เปิดเลย
+  - th: sht_ready เป็น false การอ่าน SHT4x ถูกข้าม footer ขึ้น SHT:- ส่วนเซนเซอร์อื่นและไมโครโฟนทำงานต่อตามปกติ
+  - th: โค้ดลองอ่าน SHT4x ทุก 100 ms จนกว่าจะสำเร็จ
+  - th: ค่าอุณหภูมิจาก DPS368 ถูกใช้แทนความชื้น
+  answer:
+  - 1
+  explain:
+    th: sensorhub_presenter_start() init ทีละตัวและเก็บผลใน flag ของตัวเอง sensorhub_poll_sht() ออกทันทีถ้า sht_ready เป็น false และ footer แสดงสถานะ Y หรือ - ของทุกแหล่ง การแยกความล้มเหลวของแต่ละตัวทำให้ระบบรวมยังใช้งานได้
+- id: q5
+  objective: 3
+  type: multi
+  prompt:
+    th: ข้อใดเป็นการตัดสินใจด้านการนำเสนอที่โค้ดของแดชบอร์ดนี้ทำจริง (เลือกทุกข้อที่ถูก)
+    en: Which presentation decisions does this dashboard's code actually make? (choose all that apply)
+  choices:
+  - th: แบ่งเป็นแท็บ Home (ภาพรวม) Env Motion Compass Audio และแสดงทีละหน้า
+  - th: footer บอกความพร้อมของทุกแหล่งข้อมูล (DPS/SHT/BMI/BMM/MIC)
+  - th: แสดงรูปคลื่นเสียงดิบ 16 kHz ในหน้า Audio
+  - th: เริ่ม calibrate เข็มทิศอัตโนมัติตั้งแต่เปิดเครื่อง พร้อมแสดงความคืบหน้า
+  - th: วาดทุกเซนเซอร์ใหม่ที่ 60 ครั้งต่อวินาที
+  answer:
+  - 0
+  - 1
+  - 3
+  explain:
+    th: sensorhub_view_set_active_page() ซ่อนหน้าที่ไม่ได้เลือก sensorhub_update_footer() พิมพ์สถานะทุกแหล่ง และ presenter เรียก bmm350_reader_start_calibration() ตั้งแต่ start หน้า Audio แสดงระดับเสียงที่คำนวณแล้ว ไม่ใช่คลื่นดิบ และจังหวะวาดถูกกำหนดโดยคาบเวลาของแต่ละเซนเซอร์ เมื่อจะส่งข้อมูลขึ้นแพลตฟอร์มก็ใช้หลักเดียวกัน คือเลือกค่าสรุปที่มีความหมาย ไม่ใช่ข้อมูลดิบทุกตัวอย่าง

@@ -1,0 +1,84 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m05.l03 บทเรียน 5.3 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ d2ed42c
+items:
+- id: q1
+  objective: 1
+  type: order
+  prompt:
+    th: เรียงขั้นตอนการได้ใบรับรองใช้งาน (device certificate) ด้วย OPTIGA Trust M และ TESAIoT Platform
+    en: Put in order the steps for obtaining a device certificate with OPTIGA Trust M and the TESAIoT Platform.
+  choices:
+  - th: แพลตฟอร์มออกใบรับรองแล้วส่ง manifest ของ Protected Update ที่ลงนามแล้วกลับมา
+  - th: OPTIGA สร้างคู่กุญแจ ECC P-256 ภายในชิป (เช่นที่ OID 0xE0F1)
+  - th: OPTIGA ตรวจลายเซ็นของ manifest ด้วย trust anchor แล้วเขียนใบรับรองใหม่ลง OID 0xE0E1
+  - th: ส่ง CSR ขึ้นแพลตฟอร์มผ่าน MQTT โดยเชื่อมต่อด้วย factory certificate
+  - th: สร้าง CSR ที่ลงนามด้วยกุญแจในชิป
+  answer:
+  - 1
+  - 4
+  - 3
+  - 0
+  - 2
+  explain:
+    th: tesaiot_optiga.h มี tesaiot_optiga_generate_keypair() และ tesaiot_optiga_generate_csr() และ state ของ workflow ไล่เป็น PUBLISHING_CSR → WAITING_FOR_MANIFEST → VERIFYING_MANIFEST → APPLYING_FRAGMENTS → PROTECTED_UPDATE_SUCCESS ตลอดกระบวนการ private key ไม่ออกจากชิป ส่วนการเชื่อมต่อช่วงแรกใช้ factory certificate (SAFE MODE)
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: ทำไม private key ที่อยู่ใน OPTIGA Trust M จึงปลอดภัยกว่าเก็บใน flash ของไมโครคอนโทรลเลอร์
+    en: Why is a private key inside OPTIGA Trust M safer than one stored in the microcontroller's flash?
+  choices:
+  - th: เพราะ OPTIGA เข้ารหัสกุญแจด้วยรหัสผ่านของผู้ใช้
+  - th: เพราะกุญแจถูกสร้างในชิปและตั้งสิทธิ์ read = Never, execute = Always เฟิร์มแวร์สั่งให้ชิปลงนามระหว่าง TLS ได้ แต่ไม่มีใครอ่านตัวกุญแจออกมาได้ แม้จะ dump หน่วยความจำของ MCU
+  - th: เพราะ OPTIGA ทำ TLS แทน MCU ทั้งหมด
+  - th: เพราะ flash ของ MCU ลบตัวเองเมื่อถูกอ่าน
+  answer:
+  - 1
+  explain:
+    th: ตาราง OID Access Conditions ใน README แสดงว่า 0xE0F0 และ 0xE0F1 อ่านไม่ได้ (Never) แต่ใช้ลงนามได้ (Always) กุญแจใน flash ถูกคัดลอกได้ด้วย debugger หรือช่องโหว่ในเฟิร์มแวร์ ส่วนกุญแจใน secure element ถูกใช้ได้แต่ถูกขโมยไม่ได้ งานส่วนอื่นของ TLS เช่นการเข้ารหัสข้อมูลยังทำใน mbedTLS บน MCU
+- id: q3
+  objective: 1
+  type: single
+  prompt:
+    th: Protected Update ใช้ทำอะไรกับใบรับรอง
+    en: What is Protected Update used for with certificates?
+  choices:
+  - th: อัปเดตเฟิร์มแวร์แอปพลิเคชันทั้งก้อน
+  - th: เข้ารหัส telemetry ก่อนส่ง
+  - th: 'เขียนใบรับรองใหม่หรือที่ต่ออายุลงในชิปอย่างปลอดภัย: ข้อมูลมาพร้อม manifest ที่แพลตฟอร์มลงนาม OPTIGA ตรวจลายเซ็นกับ trust anchor ก่อนยอมเขียน การอัปเดตปลอมจึงถูกปฏิเสธ'
+  - th: รีเซ็ต factory certificate ให้เป็นค่าใหม่
+  answer:
+  - 2
+  explain:
+    th: README อธิบายว่า Protected Update รับใบรับรองที่ลงนามผ่านการตรวจ manifest และใช้ OID 0xE0E3 เป็น trust anchor สำหรับตรวจลายเซ็น ใช้ได้ทั้งตอนเริ่มใช้งาน ก่อนใบรับรองหมดอายุ และหลังเหตุกุญแจรั่ว ส่วน factory certificate (0xE0E0) เปลี่ยนไม่ได้ (Change = Never)
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: หลังรีเซ็ตบอร์ด การทดสอบ MQTT ครั้งแรกใช้ใบรับรองใด
+    en: After a board reset, which certificate does the first MQTT test use?
+  choices:
+  - th: factory certificate (0xE0E0) คู่กับกุญแจ 0xE0F0 เพราะ SAFE MODE (g_force_factory_cert = true) กันไม่ให้ใช้ใบรับรองกับกุญแจที่อาจไม่ตรงกัน จนกว่าจะทำ Protected Update
+  - th: device certificate (0xE0E1) เสมอ
+  - th: ไม่มีใบรับรอง ต้อง provision ใหม่ทุกครั้ง
+  - th: ใบรับรองที่เก็บใน flash ของ MCU
+  answer:
+  - 0
+  explain:
+    th: README อธิบายว่าหลังรีเซ็ต device certificate อาจไม่ตรงกับ device key ส่วน factory certificate กับ factory key ถูกจับคู่ไว้ถาวร การเชื่อมต่อจึงใช้ได้เสมอเพื่อกู้ระบบ หลัง Protected Update สำเร็จ ระบบจึงสลับไปใช้ 0xE0E1 + 0xE0F1 จนกว่าจะรีเซ็ตครั้งถัดไป
+- id: q5
+  objective: 2
+  type: single
+  prompt:
+    th: รัน make getlibs ใหม่แล้ว build ต่อโดยลืมรัน ./apply_patches.sh จะเกิดอะไร
+    en: You rerun make getlibs and build without running ./apply_patches.sh. What happens?
+  choices:
+  - th: ไม่มีผล เพราะ patch อยู่ในโค้ดของโปรเจกต์แล้ว
+  - th: บอร์ดใช้กุญแจซอฟต์แวร์แทนโดยอัตโนมัติ
+  - th: Wi-Fi ใช้ไม่ได้แต่ TLS ใช้ได้
+  - th: patch ถูกล้างไปพร้อม library secure-sockets จะใช้กุญแจใน OPTIGA ระหว่าง TLS handshake ไม่ได้ และการแก้ของ mbedTLS กับ lwIP ก็หายไป build หรือการเชื่อมต่อ TLS จะล้ม
+  answer:
+  - 3
+  explain:
+    th: README เขียนว่า If you run make getlibs again, patches will be reset. Always re-run ./apply_patches.sh โดย patch ของ secure-sockets ทำให้ handshake ใช้กุญแจฮาร์ดแวร์ ifx-mbedtls เพิ่ม PSA และ mbedtls_ms_time() และ lwipopts.h แก้ deadlock ตอน publish

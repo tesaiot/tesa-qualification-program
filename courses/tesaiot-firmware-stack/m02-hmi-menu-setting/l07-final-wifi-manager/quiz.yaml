@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m02.l07 บทเรียน 2.7 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ 9a8e3ed
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: หลังเปิดเครื่อง Wi-Fi Manager จะเชื่อมต่ออัตโนมัติเมื่อใด
+    en: After power-on, when does the Wi-Fi Manager connect automatically?
+  choices:
+  - th: ทุกครั้ง โดยเลือก AP ที่สัญญาณแรงที่สุดจากการสแกน
+  - th: ทุกครั้งที่มีโปรไฟล์ใน NVM ไม่ว่าจะตั้งค่าอย่างไร
+  - th: เมื่อโหลดโปรไฟล์จาก NVM ได้ และโปรไฟล์นั้นเปิด auto_connect ไว้ จึงส่งคำสั่ง CONNECT_PROFILE (user_initiated = false) เข้าคิวของ wifi_conn_task
+  - th: เมื่อผู้ใช้กด Connect Saved เท่านั้น
+  answer:
+  - 2
+  explain:
+    th: ui_wifi_status_page_startup_auto_connect() ทำงานครั้งเดียวหลังสร้างหน้า ถ้าไม่มีโปรไฟล์จะ log AUTO_CONNECT skip no profile ถ้า auto_connect ปิดจะ log AUTO_CONNECT disabled in profile นอกนั้นจึงเรียก wifi_connection_service_connect_profile(&profile, false)
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ทำไมปุ่ม Connect, Disconnect, Retry และ event จาก cy_wcm จึงแค่ส่งคำสั่งเข้าคิวเดียว แทนการเรียก cy_wcm_connect_ap() เอง
+    en: Why do the Connect, Disconnect and Retry buttons and cy_wcm events only post commands to one queue instead of calling cy_wcm_connect_ap() themselves?
+  choices:
+  - th: ให้ wifi_conn_task เป็นผู้เดียวที่เรียก cy_wcm ทีละคำสั่ง การเชื่อมต่อจึงไม่ซ้อนกัน และ UI ไม่ค้างระหว่าง cy_wcm_connect_ap() ที่อาจใช้เวลาหลายวินาที
+  - th: เพราะ cy_wcm_connect_ap() เรียกจากโค้ดของ LVGL ไม่ได้ในทางเทคนิค
+  - th: เพื่อให้เชื่อมต่อหลาย AP พร้อมกันได้
+  - th: เพื่อประหยัด RAM ของ LVGL
+  answer:
+  - 0
+  explain:
+    th: comment ในโค้ดเขียนว่า Commands are serialized through one queue to avoid overlapping WiFi operations ส่วน WCM callback แค่ post คำสั่ง และหน้าสถานะอ่านค่าผ่าน wifi_connection_service_get_snapshot() ที่คัดลอกข้อมูลภายใต้ mutex UI จึงเป็นแค่ผู้สังเกต ไม่ถือ state เอง
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: AP หายไปและต่อไม่ติดซ้ำ ๆ ตามโค้ดที่ commit นี้ ระยะรอก่อนลองใหม่แต่ละรอบเป็นอย่างไร
+    en: The AP disappears and every attempt fails. Per the code at this commit, how long does the manager wait before each retry?
+  choices:
+  - th: 1 → 5 → 15 → 60 วินาที
+  - th: 1 วินาทีทุกครั้ง
+  - th: เพิ่มเป็นสองเท่าไปเรื่อย ๆ ไม่มีเพดาน
+  - th: 1 → 2 → 5 → 10 วินาที แล้วค้างที่ 10 วินาที
+  answer:
+  - 3
+  explain:
+    th: s_reconnect_backoff_ms[] = {1000, 2000, 5000, 10000} และ wifi_conn_schedule_retry_locked() ไม่ให้ index เกินตัวสุดท้าย (README ของ episode ยังเขียนลำดับ 1/5/15/60 ซึ่งไม่ตรงกับโค้ด) การรอนานขึ้นช่วยไม่ให้ยิงคำขอใส่ driver และ AP ถี่เกินไป ส่วนเพดานทำให้กลับมาต่อได้ภายในราว 10 วินาทีเมื่อ AP กลับมา
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: ผู้ใช้กด Disconnect ขณะเชื่อมต่ออยู่ state machine จะไปอยู่ที่ใด และจะลองต่อใหม่เองหรือไม่
+    en: The user presses Disconnect while connected. Which state does the machine end in, and will it retry by itself?
+  choices:
+  - th: RECONNECT_WAIT แล้วลองใหม่ใน 1 วินาที
+  - th: IDLE และไม่ลองใหม่ เพราะ manual_disconnect = true และ reconnect_enabled = false ทำให้ event DISCONNECTED ที่ตามมาไม่ถูกนับเป็นการหลุด
+  - th: ERROR เพราะการตัดการเชื่อมต่อถือเป็นความผิดพลาด
+  - th: CONNECTED ต่อไปจนกว่าจะรีเซ็ตบอร์ด
+  answer:
+  - 1
+  explain:
+    th: wifi_conn_do_user_disconnect() ตั้ง DISCONNECTING เรียก cy_wcm_disconnect_ap() แล้วตั้ง IDLE ส่วน wifi_conn_handle_disconnect_event() เห็น manual_disconnect จึงไม่เรียก schedule_retry การแยก ‘หลุดเอง’ กับ ‘ผู้ใช้สั่งตัด’ ทำให้ปุ่ม Disconnect มีความหมายจริง
+- id: q5
+  objective: 3
+  type: multi
+  prompt:
+    th: ข้อใดถูกต้องเกี่ยวกับ ping watchdog ของ episode นี้ (เลือกทุกข้อที่ถูก)
+    en: Which statements about this episode's ping watchdog are correct? (choose all that apply)
+  choices:
+  - th: ping ไปที่ default gateway ทุก 20 วินาที (timeout 1.2 วินาที)
+  - th: ping ล้มติดกัน 3 ครั้ง service จะสั่งตัดการเชื่อมต่อแล้วเข้า retry ladder
+  - th: ping ล้มติดกัน 3 ครั้ง internet_ok เป็น false หน้าจอขึ้น No Internet แต่ state ยังเป็น Connected
+  - th: ถ้าอินเทอร์เน็ตภายนอกล่มแต่ router ยังตอบ ping จอยังแสดง Online
+  - th: ping ใช้แทนการตรวจว่ายังต่อ AP อยู่หรือไม่
+  answer:
+  - 0
+  - 2
+  - 3
+  explain:
+    th: wifi_conn_probe_internet_once() เรียก cy_wcm_get_gateway_ip_address() แล้ว cy_wcm_ping() ทุก WIFI_CONN_PING_INTERVAL_MS และตั้ง internet_ok = false เมื่อ ping_fail_streak ถึง 3 โดยไม่เปลี่ยน state การหลุดจาก AP ตรวจอีกทางผ่าน cy_wcm_is_connected_to_ap() และ event DISCONNECTED การ ping gateway บอกได้ว่าเครือข่ายชั้น IP ใช้ได้จริงถึง router ซึ่งมากกว่าแค่ต่อ AP ได้ แต่ยังไม่ใช่การพิสูจน์ว่าออกอินเทอร์เน็ตได้

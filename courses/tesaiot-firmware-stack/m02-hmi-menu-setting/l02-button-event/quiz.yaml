@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m02.l02 บทเรียน 2.2 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ 9a8e3ed
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ตัวนับเป็น 0 ผู้ใช้กดปุ่ม UP ค้างไว้จน LV_EVENT_LONG_PRESSED_REPEAT ทำงาน 2 ครั้งแล้วปล่อย ค่าบนจอจะเป็นเท่าไร
+    en: The counter is 0. The user holds UP until LV_EVENT_LONG_PRESSED_REPEAT has fired twice, then releases. What value is shown?
+  choices:
+  - th: '10'
+  - th: '11'
+  - th: '2'
+  - th: '12'
+  answer:
+  - 1
+  explain:
+    th: LV_EVENT_PRESSED ยิงครั้งเดียวตอนเริ่มกด (tap_delta = +1) เมื่อกดค้างเกินเวลา long press แล้ว LV_EVENT_LONG_PRESSED_REPEAT จะยิงซ้ำเป็นระยะ ครั้งละ hold_repeat_delta = +5 จึงได้ 1 + 5 + 5 = 11 ทั้งสอง event ใช้ callback ตัวเดียวกันคือ counter_logic_button_event_cb() ที่แยกด้วย lv_event_get_code()
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ค่าเป็น 0 แล้วผู้ใช้แตะ DOWN หนึ่งครั้ง จอจะแสดงอะไร และเพราะอะไร
+    en: The value is 0 and the user taps DOWN once. What is shown, and why?
+  choices:
+  - th: -1 เพราะ tap_delta ของ DOWN คือ -1
+  - th: -5 เพราะ DOWN ใช้ hold_repeat_delta
+  - th: 0 เพราะ ui_button_counter.c ปิดปุ่ม DOWN เมื่อค่าเป็น 0
+  - th: 0 เพราะ counter_logic_init() ถูกเรียกด้วย allow_negative = false และ counter_logic_apply_delta() บีบค่าที่ติดลบกลับเป็น 0
+  answer:
+  - 3
+  explain:
+    th: state ถูก init ด้วย allow_negative = false หลังบวก delta แล้ว apply_delta ตรวจว่าค่าติดลบหรือไม่ ถ้าติดลบจะตั้งเป็น 0 ก่อน refresh label กฎนี้อยู่ใน counter_logic.c ที่เดียว ส่วนฝั่ง UI ไม่ได้ปิดปุ่มใด
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: counter_logic.c รู้จัก LVGL หรือไม่
+    en: Does counter_logic.c depend on LVGL?
+  choices:
+  - th: 'รู้จัก: รับ lv_event_t อ่าน user_data และเรียก lv_label_set_text_fmt() เอง สิ่งที่แยกออกไปคือการจัดวาง widget ส่วนกฎของตัวนับอยู่ใน counter_logic_apply_delta() ที่เดียว'
+  - th: ไม่รู้จักเลย เป็น C ล้วนที่ทดสอบบนคอมพิวเตอร์ได้ทันที
+  - th: ไม่รู้จัก เพราะ ui_button_counter.c เป็นผู้อัปเดต label ทุกครั้ง
+  - th: รู้จักเฉพาะตอน init หลังจากนั้นไม่เรียก LVGL อีก
+  answer:
+  - 0
+  explain:
+    th: counter_logic.h include lvgl.h, state เก็บ lv_obj_t *value_label และ callback รับ lv_event_t จึงยังผูกกับ LVGL การแยกไฟล์ทำให้เปลี่ยนหน้าตาปุ่มได้โดยไม่แตะกฎ และรู้ว่ากฎอยู่ที่ไหน ถ้าอยากทดสอบกฎบนคอมพิวเตอร์โดยไม่มี LVGL ต้องแยกส่วนคำนวณค่าใน apply_delta ออกเป็นฟังก์ชันที่ไม่เรียก LVGL อีกชั้น
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ต้องการเพิ่มปุ่ม “+10” (แตะ +10 กดค้าง +50) โดยใช้ logic ชุดเดิม วิธีใดถูกต้อง
+    en: You want a ‘+10’ button (tap +10, hold +50) that reuses the same logic. Which approach is right?
+  choices:
+  - th: เพิ่ม case ใหม่ใน counter_logic_button_event_cb() สำหรับปุ่มนี้โดยเฉพาะ
+  - th: สร้าง counter_state_t ตัวใหม่ให้ปุ่มนี้แล้ว init ด้วย label เดียวกัน
+  - th: สร้าง counter_button_action_t แบบ static ตัวใหม่ (state = &s_counter_state, tap 10, hold 50) แล้วผูก counter_logic_button_event_cb กับทั้ง LV_EVENT_PRESSED และ LV_EVENT_LONG_PRESSED_REPEAT โดยส่ง pointer ของมันเป็น user_data
+  - th: เขียน callback ใหม่ใน ui_button_counter.c ที่แก้ s_counter_state.value ตรง ๆ
+  answer:
+  - 2
+  explain:
+    th: ปุ่ม UP และ DOWN ต่างกันแค่ค่าใน counter_button_action_t ที่ส่งเป็น user_data ปุ่มใหม่จึงไม่ต้องแตะ counter_logic.c เลย ถ้าสร้าง state ใหม่จะมีตัวนับสองชุดเขียน label เดียวกันแข่งกัน ส่วนการแก้ value ตรง ๆ ข้ามกฎ allow_negative และไม่ refresh label
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: ถ้าประกาศ counter_button_action_t ของปุ่มใหม่เป็นตัวแปร local ใน ui_button_counter_create() (ไม่ใช่ static) จะเกิดอะไรเมื่อผู้ใช้กดปุ่ม
+    en: If the new button's counter_button_action_t is a local variable inside ui_button_counter_create() (not static), what happens when the user presses the button?
+  choices:
+  - th: ทำงานปกติ เพราะ LVGL คัดลอก user_data เก็บไว้ให้
+  - th: compile ไม่ผ่าน
+  - th: LVGL จะไม่เรียก callback เพราะ user_data เป็นตัวแปร local
+  - th: callback ได้ pointer ที่ชี้ไปยัง stack ที่หมดอายุแล้วหลังฟังก์ชัน return ค่า delta ที่อ่านได้เป็นขยะหรือโปรแกรมพัง
+  answer:
+  - 3
+  explain:
+    th: lv_obj_add_event_cb() เก็บแค่ pointer ที่ส่งให้ ไม่ได้คัดลอกข้อมูล ตัวอย่างจึงประกาศ s_up_action และ s_down_action เป็น static ให้อยู่ตลอดอายุโปรแกรม ตัวแปร local หายไปเมื่อ ui_button_counter_create() return แต่ callback ถูกเรียกทีหลังเสมอ

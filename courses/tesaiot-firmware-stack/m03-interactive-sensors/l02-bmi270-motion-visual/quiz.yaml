@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m03.l02 บทเรียน 3.2 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ 9a8e3ed
+items:
+- id: q1
+  objective: 2
+  type: single
+  prompt:
+    th: วางบอร์ดนิ่งบนโต๊ะในแนวราบ ค่าที่ควรเห็นคืออะไร
+    en: The board lies still and flat on a table. What should the readings be?
+  choices:
+  - th: accel ≈ 0 g ทุกแกน เพราะบอร์ดไม่ได้เคลื่อนที่
+  - th: accel ≈ 1 g ทุกแกนเท่ากัน
+  - th: gyro ≈ 1 °/s ที่แกนตั้ง เพราะโลกหมุน
+  - th: ขนาดของ accel (acc_mag_g) ≈ 1 g ส่วนใหญ่อยู่บนแกนที่ตั้งฉากกับแผ่นบอร์ด และ gyro ทั้งสามแกนใกล้ 0 °/s
+  answer:
+  - 3
+  explain:
+    th: accelerometer วัดแรงที่กระทำต่อชิปในหน่วย g ขณะวางนิ่งจึงเห็นแรงโน้มถ่วง 1 g ชี้ตั้งฉากกับพื้นโต๊ะ ส่วน gyroscope วัดอัตราการหมุนในหน่วย °/s บอร์ดไม่หมุนจึงใกล้ 0 เหลือแค่ offset เล็กน้อย การหมุนของโลกราว 0.004 °/s เล็กเกินกว่าจะเห็น
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ค่า acc_mag_g ของสามตัวอย่างติดกันเป็น 1.50 → 1.30 → 1.20 g (gyro ต่ำตลอด) สถานะ ALERT หลังแต่ละตัวอย่างเป็นอย่างไร
+    en: acc_mag_g reads 1.50 → 1.30 → 1.20 g over three samples (gyro stays low). What is the ALERT state after each?
+  choices:
+  - th: ON → OFF → OFF
+  - th: ON → ON → OFF
+  - th: OFF → OFF → OFF
+  - th: ON → ON → ON
+  answer:
+  - 1
+  explain:
+    th: 'bmi270_should_alert() ใช้ hysteresis: เปิดเมื่อ ≥ BMI270_ALERT_ACC_ON_G (1.45 g) แต่ปิดเมื่อ < BMI270_ALERT_ACC_OFF_G (1.25 g) และ gyro ต่ำกว่า 220 °/s ด้วย 1.30 อยู่ระหว่างสองเกณฑ์จึงยัง ON การมีสองเกณฑ์ทำให้ ALERT ไม่กระพริบเมื่อค่าแกว่งรอบเส้นเดียว'
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: ตัวอย่างอ่านเซนเซอร์ทุก 200 ms แต่อัปเดต widget ทุก 2 ตัวอย่าง (BMI270_UI_UPDATE_DIV = 2) เหตุผลคืออะไร
+    en: The example reads the sensor every 200 ms but updates widgets only every second sample (BMI270_UI_UPDATE_DIV = 2). Why?
+  choices:
+  - th: ลดภาระการวาดและการกระพริบบนจอ ขณะที่ logic อย่าง ALERT ยังได้ใช้ทุกตัวอย่าง
+  - th: เพราะ BMI270 ส่งค่าใหม่ได้แค่ทุก 400 ms
+  - th: เพื่อเฉลี่ยสองตัวอย่างก่อนแสดง
+  - th: เพราะ I2C ต้องพักระหว่างการอ่าน
+  answer:
+  - 0
+  explain:
+    th: comment ใน bmi270_config.h เขียนว่า Poll slower to reduce redraw pressure และ Update LVGL widgets every N samples to reduce visible flicker โค้ดไม่ได้เฉลี่ยค่า แค่ข้ามการวาด ตาคนไม่ต้องการภาพใหม่ถี่เท่าที่ logic ต้องการข้อมูล
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ถ้าเปลี่ยน BMI270_SAMPLE_PERIOD_MS เป็น 50 และคง BMI270_UI_UPDATE_DIV = 2 widget จะถูกวาดใหม่ทุกกี่มิลลิวินาที
+    en: If BMI270_SAMPLE_PERIOD_MS becomes 50 and BMI270_UI_UPDATE_DIV stays 2, how often are the widgets redrawn?
+  choices:
+  - th: 25 ms
+  - th: 50 ms
+  - th: 100 ms
+  - th: 200 ms
+  answer:
+  - 2
+  explain:
+    th: timer อ่านทุก 50 ms และวาดทุก 2 ตัวอย่าง จึงวาดทุก 100 ms (10 ครั้งต่อวินาที) ส่วนการอ่านและการตัดสิน ALERT เกิดทุก 50 ms ทั้งหมดนี้รันใน LVGL timer จึงต้องระวังไม่ให้การอ่านถี่เกินจนแย่งเวลาการวาด
+- id: q5
+  objective: 1
+  type: single
+  prompt:
+    th: ถ้ามีคนตั้ง BMI270 ในชิปเป็นช่วง ±4 g แต่ไม่ได้แก้ BMI270_ACC_RANGE_G (ยังเป็น 2.0) ขณะวางบอร์ดนิ่ง จอจะแสดง acc_mag_g ราวเท่าไร
+    en: Someone configures the BMI270 for ±4 g but leaves BMI270_ACC_RANGE_G at 2.0. With the board at rest, roughly what acc_mag_g does the screen show?
+  choices:
+  - th: 1 g
+  - th: 2 g
+  - th: 4 g
+  - th: 0.5 g
+  answer:
+  - 3
+  explain:
+    th: bmi270_lsb_to_g() แปลงค่าดิบด้วย val × range / 2^(bits−1) โดยใช้ BMI270_ACC_RANGE_G ซึ่งต้องตรงกับค่าที่ตั้งในชิป (mtb_bmi270_config_default() ใช้ ±2 g) ที่ ±4 g ค่าดิบของ 1 g จะเหลือครึ่งหนึ่ง เมื่อคูณด้วย 2.0 จึงได้ราว 0.5 g ค่าคงที่ในโค้ดกับการตั้งค่าในชิปต้องเปลี่ยนคู่กันเสมอ

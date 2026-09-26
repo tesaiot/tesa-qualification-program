@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m03.l05 บทเรียน 3.5 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ 9a8e3ed
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: มุมของเข็มบน radar ในตัวอย่างนี้หมายถึงอะไร
+    en: What does the needle angle on this example's radar represent?
+  choices:
+  - th: ทิศของการเปลี่ยนแปลงความเร่งในระนาบ X/Y เทียบกับ baseline ตอนเริ่ม คำนวณด้วย atan2(dy, dx) และความยาวเข็มตามขนาดของการเปลี่ยนแปลง
+  - th: ทิศเหนือแม่เหล็ก
+  - th: มุมที่บอร์ดหมุนสะสมจาก gyroscope
+  - th: มุมเอียงสัมบูรณ์เทียบกับแรงโน้มถ่วง
+  answer:
+  - 0
+  explain:
+    th: radar_poll_sensor_cb() หา acc_dx = acc_g_x − baseline_x และ acc_dy แบบเดียวกัน แล้วใช้ atan2f(acc_dy, acc_dx) เป็นมุม ส่วน needle_len ใน view คำนวณจาก acc_xy_delta_g จึงเป็นเวกเตอร์ของการเปลี่ยนแปลง ไม่ใช่เข็มทิศและไม่ใช่มุมที่สะสมจาก gyro
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: เปิดเครื่องขณะถือบอร์ดเอียงไว้ แล้วค่อยวางราบบนโต๊ะนิ่ง ๆ radar จะแสดงอะไร
+    en: You power on while holding the board tilted, then lay it flat and still on the table. What does the radar show?
+  choices:
+  - th: STILL เพราะบอร์ดไม่ขยับ
+  - th: เข็มค้างชี้ทิศหนึ่งแม้บอร์ดนิ่ง เพราะ baseline จาก 30 ตัวอย่างแรก (ราว 1.5 วินาที) ถูกจับตอนเอียง ท่าราบจึงต่างจาก baseline เกินเกณฑ์ STILL
+  - th: radar ตั้ง baseline ใหม่เองเมื่อบอร์ดนิ่ง
+  - th: จอขึ้น error เพราะ baseline ไม่ถูกต้อง
+  answer:
+  - 1
+  explain:
+    th: radar_update_baseline() เฉลี่ย RADAR_BASELINE_SAMPLES = 30 ตัวอย่างแรกที่ 50 ms ต่อตัวอย่าง แล้วไม่คำนวณใหม่อีก การเปลี่ยนท่าทางถาวรจึงดูเหมือนการเคลื่อนไหวตลอดเวลา ควรวางบอร์ดนิ่งในท่าใช้งานตอนเปิดเครื่อง หรือเพิ่มปุ่มตั้ง baseline ใหม่
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ทำไมโค้ดถือว่า STILL จนกว่าค่าต่างจาก baseline จะเกิน 0.06 g หรือ 12 °/s
+    en: Why does the code treat the board as STILL until the change from baseline exceeds 0.06 g or 12 °/s?
+  choices:
+  - th: เพื่อให้วาดจอได้เร็วขึ้น
+  - th: เพราะ BMI270 วัดค่าที่ต่ำกว่านั้นไม่ได้
+  - th: เพื่อประหยัดพลังงานของเซนเซอร์
+  - th: 'เป็น dead-band กันสัญญาณรบกวนเล็ก ๆ รอบ baseline: atan2 ของเวกเตอร์ที่เล็กมากให้มุมสุ่มไปทุกทิศ เข็มจะส่ายทั้งที่บอร์ดนิ่ง แลกกับการไม่เห็นการเคลื่อนไหวที่เล็กกว่าเกณฑ์'
+  answer:
+  - 3
+  explain:
+    th: motion_active เป็นจริงเมื่อ acc_xy_delta_g ≥ RADAR_STILL_ACC_DELTA_G หรือ gyr_z_delta ≥ RADAR_STILL_GYR_DELTA_DPS ถ้าไม่มีเกณฑ์นี้ noise ระดับ mg จะทำให้มุมกระโดด เพราะทิศของเวกเตอร์ที่เกือบเป็นศูนย์ไม่มีความหมาย ตัวอย่างนี้ใช้ dead-band แทนการกรองแบบ low-pass จึงไม่เพิ่มความหน่วง
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: ถ้าเพิ่ม moving average 8 ตัวอย่างให้ acc_dx และ acc_dy ที่ poll ทุก 50 ms ภาพจะนิ่งขึ้น แต่ความหน่วงเฉลี่ยจะเพิ่มขึ้นราวเท่าไร
+    en: If you add an 8-sample moving average to acc_dx and acc_dy polled every 50 ms, the picture steadies, but by roughly how much does the average delay grow?
+  choices:
+  - th: ไม่เพิ่ม เพราะการเฉลี่ยคำนวณเสร็จในรอบเดียว
+  - th: ราว 25 ms
+  - th: ราว 175 ms
+  - th: ราว 400 ms
+  answer:
+  - 2
+  explain:
+    th: ค่าเฉลี่ยเคลื่อนที่ N ตัวอย่างหน่วงราว (N − 1) / 2 ตัวอย่าง = 3.5 × 50 ms ≈ 175 ms และต้องรอเต็มหน้าต่าง 400 ms กว่าจะตามการเปลี่ยนแบบขั้นบันไดได้ครบ ยิ่งกรองแรง จุดยิ่งนิ่งแต่ตามการเคลื่อนไหวช้าลง ความหน่วงนี้มาจากการที่ผลลัพธ์รวมตัวอย่างในอดีต ไม่ได้มาจากเวลาคำนวณ
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: ตัวอย่างหนึ่งได้ acc_xy_delta = 0.20 g และ gyr_z_delta = 30 °/s ระดับและสีที่แสดงคืออะไร
+    en: One sample gives acc_xy_delta = 0.20 g and gyr_z_delta = 30 °/s. Which level and colour are shown?
+  choices:
+  - th: LOW สีเขียว
+  - th: MEDIUM สีเหลืองอำพัน
+  - th: HIGH สีแดง
+  - th: STILL สีเทา
+  answer:
+  - 1
+  explain:
+    th: radar_calc_motion_level() ใช้คะแนนที่มากกว่าระหว่าง 0.20 / 0.45 ≈ 0.44 กับ 30 / 140 ≈ 0.21 ได้ 0.44 ซึ่ง ≥ 0.35 แต่ < 0.80 จึงเป็น MEDIUM (0xF59E0B) การใช้สีบอกว่าแรงแค่ไหน และใช้มุมเข็มบอกว่าไปทางไหน ทำให้ผู้ดูอ่านได้ทั้งสองเรื่องในแวบเดียว

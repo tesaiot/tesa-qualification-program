@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — fw-stack.m04.l03 บทเรียน 4.3 · คำตอบอิงโค้ดของ tesaiot/developer-hub @ e5c7722
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: DFR0522 ใช้ bus I2C เดียวกับ touch controller ของจอ อุปกรณ์สองตัวบน bus เดียวกันแยกกันด้วยอะไร
+    en: The DFR0522 shares an I2C bus with the display's touch controller. What keeps the two devices apart?
+  choices:
+  - th: สาย chip-select แยกของแต่ละตัว
+  - th: ความเร็ว clock ที่ต่างกัน
+  - th: address 7 บิตที่ส่งหลัง START เฉพาะอุปกรณ์ที่ address ตรงกัน (0x10 สำหรับ matrix) จึงตอบ ACK และรับข้อมูล
+  - th: ลำดับการเสียบสาย
+  answer:
+  - 2
+  explain:
+    th: rgb_panel_write() เรียก Cy_SCB_I2C_MasterSendStart() ด้วย RGB_PANEL_I2C_ADDRESS (0x10) อุปกรณ์อื่นบน bus เห็นว่า address ไม่ใช่ของตนจึงไม่ตอบ สาย chip-select เป็นวิธีของ SPI ไม่ใช่ I2C และอุปกรณ์บน bus เดียวกันต้องมี address ไม่ซ้ำกัน
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: กดปุ่ม Check 0x10 แล้วได้สถานะ “ADDRESS NACK” ควรตรวจอะไรก่อน
+    en: ‘Check 0x10’ reports ‘ADDRESS NACK’. What should you check first?
+  choices:
+  - th: สาย SDA/SCL ไฟเลี้ยงของ matrix และ address ของโมดูลว่าเป็น 0x10 จริง เพราะไม่มีอุปกรณ์ใดตอบรับ address นี้เลย
+  - th: ค่า function byte ของคำสั่ง fill
+  - th: สีที่เลือกอยู่นอกช่วง
+  - th: ขนาด tx buffer 51 ไบต์
+  answer:
+  - 0
+  explain:
+    th: check_panel_device() ส่งแค่ START พร้อม address แล้ว STOP ถ้าไม่มี ACK แปลว่าปัญหาอยู่ก่อนถึงเนื้อหาคำสั่ง คือสาย ไฟ หรือ address ข้อผิดพลาดของรูปแบบคำสั่งจะเกิดหลังอุปกรณ์ตอบ address แล้ว และสีที่ผิดช่วงถูกดักเป็น BAD PARAMETER ก่อนส่งด้วยซ้ำ
+- id: q3
+  objective: 1
+  type: single
+  prompt:
+    th: ทำไม DFR0522 จึงใช้ bus I2C ของจอ/ทัช (DISPLAY_I2C_CONTROLLER_HW) แทน sensor I2C bus ของ master
+    en: Why is the DFR0522 driven on the display/touch I2C bus (DISPLAY_I2C_CONTROLLER_HW) rather than the master's sensor I2C bus?
+  choices:
+  - th: เพราะ sensor bus เร็วเกินไปสำหรับ matrix
+  - th: เพราะ sensor bus อยู่บน domain 1.8 V ส่วน matrix อยู่บน bus 3.3 V ร่วมกับจอ/ทัช ซึ่ง framework init ไว้แล้ว จึงใช้ context disp_touch_i2c_controller_context ได้เลย
+  - th: เพราะ sensor bus เป็น I3C ใช้กับอุปกรณ์ I2C ไม่ได้
+  - th: เพราะ matrix ต้องใช้ interrupt ของจอ
+  answer:
+  - 1
+  explain:
+    th: main.c ของ master ระบุว่า sensor I2C (SCB0) อยู่บน 1.8 V domain ส่วน README ของตัวอย่างบอกว่า matrix อยู่บน bus 3.3 V ที่ใช้ร่วมกับจอ การต่ออุปกรณ์ผิดระดับแรงดันอาจสื่อสารไม่ได้หรือทำให้ขาเสียหาย และการใช้ SCB ที่ถูก init แล้วร่วมกันต้องไม่ init ซ้ำจนทัชเสีย (master มีทั้ง sensor I2C และ I3C แยกกัน)
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: ใน Pot → RGB Mixer ถ้า pot ช่อง R = 70 %, G = 30 %, B = 60 % แผง matrix จะเป็นสีใด
+    en: In Pot → RGB Mixer, with R = 70 %, G = 30 % and B = 60 %, what colour does the matrix show?
+  choices:
+  - th: YELLOW
+  - th: CYAN
+  - th: WHITE
+  - th: PURPLE
+  answer:
+  - 3
+  explain:
+    th: แต่ละช่องที่ raw ≥ MIX_THRESHOLD (2048 ≈ 50 %) เปิดบิตของตัวเอง b0 = R, b1 = G, b2 = B ได้ bits = 1 + 4 = 5 ซึ่งตรงกับ RGB_PANEL_COLOR_PURPLE เพราะ enum สีของ DFR0522 ใช้การแพ็กบิต RGB แบบเดียวกัน
+- id: q5
+  objective: 2
+  type: single
+  prompt:
+    th: ทำไม mixer เรียก rgb_panel_fill() เฉพาะเมื่อสีเปลี่ยน ทั้งที่อ่าน pot ทุก 120 ms
+    en: Why does the mixer call rgb_panel_fill() only when the colour changes, although it reads the pots every 120 ms?
+  choices:
+  - th: แต่ละคำสั่งส่ง frame 51 ไบต์บน bus ที่ใช้ร่วมกับทัช และการเขียนบล็อก LVGL timer ระหว่างส่ง การเขียนเฉพาะตอนเปลี่ยนจึงลดภาระ bus และไม่ทำให้แผงกระพริบ
+  - th: เพราะ DFR0522 รับคำสั่งได้วินาทีละครั้ง
+  - th: เพราะ ADC ต้องพักระหว่างการเขียน I2C
+  - th: เพราะ LVGL ห้ามเรียก I2C ใน timer
+  answer:
+  - 0
+  explain:
+    th: 'rgb_panel_write() ส่ง RGB_PANEL_TX_SIZE = 51 ไบต์ทุกคำสั่ง โดยเขียนทีละไบต์แบบรอผล ซึ่งทำงานใน mix_timer_cb() ของ LVGL การเทียบกับ s_last_color จึงประหยัดทั้งเวลาและ bus ข้อสังเกต: s_last_color เริ่มที่ WHITE เพื่อบังคับเขียนครั้งแรก แต่ถ้าสีแรกเป็น WHITE พอดีจะยังไม่ถูกเขียนจนกว่าสีเปลี่ยน'
