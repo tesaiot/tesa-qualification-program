@@ -18,7 +18,7 @@ status: alpha
 translation: done
 slides: slides.md
 source: {repo: 'https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer', path: session-11.html (slides 19–27), ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079}
-source_sha256: 53cb6aff829755ed7b19db128603a34d4343803cc46058ad5ef6702908d416d3
+source_sha256: 5ae3e0d64aa540dd8f4a58432c76f0f1c7af4b41af0ae7513401d1670c0ec552
 ---
 
 # Lesson 4.8 — The tesaiot module: MQTTs to the platform
@@ -115,6 +115,7 @@ The slides for this lesson also refer to files that live in other lessons:
 <div class="tok-screens">
 <figure><img src="img/screens/01_config_store.webp" alt="examples/01_config_store.py running in the BENTO Emulator: The platform&#x27;s config store; read it in full before connecting anything" width="800" height="480" loading="lazy"><figcaption><a href="examples/01_config_store.py"><code>01_config_store.py</code></a> The platform&#x27;s config store; read it in full before connecting anything</figcaption></figure>
 <figure><img src="img/screens/02_config_reset_reload.webp" alt="examples/02_config_reset_reload.py running in the BENTO Emulator: Wiping settings and reverting settings are two different things" width="800" height="480" loading="lazy"><figcaption><a href="examples/02_config_reset_reload.py"><code>02_config_reset_reload.py</code></a> Wiping settings and reverting settings are two different things</figcaption></figure>
+<figure><img src="img/screens/03_slots_and_the_dead_half.webp" alt="examples/03_slots_and_the_dead_half.py running in the BENTO Emulator: The half that answers instantly, and the half that needs the OPTIGA chip" width="800" height="480" loading="lazy"><figcaption><a href="examples/03_slots_and_the_dead_half.py"><code>03_slots_and_the_dead_half.py</code></a> The half that answers instantly, and the half that needs the OPTIGA chip</figcaption></figure>
 <figure><img src="img/screens/04_disconnect_and_republish.webp" alt="examples/04_disconnect_and_republish.py running in the BENTO Emulator: Close the job properly, then reopen" width="800" height="480" loading="lazy"><figcaption><a href="examples/04_disconnect_and_republish.py"><code>04_disconnect_and_republish.py</code></a> Close the job properly, then reopen</figcaption></figure>
 <figure><img src="img/screens/05_wait_for_connected.webp" alt="examples/05_wait_for_connected.py running in the BENTO Emulator: connect() returns before the connection finishes; you must wait with is_connected()" width="800" height="480" loading="lazy"><figcaption><a href="examples/05_wait_for_connected.py"><code>05_wait_for_connected.py</code></a> connect() returns before the connection finishes; you must wait with is_connected()</figcaption></figure>
 <figure><img src="img/screens/06_secure_publish_loop.webp" alt="examples/06_secure_publish_loop.py running in the BENTO Emulator: Send to the platform over TLS and show the evidence on screen" width="800" height="480" loading="lazy"><figcaption><a href="examples/06_secure_publish_loop.py"><code>06_secure_publish_loop.py</code></a> Send to the platform over TLS and show the evidence on screen</figcaption></figure>
