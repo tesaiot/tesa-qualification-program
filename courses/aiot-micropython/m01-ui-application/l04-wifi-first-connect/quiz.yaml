@@ -1,0 +1,80 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m01.l04 บทเรียน 1.4
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: คุณสร้าง ui.Label ข้อความ "กำลังต่อ" แล้วเรียก wifi.connect() ทันทีโดยไม่ได้เรียก ui.poll() คนที่ยืนดูจอจะเห็นอะไร
+    en: You create a ui.Label saying "connecting" and call wifi.connect() right away without calling ui.poll(). What will someone watching the screen see?
+  choices:
+  - th: จอนิ่งโดยไม่มีป้ายตลอดช่วงที่รอ แล้วป้ายไปโผล่หลัง connect() จบ ซึ่งสายเกินไปแล้ว
+  - th: ป้ายขึ้นทันที เพราะ connect() เรียก ui.poll() ให้เองระหว่างรอ
+  - th: ได้ error เพราะห้ามสร้าง widget ก่อนต่อ WiFi
+  - th: ป้ายขึ้นแล้วหายไปเองเมื่อ connect() คืน True
+  answer:
+  - 0
+  explain:
+    th: connect() บล็อกได้นานถึงราว 85 วินาทีและจอไม่ขยับเลยระหว่างนั้น ป้ายที่ยังไม่ได้เคาะ ui.poll() จะไปโผล่หลัง connect() จบ ป้ายกับ ui.poll() จึงต้องมาก่อนบรรทัดที่บล็อก
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: ทีมหนึ่งพิมพ์รหัสผ่านผิดไปหนึ่งตัว แล้วพบว่า connect() ใช้เวลานานกว่ารอบที่รหัสถูกมาก เหตุผลคืออะไร
+    en: A team mistypes one character of the password and finds connect() takes much longer than with the correct password. Why?
+  choices:
+  - th: บอร์ดไม่ได้ยอมแพ้ตั้งแต่ครั้งแรก มันลองใหม่ให้เองหลายรอบก่อนจะคืน False
+  - th: บอร์ดแฮงก์ ต้องกดรีเซ็ตเสมอเมื่อรหัสผิด
+  - th: ticks_diff() นับผิดเมื่อ connect() คืน False
+  - th: Hotspot ส่งรหัสที่ถูกกลับมาให้บอร์ดลองใหม่ จึงช้า
+  answer:
+  - 0
+  explain:
+    th: ความล้มเหลวแพงกว่าความสำเร็จในงานเครือข่าย เพราะมีการลองใหม่ซ่อนอยู่หลายรอบ นี่คือเหตุผลที่ระบบจริงต้องมีเพดานว่าจะลองกี่ครั้ง
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ลิงก์ขึ้นแล้วแต่ยังรอ DHCP อยู่ โค้ดแบบไหนจับได้ถูกว่าบอร์ดยังไม่มีเลข IP
+    en: The link is up but DHCP has not answered yet. Which code correctly detects that the board has no IP address?
+  choices:
+  - th: if not wifi.ip()
+  - th: if wifi.ip() is None
+  - th: if wifi.ip() == "0.0.0.0"
+  - th: if wifi.ip() == ""
+  answer:
+  - 2
+  explain:
+    th: wifi.ip() คืนสตริงเสมอ ไม่เคยคืน None และตอนยังไม่มีที่อยู่มันคืน "0.0.0.0" ซึ่งไม่ใช่สตริงว่าง Python จึงถือว่าจริง ต้องเทียบกับ "0.0.0.0" ตรง ๆ เท่านั้น
+- id: q4
+  objective: 3
+  type: multi
+  prompt:
+    th: ข้อใดถูกต้องเกี่ยวกับ wifi.scan() และ wifi.status() เลือกทุกข้อที่ถูก
+    en: Which statements about wifi.scan() and wifi.status() are correct? Choose all that apply.
+  choices:
+  - th: scan() สแกนได้โดยไม่ต้องรู้รหัสผ่านของวงไหนเลย
+  - th: scan() คืนรายชื่อเรียงจากแรงไปอ่อนมาให้แล้ว
+  - th: status()["rssi"] ตอบ 0 เท่าเดิมเสมอ ความแรงจริงต้องมาจาก scan()
+  - th: rssi ยิ่งติดลบมาก สัญญาณยิ่งแรง
+  answer:
+  - 0
+  - 2
+  explain:
+    th: scan() ไม่ต้องรู้รหัสผ่านใคร แต่คืนตามลำดับที่ชิปเจอ ต้อง sort เอง rssi ติดลบเสมอและยิ่งใกล้ศูนย์ยิ่งแรง ส่วนคีย์ ssid กับ rssi ของ status() เป็นค่าตายตัว "" กับ 0
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: จอที่แขวนหน้างานต้องบอกคนเดินผ่านว่าบอร์ดยังออนไลน์อยู่ไหม และเก็บประวัติว่าหลุดตอนไหน วิธีใดถูกต้อง
+    en: A screen at the work site must show passers-by whether the board is still online and keep a history of when it dropped. Which approach is correct?
+  choices:
+  - th: เก็บค่าที่ connect() คืนมาตอนต้นโปรแกรม แล้วแสดงค่านั้นไปตลอด
+  - th: ถาม is_connected() ใหม่ทุกรอบ อัปเดตจอทุกรอบ และพิมพ์ลงลิ้นชักเฉพาะตอนสถานะเปลี่ยน
+  - th: ถาม is_connected() ทุกรอบ แล้วพิมพ์ลงลิ้นชักทุกรอบด้วย ประวัติจะได้ครบ
+  - th: เรียก connect() ซ้ำทุกรอบเพื่อยืนยันว่ายังต่ออยู่
+  answer:
+  - 1
+  explain:
+    th: connect() ตอบว่าตอนนั้นสำเร็จไหม ส่วน is_connected() ตอบว่าตอนนี้ยังต่ออยู่ไหม จอต้องตอบเรื่องปัจจุบันจึงถามซ้ำทุกรอบ ถ้ายิงลงลิ้นชักทุกรอบจะได้บรรทัดเดิมซ้ำสามสิบบรรทัดจนหาไม่เจอว่าหลุดตอนไหน

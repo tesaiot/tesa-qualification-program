@@ -1,0 +1,84 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m02.l05 บทเรียน 2.5
+items:
+- id: q1
+  objective: 1
+  type: multi
+  prompt:
+    th: ข้อใดถูกต้องเกี่ยวกับเหตุการณ์ที่ ui.poll() คืนมา เลือกทุกข้อที่ถูก
+    en: Which statements about the events ui.poll() returns are true? Choose all that apply.
+  choices:
+  - th: Checkbox ส่ง 'toggled' ไม่ใช่ 'clicked' ทั้งที่หน้าตาเหมือนของกด
+  - th: Switch ส่ง 'toggled' และ value เป็น 1 เมื่อเปิด 0 เมื่อปิด
+  - th: Textarea ส่ง 'value_changed' พร้อมข้อความที่พิมพ์อยู่ในช่อง value
+  - th: ui.poll() คืน None เมื่อไม่มีเหตุการณ์ จึงต้องเช็กก่อนวนลูป
+  - th: Label ส่ง 'clicked' เมื่อถูกแตะ
+  answer:
+  - 0
+  - 1
+  explain:
+    th: Checkbox กับ Switch ส่ง toggled ถ้าไปรอ clicked จาก Checkbox จะรอทั้งวัน ส่วน Textarea ให้ value เป็น 0 เสมอ ต้องถาม .text() เอง ui.poll() คืน list ว่างได้ ไม่ใช่ None และ Label เป็นตัวแสดงผลที่ไม่ส่งอะไรเลย
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ลูปของทีมหลับทีละ 500 ms ผู้ใช้แตะปุ่มรัว ๆ ยี่สิบครั้งในช่วงที่ลูปหลับ จะเกิดอะไรขึ้น
+    en: A team's loop sleeps 500 ms per round. A user taps a button twenty times rapidly while the loop sleeps. What happens?
+  choices:
+  - th: ทั้งยี่สิบครั้งมาถึงครบ แค่ช้าไปครึ่งวินาที
+  - th: คิวเต็มที่ 15 ช่อง แล้วเฟิร์มแวร์ทิ้งเหตุการณ์ใหม่ที่เพิ่งเข้ามา การแตะส่วนเกินหายไปเลยโดยไม่มี error
+  - th: คิวเต็มแล้วเฟิร์มแวร์ทิ้งเหตุการณ์เก่าที่สุด เก็บของใหม่ไว้แทน
+  - th: โปรแกรมหยุดด้วย RuntimeError เพราะคิวล้น
+  answer:
+  - 1
+  explain:
+    th: คิวเป็นวงแหวน 16 ช่องที่ใส่ได้จริง 15 และถ้าเต็ม เฟิร์มแวร์ทิ้งเหตุการณ์ใหม่ ไม่ได้ทิ้งของเก่าและไม่ได้ให้รอ นิ้วที่แตะตอนลูปหลับยาวจึงหายไปเงียบ ๆ นี่คือเหตุผลที่กฎข้อ 2 บอกให้หลับ 50 ms ไม่ใช่ 500
+- id: q3
+  objective: 2
+  type: multi
+  prompt:
+    th: ข้อใดตรงกับกฎเหล็กของโมดูล ui เลือกทุกข้อที่ถูก
+    en: Which statements match the iron rules of the ui module? Choose all that apply.
+  choices:
+  - th: ถ้าไม่เรียก ui.poll() เลย จอจะว่างอยู่ราว 2 วินาที เพราะ CM55 ซ่อน widget ไว้จนกว่า poll ครั้งแรกจะมาถึง
+  - th: สร้าง widget เกิน 64 ตัวต่อหน้าได้ RuntimeError ทันที
+  - th: widget ที่ .hide() ไว้ยังกินโควตาอยู่ มีแค่ .delete() ที่คืนให้
+  - th: widget ในแท็บที่ไม่ได้เปิดอยู่ไม่นับโควตา
+  - th: ยิ่งลูปเร็วยิ่งดี หลับ 5 ms จอจะลื่นที่สุด
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: ของในแท็บที่ไม่ได้เปิดยังกินโควตาเท่าเดิม แท็บช่วยแค่พื้นที่สายตา และลูปที่เร็วเกินไปทำให้เฟรมหายเงียบ ๆ ไม่มี exception UI เบา ๆ จึงหลับอย่างต่ำ 50 ms
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ทีมหนึ่งเขียนปุ่ม ALL OFF ให้วน `gpio.led(i).off()` ตรง ๆ แทนการเรียก `set_led(i, False)` กดแล้วจะเห็นอะไร
+    en: A team writes the ALL OFF button as a loop of direct `gpio.led(i).off()` calls instead of `set_led(i, False)`. What will they see after pressing it?
+  choices:
+  - th: ทุกอย่างถูกต้อง เพราะหลอดดับจริงแล้ว
+  - th: หลอดดับจริง แต่สวิตช์บนจอกับตัวเลขที่นับจาก led_on ยังบอกว่าติดอยู่ จอโกหกทันที
+  - th: หลอดไม่ดับ เพราะ gpio.led() ใช้ไม่ได้หลังมีจอ
+  - th: โปรแกรมหยุดด้วย error เพราะเรียก gpio นอก set_led()
+  answer:
+  - 1
+  explain:
+    th: set_led() คือประตูเดียวที่จำสถานะ สั่งหลอด ดึง widget บนจอ และรายงาน การเรียก gpio.led() ตรง ๆ ข้ามประตูนี้ ไฟยังเปลี่ยนตามสั่ง แต่ led_on และจอไม่รู้เรื่อง ผู้ใช้เชื่อจอ ไม่ได้เชื่อหลอดไฟ
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: ในไฟล์ฝึก s04b ถ้าลืมใส่ `parent=body` ตอนสร้างป้ายที่ควรอยู่ในหน้าต่างของแท็บแรก จะเกิดอะไรขึ้น
+    en: In the s04b practice file, if you forget `parent=body` when creating a label meant for the window in the first tab, what happens?
+  choices:
+  - th: โปรแกรมหยุดด้วย ValueError ทันที
+  - th: ป้ายไปโผล่บนจอหลัก ไม่ได้อยู่ในหน้าต่าง และไม่มีอะไรฟ้อง
+  - th: ป้ายไม่ถูกสร้าง แต่ก็ไม่กินโควตา
+  - th: ป้ายเข้าไปอยู่ในแท็บที่เปิดอยู่ตอนนั้นเอง
+  answer:
+  - 1
+  explain:
+    th: .add_tab() .content() .add_tile() และ .add_page() คืนแฮนเดิลของช่องข้างใน ต้องส่งกลับเป็น parent= เสมอ ลืมแล้วของไปอยู่ผิดที่โดยไม่มี exception หรือคำเตือน

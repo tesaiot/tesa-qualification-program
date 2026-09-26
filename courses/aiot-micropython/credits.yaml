@@ -1,0 +1,818 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+#
+# Third-party images shipped with this course. Every other image (slide diagrams drawn for the
+# course, photos of the boards, screenshots of the example files) is the upstream author's own
+# work under CC BY 4.0 (AIoT in Action, © 2026 Wiroon Sriborrirux, AIC Burapha University).
+# modified: false = byte-identical to the file at `source` (checked by SHA-1 against Wikimedia
+# Commons on 2026-09-26); modified: true = resized/cropped/exported for the slides.
+# LicenseRef-PublicDomain = public domain / no known copyright; LicenseRef-Infineon-Document =
+# a figure from an Infineon document, used for teaching, rights remain with Infineon.
+
+images:
+- path: assets/img/adc_successive_approx_anim_wikimedia.gif
+  title: ADC animation 20.gif
+  author: Russ Puskarcik
+  source: https://commons.wikimedia.org/wiki/File:ADC_animation_20.gif
+  license: CC-BY-3.0
+  modified: false
+- path: assets/img/board_top_callouts.png
+  title: 'Figure 2: KIT_PSE84_EVAL board top view (p. 9)'
+  author: Infineon Technologies AG
+  source: https://www.infineon.com/product-information/kitpse84eval
+  license: LicenseRef-Infineon-Document
+  modified: false
+  note: KIT_PSE84_EVAL PSOC™ Edge E84 Evaluation Kit guide, Infineon Technologies AG, document 002-39007 Rev. *B · รูปจากคู่มือบอร์ดของ Infineon ใช้เพื่อการเรียนการสอน สิทธิ์เป็นของ Infineon Technologies AG ไม่อยู่ภายใต้ CC BY 4.0 ของหลักสูตร · TESA Open Knowledge เป็นโครงการร่วม TESA × Infineon (Infineon figure used for teaching; rights remain with Infineon; TESA × Infineon joint programme)
+- path: assets/img/ema_weights_wikimedia.svg
+  title: Exponential moving average weights N=15.svg
+  author: 'Д.Ильин: vectorization'
+  source: https://commons.wikimedia.org/wiki/File:Exponential_moving_average_weights_N%3D15.svg
+  license: CC0-1.0
+  modified: false
+- path: assets/img/quantization_error_wikimedia.png
+  title: Quantization error.png
+  author: Gregory Maxwell
+  source: https://commons.wikimedia.org/wiki/File:Quantization_error.png
+  license: CC-BY-3.0
+  modified: false
+- path: assets/img/user_leds_schematic.png
+  title: 'Figure 78: user LEDs circuit (p. 89)'
+  author: Infineon Technologies AG
+  source: https://www.infineon.com/product-information/kitpse84eval
+  license: LicenseRef-Infineon-Document
+  modified: false
+  note: KIT_PSE84_EVAL PSOC™ Edge E84 Evaluation Kit guide, Infineon Technologies AG, document 002-39007 Rev. *B · รูปจากคู่มือบอร์ดของ Infineon ใช้เพื่อการเรียนการสอน สิทธิ์เป็นของ Infineon Technologies AG ไม่อยู่ภายใต้ CC BY 4.0 ของหลักสูตร · TESA Open Knowledge เป็นโครงการร่วม TESA × Infineon (Infineon figure used for teaching; rights remain with Infineon; TESA × Infineon joint programme)
+- path: assets/img/vibration_timeseries_healthy_vs_fault_pmc.jpg
+  title: Figure from Kolok P. et al., Sensors 25(21):6610, 2025
+  author: Kolok P. et al., Sensors 25(21):6610, 2025
+  source: https://pmc.ncbi.nlm.nih.gov/articles/PMC12609400/
+  license: CC-BY-4.0
+  modified: true
+  note: ภาพจากบทความ open-access ใน PubMed Central ส่งออกเป็น JPG สำหรับสไลด์
+- path: assets/img/wifi_association_sequence_commons.svg
+  title: 802.11 Connection Setup.svg
+  author: Superspritz
+  source: https://commons.wikimedia.org/wiki/File:802.11_Connection_Setup.svg
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m01-ui-application/l01-board-tour/img/usecase_physical_controls_dashboard_commons.jpg
+  title: usecase_physical_controls_dashboard_commons.jpg
+  author: Eric Friedebach
+  source: https://commons.wikimedia.org/wiki/File:1973_Ford_Mustang_Interior_Dashboard_(51838912069
+  license: CC-BY-2.0
+  modified: true
+  note: ไม่ใช่ไฟล์เดียวกันทุกไบต์กับต้นทาง (ย่อ ตัด หรือส่งออกภาพสำหรับสไลด์)
+- path: m01-ui-application/l03-inside-the-box/img/led_andon_board_factory_commons.png
+  title: led_andon_board_factory_commons.png
+  author: MicroSYST GmbH
+  source: https://commons.wikimedia.org/wiki/File:Andon-Board_in_einem_Produktionswerk.png
+  license: CC-BY-SA-4.0
+  modified: true
+  note: ไม่ใช่ไฟล์เดียวกันทุกไบต์กับต้นทาง (ย่อ ตัด หรือส่งออกภาพสำหรับสไลด์)
+- path: m01-ui-application/l03-inside-the-box/img/usecase_actigraphy_wearable_nasa.jpg
+  title: usecase_actigraphy_wearable_nasa.jpg
+  author: NASA / Helen Arase Vargas
+  source: https://commons.wikimedia.org/wiki/File:Actigraphy_Device_for_Artemis_II_Human_Health_Study_--_jsc2025e075542_alt.jpg
+  license: LicenseRef-PublicDomain
+  modified: true
+  note: ไม่ใช่ไฟล์เดียวกันทุกไบต์กับต้นทาง (ย่อ ตัด หรือส่งออกภาพสำหรับสไลด์)
+- path: m01-ui-application/l03-inside-the-box/img/usecase_sound_level_monitoring_stadium_commons.jpg
+  title: usecase_sound_level_monitoring_stadium_commons.jpg
+  author: RandomKatze
+  source: https://commons.wikimedia.org/wiki/File:Sound_level_meter_at_American_football_game.jpg
+  license: CC0-1.0
+  modified: true
+  note: ไม่ใช่ไฟล์เดียวกันทุกไบต์กับต้นทาง (ย่อ ตัด หรือส่งออกภาพสำหรับสไลด์)
+- path: m01-ui-application/l03-inside-the-box/img/usecase_touch_thermostat_appliance_commons.jpg
+  title: A touch-screen programmable thermostat.jpg
+  author: Flarn2006
+  source: https://commons.wikimedia.org/wiki/File:A_touch-screen_programmable_thermostat.jpg
+  license: CC-BY-SA-3.0
+  modified: false
+- path: m02-ui-to-hardware/l01-gpio-leds-buttons/img/pwm_average_wikimedia.gif
+  title: PWM gemiddelde waarde.gif
+  author: Jef daems
+  source: https://commons.wikimedia.org/wiki/File:PWM_gemiddelde_waarde.gif
+  license: CC0-1.0
+  modified: false
+- path: m02-ui-to-hardware/l01-gpio-leds-buttons/img/pwm_duty_cycle_anim_wikimedia.gif
+  title: PWM duty cycle with label.gif
+  author: Eighthave, modified by Teslaton
+  source: https://commons.wikimedia.org/wiki/File:PWM_duty_cycle_with_label.gif
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m02-ui-to-hardware/l02-active-low-debounce/img/mosfet_nchannel_enh_anim_commons.gif
+  title: N-channel enhancement MOSFET - Electrical Classroom.gif
+  author: Osbert Joel
+  source: https://commons.wikimedia.org/wiki/File:N-channel_enhancement_MOSFET_-_Electrical_Classroom.gif
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m02-ui-to-hardware/l02-active-low-debounce/img/switch_bounce_scope_wikimedia.jpg
+  title: switch_bounce_scope_wikimedia.jpg
+  author: Tomoldbury
+  source: https://commons.wikimedia.org/wiki/File%3ASwitch_bounce.JPG
+  license: LicenseRef-PublicDomain
+  modified: true
+  note: ไม่ใช่ไฟล์เดียวกันทุกไบต์กับต้นทาง (ย่อ ตัด หรือส่งออกภาพสำหรับสไลด์)
+- path: m02-ui-to-hardware/l02-active-low-debounce/img/switch_bounce_waveform_wikimedia.png
+  title: Bouncy Switch.png
+  author: Super Rad!
+  source: https://commons.wikimedia.org/wiki/File:Bouncy_Switch.png
+  license: CC0-1.0
+  modified: false
+- path: m02-ui-to-hardware/l04-touch-widgets/img/button_operator_panel_pushbuttons_commons.jpg
+  title: 00-bma-automation-operator-panel-with-pushbuttons.JPG
+  author: Elmschrat
+  source: https://commons.wikimedia.org/wiki/File:00-bma-automation-operator-panel-with-pushbuttons.JPG
+  license: CC-BY-SA-3.0
+  modified: false
+- path: m02-ui-to-hardware/l04-touch-widgets/img/mosfet_channel_anim_commons.gif
+  title: FET-Ani.gif
+  author: Stefan Riepl (Quark48). Quark48 at German Wikipedia
+  source: https://commons.wikimedia.org/wiki/File:FET-Ani.gif
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m02-ui-to-hardware/l04-touch-widgets/img/usecase_capacitive_touch_buttons_panel_commons.jpg
+  title: Capacitive touch buttons.jpg
+  author: Zeroping
+  source: https://commons.wikimedia.org/wiki/File:Capacitive_touch_buttons.jpg
+  license: CC-BY-4.0
+  modified: false
+- path: m02-ui-to-hardware/l04-touch-widgets/img/usecase_touchscreen_only_car_interior_commons.jpg
+  title: Tesla Model 3 Premium 2023 (3).jpg
+  author: Oq10pass
+  source: https://commons.wikimedia.org/wiki/File:Tesla_Model_3_Premium_2023_(3).jpg
+  license: CC0-1.0
+  modified: false
+- path: m02-ui-to-hardware/l05-event-loop/img/button_estop_deliberate_action_commons.jpg
+  title: button_estop_deliberate_action_commons.jpg
+  author: Angus Fraser
+  source: https://commons.wikimedia.org/wiki/File:Big_red_emergency_stop_button_(2972000481
+  license: CC-BY-2.0
+  modified: true
+  note: ไม่ใช่ไฟล์เดียวกันทุกไบต์กับต้นทาง (ย่อ ตัด หรือส่งออกภาพสำหรับสไลด์)
+- path: m02-ui-to-hardware/l05-event-loop/img/led_annunciator_apollo_master_caution_commons.jpg
+  title: Apollo Command Module Master Caution & Event Annunciator Panel — with the Infamous "Main Bus B Undervolt" Alarm of Apollo 13 (53839889630).jpg
+  author: jurvetson
+  source: https://commons.wikimedia.org/wiki/File:Apollo_Command_Module_Master_Caution_%26_Event_Annunciator_Panel_%E2%80%94_with_the_Infamous_%22Main_Bus_B_Undervolt%22_Alarm_of_Apollo_13_(53839889630).jpg
+  license: CC-BY-2.0
+  modified: false
+- path: m02-ui-to-hardware/l06-touch-panel-lab/img/usecase_alarm_patient_monitor_commons.jpg
+  title: usecase_alarm_patient_monitor_commons.jpg
+  author: US Navy
+  source: https://commons.wikimedia.org/wiki/File:Vital_signs_monitor_display.jpg
+  license: LicenseRef-PublicDomain
+  modified: true
+  note: ไม่ใช่ไฟล์เดียวกันทุกไบต์กับต้นทาง (ย่อ ตัด หรือส่งออกภาพสำหรับสไลด์)
+- path: m02-ui-to-hardware/l06-touch-panel-lab/img/usecase_sonification_geiger_counter_commons.jpg
+  title: usecase_sonification_geiger_counter_commons.jpg
+  author: TimVickers
+  source: https://commons.wikimedia.org/wiki/File:Geiger_counter_2.jpg
+  license: LicenseRef-PublicDomain
+  modified: true
+  note: ไม่ใช่ไฟล์เดียวกันทุกไบต์กับต้นทาง (ย่อ ตัด หรือส่งออกภาพสำหรับสไลด์)
+- path: m02-ui-to-hardware/l06-touch-panel-lab/img/usecase_sonification_paraglider_vario_commons.jpg
+  title: Gleitschirmvario.jpg
+  author: Flyout
+  source: https://commons.wikimedia.org/wiki/File:Gleitschirmvario.jpg
+  license: CC-BY-SA-3.0
+  modified: false
+- path: m02-ui-to-hardware/l07-adc-capsense/img/capacitive_touch_photo_wikimedia.jpg
+  title: capacitive_touch_photo_wikimedia.jpg
+  author: Medvedev
+  source: https://commons.wikimedia.org/wiki/File:Capacitive_touchscreen.jpg
+  license: CC-BY-3.0
+  modified: true
+  note: ไม่ใช่ไฟล์เดียวกันทุกไบต์กับต้นทาง (ย่อ ตัด หรือส่งออกภาพสำหรับสไลด์)
+- path: m02-ui-to-hardware/l07-adc-capsense/img/capsense_fig52.png
+  title: 'Figure 52: CapSense circuit (p. 65)'
+  author: Infineon Technologies AG
+  source: https://www.infineon.com/product-information/kitpse84eval
+  license: LicenseRef-Infineon-Document
+  modified: false
+  note: KIT_PSE84_EVAL PSOC™ Edge E84 Evaluation Kit guide, Infineon Technologies AG, document 002-39007 Rev. *B · รูปจากคู่มือบอร์ดของ Infineon ใช้เพื่อการเรียนการสอน สิทธิ์เป็นของ Infineon Technologies AG ไม่อยู่ภายใต้ CC BY 4.0 ของหลักสูตร · TESA Open Knowledge เป็นโครงการร่วม TESA × Infineon (Infineon figure used for teaching; rights remain with Infineon; TESA × Infineon joint programme)
+- path: m02-ui-to-hardware/l07-adc-capsense/img/pot_thermistor_schematic.png
+  title: 'Figure 77: potentiometer and thermistor circuit (p. 88)'
+  author: Infineon Technologies AG
+  source: https://www.infineon.com/product-information/kitpse84eval
+  license: LicenseRef-Infineon-Document
+  modified: false
+  note: KIT_PSE84_EVAL PSOC™ Edge E84 Evaluation Kit guide, Infineon Technologies AG, document 002-39007 Rev. *B · รูปจากคู่มือบอร์ดของ Infineon ใช้เพื่อการเรียนการสอน สิทธิ์เป็นของ Infineon Technologies AG ไม่อยู่ภายใต้ CC BY 4.0 ของหลักสูตร · TESA Open Knowledge เป็นโครงการร่วม TESA × Infineon (Infineon figure used for teaching; rights remain with Infineon; TESA × Infineon joint programme)
+- path: m02-ui-to-hardware/l07-adc-capsense/img/potentiometer_photo_knobs_wikimedia.jpg
+  title: potentiometer_photo_knobs_wikimedia.jpg
+  author: Retired electrician
+  source: https://commons.wikimedia.org/wiki/File:23mm_knob_with_numbered_dials_with_potentiometers_01(DXO
+  license: CC0-1.0
+  modified: true
+  note: ไม่ใช่ไฟล์เดียวกันทุกไบต์กับต้นทาง (ย่อ ตัด หรือส่งออกภาพสำหรับสไลด์)
+- path: m02-ui-to-hardware/l07-adc-capsense/img/potentiometer_symbol_linear_wikimedia.svg
+  title: Potentiometer linear.svg
+  author: MatthiasDD
+  source: https://commons.wikimedia.org/wiki/File:Potentiometer_linear.svg
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m02-ui-to-hardware/l07-adc-capsense/img/sar_dac_4bit_anim_wikimedia.gif
+  title: 4-bit Successive Approximation DAC.gif
+  author: Uwezi
+  source: https://commons.wikimedia.org/wiki/File:4-bit_Successive_Approximation_DAC.gif
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m02-ui-to-hardware/l07-adc-capsense/img/voltage_divider_wikimedia.svg
+  title: Voltage divider.svg
+  author: Zedh (Wikimedia Commons, PD-self), text enlarged by Aflafla1
+  source: https://commons.wikimedia.org/wiki/File:Voltage_divider.svg
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m02-ui-to-hardware/l08-filters/img/rc_step_response_capacitor_wikimedia.svg
+  title: Series RC capacitor voltage.svg
+  author: No machine-readable author provided. Ktims assumed (based on copyright claims).
+  source: https://commons.wikimedia.org/wiki/File:Series_RC_capacitor_voltage.svg
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m02-ui-to-hardware/l08-filters/img/slidingwindow_moving_window_animation_commons.gif
+  title: Savitzky golay local regression wl045 pd04.gif
+  author: MothNik
+  source: https://commons.wikimedia.org/wiki/File:Savitzky_golay_local_regression_wl045_pd04.gif
+  license: CC0-1.0
+  modified: false
+- path: m03-sensor-hmi/l01-accelerometer-tilt/img/accel_capacitive_principle_commons.png
+  title: Accelerometer (capacitance type) NT.PNG
+  author: Tosaka
+  source: https://commons.wikimedia.org/wiki/File:Accelerometer_(capacitance_type)_NT.PNG
+  license: CC-BY-3.0
+  modified: false
+- path: m03-sensor-hmi/l01-accelerometer-tilt/img/accel_proofmass_motion_commons.gif
+  title: Mass Spring System Undamped case Simple harmonic motion.gif
+  author: Guillermo Bossio
+  source: https://commons.wikimedia.org/wiki/File:Mass_Spring_System_Undamped_case_Simple_harmonic_motion.gif
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m03-sensor-hmi/l01-accelerometer-tilt/img/accel_proofmass_spring_damper_commons.svg
+  title: Mass spring damper.svg
+  author: --pbroks13talk?
+  source: https://commons.wikimedia.org/wiki/File:Mass_spring_damper.svg
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m03-sensor-hmi/l01-accelerometer-tilt/img/imu_axes_right_handed_frame_commons.png
+  title: Three and Two Dimensional Coordinate systems.png
+  author: Gregors
+  source: https://commons.wikimedia.org/wiki/File:Three_and_Two_Dimensional_Coordinate_systems.png
+  license: CC-BY-SA-3.0
+  modified: false
+- path: m03-sensor-hmi/l01-accelerometer-tilt/img/mems_accel_sem_die_pmc.jpg
+  title: Figure from Zhang H. et al., Micromachines 10(6):380, 2019
+  author: Zhang H. et al., Micromachines 10(6):380, 2019
+  source: https://pmc.ncbi.nlm.nih.gov/articles/PMC6630974/
+  license: CC-BY-4.0
+  modified: true
+  note: ภาพจากบทความ open-access ใน PubMed Central ส่งออกเป็น JPG สำหรับสไลด์
+- path: m03-sensor-hmi/l01-accelerometer-tilt/img/mems_comb_drive_vibrating_commons.gif
+  title: Comb-drive-digital-holographic-Microscopy-Holographic-MEMS-Analyzer.gif
+  author: Jejmule
+  source: https://commons.wikimedia.org/wiki/File:Comb-drive-digital-holographic-Microscopy-Holographic-MEMS-Analyzer.gif
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m03-sensor-hmi/l01-accelerometer-tilt/img/roll_pitch_yaw_pitch_anim_nasa.gif
+  title: Aileron pitch.gif
+  author: 'Editor: Nancy Hall; Glenn Research Center, NASA'
+  source: https://commons.wikimedia.org/wiki/File:Aileron_pitch.gif
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m03-sensor-hmi/l01-accelerometer-tilt/img/roll_pitch_yaw_roll_anim_nasa.gif
+  title: Aileron roll.gif
+  author: 'Editor: Nancy Hall; Glenn Research Center, NASA'
+  source: https://commons.wikimedia.org/wiki/File:Aileron_roll.gif
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m03-sensor-hmi/l01-accelerometer-tilt/img/tilt_gravity_angle_trig_commons.png
+  title: Block on Inclined Plane with Direction of Gravity, Angle, and Location of Opposite, Adjacent, and Hypotenuse.png
+  author: VT DLA
+  source: https://commons.wikimedia.org/wiki/File:Block_on_Inclined_Plane_with_Direction_of_Gravity,_Angle,_and_Location_of_Opposite,_Adjacent,_and_Hypotenuse.png
+  license: CC-BY-SA-3.0
+  modified: false
+- path: m03-sensor-hmi/l01-accelerometer-tilt/img/tilt_gravity_components_incline_commons.svg
+  title: Inclined plane with forces.svg
+  author: Klaus-Dieter Keller
+  source: https://commons.wikimedia.org/wiki/File:Inclined_plane_with_forces.svg
+  license: CC0-1.0
+  modified: false
+- path: m03-sensor-hmi/l02-gyro-fusion/img/coriolis_effect_anim_commons.gif
+  title: Coriolis.gif
+  author: Jacopo Bertolotti
+  source: https://commons.wikimedia.org/wiki/File:Coriolis.gif
+  license: CC0-1.0
+  modified: false
+- path: m03-sensor-hmi/l02-gyro-fusion/img/fusion_complementary_crossover_bode_pmc.jpg
+  title: Figure from Narkhede P. et al., Sensors 21(6):1937, 2021
+  author: Narkhede P. et al., Sensors 21(6):1937, 2021
+  source: https://pmc.ncbi.nlm.nih.gov/articles/PMC7998881/
+  license: CC-BY-4.0
+  modified: true
+  note: ภาพจากบทความ open-access ใน PubMed Central ส่งออกเป็น JPG สำหรับสไลด์
+- path: m03-sensor-hmi/l02-gyro-fusion/img/fusion_complementary_filter_classic_pmc.jpg
+  title: Figure from Liu et al., Micromachines 12(11):1373, 2021
+  author: Liu et al., Micromachines 12(11):1373, 2021
+  source: https://pmc.ncbi.nlm.nih.gov/articles/PMC8623241/
+  license: CC-BY-4.0
+  modified: true
+  note: ภาพจากบทความ open-access ใน PubMed Central ส่งออกเป็น JPG สำหรับสไลด์
+- path: m03-sensor-hmi/l02-gyro-fusion/img/gyro_drift_integrated_angle_pmc.jpg
+  title: Figure from Rudyk A.V. et al., Sensors 20(17):4841, 2020
+  author: Rudyk A.V. et al., Sensors 20(17):4841, 2020
+  source: https://pmc.ncbi.nlm.nih.gov/articles/PMC7506677/
+  license: CC-BY-4.0
+  modified: true
+  note: ภาพจากบทความ open-access ใน PubMed Central ส่งออกเป็น JPG สำหรับสไลด์
+- path: m03-sensor-hmi/l02-gyro-fusion/img/gyro_tuning_fork_schematic_commons.png
+  title: Schematic drawing of tuning fork gyroscope.png
+  author: Minh Ngoc Nguyen et al.
+  source: https://commons.wikimedia.org/wiki/File:Schematic_drawing_of_tuning_fork_gyroscope.png
+  license: CC-BY-4.0
+  modified: false
+- path: m03-sensor-hmi/l02-gyro-fusion/img/imu_die_photo_zeptobars_commons.jpg
+  title: Invensense-MPU6050-HD.jpg
+  author: ZeptoBars
+  source: https://commons.wikimedia.org/wiki/File:Invensense-MPU6050-HD.jpg
+  license: CC-BY-3.0
+  modified: false
+- path: m03-sensor-hmi/l02-gyro-fusion/img/mems_imu_scale_penny_darpa.jpg
+  title: DARPA TIMU Michigan Penny
+  author: University of Michigan / DARPA
+  source: https://commons.wikimedia.org/wiki/File:DARPA_TIMU_Michigan_Penny.jpg
+  license: LicenseRef-PublicDomain
+  modified: true
+  note: ย่อขนาดสำหรับสไลด์ (resized)
+- path: m03-sensor-hmi/l02-gyro-fusion/img/usecase_walking_acceleration_anim_commons.gif
+  title: Walking acceleration.gif
+  author: Yian chen
+  source: https://commons.wikimedia.org/wiki/File:Walking_acceleration.gif
+  license: CC-BY-SA-3.0
+  modified: false
+- path: m03-sensor-hmi/l03-digital-level-lab/img/allan_variance_noise_terms_pmc.jpg
+  title: Figure from Rudyk A.V. et al., Sensors 20(17):4841, 2020
+  author: Rudyk A.V. et al., Sensors 20(17):4841, 2020
+  source: https://pmc.ncbi.nlm.nih.gov/articles/PMC7506677/
+  license: CC-BY-4.0
+  modified: true
+  note: ภาพจากบทความ open-access ใน PubMed Central ส่งออกเป็น JPG สำหรับสไลด์
+- path: m03-sensor-hmi/l03-digital-level-lab/img/dof6_axes_commons.svg
+  title: 6DOF.svg
+  author: GregorDS
+  source: https://commons.wikimedia.org/wiki/File:6DOF.svg
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m03-sensor-hmi/l04-sampling/img/aliasing_critical_frequency_wikimedia.svg
+  title: CriticalFrequencyAliasing.svg
+  author: Qef
+  source: https://commons.wikimedia.org/wiki/File:CriticalFrequencyAliasing.svg
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m03-sensor-hmi/l04-sampling/img/aliasing_sines_wikimedia.svg
+  title: AliasingSines.svg
+  author: Moxfyre
+  source: https://commons.wikimedia.org/wiki/File:AliasingSines.svg
+  license: CC-BY-SA-3.0
+  modified: false
+- path: m03-sensor-hmi/l04-sampling/img/aliasing_undersampled_sine_wikimedia.svg
+  title: Aliasing.svg
+  author: Vierge Marie
+  source: https://commons.wikimedia.org/wiki/File:Aliasing.svg
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m03-sensor-hmi/l04-sampling/img/digital_signal_discrete_wikimedia.svg
+  title: Digital.signal.discret.svg
+  author: 'Original: Rbj (talk · contribs) Derivative work: wdwd (talk · contribs)'
+  source: https://commons.wikimedia.org/wiki/File:Digital.signal.discret.svg
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m03-sensor-hmi/l04-sampling/img/nyquist_1percycle_wikimedia.svg
+  title: CPT-sound-nyquist-thereom-1percycle.svg
+  author: Pluke
+  source: https://commons.wikimedia.org/wiki/File:CPT-sound-nyquist-thereom-1percycle.svg
+  license: CC0-1.0
+  modified: false
+- path: m03-sensor-hmi/l04-sampling/img/nyquist_2percycle_wikimedia.svg
+  title: CPT-sound-nyquist-thereom-2percycle.svg
+  author: Pluke
+  source: https://commons.wikimedia.org/wiki/File:CPT-sound-nyquist-thereom-2percycle.svg
+  license: CC0-1.0
+  modified: false
+- path: m03-sensor-hmi/l04-sampling/img/nyquist_sampling_anim_wikimedia.gif
+  title: Nyquist sampling.gif
+  author: Jacopo Bertolotti
+  source: https://commons.wikimedia.org/wiki/File:Nyquist_sampling.gif
+  license: CC0-1.0
+  modified: false
+- path: m03-sensor-hmi/l04-sampling/img/nyquist_sine_anim_wikimedia.gif
+  title: Nyquist Shannon theorem sine visualisation animation.gif
+  author: Enormator
+  source: https://commons.wikimedia.org/wiki/File:Nyquist_Shannon_theorem_sine_visualisation_animation.gif
+  license: CC0-1.0
+  modified: false
+- path: m03-sensor-hmi/l04-sampling/img/pcm_sampling_quantization_wikimedia.svg
+  title: Pcm.svg
+  author: Ktims (Wikimedia Commons), revised by Aquegg
+  source: https://commons.wikimedia.org/wiki/File:Pcm.svg
+  license: CC-BY-SA-3.0
+  modified: false
+- path: m03-sensor-hmi/l04-sampling/img/sample_hold_waveform_wikimedia.svg
+  title: Sample and hold.svg
+  author: Giacomo Alessandroni
+  source: https://commons.wikimedia.org/wiki/File:Sample_and_hold.svg
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m03-sensor-hmi/l04-sampling/img/step_detection_accel_magnitude_pmc.jpg
+  title: Figure from Zieliński M., Chybicki A., Borsuk A., Sensors 25(20):6358, 2025
+  author: Zieliński M., Chybicki A., Borsuk A., Sensors 25(20):6358, 2025
+  source: https://pmc.ncbi.nlm.nih.gov/articles/PMC12568306/
+  license: CC-BY-4.0
+  modified: true
+  note: ภาพจากบทความ open-access ใน PubMed Central ส่งออกเป็น JPG สำหรับสไลด์
+- path: m03-sensor-hmi/l05-realtime-chart/img/fft_spectrum_healthy_vs_fault_pmc.jpg
+  title: Figure from Kolok P. et al., Sensors 25(21):6610, 2025
+  author: Kolok P. et al., Sensors 25(21):6610, 2025
+  source: https://pmc.ncbi.nlm.nih.gov/articles/PMC12609400/
+  license: CC-BY-4.0
+  modified: true
+  note: ภาพจากบทความ open-access ใน PubMed Central ส่งออกเป็น JPG สำหรับสไลด์
+- path: m03-sensor-hmi/l05-realtime-chart/img/fft_time_freq_anim_wikimedia.gif
+  title: Fourier transform time and frequency domains.gif
+  author: Lucas Vieira
+  source: https://commons.wikimedia.org/wiki/File:Fourier_transform_time_and_frequency_domains.gif
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m03-sensor-hmi/l06-accel-chart-lab/img/moving_average_smoothing_wikimedia.svg
+  title: moving_average_smoothing_wikimedia.svg
+  author: Christophe Dang Ngoc Chan ( Cdang )
+  source: https://commons.wikimedia.org/wiki/File:Lissage_sinus_bruite_moyenne_glissante.svg
+  license: CC-BY-SA-4.0
+  modified: true
+  note: ไม่ใช่ไฟล์เดียวกันทุกไบต์กับต้นทาง (ย่อ ตัด หรือส่งออกภาพสำหรับสไลด์)
+- path: m03-sensor-hmi/l06-accel-chart-lab/img/noise_effect_wikimedia.svg
+  title: Noise effect.svg
+  author: Yves-Laurent Allaert
+  source: https://commons.wikimedia.org/wiki/File:Noise_effect.svg
+  license: CC-BY-SA-3.0
+  modified: false
+- path: m03-sensor-hmi/l07-hmi-design/img/b_sliding_window_smoothing_animation.gif
+  title: Savitzky Golay Animation Wl 65 Po 9 w Poly Boundary Fit.gif
+  author: MothNik
+  source: https://commons.wikimedia.org/wiki/File:Savitzky_Golay_Animation_Wl_65_Po_9_w_Poly_Boundary_Fit.gif
+  license: CC0-1.0
+  modified: false
+- path: m03-sensor-hmi/l07-hmi-design/img/hall_effect_four_cases_commons.gif
+  title: Hall effect 1.gif
+  author: 'File:Hall effect.png: Peo Conversion to gif: Hike395'
+  source: https://commons.wikimedia.org/wiki/File:Hall_effect_1.gif
+  license: CC-BY-SA-3.0
+  modified: false
+- path: m03-sensor-hmi/l07-hmi-design/img/led_stacklight_machine_status_commons.jpg
+  title: Signalsäule an einer grossen selbstfahrenden Baumaschine (rot gelb grün).jpg
+  author: User:Mattes
+  source: https://commons.wikimedia.org/wiki/File:Signals%C3%A4ule_an_einer_grossen_selbstfahrenden_Baumaschine_(rot_gelb_gr%C3%BCn).jpg
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m03-sensor-hmi/l07-hmi-design/img/usecase_fader_linear_pot_mixing_console_commons.jpg
+  title: usecase_fader_linear_pot_mixing_console_commons.jpg
+  author: hanmaili
+  source: https://commons.wikimedia.org/wiki/File:Fader_tweaked_on_Mackie_D8B_Digital_Mixer_(2011-07-04_by_hanmaili
+  license: CC0-1.0
+  modified: true
+  note: ไม่ใช่ไฟล์เดียวกันทุกไบต์กับต้นทาง (ย่อ ตัด หรือส่งออกภาพสำหรับสไลด์)
+- path: m03-sensor-hmi/l07-hmi-design/img/vibration_bearing_raw_timeseries_pmc.jpg
+  title: Figure from Sehri M., Dumond P., Bouchard M., Data in Brief, 2023
+  author: Sehri M., Dumond P., Bouchard M., Data in Brief, 2023
+  source: https://pmc.ncbi.nlm.nih.gov/articles/PMC10331275/
+  license: CC-BY-4.0
+  modified: true
+  note: ภาพจากบทความ open-access ใน PubMed Central ส่งออกเป็น JPG สำหรับสไลด์
+- path: m03-sensor-hmi/l07-hmi-design/img/walking_accel_arm_vs_ankle_pmc.jpg
+  title: Figure from Kisiel M., Amjad A., Szczęsna A., Sensors 26(3):876, 2026
+  author: Kisiel M., Amjad A., Szczęsna A., Sensors 26(3):876, 2026
+  source: https://pmc.ncbi.nlm.nih.gov/articles/PMC12899432/
+  license: CC-BY-4.0
+  modified: true
+  note: ภาพจากบทความ open-access ใน PubMed Central ส่งออกเป็น JPG สำหรับสไลด์
+- path: m03-sensor-hmi/l08-dashboard-build/img/compass_rose_windrose_commons.svg
+  title: Brosen windrose.svg
+  author: Brosen~commonswiki
+  source: https://commons.wikimedia.org/wiki/File:Brosen_windrose.svg
+  license: CC-BY-2.5
+  modified: false
+- path: m03-sensor-hmi/l08-dashboard-build/img/d_key_bounce_oscillogram_250us.png
+  title: Tastenprellen01.png
+  author: The original uploader was Arctanx at German Wikipedia.
+  source: https://commons.wikimedia.org/wiki/File:Tastenprellen01.png
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m03-sensor-hmi/l08-dashboard-build/img/declination_world_map_2025_noaa.jpg
+  title: World Magnetic Model 2025.0 — declination
+  author: NOAA NCEI / British Geological Survey
+  source: https://commons.wikimedia.org/wiki/File:World_Magnetic_Field_Model_2025.jpg
+  license: LicenseRef-PublicDomain
+  modified: true
+  note: ย่อขนาดสำหรับสไลด์ (resized)
+- path: m03-sensor-hmi/l08-dashboard-build/img/earth_magnetic_field_dipole_commons.svg
+  title: Dipole field.svg
+  author: Users Heron, Kevin Saff on en.wikipedia
+  source: https://commons.wikimedia.org/wiki/File:Dipole_field.svg
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m03-sensor-hmi/l08-dashboard-build/img/gravity_apple_in_elevator_commons.gif
+  title: gravity_apple_in_elevator_commons.gif
+  author: Vkidambi
+  source: https://commons.wikimedia.org/wiki/File:Apple_in_elevator.gif
+  license: CC-BY-SA-4.0
+  modified: true
+  note: ไม่ใช่ไฟล์เดียวกันทุกไบต์กับต้นทาง (ย่อ ตัด หรือส่งออกภาพสำหรับสไลด์)
+- path: m03-sensor-hmi/l08-dashboard-build/img/tilt_body_axes_accel_pmc.jpg
+  title: Figure from Rodriguez V.H. et al., Sensors 22(20):7690, 2022
+  author: Rodriguez V.H. et al., Sensors 22(20):7690, 2022
+  source: https://pmc.ncbi.nlm.nih.gov/articles/PMC9573549/
+  license: CC-BY-4.0
+  modified: true
+  note: ภาพจากบทความ open-access ใน PubMed Central ส่งออกเป็น JPG สำหรับสไลด์
+- path: m03-sensor-hmi/l09-dashboard-lab/img/usecase_magnetometer_field_survey_commons.jpg
+  title: usecase_magnetometer_field_survey_commons.jpg
+  author: Axel Hindemith
+  source: https://commons.wikimedia.org/wiki/File:Magnometer_Prospektion_Feld_vorne.jpg
+  license: CC-BY-SA-3.0
+  modified: true
+  note: ไม่ใช่ไฟล์เดียวกันทุกไบต์กับต้นทาง (ย่อ ตัด หรือส่งออกภาพสำหรับสไลด์)
+- path: m04-iot-connectivity/l01-wifi-networking/img/dhcp_session_sequence_commons.svg
+  title: DHCP session.svg
+  author: Gelmo96
+  source: https://commons.wikimedia.org/wiki/File:DHCP_session.svg
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m04-iot-connectivity/l01-wifi-networking/img/dns_architecture_commons.svg
+  title: DNS Architecture.svg
+  author: Aaron Filbert
+  source: https://commons.wikimedia.org/wiki/File:DNS_Architecture.svg
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m04-iot-connectivity/l01-wifi-networking/img/ipv4_address_structure_commons.svg
+  title: IPv4 address structure and writing systems-en.svg
+  author: Michel Bakni
+  source: https://commons.wikimedia.org/wiki/File:IPv4_address_structure_and_writing_systems-en.svg
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m04-iot-connectivity/l01-wifi-networking/img/osi_encapsulation_anim_commons.gif
+  title: Osi-encapsulation.gif
+  author: Moeenrahi
+  source: https://commons.wikimedia.org/wiki/File:Osi-encapsulation.gif
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m04-iot-connectivity/l01-wifi-networking/img/rssi_signal_bars_commons.jpg
+  title: Signal Strength -74 dBm 66 asu LTE Golan Telecom Signal Bars EN.jpg
+  author: TaBaZzz
+  source: https://commons.wikimedia.org/wiki/File:Signal_Strength_-74_dBm_66_asu_LTE_Golan_Telecom_Signal_Bars_EN.jpg
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m04-iot-connectivity/l01-wifi-networking/img/wifi_channels_24ghz_commons.svg
+  title: 2.4 GHz Wi-Fi channels (802.11b,g WLAN).svg
+  author: Michael Gauthier, Wireless Networking in the Developing World KelleyCook, image improvements Whidou, French translation Superspritz, Italian translation
+  source: https://commons.wikimedia.org/wiki/File:2.4_GHz_Wi-Fi_channels_(802.11b,g_WLAN).svg
+  license: CC-BY-SA-3.0
+  modified: false
+- path: m04-iot-connectivity/l01-wifi-networking/img/wifi_fspl_bands_commons.svg
+  title: FSPL for common 802.11 frequency bands.svg
+  author: Sss41
+  source: https://commons.wikimedia.org/wiki/File:FSPL_for_common_802.11_frequency_bands.svg
+  license: CC-BY-SA-3.0
+  modified: false
+- path: m04-iot-connectivity/l01-wifi-networking/img/wifi_spectrum_24ghz_commons.png
+  title: 2.4 GHz spectrum example Screenshot.png
+  author: Kirlf
+  source: https://commons.wikimedia.org/wiki/File:2.4_GHz_spectrum_example_Screenshot.png
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m04-iot-connectivity/l01-wifi-networking/img/wifi_spectrum_5ghz_commons.png
+  title: 5 GHz Wi-Fi spectrum screenshot.png
+  author: Kirlf
+  source: https://commons.wikimedia.org/wiki/File:5_GHz_Wi-Fi_spectrum_screenshot.png
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m04-iot-connectivity/l04-mqtt-concepts/img/s10_clientserver_sequence.png
+  title: Client-server model example (Web browsing) - en.png
+  author: Michel Bakni
+  source: https://commons.wikimedia.org/wiki/File:Client-server_model_example_(Web_browsing)_-_en.png
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m04-iot-connectivity/l04-mqtt-concepts/img/s10_mqtt_publish_flow.png
+  title: MQTT publish.png
+  author: Brivadeneira
+  source: https://commons.wikimedia.org/wiki/File:MQTT_publish.png
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m04-iot-connectivity/l04-mqtt-concepts/img/s10_mqtt_publish_packet.svg
+  title: MQTT Publish packet.svg
+  author: Blacktron
+  source: https://commons.wikimedia.org/wiki/File:MQTT_Publish_packet.svg
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m04-iot-connectivity/l04-mqtt-concepts/img/s10_mqtt_topic_wildcards.svg
+  title: MQTT single broker multiple listener.svg
+  author: Ademant
+  source: https://commons.wikimedia.org/wiki/File:MQTT_single_broker_multiple_listener.svg
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m04-iot-connectivity/l04-mqtt-concepts/img/s10_pubsub_topic_decoupling.svg
+  title: DDS pub sub.svg
+  author: Mathieu.clabaut
+  source: https://commons.wikimedia.org/wiki/File:DDS_pub_sub.svg
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m04-iot-connectivity/l05-mqtt-platform/img/s10_ce_dashboard.png
+  title: TESAIoT Community Edition v1.1.8 — Dashboard screenshot
+  author: TESAIoT Community Edition contributors
+  source: https://github.com/tesaiot/tesaiot-community-edition
+  license: Apache-2.0
+  modified: false
+  note: docs/images/screenshots/screen-dashboard.png
+- path: m04-iot-connectivity/l05-mqtt-platform/img/s10_ce_devices.png
+  title: TESAIoT Community Edition v1.1.8 — Devices screenshot
+  author: TESAIoT Community Edition contributors
+  source: https://github.com/tesaiot/tesaiot-community-edition
+  license: Apache-2.0
+  modified: false
+  note: docs/images/screenshots/screen-devices.png
+- path: m04-iot-connectivity/l05-mqtt-platform/img/s10_mitm_attack.svg
+  title: Man in the middle attack.svg
+  author: Miraceti
+  source: https://commons.wikimedia.org/wiki/File:Man_in_the_middle_attack.svg
+  license: CC-BY-SA-3.0
+  modified: false
+- path: m04-iot-connectivity/l05-mqtt-platform/img/s10_mqtt_session_flow.svg
+  title: MQTT protocol example without QoS.svg
+  author: Simon A. Eugster
+  source: https://commons.wikimedia.org/wiki/File:MQTT_protocol_example_without_QoS.svg
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m04-iot-connectivity/l07-tls-concepts/img/cert_example_issuer_commons.png
+  title: Digital-certificate-wikipedia-issuer.png
+  author: Winstonlee
+  source: https://commons.wikimedia.org/wiki/File:Digital-certificate-wikipedia-issuer.png
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m04-iot-connectivity/l07-tls-concepts/img/hsm_ncipher_nshield_commons.jpg
+  title: NCipher nShield F3 Hardware Security Module.jpg
+  author: Alexander Klink
+  source: https://commons.wikimedia.org/wiki/File:NCipher_nShield_F3_Hardware_Security_Module.jpg
+  license: CC-BY-3.0
+  modified: false
+- path: m04-iot-connectivity/l07-tls-concepts/img/s11_ce_devices.png
+  title: TESAIoT Community Edition v1.1.8 — Devices screenshot
+  author: TESAIoT Community Edition contributors
+  source: https://github.com/tesaiot/tesaiot-community-edition
+  license: Apache-2.0
+  modified: false
+  note: docs/images/screenshots/screen-devices.png
+- path: m04-iot-connectivity/l07-tls-concepts/img/s11_chain_of_trust.svg
+  title: Chain Of Trust.svg
+  author: Yuhkih
+  source: https://commons.wikimedia.org/wiki/File:Chain_Of_Trust.svg
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m04-iot-connectivity/l07-tls-concepts/img/s11_hash_function.svg
+  title: Cryptographic Hash Function.svg
+  author: User:Jorge Stolfi based on Image:Hash_function.svg by Helix84
+  source: https://commons.wikimedia.org/wiki/File:Cryptographic_Hash_Function.svg
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m04-iot-connectivity/l07-tls-concepts/img/s11_keypair_encrypt.svg
+  title: Public key encryption.svg
+  author: Davidgothberg
+  source: https://commons.wikimedia.org/wiki/File:Public_key_encryption.svg
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m04-iot-connectivity/l07-tls-concepts/img/s11_mitm_tls_inspection.svg
+  title: SSL Deep Inspection Explanation.svg
+  author: Rudolf.Achter
+  source: https://commons.wikimedia.org/wiki/File:SSL_Deep_Inspection_Explanation.svg
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m04-iot-connectivity/l07-tls-concepts/img/s11_mqtt_broker_tls.svg
+  title: MQTT single broker multiple listener tls client.svg
+  author: Ademant
+  source: https://commons.wikimedia.org/wiki/File:MQTT_single_broker_multiple_listener_tls_client.svg
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m04-iot-connectivity/l07-tls-concepts/img/s11_mutual_auth.svg
+  title: SSL handshake with two way authentication with certificates.svg
+  author: Essich
+  source: https://commons.wikimedia.org/wiki/File:SSL_handshake_with_two_way_authentication_with_certificates.svg
+  license: CC-BY-3.0
+  modified: false
+- path: m04-iot-connectivity/l07-tls-concepts/img/s11_signature_verify.svg
+  title: Public key signing.svg
+  author: Davidgothberg
+  source: https://commons.wikimedia.org/wiki/File:Public_key_signing.svg
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m04-iot-connectivity/l07-tls-concepts/img/s11_tls12_handshake.svg
+  title: Full TLS 1.2 Handshake.svg
+  author: Fleshgrinder and The People from The Tango! Desktop Project.
+  source: https://commons.wikimedia.org/wiki/File:Full_TLS_1.2_Handshake.svg
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m04-iot-connectivity/l07-tls-concepts/img/s11_tls12_handshake_th.svg
+  title: การจับมือ TLS 1.2 ทีละขั้น (ภาษาไทย)
+  author: รศ.วิรุฬห์ ศรีบริรักษ์ (Wiroon Sriborrirux)
+  source: https://commons.wikimedia.org/wiki/File:Full_TLS_1.2_Handshake.svg
+  license: CC-BY-4.0
+  modified: true
+  note: วาดใหม่สำหรับหลักสูตรนี้ ดัดแปลงลำดับเวลาจาก Full TLS 1.2 Handshake (Fleshgrinder, สาธารณสมบัติ)
+- path: m04-iot-connectivity/l07-tls-concepts/img/s11_tls13_handshake.svg
+  title: Full TLS 1.3 Handshake.svg
+  author: Fleshgrinder and The People from The Tango! Desktop Project.
+  source: https://commons.wikimedia.org/wiki/File:Full_TLS_1.3_Handshake.svg
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m04-iot-connectivity/l09-secure-telemetry-lab/img/s11_ce_dashboard.png
+  title: TESAIoT Community Edition v1.1.8 — Dashboard screenshot
+  author: TESAIoT Community Edition contributors
+  source: https://github.com/tesaiot/tesaiot-community-edition
+  license: Apache-2.0
+  modified: false
+  note: docs/images/screenshots/screen-dashboard.png
+- path: m04-iot-connectivity/l09-secure-telemetry-lab/img/s11_secure_element.jpg
+  title: Lenovo N20 Chrome — motherboard — Infineon SLB9655TT12
+  author: Raimond Spekking
+  source: https://commons.wikimedia.org/wiki/File:Lenovo_N20_Chrome_-_motherboard_-_Infineon_SLB9655TT12-49890.jpg
+  license: CC-BY-SA-4.0
+  modified: true
+  note: ย่อขนาดสำหรับสไลด์ (reduced copy)
+- path: m05-capstone/l01-problem-to-design/img/iot_architecture_iiot_commons.png
+  title: IIoT Architecture.png
+  author: Paul McLaughlin, Rohan McAdam
+  source: https://commons.wikimedia.org/wiki/File:IIoT_Architecture.png
+  license: CC-BY-SA-4.0
+  modified: false
+- path: m05-capstone/l01-problem-to-design/img/led_liveness_pattern_cm5_anim_commons.gif
+  title: Thinking Machines CM-5 LED pattern animation.gif
+  author: Morn
+  source: https://commons.wikimedia.org/wiki/File:Thinking_Machines_CM-5_LED_pattern_animation.gif
+  license: CC0-1.0
+  modified: false
+- path: m05-capstone/l01-problem-to-design/img/mqtt_pubsub_architecture_wikimedia.png
+  title: MQTT SYSTEM DESIGN.png
+  author: Chine3me
+  source: https://commons.wikimedia.org/wiki/File:MQTT_SYSTEM_DESIGN.png
+  license: CC0-1.0
+  modified: false
+- path: m05-capstone/l01-problem-to-design/img/usecase_airbag_crashtest_nhtsa.jpg
+  title: V08355P047.jpg
+  author: Vehicle Research &amp; Testing Center, National Highway Traffic Safety Administration
+  source: https://commons.wikimedia.org/wiki/File:V08355P047.jpg
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m05-capstone/l01-problem-to-design/img/usecase_guitar_volume_tone_pots_cavity_commons.jpg
+  title: 1973 Gibson Les Paul Deluxe (SN 620310) '73 Les Paul Deluxe control cavity (2010-02-07 16.54.10 by TT ZOP).jpg
+  author: TT Zop
+  source: https://commons.wikimedia.org/wiki/File:1973_Gibson_Les_Paul_Deluxe_(SN_620310)_%2773_Les_Paul_Deluxe_control_cavity_(2010-02-07_16.54.10_by_TT_ZOP).jpg
+  license: CC-BY-SA-2.0
+  modified: false
+- path: m05-capstone/l01-problem-to-design/img/usecase_joystick_two_pots_bbc_micro_commons.jpg
+  title: BBC Micro unsprung joystick -- potentiometer detail.jpg
+  author: Daniel beardsmore
+  source: https://commons.wikimedia.org/wiki/File:BBC_Micro_unsprung_joystick_--_potentiometer_detail.jpg
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m05-capstone/l01-problem-to-design/img/usecase_pedometer_omron_product_commons.jpg
+  title: Omron HJ112.jpg
+  author: Arthbkins at English Wikipedia
+  source: https://commons.wikimedia.org/wiki/File:Omron_HJ112.jpg
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m05-capstone/l01-problem-to-design/img/usecase_reed_relay_magnet_anim_commons.gif
+  title: Reed-relais-ani.gif
+  author: Stefan Riepl (Quark48)
+  source: https://commons.wikimedia.org/wiki/File:Reed-relais-ani.gif
+  license: LicenseRef-PublicDomain
+  modified: false
+- path: m05-capstone/l01-problem-to-design/img/usecase_reed_switch_photo_commons.jpg
+  title: Reed switch.jpg
+  author: Bidgee
+  source: https://commons.wikimedia.org/wiki/File:Reed_switch.jpg
+  license: CC-BY-3.0
+  modified: false
+- path: m05-capstone/l01-problem-to-design/img/vibration_bearing_envelope_spectrum_pmc.jpg
+  title: Figure from Mika D., Józwik J., Ruggiero A., Sensors 25(23):7371, 2025
+  author: Mika D., Józwik J., Ruggiero A., Sensors 25(23):7371, 2025
+  source: https://pmc.ncbi.nlm.nih.gov/articles/PMC12694681/
+  license: CC-BY-4.0
+  modified: true
+  note: ภาพจากบทความ open-access ใน PubMed Central ส่งออกเป็น JPG สำหรับสไลด์
+- path: m05-capstone/l02-capstone-starter/img/edge_computing_concept_commons.png
+  title: Edge computing.png
+  author: Psenda38
+  source: https://commons.wikimedia.org/wiki/File:Edge_computing.png
+  license: CC0-1.0
+  modified: false
+- path: m05-capstone/l02-capstone-starter/img/led_blink_heartbeat_anim_commons.gif
+  title: Blinken LED 480.gif
+  author: smial (talk)
+  source: https://commons.wikimedia.org/wiki/File:Blinken_LED_480.gif
+  license: CC0-1.0
+  modified: false

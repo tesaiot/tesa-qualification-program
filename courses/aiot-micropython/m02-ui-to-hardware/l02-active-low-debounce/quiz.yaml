@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m02.l02 บทเรียน 2.2
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: คุณกดปุ่มผู้ใช้ค้างไว้ แล้วอ่านค่าทั้งสองแบบในรอบเดียวกัน ได้ผลอย่างไร
+    en: You hold the user button down and read both methods in the same loop pass. What do you get?
+  choices:
+  - th: btn.value() = 1 และ btn.is_pressed() = True
+  - th: btn.value() = 0 และ btn.is_pressed() = True
+  - th: btn.value() = 0 และ btn.is_pressed() = False
+  - th: btn.value() = 1 และ btn.is_pressed() = False
+  answer:
+  - 1
+  explain:
+    th: ปุ่มเป็น active-low ตอนปล่อย pull-up ดึงขาไว้ที่ 1 พอกด สวิตช์ต่อขาลงกราวด์จึงได้ 0 ส่วน is_pressed() กลับด้านให้แล้ว กดจึงได้ True
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: ในวงจรหลอด D3 สีแดงบน Eva Kit (ตัวต้านทาน 220 Ω) ข้อใดบรรยายเส้นทางของกระแสได้ถูกต้อง
+    en: In the circuit of the red LED D3 on the Eva Kit (220 Ω resistor), which statement describes the current paths correctly?
+  choices:
+  - th: ขาชิป P16.7 จ่ายกระแสราว 5.9 mA เข้าหลอดโดยตรง ตัวต้านทานมีไว้กันขาชิปพัง
+  - th: ขาชิปต่อที่ gate ของ n-MOSFET ซึ่งแทบไม่กินกระแส กระแสหลอดราว 5.9 mA มาจากราง 3.3 V ผ่านตัวต้านทานและหลอดลงกราวด์
+  - th: ขาชิปลดแรงดันที่หลอดลงเมื่อสั่ง brightness() ค่ากลาง หลอดจึงหรี่
+  - th: สั่ง 0 ที่ขาชิปแล้วหลอดติด เพราะหลอดเป็น active-low เหมือนปุ่ม
+  answer:
+  - 1
+  explain:
+    th: ขาชิปสั่ง "ประตู" ไม่ได้สั่ง "น้ำ" กระแสหลอดเดินจากราง 3.3 V และแทนสูตร (3.3 - 2.0)/220 ได้ราว 5.9 mA สั่ง 1 ที่ gate หลอดจึงติด ส่วนการหรี่ทำด้วยการกะพริบ gate ถี่ ๆ ไม่ใช่ลดแรงดัน
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ทีมหนึ่งลบบรรทัด `if stable:` ออก ให้ `count += 1` ทำงานทุกครั้งที่ stable เปลี่ยน แล้วกดปุ่มช้า ๆ ห้าครั้ง ตัวนับน่าจะได้เท่าไร
+    en: A team deletes the `if stable:` line so `count += 1` runs whenever stable changes, then presses the button slowly five times. What will the counter most likely show?
+  choices:
+  - th: ห้า เพราะกันเด้งยังทำงานอยู่
+  - th: สิบ เพราะการปล่อยปุ่มก็เป็นการเปลี่ยนสถานะที่ผ่านการกันเด้งเหมือนกัน
+  - th: สิบห้าถึงยี่สิบห้า เพราะปุ่มเด้งทีละ 3–5 ครั้ง
+  - th: ศูนย์ เพราะ stable ไม่มีวันเปลี่ยน
+  answer:
+  - 1
+  explain:
+    th: กันเด้งยังกรองการเด้งได้ แต่ทุกการกดมีสองขอบที่นิ่งแล้ว คือกดลงกับปล่อย ถ้าไม่มีบรรทัด if stable โปรแกรมจะนับทั้งสองขอบ เลขจึงกระโดดทีละสอง ซึ่งดูเหมือนปุ่มเด้งทั้งที่เป็นบั๊กของตรรกะเรา
+- id: q4
+  objective: 3
+  type: multi
+  prompt:
+    th: ข้อใดถูกต้องเกี่ยวกับลูปที่ถามปุ่มทุก 5 ms และขยับไฟวิ่งทุก 150 ms เลือกทุกข้อที่ถูก
+    en: Which statements about a loop that polls the button every 5 ms and advances the chase every 150 ms are true? Choose all that apply.
+  choices:
+  - th: ถ้าใช้ sleep_ms(150) เป็นตัวรอไฟวิ่ง การกดปุ่มสั้น ๆ ระหว่างที่หลับจะหายไป
+  - th: ใช้ ticks_diff(now, last_step) แทนการลบตรง ๆ เพราะตัวนับ ticks วิ่งถึงเพดานแล้ววนกลับ
+  - th: ถ้าย้าย last_step = now ออกไปไว้นอก if ไฟจะไม่วิ่งเลย
+  - th: sleep_ms(5) ในลูปเป็นแค่การถ่วงเวลา ตัดออกแล้วทุกอย่างทำงานดีขึ้น
+  - th: ถามปุ่มทุก 300 ms ก็พอ เพราะนิ้วกดค้างนานกว่านั้นเสมอ
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: sleep หยุดโปรแกรมทั้งตัวจึงไม่มีใครเห็นปุ่ม ticks_diff จัดการตอนตัวนับวนกลับให้ และ last_step ต้องจดเฉพาะตอนที่ขยับจริง ส่วน sleep_ms(5) คือการคืนซีพียูให้จอและ WiFi และนิ้วกดค้างราว 50–80 ms ถามทุก 300 ms จึงหลุดได้
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: โปรแกรมของทีมต้องพิมพ์ขึ้นจอว่าตอนนี้ไฟวิ่งอยู่ที่ดวงไหน วิธีใดเชื่อถือได้ที่สุด
+    en: Your team's program must show which LED the chase is on. Which method is most reliable?
+  choices:
+  - th: วนถาม gpio.led(i).value() ทุกดวงแล้วเลือกดวงที่ได้ 1
+  - th: วนถาม gpio.led(i).duty() ทุกดวงแล้วเลือกดวงที่ได้ 100
+  - th: อ่านจากตัวแปร led_index ที่โปรแกรมอัปเดตเองทุกครั้งที่สั่งขยับ
+  - th: เรียก gpio.board_info() แล้วอ่านช่อง led_names
+  answer:
+  - 2
+  explain:
+    th: value() ตอบระดับขา ณ วินาทีที่ถาม และได้ 0 หลัง hold() ทั้งที่เพิ่งเห็นหลอดสว่าง ส่วน duty() ตอบแค่เลขที่สั่งล่าสุดและ toggle() ไม่แก้มัน โปรแกรมจึงควรจำสถานะที่ตัวเองสั่งไว้ ซึ่งย้ายไปคุมวาล์วหรือรีเลย์ที่อ่านกลับไม่ได้ก็ยังใช้ได้

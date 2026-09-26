@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m03.l03 บทเรียน 3.3
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: จุดที่ 1 ของไฟล์ฝึก (ท่าที่ 1 ก่อนสร้างหน้าปัด) ควรเติมอะไร
+    en: What goes into blank 1 of the practice file (pose 1, before the dashboard is built)?
+  choices:
+  - th: sensors.bmi270.motion() หนึ่งครั้งในบล็อก try เพื่ออุ่นเครื่อง ให้การรอครั้งแรกเกิดก่อนสร้างหน้าปัด
+  - th: sensors.init() เพื่อปลุก IMU ก่อนอ่าน
+  - th: time.sleep_ms(16000) รอให้เซนเซอร์พร้อมทุกครั้งที่รัน
+  - th: ไม่ต้องเติมอะไร เพราะลูปหลักอ่านเซนเซอร์อยู่แล้ว
+  answer:
+  - 0
+  explain:
+    th: บน Eva Kit sensors.init() ถูกปฏิเสธด้วย OSError และบน Dev Kit ก็ไม่จำเป็น ส่วนการอ่านครั้งแรกหลังรีเซ็ตบน Eva นิ่งได้ถึง 16 วินาที อุ่นเครื่องหนึ่งครั้งตรงนี้ให้การรอไปเกิดก่อนสร้างหน้าปัด ไม่ใช่ตอนแถบควรจะขยับแล้ว
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: ข้อที่แปดของ MVP checkpoint ให้วางบอร์ดนิ่ง 30 วินาทีแล้วดูว่าตัวเลขไม่ไหลหนีไปทางเดียว ทำไมเครื่องวัดระดับของเราจึงผ่านข้อนี้ได้
+    en: MVP item eight asks you to leave the board still for 30 seconds and check that the number does not creep one way. Why does our level pass it?
+  choices:
+  - th: เราไม่ได้อินทิเกรตอะไรเลย มุมมาจาก dsp.tilt() ของ accelerometer ล้วน ๆ จึงไม่มี drift
+  - th: เพราะ dsp.EMA ลบ bias ของ gyro ออกให้เอง
+  - th: เพราะปุ่มตั้งศูนย์รีเซ็ตค่าให้ทุก 30 วินาที
+  - th: เพราะ motion() บน Eva Kit ชดเชย drift ให้จากโรงงาน
+  answer:
+  - 0
+  explain:
+    th: drift เกิดจากการบวกสะสม ω·Δt ของ gyro เครื่องวัดระดับนี้ไม่ได้ใช้ gyro เลย ใช้แค่เงาของแรงโน้มถ่วงผ่าน dsp.tilt() แล้วกรองด้วย EMA ข้อที่แปดจึงเป็นข้อที่พิสูจน์ว่าเราไม่มีปัญหา drift
+- id: q3
+  objective: 2
+  type: multi
+  prompt:
+    th: ข้อใดถูกเกี่ยวกับลำดับในลูปหลักของเฉลย s06_digital_level.py เลือกทุกข้อที่ถูก
+    en: Which statements about the order of the main loop in the s06_digital_level.py solution are true? Choose all that apply.
+  choices:
+  - th: การวาดแถบ ไฟ และตัวเลขอยู่นอก if ok_read เพื่อให้รอบที่อ่านไม่ได้ยังวาดจอด้วยค่าเดิม และบรรทัดคุณภาพบอกว่าค่าค้าง
+  - th: in_tol ใช้ค่าที่กรองแล้วและหักศูนย์แล้ว เพื่อกันไฟกระพริบสลับดวงตอนค่าคาบเกี่ยวเกณฑ์
+  - th: for ev in ui.poll() อยู่นอก if ok_read เพราะเซนเซอร์ตายไม่ได้แปลว่าทั้งเครื่องต้องตายตาม
+  - th: ตอนกดตั้งศูนย์ควรเก็บ roll ดิบ เพราะเป็นค่าที่สดที่สุด
+  - th: ควรหักค่าศูนย์ก่อน แล้วค่อยป้อนเข้า EMA
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: เฉลยกรองก่อนแล้วค่อยหักศูนย์ และตอนตั้งศูนย์เก็บ roll_f ที่กรองแล้ว เพราะจุดอ้างอิงที่มาจากค่าที่ยังสั่นจะทำให้แถบไม่มีวันกลับมาศูนย์จริง ๆ ส่วนการแสดงผลและ ui.poll() อยู่นอก if ok_read เพื่อให้จอบอกความจริงและปุ่มยังใช้ได้แม้รอบนั้นอ่านเซนเซอร์พลาด
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ตัวเลข Seg7 ของ ROLL เปลี่ยนตามการเอียง แต่แถบ ROLL นิ่งสนิทที่เดิม ไม่มี error สาเหตุที่น่าจะเป็นที่สุดคืออะไร
+    en: The ROLL Seg7 number follows the tilt, but the ROLL bar stays frozen and there is no error. What is the most likely cause?
+  choices:
+  - th: สร้าง ui.Bar โดยไม่ได้ตั้ง min=-90, max=90 ช่วงปริยาย 0–100 จึงปัดมุมติดลบเป็น 0
+  - th: ลืม dsp.EMA ค่าจึงสั่นจนแถบวาดไม่ทัน
+  - th: แกะ dsp.tilt() สลับเป็น pitch, roll
+  - th: ใส่ sensors.init() ไว้ก่อนลูป
+  answer:
+  - 0
+  explain:
+    th: โค้ดคำนวณถูก ตัวเลขจึงเปลี่ยน แต่แถบที่ค้างช่วง 0–100 ปัดค่าติดลบเป็น 0 แก้โดยเติม min/max ตอนสร้างแถบ ส่วนการแกะสลับจะทำให้แถบ PITCH วิ่งแทน และ sensors.init() บน Eva Kit จะขึ้น OSError ทันที ไม่ใช่เงียบ
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: รัน 02_imu_fall_detection.py แล้ววางบอร์ดลงโต๊ะแรง ๆ ขนาดความเร่งพุ่งเกิน 25 m/s² แต่เครื่องไม่แจ้งเตือน เพราะอะไร
+    en: You run 02_imu_fall_detection.py and put the board down hard. The acceleration magnitude spikes above 25 m/s², yet there is no alert. Why?
+  choices:
+  - th: ไม่มีขั้นตกอิสระนำมาก่อน (ขนาดไม่ได้ลงต่ำกว่า 3.0 m/s²) เครื่องจึงยังอยู่สถานะ IDLE และไม่นับการกระแทกนั้น
+  - th: เกณฑ์กระแทกสูงเกินไป ควรลดลงจนการวางของก็นับด้วย
+  - th: เซนเซอร์อ่านพลาด จึงคืนค่า 9.8 แทน
+  - th: ลืมกรองด้วย dsp.EMA ก่อนตัดสิน
+  answer:
+  - 0
+  explain:
+    th: การล้มคือลำดับสามขั้น ตกอิสระ แล้วกระแทกภายใน 800 ms แล้วนิ่งต่อ 1500 ms การวางของแรง ๆ มีแต่การกระแทก ถ้าตรวจแค่แรงกระแทกอย่างเดียวจะเตือนผิดทุกครั้งที่วางของลงโต๊ะ และระบบที่เตือนผิดบ่อย ผู้ใช้จะถอดทิ้ง

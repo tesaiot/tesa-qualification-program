@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m02.l09 บทเรียน 2.9
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: คุณเติมครบห้าจุดแรก จอขึ้นครบและตัวเลขขยับ แต่กดปุ่มเพิ่ม/ลดเกณฑ์แล้วไม่มีอะไรเกิดขึ้น และไม่มี error เลย สาเหตุที่น่าจะเป็นที่สุดคืออะไร
+    en: You filled the first five blanks, the screen is complete and the numbers move, but the threshold up/down buttons do nothing and there is no error. What is the most likely cause?
+  choices:
+  - th: ยังไม่ได้เติมจุด 6 events ยังเป็น [] และไม่มีการเรียก ui.poll() เหตุการณ์จึงไม่มีทางกลับมาถึงลูป
+  - th: ui.Spinbox ต้องแตะที่ตัวเลขโดยตรงจึงจะเปลี่ยนค่า
+  - th: ต้องเรียก sensors.init() ก่อนปุ่มจึงจะทำงาน
+  - th: ปุ่มบนจอใช้พร้อมกับแผ่น CapSense ไม่ได้
+  answer:
+  - 0
+  explain:
+    th: ไฟล์ฝึกตั้ง events = [] ไว้ให้รันได้ก่อนเติม จุด 6 จึงถูกข้ามบ่อยที่สุด ถ้าไม่เรียก ui.poll() ปุ่มกดไม่ติดและ widget บางตัวถูกซ่อนนานถึงสองวินาที ส่วน spinbox เปล่า ๆ นิ้วเปลี่ยนค่าไม่ได้อยู่แล้ว จึงต้องมีปุ่มข้าง ๆ
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: หลังเติมจุด 1–4 แถบบนเดินตามลูกบิดแล้ว แต่หมุนข้ามเกณฑ์ 70 เท่าไรไฟ "เกิน" ก็ไม่ติด ข้อใดอธิบายได้ถูก
+    en: After filling blanks 1-4 the top bar follows the knob, but however far you turn past the 70 threshold the "over" lamp never lights. Which explanation is correct?
+  choices:
+  - th: over คิดจาก ema_pct ซึ่งยังเป็น 0.0 จนกว่าจะเติมจุด 5 ema_pct = ema.update(pct)
+  - th: ui.Led ต้องสั่ง .color() ก่อนจึงจะติด
+  - th: ไฟเตือนต้องรอให้ตัวเลขเปลี่ยนวินาทีละครั้งก่อน
+  - th: เกณฑ์ 70 สูงเกินกว่าที่ลูกบิดจะหมุนถึง
+  answer:
+  - 0
+  explain:
+    th: ในเฉลย over = ema_pct >= th ไฟเตือนจึงตัดสินจากค่าที่กรองแล้ว ก่อนเติมจุด 5 ema_pct ยังเป็นค่าเริ่มต้น 0.0 ไฟ "ต่ำกว่าเกณฑ์" จึงติดค้างอยู่ดวงเดียว
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: เพื่อนเสนอให้เปลี่ยนเป็น over = pct >= th เพื่อให้ไฟเตือนไวขึ้น ผลที่ควรคาดคืออะไร
+    en: A teammate suggests over = pct >= th so the warning reacts faster. What should you expect?
+  choices:
+  - th: ตอนค่าอยู่ใกล้เกณฑ์ ไฟจะกระพริบสลับดวงตามการสั่นของค่าดิบ (alarm chattering) จนคนหน้างานเลิกสนใจเสียงเตือน
+  - th: ไฟจะนิ่งกว่าเดิม เพราะค่าดิบไม่มีความหน่วง
+  - th: ไม่ต่างกัน เพราะค่าดิบกับค่ากรองเท่ากันเสมอ
+  - th: โปรแกรมจะขึ้น TypeError
+  answer:
+  - 0
+  explain:
+    th: ค่าดิบสั่นที่บิตล่างตลอดเวลา พอค่าอยู่ใกล้เกณฑ์พอดี ไฟจะสลับไปมา เฉลยจึงตัดสินจากค่าที่กรองแล้ว แลกความหน่วงเล็กน้อยกับไฟที่เชื่อถือได้
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: ถ้าเปลี่ยน dsp.EMA(alpha=0.2) เป็น alpha=0.05 แล้วเป็น alpha=0.8 บรรทัด "กรอง" ขวาล่างจะเป็นอย่างไร
+    en: If you change dsp.EMA(alpha=0.2) to alpha=0.05 and then to alpha=0.8, how does the "filtered" line at the bottom right behave?
+  choices:
+  - th: 0.05 นิ่งมากแต่ตามมือช้าจนรู้สึกหน่วง ส่วน 0.8 เกือบเท่าค่าดิบ กรองได้นิดเดียว
+  - th: 0.05 เกือบเท่าค่าดิบ ส่วน 0.8 นิ่งมากแต่ตามช้า
+  - th: ทั้งสองค่าได้ผลเท่ากัน เพราะ EMA หนีบ alpha ไว้ที่ 0.2
+  - th: 0.05 ทำให้ค่ากรองเริ่มจากศูนย์แล้วไต่ขึ้นหลายวินาทีทุกครั้งที่รัน
+  answer:
+  - 0
+  explain:
+    th: alpha คือน้ำหนักของค่าใหม่ ยิ่งต่ำยิ่งเชื่ออดีต จึงนิ่งแต่หน่วง ยิ่งสูงยิ่งใกล้ค่าดิบ และตัวอย่างแรกถูกใช้เป็นค่าตั้งต้นตรง ๆ ค่ากรองจึงไม่ต้องไต่ขึ้นจากศูนย์
+- id: q5
+  objective: 3
+  type: multi
+  prompt:
+    th: คู่อาการกับวิธีแก้ข้อใดถูกตามตารางกับดัก เลือกทุกข้อที่ถูก
+    en: Which symptom-and-fix pairs are correct according to the trap table? Choose all that apply.
+  choices:
+  - th: บรรทัด EMA เท่ากับ RAW ทุกรอบ → ย้ายการสร้าง dsp.EMA ไปไว้ครั้งเดียวนอกลูป
+  - th: ui.Scale ไม่ขยับเลย → ตัวที่ต้องขยับคือ ui.Bar ที่วางทับ
+  - th: ช่องเกณฑ์ขึ้น 0070 → เรียก sp_th.digits(2, 0)
+  - th: ปุ่มสัมผัสรายงานกลับด้าน → กด Program to Device เพื่อรันสคริปต์ใหม่
+  - th: อยากให้แถบเปลี่ยนเป็นสีแดงตอนเกินเกณฑ์ → เรียก .color() ของ ui.Bar
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: ปุ่มกลับด้านเพราะ baseline ถูกเก็บตอนบูต ต้องยกนิ้วออกแล้วถอด USB เสียบกลับ การรันสคริปต์ใหม่ไม่ช่วย และ .color() ของ ui.Bar ไปลงที่ราง ไม่ใช่แถบค่า เฉลยจึงบอกสถานะด้วยไฟกับตัวหนังสือแทน

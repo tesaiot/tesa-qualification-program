@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m02.l08 บทเรียน 2.8
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ทีมหนึ่งเขียน ema = dsp.EMA(alpha=0.2) ไว้ในลูป while แล้วพบว่าค่ากรองเท่าค่าดิบเป๊ะทุกรอบ สาเหตุคืออะไร
+    en: A team puts ema = dsp.EMA(alpha=0.2) inside the while loop and finds the filtered value equals the raw value every round. What is the cause?
+  choices:
+  - th: ทุกรอบได้ฟิลเตอร์ใหม่ที่ความจำว่าง และตัวอย่างแรกถูกใช้เป็นค่าตั้งต้นตรง ๆ ค่าที่ออกมาจึงเท่าค่าดิบ
+  - th: alpha 0.2 ต่ำเกินไปจนไม่กรองอะไรเลย
+  - th: ต้องเขียน dsp.EMA(0.2) แบบไม่มีชื่ออาร์กิวเมนต์
+  - th: EMA ใช้กับค่าเปอร์เซ็นต์ไม่ได้ ต้องป้อนค่าดิบ 0-65535
+  answer:
+  - 0
+  explain:
+    th: ฟิลเตอร์ต้องจำค่าเดิมข้ามรอบ จึงต้องสร้างครั้งเดียวนอกลูป ส่วน alpha เป็น keyword-only เขียน dsp.EMA(0.2) จะได้ TypeError
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: dsp.EMA(alpha=0.2) มีค่าเดิม 42 แล้วได้ค่าใหม่ 95 ที่เป็น spike ส่วน dsp.Median(window=5) ที่เห็น 41 42 95 43 42 อยู่ในหน้าต่าง ทั้งสองคืนค่าอะไร
+    en: dsp.EMA(alpha=0.2) holds 42 and receives a 95 spike, while dsp.Median(window=5) holds 41 42 95 43 42 in its window. What does each return?
+  choices:
+  - th: EMA ได้ 52.6 · Median ได้ 42
+  - th: EMA ได้ 42 · Median ได้ 52.6
+  - th: EMA ได้ 95 · Median ได้ 43
+  - th: EMA ได้ 52.6 · Median ได้ 52.6
+  answer:
+  - 0
+  explain:
+    th: EMA ได้ 0.2 × 95 + 0.8 × 42 = 52.6 คือกระเด็นตาม ส่วน Median เรียงได้ 41 42 42 43 95 แล้วหยิบตัวกลาง 42 spike ถูกดันไปริมแถวและไม่มีใครหยิบ
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ลูปของคุณเดินที่ 200 ms (5 Hz) แต่ตั้ง dsp.LPF(cutoff=2.0, fs=100) ตามตัวอย่างที่ลอกมา ข้อใดถูก
+    en: Your loop runs at 200 ms (5 Hz) but you set dsp.LPF(cutoff=2.0, fs=100) as copied from an example. Which statement is correct?
+  choices:
+  - th: ตัวเลข cutoff ที่ตั้งไว้จะไม่เป็นความจริง เพราะ LPF คำนวณ alpha จาก fs ที่เราบอก ไม่ใช่จากคาบลูปจริง
+  - th: ไม่มีผลอะไร เพราะ LPF วัดคาบลูปเองได้
+  - th: LPF จะคืน 0.0 เสมอเหมือน HPF ในรอบแรก
+  - th: บอร์ดจะเร่งลูปขึ้นเป็น 100 Hz ให้เอง
+  answer:
+  - 0
+  explain:
+    th: LPF กับ EMA เป็นสมการเดียวกัน ต่างแค่ LPF คำนวณ alpha จาก cutoff กับ fs ให้ ถ้าบอก fs ไม่ตรงกับคาบลูปจริง fs ก็โกหก และ cutoff ที่เห็นก็ไม่ใช่ของจริง
+- id: q4
+  objective: 2
+  type: multi
+  prompt:
+    th: ข้อใดถูกเกี่ยวกับการเลือกฟิลเตอร์ เลือกทุกข้อที่ถูก
+    en: Which statements about choosing a filter are correct? Choose all that apply.
+  choices:
+  - th: สัญญาณที่มี spike เดี่ยวเป็นครั้งคราว Median เก็บได้ทั้งก้อน
+  - th: ใช้ Median เก็บ spike ก่อน แล้วส่งต่อให้ EMA ได้
+  - th: ขอ dsp.Median(window=4) จะได้ ValueError เพราะเป็นเลขคู่
+  - th: ที่คาบลูป 200 ms alpha 0.2 ให้ tau ราว 0.8 วินาที
+  - th: alpha ยิ่งสูง ค่ายิ่งนิ่งแต่ตามช้าลง
+  answer:
+  - 0
+  - 1
+  - 3
+  explain:
+    th: Median โยน spike ทิ้ง และใช้ต่อกับ EMA ได้ tau = 200 × 0.8 / 0.2 = 800 ms ส่วน window ถูกหนีบเงียบ ๆ ขอ 4 ได้ 5 ไม่มี error และ alpha ต่ำต่างหากที่นิ่งแต่ตามช้า
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: ในโค้ดเกจ ตัวเลขเปอร์เซ็นต์ถูกเขียนใหม่ในบล็อก if sec != last_sec เท่านั้น ขณะที่แถบกับไฟอัปเดตทุกรอบ 200 ms เหตุผลคืออะไร
+    en: In the gauge code, the percent number is rewritten only inside if sec != last_sec, while the bars and lamps update every 200 ms round. Why?
+  choices:
+  - th: ตาอ่านตำแหน่งของแถบได้โดยไม่ต้องหยุดอ่าน แต่ตัวเลขที่วิ่งห้าครั้งต่อวินาทีอ่านไม่ทัน คนจะเลิกอ่าน จึงเขียนใหม่ไม่เกินวินาทีละครั้ง
+  - th: ui.Label เขียนได้แค่วินาทีละครั้ง ถ้าถี่กว่านั้นจะเกิด error
+  - th: เพื่อประหยัดโควตา widget
+  - th: เพราะเซนเซอร์ให้ค่าใหม่วินาทีละครั้ง
+  answer:
+  - 0
+  explain:
+    th: แถบกับไฟสื่อด้วยตำแหน่งและความสว่าง อัปเดตทุกรอบได้ ส่วนตัวเลขต้องอ่านเป็นตัวเลข ประตูหนึ่งวินาทีจึงเป็นการออกแบบเพื่อคนดู ไม่ใช่ข้อจำกัดของ widget

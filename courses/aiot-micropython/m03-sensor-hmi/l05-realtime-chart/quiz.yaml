@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m03.l05 บทเรียน 3.5
+items:
+- id: q1
+  objective: 1
+  type: multi
+  prompt:
+    th: ข้อใดถูกเกี่ยวกับ ui.Chart เลือกทุกข้อที่ถูก
+    en: Which statements about ui.Chart are true? Choose all that apply.
+  choices:
+  - th: ตอนสร้าง Chart มี series 0 มาให้เลยด้วยสีจาก color= จึงไม่ต้อง add_series ให้เส้นแรก
+  - th: add_series() คืนเลข 1, 2, 3 ตามลำดับที่เรียก ต้องเก็บไว้ในตัวแปร แทนการพิมพ์เลขลงไปเอง
+  - th: มีแค่สามเส้นแล้วเรียก set_next(3, v) ข้อมูลนั้นหายไปเฉย ๆ โดยไม่มี error
+  - th: set_next(0, 9.78) ใช้ได้ Chart จะปัดเศษให้เอง
+  - th: Chart ปรับช่วงแกน Y ตามข้อมูลให้อัตโนมัติ
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: set_next() เป็นคำสั่งยิงแล้วลืม idx ผิดถูกทิ้งเงียบ แต่ค่าทศนิยมได้ TypeError ตั้งแต่ฝั่ง Python และ min=/max= ตั้งครั้งเดียวตอนสร้าง ไม่มี autoscale
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: กราฟความเร่งสามแกนบนบอร์ดนี้ (วางนิ่ง Z ราว 9.8 m/s² เขย่าแรงพุ่ง 15–20) ควรตั้งช่วงแกน Y เท่าไร
+    en: For a three-axis acceleration chart on this board (Z about 9.8 m/s² at rest, 15–20 when shaken hard), what Y range should you set?
+  choices:
+  - th: −20 ถึง +20 เห็นทั้งแรงโน้มถ่วงและการเขย่า
+  - th: −2 ถึง +2 เพื่อให้เห็นการสั่นเล็ก ๆ ชัดที่สุด
+  - th: −100 ถึง +100 เพื่อไม่ให้มีอะไรตกขอบเลย
+  - th: ไม่ต้องตั้ง เพราะ Chart ปรับสเกลให้เอง
+  answer:
+  - 0
+  explain:
+    th: ช่วง ±2 ทำให้ Z ติดขอบบนตลอด ช่วง ±100 ไม่มีอะไรตกขอบแต่เส้นแบนติดกลางจอ และ Chart ไม่มี autoscale ค่าที่เกินช่วงถูกกดติดขอบจนดูเหมือนสัญญาณอิ่มตัว
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: 'ถ้าย้าย for ev in ui.poll() เข้าไปอยู่ใต้ if running: แล้วกดปุ่มหยุดบันทึก จะเกิดอะไร'
+    en: 'If you move for ev in ui.poll() inside if running: and then press Stop, what happens?'
+  choices:
+  - th: ไม่มีใครเรียก ui.poll() อีก จอซ่อน widget ภายในราวสองวินาที ปุ่มเริ่มหายไปด้วย กลายเป็นหยุดถาวรที่กู้ไม่ได้
+  - th: กราฟหยุดตามต้องการ และกดเริ่มบันทึกเพื่อเดินต่อได้ตามปกติ
+  - th: โปรแกรมขึ้น error ทันทีว่า poll ต้องอยู่นอก if
+  - th: กราฟยังวิ่งต่อ เพราะ set_next() ไม่ขึ้นกับ poll
+  answer:
+  - 0
+  explain:
+    th: หยุดข้อมูล ไม่ใช่หยุดลูป running คุมแค่ set_next() ส่วน ui.poll() ต้องถูกเรียกทุกรอบไม่ว่าจะหยุดหรือไม่ เพราะลูปที่ยังหมุนและยังรับ event คือสิ่งเดียวที่ทำให้จอยังมีชีวิต
+- id: q4
+  objective: 4
+  type: single
+  prompt:
+    th: ทำไมวัดคาบลูปด้วย time.ticks_diff(now, last_ms) แทน now - last_ms
+    en: Why measure the loop period with time.ticks_diff(now, last_ms) instead of now - last_ms?
+  choices:
+  - th: ticks_ms() วนกลับไปเริ่มใหม่เมื่อชนเพดาน ลบเองในจังหวะนั้นจะได้ค่าติดลบมหาศาล ส่วน ticks_diff รู้เรื่องการวนนี้
+  - th: ticks_diff คืนหน่วยวินาที ส่วนการลบคืนมิลลิวินาที
+  - th: ticks_diff เร็วกว่าการลบเพราะเขียนด้วย C
+  - th: ไม่ต่างกัน ใช้แบบไหนก็ได้
+  answer:
+  - 0
+  explain:
+    th: ตัวนับ ticks_ms() มีเพดานแล้ววนกลับ การลบตรง ๆ ในจังหวะที่มันวนพอดีจะได้ค่าติดลบมหาศาลแบบไม่มีปี่มีขลุ่ย ส่วน ticks_diff คืนผลต่างที่ถูกต้องเสมอ
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: ลูปสั่ง sleep_ms(200) แต่ป้ายคาบลูปบน Eva Kit อ่านได้ 300 ms หมายความว่าอะไร และควรทำอย่างไร
+    en: The loop calls sleep_ms(200) but the loop-period label on the Eva Kit reads 300 ms. What does that mean and what should you do?
+  choices:
+  - th: งานในลูปหนักกว่าที่คิด อัตราสุ่มตกเหลือราว 3.3 Hz ให้ลดจำนวนป้ายที่อัปเดตทุกรอบ แต่ไม่ลดจนไม่เหลือ .text() เลย
+  - th: ปกติดี เพราะ sleep_ms ไม่แม่นอยู่แล้ว
+  - th: ลบป้ายทุกใบออกจากลูป กราฟจะได้เร็วที่สุด
+  - th: เซนเซอร์เสีย ต้องเรียก sensors.init() ใหม่
+  answer:
+  - 0
+  explain:
+    th: T_loop = T_sleep + T_work บน Eva Kit ค่าปกติราว 205–215 ms ถ้าถึง 300 ms คือ fs ตกจาก 5 Hz เหลือ 3.3 Hz โดยที่โค้ดไม่บอก แต่ถ้าตัด .text() ออกหมด โหมดเร่งจะหลุดแล้วกราฟกระตุกแทน

@@ -1,0 +1,81 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m01.l06 บทเรียน 1.6
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: เน็ตขององค์กรกันพอร์ตไว้ทั้งห้อง ทีมรันไฟล์ 05 แล้วขั้นที่ 2 เป็นแดง ข้อ 05 ของ MVP ถือว่าผ่านได้อย่างไร
+    en: The organisation network blocks the port for the whole room. The team runs file 05 and step 2 turns red. How can the 05 item of the MVP still be passed?
+  choices:
+  - th: ทีมชี้จากจอได้ว่าสายขาดที่ขั้นไหนและเพราะอะไร
+  - th: ต้องรอจนกว่าเน็ตจะเปิด ไม่มีทางผ่านอื่น
+  - th: แก้โค้ดให้ขั้นที่ 2 ข้ามไปขั้นที่ 3 เลย
+  - th: เปลี่ยน TEAM เป็นของทีมข้าง ๆ ที่ส่งผ่านแล้ว
+  answer:
+  - 0
+  explain:
+    th: ข้อ 05 ผ่านเมื่อเห็นค่าของทีมบนหน้าเว็บ หรือถ้าเน็ตกันพอร์ตไว้ทั้งห้อง ทีมอ่านจากจอได้ว่าสายขาดที่ขั้นไหน โปรแกรมที่ล้มเหลวแล้วบอกได้ว่าล้มที่ไหนก็คือผลที่ใช้ได้
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: รัน s02_ai_observer.py แล้วตารางขึ้นครบสามแถว แต่มาตรวัดเวลาต่อเฉลี่ยนิ่งอยู่ที่ศูนย์ แปลว่าอะไร
+    en: You run s02_ai_observer.py, the table shows all three rows, but the average-connect-time gauge stays at zero. What does it mean?
+  choices:
+  - th: บอร์ดต่อ WiFi ไม่ติด
+  - th: ยังไม่ได้เติมบรรทัด avg_ms = total_ms // len(TRIALS) ค่าจึงยังเป็น 0 ที่ตั้งไว้ก่อน
+  - th: ui.Bar รับค่าเกิน 1000 ไม่ได้
+  - th: ตาราง TRIALS ต้องมีอย่างน้อยห้าแถว
+  answer:
+  - 1
+  explain:
+    th: ไฟล์ตั้ง avg_ms = 0 ไว้ก่อนเพื่อให้รันได้แม้ยังไม่เติม มาตรวัดขยับครั้งเดียวหลังคำนวณ ถ้านิ่งที่ศูนย์ นั่นคือคำตอบว่ายังเติมไม่ครบ
+- id: q3
+  objective: 3
+  type: multi
+  prompt:
+    th: อาการใดในตารางกับดักที่ **ไม่มี error ให้จับ** โปรแกรมเดินต่อเงียบ ๆ เลือกทุกข้อที่ถูก
+    en: Which symptoms in the traps table raise no error, with the program carrying on silently? Choose all that apply.
+  choices:
+  - th: กราฟความแรงสัญญาณเป็นเส้นศูนย์ตลอด เพราะหยิบ wifi.status()["rssi"] มาใช้
+  - th: โค้ดบอกว่าได้ IP แล้วแต่ส่งอะไรก็ไม่ออก เพราะเขียน if wifi.ip()
+  - th: mqtt.connect() ใส่ user= แทน username=
+  - th: ยิงคำสั่งมาสามใบแต่บอร์ดนับได้ใบเดียว
+  answer:
+  - 0
+  - 1
+  - 3
+  explain:
+    th: status() คืน rssi เป็นค่าตายตัว "0.0.0.0" เป็นสตริงที่ถือว่าจริง และกล่องรับมีช่องเดียวทับกันเอง ทั้งสามไม่มี error เลย ส่วน user= ได้ TypeError ทันที
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: บอร์ดรันไฟล์ 05 ส่งครบทุกใบ แต่หน้าเว็บของทีมว่างเปล่า ควรแก้อย่างไร
+    en: The board runs file 05 and sends every message, but the team's web page stays empty. What should you do?
+  choices:
+  - th: เปลี่ยน broker เป็น broker.mqttdashboard.com
+  - th: ตรวจ TEAM ในหน้าเว็บกับในไฟล์ให้ตรงกัน แล้วรันไฟล์ 05 ใหม่ขณะหน้าเว็บเปิดอยู่
+  - th: 'ให้หน้าเว็บ subscribe ทุกหัวข้อด้วยเครื่องหมาย # จะได้ไม่พลาด'
+  - th: รอสักพัก broker จะส่งใบที่เก็บไว้มาให้เอง
+  answer:
+  - 1
+  explain:
+    th: สาเหตุคือ TEAM สองที่ไม่ตรงกัน หรือเปิดหน้าเว็บหลังบอร์ดส่งจบ เฟิร์มแวร์ส่งแบบ retain ไม่ได้ broker จึงไม่เก็บใบล่าสุดไว้ให้ใคร
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: เทปผลตรวจ 24 รอบใน 03_your_link_rule.py เป็นตัวอย่างของหลักออกแบบข้อใด
+    en: The recorded 24-round tape in 03_your_link_rule.py is an example of which design principle?
+  choices:
+  - th: ใช้ข้อมูลที่บันทึกไว้เป็นชุดทดสอบ แทนการหวังพึ่งสภาพจริงที่ควบคุมไม่ได้
+  - th: ไม่เชื่อข้อมูลที่คนอื่นส่งมา
+  - th: บอกให้ได้ว่าล้มที่ขั้นไหนของบันไดสามขั้น
+  - th: ส่งแบบ retain เพื่อให้หน้าเว็บที่เปิดช้าเห็นค่า
+  answer:
+  - 0
+  explain:
+    th: เทปที่บันทึกจากบอร์ดจริงเล่นซ้ำกี่รอบก็ได้ผลเดิม กฎที่ทดสอบซ้ำไม่ได้คือกฎที่ยังไม่รู้ว่าถูก และนี่คือท่าที่ทีมทดสอบซอฟต์แวร์ทั่วโลกใช้ทุกวัน

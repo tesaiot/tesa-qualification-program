@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m01.l05 บทเรียน 1.5
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: บอร์ดต่อ WiFi ขององค์กรที่ต้อง login ผ่านหน้าเว็บ ขั้นที่ 1 ของไฟล์ 05 เป็นเขียวพร้อมเลข IP แต่ขั้นที่ 2 เป็นแดงว่าต่อ broker ไม่ได้ สาเหตุที่น่าจะเป็นที่สุดคืออะไร
+    en: The board joins an organisation WiFi that requires a web login. Step 1 of file 05 turns green with an IP, but step 2 turns red saying the broker is unreachable. What is the most likely cause?
+  choices:
+  - th: บอร์ดได้เลข IP แต่ออกอินเทอร์เน็ตไม่ได้ เพราะไม่มีเบราว์เซอร์ให้กดยอมรับ จึงไปไม่ถึง broker
+  - th: เขียน user= แทน username= ใน mqtt.connect()
+  - th: ลืม subscribe หัวข้อก่อน connect
+  - th: ค่า knob อ่านไม่ได้ จึงเป็น -1
+  answer:
+  - 0
+  explain:
+    th: เครือข่ายที่ต้อง login ให้ connect() คืน True และได้เลข IP ตามปกติ แต่นาฬิกาไม่ขึ้นและ mqtt.connect() ไปไม่ถึง broker คือกรณีติดข้อแรกแต่ไม่ผ่านข้อสอง วันนี้ทุกทีมจึงใช้ Hotspot มือถือ
+- id: q2
+  objective: 2
+  type: multi
+  prompt:
+    th: ข้อใดถูกต้องเกี่ยวกับการใช้ broker สาธารณะ broker.hivemq.com ในบทเรียนนี้ เลือกทุกข้อที่ถูก
+    en: Which statements about using the public broker broker.hivemq.com in this lesson are correct? Choose all that apply.
+  choices:
+  - th: 'หน้าเว็บของทีมควรฟัง bento-aiot/team03/# ไม่ใช่ # เปล่า ๆ ซึ่งเท่ากับขอรับข้อความทั้งโลก'
+  - th: ใส่รหัส WiFi ของทีมใน payload ได้ เพราะหัวข้อของทีมไม่ซ้ำใคร
+  - th: ถ้า client_id ซ้ำกับใครก็ตามบน broker เดียวกัน broker จะเตะตัวเก่าออกโดยไม่มีข้อความเตือน
+  - th: broker เก็บใบล่าสุดไว้ให้ หน้าเว็บที่เปิดทีหลังจึงเห็นค่าทันที
+  answer:
+  - 0
+  - 2
+  explain:
+    th: ฟังเฉพาะหัวข้อของทีม และตั้ง client_id ที่ไม่ชนใครทั้งอินเทอร์เน็ต ทุกใบวิ่งแบบไม่เข้ารหัสและใครที่ subscribe หัวข้อเดียวกันก็เห็น จึงห้ามส่งความลับ ส่วนเฟิร์มแวร์ส่งแบบ retain ไม่ได้ หน้าเว็บที่เปิดช้าเห็นแค่ใบถัดไป
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: คุณตั้ง POLL_MS = 3000 ในไฟล์ 06 แล้วกดปุ่มบนหน้าเว็บสามครั้งรวดภายในวินาทีเดียว ตัวนับบนจอบอร์ดน่าจะเป็นอย่างไร
+    en: You set POLL_MS = 3000 in file 06 and press the web button three times within one second. What will the counter on the board most likely show?
+  choices:
+  - th: ขึ้นครบสามใบ เพราะ broker ต่อคิวให้
+  - th: ขึ้นน้อยกว่าสามใบ เพราะกล่องรับมีช่องเดียว ใบที่มาถึงก่อนเราหยิบจะทับใบเก่าทิ้ง
+  - th: ไม่ขึ้นเลย เพราะ get_message() บล็อกจนหมดเวลา
+  - th: โปรแกรมตายด้วย OSError เพราะส่งถี่เกินไป
+  answer:
+  - 1
+  explain:
+    th: get_message() ไม่บล็อกและคืน None เมื่อยังไม่มีอะไรมา กล่องรับมีช่องเดียว ใบใหม่ไม่ได้ต่อคิวแต่ทับของเดิม ลูปจึงต้องถามถี่ ๆ อย่างค่าตั้งต้น 100 ms
+- id: q4
+  objective: 3
+  type: multi
+  prompt:
+    th: ไฟล์ 06 ทำอะไรบ้างเพื่อไม่ให้ข้อความจากคนแปลกหน้าทำให้โปรแกรมตาย เลือกทุกข้อที่ถูก
+    en: What does file 06 do so that a message from a stranger cannot crash the program? Choose all that apply.
+  choices:
+  - th: เรียก .decode() กับ payload ที่เป็น bytes ก่อนส่งให้ json.loads()
+  - th: ดัก ValueError เมื่อข้อความไม่ใช่ JSON แล้วขึ้นบนจอว่า "ไม่ใช่ JSON"
+  - th: ตรวจว่าเลขดวง n เป็นจำนวนเต็มและอยู่ในช่วงดวงที่บอร์ดนี้มีจริงก่อนสั่ง gpio.led(n)
+  - th: ไม่ต้องตรวจอะไร เพราะมีแต่หน้าเว็บของทีมที่รู้ชื่อหัวข้อ cmd
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: บน broker สาธารณะใครที่รู้ชื่อหัวข้อก็ส่งเข้ามาได้ คนส่งอาจพิมพ์ผิด ส่งของที่ไม่ใช่ JSON หรือสั่งดวงที่ไม่มี ทุกกรณีต้องจบที่ข้อความบนจอ ไม่ใช่โปรแกรมตาย
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: is_usable(online, ip) แบบไหนทำให้ไฟล์ 03 รายงานครบ 2 ครั้งตามเทป
+    en: Which is_usable(online, ip) makes file 03 report both problems in the tape (2 reports)?
+  choices:
+  - th: return online and ip != "0.0.0.0"
+  - th: return online and ip
+  - th: return online
+  - th: return online or ip != "0.0.0.0"
+  answer:
+  - 0
+  explain:
+    th: ลิงก์ที่ใช้ได้ต้องต่ออยู่และมีเลข IP ที่ใช้ได้พร้อมกัน "0.0.0.0" เป็นสตริงที่ไม่ว่าง Python จึงถือว่าจริง การเขียน and ip จึงผ่านหมด ต้องเทียบกับ "0.0.0.0" ตรง ๆ

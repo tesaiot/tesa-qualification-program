@@ -1,0 +1,81 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m04.l04 บทเรียน 4.4
+items:
+- id: q1
+  objective: 1
+  type: multi
+  prompt:
+    th: ข้อใดเป็นเหตุผลที่ IoT เลือก publish/subscribe แทน client–server เลือกทุกข้อที่ถูก
+    en: Which are reasons IoT chooses publish/subscribe over client–server? Choose all that apply.
+  choices:
+  - th: บอร์ดไม่ต้องมี IP ที่คนอื่นเข้าถึงได้ เพราะบอร์ดวิ่งออกไปหา broker เอง จึงอยู่หลัง NAT ได้
+  - th: เพิ่มผู้รับรายใหม่ได้ด้วยการ subscribe เพิ่ม โดยไม่แตะโค้ดบนบอร์ด
+  - th: broker เก็บทุกข้อความไว้เป็นฐานข้อมูลให้ค้นย้อนหลังได้เสมอ
+  - th: ผู้รับล่มไม่ทำให้ผู้ส่งล่ม เพราะไม่มีใครค้างรอใคร
+  answer:
+  - 0
+  - 1
+  - 3
+  explain:
+    th: pub/sub แยกผู้ส่งออกจากผู้รับทั้งเชิงพื้นที่และเชิงเวลา ส่วน broker ไม่ใช่ฐานข้อมูล มันคือที่ทำการไปรษณีย์ ที่รับแล้วส่งต่อทันที ไม่เก็บไว้ให้เว้นแต่สั่งให้เก็บ
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ทีมหนึ่ง publish ไปที่ bento/team03/telemetry และ bento/team03/cmd/led subscription ใดรับได้ทั้งสอง topic
+    en: A team publishes to bento/team03/telemetry and bento/team03/cmd/led. Which subscription receives both topics?
+  choices:
+  - th: bento/+/telemetry
+  - th: bento/team03/#
+  - th: bento/team03/+
+  - th: '#/team03'
+  answer:
+  - 1
+  explain:
+    th: '# แทนทุกชั้นที่อยู่ใต้ลงไปกี่ชั้นก็ได้ จึงครอบทั้ง telemetry และ cmd/led ส่วน + แทนหนึ่งชั้นพอดี bento/team03/+ จึงไม่ถึง cmd/led ที่ลึกสองชั้น และ # ต้องเป็นตัวสุดท้ายเสมอ'
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: อุปกรณ์ขึ้นทะเบียนบน TESAIoT CE ด้วย device_id ว่า team03 topic ใดที่แพลตฟอร์มยอมให้ publish telemetry
+    en: A device is registered on TESAIoT CE with device_id team03. Which topic will the platform accept for telemetry?
+  choices:
+  - th: /device/team03/telemetry
+  - th: telemetry/team03/device
+  - th: device/team03/telemetry
+  - th: device/ทีม03/telemetry
+  answer:
+  - 2
+  explain:
+    th: CE ล็อกรูปแบบเป็น device/<device_id>/telemetry และช่องที่สองต้องเท่ากับ device_id เป๊ะ ไม่งั้น ACL ปฏิเสธ ส่วนการขึ้นต้นด้วย / หรือใส่ภาษาไทยผิดกติกาตั้งชื่อ
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ทีมส่ง telemetry ทุก 5 วินาที และรับคำสั่งเปิดปิด LED จากผู้ใช้ ควรเลือก QoS อย่างไร
+    en: The team sends telemetry every 5 seconds and receives LED on/off commands from users. Which QoS choice fits?
+  choices:
+  - th: QoS 2 ทั้งคู่ เพราะแน่ใจที่สุด
+  - th: telemetry QoS 0 และคำสั่ง QoS 1
+  - th: telemetry QoS 1 และคำสั่ง QoS 0
+  - th: QoS 0 ทั้งคู่ เพราะถูกที่สุด
+  answer:
+  - 1
+  explain:
+    th: telemetry หายหนึ่งใบไม่เสียหายเพราะค่าถัดไปมาใน 5 วินาทีอยู่แล้ว แต่คำสั่งที่หายคือคำสั่งที่ผู้ใช้กดแล้วไม่เกิดอะไรขึ้น QoS 2 ช้าและกินหน่วยความจำที่สุด จึงไม่ใช่ค่าตั้งต้นที่ดี
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: ผู้ใช้กด on แล้ว off ติดกันเร็ว ๆ ขณะที่โค้ดบนบอร์ด sleep(5) อยู่ก่อนเรียก get_message() จะเกิดอะไรขึ้น
+    en: A user sends on and then off in quick succession while the board code is in sleep(5) before calling get_message(). What happens?
+  choices:
+  - th: บอร์ดได้ทั้งสองคำสั่งตามลำดับ เพราะ broker ต่อคิวไว้ให้
+  - th: บอร์ดได้แค่ off ส่วน on หายไปเงียบ ๆ เพราะช่องรับมีช่องเดียวและข้อความใหม่เขียนทับ
+  - th: get_message() โยน error ว่าช่องรับเต็ม
+  - th: บอร์ดได้แค่ on เพราะข้อความแรกจองช่องไว้แล้ว
+  answer:
+  - 1
+  explain:
+    th: งานเครือข่ายวางข้อความลงช่องรับเมื่อไรก็ได้ และช่องรับมีหนึ่งช่องที่เขียนทับเสมอ ไม่มี error ไม่มีธงบอก ทางแก้คือ poll ให้ถี่กว่าคนพิมพ์คำสั่ง เช่น sleep_ms(100) ในลูป

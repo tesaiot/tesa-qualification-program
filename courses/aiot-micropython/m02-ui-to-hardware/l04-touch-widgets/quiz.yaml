@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m02.l04 บทเรียน 2.4
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ทีมสร้างปุ่มสามปุ่มแล้วเขียนลูปที่หลับรออย่างเดียว ไม่มี ui.poll() เลย ผู้ใช้แตะปุ่มแดงสามครั้ง จะเกิดอะไรขึ้น
+    en: A team creates three buttons, then writes a loop that only sleeps and never calls ui.poll(). A user taps the red button three times. What happens?
+  choices:
+  - th: หลอดแดงติดเอง เพราะ CM55 รู้อยู่แล้วว่าปุ่มนี้ชื่อแดง
+  - th: เหตุการณ์ถูกจดไว้ในคิวฝั่ง CM55 และรออยู่ แต่โค้ด Python ไม่ทำอะไรเลย เพราะไม่มีใครมาถาม
+  - th: โปรแกรมหยุดด้วย error เพราะคิวเต็ม
+  - th: CM33 อ่านตำแหน่งนิ้วจากจอเองโดยตรง จึงไม่จำเป็นต้องมี ui.poll()
+  answer:
+  - 1
+  explain:
+    th: ตัวตรวจจับสัมผัสอยู่ฝั่ง CM55 ทั้งหมด ส่วน Python รันบน CM33 CM55 จึงจดเหตุการณ์ใส่คิวแล้วรอให้เรามาถามด้วย ui.poll() ถ้าไม่ถาม เหตุการณ์ไม่หาย แต่ก็ไม่มีอะไรเกิดขึ้น
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: ข้อใดอธิบายว่าจอสัมผัสของบอร์ดรู้ว่ามีนิ้วมาแตะได้ถูกต้อง
+    en: Which statement correctly explains how the board's touchscreen knows a finger has touched it?
+  choices:
+  - th: วัดแรงกด ยิ่งกดแรงยิ่งรับรู้ได้ชัด
+  - th: มีสวิตช์กลขนาดเล็กอยู่ใต้กระจกทุกจุด
+  - th: วัดความใกล้ของตัวนำ นิ้วคนที่เข้าใกล้กระจกเพิ่มความจุไฟฟ้าให้จุดนั้น
+  - th: โค้ด Python บน CM33 อ่านขาของจอทีละจุดแบบ polling
+  answer:
+  - 2
+  explain:
+    th: จอสัมผัสไม่ได้วัดแรงกด มันวัดความใกล้ของตัวนำ นิ้วคนเป็นตัวนำจึงเปลี่ยนความจุไฟฟ้าที่จุดนั้นโดยไม่ต้องมีสวิตช์กล หลักการเดียวกันนี้กลับมาอีกในบทเรียน 2.7–2.9 ตอนอ่าน CapSense
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: บรรทัด `ui.Label("อุณหภูมิ", value=24)` หมายความว่าอะไร
+    en: What does the line `ui.Label("อุณหภูมิ", value=24)` mean?
+  choices:
+  - th: แสดงค่าอุณหภูมิ 24 องศาบนป้าย
+  - th: ตัวอักษรบนป้ายสูง 24 พิกเซล
+  - th: วางป้ายห่างจากขอบซ้าย 24 พิกเซล
+  - th: ป้ายจะอัปเดตทุก 24 ms
+  answer:
+  - 1
+  explain:
+    th: บน Label, Button, Dropdown และ Textarea value= คือขนาดฟอนต์ และรับแค่ 14, 16, 20, 24, 28 ส่วน value ที่เป็นค่าจริงใช้กับ Slider, Arc และ Bar เท่านั้น อยากเปลี่ยนข้อความให้ใช้ .text()
+- id: q4
+  objective: 2
+  type: multi
+  prompt:
+    th: ข้อใดถูกต้องเกี่ยวกับการวาง widget บนจอ เลือกทุกข้อที่ถูก
+    en: Which statements about placing widgets are true? Choose all that apply.
+  choices:
+  - th: x=-1 (ค่าเริ่มต้น) ให้จอเรียงตามลำดับที่สร้าง เหมาะกับการลองของเร็ว ๆ แต่คุมตำแหน่งไม่ได้
+  - th: แผงควบคุมจริงควรกำหนด x, y เอง เพราะตำแหน่งของปุ่มเป็นส่วนหนึ่งของการออกแบบ
+  - th: ถ้าไม่ใส่ w, h จอเลือกขนาดพอดีข้อความให้เอง
+  - th: x, y วัดจากมุมขวาล่างของจอ
+  - th: ต้องสร้าง widget ใหม่ทุกครั้งที่อยากเปลี่ยนข้อความบน Label
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: x, y คือมุมซ้ายบนเป็นพิกเซล และเปลี่ยนข้อความด้วย .text() บน widget เดิม ไม่ต้องสร้างใหม่ ส่วน x=-1 ปล่อยให้จอเรียงเอง ซึ่งไม่เหมาะกับแผงควบคุมที่ต้องออกแบบตำแหน่ง
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: 'สมมติ `on_ids = [3, 4, 5]` เก็บเบอร์ของปุ่ม แดง เขียว น้ำเงิน ตามลำดับ แล้ว ui.poll() คืน `{''handle'': 4, ''type'': ''clicked''}` บรรทัด `on_ids.index(ev[''handle''])` ให้ผลอะไร'
+    en: 'Suppose `on_ids = [3, 4, 5]` holds the ids of the red, green and blue buttons in that order, and ui.poll() returns `{''handle'': 4, ''type'': ''clicked''}`. What does `on_ids.index(ev[''handle''])` give?'
+  choices:
+  - th: 4 คือเบอร์ของปุ่ม
+  - th: 1 คือแถวของปุ่มเขียว
+  - th: '"เขียว" เพราะเหตุการณ์บอกชื่อปุ่มมาด้วย'
+  - th: 2 คือแถวของปุ่มน้ำเงิน
+  answer:
+  - 1
+  explain:
+    th: เหตุการณ์บอกแค่เบอร์ ไม่มีชื่อ ไม่มีสี .index() หาตำแหน่งของเบอร์ 4 ใน list ซึ่งอยู่ลำดับที่ 1 (นับจาก 0) คือแถวของปุ่มเขียว ถ้าไม่ได้เก็บ .id() ไว้ เราจะแยกไม่ออกว่าใครส่งมา

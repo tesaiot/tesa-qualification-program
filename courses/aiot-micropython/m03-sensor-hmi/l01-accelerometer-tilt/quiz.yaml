@@ -1,0 +1,80 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m03.l01 บทเรียน 3.1
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: บอร์ดวางนิ่งบนโต๊ะ ไม่ได้เคลื่อนที่ไปไหน แต่ az อ่านได้ราว +9.81 m/s² เพราะอะไร
+    en: The board lies still on the desk and is not moving, yet az reads about +9.81 m/s². Why?
+  choices:
+  - th: เซนเซอร์วัดแรงที่ตัวเรือนดันมวลพิสูจน์ไว้ไม่ให้ตกอิสระ โต๊ะดันบอร์ดขึ้น จึงอ่านได้ +1 g ในทิศขึ้น
+  - th: เป็นค่า offset จากโรงงาน กดตั้งศูนย์แล้วจะเหลือ 0
+  - th: เป็นสัญญาณรบกวนทางไฟฟ้า ต้องกรองทิ้งด้วย dsp.EMA
+  - th: บอร์ดกำลังเร่งขึ้นจริงเล็กน้อยจากการสั่นของโต๊ะ
+  answer:
+  - 0
+  explain:
+    th: accelerometer วัด proper acceleration คือแรงที่ดันมวลเล็ก ๆ ข้างในไว้ไม่ให้ตกอิสระ ถ้าปล่อยบอร์ดตกอิสระ ทั้งสามแกนจะอ่านได้ราว 0 เพราะไม่มีใครดันมวลนั้นแล้ว
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: Eva Kit ตอนยกขอบซ้ายอ่านได้ ay 4.90 และ az 8.49 m/s² roll ควรเป็นเท่าไร
+    en: With its left edge raised, an Eva Kit reads ay 4.90 and az 8.49 m/s². What should roll be?
+  choices:
+  - th: 30.0°
+  - th: 60.0°
+  - th: 0.524°
+  - th: 45.0°
+  answer:
+  - 0
+  explain:
+    th: roll = atan2(ay, az) = atan2(4.90, 8.49) = 0.524 rad คูณ 180/π ได้ 30.0° ตัวเลือก 0.524 คือค่าเรเดียนที่ลืมแปลงเป็นองศา
+- id: q3
+  objective: 2
+  type: multi
+  prompt:
+    th: ข้อใดถูกเกี่ยวกับการหามุมเอียงจาก accelerometer เลือกทุกข้อที่ถูก
+    en: Which statements about finding tilt from the accelerometer are true? Choose all that apply.
+  choices:
+  - th: ถ้าวางนิ่ง √(ax²+ay²+az²) ควรได้ราว 9.81 m/s² ไม่ว่าจะเอียงบอร์ดแค่ไหน จึงใช้ตรวจสุขภาพเซนเซอร์ได้
+  - th: ใช้ atan2 เพราะแยกควอดรันต์ได้ครบสี่ และไม่ระเบิดเมื่อตัวหารเป็นศูนย์ตอนบอร์ดตั้งฉาก
+  - th: หมุนบอร์ดบนโต๊ะทำให้ ay เปลี่ยน จึงหา yaw จาก accelerometer ได้
+  - th: dsp.tilt() คืนสามมุม roll pitch และ yaw
+  answer:
+  - 0
+  - 1
+  explain:
+    th: เงาของแรงโน้มถ่วงย้ายแกนแต่ขนาดรวมคงที่ และ atan2 รับตัวตั้งกับตัวหารแยกกัน ส่วนการหมุนบนโต๊ะไม่เปลี่ยนเงาบนแกนใดเลย dsp.tilt() จึงให้แค่สองแกน ซึ่งเป็นข้อจำกัดทางฟิสิกส์ ไม่ใช่ของเฟิร์มแวร์
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ถ้าเขียน `pitch, roll = dsp.tilt(ax, ay, az)` แล้วรันเครื่องวัดระดับ จะเกิดอะไร
+    en: If you write `pitch, roll = dsp.tilt(ax, ay, az)` and run the level, what happens?
+  choices:
+  - th: ขึ้น TypeError ทันทีเพราะลำดับผิด
+  - th: ไม่มี error ตัวเลขขึ้นครบ แต่เอียงซ้าย-ขวาแล้วแถบ PITCH วิ่ง ส่วนแถบ ROLL นิ่ง
+  - th: ทำงานถูกต้อง เพราะ Python จับคู่ตามชื่อตัวแปรให้เอง
+  - th: ค่าทั้งสองแกนกลายเป็น 0
+  answer:
+  - 1
+  explain:
+    th: dsp.tilt() คืน (roll, pitch) roll มาก่อนเสมอ การแกะสลับไม่ทำให้โปรแกรมพัง มันแค่ให้คำตอบผิดอย่างเงียบ ๆ ซึ่งเป็นบั๊กที่แพงที่สุดเพราะไม่มีใครรู้ว่ามันอยู่ตรงนั้น
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: ทำไมโค้ดของชุดบทเรียนนี้อ่าน `sensors.bmi270.motion()` ครั้งเดียว แทนการเรียก `acceleration()` แล้วตามด้วย `gyroscope()`
+    en: Why does this lesson's code read `sensors.bmi270.motion()` once instead of calling `acceleration()` and then `gyroscope()`?
+  choices:
+  - th: motion() ได้หกแกนจากการอ่านครั้งเดียวกัน ถ้าอ่านแยกสองครั้งขณะบอร์ดขยับ accel กับ gyro อาจมาจากคนละท่าของบอร์ด
+  - th: acceleration() ใช้ไม่ได้บน Eva Kit
+  - th: motion() คืนค่าเป็นองศาแล้ว จึงไม่ต้องใช้ dsp.tilt()
+  - th: acceleration() คืนหน่วย g ส่วน motion() คืน m/s²
+  answer:
+  - 0
+  explain:
+    th: บน Eva Kit motion() หยิบจาก snapshot ชุดเดียว บน Dev Kit CM33 จองบัสอ่านหกแกนแล้วปล่อย ข้อมูลที่จะเอาไปรวมกันต้องมาจากเวลาเดียวกัน ส่วน acceleration() ก็ใช้ได้ทั้งสองบอร์ดและคืน m/s² เหมือนกัน

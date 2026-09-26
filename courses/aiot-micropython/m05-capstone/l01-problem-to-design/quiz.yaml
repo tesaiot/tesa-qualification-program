@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m05.l01 บทเรียน 5.1
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ในโจทย์นั่งร้านเอียงของสไลด์ ข้อใดเขียนช่อง Act ของ canvas ได้ถูกแบบ
+    en: In the slides' scaffold-tilt problem, which entry is a correct Act box on the canvas?
+  choices:
+  - th: ส่งค่าความเอียงขึ้นคลาวด์ทุก 200 ms
+  - th: หัวหน้าไซต์ได้แจ้งเตือน แล้วเดินไปดูภายใน 15 นาที
+  - th: แสดงคำว่า ALERT ตัวใหญ่บนจอ
+  - th: เก็บข้อมูลไว้ทำกราฟย้อนหลัง
+  answer:
+  - 1
+  explain:
+    th: ช่อง Act เขียนเป็น "คนทำอะไร ภายในกี่นาที" ไม่ใช่ "ส่งขึ้นคลาวด์" ถ้าปลายทางไม่มีใครทำอะไร ข้อมูลนั้นไม่ต้องส่งตั้งแต่แรก ส่วนคำว่า ALERT บนจอเป็นงานของช่อง Show
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ทีมที่ใช้ Eva Kit ทำโจทย์ห้องเย็น แต่ Eva ไม่มีเซนเซอร์อุณหภูมิห้อง จึงวัดว่าประตูถูกเปิดค้างนานกี่วินาทีแทน ควรตั้งชื่อฟิลด์นี้ใน schema อย่างไร
+    en: A team on the Eva Kit tackles the cold-room problem, but the Eva has no room-temperature sensor, so it measures how long the door stays open instead. How should this field be named in the schema?
+  choices:
+  - th: temp_c เพราะโจทย์จริงคืออุณหภูมิ
+  - th: door_open_s
+  - th: imu_temp_c โดยอ่านจาก sensors.bmi270.temperature() แทน
+  - th: cold_room
+  answer:
+  - 1
+  explain:
+    th: proxy ต้องประกาศตัวว่าเป็นตัวแทนทั้งบนสไลด์นำเสนอและในชื่อฟิลด์ ตั้งชื่อ door_open_s ไม่ใช่ temp_c ส่วน sensors.bmi270.temperature() บน Eva โยน OSError ทุกครั้ง และถึงอ่านได้ก็เป็นอุณหภูมิของชิป IMU ไม่ใช่ของห้อง
+- id: q3
+  objective: 2
+  type: multi
+  prompt:
+    th: ข้อใดเป็นกติกาที่ทำให้ schema อยู่ได้นาน เลือกทุกข้อที่ถูก
+    en: Which rules keep a schema usable for a long time? Choose all that apply.
+  choices:
+  - th: ชื่อฟิลด์คงที่ตลอดโครงการ
+  - th: เพิ่มฟิลด์ใหม่ได้ แต่ห้ามเปลี่ยนความหมายของฟิลด์เดิม
+  - th: payload ขาออกต่ำกว่า 1000 ไบต์เสมอ
+  - th: ส่งค่าดิบทุกแกนไปด้วย เผื่อปลายทางอยากคำนวณเอง
+  - th: เปลี่ยนชื่อฟิลด์ให้สื่อความหมายขึ้นเมื่อทีมเข้าใจโจทย์มากขึ้น
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: ฝั่งรับเขียนโค้ดแกะข้อมูลครั้งเดียว ถ้าเราเปลี่ยนชื่อฟิลด์ทีหลัง เขาต้องแก้ทั้งระบบ และฟิลด์ v คือค่าที่ตัดสินใจแล้ว ไม่ใช่ค่าดิบ ปลายทางไม่ต้องคำนวณซ้ำจนได้คำตอบไม่ตรงกับบอร์ด
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: บอร์ดอ่านค่าทุก 200 ms ถ้าส่งทุกค่าจะได้ 432,000 ข้อความต่อวัน ถ้าเปลี่ยนเป็นส่งตอนสถานะเปลี่ยนบวก heartbeat ทุก 30 วินาที จะเหลือราว 2,883 ข้อความ ทำไมยังต้องมี heartbeat
+    en: The board reads every 200 ms. Sending every reading gives 432,000 messages a day; sending on state change plus a heartbeat every 30 seconds leaves about 2,883. Why keep the heartbeat at all?
+  choices:
+  - th: เพื่อให้ปลายทางแยกได้ว่า "ทุกอย่างปกติ" กับ "บอร์ดตายไปแล้ว"
+  - th: เพื่อให้กราฟฝั่งปลายทางลื่นเหมือนตอนส่งทุกค่า
+  - th: เพื่อส่งค่าดิบที่ถูกกรองทิ้งไปให้ครบ
+  - th: เพื่อให้จำนวนข้อความต่อวันเท่าเดิม
+  answer:
+  - 0
+  explain:
+    th: ถ้าเงียบอย่างเดียว ปลายทางแยกไม่ออกระหว่าง "ทุกอย่างปกติ" กับ "บอร์ดตายไปแล้วเมื่อวาน" heartbeat ทุก 30 วินาทีคือ 2,880 ข้อความต่อวัน บวกเหตุการณ์จริงอีกไม่กี่ครั้ง ยังน้อยกว่าการส่งทุกค่าร้อยกว่าเท่า
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: ทีมหนึ่งทำเครื่องนับจำนวนชิ้นงานที่ผลิตได้ ตอนเน็ตหลุด ทางไหนสมเหตุผลที่สุด
+    en: A team builds a counter for parts produced. What is the most reasonable choice while the network is down?
+  choices:
+  - th: ทิ้งทุกค่า เพราะโครงตั้งต้นเลือกทิ้ง
+  - th: เก็บไว้ส่งทีหลัง เพราะความครบสำคัญกว่าความสด แล้วจดการตัดสินใจนี้ไว้ในบันทึกการเรียน
+  - th: ไม่ต้องตัดสินใจ ปล่อยให้เป็นไปตามที่โปรแกรมทำอยู่
+  - th: หยุดนับจนกว่าเน็ตจะกลับมา
+  answer:
+  - 1
+  explain:
+    th: โครงตั้งต้นทิ้งแล้วนับไว้ เพราะค่าความเอียงเมื่อสิบนาทีก่อนไม่มีประโยชน์กับคนใต้นั่งร้าน แต่เครื่องนับชิ้นงานคำตอบอาจกลับกัน เพราะความครบสำคัญกว่าความสด ทั้งสองคำตอบถูกได้ ที่ผิดคือไม่เคยตัดสินใจ แล้วปล่อยให้พฤติกรรมเป็นไปตามบังเอิญ

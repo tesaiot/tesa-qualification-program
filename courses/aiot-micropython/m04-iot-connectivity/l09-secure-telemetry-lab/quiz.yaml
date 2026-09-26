@@ -1,0 +1,85 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m04.l09 บทเรียน 4.9
+items:
+- id: q1
+  objective: 1
+  type: order
+  prompt:
+    th: เรียงขั้นการทำไฟล์ฝึก `s11_secure_telemetry.py` ให้ความล้มเหลวบอกที่อยู่ของตัวเองได้
+    en: Order the steps of the s11_secure_telemetry.py practice so that any failure tells you where it is.
+  choices:
+  - th: เติมลูปรอ `is_connected()` ที่มีเพดาน 30 วินาที แล้วจับเวลาการจับมือ
+  - th: แก้ห้าบรรทัดบนหัวไฟล์ให้เป็นค่าของทีม
+  - th: เติม payload กับบรรทัดหลักฐานบนจอ แล้วเปิด dashboard ดูกราฟ
+  - th: เติม `config_set()` ของตัวตน แล้วรันดู `print(tesaiot.config())`
+  answer:
+  - 1
+  - 3
+  - 0
+  - 2
+  explain:
+    th: ค่าบนหัวไฟล์ต้องมาก่อน ตัวตนตรวจได้โดยไม่ต้องใช้เน็ต ลูปรอแยกเป็นท่าของตัวเองเพราะต่อเสร็จเกิดทีหลังคำสั่ง และส่งข้อมูลเมื่อสองท่าแรกยืนยันแล้ว ถ้ากราฟยังว่างจึงรู้แน่ว่าปัญหาอยู่ที่รูปร่าง JSON
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ทุกทีมโค้ดถูก แต่บอร์ดทั้งห้องหลุดสลับกันเป็นจังหวะ สาเหตุที่แท้จริงตามตารางกับดักคืออะไร
+    en: Every team's code is correct, yet the boards in the room drop in turns. What is the real cause according to the pitfalls table?
+  choices:
+  - th: หลายทีมใช้ `device_id` ค่าเริ่มต้นตัวเดียวกัน broker จึงเตะตัวเก่าออกทุกครั้งที่ตัวใหม่เข้ามา
+  - th: '`sni_hostname` ของทุกทีมไม่ตรงกับ `broker`'
+  - th: WiFi ห้องเรียนช้าเกินไปสำหรับ TLS
+  - th: ลืมใส่ `time.sleep_ms(5000)` ในลูปส่ง
+  answer:
+  - 0
+  explain:
+    th: บอร์ดออกจากโรงงานด้วยค่าเริ่มต้นเดียวกันหมด ถ้าใช้ซ้ำ broker จะเตะตัวเก่าออกวนไปทั้งห้อง ทางแก้คือหนึ่งทีมหนึ่ง device_id ที่ provision มา ส่วน sni_hostname ผิดให้อาการต่อไม่ติดเลย ไม่ใช่หลุดสลับกัน
+- id: q3
+  objective: 2
+  type: multi
+  prompt:
+    th: ข้อมูลขึ้นแพลตฟอร์มแล้ว แต่ไม่มีเส้นกราฟ และบางชื่อวัดขึ้นต้นด้วย `data_` สาเหตุใดเป็นไปได้ เลือกทุกข้อที่ถูก
+    en: Data reaches the platform, but there is no graph line and some measurement names start with data_. Which causes are possible? Choose all that apply.
+  choices:
+  - th: ส่งค่าเป็นสตริง เช่น "25.5" แทนตัวเลขจริง
+  - th: 'ห่อ payload เองด้วย `{"data": ...}` ทั้งที่ bridge ห่อให้อยู่แล้ว'
+  - th: '`sni_hostname` ไม่ตรงกับชื่อ broker'
+  - th: ไม่มีลูปรอ `is_connected()`
+  answer:
+  - 0
+  - 1
+  explain:
+    th: ข้อมูลที่ขึ้นแพลตฟอร์มได้แปลว่าช่องทางและการต่อทำงานแล้ว ปัญหาจึงอยู่ที่รูปร่างข้อมูล สตริงขึ้นค่าได้แต่วาดกราฟไม่ได้ และการห่อซ้ำทำให้ชื่อวัดขึ้นต้น data_ จนตารางหน่วยหาไม่เจอ ส่วน SNI ผิดหรือไม่มีลูปรอจะทำให้ข้อมูลไม่ขึ้นเลย
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ทีมหนึ่งสั่ง `tesaiot.config_set("port", "1883")` ด้วยหวังว่าจะเทียบกับพอร์ตเปลือย แล้วรันไฟล์ฝึกตามปกติ บอร์ดต่อพอร์ตไหน
+    en: A team calls tesaiot.config_set("port", "1883") hoping to compare with the plain port, then runs the practice file as usual. Which port does the board connect to?
+  choices:
+  - th: 8884 เพราะพอร์ตมาจาก `tls_mode` ที่เป็น serverTLS คีย์ `port` เปลี่ยนแค่ป้ายที่แสดง
+  - th: 1883 แบบไม่เข้ารหัส ตามค่าที่ตั้ง
+  - th: 8883 เพราะบอร์ดสลับไปใช้ mTLS เอง
+  - th: ต่อไม่ได้และขึ้น error ว่าพอร์ตผิด
+  answer:
+  - 0
+  explain:
+    th: บนเส้นทาง tesaiot พอร์ตเป็นผลลัพธ์ของ tls_mode server_tls ได้ 8884 และ mutual_tls ได้ 8883 ตั้งคีย์ port ได้โดยไม่ error แต่มันไม่ได้เปลี่ยนพอร์ตที่ต่อจริง
+- id: q5
+  objective: 4
+  type: multi
+  prompt:
+    th: ข้อใดถูกเกี่ยวกับขีดจำกัดของงานในชุดบทเรียนนี้ เลือกทุกข้อที่ถูก
+    en: Which statements about the limits of this work are correct? Choose all that apply.
+  choices:
+  - th: ถ้าค่าที่วัดผิดตั้งแต่ต้น TLS จะส่งค่าผิดนั้นไปถึงปลายทางอย่างปลอดภัย
+  - th: '`mqtt_pass` เป็นความลับที่คัดลอกได้ ใครได้ไปก็ใช้แทนอุปกรณ์ของเราได้'
+  - th: กุญแจส่วนตัวในชิป OPTIGA ออกจากชิปไม่ได้ ชิปยอมเซ็นให้เท่านั้น
+  - th: TLS ตรวจให้ด้วยว่าค่าเซนเซอร์ที่ส่งถูกต้อง
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: การเข้ารหัสแค่ทำให้คนกลางอ่านไม่ได้ ไม่ได้ทำให้ข้อมูลถูกต้องขึ้น ความน่าเชื่อถือจึงเริ่มที่เซนเซอร์ ส่วนตัวตนที่ก๊อปไม่ได้ต้องมาจากกุญแจในฮาร์ดแวร์ ไม่ใช่รหัสผ่านที่เป็นสตริงในไฟล์ Python

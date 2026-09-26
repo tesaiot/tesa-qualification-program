@@ -1,0 +1,97 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# Adapted from AIoT in Action — Embedded Systems for AIoT Developer, © 2026 Assoc. Prof. Wiroon Sriborrirux, Advance Innovation Centre (AIC), Burapha University · BENTO & TESAIoT (CC BY 4.0 / MIT)
+
+schema_version: 1
+id: aiot-micropython
+short: aiot-mpy
+title:
+  th: 'AIoT in Action: จากหน้าจอสัมผัสสู่แพลตฟอร์ม IoT (MicroPython)'
+  en: 'AIoT in Action: From Touch Screen to IoT Platform (MicroPython)'
+summary:
+  th: เรียน AIoT จากของจริงบนบอร์ด PSoC Edge (Eva Kit หรือ TESAIoT Dev Kit) ด้วย MicroPython ตั้งแต่เล่นแอปบนจอสัมผัส สั่งฮาร์ดแวร์ อ่านเซนเซอร์ขึ้นแดชบอร์ด ไปจนถึงส่งข้อมูลขึ้นแพลตฟอร์ม IoT ผ่าน MQTT และ TLS แล้วประกอบเป็น mini-product ของตัวเอง
+  en: 'Learn AIoT hands-on with MicroPython on the PSoC Edge boards (Eva Kit or TESAIoT Dev Kit): play the touch-screen apps, drive the hardware, turn sensor readings into an HMI dashboard, send data to an IoT platform over MQTT and TLS, and assemble your own mini-product.'
+level: L2
+status: alpha
+audience:
+- public
+- student
+- developer
+- entrepreneur
+- educator
+hours: 36
+hardware:
+  emulator: true
+  boards:
+  - eva-kit
+  - devkit
+toolchain:
+  bento-firmware: BENTO MicroPython firmware for PSoC Edge E84 (Eva Kit KIT_PSE84_EVAL_EPC2, TESAIoT Dev Kit)
+  micropython: 'BENTO build: gpio, lcd, ui, sensors, dsp, mic, wifi, mqtt, tesaiot'
+  ide: BENTO IDE https://ide.tesaiot.dev/ (Program to Device, BENTO Emulator)
+  platform: TESAIoT Community Edition (module 4) https://github.com/tesaiot/tesaiot-community-edition
+prerequisites:
+  courses: []
+  skills:
+  - skill: lang.python
+    level: 1
+outcomes:
+- th: อธิบายสถาปัตยกรรมระบบ AIoT ว่าเซนเซอร์ การตัดสินใจบนอุปกรณ์ หน้าจอ และแพลตฟอร์มปลายทางแบ่งงานกันอย่างไร ตัดสินได้ว่างานใดควรจบบนบอร์ดและงานใดควรส่งออก และยกตัวอย่างการใช้งานในอุตสาหกรรมได้อย่างน้อยหนึ่งกรณี
+  en: Explain how sensing, on-device decisions, the display and the destination platform share the work in an AIoT system, decide which work should stay on the board and which should leave it, and give at least one industrial example.
+- th: เขียนโปรแกรม MicroPython ควบคุมฮาร์ดแวร์บนบอร์ด (LED ปุ่ม ปุ่มสัมผัส และค่าอนาล็อก) และสร้าง UI บนจอสัมผัสที่สถานะบนจอตรงกับสถานะของฮาร์ดแวร์จริงทุกครั้งที่ทดสอบ
+  en: Write MicroPython programs that drive the board's hardware (LEDs, button, touch pads, analog input) and build a touch-screen UI whose on-screen state matches the real hardware in every test.
+- th: อ่านข้อมูลเซนเซอร์ (IMU เข็มทิศ CapSense ลูกบิด) เลือกและใช้ตัวกรองสัญญาณที่เหมาะกับงาน แล้วออกแบบ HMI dashboard ที่แสดงผลแบบ real-time ภายในงบ widget และอัตราอัปเดตที่ตั้งไว้ และรันต่อเนื่องได้ 10 นาที
+  en: Read sensor data (IMU, compass, CapSense, potentiometer), choose and apply a suitable filter, and design a real-time HMI dashboard that stays within its widget budget and update rate and runs for 10 minutes.
+- th: เชื่อมบอร์ดเข้า WiFi ส่งและรับข้อมูลผ่าน MQTT ทั้งสองทิศทาง และเปรียบเทียบช่องทางพอร์ต 1883 กับช่องทาง MQTTs ที่เข้ารหัส TLS (serverTLS) ได้ว่าอะไรปลอดภัยขึ้นและอะไรยังไม่ได้รับการปกป้อง
+  en: 'Connect the board to WiFi, send and receive data over MQTT in both directions, and compare the port 1883 channel with TLS-encrypted MQTTs (serverTLS): what it protects and what it still does not.'
+- th: ประกอบทั้งหมดเป็น AIoT mini-product ที่แก้โจทย์จริงหนึ่งเรื่อง ทำงานต่อได้เมื่อเน็ตหลุด ส่งข้อมูลตาม schema ที่ออกแบบเอง และนำเสนอได้ภายใน 10 นาที
+  en: Assemble everything into an AIoT mini-product that solves one real problem, keeps working when the network drops, sends data in a schema you designed, and present it in 10 minutes.
+authors:
+- name: รศ.วิรุฬห์ ศรีบริรักษ์ (Wiroon Sriborrirux)
+  role: author
+- name: 'สมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA)'
+  url: https://github.com/tesaiot/tesa-qualification-program
+  role: adapter
+sponsors:
+- TESA
+license:
+  content: CC-BY-4.0
+  code: MIT
+source:
+- repo: https://github.com/Advance-Innovation-Centre-AIC/embedded-systems-for-aiot-developer
+  ref: a80bbe88a34bcb9bb8d991f42f9252b77cdab079
+  site: https://advance-innovation-centre-aic.github.io/embedded-systems-for-aiot-developer/
+  title: AIoT in Action — Embedded Systems for AIoT Developer (published slides and code)
+  license: CC-BY-4.0 (content) / MIT (code)
+  note: Code, images and the newer slide text (public MQTT broker, team hotspots) come from this published copy of 2026-09-25.
+modules:
+- id: m01-ui-application
+  title:
+    th: แอปพลิเคชันบนจอที่มีอยู่แล้ว
+    en: Existing UI-based Application
+  summary:
+    th: รู้จักบอร์ดจากแอปที่มากับเครื่อง ส่งข้อความแรกขึ้นจอด้วย lcd และ ui แล้วพาค่าจากบอร์ดออกไปบนเครือข่ายและรับคำสั่งกลับมา
+- id: m02-ui-to-hardware
+  title:
+    th: จากจอสู่ฮาร์ดแวร์
+    en: UI-to-Hardware Interfacing
+  summary:
+    th: สั่ง LED และอ่านปุ่มด้วย gpio สร้างแผงควบคุมบนจอสัมผัสที่คุมไฟจริง แล้วอ่านลูกบิดและ CapSense พร้อมกรองสัญญาณ
+- id: m03-sensor-hmi
+  title:
+    th: แสดงผลเซนเซอร์บน HMI
+    en: Sensor Visualization on HMI
+  summary:
+    th: แปลงความเร่งเป็นมุมเอียง สุ่มสัญญาณให้ถูกแล้ววาดกราฟ real-time และประกอบ Mini-HMI Dashboard สี่การ์ดที่รันต่อเนื่องได้
+- id: m04-iot-connectivity
+  title:
+    th: เชื่อมต่อแพลตฟอร์ม IoT
+    en: IoT Platform Connectivity
+  summary:
+    th: ต่อ WiFi อ่านค่าเครือข่ายให้เป็น ส่ง telemetry และรับ command ผ่าน MQTT ขึ้นแพลตฟอร์มที่ติดตั้งเอง แล้วย้ายขึ้น MQTTs ผ่าน TLS
+- id: m05-capstone
+  title:
+    th: 'Capstone: AIoT Mini-Product'
+    en: 'Capstone: AIoT Mini-Product'
+  summary:
+    th: เริ่มจากโจทย์จริง ออกแบบด้วย canvas และ schema แล้วประกอบ Sense → Decide → Show → Send เป็น mini-product ที่อยู่รอดเมื่อเน็ตหลุด และนำเสนอ 10 นาที

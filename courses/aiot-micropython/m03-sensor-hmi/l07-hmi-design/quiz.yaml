@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m03.l07 บทเรียน 3.7
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ทีมหนึ่งทำกรอบการ์ดเข็มทิศเป็นสีแดงสดเพราะชอบสีนี้ ทั้งที่เข็มทิศทำงานปกติ ข้อใดอธิบายปัญหาได้ถูกต้อง
+    en: A team draws the compass card border in bright red because they like the colour, although the compass is working normally. Which statement explains the problem?
+  choices:
+  - th: แดงถูกจองไว้ให้ "ต้องลงมือ" ใช้กับของปกติแล้ว วันที่เกิดเรื่องจริงจะไม่มีใครสังเกตเห็น
+  - th: ไม่มีปัญหา สีเป็นเรื่องความชอบของทีม
+  - th: ui.Panel รับสีแดงไม่ได้ จอจะไม่แสดงการ์ด
+  - th: แดงทำให้ CM55 วาดช้าลง จึงควรใช้สีเข้มแทน
+  answer:
+  - 0
+  explain:
+    th: ในแผงควบคุมจริง เขียว เหลือง แดงมีความหมายที่ทั้งอุตสาหกรรมอ่านตรงกัน แดงคือต้องหยุดหรือแก้เดี๋ยวนี้ ถ้าใช้กับของปกติ สีนี้จะไม่เหลือความหมายตอนที่ต้องใช้จริง สีที่เหลือใช้แยกแหล่งข้อมูลแทน
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: จอที่เราใช้ได้กว้าง 792 สูง 398 การ์ดใดต่อไปนี้ผิดเงื่อนไขพิกัด
+    en: The usable screen is 792 wide and 398 high. Which card breaks the coordinate rule?
+  choices:
+  - th: ui.Panel(x=408, y=100, w=400, h=136, ...)
+  - th: ui.Panel(x=24, y=100, w=368, h=136, ...)
+  - th: ui.Panel(x=24, y=252, w=320, h=136, ...)
+  - th: ui.Panel(x=360, y=252, w=408, h=136, ...)
+  answer:
+  - 0
+  explain:
+    th: 408 + 400 = 808 เกิน 792 ส่วนข้ออื่นได้ 392, 344 และ 768 และ y + h ไม่เกิน 388 การ์ดที่เกินขอบไม่ทำให้เกิด error จอแค่วาดทับหรือตัดทิ้ง จึงต้องบวกเลขบนกระดาษก่อน
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: การ์ด IMU มี Panel หนึ่งใบ Label หัวข้อ Chart ที่ add_series() เพิ่มอีกสองเส้นให้ครบสามแกน และ Label ค่าสามแกนหนึ่งตัว การ์ดนี้ใช้งบกี่ widget
+    en: The IMU card has one Panel, a title Label, a Chart with two extra series added by add_series() for three axes, and one Label for the three values. How many widgets does it use?
+  choices:
+  - th: '4'
+  - th: '6'
+  - th: '3'
+  - th: '5'
+  answer:
+  - 0
+  explain:
+    th: series ของ Chart ไม่ใช่ widget add_series() กี่ครั้งก็ยังเป็น Chart ตัวเดียว แต่ Panel นับทุกใบ จึงได้ Panel + หัวข้อ + Chart + Label ค่า = 4
+- id: q4
+  objective: 3
+  type: multi
+  prompt:
+    th: ข้อใดถูกต้องเกี่ยวกับเพดาน 64 widgets และงบ 32 ของชุดบทเรียนนี้ เลือกทุกข้อที่ถูก
+    en: Which statements about the 64-widget ceiling and this unit's budget of 32 are correct? Choose all that apply.
+  choices:
+  - th: widget ตัวที่ 65 ไม่ขึ้นจอ และไม่มีข้อความเตือนอะไรเลย
+  - th: เพดานมาจากตารางขนาดคงที่ฝั่ง CM55 ที่จองไว้ตั้งแต่คอมไพล์
+  - th: 32 คืองบที่ชุดบทเรียนนี้ตั้งเอง เพื่อเหลือที่ให้บทเรียน 4.1–5.3 ต่อยอด
+  - th: Dev Kit รับได้มากกว่า Eva Kit เพราะมีเซนเซอร์มากกว่า
+  - th: ถ้าเกินงบ เฟิร์มแวร์จะขยายตารางให้เองตอนรัน
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: UI_MAX_WIDGETS เท่ากันทั้งสองบอร์ดเพราะใช้ ipc_ui ชุดเดียวกัน ตารางถูกจองขนาดตายตัวเพื่อไม่ต้องขอหน่วยความจำระหว่างวาดจอ ตัวที่เกินจึงหายเงียบ ๆ งบ 32 เป็นวินัยที่เราตั้งเอง
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: ต้องการการ์ดพื้น BG_CARD ขอบสี COL_IMU มุมโค้ง 12 px และขอบหนา 2 px คำสั่งใดถูกต้อง
+    en: You want a card with a BG_CARD background, a COL_IMU border, a 12 px corner radius and a 2 px border. Which call is correct?
+  choices:
+  - th: ui.Panel(x=24, y=100, w=368, h=136, color=BG_CARD, min=COL_IMU, max=12, value=2)
+  - th: ui.Panel(x=24, y=100, w=368, h=136, color=COL_IMU, min=BG_CARD, max=2, value=12)
+  - th: ui.Panel(x=24, y=100, w=368, h=136, color=BG_CARD, min=0, max=100, value=COL_IMU)
+  - th: ui.Panel(x=24, y=100, w=368, h=136, color=BG_CARD, min=12, max=COL_IMU, value=2)
+  answer:
+  - 0
+  explain:
+    th: สำหรับ Panel color คือสีพื้น min คือสีขอบ max คือรัศมีมุม value คือความหนาขอบ ชื่อเดียวกับ Slider แต่ไม่ใช่ค่าต่ำสุดสูงสุด อย่าเดาจากชื่อ และต้องสร้าง Panel ก่อน Label ที่วางทับ ไม่งั้นการ์ดจะบังตัวหนังสือ

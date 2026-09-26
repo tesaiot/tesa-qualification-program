@@ -1,0 +1,87 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m04.l03 บทเรียน 4.3
+items:
+- id: q1
+  objective: 1
+  type: order
+  prompt:
+    th: เรียงห้าท่าของหน้าสถานะเครือข่ายตามสิ่งที่แต่ละท่าพิสูจน์ จากท่าแรกไปท่าสุดท้าย
+    en: Order the five moves of the network status page by what each one proves, from first to last.
+  choices:
+  - th: มีที่อยู่แล้ว (connect ได้ IP)
+  - th: จอใช้ได้ (วาง widget ครบ)
+  - th: คุยกับคนอื่นได้ (ping สองปลายทาง)
+  - th: วิทยุใช้ได้ (scan เจอวง)
+  - th: แปลข้อมูลถูก (แกะ tuple เรียงแรงไปอ่อน)
+  answer:
+  - 1
+  - 3
+  - 4
+  - 0
+  - 2
+  explain:
+    th: แต่ละท่าพิสูจน์ท่าก่อนหน้า สแกนมาก่อนต่อเพราะไม่ต้องใช้รหัสผ่าน และแปลข้อมูลมาก่อนต่อเน็ตเพราะบั๊ก tuple/dict โผล่ตรงนั้น ถ้าท่า 3 พังจึงรู้แน่ว่าไม่เกี่ยวกับเครือข่าย
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: แผงขวาต้องแสดงชื่อวงที่บอร์ดต่ออยู่ ทำไมเฉลยจึงแสดงค่าจาก WIFI_SSID ไม่ใช่จาก wifi.status()["ssid"]
+    en: The right panel must show the connected network name. Why does the solution show WIFI_SSID instead of wifi.status()["ssid"]?
+  choices:
+  - th: เพราะ status() ช้าเกินไปสำหรับลูป 200 ms
+  - th: เพราะช่อง ssid ของ status() คืนสตริงว่างเสมอ ทีมจึงต้องจำสตริงที่ตัวเองส่งเข้า connect()
+  - th: เพราะ status() คืน tuple ไม่ใช่ dict
+  - th: เพราะ status() ใช้ได้เฉพาะในโหมด softap
+  answer:
+  - 1
+  explain:
+    th: ssid กับ rssi ใน status() เป็นค่าตายตัวในเฟิร์มแวร์ ได้ "" กับ 0 เสมอ บอร์ดตอบชื่อวงเองไม่ได้ ส่วนความแรงจริงต้องอ่านจาก wifi.scan()
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: หน้าจอของทีมแสดงเกตเวย์ 4 ms แต่อินเทอร์เน็ตไม่ตอบทุกครั้งตลอดสองนาที ทีมควรทำอย่างไร
+    en: The team's screen shows the gateway at 4 ms but the internet line never answers for two minutes. What should the team do?
+  choices:
+  - th: แก้เลขเกตเวย์ในโค้ด เพราะ .1 น่าจะผิด
+  - th: ไล่หาบั๊กใน rescan() เพราะตารางอาจเรียงผิด
+  - th: จดผลลงบันทึกการเรียนแล้วทำงานต่อ เพราะปัญหาอยู่ที่ทางออกอินเทอร์เน็ตของห้อง ไม่ใช่บั๊กของเรา
+  - th: เปลี่ยน NET_TEST_IP เป็น "google.com"
+  answer:
+  - 2
+  explain:
+    th: เกตเวย์ตอบแปลว่าลิงก์ WiFi และเลขเกตเวย์ถูก ปัญหาอยู่หลังเราเตอร์ อาจเป็นทางออกของห้องหรือถูกกรองไว้ ส่วน ping รับเฉพาะเลข IP ใส่ชื่อโฮสต์จะได้ ValueError
+- id: q4
+  objective: 3
+  type: multi
+  prompt:
+    th: อาการใดต่อไปนี้ "ไม่มี error ให้จับ" มีแต่จอที่ดูผิด เลือกทุกข้อที่ถูก
+    en: Which of these symptoms raise no error at all and only leave a wrong-looking screen? Choose all that apply.
+  choices:
+  - th: ข้อความยาวเกิน col_width แถวสูงสองเท่า แถวสุดท้ายตกขอบตาราง
+  - th: ลืม tbl.clear_items() กดสแกนใหม่แล้วแถวเก่ายังค้าง
+  - th: เขียน net['rssi'] กับผลของ wifi.scan()
+  - th: เรียก bar_rssi.color() แล้วแท่งดูเต็มทั้งราง
+  - th: เรียก wifi.ping("google.com")
+  answer:
+  - 0
+  - 1
+  - 3
+  explain:
+    th: สามอาการของ ui.Table และ ui.Bar ไม่มี error ให้จับ ต้องตรวจด้วยตา ส่วน net['rssi'] ได้ TypeError เพราะผลสแกนเป็น tuple และ ping ด้วยชื่อโฮสต์ได้ ValueError
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: ในไฟล์ 09 ถ้าเปลี่ยนเป็น "วัดเฉพาะตอนที่เน็ตมา" จะเกิดอะไรขึ้นเมื่อลิงก์หลุดไปห้านาที
+    en: In file 09, if you change it to "measure only while the network is up", what happens during a five-minute outage?
+  choices:
+  - th: โปรแกรมโยน OSError แล้วหยุด
+  - th: ค่าช่วงห้านาทีนั้นหายไปตลอดกาล โดยไม่มี error สักตัว ทั้งที่เซนเซอร์ยังทำงานปกติ
+  - th: คิวจะเต็มแล้วบอร์ดรีเซ็ตตัวเอง
+  - th: ไม่ต่างจากเดิม เพราะลิงก์กลับมาแล้วค่าจะถูกส่งย้อนหลังครบ
+  answer:
+  - 1
+  explain:
+    th: วัดกับส่งต้องแยกขาดกัน วัดทุกรอบไม่ว่าเน็ตจะเป็นอย่างไร เก็บใส่คิว แล้วปล่อยทีละค่าเมื่อลิงก์กลับมา ค่าที่ไม่เคยถูกวัดไม่มีอะไรให้ส่งย้อนหลัง

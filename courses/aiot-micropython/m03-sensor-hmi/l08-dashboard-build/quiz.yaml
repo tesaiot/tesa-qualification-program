@@ -1,0 +1,84 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m03.l08 บทเรียน 3.8
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: เพื่อนร่วมทีมใส่ sensors.init() กลับเข้าไปที่ต้นไฟล์ แล้วรันบน Eva Kit จะเกิดอะไรขึ้น
+    en: A teammate adds sensors.init() back at the top of the file and runs it on the Eva Kit. What happens?
+  choices:
+  - th: เฟิร์มแวร์ปฏิเสธด้วย OSError เพราะ CM55 เป็นเจ้าของบัส I2C ของเซนเซอร์ทั้งชุด
+  - th: ผ่านไปได้ และทำให้การอ่านครั้งแรกเร็วขึ้น
+  - th: จำเป็นต้องมี ไม่งั้น motion() จะคืนศูนย์ตลอด
+  - th: จอค้าง 16 วินาทีแล้วทำงานต่อตามปกติ
+  answer:
+  - 0
+  explain:
+    th: บน Eva Kit คอร์จอเป็นเจ้าของบัสเซนเซอร์และอ่านค่าเก็บไว้ให้ ฝั่ง Python จึงอ่านได้เลยโดยไม่ต้อง init และ init() ได้ OSError ทันที ส่วนการเงียบนานตอนอ่านครั้งแรกคือการรอคอร์จอเริ่มตอบ ซึ่งไฟล์ย้ายไปเกิดก่อนสร้างการ์ดด้วยการอ่านทิ้งหนึ่งครั้ง
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ทำไมการ์ด CapSense จึงแสดงตำแหน่งนิ้วด้วย ui.Bar ไม่ใช่ ui.Slider ทั้งที่หน้าตาคล้ายกัน
+    en: Why does the CapSense card show the finger position with ui.Bar rather than ui.Slider, although they look alike?
+  choices:
+  - th: ค่ามาจากนิ้วบนแถบ CapSense จริง Slider จะทำให้คนดูเข้าใจผิดว่าลากบนจอได้
+  - th: Bar กินงบน้อยกว่า Slider สองเท่า
+  - th: Slider รับค่าเกิน 50 ไม่ได้
+  - th: Bar วาดเร็วกว่า จึงไม่ทำให้คิวของ CM55 ล้น
+  answer:
+  - 0
+  explain:
+    th: Slider คือของที่คนลาก ส่วน Bar คือของที่เครื่องแสดง หน้าตาต้องสอดคล้องกับสิ่งที่ทำได้จริง เลือก widget ตามว่าใครเป็นคนเปลี่ยนค่านี้ ไม่ใช่ตามว่าอันไหนดูดีกว่า
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: heading เท่ากับ 350.0 องศา บรรทัด DIRS[int((heading + 22.5) / 45.0) % 8] จะได้ชื่อทิศอะไร เมื่อ DIRS = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
+    en: heading is 350.0 degrees. What does DIRS[int((heading + 22.5) / 45.0) % 8] give when DIRS = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]?
+  choices:
+  - th: N
+  - th: NW
+  - th: W
+  - th: IndexError เพราะได้ index 8
+  answer:
+  - 0
+  explain:
+    th: (350 + 22.5) / 45 = 8.27 ตัดเหลือ 8 แล้ว % 8 ได้ 0 คือ N การบวก 22.5 เลื่อนขอบช่องให้ทิศเหนือกินช่วง 337.5–22.5 องศา และ % 8 กันไม่ให้ index หลุดขอบ
+- id: q4
+  objective: 3
+  type: multi
+  prompt:
+    th: ข้อใดถูกต้องเกี่ยวกับลูปหลักของแดชบอร์ด เลือกทุกข้อที่ถูก
+    en: Which statements about the dashboard's main loop are correct? Choose all that apply.
+  choices:
+  - th: ใช้ motion() ครั้งเดียวแทน acceleration() กับ gyroscope() เพื่อแตะเซนเซอร์ให้น้อยครั้งที่สุด
+  - th: ถ้าอ่านพลาด except คงค่าเดิมไว้และยกธง ok ไม่เขียนศูนย์ทับ
+  - th: ui.poll() ต้องเรียกทุกลูป แม้หน้านั้นจะไม่มีปุ่มให้กด
+  - th: เฟิร์มแวร์ยังอ่านเซนเซอร์อัตโนมัติให้ตลอด จึงไม่ต้องอ่านเองในลูป
+  - th: ถ้าอ่านพลาดให้เขียน 0 ลงจอ คนดูจะได้รู้ว่ามีปัญหา
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: เมื่อเรียก ui.* ครั้งแรก การอ่านอัตโนมัติของเฟิร์มแวร์หยุด เราจึงอ่านเองแบบ sync และอ่านให้น้อยครั้งที่สุด ศูนย์หน้าตาเหมือนค่าที่วัดมาจริง จึงคงค่าเดิมแล้วให้ไฟค่าค้างบอก ส่วน poll คือจังหวะที่ CM55 ได้ระบายคิว ไม่เรียกแล้วจอจะซ่อน widget ราวสองวินาที
+- id: q5
+  objective: 4
+  type: multi
+  prompt:
+    th: ทีมจะทำการ์ดใบที่ห้าด้วย mic และอยากเพิ่มค่าจาก sensors.bmm350 ข้อใดถูกต้อง เลือกทุกข้อที่ถูก
+    en: A team builds a fifth card with mic and wants to add values from sensors.bmm350. Which statements are correct? Choose all that apply.
+  choices:
+  - th: ต้องการทั้ง rms และ peak ให้เรียก mic.stats() ครั้งเดียวแล้วแกะค่าออกมา
+  - th: เรียก mic.peak() แล้ว mic.rms() ติดกันได้ค่าจากหน้าต่างเสียงเดียวกัน
+  - th: ค่าจาก bmm350.magnetic() ให้รายงานเป็นค่าเบี่ยงจากเส้นฐานในหน่วยบอร์ด ไม่ใช่ uT
+  - th: ใส่ sens=9 ใน mic.start() จะได้ ValueError ทันที
+  - th: การเรียกแต่ magnetic() ทำให้ค่าคาลิเบรตลู่เข้าเร็วขึ้น
+  answer:
+  - 0
+  - 2
+  explain:
+    th: rms() peak() level() แต่ละตัวอ่านไมค์ใหม่หนึ่งครั้ง ราว 32 ms และคนละหน้าต่างเวลา stats() ให้สามค่าจากหน้าต่างเดียว หน่วยของ magnetic() ยังตัดสินไม่ได้จึงเทียบกับเส้นฐานที่วัดเอง sens นอกช่วง 1–5 ตกกลับเป็น 3 เงียบ ๆ และมีแต่ heading() ที่ขยับตัวคาลิเบรต

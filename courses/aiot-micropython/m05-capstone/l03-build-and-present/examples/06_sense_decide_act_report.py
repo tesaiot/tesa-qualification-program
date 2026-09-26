@@ -1,0 +1,197 @@
+# 06_sense_decide_act_report.py - วงจรเต็มสี่ขั้นในไฟล์เดียว
+# ชุดตัวอย่าง s12
+#
+# ไฟล์นี้สอน: โครงของผลิตภัณฑ์ AIoT ทุกตัวคือสี่ขั้นนี้วนไปเรื่อย ๆ
+#             วัด -> ตัดสิน -> สั่งของจริง -> รายงานออกไป
+#             ห้าไฟล์ก่อนหน้าฝึกทีละขั้น ไฟล์นี้ต่อให้ครบวง
+# ดูที่จอ   : แถวสถานะสี่ช่อง สว่างทีละช่องตามขั้นที่กำลังทำ วนซ้ำทุกรอบ
+#             ไฟ LED บนบอร์ดติดจริงเมื่อค่าข้ามเกณฑ์ ไม่ใช่แค่ป้ายบนจอเปลี่ยนสี
+# กับดัก    : ขั้น "ตัดสิน" ต้องมีช่วงหน่วง (hysteresis) ไม่งั้นค่าที่แกว่งรอบ
+#             เกณฑ์พอดีจะสั่งเปิดปิดสลับกันหลายครั้งต่อวินาที - รีเลย์จริงพัง
+#             ด้วยวิธีนี้ และไม่มี error ให้จับสักตัว
+#
+# ทั้ง Eva Kit และ Dev Kit: sensors.snapshot() ใช้ได้ (dict รูปเดียวกัน) ส่วน gpio.led()
+#             คุมไฟบนบอร์ดได้ตรง ๆ ทั้งคู่ไม่ต้องขออนุญาตใคร - แต่ "ไฟดวงไหน" ต้องหาตามชื่อ
+#             ไม่ใช่ตามเลข เพราะเลขดัชนีต่างกันตามบอร์ด ดู led_named() ข้างล่าง
+
+import gpio
+import json
+import lcd
+import sensors
+import time
+import ui
+
+
+# ---- อุณหภูมิ: ของจริงถ้าบอร์ดมี ไม่งั้นให้ลูกบิดเล่นบทแทน --------------------
+# snapshot() ไม่มีช่องอุณหภูมิ (มีแค่ ax..gz ของ IMU, capsense, pot) และบน Eva Kit
+# ไม่มีทางอ่านอุณหภูมิจาก Python เลย: bmi270.temperature() ปฏิเสธ ไม่มี SHT40
+# ไฟล์นี้จึงเคยพังด้วย KeyError ทุกรอบบนบอร์ดจริง (ผ่านบน emulator ที่ตอบทุก key)
+# บอร์ดที่มี SHT40 (Dev Kit) ได้อุณหภูมิห้องจริง บอร์ดอื่นใช้ลูกบิด 0-100 % แทน
+# ช่วง 15-45 C - หมุนข้าม threshold ได้ในห้องเรียนโดยไม่ต้องรอห้องร้อนจริง
+_TEMP_SRC = None
+
+
+def read_temp(snap):
+    """-> (อุณหภูมิ C, แหล่งที่มา) หรือ (None, "") ถ้ารอบนี้ไม่มีค่า"""
+    global _TEMP_SRC
+    if hasattr(sensors, "sht40"):
+        try:
+            t = sensors.sht40.temperature()
+            if _TEMP_SRC != "SHT40":
+                _TEMP_SRC = "SHT40"
+                lcd.print("อุณหภูมิจาก SHT40 (เซนเซอร์จริงบนบอร์ด)")
+            return t, "SHT40"
+        except OSError:
+            pass
+    if "pot" in snap:
+        if _TEMP_SRC != "pot":
+            _TEMP_SRC = "pot"
+            lcd.print("<span class=warn>ไม่มีเซนเซอร์อุณหภูมิ</span>")
+            lcd.print("ใช้ลูกบิดแทน: 0-100 % = 15-45 C")
+        return 15.0 + snap["pot"]["percent"] * 0.3, "pot"
+    return None, ""
+
+
+def led_named(*names, fallback=0):
+    """หา LED จากชื่อในตารางเฟิร์มแวร์ - เลขดัชนีต่างกันตามบอร์ด ชื่อไม่ต่าง
+
+    Eva Kit : LED1=แดง LED2=เขียว RGB_RED=ฟ้า (ชื่อ RGB_RED บน Eva คือดวงสีฟ้า)
+    Dev Kit : LED1 LED2 อยู่บน SoM มองไม่เห็นบนบอร์ดประกอบ  RGB_RED RGB_BLUE RGB_GREEN
+    ส่งชื่อเรียงให้ตัวแรกเป็นของ Dev Kit ตัวถัดไปเป็นของ Eva"""
+    table = gpio.board_info()["led_names"]
+    for n in names:
+        if n in table:
+            return gpio.led(table.index(n))
+    return gpio.led(fallback)
+
+
+DEVICE_ID = "team03"
+ON_ABOVE = 27.5        # ข้ามขึ้นเกินนี้จึงสั่งเปิด
+OFF_BELOW = 26.5       # ต้องตกต่ำกว่านี้จึงยอมสั่งปิด - ช่องว่าง 1 องศาคือ hysteresis
+REPORT_MS = 3000
+ROUNDS = 160
+
+COL_TEXT, COL_DIM = 0xE8EAED, 0x9AA3AF
+COL_CARD = 0x171B22
+COL_ON, COL_OFF = 0x30A46C, 0x9AA3AF
+COL_WARN = 0xF5A623
+
+ui.screen()
+time.sleep_ms(200)
+
+ui.Label("วัด -> ตัดสิน -> สั่ง -> รายงาน", x=20, y=12, color=COL_TEXT, value=24)
+
+# แถวสี่ขั้น - ป้ายที่สว่างคือขั้นที่กำลังทำอยู่จริงในรอบนี้
+ui.Panel(x=20, y=52, w=652, h=64, color=COL_CARD, min=COL_DIM, max=12, value=1)
+st = []
+NAMES = ("1 วัด", "2 ตัดสิน", "3 สั่ง", "4 รายงาน")
+for i in range(4):
+    st.append(ui.Label(NAMES[i], x=40 + i * 160, y=72, color=COL_DIM, value=20))
+
+ui.Panel(x=20, y=128, w=332, h=96, color=COL_CARD, min=COL_DIM, max=12, value=1)
+ui.Label("อุณหภูมิ", x=36, y=140, color=COL_DIM, value=20)
+seg = ui.Seg7(text="--", x=36, y=168, w=200, h=48, color=0x4A9EFF)
+
+ui.Panel(x=368, y=128, w=304, h=96, color=COL_CARD, min=COL_DIM, max=12, value=1)
+ui.Label("สถานะพัดลม", x=384, y=140, color=COL_DIM, value=20)
+lbl_act = ui.Label("ปิด", x=384, y=168, color=COL_OFF, value=28)
+
+ch = ui.Chart(x=20, y=240, w=548, h=120, min=20, max=35)
+s_temp = 0
+ui.Label("เส้นบน = เกณฑ์เปิด", x=580, y=248, color=COL_WARN, value=20)
+s_on = ch.add_series(COL_WARN)
+ui.Label("เส้นล่าง = เกณฑ์ปิด", x=580, y=272, color=COL_DIM, value=20)
+s_off = ch.add_series(COL_DIM)
+
+sent_lbl = ui.Label("ยังไม่ได้รายงาน", x=20, y=364, color=COL_DIM, value=20)
+ui.poll()
+
+lcd.clear()
+lcd.console("<h2>วงจรเต็มสี่ขั้น</h2>")
+
+# "พัดลม" คือหลอดที่มองเห็นได้ทั้งสองบอร์ด สีเขียวทั้งคู่ตรงกับป้าย "เปิด" บนจอ:
+# Dev Kit = RGB_GREEN / Eva = LED2 (led(0) บน Dev Kit คือ LED1 บน SoM ซึ่งมองไม่เห็น)
+fan = led_named("RGB_GREEN", "LED2")
+fan.off()
+on = False
+reports = 0
+last_report = time.ticks_ms()
+
+
+def light(step):
+    """ให้เห็นด้วยตาว่าตอนนี้อยู่ขั้นไหน - ขั้นเดียวเท่านั้นที่สว่าง"""
+    for i in range(4):
+        st[i].color(COL_ON if i == step else COL_DIM)
+
+
+for _ in range(ROUNDS):
+    # --- 1 วัด -------------------------------------------------------------
+    light(0)
+    snap = sensors.snapshot()
+    temp, _src = read_temp(snap)
+    if temp is None:
+        lcd.print("<span class=warn>ไม่มีค่าอุณหภูมิรอบนี้</span>")
+        ui.poll()
+        time.sleep_ms(200)
+        continue
+    seg.text("{:.1f}".format(temp))
+    ch.set_next(s_temp, int(temp))
+    ch.set_next(s_on, int(ON_ABOVE))
+    ch.set_next(s_off, int(OFF_BELOW))
+
+    # --- 2 ตัดสิน ----------------------------------------------------------
+    # เกณฑ์สองค่า ไม่ใช่ค่าเดียว: เปิดเมื่อเกินขอบบน ปิดเมื่อต่ำกว่าขอบล่าง
+    # ระหว่างสองขอบไม่ทำอะไรเลย นั่นคือสิ่งที่กันการสั่งสลับถี่ ๆ
+    light(1)
+    want = on
+    if not on and temp > ON_ABOVE:
+        want = True
+    elif on and temp < OFF_BELOW:
+        want = False
+
+    # --- 3 สั่งของจริง -----------------------------------------------------
+    light(2)
+    if want != on:
+        on = want
+        if on:
+            fan.on()
+            lbl_act.text("เปิด")
+            lbl_act.color(COL_ON)
+            lcd.print("<span class=ok>เปิดพัดลมที่", round(temp, 1), "C</span>")
+        else:
+            fan.off()
+            lbl_act.text("ปิด")
+            lbl_act.color(COL_OFF)
+            lcd.print("ปิดพัดลมที่", round(temp, 1), "C")
+
+    # --- 4 รายงาน ----------------------------------------------------------
+    # รายงานห่างกว่าที่วัด ด้วยเหตุผลเดียวกับบทเรียน 4.4–4.6 - ปลายทางไม่ต้องเห็นทุกรอบ
+    light(3)
+    now = time.ticks_ms()
+    if time.ticks_diff(now, last_report) >= REPORT_MS:
+        last_report = now
+        reports = reports + 1
+        line = json.dumps({"device": DEVICE_ID,
+                           "temp_c": round(temp, 1),
+                           "fan": 1 if on else 0})
+        # ไฟล์นี้ยังไม่ต่อ broker จริง เพื่อให้รันได้แม้ไม่มีเน็ต - บทเรียน 4.4–4.6 กับ 4.7–4.9
+        # สอนวิธีต่อไปแล้ว เอาบรรทัด mqtt.publish(TOPIC, line) มาวางตรงนี้ได้เลย
+        print(line)
+        sent_lbl.text("รายงานแล้ว " + str(reports) + " ครั้ง")
+
+    ui.poll()
+    time.sleep_ms(200)
+
+fan.off()
+for i in range(4):
+    st[i].color(COL_DIM)
+sent_lbl.text("จบ - รายงานทั้งหมด " + str(reports) + " ครั้ง")
+ui.poll()
+lcd.print("<span class=ok>จบรอบ - พัดลมสั่งจากค่าที่วัดจริง</span>")
+print("สี่ขั้นนี้คือโครงของงานจบ เปลี่ยนแค่ว่าวัดอะไร ตัดสินด้วยกฎอะไร สั่งอะไร")
+
+# ตาคุณ
+# 1) ตั้ง ON_ABOVE กับ OFF_BELOW ให้เท่ากัน แล้วดูว่าพัดลมสั่งสลับกี่ครั้งต่อนาที
+#    เมื่ออุณหภูมิแกว่งรอบเกณฑ์พอดี - นี่คือเหตุผลที่ต้องมีช่องว่าง
+# 2) เปลี่ยนขั้นที่ 1 ไปอ่านเสียงแทนอุณหภูมิ (mic.level()) โดยไม่แตะขั้น 2-4
+#    ถ้าแก้ได้ที่เดียวจบ แปลว่าโครงนี้แยกส่วนถูกต้องแล้ว

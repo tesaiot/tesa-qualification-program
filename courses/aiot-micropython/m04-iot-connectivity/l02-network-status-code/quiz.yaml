@@ -1,0 +1,84 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m04.l02 บทเรียน 4.2
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: 'หลังเรียก wifi.disconnect() แล้ว โค้ดเขียนว่า if wifi.ip(): print("ต่ออยู่") จะเกิดอะไรขึ้น'
+    en: 'After wifi.disconnect(), the code runs if wifi.ip(): print("connected"). What happens?'
+  choices:
+  - th: ไม่พิมพ์ เพราะ ip() คืนสตริงว่างเมื่อหลุด
+  - th: พิมพ์ "ต่ออยู่" เพราะ ip() คืน "0.0.0.0" ซึ่งไม่ว่าง Python จึงถือว่าเป็นจริง
+  - th: ได้ OSError เพราะยังไม่ได้ต่อเน็ต
+  - th: ไม่พิมพ์ เพราะ ip() คืน None เหมือน disconnect()
+  answer:
+  - 1
+  explain:
+    th: ตอนหลุด wifi.ip() คืน "0.0.0.0" ซึ่งเป็นสตริงที่ไม่ว่าง if จึงเป็นจริงทั้งที่เน็ตหลุดสนิท คำถาม "ต่ออยู่ไหม" ต้องถามด้วย wifi.is_connected() หรือเทียบสตริงตรง ๆ
+- id: q2
+  objective: 1
+  type: multi
+  prompt:
+    th: ข้อใดถูกเกี่ยวกับโมดูล wifi บนบอร์ดนี้ เลือกทุกข้อที่ถูก
+    en: Which statements about the board's wifi module are true? Choose all that apply.
+  choices:
+  - th: wifi.status()["rssi"] คืน 0 เสมอ ความแรงจริงต้องเอามาจาก wifi.scan()
+  - th: wifi.ping() ตอนยังไม่ต่อเน็ตคืน -1
+  - th: wifi.connect() ต่อวงเปิดที่ไม่มีรหัสผ่านจาก Python ไม่ได้ เพราะล็อกโหมดเป็น WPA3/WPA2
+  - th: wifi.connect(ssid, password, timeout=10000) ใช้ตั้งเวลารอให้สั้นลงได้
+  - th: wifi.scan() คืนไม่เกิน 20 วงต่อครั้ง วงที่เกินหายไปเงียบ ๆ
+  answer:
+  - 0
+  - 2
+  - 4
+  explain:
+    th: ssid กับ rssi ใน status() เป็นค่าตายตัวในเฟิร์มแวร์ ping ตอนยังไม่ต่อโยน OSError ไม่ใช่ -1 และ connect() รับสองอาร์กิวเมนต์แบบตำแหน่งเท่านั้น ไม่มี timeout= ให้ตั้ง
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: 'บรรทัด nets.sort(key=lambda net: net[1], reverse=True) ทำอะไรกับผลของ wifi.scan()'
+    en: 'What does nets.sort(key=lambda net: net[1], reverse=True) do to the result of wifi.scan()?'
+  choices:
+  - th: เรียงตามชื่อวงจาก Z ไป A
+  - th: เรียงตาม rssi จากค่ามากไปน้อย คือจากแรงไปอ่อน และแก้ลิสต์เดิมในที่
+  - th: เรียงตาม rssi จากอ่อนไปแรง เพราะ −79 มากกว่า −48
+  - th: คืนลิสต์ใหม่ที่เรียงแล้ว ส่วนลิสต์เดิมไม่เปลี่ยน
+  answer:
+  - 1
+  explain:
+    th: net[1] คือช่องที่สองของ tuple (ssid, rssi, security, channel) คือ rssi และ reverse=True ให้ค่ามากมาก่อน RSSI ค่ามากคือแรงกว่าเพราะ −48 มากกว่า −79 ส่วน sort() แก้ลิสต์เดิมในที่
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ลูปสถานะสดต้องยิง ping ทุก 3 วินาที ทำไมโค้ดจึงไม่เขียน time.sleep_ms(3000) ก้อนเดียวท้ายลูป
+    en: The live status loop must ping every 3 seconds. Why doesn't the code just put one time.sleep_ms(3000) at the end of the loop?
+  choices:
+  - th: เพราะ sleep_ms() รับค่าได้ไม่เกิน 1000
+  - th: เพราะต้อง ui.poll() ทุก 200 ms ให้ปุ่มตอบทันทีและ widget ไม่หาย ping จึงถามนาฬิกาเองด้วย ticks_diff
+  - th: เพราะ ping จะคืน -1 ถ้าเว้นช่วงนานเกินสองวินาที
+  - th: เพราะ wifi.connect() ต้องถูกเรียกซ้ำทุก 200 ms
+  answer:
+  - 1
+  explain:
+    th: ถ้า sleep ก้อนเดียวสามวินาที ปุ่มจะกดแล้วรอถึงสามวินาทีกว่าจะตอบ และลืม ui.poll() นานเกินราวสองวินาทีเฟิร์มแวร์จะซ่อน widget งานคนละจังหวะจึงอยู่ในลูปเดียวกันได้ถ้าแต่ละงานถามนาฬิกาเอง
+- id: q5
+  objective: 4
+  type: multi
+  prompt:
+    th: จากไฟล์ 07 และ 08 ข้อใดถูก เลือกทุกข้อที่ถูก
+    en: From files 07 and 08, which statements are true? Choose all that apply.
+  choices:
+  - th: 'wifi.disconnect() คืน None จึงห้ามเขียน if wifi.disconnect():'
+  - th: ในโหมด softap บอร์ดอยู่ที่ 192.168.4.1 เสมอ
+  - th: ในโหมด softap บอร์ดยัง ping 8.8.8.8 ออกเน็ตได้ตามปกติ
+  - th: ต่อกลับหลังหลุดอาจได้ IP คนละเลขกับรอบแรก เพราะ DHCP ให้ยืมเป็นครั้ง ๆ
+  answer:
+  - 0
+  - 1
+  - 3
+  explain:
+    th: บอร์ดมีวิทยุชุดเดียว เป็น AP แล้วเป็นลูกข่ายพร้อมกันไม่ได้ โหมด softap จึงไม่มีทางออกอินเทอร์เน็ต คุยได้เฉพาะกับเครื่องที่มาต่อวงของเรา

@@ -1,0 +1,81 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m03.l04 บทเรียน 3.4
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ลูปอ่าน accel ทุก 200 ms (fs = 5 Hz) แล้วคุณเขย่าบอร์ดราว 6 ครั้งต่อวินาที กราฟจะแสดงอะไร
+    en: The loop reads the accelerometer every 200 ms (fs = 5 Hz) and you shake the board about 6 times per second. What does the chart show?
+  choices:
+  - th: คลื่นช้า ๆ ราว 1 Hz ที่ไม่มีอยู่จริง โดยไม่มี error หรือคำเตือนใด ๆ
+  - th: คลื่น 6 Hz ถูกต้อง แค่เส้นหยาบกว่าปกติ
+  - th: เส้นแบนราบ เพราะสัญญาณที่เร็วเกินจะหายไปเฉย ๆ
+  - th: ขึ้น error ว่าอัตราสุ่มไม่พอ
+  answer:
+  - 0
+  explain:
+    th: f_alias = |6 − 1×5| = 1 Hz สัญญาณที่เร็วเกิน fs/2 ไม่ได้หายไป มันปลอมตัวเป็นคลื่นที่ช้ากว่าความจริง และดูน่าเชื่อถือ ซึ่งอันตรายกว่าการมองไม่เห็น
+- id: q2
+  objective: 1
+  type: multi
+  prompt:
+    th: ข้อใดถูกเกี่ยวกับการสุ่มสัญญาณและ aliasing เลือกทุกข้อที่ถูก
+    en: Which statements about sampling and aliasing are true? Choose all that apply.
+  choices:
+  - th: กฎคือ fs > 2f ไม่ใช่ fs ≥ 2f ตรงที่เท่ากันพอดีอาจสุ่มโดนจุดตัดศูนย์ทุกครั้งแล้วได้เส้นแบน
+  - th: งานในลูปที่หนักขึ้นทำให้อัตราสุ่มของเราตกลงเงียบ ๆ เพราะ fs มาจากความเร็วลูป Python ไม่ได้ตั้งด้วยฮาร์ดแวร์
+  - th: ถ้าเกิด aliasing แล้ว ใส่ dsp.EMA หลังการอ่านก็กรองคลื่นปลอมทิ้งได้
+  - th: ทางแก้ aliasing คือ anti-aliasing low-pass filter ก่อนถึง ADC เช่น C204 ที่ wiper ของ pot บนบอร์ดนี้
+  answer:
+  - 0
+  - 1
+  - 3
+  explain:
+    th: aliasing คือความถี่จริงที่ถูกพับลงมาทับย่านที่เราสนใจตั้งแต่ตอนสุ่ม ที่จุดสุ่มทุกจุดคลื่นปลอมกับคลื่นจริงให้ข้อมูลที่แยกกันไม่ได้ ตัวกรองหลังการอ่านจึงช่วยไม่ได้ ต้องกรองก่อนถึง ADC
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: กราฟความเร่งตั้งช่วง ±20 และป้อน int(ax) ได้เส้นหยาบเป็นขั้นละ 1 m/s² ถ้าต้องการความละเอียด 0.01 m/s² ควรทำอย่างไร
+    en: An acceleration chart uses a ±20 range fed with int(ax) and steps in 1 m/s². How do you get 0.01 m/s² resolution?
+  choices:
+  - th: สร้างกราฟด้วย min=-2000, max=2000 แล้วป้อน chart.set_next(0, int(ax * 100))
+  - th: ป้อน chart.set_next(0, ax) ตรง ๆ เพื่อเก็บทศนิยมไว้
+  - th: ป้อน chart.set_next(0, round(ax, 2))
+  - th: คงช่วง ±20 ไว้แล้วป้อน int(ax * 100)
+  answer:
+  - 0
+  explain:
+    th: Chart เก็บเฉพาะจำนวนเต็ม ส่ง float ได้ TypeError และ int() ตัดทศนิยมทิ้ง จึงต้องคูณค่าแล้วขยายช่วงแกนตามกัน ถ้าคูณ 100 แต่คงช่วง ±20 เส้นจะทะลุขอบ
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: กราฟใช้ค่าปริยาย 50 ช่อง และลูปหมุนทุก 200 ms หน้าจอแสดงย้อนหลังได้กี่วินาที และถ้าอยากเห็นนานขึ้น ทางไหนถูกกว่า
+    en: The chart uses the default 50 slots and the loop runs every 200 ms. How many seconds of history are on screen, and which way of seeing further back is cheaper?
+  choices:
+  - th: 10 วินาที · ยืดคาบลูปให้ห่างขึ้นถูกกว่าการเพิ่มจำนวนจุด
+  - th: 10 วินาที · เพิ่มจุดเป็น 400 ด้วย PROP_CHART_POINTS ถูกกว่าเสมอ
+  - th: 50 วินาที · ไม่ต้องทำอะไรเพิ่ม
+  - th: ไม่จำกัด เพราะกราฟเก็บทุกค่าที่เคยป้อนไว้
+  answer:
+  - 0
+  explain:
+    th: T_window = 50 × 0.2 s = 10 s ค่าที่เก่ากว่านั้นหล่นหายจาก ring buffer การเพิ่มจุดทำได้ (10–400 บนเฟิร์มแวร์ 2026-08-20 ขึ้นไป) แต่ทุกจุดคือข้อความข้ามคอร์และเวลาวาดที่เพิ่มขึ้น
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: ลูปของคุณมีแค่ set_next() สามเส้นกับ led.value() แล้วกราฟกระตุกเหมือนวาดไม่ทัน ทางแก้ที่ถูกคืออะไร
+    en: Your loop only calls set_next() for three lines and led.value(), and the chart stutters as if it cannot keep up. What is the right fix?
+  choices:
+  - th: เพิ่ม lbl_rec.text(rec_msg) ทุกรอบ ส่งข้อความเดิมซ้ำก็ได้ เพื่อปลุกโหมดเร่งของตัวจับเวลาฝั่ง CM55
+  - th: เรียก led.value() ถี่ขึ้น เพื่อปลุกฝั่งจอ
+  - th: ลด sleep_ms ให้ลูป Python หมุนเร็วขึ้น
+  - th: อ่านเซนเซอร์ให้เร็วขึ้น เพราะกราฟรอค่าจากเซนเซอร์
+  answer:
+  - 0
+  explain:
+    th: set_next() และ .value() ไม่ปลุกโหมดเร่ง ฝั่ง CM55 จึงระบายคำสั่งแค่ 80 ต่อวินาที .text() ปลุกโหมดเร่ง (3,200 ต่อวินาที) และค้างไว้ 500 ms ลูป 200 ms จึงไม่หลุดโหมดเลย ส่วนข้อความที่ไม่เปลี่ยน เฟิร์มแวร์ไม่วาดซ้ำ

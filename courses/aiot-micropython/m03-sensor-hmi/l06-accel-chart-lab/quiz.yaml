@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m03.l06 บทเรียน 3.6
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: กราฟสร้างด้วย ui.Chart(..., color=COL_AX) แล้ว add_series สองครั้งให้แกน Y กับ Z คุณจะป้อนค่าแกน X อย่างไร
+    en: The chart was created with ui.Chart(..., color=COL_AX) and add_series was called twice for Y and Z. How do you feed the X axis?
+  choices:
+  - th: chart.set_next(0, int(ax))
+  - th: s_ax = chart.add_series(COL_AX) แล้วเรียก chart.set_next(s_ax, int(ax))
+  - th: chart.set_next(0, ax) เพราะกราฟรับทศนิยมได้
+  - th: chart.set_next(s_ay, int(ax))
+  answer:
+  - 0
+  explain:
+    th: เส้นแรกคือ series 0 ที่มากับ Chart เอง (สีจาก color=) ไม่ต้อง add_series ให้มัน ถ้าเพิ่มอีกจะได้สี่เส้น และ set_next() รับเฉพาะจำนวนเต็ม ส่งทศนิยมตรง ๆ จะได้ TypeError
+- id: q2
+  objective: 2
+  type: multi
+  prompt:
+    th: ข้อใดถูกต้องเกี่ยวกับปุ่มหยุดบันทึกในไฟล์เฉลย เลือกทุกข้อที่ถูก
+    en: Which statements about the stop button in the solution are correct? Choose all that apply.
+  choices:
+  - th: ui.poll() ถูกเรียกทุกรอบ แม้ running จะเป็น False
+  - th: led_rec.value(0) ทำให้ไฟหรี่ลง ไม่ใช่หายไปจากจอ
+  - th: กดหยุดแล้วลูป while จบด้วย break
+  - th: time.sleep_ms(PERIOD_MS) ยังหน่วงเท่าเดิมตอนหยุดบันทึก
+  - th: ค่าสุดขีดในตารางถูกล้างตอนกดหยุด
+  answer:
+  - 0
+  - 1
+  - 3
+  explain:
+    th: หยุดคือ flag ไม่ใช่หยุดลูป poll ต้องอยู่นอก if running ไม่งั้นปุ่มเริ่มจะกดไม่ได้อีก ลูปยังหน่วงเท่าเดิมเพื่อไม่ให้ยิงคำสั่ง poll ใส่ CM55 ถี่ยิบ ส่วนค่าสุดขีดถูกล้างตอนกดเริ่มรอบใหม่ ไม่ใช่ตอนหยุด
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: ลูปของคุณตั้ง sleep_ms(200) และในลูปมีแค่ set_next() สามบรรทัดกับ led.value() แต่กราฟเดินอืดและกระตุก ควรแก้อย่างไร
+    en: Your loop sleeps 200 ms and only calls set_next() three times and led.value(), yet the chart crawls and stutters. What is the fix?
+  choices:
+  - th: ส่ง .text() ให้ Label อย่างน้อยหนึ่งครั้งต่อรอบ ส่งข้อความเดิมก็ได้
+  - th: ลด sleep_ms เหลือ 20 ให้ลูปเร็วขึ้น
+  - th: เพิ่ม series ที่สี่ให้กราฟมีงานมากขึ้น
+  - th: เรียก ui.poll() สองครั้งต่อรอบ
+  answer:
+  - 0
+  explain:
+    th: set_next() กับ .value() ไม่ปลุกโหมดเร็ว 5 ms ของช่องทางข้ามคอร์ จอจึงถอยไปโหมด 200 ms ที่ระบายได้แค่ 80 คำสั่งต่อวินาที คำสั่งเขียนข้อความปลุกโหมดเร็วต่ออีก 500 ms และเฟิร์มแวร์ไม่วาดซ้ำถ้าข้อความเดิม ส่วนการเร่งลูปทำให้คำสั่งล้นคิวแล้วถูกทิ้ง
+- id: q4
+  objective: 4
+  type: single
+  prompt:
+    th: ตารางขวามือขึ้นแค่สองแถวครึ่ง แถว Z หายไปใต้ขอบ และไม่มี error สาเหตุที่แท้จริงคืออะไร
+    en: The table shows only two and a half rows, the Z row disappears below the edge, and there is no error. What is the real cause?
+  choices:
+  - th: คอลัมน์แคบกว่าข้อความ ข้อความตกบรรทัด ทุกแถวจึงสูงเป็นสองเท่า
+  - th: ui.Table รับได้แค่สามแถว
+  - th: เรียก add_row ก่อน col_width
+  - th: ฟอนต์ไทยในตารางยังไม่รองรับ
+  answer:
+  - 0
+  explain:
+    th: ถ้าคอลัมน์แคบไป ข้อความจะขึ้นบรรทัดใหม่ แล้วความสูงของทุกแถวเด้งเป็นสองเท่าทันที แก้โดยขยาย .col_width() จนไม่มีช่องไหนตกบรรทัด อาการนี้เห็นได้จากภาพบนจอเท่านั้น
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: ที่ PERIOD_MS = 200 คุณเขย่าบอร์ดเร็วมาก แต่กราฟกลับโชว์คลื่นช้า ๆ แปลก ๆ ข้อใดอธิบายถูกต้อง
+    en: With PERIOD_MS = 200 you shake the board very fast, but the chart shows a strange slow wave. Which explanation is correct?
+  choices:
+  - th: เป็น aliasing เพราะสุ่ม 5 Hz รับได้ไม่เกิน 2.5 Hz ไม่ใช่บั๊ก ให้บันทึกไว้
+  - th: เซนเซอร์เสีย ต้องเปลี่ยนบอร์ด
+  - th: ลืม int() ค่าจึงถูกปัดจนคลื่นช้าลง
+  - th: ตารางเขียนทับกราฟทุกวินาที
+  answer:
+  - 0
+  explain:
+    th: คาบการสุ่ม 200 ms คือ 5 ตัวอย่างต่อวินาที การสั่นที่เร็วกว่าครึ่งหนึ่งของอัตรานี้ไม่ได้หายไปเฉย ๆ แต่กลายเป็นความถี่ที่ไม่เคยมีอยู่จริงบนกราฟ ซึ่งกรองทิ้งทีหลังไม่ได้

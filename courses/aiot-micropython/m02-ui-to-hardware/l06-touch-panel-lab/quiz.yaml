@@ -1,0 +1,85 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m02.l06 บทเรียน 2.6
+items:
+- id: q1
+  objective: 2
+  type: single
+  prompt:
+    th: ในเฉลย ปุ่ม "เปิด" แถวแดงเรียก set_led(0, True) แทนคำสั่งที่สลับสถานะไฟ ข้อดีหลักของการออกแบบนี้คืออะไร
+    en: In the solution, the red row's "On" button calls set_led(0, True) instead of a command that toggles the light. What is the main benefit of this design?
+  choices:
+  - th: กดซ้ำกี่ครั้งก็ได้ผลเดิม คนที่กดซ้ำเพราะไม่แน่ใจจะไม่ได้ผลตรงข้ามกับที่ตั้งใจ
+  - th: ใช้ widget น้อยกว่าปุ่มสลับ
+  - th: ไม่ต้องเรียก ui.poll() ในลูปอีก
+  - th: ไฟติดเร็วขึ้นเพราะไม่ต้องผ่านคิวเหตุการณ์
+  answer:
+  - 0
+  explain:
+    th: คำสั่งที่ระบุปลายทาง (idempotent) ได้ผลเดิมไม่ว่ากดกี่ครั้ง ต่างจากคำสั่งสลับที่ผลขึ้นกับสถานะก่อนหน้าซึ่งคนกดมองไม่เห็น ส่วนเรื่องจำนวน widget ปุ่มแยกกลับใช้มากกว่าด้วยซ้ำ
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ทีมหนึ่งให้ show_status() นับดวงที่ติดโดยอ่าน gpio.led(n).value() แล้วพบว่าไฟดวงที่สามติดอยู่แต่จอบอกว่าดับ ข้อใดคือวิธีแก้ที่ถูก
+    en: A team makes show_status() count lit LEDs by reading gpio.led(n).value(), and finds the third LED is lit while the screen says it is off. What is the right fix?
+  choices:
+  - th: เก็บสถานะที่สั่งไว้ใน led_on[] ของเราเอง แล้วให้จอรายงานจากตรงนั้น
+  - th: อ่าน gpio.led(n).value() สองครั้งติดกันแล้วใช้ค่าหลัง
+  - th: เพิ่ม time.sleep_ms(200) ก่อนอ่านค่า
+  - th: อ่านสถานะจากสีของปุ่มบนจอแทน
+  answer:
+  - 0
+  explain:
+    th: gpio.led(n).value() ตอบระดับของขา ไม่ใช่สิ่งที่เราสั่ง และคืน 0 หลัง hold() หรือ brightness() ความจริงของโปรแกรมจึงต้องอยู่ที่ led_on[] ที่เดียว แล้วให้จอเป็นผู้รายงาน
+- id: q3
+  objective: 1
+  type: order
+  prompt:
+    th: เรียงสิ่งที่ set_led(i, on) ในเฉลยทำ ให้ถูกลำดับ
+    en: Put the steps that set_led(i, on) performs in the solution in the correct order.
+  choices:
+  - th: สั่งหลอดจริงด้วย gpio.led(LED_IDX[i])
+  - th: เรียก show_status() ให้ตัวเลข "ติดอยู่ n จาก 3" ตรง
+  - th: จำค่าลง led_on[i]
+  - th: ให้ไฟสถานะบนจอ lamps[i] สะท้อนของจริง
+  answer:
+  - 2
+  - 0
+  - 3
+  - 1
+  explain:
+    th: จำไว้ก่อน สั่งของจริง ให้ไฟบนจอสะท้อน แล้วรายงานให้ครบ เมื่อทุกเส้นทางที่เปลี่ยนไฟผ่านประตูนี้ประตูเดียว จอก็ไม่มีทางพูดไม่ตรงกับหลอด
+- id: q4
+  objective: 1
+  type: single
+  prompt:
+    th: ทีมที่ถือ Dev Kit เขียน LED_IDX = [0, 1, 2] ตายตัว แตะ "เปิด" แถวน้ำเงินแล้วไม่เห็นหลอดสีน้ำเงินติด สาเหตุคืออะไร
+    en: A Dev Kit team hardcodes LED_IDX = [0, 1, 2]. Tapping "On" in the blue row does not light the blue LED. Why?
+  choices:
+  - th: สองบอร์ดเรียงดวงไม่เหมือนกัน บน Dev Kit สีน้ำเงินคือดวง 3 และดวง 0-1 อยู่บนโมดูล ต้องถามเลขดวงจากชื่อใน gpio.board_info()["led_names"]
+  - th: Dev Kit ไม่มีหลอดสีน้ำเงินเลย
+  - th: หลอดจริงจะติดก็ต่อเมื่อ ui.Led บนจอถูกตั้ง value=1 ก่อน
+  - th: ปุ่มแถวที่สามส่งเหตุการณ์ toggled ไม่ใช่ clicked
+  answer:
+  - 0
+  explain:
+    th: Eva Kit กับ Dev Kit เรียงดวงไม่เหมือนกัน เฉลยจึงให้ LED_IDX มาจากชื่อ RGB_RED / RGB_GREEN / RGB_BLUE ที่บอร์ดรายงาน แทนเลขดวงที่จำมา ทุกปุ่มในแผงนี้ส่ง clicked เหมือนกันหมด
+- id: q5
+  objective: 3
+  type: multi
+  prompt:
+    th: ข้อใดถูกเกี่ยวกับ widget และเหตุการณ์ขั้นต่อไปในบทเรียนนี้ เลือกทุกข้อที่ถูก
+    en: Which statements about the next widgets and events in this lesson are correct? Choose all that apply.
+  choices:
+  - th: ui.Scale ไม่รับ .value() ตัวที่ขยับคือ ui.Bar ที่วางทับ
+  - th: value= ของ ui.Tabview คือความสูงของแถบแท็บ
+  - th: .hide() คืนโควตา widget ให้ทันที
+  - th: clicked มาถึงตั้งแต่นิ้วแตะลง จึงใช้ทำปุ่มเร่งระหว่างกดค้างได้
+  - th: long_pressed_repeat ต้องขอด้วย .listen() ก่อน ไม่งั้นปุ่มจะไม่ส่งเลย
+  answer:
+  - 0
+  - 1
+  - 4
+  explain:
+    th: Scale คือไม้บรรทัด Tabview ใช้ value= เป็นความสูงแถบแท็บ และเหตุการณ์กดค้างเงียบจนกว่าจะขอด้วย .listen() ส่วน .hide() ยังกินโควตา (มีแต่ .delete() ที่คืน) และ clicked มาถึงตอนปล่อยนิ้วแล้ว

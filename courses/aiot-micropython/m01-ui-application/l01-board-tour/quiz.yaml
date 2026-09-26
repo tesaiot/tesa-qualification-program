@@ -1,0 +1,66 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m01.l01 บทเรียน 1.1
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: บนหน้า Home คุณหมุนบอร์ดรอบตัวเองโดยไม่เอียง แถวไหนของแผง Sensor Live ที่ค่าควรเปลี่ยนชัดที่สุด
+    en: On the Home page you rotate the board flat on the desk without tilting it. Which Sensor Live row should change most?
+  choices:
+  - th: Comp (เข็มทิศ)
+  - th: Touch
+  - th: Pot
+  - th: ไม่มีแถวไหนเปลี่ยน เพราะยังไม่ได้เขียนโค้ด
+  answer:
+  - 0
+  explain:
+    th: การหมุนรอบตัวเองเปลี่ยนทิศที่บอร์ดหัน เข็มทิศ (Comp) จึงเปลี่ยน ส่วนค่าพวกนี้วิ่งอยู่แล้วโดยไม่ต้องมีโค้ดของเรา เพราะเฟิร์มแวร์อ่านเซนเซอร์ให้ตลอดเวลา
+- id: q2
+  objective: 1
+  type: multi
+  prompt:
+    th: เมนูใดใช้ข้อมูลจากเซนเซอร์วัดการเคลื่อนไหว (IMU) เลือกทุกข้อที่ถูก
+    en: Which menus use data from the motion sensor (IMU)? Choose all that apply.
+  choices:
+  - th: Sensor Dashboard (กราฟที่กระเพื่อมเมื่อเขย่าบอร์ด)
+  - th: Smart Watch (ตัวนับก้าว)
+  - th: แผง Sensor Live แถว IMU บนหน้า Home
+  - th: Wi-Fi Setting
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: กราฟของ Sensor Dashboard, ตัวนับก้าวของ Smart Watch และแถว IMU ของ Sensor Live มาจากเซนเซอร์ความเร่งตัวเดียวกัน ส่วน Wi-Fi Setting ใช้วิทยุ ไม่ใช่เซนเซอร์
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ทีมของคุณถือ TESAIoT Dev Kit และหาการ์ด Controls บนหน้า Home ไม่เจอ ข้อใดถูกต้อง
+    en: Your team has a TESAIoT Dev Kit and cannot find the Controls card on Home. Which statement is correct?
+  choices:
+  - th: บอร์ดเสีย ต้องลงเฟิร์มแวร์ใหม่
+  - th: Dev Kit ไม่มีการ์ดนี้ ให้ดูไฟจริงติดจากโค้ดตัวอย่างในบทเรียน 1.3 แทน
+  - th: ต้องต่อ WiFi ก่อน การ์ดจึงจะขึ้น
+  - th: ต้องเสียบ SD card ก่อน
+  answer:
+  - 1
+  explain:
+    th: Controls, Audio Player และ TESAIoT Connectivity มีเฉพาะบน Eva Kit สองบอร์ดใช้โค้ดชุดเดียวกัน ทีม Dev Kit จึงเห็นไฟจริงติดจากโค้ดของตัวเองแทน
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: คุณกด Program to Device ใน BENTO IDE แล้วจอบอร์ดไม่แสดงอะไรเลย สิ่งแรกที่ควรตรวจคืออะไร
+    en: You press Program to Device in BENTO IDE and nothing appears on the board. What should you check first?
+  choices:
+  - th: เปิดหน้า BENTO Playground ค้างไว้บนบอร์ดแล้วหรือยัง
+  - th: เปลี่ยนไปใช้ภาษา C
+  - th: รีเซ็ตบอร์ดกลับค่าโรงงาน
+  - th: ต่อ WiFi ให้บอร์ด
+  answer:
+  - 0
+  explain:
+    th: ผลของโค้ดที่ส่งจาก IDE ไปโผล่ที่หน้า BENTO Playground ถ้าบอร์ดค้างอยู่หน้าอื่น จะดูเหมือนส่งแล้วไม่มีอะไรเกิดขึ้น

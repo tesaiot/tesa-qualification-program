@@ -1,0 +1,85 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m04.l01 บทเรียน 4.1
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: วง A วัดได้ −50 dBm วง B วัดได้ −80 dBm กำลังที่เสาอากาศรับจากวง A มากกว่าวง B ประมาณกี่เท่า
+    en: Network A reads −50 dBm and network B reads −80 dBm. Roughly how many times more power does the antenna receive from A than from B?
+  choices:
+  - th: 30 เท่า เพราะตัวเลขต่างกัน 30
+  - th: 1000 เท่า
+  - th: ราว 1.6 เท่า
+  - th: 3 เท่า
+  answer:
+  - 1
+  explain:
+    th: ต่างกัน 30 dB และทุก 10 dB คือ 10 เท่า จึงเป็น 10 × 10 × 10 = 1000 เท่า dBm เป็นสเกลลอการิทึม ตัวเลขที่ต่างกันเล็กน้อยจึงอาจหมายถึงกำลังที่ต่างกันมหาศาล
+- id: q2
+  objective: 2
+  type: order
+  prompt:
+    th: เรียงสิ่งที่เกิดขึ้นระหว่างที่ wifi.connect() ทำงาน จากแรกสุดไปสุดท้าย
+    en: Order what happens while wifi.connect() runs, from first to last.
+  choices:
+  - th: บอร์ดขอเข้าร่วมวงและพิสูจน์รหัสผ่าน
+  - th: เราเตอร์ให้เลข IP มา พร้อมเกตเวย์และ DNS
+  - th: บอร์ดขอดูว่ามี AP ไหนอยู่แถวนี้บ้าง
+  - th: บอร์ดขอเลขที่อยู่ผ่าน DHCP (DISCOVER / REQUEST)
+  - th: AP ตอบกลับด้วยชื่อวง ความแรง และช่องสัญญาณ
+  answer:
+  - 2
+  - 4
+  - 0
+  - 3
+  - 1
+  explain:
+    th: สามขั้นแรกเป็นเรื่องของ WiFi และตอนจบขั้นที่สามบอร์ดยังไม่มีเลข IP สองขั้นหลังเป็นเรื่องของ IP ผ่าน DHCP ติดขั้นไหนก็ตาม connect() คืน False เหมือนกันหมด จึงต้องมี ping ไว้แยกว่าติดตรงไหน
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: หน้าสถานะแสดงว่า ping เกตเวย์ได้ 3 ms แต่ ping 8.8.8.8 ขึ้น timeout ข้อสรุปใดถูก
+    en: The status page shows the gateway ping at 3 ms but the 8.8.8.8 ping times out. Which conclusion is correct?
+  choices:
+  - th: ลิงก์ WiFi ของบอร์ดหลุด ต้องต่อใหม่
+  - th: ปัญหาอยู่เหนือเราเตอร์ ไม่ใช่ที่บอร์ดของเรา
+  - th: เลขเกตเวย์ที่เดาเป็น .1 ผิด
+  - th: ต้องเปลี่ยนไป ping "google.com" แทน 8.8.8.8
+  answer:
+  - 1
+  explain:
+    th: เกตเวย์ตอบแปลว่าลิงก์ WiFi และเลขเกตเวย์ใช้ได้ ปลายทางนอกบ้านเงียบจึงแปลว่าขาดหลังเราเตอร์ ถ้าเกตเวย์ไม่ตอบต่างหากที่ชี้ไปที่ลิงก์ WiFi หรือเกตเวย์ที่เดาผิด
+- id: q4
+  objective: 4
+  type: multi
+  prompt:
+    th: ข้อใดถูกเกี่ยวกับโมดูล wifi บนบอร์ดนี้ เลือกทุกข้อที่ถูก
+    en: Which statements about the board's wifi module are true? Choose all that apply.
+  choices:
+  - th: wifi.ping("google.com") ได้ ValueError เพราะยังไม่มีตัวแปลชื่อเปิดให้ Python เรียก
+  - th: โค้ดอ่าน netmask และ gateway จริงจากเฟิร์มแวร์ได้
+  - th: เกตเวย์ในโค้ดเป็นการเดาจากเลข IP (สามช่องแรกต่อด้วย .1) จึงต้องพิสูจน์ด้วย ping
+  - th: ข้อจำกัดเรื่องชื่อโดเมนเกิดจากชิปวิทยุคุย DNS ไม่ได้
+  answer:
+  - 0
+  - 2
+  explain:
+    th: บอร์ดให้แค่ wifi.ip() ยังไม่มี netmask และ gateway ให้อ่าน โค้ดจึงเดาเกตเวย์แล้วยิง ping พิสูจน์ ส่วนเรื่อง DNS เป็นช่องว่างของโมดูล ตัวชิปคุย DNS ได้ แค่ยังไม่มีใครเปิดประตูฝั่ง Python ให้
+- id: q5
+  objective: 2
+  type: single
+  prompt:
+    th: บอร์ดผ่านขั้นเข้าร่วมวง WiFi แล้ว แต่ DHCP ของห้องเต็ม อาการที่เห็นคืออะไร
+    en: The board has joined the WiFi network, but the room's DHCP pool is full. What symptom do you see?
+  choices:
+  - th: ต่อ WiFi ติด แต่ไม่มีเลข IP ซึ่งดูเหมือนต่อไม่ติด
+  - th: wifi.scan() ไม่เจอวงใดเลย
+  - th: ได้เลข IP ปกติ แต่ ping 8.8.8.8 ไม่ผ่าน
+  - th: ค่า RSSI กลายเป็นเลขบวก
+  answer:
+  - 0
+  explain:
+    th: DHCP อยู่ในขั้นที่ 4–5 ซึ่งเป็นเรื่องของ IP ไม่ใช่ WiFi คลื่นแรงดีและเข้าร่วมวงได้ แต่ไม่มีใครแจกเลขให้ จึงคุยกับใครนอกห้องไม่ได้ ทั้งที่ดูเหมือนต่อไม่ติด

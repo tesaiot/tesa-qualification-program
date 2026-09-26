@@ -1,0 +1,86 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m05.l03 บทเรียน 5.3
+items:
+- id: q1
+  objective: 1
+  type: order
+  prompt:
+    th: เรียงลำดับการลงมือกับไฟล์ฝึกตามที่แนะนำ
+    en: Put the recommended working order for the practice file in sequence.
+  choices:
+  - th: ตั้งเกณฑ์ใน CONFIG แล้วทดสอบด้วยมือจริงว่ามันเตือนตอนที่ควรเตือน
+  - th: รันโครงเปล่าให้ผ่านก่อน
+  - th: ทดสอบตอนเน็ตหลุด
+  - th: เปลี่ยน read_value() เป็นปริมาณของทีม
+  - th: แต่งหน้าจอ แล้วปรับ schema
+  answer:
+  - 1
+  - 3
+  - 0
+  - 4
+  - 2
+  explain:
+    th: เริ่มจากโครงที่รันได้ก่อน แล้วค่อยเปลี่ยนค่าที่วัด ตั้งและทดสอบเกณฑ์ด้วยมือ แต่งหน้าจอกับ schema และทดสอบเน็ตหลุดเป็นขั้นสุดท้าย การทดสอบเกณฑ์ด้วยมือห้ามข้าม ไม่งั้นจะไปเจอตอนนำเสนอว่ามันไม่เตือน
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: ทีมใส่คำถามยืนยันไว้ในปุ่มของ ui.MsgBox แต่กดแล้วไม่มีอะไรเกิดขึ้น ควรแก้อย่างไร
+    en: A team put the confirm answers in the ui.MsgBox buttons, but tapping them does nothing. What should they do?
+  choices:
+  - th: สร้าง ui.MsgBox ใหม่ทุกครั้งในลูป เพื่อให้ปุ่มตอบ
+  - th: ใช้ ui.Button จริงสองตัวเป็นคำตอบ สร้างไว้ตั้งแต่ต้นแล้ว .hide() และ .show() ตอนถาม
+  - th: เพิ่ม time.sleep_ms(2000) หลัง ui.poll() ให้ปุ่มมีเวลาส่งเหตุการณ์
+  - th: เขียนข้อความในกล่องให้ยาวขึ้น ปุ่มจึงจะกดได้
+  answer:
+  - 1
+  explain:
+    th: ปุ่มในตัว MsgBox ยังไม่ส่งเหตุการณ์กลับมาให้ Python เห็น จึงใช้ ui.Button จริงเป็นคำตอบ และสร้างของทั้งหมดไว้ก่อนเข้าลูป เพราะการสร้าง widget ตอนคนกำลังรอคำตอบเพิ่มความหน่วงในจังหวะที่แย่ที่สุด
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ในเฉลย ทำไมต้องรอให้ค่าเกินเกณฑ์ติดกัน 3 รอบ (CONFIRM_N) ก่อนเปลี่ยนสถานะเป็น ALERT
+    en: In the solution, why must the value exceed the threshold 3 rounds in a row (CONFIRM_N) before the state becomes ALERT?
+  choices:
+  - th: กันการสั่นวูบเดียว เช่นตอนมีคนเดินชน โดยยังตอบสนองภายในราวหกในสิบวินาทีที่ลูป 200 ms
+  - th: เพราะ broker รับข้อความได้ทุก 3 รอบเท่านั้น
+  - th: เพื่อให้เฉลี่ยค่ากับ gyro ให้ครบสามแกน
+  - th: เพื่อลดงานของ ui.poll() ลงเหลือหนึ่งในสาม
+  answer:
+  - 0
+  explain:
+    th: 3 รอบ × 200 ms คือราว 0.6 วินาที นานพอให้ของจริงยังเกินอยู่ แต่สั้นพอที่จะไม่ช้า ส่วนการเว้นระยะขั้นต่ำกับการค้างสถานะแก้คนละปัญหา
+- id: q4
+  objective: 2
+  type: multi
+  prompt:
+    th: ข้อใดจับคู่กลไกในเฉลยกับปัญหาที่มันแก้ได้ถูกต้อง เลือกทุกข้อที่ถูก
+    en: Which pairs of mechanism and the problem it solves are correct? Choose all that apply.
+  choices:
+  - th: ALERT_GAP_MS — กันการเตือนรัวตอนค่าแกว่งรอบเกณฑ์
+  - th: latched — ค้างสถานะไว้จนมีคนกดรับทราบ เพราะเหตุการณ์ที่ไม่มีใครเห็นเท่ากับไม่เคยเกิด
+  - th: beacon(True) — จุดหลอดจริงและไฟบนจอจากบรรทัดเดียว จอจึงไม่บอกว่าไฟติดทั้งที่หลอดดับ
+  - th: นับ sent ทุกรอบที่เรียก send() เพราะ send() สำเร็จเสมอ
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: send() คืน False เมื่อสายหลุด เฉลยจึงนับ sent เฉพาะใบที่ออกไปจริง ตัวเลขบนจอต้องไม่โกหก ส่วนสามข้อแรกคือเหตุผลของแต่ละกลไกตามที่สไลด์อธิบาย
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: ในการนำเสนอ 10 นาที ข้อใดผ่านเกณฑ์หัวข้อ "รู้ข้อจำกัดตัวเอง"
+    en: In the 10-minute presentation, which answer passes the "knows its own limits" criterion?
+  choices:
+  - th: บอกว่าระบบใช้งานได้ทุกกรณี ไม่มีข้อจำกัด
+  - th: บอกข้อจำกัดได้อย่างน้อย 2 ข้อ พร้อมเหตุผลเชิงเทคนิค และบอกว่าถ้ามีเวลาอีกสองสัปดาห์จะทำอะไร
+  - th: ฉายวิดีโอที่อัดไว้แทน demo สด เพื่อไม่ให้เห็นข้อจำกัด
+  - th: ข้ามช่วงที่ 4 เพื่อให้จบทันเวลา
+  answer:
+  - 1
+  explain:
+    th: ช่วงที่ 4 คือช่วงที่ผู้ฟังดูว่าทีมเข้าใจงานตัวเองจริงไหม ห้ามข้าม การตอบว่า "ไม่มีข้อจำกัด" หรือหลบด้วยวิดีโอที่อัดไว้คือยังไม่ผ่าน

@@ -1,0 +1,81 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m04.l06 บทเรียน 4.6
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: บอร์ด publish ได้โดยไม่มี error แต่ TESAIoT CE ไม่มีข้อมูลของทีมเลย และ MQTT Explorer ที่ subscribe `device/#` ก็ไม่เห็นข้อความ สาเหตุที่ตารางกับดักชี้คืออะไร
+    en: The board publishes with no error, yet TESAIoT CE shows no data for the team and MQTT Explorer subscribed to device/# sees nothing. Which cause does the pitfalls table point to?
+  choices:
+  - th: ช่องที่สองของ topic ไม่ตรงกับ `device_id` ACL ของ CE จึงปฏิเสธ ทั้งที่ฝั่งบอร์ดไม่มี error
+  - th: ตั้ง `keepalive=60` ยาวเกินไป
+  - th: payload เล็กเกินไป broker จึงทิ้ง
+  - th: ต้องใส่ `retain=True` ให้ `publish()` ข้อความจึงจะค้างอยู่บน broker
+  answer:
+  - 0
+  explain:
+    th: ACL ของ CE ปฏิเสธข้อความที่ช่องที่สองของ topic ไม่ตรงกับ `device_id` โดยที่ `publish()` ไม่ error จึงต้องใช้ `device/<device_id>/telemetry` ตรงตัวอักษร ส่วน `retain` ไม่มีในโมดูลจริง ใส่เข้าไปจะได้ TypeError
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ทีมหนึ่งเขียนลูปเป็น publish แล้ว `time.sleep(5)` แล้วค่อย `get_message()` หนึ่งครั้ง ระหว่างนั้นเพื่อนส่ง `{"cmd":"toggle"}` มาสามครั้งรวดเดียว จะเกิดอะไรขึ้น
+    en: A team's loop publishes, sleeps 5 seconds, then calls get_message() once. Meanwhile a classmate sends three toggle commands in a row. What happens?
+  choices:
+  - th: LED สลับสามครั้งตามลำดับ เพราะ broker เก็บคิวไว้ให้
+  - th: บอร์ดเห็นแค่ข้อความล่าสุด อีกสองข้อความถูกทับหายเงียบ ๆ เพราะช่องรับมีช่องเดียว
+  - th: บอร์ดโยน OSError เพราะข้อความล้น
+  - th: broker ตัดการเชื่อมต่อทันทีเพราะบอร์ดไม่ตอบ
+  answer:
+  - 1
+  explain:
+    th: '`get_message()` มีช่องรับช่องเดียว ข้อความใหม่ทับของเก่าโดยไม่เตือน วิธีเดียวคือถามให้ถี่พอ ลูปจึงเดินทุก 100 ms และนับ "ทุกห้าวินาที" ด้วย `ticks_diff` แทนการหยุดรอ'
+- id: q3
+  objective: 3
+  type: multi
+  prompt:
+    th: สำหรับอุปกรณ์ของทีมบน TESAIoT CE ค่าใดต้องเท่ากับ `device_id` ที่ขึ้นทะเบียนไว้ เลือกทุกข้อที่ถูก
+    en: For the team's device on TESAIoT CE, which values must equal the registered device_id? Choose all that apply.
+  choices:
+  - th: '`client_id` ที่ส่งให้ `mqtt.connect()`'
+  - th: '`username` ที่ส่งให้ `mqtt.connect()`'
+  - th: ช่องที่สองของ topic เช่น `device/team03/telemetry`
+  - th: '`WIFI_SSID` ของห้อง'
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: CE ตรวจตัวตนด้วย `username == client_id == device_id` และ ACL ดูช่องที่สองของ topic ค่าทั้งสามจึงต้องเป็นคำเดียวกัน ส่วนชื่อวง WiFi ไม่เกี่ยว
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: บรรทัด `mqtt.connect(BROKER, port=1883, client_id=DEVICE_ID, username=DEVICE_ID, password=MQTT_PASS, keep_alive=60)` ให้ `TypeError` ทันที ควรแก้อย่างไร
+    en: This mqtt.connect(...) line with keep_alive=60 raises TypeError at once. What is the fix?
+  choices:
+  - th: เปลี่ยน `keep_alive` เป็น `keepalive`
+  - th: เปลี่ยน `username=` เป็น `user=`
+  - th: ตัด `port=1883` ออก
+  - th: ส่งอาร์กิวเมนต์ทั้งหมดตามตำแหน่งแทน keyword
+  answer:
+  - 0
+  explain:
+    th: คีย์เวิร์ดที่ถูกคือ `keepalive` ตามตารางกับดัก `keep_alive` มาจากเอกสารที่เขียนผิด และชื่ออาร์กิวเมนต์ผิดตัวเดียวก็ TypeError ทันที ส่วน `user=` ก็ผิดเช่นกัน ที่ถูกคือ `username=`
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: ไฟล์ 08 วัดทุก 200 ms แต่ส่งทุก 2000 ms ถ้าเปลี่ยนให้ส่งทุก 200 ms เท่ากับรอบวัด ในห้องที่มีสิบห้าโต๊ะจะเกิดอะไรกับ broker ตัวเดียว
+    en: File 08 reads every 200 ms but sends every 2000 ms. If it sent every 200 ms instead, what would a single broker face in a room of fifteen desks?
+  choices:
+  - th: ไม่ต่างกัน เพราะข้อความเล็กมาก
+  - th: ราว 75 ข้อความต่อวินาที (5 ต่อวินาทีต่อบอร์ด) ห้องล่มได้โดยไม่มีใครเขียนโค้ดผิด
+  - th: ราว 15 ข้อความต่อวินาที เพราะหนึ่งโต๊ะหนึ่งข้อความ
+  - th: broker จะรวมข้อความให้เองจนเหลือทุก 2 วินาที
+  answer:
+  - 1
+  explain:
+    th: ส่งทุก 200 ms คือ 5 ข้อความต่อวินาทีต่อบอร์ด สิบห้าโต๊ะเป็น 75 ข้อความต่อวินาทีเข้า broker ตัวเดียว การวัดไม่กวนใคร แต่การส่งกวน broker และเพื่อนร่วมห้อง สองตัวเลขนี้จึงไม่ควรเท่ากัน

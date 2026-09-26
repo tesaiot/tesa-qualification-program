@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m04.l08 บทเรียน 4.8
+items:
+- id: q1
+  objective: 1
+  type: multi
+  prompt:
+    th: ข้อใดถูกเกี่ยวกับ `tesaiot.config_set()` และ `tesaiot.config()` เลือกทุกข้อที่ถูก
+    en: Which statements about tesaiot.config_set() and tesaiot.config() are correct? Choose all that apply.
+  choices:
+  - th: ต้องส่งทั้ง key และ value เป็นสตริง แม้ค่านั้นเป็นตัวเลข
+  - th: คีย์ที่สะกดผิดคืน False โดยไม่โยน error จึงต้องรับค่ากลับมาดู
+  - th: เรียก `config_set()` ครบแล้วบอร์ดต่อแพลตฟอร์มให้ทันที
+  - th: '`config()["mqtt_pass"]` อ่านรหัสผ่านที่ตั้งไว้กลับมาได้'
+  answer:
+  - 0
+  - 1
+  explain:
+    th: config_set() รับสตริงทั้งสองช่องและแค่เก็บค่าไว้ ยังไม่ได้ต่ออะไร คีย์ผิดคืน False เงียบ ๆ ส่วน mqtt_pass ตั้งได้แต่ไม่อยู่ใน dict 19 คีย์ของ config() อ่านด้วยวงเล็บเหลี่ยมจะได้ KeyError
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ทีมเขียน `tesaiot.connect()` แล้ว `tesaiot.publish(...)` บรรทัดถัดไปทันที ไม่มี error เลย แต่ dashboard ไม่เห็นข้อมูล สาเหตุคืออะไร
+    en: A team calls tesaiot.connect() and then tesaiot.publish(...) on the very next line. There is no error, but the dashboard shows nothing. What is the cause?
+  choices:
+  - th: connect() เป็น API แบบ async คืนค่าตอนงานเพิ่งเริ่ม ต้องวนรอ is_connected() พร้อมเพดานเวลาก่อนส่ง
+  - th: publish() ต้องใส่ topic เองเสมอ ไม่งั้นข้อมูลไม่ไปไหน
+  - th: connect() คืน False เพราะรหัสผ่านผิด
+  - th: ต้องเรียก connect() สองครั้งติดกัน
+  answer:
+  - 0
+  explain:
+    th: True จาก connect() แปลว่างานเริ่มแล้ว ไม่ใช่ต่อเสร็จแล้ว การจับมือ TLS ใช้เวลาเป็นวินาที publish ที่ยิงก่อนต่อเสร็จไม่ error และไม่ถึงแพลตฟอร์ม ตัวที่ตอบได้จริงคือ is_connected()
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: บรรทัดใดส่ง telemetry ขึ้นแพลตฟอร์มผ่าน `tesaiot` ได้ถูกต้องตามแบบของชุดบทเรียนนี้
+    en: Which line correctly sends telemetry to the platform through tesaiot, as these lessons do?
+  choices:
+  - th: '`tesaiot.publish(json.dumps({"pot": sensors.pot.percent()}))`'
+  - th: '`tesaiot.publish("device/team03/telemetry", json.dumps(data))`'
+  - th: '`tesaiot.publish(json.dumps({"pot": str(sensors.pot.percent())}))`'
+  - th: '`mqtt.publish(json.dumps(data))`'
+  answer:
+  - 0
+  explain:
+    th: tesaiot.publish() วาง payload ก่อนและไม่ต้องใส่ topic เพราะเฟิร์มแวร์ประกอบจาก device_id ให้ ถ้าสลับลำดับจะไม่ error แต่ข้อมูลไปผิดที่ และค่าที่เป็นสตริงขึ้นบน dashboard ได้แต่วาดกราฟไม่ได้
+- id: q4
+  objective: 4
+  type: single
+  prompt:
+    th: ทีมลองตั้งค่าไปหลายคีย์จนไม่รู้ว่าตอนนี้บอร์ดเหลือค่าอะไรอยู่ ทางที่สไลด์แนะนำคืออะไร
+    en: A team has changed so many keys that they no longer know what the board holds. What does the deck recommend?
+  choices:
+  - th: เรียก `config_reset()` แล้วตั้งทุกค่าใหม่จากศูนย์ โดยไม่เอาค่าที่คืนมาใส่ใน `if`
+  - th: เรียก `config_reload()` แล้วค่าของทีมจะกลับมาครบเสมอ
+  - th: เรียก `tesaiot.protected_update()` เพื่อเขียนตัวตนลงชิปใหม่
+  - th: ไล่แก้ทีละคีย์ไปเรื่อย ๆ จนต่อติด
+  answer:
+  - 0
+  explain:
+    th: config_reset() ล้างทั้ง 19 คีย์กลับเป็นค่าโรงงาน จึงต้องตั้งใหม่ทุกค่า และมันคืน None ใส่ใน if จะไม่มีวันจริง config_reload() แค่ดึงของที่เซฟไว้ในแฟลชกลับมา ส่วน protected_update() ห้ามเรียกเด็ดขาด
+- id: q5
+  objective: 4
+  type: multi
+  prompt:
+    th: ข้อใดถูกเกี่ยวกับ 28 ชื่อในโมดูล `tesaiot` บนบอร์ดของหลักสูตรนี้ เลือกทุกข้อที่ถูก
+    en: Which statements about the 28 names in the tesaiot module on this course's boards are correct? Choose all that apply.
+  choices:
+  - th: สิบหกตัวที่ส่งคำสั่งข้ามไปคอร์จอโยน OSError บนทั้งสองบอร์ด เพราะคอร์จอประกอบมาโดยไม่เปิด OPTIGA
+  - th: บน Dev Kit `protected_update()` เขียนใบรับรองลงชิปจริงและย้อนกลับไม่ได้ จึงห้ามเรียกในชุดบทเรียนนี้
+  - th: '`slots()` ตอบทันทีโดยไม่แตะชิป เพราะอ่านตารางชื่อในเฟิร์มแวร์'
+  - th: บน Eva Kit ใช้ได้ครบทั้ง 28 ชื่อ
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: ใช้ได้จริงบนทั้งสองบอร์ดแค่เก้าตัว สิบหกตัวที่ข้ามคอร์ได้คำตอบว่าไม่มีให้แล้วโยน OSError protected_update() บน Eva โยน OSError แต่บน Dev Kit ทำงานจริงกับชิป ส่วน slots() เป็นหนึ่งในเก้าตัวที่ตอบทันที

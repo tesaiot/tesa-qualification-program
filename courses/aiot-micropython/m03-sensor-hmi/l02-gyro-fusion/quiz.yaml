@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m03.l02 บทเรียน 3.2
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: วางบอร์ดนิ่ง gyro อ่าน gz ได้ 0.05 deg/s (bias) ถ้าบวกสะสม ω·Δt เป็นมุมไปเรื่อย ๆ ผ่านไป 10 นาที มุมจะผิดไปราวเท่าไร
+    en: The board lies still and gz reads a 0.05 deg/s bias. If you keep integrating ω·Δt into an angle, how wrong is it after 10 minutes?
+  choices:
+  - th: 30°
+  - th: 3°
+  - th: 0.05°
+  - th: 0° เพราะบอร์ดไม่ได้หมุน
+  answer:
+  - 0
+  explain:
+    th: 0.05 deg/s × 600 s = 30° ความผิดพลาดจิ๋วถูกบวกสะสมทุกรอบโดยไม่มีอะไรดึงกลับ นี่คือ drift และเป็นเหตุผลที่ต้องให้ accelerometer คอยดึงกลับในระยะยาว
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ลูปหมุนทุก 200 ms และใช้ dsp.EMA(alpha=0.2) ค่าที่กรองแล้วจะตามการเอียงช้ากว่าค่าดิบราวเท่าไร
+    en: The loop runs every 200 ms with dsp.EMA(alpha=0.2). Roughly how far does the filtered value lag the raw one?
+  choices:
+  - th: ราว 1 วินาที
+  - th: ราว 0.04 วินาที
+  - th: ราว 9.8 วินาที
+  - th: ไม่มี lag เพราะ EMA ไม่ได้อินทิเกรตอะไร
+  answer:
+  - 0
+  explain:
+    th: τ ≈ Ts/α = 0.2/0.2 = 1.0 วินาที ส่วน 9.8 วินาทีคือเส้นแบ่งของ complementary ที่ a = 0.98 การไม่อินทิเกรตทำให้ไม่มี drift แต่ยังมี lag
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: เพื่อนบอกว่า "ตั้ง alpha=0.98 แล้วเส้นจะนิ่งขึ้นเสมอ" ข้อใดถูก
+    en: A teammate says "setting alpha=0.98 always makes the line smoother". Which is correct?
+  choices:
+  - th: จริงเฉพาะ complementary ที่ a สูงแปลว่าเชื่อค่าเดิมกับ gyro มาก ส่วน dsp.EMA ที่ alpha 0.98 แปลว่าเชื่อค่าใหม่มาก จึงไวและสั่นขึ้น
+  - th: จริงทั้งสองสูตร เพราะชื่อพารามิเตอร์เหมือนกัน
+  - th: ไม่จริงทั้งสองสูตร alpha สูงทำให้สั่นขึ้นเสมอ
+  - th: alpha ไม่มีผลกับความนิ่ง มีผลแค่กับ drift
+  answer:
+  - 0
+  explain:
+    th: ใน dsp.EMA ค่าใหม่มีน้ำหนัก α ส่วนใน complementary ค่าเดิมบวก gyro มีน้ำหนัก a ตัวเลขเดียวกันจึงให้ผลตรงข้ามกันสุดขั้ว ให้เปิดดูสมการ อย่าเชื่อชื่อพารามิเตอร์
+- id: q4
+  objective: 3
+  type: multi
+  prompt:
+    th: ข้อใดคือเหตุผลที่ถูกต้องของโค้ดเครื่องวัดระดับ เลือกทุกข้อที่ถูก
+    en: Which are correct reasons behind the digital-level code? Choose all that apply.
+  choices:
+  - th: ต้องตั้ง ui.Bar เป็น min=-90, max=90 ไม่งั้นช่วงปริยาย 0–100 จะปัด −30 องศาเป็น 0 แล้วแถบนิ่งสนิททั้งที่โค้ดคำนวณถูก
+  - th: ตอนกดตั้งศูนย์ต้องเก็บ roll_f ที่กรองแล้ว ไม่ใช่ roll ดิบที่อาจกำลังสั่นอยู่พอดี
+  - th: ต้องเรียก sensors.init() ก่อน motion() บน Eva Kit ไม่งั้นอ่านค่าไม่ได้
+  - th: เรียก ui.poll() เฉพาะรอบที่มีคนกดปุ่มก็พอ
+  answer:
+  - 0
+  - 1
+  explain:
+    th: บน Eva Kit sensors.init() ถูกปฏิเสธด้วย OSError และบน Dev Kit ก็ไม่จำเป็น ส่วน ui.poll() ต้องเรียกทุกรอบ เพราะฝั่ง CM55 ใช้มันเป็นสัญญาณว่าโปรแกรมยังมีชีวิต เงียบราวสองวินาที widget จะถูกซ่อนทั้งหน้า
+- id: q5
+  objective: 4
+  type: multi
+  prompt:
+    th: จาก 05_madgwick_and_pedometer.py ข้อใดคือกับดักเรื่องหน่วยที่ต้องจัดการเอง เลือกทุกข้อที่ถูก
+    en: From 05_madgwick_and_pedometer.py, which unit traps must you handle yourself? Choose all that apply.
+  choices:
+  - th: Madgwick.update() ต้องการ gyro เป็นเรเดียนต่อวินาที แต่ motion() คืนองศาต่อวินาที จึงต้อง math.radians() เอง
+  - th: Pedometer ค่าตั้งต้น threshold=1.5 เป็นหน่วย g ถ้าป้อน m/s² มันจะนับก้าวขึ้นเรื่อย ๆ ทั้งที่บอร์ดวางนิ่ง
+  - th: fs ของ Madgwick ต้องเท่าอัตราของลูปจริง ลูป 200 ms คือ fs=5.0
+  - th: Madgwick กับ Pedometer มี .value() ให้อ่านผลเหมือนตัวกรองหกตัวในบทเรียน 2.7–2.9
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: ลืมแปลง gyro เท่ากับป้อนใหญ่เกินจริงราว 57 เท่า มุมหมุนติ้วโดยไม่มี error และ 9.81 m/s² ข้ามเกณฑ์ 1.5 ตั้งแต่ยังไม่ขยับ ทั้งสองคลาสไม่มี .value() ต้องเก็บค่าที่ .update() คืนมาเอง

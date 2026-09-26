@@ -1,0 +1,80 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m05.l02 บทเรียน 5.2
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: รอบหนึ่งบอร์ดอ่าน IMU ไม่ได้ (sensors.bmi270.motion() โยน OSError) read_value() ในโครงตั้งต้นทำอะไร
+    en: In one round the IMU read fails (sensors.bmi270.motion() raises OSError). What does read_value() in the starter do?
+  choices:
+  - th: หยุดโปรแกรม เพื่อไม่ให้ส่งค่าผิดขึ้น broker
+  - th: คืนค่าล่าสุดที่อ่านได้ และยกธง stale ให้จอขึ้นว่า "ค่าค้าง อ่านไม่ได้"
+  - th: คืนค่า 0 ซึ่งจะทำให้สถานะกลับเป็น OK
+  - th: คืนค่าล่าสุดและแสดงบนจอเหมือนค่าที่เพิ่งวัดได้ตามปกติ
+  answer:
+  - 1
+  explain:
+    th: อุปกรณ์ที่ต้องอยู่เป็นเดือนต้องทนการอ่านพลาดหนึ่งรอบได้ ค่าค้างยังมีประโยชน์ แต่ต้องไม่ถูกโชว์เหมือนค่าสด อุปกรณ์ที่อ่านเซนเซอร์ไม่ได้แล้วโชว์เลขเดิมค้างไว้คือเครื่องที่โกหกคนหน้างาน
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ทีมหนึ่งเขียน decide() โดยเช็ก if value > WARN_LIMIT ก่อน แล้วจึงเช็ก if value > LIMIT (เกณฑ์ ALERT) ผลจะเป็นอย่างไร
+    en: A team writes decide() checking value > WARN_LIMIT first and value > LIMIT (the ALERT threshold) second. What happens?
+  choices:
+  - th: ทำงานเหมือนเดิม เพราะลำดับของ if ไม่มีผล
+  - th: ขึ้น error ตอนรัน เพราะเงื่อนไขทับกัน
+  - th: ไม่มีทางเข้า ALERT เลย เพราะเงื่อนไขที่หลวมกว่าดักไว้ก่อนทุกครั้ง และไม่มี error ให้เห็น
+  - th: เข้า ALERT เร็วขึ้น เพราะเช็กเกณฑ์ที่ต่ำกว่าก่อน
+  answer:
+  - 2
+  explain:
+    th: ค่าที่เกิน LIMIT ย่อมเกิน WARN_LIMIT ด้วย จึงถูกคืน WARN ไปก่อนทุกครั้ง ลำดับการตรวจต้องไล่จากเข้มที่สุดลงมาเสมอ ซึ่งเป็นกับดักที่ 01_state_machine.py ชี้ไว้
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ถ้าตั้ง CONFIRM_N = 3 และลูปเดินทุก 200 ms ระบบจะเตือนช้าลงเท่าไรเมื่อเทียบกับการเชื่อทันที
+    en: With CONFIRM_N = 3 and a 200 ms loop, how much later does the system alert compared with believing the first reading?
+  choices:
+  - th: 0.2 วินาที
+  - th: 0.6 วินาที
+  - th: 3 วินาที
+  - th: ไม่ช้าลงเลย
+  answer:
+  - 1
+  explain:
+    th: ราคาของการยืนยันคือ N คูณคาบลูป 3 × 200 ms เท่ากับหกในสิบวินาที ทีมต้องตอบเลขนี้ได้เป็นวินาที ไม่ใช่ตั้ง N ให้ใหญ่ไว้ก่อน แลกกับการที่ค่ากระโดดวูบเดียวไม่ยิงเตือนผิด
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ทีมหนึ่งใช้ปุ่มที่อยู่ในตัว ui.MsgBox เป็นปุ่มยืนยันการปิดไฟเตือน แล้วรอให้คนกด จะเกิดอะไรขึ้น
+    en: A team relies on the buttons inside ui.MsgBox to confirm switching the warning lamp off and waits for a press. What happens?
+  choices:
+  - th: ทำงานได้ปกติ เพราะ MsgBox ส่งเหตุการณ์ clicked เหมือนปุ่มทั่วไป
+  - th: ได้ปุ่มตายบนจอ เพราะปุ่มในตัว MsgBox ยังไม่ส่งเหตุการณ์กลับมาให้ Python ต้องใช้ ui.Button จริงสองปุ่มแทน
+  - th: ไฟเตือนดับทันทีโดยไม่ต้องรอคนกด
+  - th: บอร์ดรีเซ็ต เพราะแฮนเดิลไม่พอ
+  answer:
+  - 1
+  explain:
+    th: เฟิร์มแวร์ผูก callback ไว้กับ ui.Button เท่านั้น ปุ่มในตัว MsgBox จึงกดแล้วไม่มีอะไรเกิด คนกดจะสรุปว่าเครื่องแฮงก์ โครงจึงสร้างปุ่ม "ยืนยัน" กับ "ยกเลิก" พร้อมหน้าจอแล้วซ่อนไว้ และ show() ตอนถาม
+- id: q5
+  objective: 4
+  type: multi
+  prompt:
+    th: ข้อใดถูกเกี่ยวกับท่าที่ 4 และ 5 ของโครงตั้งต้น เลือกทุกข้อที่ถูก
+    en: Which statements about moves 4 and 5 of the starter are correct? Choose all that apply.
+  choices:
+  - th: send() คืน False เมื่อยังไม่ได้ต่อ broker ผู้เรียกจึงรู้ผลและนับข้อความที่ส่งไม่ออกได้
+  - th: การต่อใหม่ถูกนัดทุก RETRY_MS ลูปและจอจึงเดินครบทุกรอบแม้เน็ตหลุด
+  - th: สองบอร์ดใช้ client_id เดียวกันได้ ถ้าส่งคนละ topic
+  - th: ถ้าต่อไม่ติด ควรเรียก go_online() ทุกรอบลูป จะได้กลับมาเร็วที่สุด
+  answer:
+  - 0
+  - 1
+  explain:
+    th: send() ไม่เงียบหาย และการต่อใหม่ถูกนัดเวลาไว้ ต่อรัว ๆ ทุกรอบทำให้ลูปหน่วงและจอกระตุก ส่วน client_id ซ้ำทำให้สองบอร์ดเตะกันหลุดสลับไปมาเป็นลูป ไม่ว่าจะส่ง topic ไหน

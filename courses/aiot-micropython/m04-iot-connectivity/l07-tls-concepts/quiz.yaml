@@ -1,0 +1,84 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m04.l07 บทเรียน 4.7
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ใบรับรอง X.509 ของ broker ที่ CA เซ็นไว้ รับรองอะไรกันแน่
+    en: What exactly does the broker's CA-signed X.509 certificate vouch for?
+  choices:
+  - th: กุญแจสาธารณะในใบนี้เป็นของชื่อโฮสต์นี้จริง โดยมี CA ที่เราเชื่ออยู่แล้วเซ็นยืนยัน
+  - th: เจ้าของเซิร์ฟเวอร์เป็นคนดีและเก็บข้อมูลของเราอย่างปลอดภัย
+  - th: ใบรับรองเป็นความลับ ถ้าใครก๊อปไปได้จะปลอมเป็นเซิร์ฟเวอร์ได้ทันที
+  - th: ข้อมูลที่ส่งผ่านเซิร์ฟเวอร์นี้ถูกต้องเสมอ
+  answer:
+  - 0
+  explain:
+    th: ใบรับรองพิสูจน์แค่ "ชื่อคู่กับกุญแจ" และมีค่าเพราะลายเซ็นของ CA ท้ายใบ ตัวใบเป็นข้อมูลสาธารณะที่ก๊อปได้ และไม่ได้บอกว่าเจ้าของดีหรือเก็บข้อมูลดี
+- id: q2
+  objective: 2
+  type: order
+  prompt:
+    th: เรียงจังหวะการจับมือ TLS 1.2 ระหว่างบอร์ดกับ broker ตั้งแต่ต้นจนข้อมูล MQTT เริ่มเดิน
+    en: Put the TLS 1.2 handshake between the board and the broker in order, until MQTT data starts to flow.
+  choices:
+  - th: ClientHello บอกว่ารองรับอะไร และแนบชื่อโฮสต์ปลายทาง (SNI)
+  - th: ตั้งแต่ Finished ทุกไบต์ถูกเข้ารหัส แล้ว MQTT CONNECT เดินเข้าไปข้างใน
+  - th: TCP ต่อวงจร ยังไม่มีอะไรเข้ารหัส
+  - th: เซิร์ฟเวอร์ยื่นใบรับรอง บอร์ดตรวจลายเซ็นย้อนขึ้นไปถึง root แล้วแลกกุญแจลับของรอบนี้
+  answer:
+  - 2
+  - 0
+  - 3
+  - 1
+  explain:
+    th: TCP ต้องมาก่อน แล้ว ClientHello จึงเดินพร้อม SNI แบบยังไม่เข้ารหัส เซิร์ฟเวอร์ยื่นใบที่ตรงกับชื่อนั้น บอร์ดตรวจถึง root แล้วแลกกุญแจ หลัง Finished จึงเข้ารหัสทุกไบต์ MQTT ไม่รู้เรื่อง TLS เลย มันแค่ถูกวางไว้ข้างในท่อที่สร้างเสร็จแล้ว
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ทีมหนึ่งตั้ง `sni_hostname` สะกดต่างจากชื่อ broker ไปหนึ่งตัวอักษร จะเห็นอาการใด
+    en: A team sets sni_hostname one letter different from the broker's name. What symptom will they see?
+  choices:
+  - th: ต่อไม่ติดโดยไม่มีข้อความอะไรเลย
+  - th: ขึ้น error ว่าชื่อโฮสต์ผิดพร้อมบอกชื่อที่ถูก
+  - th: ต่อติดแต่ข้อมูลเดินแบบไม่เข้ารหัส
+  - th: บอร์ดสลับไปใช้พอร์ต 8883 เอง
+  answer:
+  - 0
+  explain:
+    th: SNI คือชื่อที่เซิร์ฟเวอร์ใช้หยิบใบรับรองมายื่น ชื่อผิดก็ได้ใบผิด ตรวจไม่ผ่าน และล้มเงียบ ไม่ใช่ error ที่บอกว่าชื่อผิด
+- id: q4
+  objective: 3
+  type: multi
+  prompt:
+    th: ข้อใดถูกเกี่ยวกับพอร์ตและ root CA ของเส้นทาง `tesaiot` เลือกทุกข้อที่ถูก
+    en: Which statements about the port and the root CA on the tesaiot path are correct? Choose all that apply.
+  choices:
+  - th: พอร์ตที่ต่อจริงถูกเลือกจาก `tls_mode` โดย `server_tls` ได้ 8884
+  - th: ตั้งคีย์ `port` เป็น 1883 แล้วบอร์ดจะต่อพอร์ต 1883 แบบไม่เข้ารหัส
+  - th: MQTTs เข้า CE ที่ทีมติดตั้งเองไม่ผ่าน เพราะ CE สุ่ม root CA ใหม่ทุกการติดตั้ง แต่บอร์ดรู้จักแค่ root ที่คอมไพล์มากับเฟิร์มแวร์
+  - th: เปลี่ยน root CA บนบอร์ดได้ด้วยการเรียก API ตอนรัน
+  answer:
+  - 0
+  - 2
+  explain:
+    th: พอร์ตเป็นผลลัพธ์ของ `tls_mode` คีย์ `port` เปลี่ยนแค่ป้ายที่แสดง และ root CA ถูกคอมไพล์ติดเฟิร์มแวร์ ไม่มี API ให้เปลี่ยนตอนรัน จะใช้ CE ต้อง build เฟิร์มแวร์ใหม่พร้อม CA ของ CE ชุดนั้น
+- id: q5
+  objective: 4
+  type: multi
+  prompt:
+    th: serverTLS ที่ใช้ในชุดบทเรียนนี้ทำอะไรได้บ้าง เลือกทุกข้อที่ถูก
+    en: What does the serverTLS used in these lessons achieve? Choose all that apply.
+  choices:
+  - th: เข้ารหัสข้อมูลตลอดทาง คนกลางอ่านไม่ได้และแก้ระหว่างทางโดยเราไม่รู้ไม่ได้
+  - th: พิสูจน์ว่าเซิร์ฟเวอร์เป็นตัวจริง เพราะยื่นใบที่ CA เซ็นและชื่อตรงกับ SNI
+  - th: พิสูจน์ว่าอุปกรณ์ตัวไหนเป็นคนส่ง แม้มีคนก๊อป `mqtt_pass` ไปได้
+  - th: ซ่อนชื่อโฮสต์ปลายทางจากคนดักฟัง
+  answer:
+  - 0
+  - 1
+  explain:
+    th: serverTLS พิสูจน์ช่องทางและเซิร์ฟเวอร์ ไม่ได้พิสูจน์อุปกรณ์ ตัวตนอุปกรณ์มาจากรหัสผ่านที่ก๊อปได้ และ SNI ยังเดินแบบเปิดเผย คนดักฟังจึงเห็นว่าเราคุยกับใคร แต่ไม่เห็นว่าคุยว่าอะไร

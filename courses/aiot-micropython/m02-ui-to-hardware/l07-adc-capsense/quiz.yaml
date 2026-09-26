@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m02.l07 บทเรียน 2.7
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: sensors.pot.read() คืน 40915 ข้อใดถูกต้องที่สุด
+    en: sensors.pot.read() returns 40915. Which statement is most correct?
+  choices:
+  - th: คิดเป็น 62.43% ของช่วงเต็มสเกล แต่ยังบอกเป็นโวลต์ไม่ได้จนกว่าจะรู้ V_ref ของบอร์ดจริง
+  - th: คิดเป็น 2.06 V แน่นอน เพราะ voltage() คูณด้วย 3.3 V ซึ่งเป็นแรงดันจริงของลูกบิด
+  - th: แปลว่า ADC ของบอร์ดละเอียด 65536 ขั้นจริง
+  - th: ค่านี้ได้มาเพราะเรียก sensors.init() ไว้ก่อนแล้ว
+  answer:
+  - 0
+  explain:
+    th: 40915 / 65535 × 100 ได้ 62.43% แต่ voltage() คูณด้วย 3.3 V ที่สมมติไว้ ขณะที่ผังบอร์ดระบุ 1.8 V และยังไม่มีใครวัดยืนยัน ส่วน 65535 เป็นสเกลของ API และไม่ต้องเรียก init() เลย
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: คุณเลื่อนลูกบิดช้า ๆ แล้วเห็นค่าจาก read() เดินทีละ 16 เท่ากันทุกก้อน ความละเอียดจริงของการวัดคือเท่าไร
+    en: You turn the knob slowly and see read() move in equal steps of 16. What is the real resolution of the measurement?
+  choices:
+  - th: 4096 ขั้น
+  - th: 65536 ขั้น ตามสเกลที่ read() คืน
+  - th: 16 ขั้น
+  - th: บอกไม่ได้จนกว่าจะรู้ V_ref
+  answer:
+  - 0
+  explain:
+    th: ก้าวละ k หมายถึง 65536/k ขั้น คือ 65536/16 = 4096 ตรงกับที่เฟิร์มแวร์อ่าน ADC 12 บิตแล้วขยายเป็น 0-65535 จำนวนขั้นนับจากก้าวของค่าดิบได้โดยไม่ต้องรู้แรงดันอ้างอิง
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: ปุ่มสัมผัสรายงาน True ตอนไม่มีใครแตะ และ False ตอนแตะ ตั้งแต่เริ่มบทเรียน วิธีแก้ที่ถูกคืออะไร
+    en: A touch button reports True when nobody touches it and False when touched, since the start of the lesson. What is the right fix?
+  choices:
+  - th: ยกนิ้วออกจากแผ่นสัมผัสให้หมด แล้วถอดสาย USB เสียบกลับ
+  - th: กด Program to Device เพื่อรันสคริปต์ใหม่
+  - th: กลับค่า True/False ในโค้ดของเรา
+  - th: บน Dev Kit โยกสวิตช์บนฐานเพื่อรีเซ็ต
+  answer:
+  - 0
+  explain:
+    th: baseline ถูกเก็บตอนบอร์ดบูตโดยไดรเวอร์บนคอร์จอ ถ้ามีนิ้วค้างตอนนั้น ชิปจะจำสภาพมีนิ้วเป็นสภาพปกติ การรันสคริปต์ใหม่ไม่ได้เก็บ baseline ใหม่ และสวิตช์บนฐาน Dev Kit คือสวิตช์ไฟ ไม่ใช่ปุ่มรีเซ็ต
+- id: q4
+  objective: 4
+  type: single
+  prompt:
+    th: ลูปของคุณพัก 50 ms แล้วอ่าน sensors.snapshot() ทุกรอบ และพบว่า d['pot']['sequence'] ไม่ขยับหลายรอบติดกัน แปลว่าอะไร
+    en: Your loop sleeps 50 ms and reads sensors.snapshot() each round, and d['pot']['sequence'] stays the same for several rounds. What does it mean?
+  choices:
+  - th: เราอ่านค่าเดิมซ้ำ เพราะคอร์จออ่านลูกบิดทุก 200 ms และลูปของเราเร็วกว่านั้น
+  - th: ลูกบิดเสีย ต้องเปลี่ยนบอร์ด
+  - th: ADC ค้าง ต้องเรียก sensors.init() ใหม่
+  - th: ค่าถูกกรองจนนิ่งแล้ว เป็นสัญญาณที่ดี
+  answer:
+  - 0
+  explain:
+    th: sequence คือเลขนับตัวอย่างของกลุ่มนั้น ถ้าไม่ขยับแปลว่ายังเป็นตัวอย่างเดิม ไม่ใช่ว่าโลกหยุดนิ่ง มันจึงเป็นเครื่องมือบอกว่าจังหวะลูปเร็วเกินความจริงของข้อมูลหรือยัง
+- id: q5
+  objective: 4
+  type: multi
+  prompt:
+    th: ข้อใดถูกเกี่ยวกับโมดูล sensors บน Eva Kit เลือกทุกข้อที่ถูก
+    en: Which statements about the sensors module on the Eva Kit are correct? Choose all that apply.
+  choices:
+  - th: init() scan() push() live_push() auto() ถูกปฏิเสธด้วย OSError เพราะบัส SCB0 เป็นของคอร์จอ
+  - th: auto() อันตรายที่สุด เพราะมันเปิดงานเบื้องหลังที่ขับบัสแทน อาการค้างจึงอยู่ต่อหลังบรรทัดนั้นจบ และ try/except ช่วยไม่ได้
+  - th: read_all() อ่านได้มากกว่า snapshot() จึงควรใช้แทน
+  - th: sensors.sht40 ใช้ได้เหมือนบน Dev Kit
+  - th: คอร์สนี้ใช้ snapshot() เพราะได้ dict หน้าตาเดียวกันทั้งสองบอร์ด
+  answer:
+  - 0
+  - 1
+  - 4
+  explain:
+    th: ห้าฟังก์ชันจบที่การขับบัสที่คอร์จอถือไว้ Eva จึงปฏิเสธ read_all() บน Eva คือบรรทัดเดียวที่เรียก snapshot() ต่อ และ sht40 ไม่มีในโมดูลของ Eva เลย (พิมพ์แล้วได้ AttributeError)

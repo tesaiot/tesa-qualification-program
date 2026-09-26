@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m03.l09 บทเรียน 3.9
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: คุณเติมจุดของการ์ดลูกบิดเป็น pot_seg7.value(int(pct)) รันแล้วไม่มี error แต่ Seg7 ค้างที่ 0000 ตลอด ทั้งที่ Arc ขยับตามลูกบิด ควรแก้อย่างไร
+    en: You filled the knob card blank with pot_seg7.value(int(pct)). There is no error, but the Seg7 stays at 0000 while the Arc follows the knob. What is the fix?
+  choices:
+  - th: เปลี่ยนเป็น pot_seg7.text("{:.1f}".format(pct)) เพราะ Seg7 รับข้อความ ไม่ใช่ค่า
+  - th: ใส่ value=28 ตอนสร้าง Seg7 ให้ฟอนต์ใหญ่ขึ้น
+  - th: ย้ายบรรทัดนั้นออกนอกเงื่อนไข UI_TEXT_MS ให้เขียนทุก 200 ms
+  - th: เรียก sensors.init() ก่อนอ่านลูกบิด
+  answer:
+  - 0
+  explain:
+    th: ฝั่งเฟิร์มแวร์ไม่มีเส้นทาง .value() สำหรับ Seg7 คำสั่งจึงหายเงียบ ๆ และตัวเลขค้างที่ 0000 ทั้งบนบอร์ดและใน Emulator ต้องส่งเป็นข้อความด้วย .text() ส่วน value= ของ Seg7 ก็ถูกโยนทิ้งเพราะฟอนต์ถูกฝังไว้ตายตัว
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ระหว่างรันยาว เลขรอบยังเดินต่อทุกช่วง แต่ loop ms บนแถบหัวค่อย ๆ โตจาก 3 เป็น 40 ms ข้อใดสรุปได้ถูกต้อง
+    en: During the soak run the loop count keeps rising in every slot, but the loop ms in the header slowly grows from 3 to 40 ms. Which conclusion is correct?
+  choices:
+  - th: ช้า ไม่ใช่ค้าง มีอะไรสะสมอยู่ในลูป และยังไม่ผ่านข้อ loop ms ไม่โตขึ้นเรื่อย ๆ
+  - th: ค้างจริง ลูปตายแล้ว ต้องกด RESTART แล้วนับเวลาต่อ
+  - th: ปกติ เพราะเลขรอบยังเดิน ถือว่าผ่านเกณฑ์สิบนาที
+  - th: เซนเซอร์ไม่ตอบ ให้ดูที่ไฟค่าค้าง
+  answer:
+  - 0
+  explain:
+    th: ค้างจริงคือเลขรอบกับ loop ms หยุดทั้งคู่ แต่ถ้าเลขรอบยังเดินขณะ loop ms โตขึ้นเรื่อย ๆ แปลว่าช้าลงเพราะมีอะไรสะสม ซึ่งเกณฑ์ MVP ห้ามไว้ และถ้าต้องรีสตาร์ต ต้องเริ่มจับเวลาใหม่ตั้งแต่ศูนย์ ห้ามนับต่อ
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: การ์ดใบท้าย ๆ ของทีมไม่ขึ้นจอเลย ไม่มี error และสคริปต์ก่อนหน้าก็เพิ่งรันเสร็จ สาเหตุที่น่าจะเป็นที่สุดคืออะไร
+    en: The team's last few widgets never appear, there is no error, and another script ran just before. What is the most likely cause?
+  choices:
+  - th: เกินเพดาน 64 widgets เพราะไม่ได้เรียก ui.screen() ต้นสคริปต์ ของเก่าจึงยังกินช่องอยู่
+  - th: สร้าง Panel ก่อน Label
+  - th: sleep_ms(200) นานเกินไป CM55 จึงไม่วาด
+  - th: Emulator รองรับแค่สี่การ์ด
+  answer:
+  - 0
+  explain:
+    th: ตัวที่เกินเพดาน 64 ไม่ขึ้นและไม่เตือนอะไร ui.screen() ล้าง widget เดิมทั้งหมด ถ้าไม่เรียก ของจากสคริปต์ก่อนหน้าจะกินงบตั้งแต่ยังไม่เริ่ม แก้โดยนับใหม่และเรียก ui.screen() ต้นสคริปต์ ส่วนการสร้าง Panel ก่อน Label คือลำดับที่ถูก
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: เข็มทิศบนการ์ดกระตุกกลับทุกครั้งที่หมุนบอร์ดผ่านทิศเหนือ ข้อใดคือวิธีแก้ที่ตรงสาเหตุ
+    en: The compass needle jumps back every time the board turns past north. Which fix addresses the cause?
+  choices:
+  - th: เขียน heading = sensors.bmm350.heading() % 360.0 กันค่าที่หลุดเกิน 360
+  - th: เปลี่ยน ui.Compass เป็น ui.Arc
+  - th: ลด cadence เหลือ 50 ms ให้เข็มตามทัน
+  - th: เรียก cal_reset() ทุกรอบลูป
+  answer:
+  - 0
+  explain:
+    th: ถ้า Compass ได้ค่าอย่าง 361 เข็มจะกระตุกกลับ การ % 360.0 ทำให้องศาอยู่ในช่วง 0 ถึงไม่ถึง 360 เสมอ อาการนี้ไม่มี error ต้องเห็นด้วยตาเท่านั้น
+- id: q5
+  objective: 4
+  type: multi
+  prompt:
+    th: ข้อใดตรงกับการตัดสินใจในไฟล์เฉลย s08_dashboard.py เลือกทุกข้อที่ถูก
+    en: Which statements match the decisions in the s08_dashboard.py solution? Choose all that apply.
+  choices:
+  - th: try ครอบการอ่านทีละเซนเซอร์ เข็มทิศไม่ตอบ อีกสามการ์ดยังทำงานต่อ
+  - th: อ่านไม่ได้ติดกันเกิน 3 วินาที ไฟค่าค้างจะติด โดยตัวเลขบนจอยังเป็นค่าล่าสุดที่อ่านได้
+  - th: ตัวเลขบนการ์ดเขียนใหม่วินาทีละครั้ง ส่วนกราฟ แถบ เข็ม และไฟขยับทุก 200 ms
+  - th: กดหยุดภาพแล้วลูปหยุด เลขรอบจึงนิ่งเพื่อบอกว่าหยุดแล้ว
+  - th: ไฟค่าค้างถูกเขียนทุกรอบลูปเพื่อให้แน่ใจว่าจอได้รับ
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: การเลือกขอบเขตของ try คือการตัดสินใจว่าอะไรพังได้โดยระบบยังใช้งานได้ except คงค่าเดิมเพราะศูนย์หน้าตาเหมือนค่าจริง หยุดภาพแค่ตั้ง running เป็น False เลขรอบยังเดินเพื่อบอกว่าเครื่องไม่ได้ค้าง และไฟค่าค้างเขียนเฉพาะตอนเปลี่ยน เพราะคิวคำสั่งของจอมีก้นถัง

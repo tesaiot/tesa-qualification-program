@@ -1,0 +1,85 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — aiot-mpy.m02.l01 บทเรียน 2.1
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: 'ทีมหนึ่งเขียน `for i in range(3): gpio.led(i).off()` บน Eva Kit แล้วเอาไฟล์เดิมไปรันบน Dev Kit จะเกิดอะไรขึ้น'
+    en: 'A team writes `for i in range(3): gpio.led(i).off()` on the Eva Kit and runs the same file on the Dev Kit. What happens?'
+  choices:
+  - th: ดับครบห้าดวง เพราะเฟิร์มแวร์ปรับ range ให้เอง
+  - th: ดับแค่ดวง 0–2 ส่วนดวง 3–4 อยู่สถานะเดิม โดยไม่มี error ให้เห็น
+  - th: โยน ValueError ทันทีที่ i เท่ากับ 3
+  - th: บอร์ดรีเซ็ตตัวเอง เพราะจำนวนดวงไม่ตรงกับโค้ด
+  answer:
+  - 1
+  explain:
+    th: range(3) พังเงียบ ๆ บนบอร์ดที่มีห้าดวง เลข 0–2 ยังอยู่ในช่วงจึงไม่มี ValueError แต่ดวง 3–4 ไม่ถูกแตะเลย ถ้าเขียน range(gpio.num_leds()) ไฟล์เดียวกันจะวิ่งครบเองทั้งสองบอร์ด
+- id: q2
+  objective: 2
+  type: multi
+  prompt:
+    th: สั่ง `led.hold(80, 700)` แล้วคำสั่งนั้นทำงานจนจบ ข้อใดถูกต้อง เลือกทุกข้อที่ถูก
+    en: You call `led.hold(80, 700)` and it runs to completion. Which statements are true? Choose all that apply.
+  choices:
+  - th: หลอดดับแล้ว
+  - th: '`led.value()` ตอบ 0'
+  - th: '`led.duty()` ยังตอบ 80'
+  - th: '`led.value()` ตอบ 80 เพราะอ่านความสว่างกลับมา'
+  - th: '`led.duty()` ตอบ 0 เพราะไปวัดหลอดที่ดับแล้ว'
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: hold() จบด้วยขาต่ำเสมอ value() ที่อ่านระดับขาจึงได้ 0 ส่วน duty() คือเลขที่เราสั่งครั้งล่าสุด ไม่ได้ไปวัดหลอด จึงยังตอบ 80 ตัวเลขบนจอจึงไม่ใช่หลักฐานว่าหลอดกำลังสว่าง
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: ทีมสั่ง `brightness(40)` บนดวงที่มีเส้น PWM ของฮาร์ดแวร์ แล้วเรียก `hold(80, 700)` ต่อทันที หลอดไม่เปลี่ยนและไม่ดับตอนจบ ควรแก้อย่างไร
+    en: A team calls `brightness(40)` on an LED with a hardware PWM route, then `hold(80, 700)` right after. The LED does not change and is not off at the end. What is the fix?
+  choices:
+  - th: เปลี่ยน 700 เป็น 0.7 เพราะ hold() รับเวลาเป็นวินาที
+  - th: เรียก `off()` คั่นก่อน `hold()` เพื่อคืนขาจากเส้น PWM
+  - th: import machine.PWM ก่อน แล้วค่อยเรียก hold()
+  - th: เปลี่ยนไปใช้ brightness(100) แทน เพราะมันจบด้วยหลอดดับ
+  answer:
+  - 1
+  explain:
+    th: หลัง brightness() ค่ากลางบนดวง PWM ขายังถูก PWM ถืออยู่ hold() ซึ่งกะพริบขา GPIO เองจึงไม่เห็นผล ต้อง off() คั่นก่อน ส่วน brightness(100) ทิ้งหลอดติดค้าง และบอร์ดนี้ไม่มี machine.PWM
+- id: q4
+  objective: 4
+  type: single
+  prompt:
+    th: เพื่อนร่วมทีมที่ถือ Dev Kit ถามว่าให้กดปุ่มไหน คุณควรตอบอย่างไร
+    en: A teammate holding a Dev Kit asks which button to press. How should you answer?
+  choices:
+  - th: กดปุ่มที่พิมพ์ว่า SW2 บนฐาน
+  - th: กดปุ่มที่โค้ดเรียกว่า USER Button 1 ตามชื่อที่ btn.name() พิมพ์ขึ้นจอ
+  - th: โยกสวิตช์บนฐานทีละตัวจนกว่าจะเจอตัวที่ตัวเลขขึ้น
+  - th: ใช้ gpio.button(1) เพราะ Dev Kit มีปุ่มมากกว่า
+  answer:
+  - 1
+  explain:
+    th: ชื่อ USER Button 1 ถูกเลือกโดยตั้งใจให้ไม่ตรงกับป้ายบนแผ่นวงจร เพราะบน Dev Kit สวิตช์ที่พิมพ์ว่า SW หลายตัวเป็นสวิตช์ตัดไฟเลี้ยง ห้ามโยกสวิตช์ที่บทเรียนไม่ได้สั่ง และ gpio.button(1) โยน ValueError ทั้งสองบอร์ด
+- id: q5
+  objective: 3
+  type: multi
+  prompt:
+    th: ข้อใดถูกต้องเกี่ยวกับการหรี่ไฟบนบอร์ดนี้ เลือกทุกข้อที่ถูก
+    en: Which statements about dimming LEDs on this board are true? Choose all that apply.
+  choices:
+  - th: brightness(40) บนดวงที่มีเส้น PWM ของฮาร์ดแวร์ ค้างระดับไว้โดยไม่บล็อก
+  - th: brightness(40) บนดวงที่ไม่มีเส้น PWM ได้พัลส์ราว 12 ms แล้วจบด้วยหลอดดับ
+  - th: hold(pct, ms) บล็อกจนครบเวลา ระหว่างนั้นปุ่มไม่ถูกอ่าน
+  - th: อยากหรี่ละเอียดกว่านี้ให้เรียก machine.PWM
+  - th: brightness(100) จบด้วยหลอดดับเหมือนค่ากลาง
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: brightness() เลือกทางตามขาของหลอด ดวงที่มีเส้น PWM ค้างได้ ดวงอื่นได้พัลส์สั้นแล้วดับ hold() ค้างได้ทุกดวงแต่บล็อก ส่วน machine.PWM ไม่มีในพอร์ตนี้ (เรียกแล้วได้ AttributeError) และ brightness(100) ทิ้งหลอดติดค้าง
