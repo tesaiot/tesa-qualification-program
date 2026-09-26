@@ -101,10 +101,10 @@ section.cover img{filter:none}
 
 ![หน้าจอจาก BENTO Emulator ของ 05_value_leaves_the_board.py บันไดสามขั้น WiFi broker และการส่ง w:440](img/emu/s02.png)
 
-<div style="font-size:.55em;color:#78909c;margin-top:-.3em">หน้าจอจริงจากการรัน <a href="https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m01-ui-application/l05-values-out-commands-back/examples/05_value_leaves_the_board.py"><code>05_value_leaves_the_board.py</code></a> บน BENTO Emulator ที่ 800x480 เท่าจอของทั้งสองบอร์ด — ภาพนี้ถ่ายตอนที่ Emulator ยังใช้ broker จำลอง ค่าในภาพจึงไม่ได้ออกไปไหนจริง ภาพนี้แสดงหน้าตาจอ ไม่ใช่หลักฐานว่าส่งถึง · **ภาพนี้เก่า** ในภาพ broker ยังเป็นเลขแลน `192.168.1.50` และหัวข้อเป็น `bento/eva-team03/telemetry` ส่วนไฟล์ปัจจุบันใช้ `broker.hivemq.com` กับหัวข้อ `bento-aiot/team03/telemetry` ส่ง 60 ใบ และส่งค่าเอียง `az` ด้วย รอถ่ายใหม่</div>
+<div style="font-size:.55em;color:#78909c;margin-top:-.3em">หน้าจอจริงจากการรัน <a href="https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/m01-ui-application/l05-values-out-commands-back/examples/05_value_leaves_the_board.py"><code>05_value_leaves_the_board.py</code></a> บน BENTO Emulator ที่ 800x480 เท่าจอของทั้งสองบอร์ด ถ่ายจากไฟล์ปัจจุบันโดยตั้ง `TEAM = "nok4821"` — ภาพนี้แสดงหน้าตาจอ ไม่ใช่หลักฐานว่าบอร์ดจริงส่งผ่านเน็ตของห้องได้</div>
 
-- ภาพนี้คือไฟล์ที่ 4 ของชุดบทเรียน และคือปลายทางจริง: **บันไดสามขั้นไล่เป็นเขียวครบ** — WiFi ได้ IP · broker ต่อแล้ว · publish กำลังส่ง — เลขใบที่ส่งเดินขึ้นพร้อมค่าลูกบิดจริงที่เพิ่งออกจากบอร์ดไป (ในภาพเก่า broker ยังเป็นเลขแลน วันนี้ขั้นที่ 2 จะขึ้นว่า `broker.hivemq.com`)
-- แถวล่างคือหัวข้อที่ส่งขึ้น broker กับคำเตือนที่ไฟล์เขียนไว้บนจอตลอดเวลาที่รัน — พอร์ต 1883 ไม่เข้ารหัส ห้ามส่งของลับ
+- ภาพนี้คือไฟล์ที่ 4 ของชุดบทเรียน และคือปลายทางจริง: **บันไดสามขั้น** — WiFi ได้ IP · broker ต่อแล้วที่ `broker.hivemq.com` · publish กำลังส่ง — เลขใบที่ส่งเดินขึ้นพร้อมค่าลูกบิดและค่าเอียง `az` ที่เพิ่งออกจากบอร์ดไป
+- แถวล่างคือหัวข้อที่ส่งขึ้น broker (`bento-aiot/<TEAM>/telemetry`) และมุมขวาบนคือคำเตือนที่ไฟล์เขียนไว้บนจอตลอดเวลาที่รัน — พอร์ต 1883 ไม่เข้ารหัส ห้ามส่งของลับ
 - ภาพนี้เกิดได้ต่อเมื่อเน็ตของห้องปล่อยพอร์ต 1883 ออกไปถึง `broker.hivemq.com` — ถ้าถูกกัน ขั้นที่ 2 จะเป็นแดงพร้อมบอกเหตุผล แล้วโปรแกรมจบตรงนั้นอย่างสุภาพ ส่วนฝั่งผู้รับ วันนี้คือหน้าเว็บ [`my_first_reader.html`](https://github.com/tesaiot/tesa-qualification-program/blob/main/courses/aiot-micropython/shared/web/my_first_reader.html) ไม่ต้องลงโปรแกรมใดในเครื่อง
 
 > **ยังไม่มีใครรันไฟล์ 05 กับ 06 บนบอร์ดกับ broker.hivemq.com** สิ่งที่วัดแล้วคือเวลาไปกลับของ broker จาก Mac บนโต๊ะผู้สอน ไม่ใช่จากเน็ตขององค์กร ถ้าไปไม่ถึง ไฟล์จะขึ้นบนจอตรง ๆ ว่าหยุดที่ขั้นไหนและเพราะอะไร — ผลแบบนั้นก็ยังเป็นผลที่ใช้ได้

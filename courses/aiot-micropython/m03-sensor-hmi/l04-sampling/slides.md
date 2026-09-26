@@ -127,7 +127,7 @@ section table td, section table th { padding: .16em .55em; }
 
 ![หน้าจอจาก BENTO Emulator ของเฉลยกราฟความเร่งสามแกนแบบ real-time w:470](img/emu/s07.png)
 
-<div style="font-size:.58em;color:#78909c;margin-top:-.3em">หน้าจอจริงจากการรันโค้ดเฉลยบน BENTO Emulator ที่ 800x480 เท่าจอของ Eva Kit และ Dev Kit — ไม่ใช่ภาพวาด ไม่ใช่ mock-up และไม่ใช่ภาพถ่ายจากบอร์ด · <b>ภาพนี้ยังเป็นหน้าจอของเฉลยรุ่นก่อนหน้า (ปุ่ม PAUSE ใบเดียว ไม่มีตาราง)</b> รอถ่ายใหม่ให้ตรงกับโค้ดปัจจุบันที่อธิบายไว้ข้างล่าง</div>
+<div style="font-size:.58em;color:#78909c;margin-top:-.3em">หน้าจอจริงจากการรันโค้ดเฉลยบน BENTO Emulator ที่ 800x480 เท่าจอของ Eva Kit และ Dev Kit — ไม่ใช่ภาพวาด ไม่ใช่ mock-up และไม่ใช่ภาพถ่ายจากบอร์ด</div>
 
 หน้าจอของเฉลยปัจจุบันแบ่งเป็นสามส่วน และสองส่วนแรกตอบคนละคำถามกัน
 
