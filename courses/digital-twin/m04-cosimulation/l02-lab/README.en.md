@@ -37,6 +37,7 @@ context:
   simulator: Bitstream Simulator (not the BENTO Emulator)
 status: alpha
 translation: done
+slides: slides.md
 source_sha256: 6f8a33abb520682d143b1f2147047155810636d65e787c02823d8fca3153c2b6
 source:
   repo: https://github.com/drsanti/TESAIoT-Courses

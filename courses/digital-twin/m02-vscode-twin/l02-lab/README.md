@@ -37,6 +37,7 @@ context:
   simulator: Bitstream Simulator (not the BENTO Emulator)
 status: alpha
 translation: done
+slides: slides.md
 source:
   repo: https://github.com/drsanti/TESAIoT-Courses
   path: C2/M02/lab.md
@@ -148,7 +149,7 @@ Read first: [Lesson](../l01-vscode-for-twin/README.md) · [Cheatsheet](../l01-vs
 | Session / Link ไม่ขึ้น | Shutdown Backend Services แล้วเปิดใหม่ · ตรวจพอร์ต 9998 |
 | Simulator ไม่มีค่า | Simulator ยังไม่ Streaming · โหมดยังเป็น Bitstream |
 | Bitstream ว่าง | COM ผิด · HEX ไม่จับคู่ · baud / สาย USB |
-| พอร์ตถูก占用 | ปิด editor อื่นที่เป็น owner · Shutdown backends |
+| พอร์ตถูกใช้งานอยู่ | ปิด editor อื่นที่เป็น owner · Shutdown backends |
 | UI โหลดแต่กราฟนิ่ง | เปิดผิด workspace/แผง · ยังไม่ Link |
 
 [Lesson](../l01-vscode-for-twin/README.md) · [Cheatsheet](../l01-vscode-for-twin/resources/vscode-twin-setup.md) · [Table of Contents](../../README.md) · [M03 →](../../m03-virtual-device/l01-virtual-device-modeling/README.md)

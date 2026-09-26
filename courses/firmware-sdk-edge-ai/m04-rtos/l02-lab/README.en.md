@@ -40,6 +40,7 @@ context:
   firmware: tesaiot-bitstream (HEX; source not public yet)
 status: alpha
 translation: done
+slides: slides.md
 source_sha256: 126a6a87ddbedd2f7ca91026a42679f06c2b8ad75b44d59f262a75a43d92e3b9
 source:
   repo: https://github.com/drsanti/TESAIoT-Courses
