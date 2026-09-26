@@ -2,6 +2,10 @@
 
 > Adapted from Edge AI Developer, © 2026 Assoc. Prof. Wiroon Sriborrirux, Embedded Systems Engineering, Department of Electrical Engineering, Faculty of Engineering, Burapha University (BUU) · BENTO & TESAIoT (CC BY 4.0 / MIT)
 
+> **In development.** This course follows the BENTO edge AI firmware, which is still being developed: function names, models
+> and board steps may change before release. You can study and try it in the BENTO Emulator; if something does not match what
+> you see, please open a [GitHub issue](https://github.com/tesaiot/tesa-qualification-program/issues).
+
 Thai version: [README.md](README.md). The lessons, slides and code comments are in Thai (technical terms and code in English).
 
 Learn **edge AI** end to end on a real PSoC Edge board (**TESAIoT Dev Kit**: Cortex-M33 + Cortex-M55 + Ethos-U55 NPU) in **MicroPython**. You start by running the models that ship on the board, so you see where the course ends, then follow the five pillars of the data lifecycle:

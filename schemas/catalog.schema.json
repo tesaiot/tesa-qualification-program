@@ -103,6 +103,25 @@
           "featured": {
             "type": "boolean",
             "description": "Mark as a core course on course cards"
+          },
+          "notice": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "label",
+              "text"
+            ],
+            "description": "A course-wide notice (for example: content that follows firmware still in development). Shown as a badge on the card and in the navigation, and as a caution box on every lesson page (the course README states it too).",
+            "properties": {
+              "label": {
+                "$ref": "#/$defs/i18n",
+                "description": "Short badge text"
+              },
+              "text": {
+                "$ref": "#/$defs/i18n",
+                "description": "One or two sentences for the caution box"
+              }
+            }
           }
         },
         "if": {

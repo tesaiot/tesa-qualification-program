@@ -104,8 +104,8 @@ tracks:
           en: Security with OPTIGA™ Trust M and mTLS.
       - course: edge-ai-developer
         note:
-          th: เลือกเรียนตามสายงาน Edge AI
-          en: For the edge AI role.
+          th: ไม่บังคับ สำหรับสายงาน Edge AI หลักสูตรนี้กำลังพัฒนาไปพร้อมกับเฟิร์มแวร์
+          en: Optional, for the edge AI role. This course is in development together with its firmware.
       - course: electronics-and-instruments
         note:
           th: ไม่บังคับ แนะนำสำหรับผู้ที่ยังไม่เคยใช้มัลติมิเตอร์ logic analyzer หรือออสซิลโลสโคป

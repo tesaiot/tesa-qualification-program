@@ -577,6 +577,7 @@
 	line-height: 1.6;
 }
 .tok-card-flag,
+.tok-card-notice,
 .tok-card-status {
 	position: absolute;
 	top: 0.65rem;
@@ -592,6 +593,14 @@
 	left: 0.65rem;
 	background: var(--sl-color-accent);
 	color: var(--sl-color-black);
+}
+.tok-card-notice {
+	left: 0.65rem;
+	background: var(--sl-color-orange-high);
+	color: var(--sl-color-black);
+}
+.tok-card-flag + .tok-card-notice {
+	top: 2.35rem;   /* a core course that is also in development: stack the two badges */
 }
 .tok-card-status {
 	right: 0.65rem;

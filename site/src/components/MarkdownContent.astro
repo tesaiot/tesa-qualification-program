@@ -8,6 +8,7 @@
 // text (a few, to watch first) and below a course page's text (all of the course's, a longer grid).
 import Default from '@astrojs/starlight/components/MarkdownContent.astro';
 import LessonEnd from './LessonEnd.astro';
+import CourseNotice from './CourseNotice.astro';
 import LessonMeta from './LessonMeta.astro';
 import Videos from './Videos.astro';
 
@@ -16,6 +17,7 @@ const kind = tqp?.kind;
 ---
 
 <Default>
+	{tqp && kind === 'lesson' && tqp.notice && <CourseNotice notice={tqp.notice as any} />}
 	{tqp && (kind === 'lesson' || kind === 'course') && <LessonMeta tqp={tqp} />}
 	{tqp && kind === 'lesson' && tqp.videos && <Videos videos={tqp.videos as any} />}
 	<slot />

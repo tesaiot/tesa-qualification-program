@@ -45,7 +45,7 @@ Skillset Mapping ใน **TESA Qualification Program (TQP) ซึ่งเป็
 | [TESA Firmware SDK สำหรับ Edge AI](courses/firmware-sdk-edge-ai/README.md) | L3 ทำได้เอง | ฉบับร่าง (alpha) |
 | [พัฒนาเฟิร์มแวร์ร่วมกับ TESA Digital Twin บน VS Code](courses/digital-twin/README.md) | L3 ทำได้เอง | ฉบับร่าง (alpha) |
 | [Secure IoT กับ OPTIGA™ Trust M](courses/secure-iot-optiga/README.md) | L3 ทำได้เอง | ฉบับร่าง (alpha) |
-| [Edge AI Developer: จากเซนเซอร์สู่โมเดลบนอุปกรณ์](courses/edge-ai-developer/README.md) | L3 ทำได้เอง | ฉบับร่าง (alpha) |
+| [Edge AI Developer: จากเซนเซอร์สู่โมเดลบนอุปกรณ์](courses/edge-ai-developer/README.md) · กำลังพัฒนา | L3 ทำได้เอง | ฉบับร่าง (alpha) |
 | [ชุดสำหรับผู้สอน (Educator Kit)](courses/educator-kit/README.md) | L3 ทำได้เอง | ฉบับร่าง (alpha) |
 | [Fundamental of Embedded Systems Developer I–II (เกมคอนโซล)](https://advance-innovation-centre-aic.github.io/embedded-systems-for-game_console_developer/) · หลักสูตรภายนอก | L2 ทำตามแนวทาง | พร้อมใช้ (stable) |
 

@@ -48,7 +48,7 @@ Each pathway's courses, hours and exit point are in [catalog/tracks.yaml](catalo
 | [TESA Firmware SDK for Edge AI](courses/firmware-sdk-edge-ai/README.en.md) | L3 Independent | alpha |
 | [Firmware Development with the VS Code-based TESA Digital Twin](courses/digital-twin/README.en.md) | L3 Independent | alpha |
 | [Secure IoT with OPTIGA™ Trust M](courses/secure-iot-optiga/README.en.md) | L3 Independent | alpha |
-| [Edge AI Developer: From Sensor to On-Device Model](courses/edge-ai-developer/README.en.md) | L3 Independent | alpha |
+| [Edge AI Developer: From Sensor to On-Device Model](courses/edge-ai-developer/README.en.md) · in development | L3 Independent | alpha |
 | [Educator Kit](courses/educator-kit/README.en.md) | L3 Independent | alpha |
 | [Fundamental of Embedded Systems Developer I–II (Game Console)](https://advance-innovation-centre-aic.github.io/embedded-systems-for-game_console_developer/) · external course | L2 Guided | stable |
 

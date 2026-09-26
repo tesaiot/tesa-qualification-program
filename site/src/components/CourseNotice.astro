@@ -1,0 +1,23 @@
+---
+// SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+// SPDX-License-Identifier: Apache-2.0
+//
+// A course-wide caution box (catalog/courses.yaml `notice`), shown on every lesson page of that course
+// (the course README carries the notice itself): for example, content that follows firmware still in development. It links to the
+// repository's issues so a reader can report something that does not match. Data: tqp.notice.
+import { Aside } from '@astrojs/starlight/components';
+import { S, langOf, pick } from '../lib/strings';
+
+interface Props {
+	notice: { label: any; text: any; issues: string };
+}
+
+const { notice } = Astro.props;
+const lang = langOf(Astro.locals.starlightRoute.lang);
+const t = S[lang];
+---
+
+<Aside type="caution" title={pick(notice.label, lang)}>
+	{pick(notice.text, lang)}{' '}
+	<a href={notice.issues} target="_blank" rel="noopener noreferrer">{t.noticeReport}</a>
+</Aside>

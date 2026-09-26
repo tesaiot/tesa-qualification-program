@@ -367,6 +367,15 @@ class Builder:
             for lid in v.get("lessons") or []:
                 self.videos_by_lesson.setdefault(str(lid), []).append(model)
 
+    def notice_tqp(self, cat: dict) -> dict | None:
+        """catalog/courses.yaml `notice` (e.g. content that follows firmware still in development) for every lesson
+        page of the course (the course README carries the same notice itself); the box links to the repository's
+        issues so a reader can report a mismatch."""
+        n = cat.get("notice") if isinstance(cat.get("notice"), dict) else None
+        if not n:
+            return None
+        return {"label": n.get("label"), "text": n.get("text"), "issues": f"{self.cfg.repo_url.rstrip('/')}/issues"}
+
     def videos_tqp(self, lesson_ids) -> dict | None:
         """The companion-video box for a page: the videos of these lessons (first mention wins the order),
         the channels to credit and the playlists they come from."""
@@ -741,6 +750,7 @@ class Builder:
             "source_url": self.cfg.gh_tree(lesson.dir, self.ref) if has_material else None,
             "quiz": lesson.quiz,
             "videos": self.videos_tqp([lesson.id]),
+            "notice": self.notice_tqp(course.cat),
             "cite": {
                 "th": self.attribution(lesson.title["th"], "th"),
                 "en": self.attribution(lesson.title["en"], "en"),
@@ -1059,6 +1069,8 @@ class Builder:
         flags = ""
         if cat.get("featured"):
             flags += f'<span class="tok-card-flag">{"หลักสูตรหลัก" if lang == "th" else "Core course"}</span>'
+        if isinstance(cat.get("notice"), dict):
+            flags += f'<span class="tok-card-notice">{esc(pick(cat["notice"].get("label"), lang))}</span>'
         st = str(m.get("status") or cat.get("status") or "")
         if st:
             flags += f'<span class="tok-card-status">{esc(pick(VOCAB["status"].get(st, {"th": st, "en": st}), lang))}</span>'
@@ -1392,6 +1404,11 @@ class Builder:
             st = str(c.meta.get("status") or c.cat.get("status") or "")
             if st == "pre-alpha":
                 group["badge"] = {"text": "ร่าง", "variant": "caution"}
+            notice = c.cat.get("notice") if isinstance(c.cat.get("notice"), dict) else None
+            if notice and isinstance(notice.get("label"), dict):
+                # Starlight badges take per-language text keyed by the locale's lang (root = th).
+                group["badge"] = {"text": {"th": notice["label"].get("th"), "en": notice["label"].get("en")},
+                                  "variant": "caution"}
             courses.append(group)
         about = [slug_item("attribution")] + [slug_item(r) for r, _ in self.about if r in th_routes]
         bar = [

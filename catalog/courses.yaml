@@ -95,6 +95,16 @@ courses:
     status: alpha
     title: {th: "Edge AI Developer: จากเซนเซอร์สู่โมเดลบนอุปกรณ์", en: "Edge AI Developer: From Sensor to On-Device Model"}
     nav: {th: "Edge AI Developer", en: "Edge AI Developer"}
+    notice:
+      label: {th: "กำลังพัฒนา", en: "In development"}
+      text:
+        th: >-
+          หลักสูตรนี้ยังอยู่ระหว่างพัฒนา เนื้อหาอิงเฟิร์มแวร์ BENTO สำหรับ Edge AI ที่ยังพัฒนาอยู่ ชื่อฟังก์ชัน โมเดล
+          และขั้นตอนบนบอร์ดอาจเปลี่ยนก่อนออกรุ่นจริง เรียนและทดลองใน BENTO Emulator ได้ ถ้าเจอจุดที่ไม่ตรงกับที่เห็น แจ้งเราได้
+        en: >-
+          This course is still in development. It follows the BENTO edge AI firmware, which is being developed: function
+          names, models and board steps may change before release. You can study and try it in the BENTO Emulator; if
+          something does not match what you see, please tell us.
 
   - id: educator-kit
     short: edu
