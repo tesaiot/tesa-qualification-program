@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m07.l03 บทเรียน 7.3
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ทำไมการเพิ่มโมเดลในซอร์สตัวเต็มจึงไม่ต้องแก้โมดูล edge_ai ของ MicroPython
+    en: Why does adding a model in the full source need no change to the MicroPython edge_ai module?
+  choices:
+  - th: เพราะ MicroPython เก็บชื่อโมเดลไว้ทุกตัวอยู่แล้ว
+  - th: เพราะทะเบียนเป็น shape-driven MicroPython ถาม count() และ model(n) จาก s_models[] ทุกครั้ง
+  - th: เพราะ IPC ส่งไฟล์โมเดลให้เอง
+  - th: เพราะต้องแก้ Emulator แทน
+  answer:
+  - 1
+  explain:
+    th: ไม่มีชื่อโมเดลใดถูก hard-code ฝั่ง Python เพิ่มแถวที่ปลายทาง ทั้งสายเห็นเอง
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: ถ้าใช้ SDK สาธารณะที่ ai_engine มาเป็นไลบรารี prebuilt จะเพิ่มโมเดลที่ไม่มีช่องอยู่แล้วได้อย่างไร
+    en: With the public SDK, where ai_engine is a prebuilt library, how do you add a model that has no existing slot?
+  choices:
+  - th: แก้ ai_engine.c ใน archive
+  - th: เรียก ai_engine_register(&desc) จากโค้ดของเราตอนรัน
+  - th: เพิ่มชื่อใน edge_ai.py
+  - th: ทำไม่ได้เลย
+  answer:
+  - 1
+  explain:
+    th: Route 0 ของคู่มือ SDK ให้ engine เพิ่มแถวจาก descriptor ของเรา โดยไม่ต้อง rebuild archive
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: AIM_FALL_dequeue คืน −1 หลัง enqueue ได้ไม่กี่ครั้ง แปลว่าอะไร
+    en: AIM_FALL_dequeue returns −1 after only a few enqueues. What does it mean?
+  choices:
+  - th: โมเดลพัง
+  - th: NODATA หน้าต่างยังไม่เต็ม ต้อง enqueue ต่อ
+  - th: คลาสที่ชนะคือ −1
+  - th: arena ไม่พอ
+  answer:
+  - 1
+  explain:
+    th: โมเดลแบบ streaming ต้องได้ข้อมูลครบหน้าต่าง L ครั้งก่อน dequeue จึงคืน 0 พร้อมคะแนน
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: เพิ่มโมเดลแล้วโผล่ใน models() แต่ select() โยน OSError ทุกครั้ง สาเหตุที่เป็นไปได้มากคืออะไร
+    en: The new model appears in models() but select() always raises OSError. What is a likely cause?
+  choices:
+  - th: ชื่อโมเดลยาวเกินไป
+  - th: init() คืนค่าติดลบ เช่น tensor arena เล็กเกินกว่าที่กราฟต้องใช้
+  - th: ลืมใส่ labels
+  - th: Wi-Fi ไม่ติด
+  answer:
+  - 1
+  explain:
+    th: select ยืนยันด้วยการสังเกต ถ้าโมเดล init ไม่ผ่าน engine ไม่สลับ Q_ACTIVE จึงไม่เคยเท่ากับที่ขอ
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: ทำไมผู้เขียนเลือก Fall Detection เป็นโมเดลตัวแรกที่เพิ่ม
+    en: Why does the author pick Fall Detection as the first model to add?
+  choices:
+  - th: เพราะแม่นที่สุด
+  - th: เพราะใช้ IMU จึงยืม feed_imu เดิมได้ และ front-end เบาที่สุด ไม่มี FFT ให้พลาด
+  - th: เพราะไม่ต้องผ่าน Vela
+  - th: เพราะเป็น float32
+  answer:
+  - 1
+  explain:
+    th: เลือกเส้นทางที่พิสูจน์แล้วก่อน โมเดลเสียงต้องทำ FFT และ mel ให้ตรงกับตอนฝึกซึ่งเป็นจุดพังเงียบที่พบบ่อยที่สุด

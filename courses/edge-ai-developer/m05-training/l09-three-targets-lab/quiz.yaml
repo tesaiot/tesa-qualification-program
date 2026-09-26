@@ -1,0 +1,64 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m05.l09 บทเรียน 5.9
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ตารางแสดง latency ของ PC เป็น 0.00 ms ทุกครั้ง จุดใดยังว่าง
+    en: The table shows the PC latency as 0.00 ms every time. Which point is still empty?
+  choices:
+  - th: เติม 1 normalize
+  - th: เติม 3 จับเวลาและเรียก invoke()
+  - th: เติม 4 นับคลาสถูก
+  - th: เติม 5 เรียก Vela
+  answer:
+  - 1
+  explain:
+    th: placeholder คือ pass จึงไม่มีทั้งการ invoke และการบวก total_ms ผลคือ latency 0 และ accuracy ที่ไม่มีความหมาย
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: สคริปต์พิมพ์ "ยังไม่มี vela ในเครื่องนี้" ควรทำอย่างไร
+    en: The script prints that vela is not on this machine. What should you do?
+  choices:
+  - th: ลบจุดที่ 5 ทิ้ง
+  - th: รันสคริปต์ใน Docker image ของบทเรียน 5.3–5.5 ที่ติดตั้ง ethos-u-vela ไว้
+  - th: ฝึกโมเดลใหม่
+  - th: เปลี่ยนไปใช้ไฟล์ model_web.tflite
+  answer:
+  - 1
+  explain:
+    th: try/except ทำให้สคริปต์ไม่ตาย แต่จะยังไม่มีไฟล์ _vela จนกว่าจะรันในที่ที่มี vela
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ทำไมเลข latency ของ MCU วัดจาก PC หรือจาก BENTO Emulator ไม่ได้
+    en: Why can the MCU latency not be measured on the PC or in the BENTO Emulator?
+  choices:
+  - th: เพราะ PC กับ Emulator ไม่มี Ethos-U55 เวลาที่วัดได้จึงเป็นของ CPU หรือเบราว์เซอร์ ไม่ใช่ของ NPU
+  - th: เพราะ time.perf_counter() ใช้ไม่ได้
+  - th: เพราะ latency ของ MCU เท่ากับ PC เสมอ
+  - th: เพราะ Vela ต้องรันบนบอร์ด
+  answer:
+  - 0
+  explain:
+    th: ต้องอ่านจาก edge_ai บนบอร์ดจริงเท่านั้น เลขบน Emulator คือเวลาของ runtime ในเบราว์เซอร์
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: แท็กติดสัตว์ใส่แบตที่ต้องอยู่ได้หลายเดือนและจำแนกท่าทางตลอดเวลา ควรรันโมเดลที่ไหน
+    en: A battery animal tag that must last months while classifying motion continuously. Where should the model run?
+  choices:
+  - th: Cortex-A
+  - th: MCU + NPU ด้วยไฟล์ _vela.tflite
+  - th: เบราว์เซอร์
+  - th: PC ใน Docker
+  answer:
+  - 1
+  explain:
+    th: งานนี้ต้องการพลังงานต่อการอนุมานต่ำที่สุดและไม่มี OS ให้ใช้ ขั้น Vela ที่จ่ายเพิ่มตอน build คุ้มกับแบตที่อยู่นานขึ้นทุกครั้งที่รัน

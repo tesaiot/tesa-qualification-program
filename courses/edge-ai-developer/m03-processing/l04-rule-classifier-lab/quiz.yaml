@@ -1,0 +1,69 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m03.l04 บทเรียน 3.4
+items:
+- id: q1
+  objective: 1
+  type: order
+  prompt:
+    th: เรียงสี่ก้าวในลูปของ s07_rule_classifier.py
+    en: Order the four steps in the loop of s07_rule_classifier.py.
+  choices:
+  - th: 'ตัดสินด้วยกฎ: zone = classify(t, h, hi)'
+  - th: 'อ่านค่าดิบ: dps368 และ sht40'
+  - th: 'วาดคลาส: verdict.text และ verdict.color'
+  - th: 'แปลงเป็น derived: dew_point และ heat_index'
+  answer:
+  - 1
+  - 3
+  - 0
+  - 2
+  explain:
+    th: อ่าน → แปลง → ตัดสิน → วาด เป็น pipeline ย่อของ classifier ทั้งตัว ช่องเติม 1–2 คือก้าวแปลง 3 คือก้าวตัดสิน 4 คือก้าววาด
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: รันแล้วการ์ดคำตัดสินว่างเปล่าและเป็นสีขาวตลอด สาเหตุที่น่าจะเป็นที่สุดคืออะไร
+    en: The verdict card is always empty and white. What is the most likely cause?
+  choices:
+  - th: ยังไม่ได้เติมบันไดใน classify() ฟังก์ชันจึงคืน None และ COLORS.get(None, WHITE) ได้สีขาว
+  - th: SHT40 ไม่ได้ต่อ
+  - th: heat index สูงเกินไป
+  - th: Emulator ไม่รองรับ ui.Seg7
+  answer:
+  - 0
+  explain:
+    th: คลาสที่ไม่อยู่ใน COLORS จะได้สีขาวเป็นค่าสำรอง อาการนี้บอกว่าบันไดยังไม่ทำงาน
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: คำตัดสินของ classify() เป็น comfortable แต่ dsp.comfort_zone ตอบ acceptable ควรสรุปอย่างไร
+    en: classify() says comfortable but dsp.comfort_zone says acceptable. What should you conclude?
+  choices:
+  - th: classify() ผิดแน่นอน
+  - th: dsp.comfort_zone ผิดแน่นอน
+  - th: สองกฎนิยามความสบายต่างกัน (ใช้ค่าและเส้นแบ่งต่างกัน) ไม่ตรงกันไม่ได้แปลว่าผิด
+  - th: เซนเซอร์อ่านค่าไม่ตรงกัน
+  answer:
+  - 2
+  explain:
+    th: ของเราตัดสินจาก heat index ส่วนของเฟิร์มแวร์ตัดสินจากอุณหภูมิดิบกับช่วงของตัวเอง กฎขึ้นกับนิยามที่เลือก
+- id: q4
+  objective: 3
+  type: multi
+  prompt:
+    th: ข้อใดเป็นข้อจำกัดของกฎมือที่ทำให้ต้องไปต่อที่ ML (เลือกทุกข้อที่ถูก)
+    en: Which are limits of hand-written rules that lead us to ML? (select all that apply)
+  choices:
+  - th: กฎบานจนเขียนไม่ไหวเมื่อมี feature หลายสิบตัว
+  - th: เส้นแบ่งที่มนุษย์ตั้งอาจไม่ใช่เส้นที่ดีที่สุดสำหรับข้อมูลจริง
+  - th: กฎไม่ปรับตามข้อมูลใหม่เอง
+  - th: กฎอธิบายคำตัดสินไม่ได้
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: ความอธิบายได้เป็นจุดแข็งของกฎ ไม่ใช่ข้อจำกัด rule trace บอกได้เสมอว่าชั้นไหนยิงคำตัดสิน

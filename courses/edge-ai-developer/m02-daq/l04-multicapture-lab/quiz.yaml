@@ -1,0 +1,69 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m02.l04 บทเรียน 2.4
+items:
+- id: q1
+  objective: 1
+  type: order
+  prompt:
+    th: เรียงสี่ก้าวในหนึ่งรอบของลูป record()
+    en: Order the four steps in one pass of the record() loop.
+  choices:
+  - th: pdm.readinto(buf) แล้ว db = dbfs(buf)
+  - th: t_ms = time.ticks_diff(time.ticks_ms(), t0)
+  - th: f.write(...) หนึ่งแถว
+  - th: ax, ay, az, gx, gy, gz = sensors.bmi270.motion()
+  answer:
+  - 1
+  - 3
+  - 0
+  - 2
+  explain:
+    th: ประทับเวลา → อ่าน IMU → อ่านเสียง → เขียนแถว แล้วค่อย sleep_ms ไปรอบถัดไป ทุกค่าในแถวจึงเป็นเวลาเดียวกัน
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: เปิด CSV แล้วพบว่า t_ms เป็น 0 ทุกแถว แต่ IMU และ db เปลี่ยนตามจริง ช่องใดยังว่าง
+    en: In the CSV every t_ms is 0 while IMU and db change properly. Which blank is empty?
+  choices:
+  - th: ก้าว 1 ประทับเวลา
+  - th: ก้าว 2 อ่าน IMU
+  - th: ก้าว 3 อ่านเสียง
+  - th: ก้าว 4 เขียนแถว
+  answer:
+  - 0
+  explain:
+    th: บรรทัดสำรอง t_ms = 0 ยังอยู่ เส้นเวลาจึงหาย จับคู่ตามเวลาไม่ได้ ต้องเติม ticks_diff
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: คอลัมน์ db ของทุกแถวเป็น −96.0 ตลอดแม้ปรบมือใกล้บอร์ด สาเหตุที่น่าจะเป็นคืออะไร
+    en: Every db value is −96.0 even when you clap near the board. What is the likely cause?
+  choices:
+  - th: ยังไม่ได้เติม pdm.readinto(buf) buffer จึงเป็นศูนย์ หรือไมโครโฟนไม่ได้รับเสียง
+  - th: RATE_MS ตั้งสูงเกินไป
+  - th: ลืม \n ท้ายบรรทัด
+  - th: t0 ไม่ได้ตั้งใหม่
+  answer:
+  - 0
+  explain:
+    th: dbfs() คืน −96.0 เมื่อ RMS เป็นศูนย์ ซึ่งเกิดเมื่อ buffer ไม่เคยถูกเติมด้วยเสียงจริง
+- id: q4
+  objective: 3
+  type: multi
+  prompt:
+    th: ข้อใดเป็นเหตุผลที่ต้องเรียก pdm.deinit() ใน finally (เลือกทุกข้อที่ถูก)
+    en: Which are reasons to call pdm.deinit() in finally? (select all that apply)
+  choices:
+  - th: ไม่ว่าจะออกด้วยปุ่ม back หรือ error ไมโครโฟนจะถูกคืนเสมอ
+  - th: ถ้าไม่คืน โปรแกรมเสียงตัวถัดไปอาจเปิด PDM ไม่ได้เพราะฮาร์ดแวร์ยังถูกจอง
+  - th: deinit() ทำให้ไฟล์ CSV ถูกบันทึก
+  - th: เป็นนิสัยเดียวกับ edge_ai.stop() คือทิ้งเครื่องไว้ในสถานะที่รู้แน่
+  answer:
+  - 0
+  - 1
+  - 3
+  explain:
+    th: ไฟล์ CSV ถูกปิดและ flush เองเมื่อออกจาก with ส่วน deinit() มีไว้คืนฮาร์ดแวร์ไมโครโฟน

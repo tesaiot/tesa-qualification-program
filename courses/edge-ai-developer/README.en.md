@@ -1,115 +1,163 @@
 # Edge AI Developer: From Sensor to On-Device Model
 
-Level **L3** · status **pre-alpha (outline, being written)** · 7 modules, 20 lessons · about 40 hours
+> Adapted from Edge AI Developer, © 2026 Assoc. Prof. Wiroon Sriborrirux, Embedded Systems Engineering, Department of Electrical Engineering, Faculty of Engineering, Burapha University (BUU) · BENTO & TESAIoT (CC BY 4.0 / MIT)
 
-**The full course will be published once the author releases it.** The source Edge AI Developer course already has slides and code
-and is under the author's review. This page therefore publishes only the outline: module and lesson titles, objectives written
-for this repository, the skills developed and verified public references. No slides or code from the source course are in this folder.
+Thai version: [README.md](README.md). The lessons, slides and code comments are in Thai (technical terms and code in English).
 
-The course follows the real data lifecycle in five pillars: **DAQ → processing → signal analysis → training → edge AI apps**.
-It is MicroPython-first on the TESAIoT Dev Kit, uses the BENTO Emulator where real hardware is not needed, and trains models on a PC.
-It starts by taking working apps apart (in the spirit of PRIMM) before learners build their own.
+Learn **edge AI** end to end on a real PSoC Edge board (**TESAIoT Dev Kit**: Cortex-M33 + Cortex-M55 + Ethos-U55 NPU) in **MicroPython**. You start by running the models that ship on the board, so you see where the course ends, then follow the five pillars of the data lifecycle:
 
-The lesson pages are Thai-first; English lesson pages are pending (`translation: pending`).
+**data acquisition (DAQ) → processing → signal analysis → training → edge AI apps**
+
+Along the way you train your own model on a PC and take the same file to the MCU, the browser and a Cortex-A board, open the stack from MicroPython down to the NPU, and finish with a capstone you can ship. Every lesson follows PRIMM: see a working thing first, then take it apart, modify it and make your own.
 
 ## Who it is for
 
-- Developers and students who finished AIoT in Action or already write MicroPython and Python
-- No prior machine learning needed
-- A TESAIoT Dev Kit is needed for the microphone, radar and NPU lessons, and a PC for training
+- Developers and learners who already write MicroPython and Python (for example after AIoT in Action) and want edge AI on a real device
+- Engineers who want the whole path from raw data to a model on an NPU, not just an API call
+- Educators who want lessons with slides, code, practice files and solutions
+
+No machine-learning background is needed. The maths (trigonometry, basic statistics, the FFT, softmax) is explained step by step in the slides.
 
 ## Outcomes
 
-1. Explain the five-stage edge AI data lifecycle and decide whether a problem needs an on-device model or a plain rule.
-2. Capture multi-sensor data on one timeline and prepare a correctly labelled and split dataset.
-3. Process and analyse signals with filters, FFT and windowing to build the features a model uses.
-4. Train a small model, convert it for several targets, and compare results on PC, web and board.
-5. Build an edge AI app that acts reliably on model results and sends events to an IoT platform.
+1. Explain the five-stage edge AI data lifecycle, and use the edge_ai module to pick a model from the registry, read its verdict and wire it to an action on the board.
+2. Log labelled sensor data to CSV at a steady sample rate, and prepare a balanced dataset with a stratified train/val/test split and no data leakage.
+3. Turn raw signals into physical quantities and features with filters, the FFT and sliding windows, and measure the effect of each step with numbers.
+4. Train a Conv1D model in Docker, quantise it to int8, and measure its accuracy and latency on the PC, the web and the MCU through Vela, proving parity within a tolerance.
+5. Build edge AI apps that resist false positives with CONF_FLOOR, debounce and cooldown, fuse the verdict with a raw sensor, and publish events over MQTT.
+6. Explain the stack from MicroPython down to the NPU, add a model to the firmware, and deliver a capstone that crosses at least three pillars with design reasons backed by measurements.
 
-## Modules and lessons
+## What you need
 
-**Module 1 — Getting started and taking working apps apart** ([m01-onboarding](m01-onboarding/README.md))
+- **A board**: TESAIoT Dev Kit (PSoC Edge E84) with the BENTO MicroPython firmware — **or start without a board** in the BENTO Emulator (it simulates sensors and model results; some lessons need the real board, see each lesson's hardware line)
+- **BENTO IDE** — <https://ide.tesaiot.dev/> write code and press **Program to Device** from the browser; the BENTO Emulator is built in
+- **A PC** with Python 3 and numpy (module 5) and Docker for training, or Google Colab instead of Docker
+- **WiFi** for lesson 6.6 (MQTT to a public broker)
+- **ModusToolbox** and the [TESAIoT PSE84 DevKit SDK](https://github.com/tesaiot/tesaiot-pse84-devkit-sdk) if you do the add-a-model firmware part of module 7
+- A notebook or file for your own **learning log**; the slides and labs say what to record
 
-| Lesson | Topic | Time |
-|---|---|---|
-| edgeai-dev.m01.l01 | Edge AI and the data lifecycle | 70 min |
-| edgeai-dev.m01.l02 | Taking a sensor app apart | 70 min |
-| edgeai-dev.m01.l03 | Taking an edge AI app apart | 70 min |
+## Course map
 
-**Module 2 — Data acquisition (DAQ)** ([m02-daq](m02-daq/README.md))
+Eight modules, 42 lessons: about 60 hours as in the source course (20 sets of about three hours); the lesson estimates here add up to about 50 hours, and the rest is data collection, training and capstone time that varies by learner. Concept lessons are followed by a **hands-on** lesson.
 
-| Lesson | Topic | Time |
-|---|---|---|
-| edgeai-dev.m02.l01 | Sampling and logging | 70 min |
-| edgeai-dev.m02.l02 | Audio and multi-sensor capture on one timeline | 70 min |
+| Module | Lessons | Hours (approx.) | Topic |
+|---|---|---|---|
+| [Module 1 — Getting started: run the real thing, then take it apart](m01-onboarding/README.md) | 7 | 7.8 | Run a real edge AI model first, then take a sensor app and an edge AI app apart to see the shared four-beat skeleton, the model registry and the path from verdict to action. |
+| [Module 2 — Data acquisition (DAQ)](m02-daq/README.md) | 4 | 4.5 | Acquire sensor data the way a model needs it: sample rate, Nyquist, windows, a CSV schema, and IMU plus sound on one timeline. |
+| [Module 3 — Processing with maths and physics](m03-processing/README.md) | 4 | 4.6 | Turn raw numbers into physical quantities (tilt, energy, altitude, dBFS), derived metrics such as dew point and heat index, and classify with rules before reaching for ML. |
+| [Module 4 — Signal analysis](m04-analysis/README.md) | 6 | 7.0 | Clean signals with DSP filters, look at them in the frequency domain with the FFT, and squeeze sliding windows into the feature vectors a model actually sees. |
+| [Module 5 — Training and deploying to several targets](m05-training/README.md) | 9 | 10.7 | Prepare a balanced dataset, train your own model in Docker, quantise it to int8, and take the one file to the web, Cortex-A and the MCU through Vela while measuring parity. |
+| [Module 6 — Edge AI apps](m06-apps/README.md) | 6 | 7.2 | Build apps focused on one model, wire verdicts to actions through a pipeline that resists false positives, fuse them with a raw sensor, and publish events over MQTT. |
+| [Module 7 — Under the hood and extending the firmware](m07-under-the-hood/README.md) | 4 | 4.8 | Take the stack apart from MicroPython across IPC to ai_engine and the NPU, then use that map to make your own model appear in edge_ai.models(). |
+| [Module 8 — Capstone: your own edge AI app](m08-capstone/README.md) | 2 | 3.8 | Design, build and ship the Guardian, an edge AI app that threads three pillars through one loop, with design reasons backed by measurements. |
 
-**Module 3 — Processing with maths and physics** ([m03-processing](m03-processing/README.md))
+<details><summary>All lessons</summary>
 
-| Lesson | Topic | Time |
-|---|---|---|
-| edgeai-dev.m03.l01 | Maths, physics and visualisation | 70 min |
-| edgeai-dev.m03.l02 | Derived metrics and rule-based classification | 70 min |
+**Module 1 — Getting started: run the real thing, then take it apart**
 
-**Module 4 — Signal analysis** ([m04-analysis](m04-analysis/README.md))
+- [Lesson 1.1 — What edge AI is: the five-stage data lifecycle and where a model can run](m01-onboarding/l01-edge-ai-lifecycle/README.md)
+- [Lesson 1.2 — The edge_ai module: list the models, select one, read its answer](m01-onboarding/l02-edge-ai-module/README.md)
+- [Lesson 1.3 — Hands-on: your first model menu](m01-onboarding/l03-first-inference-lab/README.md)
+- [Lesson 1.4 — Taking a sensor app apart: the four-beat skeleton of every program](m01-onboarding/l04-sensor-app-anatomy/README.md)
+- [Lesson 1.5 — Hands-on: remix it into your own Tilt Monitor](m01-onboarding/l05-sensor-remix-lab/README.md)
+- [Lesson 1.6 — Taking an edge AI app apart: the registry, the verdict and the action](m01-onboarding/l06-edge-ai-app-anatomy/README.md)
+- [Lesson 1.7 — Hands-on: from verdict to action on the board](m01-onboarding/l07-verdict-action-lab/README.md)
 
-| Lesson | Topic | Time |
-|---|---|---|
-| edgeai-dev.m04.l01 | DSP filtering | 70 min |
-| edgeai-dev.m04.l02 | FFT and the frequency domain | 70 min |
-| edgeai-dev.m04.l03 | Features and windowing | 70 min |
+**Module 2 — Data acquisition (DAQ)**
 
-**Module 5 — Training and deploying to several targets** ([m05-training](m05-training/README.md))
+- [Lesson 2.1 — Sampling to match the model: rate, Nyquist, windows and the CSV schema](m02-daq/l01-sampling-and-schema/README.md)
+- [Lesson 2.2 — Hands-on: a DAQ logger that writes a CSV dataset](m02-daq/l02-daq-logger-lab/README.md)
+- [Lesson 2.3 — Audio and several sensors on one timeline: 16 kHz PDM, timestamps and jitter](m02-daq/l03-audio-and-timeline/README.md)
+- [Lesson 2.4 — Hands-on: IMU and sound in one file](m02-daq/l04-multicapture-lab/README.md)
 
-| Lesson | Topic | Time |
-|---|---|---|
-| edgeai-dev.m05.l01 | Dataset engineering | 70 min |
-| edgeai-dev.m05.l02 | Training with TensorFlow | 70 min |
-| edgeai-dev.m05.l03 | Deploying to the web, and the small-Linux-computer story | 70 min |
-| edgeai-dev.m05.l04 | Quantising and running on the NPU | 70 min |
+**Module 3 — Processing with maths and physics**
 
-**Module 6 — Edge AI apps** ([m06-apps](m06-apps/README.md))
+- [Lesson 3.1 — From raw numbers to physical quantities: tilt, energy, altitude and dBFS](m03-processing/l01-physics-quantities/README.md)
+- [Lesson 3.2 — Hands-on: four physics gauges on screen](m03-processing/l02-physics-gauges-lab/README.md)
+- [Lesson 3.3 — Derived metrics and rule-based classification: dew point, heat index and the rule ladder](m03-processing/l03-rules-before-ml/README.md)
+- [Lesson 3.4 — Hands-on: a rule-based comfort classifier](m03-processing/l04-rule-classifier-lab/README.md)
 
-| Lesson | Topic | Time |
-|---|---|---|
-| edgeai-dev.m06.l01 | The shipped models and the edge_ai API | 70 min |
-| edgeai-dev.m06.l02 | Action pipelines | 70 min |
-| edgeai-dev.m06.l03 | Sensor fusion and IoT | 70 min |
+**Module 4 — Signal analysis**
 
-**Module 7 — Under the hood, extending, and the capstone** ([m07-under-the-hood](m07-under-the-hood/README.md))
+- [Lesson 4.1 — DSP filters: EMA, Median, Kalman and the radar range profile](m04-analysis/l01-dsp-filters/README.md)
+- [Lesson 4.2 — Hands-on: cleaning a live signal with a filter](m04-analysis/l02-filters-lab/README.md)
+- [Lesson 4.3 — The FFT and the frequency domain: bins, Nyquist, DC, leakage and the Hann window](m04-analysis/l03-fft-frequency-domain/README.md)
+- [Lesson 4.4 — Hands-on: a live spectrum from the IMU](m04-analysis/l04-fft-spectrum-lab/README.md)
+- [Lesson 4.5 — Features and windowing: what the model actually sees](m04-analysis/l05-features-and-windowing/README.md)
+- [Lesson 4.6 — Hands-on: a feature vector from a sliding window](m04-analysis/l06-windowing-lab/README.md)
 
-| Lesson | Topic | Time |
-|---|---|---|
-| edgeai-dev.m07.l01 | The edge AI stack under the hood | 70 min |
-| edgeai-dev.m07.l02 | Extending with your own model | 70 min |
-| edgeai-dev.m07.l03 | Capstone: a complete edge AI application | 75 min |
+**Module 5 — Training and deploying to several targets**
 
-## Status
+- [Lesson 5.1 — Dataset engineering: class balance, windows and the train/val/test split](m05-training/l01-dataset-engineering/README.md)
+- [Lesson 5.2 — Hands-on: capture a balanced dataset on the board, split it on the PC](m05-training/l02-dataset-lab/README.md)
+- [Lesson 5.3 — Training in Docker: one artifact, four targets](m05-training/l03-training-pipeline/README.md)
+- [Lesson 5.4 — Inside training: Keras, Conv1D, gradient descent, int8 and the confusion matrix](m05-training/l04-inside-training/README.md)
+- [Lesson 5.5 — Hands-on: complete the training script and run it in Docker](m05-training/l05-train-lab/README.md)
+- [Lesson 5.6 — Running the model on the web: LiteRT.js, int8 I/O and parity](m05-training/l06-web-runtime/README.md)
+- [Lesson 5.7 — Hands-on: a web verdict that matches the PC, and the Cortex-A story](m05-training/l07-web-parity-lab/README.md)
+- [Lesson 5.8 — Quantize and Vela: putting our model on the Ethos-U55](m05-training/l08-quantize-and-vela/README.md)
+- [Lesson 5.9 — Hands-on: comparing three targets, MCU, web and PC](m05-training/l09-three-targets-lab/README.md)
 
-Pre-alpha, outline only: every lesson has objectives, skills and public references, but no content, practice or checks.
-Full content, slides and code will be added when the author releases the source course.
-C-side references link to the SDK at commit `ef72c1b`; MicroPython DSP examples link to AIoT in Action (MIT) at a pinned commit.
+**Module 6 — Edge AI apps**
 
-## Main references
+- [Lesson 6.1 — Six models and the edge_ai API: an app focused on one model](m06-apps/l01-focused-apps/README.md)
+- [Lesson 6.2 — Hands-on: your own focused app](m06-apps/l02-focused-app-lab/README.md)
+- [Lesson 6.3 — The action pipeline: CONF_FLOOR, debounce, cooldown and on_result](m06-apps/l03-action-pipeline/README.md)
+- [Lesson 6.4 — Hands-on: an action pipeline that resists false positives](m06-apps/l04-action-pipeline-lab/README.md)
+- [Lesson 6.5 — Sensor fusion: the model's verdict with the raw sensor](m06-apps/l05-sensor-fusion/README.md)
+- [Lesson 6.6 — Hands-on: send the fused event over MQTT](m06-apps/l06-fusion-iot-lab/README.md)
 
-- [SDK: แคตตาล็อกตัวอย่าง (หมวด edge_ai)](https://github.com/tesaiot/tesaiot-pse84-devkit-sdk/blob/ef72c1b658178eee8c38b1e47d28b006f80a59b5/bento-firmware-template-mtb-only/proj_cm55/examples/README.en.md)
-- [Edge AI: Engine lifecycle (เอกสาร SDK สร้างจาก commit ef72c1b)](https://tesaiot.github.io/tesaiot-pse84-devkit-sdk/sdk/mtb-only/group__edge__ai__lifecycle.html)
-- [TESAIoT PSE84 Dev Kit SDK README (ฮาร์ดแวร์โดยย่อ: Cortex-M55, Ethos-U55 NPU, เซนเซอร์)](https://github.com/tesaiot/tesaiot-pse84-devkit-sdk/blob/ef72c1b658178eee8c38b1e47d28b006f80a59b5/README.md)
-- [TensorFlow](https://www.tensorflow.org/)
-- [LiteRT (เดิมชื่อ TensorFlow Lite) documentation](https://ai.google.dev/edge/litert)
-- [TensorFlow Lite for Microcontrollers (tflite-micro)](https://github.com/tensorflow/tflite-micro)
-- [Arm Ethos-U Vela compiler (PyPI: ethos-u-vela)](https://pypi.org/project/ethos-u-vela/)
+**Module 7 — Under the hood and extending the firmware**
 
-## Licence
+- [Lesson 7.1 — The edge AI stack: tri-core, ai_engine, the IPC model link and TFLite-Micro](m07-under-the-hood/l01-edge-ai-stack/README.md)
+- [Lesson 7.2 — Hands-on: tracing the stack from MicroPython](m07-under-the-hood/l02-trace-the-stack-lab/README.md)
+- [Lesson 7.3 — Adding your own model: three edits, a four-function contract and Vela](m07-under-the-hood/l03-add-your-own-model/README.md)
+- [Lesson 7.4 — Hands-on: make a new model appear in edge_ai.models()](m07-under-the-hood/l04-extend-model-lab/README.md)
 
-- Content (this outline): CC BY 4.0
-- New code added to this course: Apache-2.0
-- No code or slides from the source course are in this folder yet
+**Module 8 — Capstone: your own edge AI app**
+
+- [Lesson 8.1 — Designing the capstone: Guardian, three pillars in one file](m08-capstone/l01-capstone-design/README.md)
+- [Lesson 8.2 — Hands-on: build and ship an edge AI app](m08-capstone/l02-capstone-build-lab/README.md)
+
+</details>
+
+## What is in each lesson
+
+| File | What it is |
+|---|---|
+| `README.md` | Objectives, preparation, the concept in brief, the code files, the lab and a quiz |
+| `slides.md` | The lesson's slides (Marp) |
+| `examples/` | Examples and full versions that run as they are |
+| `practice/` | Practice files with `# เติม` (fill in) gaps (hands-on lessons) |
+| `solution/` | Solutions, with the same file names as the practice files |
+| `quiz.yaml` | Check-for-understanding questions tied to the objectives |
+
+Running MicroPython code: open the file in BENTO IDE and press **Program to Device** (board) or **Run** (BENTO Emulator). Code files keep the source numbering, for example `s11_dataset.py`.
+
+The PC tools of module 5 are in [`shared/training/`](shared/training/README.md) (`dataset_tools.py`, `train.py`, `eval_pc.py`, `convert_web.py`, `quantize_vela.sh`, the `Dockerfile` and a Colab notebook). The interactive maths page [`shared/interactive/math_lab.html`](shared/interactive/math_lab.html) must be downloaded and opened in a browser (it loads GeoGebra from the internet).
+
+## Limits to know
+
+- The **BENTO Emulator** simulates sensors and model results (except the Motion model with its REAL switch on, which runs through ONNX Runtime Web). It has no Push model, its HW panel moves only the accelerometer, and its sound models never beat the unlabelled class. Real latency and real sound need the board.
+- The Cough, Alarm and Siren models are DEEPCRAFT Ready Models by Imagimob AB, an Infineon Technologies company, licensed for evaluation only and metered. Motion, Baby Cry and Push are DEEPCRAFT Studio exports, also Imagimob's. None of these model files is in this repository.
+- On the TESAIoT Dev Kit, opening the PDM microphone from MicroPython still clashes with the audio clock; the examples that read raw sound (lessons 2.3–2.4 and example 10) were tested by the author on the PSoC Edge AI Kit. Sound models through `edge_ai` work.
+- The BENTO firmware source and the internal architecture notes cited in module 7 are not published. What you can check is the headers and documentation in the [public SDK](https://github.com/tesaiot/tesaiot-pse84-devkit-sdk), which adds a model with `ai_engine_register()` instead of editing `ai_engine.c`.
+
+## Licences
+
+- **Content** (slides, READMEs, own diagrams and screenshots) — CC BY 4.0
+- **Code** (`examples/`, `practice/`, `solution/`, `shared/`) and the reference model `shared/training/model_int8.tflite` — MIT, Copyright (c) 2026 Wiroon Sriborrirux (full licence text in the repository's `LICENSES/MIT.txt`)
+- **Third-party images** keep their own licences; authors, sources and licences are listed in [credits.yaml](credits.yaml)
+- **The DEEPCRAFT models** the board uses belong to Imagimob AB (an Infineon Technologies company); this repository's licences do not cover them
+
+## Source
+
+Adapted from the **Edge AI Developer** course by Assoc. Prof. Wiroon Sriborrirux, Embedded Systems Engineering, Department of Electrical Engineering, Faculty of Engineering, Burapha University (BUU) (2026-09 edition). The 20 decks were split into 42 lessons in eight modules, the facts were checked against the BENTO firmware, the BENTO Emulator and the public SDK, and the wording was adapted for a general audience. BENTO & TESAIoT.
 
 ## How to cite TESA
 
-When you use, share or adapt this course, credit it as follows:
+When you use, adapt or redistribute this course or part of it, credit it as follows (add "(adapted)" after the title if you changed it, and keep the original author's credit):
 
-> "Edge AI Developer: From Sensor to On-Device Model" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0
+> "Edge AI Developer: From Sensor to On-Device Model" from TESA Open Knowledge by the Thai Embedded Systems Association (TESA), https://github.com/tesaiot/tesa-qualification-program, licensed under CC BY 4.0 · Adapted from Edge AI Developer, © 2026 Assoc. Prof. Wiroon Sriborrirux, Embedded Systems Engineering, Department of Electrical Engineering, Faculty of Engineering, Burapha University (BUU) · BENTO & TESAIoT (CC BY 4.0 / MIT)
 
-Add "(adapted)" at the end of the credit, with a short note of what you changed, when you change the material.
-Crediting TESA does not mean TESA endorses your work. Details and examples are in [ATTRIBUTION.md](../../ATTRIBUTION.md).
+Attribution does not mean that TESA or Infineon endorse or certify your course or work. "TESA", "TQP" and "Certified by TESA and Infineon" are marks of the programme.

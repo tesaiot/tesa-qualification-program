@@ -1,46 +1,115 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
 # SPDX-License-Identifier: CC-BY-4.0
+# Adapted from Edge AI Developer, © 2026 Assoc. Prof. Wiroon Sriborrirux, Embedded Systems Engineering, Department of Electrical Engineering, Faculty of Engineering, Burapha University (BUU) · BENTO & TESAIoT (CC BY 4.0 / MIT)
+
+schema_version: 1
 id: edge-ai-developer
 short: edgeai-dev
-title: {th: 'Edge AI Developer: จากเซนเซอร์สู่โมเดลบนอุปกรณ์', en: 'Edge AI Developer: From Sensor to On-Device Model'}
-summary: {th: โครงร่างของหลักสูตร Edge AI แบบครบวงจร เรียน MicroPython เป็นหลัก ห้าเสาหลักตั้งแต่เก็บข้อมูลจากเซนเซอร์ ประมวลผล วิเคราะห์สัญญาณ ฝึกโมเดล ไปจนถึงแอป Edge AI บนอุปกรณ์ หลักสูตรเต็มจะเผยแพร่เมื่อผู้เขียนเปิดให้, en: 'Outline of an end-to-end, MicroPython-first edge AI course across five pillars, from sensor data acquisition, processing and signal analysis to training and on-device edge AI apps. The full course will be published once the author releases it.'}
+title:
+  th: 'Edge AI Developer: จากเซนเซอร์สู่โมเดลบนอุปกรณ์'
+  en: 'Edge AI Developer: From Sensor to On-Device Model'
+summary:
+  th: หลักสูตร Edge AI แบบครบวงจรด้วย MicroPython บนบอร์ด PSoC Edge (TESAIoT Dev Kit) เดินตามวงจรชีวิตของข้อมูลห้าเสา ตั้งแต่เก็บข้อมูลจากเซนเซอร์ ประมวลผล วิเคราะห์สัญญาณ ฝึกโมเดลของตัวเองแล้วนำไปรันบน MCU เว็บ และ PC จนถึงแอป Edge AI ที่เชื่อถือได้ แกะสแตกใต้ฝากระโปรง และ capstone ของตัวเอง
+  en: 'An end-to-end, MicroPython-first edge AI course on the PSoC Edge board (TESAIoT Dev Kit) that follows the five pillars of the data lifecycle: sensor data acquisition, processing, signal analysis, training your own model and running it on the MCU, the web and the PC, and reliable edge AI apps, ending with the stack under the hood and a capstone of your own.'
 level: L3
-status: pre-alpha
-audience: [developer, student]
-hours: 40
-cover: {image: cover.webp}
+status: alpha
+audience:
+- developer
+- student
+- educator
+hours: 60
+cover:
+  image: cover.webp
 hardware:
   emulator: true
-  boards: [devkit]
+  boards:
+  - devkit
+toolchain:
+  bento-firmware: BENTO MicroPython firmware for PSoC Edge E84 (TESAIoT Dev Kit) with the edge_ai model registry
+  micropython: 'BENTO build: edge_ai, sensors, dsp, ui, lcd, wifi, mqtt'
+  ide: BENTO IDE https://ide.tesaiot.dev/ (Program to Device, BENTO Emulator)
+  training: Python 3 with TensorFlow, ai-edge-litert and ethos-u-vela in Docker (shared/training/Dockerfile) or Google Colab
+  sdk: TESAIoT PSE84 DevKit SDK https://github.com/tesaiot/tesaiot-pse84-devkit-sdk (module 7)
 prerequisites:
-  courses: [aiot-micropython]
+  courses:
+  - aiot-micropython
   skills:
-  - {skill: lang.micropython, level: 2}
-  - {skill: lang.python, level: 2}
+  - skill: lang.micropython
+    level: 2
+  - skill: lang.python
+    level: 2
 outcomes:
-- {th: อธิบายวงจรชีวิตของข้อมูลใน Edge AI ห้าขั้น และบอกได้ว่าโจทย์หนึ่งควรใช้โมเดลบนอุปกรณ์หรือกฎธรรมดา, en: Explain the five-stage edge AI data lifecycle and decide whether a problem needs an on-device model or a plain rule.}
-- {th: เก็บข้อมูลจากเซนเซอร์หลายตัวบนเส้นเวลาเดียวกัน และเตรียมเป็นชุดข้อมูลที่ติดป้ายและแบ่งส่วนถูกต้อง, en: Capture multi-sensor data on one timeline and prepare a correctly labelled and split dataset.}
-- {th: ประมวลผลและวิเคราะห์สัญญาณด้วยฟิลเตอร์ FFT และการแบ่งหน้าต่าง เพื่อสร้าง feature ที่โมเดลใช้, en: 'Process and analyse signals with filters, FFT and windowing to build the features a model uses.'}
-- {th: ฝึกโมเดลขนาดเล็ก แปลงให้ใช้ได้บนหลายเป้าหมาย และเทียบผลบนเครื่อง PC เว็บ และบอร์ด, en: 'Train a small model, convert it for several targets, and compare results on PC, web and board.'}
-- {th: สร้างแอป Edge AI ที่ลงมือทำตามผลของโมเดลอย่างเชื่อถือได้ และส่งเหตุการณ์ขึ้นแพลตฟอร์ม IoT, en: Build an edge AI app that acts reliably on model results and sends events to an IoT platform.}
+- th: อธิบายวงจรชีวิตของข้อมูลห้าขั้นใน Edge AI และใช้โมดูล edge_ai เลือกโมเดลจากทะเบียน อ่าน verdict และต่อเข้ากับ action บนบอร์ดได้
+  en: Explain the five-stage edge AI data lifecycle, and use the edge_ai module to pick a model from the registry, read its verdict and wire it to an action on the board.
+- th: เก็บข้อมูลเซนเซอร์ที่ติดป้ายลง CSV ที่อัตราสุ่มคงที่ และเตรียม dataset ที่สมดุล แบ่ง train/val/test แบบ stratified โดยไม่มีข้อมูลรั่ว
+  en: Log labelled sensor data to CSV at a steady sample rate, and prepare a balanced dataset with a stratified train/val/test split and no data leakage.
+- th: แปลงสัญญาณดิบเป็นปริมาณทางฟิสิกส์และ feature ด้วยฟิลเตอร์ FFT และหน้าต่างเลื่อน และวัดผลของแต่ละขั้นด้วยตัวเลข
+  en: Turn raw signals into physical quantities and features with filters, the FFT and sliding windows, and measure the effect of each step with numbers.
+- th: ฝึกโมเดล Conv1D ใน Docker บีบเป็น int8 แล้ววัด accuracy และ latency บน PC เว็บ และ MCU ผ่าน Vela พร้อมพิสูจน์ parity ภายในเกณฑ์ TOL
+  en: Train a Conv1D model in Docker, quantise it to int8, and measure its accuracy and latency on the PC, the web and the MCU through Vela, proving parity within a tolerance.
+- th: สร้างแอป Edge AI ที่กัน false positive ด้วย CONF_FLOOR, debounce และ cooldown รวม verdict กับเซนเซอร์ดิบ และส่งเหตุการณ์ขึ้น MQTT
+  en: Build edge AI apps that resist false positives with CONF_FLOOR, debounce and cooldown, fuse the verdict with a raw sensor, and publish events over MQTT.
+- th: อธิบายสแตกจาก MicroPython ถึง NPU เพิ่มโมเดลเข้าเฟิร์มแวร์ และส่งมอบ capstone ที่ข้ามอย่างน้อยสามเสาพร้อมเหตุผลการออกแบบที่ยืนบนการวัด
+  en: Explain the stack from MicroPython down to the NPU, add a model to the firmware, and deliver a capstone that crosses at least three pillars with design reasons backed by measurements.
 authors:
-- {name: ทีมผู้เขียนหลักสูตรต้นฉบับ Edge AI Developer (TESAIoT), role: author}
-- {name: TESA Open Knowledge contributors, url: 'https://github.com/tesaiot/tesa-qualification-program', role: adapter}
-sponsors: [TESA]
-license: {content: CC-BY-4.0, code: Apache-2.0}
-note: {th: เผยแพร่เฉพาะโครงร่าง (ชื่อและโครงสร้าง) หลักสูตรต้นฉบับอยู่ระหว่างการตรวจทานของผู้เขียน เนื้อหาเต็ม สไลด์ และโค้ดจะเผยแพร่เมื่อผู้เขียนเปิดให้, en: 'Outline only (titles and structure). The source course is under the author''s review; full content, slides and code will be published when the author releases them.'}
+- name: รศ.วิรุฬห์ ศรีบริรักษ์ วิศวกรรมระบบสมองกลฝังตัว ภาควิชาวิศวกรรมไฟฟ้า คณะวิศวกรรมศาสตร์ มหาวิทยาลัยบูรพา (BUU)
+  role: author
+- name: 'สมาคมสมองกลฝังตัวไทย (Thai Embedded Systems Association: TESA)'
+  url: https://github.com/tesaiot/tesa-qualification-program
+  role: adapter
+sponsors:
+- TESA
+license:
+  content: CC-BY-4.0
+  code: MIT
+source:
+  note: Adapted from the author's Edge AI Developer course (2026-09)
 modules:
 - id: m01-onboarding
-  title: {th: เริ่มต้นและแกะแอปที่ทำงานได้, en: Getting started and taking working apps apart}
+  title:
+    th: 'เริ่มต้น: รันของจริงแล้วแกะดูข้างใน'
+    en: 'Getting started: run the real thing, then take it apart'
+  summary:
+    th: รันโมเดล Edge AI ของจริงก่อน แล้วแกะแอปเซนเซอร์กับแอป Edge AI จนเห็นโครงร่วมสี่จังหวะ ทะเบียนโมเดล และเส้นทางจาก verdict สู่ action
 - id: m02-daq
-  title: {th: เก็บข้อมูลจากเซนเซอร์ (DAQ), en: Data acquisition (DAQ)}
+  title:
+    th: เก็บข้อมูลจากเซนเซอร์ (DAQ)
+    en: Data acquisition (DAQ)
+  summary:
+    th: เก็บข้อมูลจากเซนเซอร์ให้ตรงกับที่โมเดลต้องการ อัตราสุ่ม Nyquist หน้าต่าง schema ของ CSV และการเก็บ IMU กับเสียงบนเส้นเวลาเดียว
 - id: m03-processing
-  title: {th: ประมวลผลด้วยคณิตศาสตร์และฟิสิกส์, en: Processing with maths and physics}
+  title:
+    th: ประมวลผลด้วยคณิตศาสตร์และฟิสิกส์
+    en: Processing with maths and physics
+  summary:
+    th: แปลงตัวเลขดิบเป็นปริมาณทางฟิสิกส์ (มุมเอียง พลังงาน ความสูง dBFS) ค่าอนุพัทธ์อย่าง dew point กับ heat index และจำแนกด้วยกฎก่อนใช้ ML
 - id: m04-analysis
-  title: {th: วิเคราะห์สัญญาณ, en: Signal analysis}
+  title:
+    th: วิเคราะห์สัญญาณ
+    en: Signal analysis
+  summary:
+    th: ทำสัญญาณให้สะอาดด้วยฟิลเตอร์ DSP มองในโดเมนความถี่ด้วย FFT แล้วบีบหน้าต่างเลื่อนเป็น feature vector ที่โมเดลเห็นจริง
 - id: m05-training
-  title: {th: ฝึกโมเดลและนำไปใช้หลายเป้าหมาย, en: Training and deploying to several targets}
+  title:
+    th: ฝึกโมเดลและนำไปใช้หลายเป้าหมาย
+    en: Training and deploying to several targets
+  summary:
+    th: เตรียม dataset ที่สมดุล ฝึกโมเดลของเราเองใน Docker บีบเป็น int8 แล้วพาไฟล์เดียวไปรันบนเว็บ Cortex-A และ MCU ผ่าน Vela พร้อมวัด parity
 - id: m06-apps
-  title: {th: แอป Edge AI, en: Edge AI apps}
+  title:
+    th: แอป Edge AI
+    en: Edge AI apps
+  summary:
+    th: สร้างแอปที่โฟกัสโมเดลเดียว ต่อ verdict เข้ากับ action ผ่านท่อที่กัน false positive รวมกับเซนเซอร์ดิบ และส่งเหตุการณ์ขึ้น MQTT
 - id: m07-under-the-hood
-  title: {th: ใต้ฝากระโปรง ต่อเติม และงานปลายทาง, en: 'Under the hood, extending, and the capstone'}
+  title:
+    th: ใต้ฝากระโปรงและการต่อเติม
+    en: Under the hood and extending the firmware
+  summary:
+    th: แกะสแตกจาก MicroPython ข้าม IPC ไปถึง ai_engine และ NPU แล้วใช้แผนที่นั้นเพิ่มโมเดลของเราเองให้โผล่ใน edge_ai.models()
+- id: m08-capstone
+  title:
+    th: 'Capstone: แอป Edge AI ของเราเอง'
+    en: 'Capstone: your own edge AI app'
+  summary:
+    th: ออกแบบ สร้าง และส่งมอบ Guardian แอป Edge AI ที่ร้อยสามเสาไว้ในลูปเดียว พร้อมเหตุผลการออกแบบที่ยืนบนการวัด

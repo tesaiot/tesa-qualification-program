@@ -1,0 +1,86 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m01.l01 บทเรียน 1.1
+items:
+- id: q1
+  objective: 1
+  type: multi
+  prompt:
+    th: ข้อใดเป็นเหตุผลที่ควรรันโมเดลบนอุปกรณ์แทนการส่งขึ้นคลาวด์ (เลือกทุกข้อที่ถูก)
+    en: Which are reasons to run the model on the device rather than in the cloud? (select all that apply)
+  choices:
+  - th: ตัดสินใจได้ในเสี้ยววินาทีโดยไม่ต้องรอ round-trip ไปเซิร์ฟเวอร์
+  - th: เสียงและท่าทางดิบไม่ต้องออกจากอุปกรณ์
+  - th: โมเดลบนอุปกรณ์ใหญ่และแม่นกว่าโมเดลบนคลาวด์เสมอ
+  - th: อุปกรณ์ยังตัดสินใจได้แม้เน็ตหลุด
+  answer:
+  - 0
+  - 1
+  - 3
+  explain:
+    th: สี่เหตุผลในสไลด์คือ latency, privacy, cost และ offline ส่วนขนาดกลับเป็นข้อแลกเปลี่ยนของ Edge คือโมเดลต้องเล็กพอจะรันบนชิปเล็ก ๆ ไม่ได้ใหญ่กว่าคลาวด์
+- id: q2
+  objective: 2
+  type: order
+  prompt:
+    th: เรียงขั้นของวงจรชีวิตข้อมูลตามลำดับที่หลักสูตรนี้เดิน
+    en: Put the stages of the data lifecycle in the order this course follows.
+  choices:
+  - th: 'Training: ฝึกโมเดลแล้วส่งออกเป็น .tflite'
+  - th: 'DAQ: เก็บข้อมูลดิบจากเซนเซอร์'
+  - th: 'Apps: อนุมานแล้วสั่งการ'
+  - th: 'Analysis: DSP, FFT และ feature'
+  - th: 'Processing: คณิตและฟิสิกส์'
+  answer:
+  - 1
+  - 4
+  - 3
+  - 0
+  - 2
+  explain:
+    th: DAQ → Processing → Analysis → Training → Apps ตรงกับโมดูล 2 ถึง 6 ชุดบทเรียนแรกเริ่มที่ Apps ก่อนโดยตั้งใจ แต่วงจรจริงเริ่มจากข้อมูล
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: ไฟล์ model_int8.tflite ไฟล์เดียวจะไปรันหลายเป้าหมาย เป้าหมายใดต้องผ่านขั้นคอมไพล์เพิ่ม
+    en: One model_int8.tflite goes to several targets. Which target needs an extra compile step?
+  choices:
+  - th: เบราว์เซอร์ที่ใช้ LiteRT.js
+  - th: บอร์ด MCU ที่มี Ethos-U55 ต้องผ่าน Vela ก่อน
+  - th: Raspberry Pi ที่ใช้ ai-edge-litert
+  - th: PC ใน Docker
+  answer:
+  - 1
+  explain:
+    th: Vela แปลงส่วนของกราฟให้ NPU Ethos-U55 อ่านออก เป้าหมายอื่นใช้ไฟล์ int8 เดิมได้เลย int8 จึงเป็นตัวหารร่วมของทุกเป้าหมาย
+- id: q4
+  objective: 4
+  type: single
+  prompt:
+    th: เมื่อโค้ด MicroPython เรียก edge_ai.result() สิ่งใดเกิดขึ้น
+    en: What happens when MicroPython code calls edge_ai.result()?
+  choices:
+  - th: Cortex-M33 รันโมเดลเองแล้วคืนคำตอบ
+  - th: โค้ดบน Cortex-M33 ดึงผลอนุมานล่าสุดที่ Cortex-M55 กับ Ethos-U55 คำนวณไว้ผ่าน IPC
+  - th: บอร์ดส่งข้อมูลขึ้นคลาวด์แล้วรอคำตอบ
+  - th: Ethos-U55 รันโค้ด Python แทน M33
+  answer:
+  - 1
+  explain:
+    th: โมเดลอนุมานบน M55 และ NPU ส่วน MicroPython อยู่บน M33 การเรียก result() คือการดึง (pull) ผลข้ามคอร์ผ่านช่องสื่อสารในชิป
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: อยากตรวจว่ามีคนยื่นมือเข้าหาบอร์ดโดยไม่ใช้กล้องและไม่ใช้เสียง ควรเลือกโมเดลใดบน TESAIoT Dev Kit
+    en: To detect a hand pushed toward the board without a camera or sound, which model on the TESAIoT Dev Kit fits?
+  choices:
+  - th: Motion Detection (IMU)
+  - th: Cough Detection (MIC)
+  - th: Push Detection (RADAR)
+  - th: Siren Detection (MIC)
+  answer:
+  - 2
+  explain:
+    th: Push Detection ใช้เรดาร์ 60 GHz จึงตรวจการยื่นมือได้โดยไม่ใช้กล้อง โมเดลนี้มีเฉพาะบนบอร์ดที่มีเรดาร์ บน BENTO Emulator จะไม่เห็นในรายชื่อ

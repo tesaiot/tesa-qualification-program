@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
 # SPDX-License-Identifier: CC-BY-4.0
-# This course uses no images yet.
+# Every other image in this course (diagrams, animations, BENTO Emulator screenshots) is the author's own work.
 images:
   - path: cover.webp
     title: "Robot Technology"

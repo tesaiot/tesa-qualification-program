@@ -35,6 +35,7 @@ reuse:
   holders:
     tesa: "2026 Thai Embedded Systems Association (TESA)"
     aic: "2026 Wiroon Sriborrirux, Advance Innovation Centre (AIC), Burapha University"
+    wiroon: "2026 Wiroon Sriborrirux"
     parvizi: "2023 Meysam Parvizi"
     ethical-source: "Organization for Ethical Source"
   base:
@@ -79,6 +80,9 @@ reuse:
       content_holders: [tesa, aic]               # adapted course material: TESA alongside AIC
       code_license: MIT                          # imported AIC code stays MIT (BUILD_SPEC §1.6)
       code_holders: [aic]                        # MIT code keeps the AIC line only
+    edge-ai-developer:
+      content_holders: [tesa, wiroon]            # adapted from Edge AI Developer by Wiroon Sriborrirux (BUU)
+      code_holders: [wiroon, tesa]               # MIT code: the author's line, and TESA's for the adaptation
   # credits.yaml licence keywords that are not SPDX ids.
   credits_license_map:
     Infineon-permission: LicenseRef-Infineon-permission

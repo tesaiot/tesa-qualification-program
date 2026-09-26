@@ -1,0 +1,84 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m02.l02 บทเรียน 2.2
+items:
+- id: q1
+  objective: 1
+  type: order
+  prompt:
+    th: เรียงสี่จังหวะของ DAQ ในไฟล์ logger
+    en: Order the four DAQ beats in the logger file.
+  choices:
+  - th: 'record: เขียนหนึ่งบรรทัดลงไฟล์'
+  - th: 'schema: เขียนหัวตารางครั้งเดียว'
+  - th: 'rate: time.sleep_ms(RATE_MS)'
+  - th: 'sample: sensors.bmi270.motion()'
+  answer:
+  - 1
+  - 3
+  - 0
+  - 2
+  explain:
+    th: schema ทำครั้งเดียวตอนเริ่ม แล้ววน sample → record → rate ครบ BURST รอบต่อการกดหนึ่งครั้ง
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: เปิดไฟล์ดูแล้วทุกบรรทัดเป็น 0.0000 หมดยกเว้นคอลัมน์ label ช่องใดยังว่าง
+    en: Every line in the file is 0.0000 except the label column. Which blank is still empty?
+  choices:
+  - th: ช่อง 1 schema
+  - th: ช่อง 2 sample ที่อ่าน motion()
+  - th: ช่อง 3 record
+  - th: ช่อง 4 rate
+  answer:
+  - 1
+  explain:
+    th: บรรทัดสำรอง ax = ay = ... = 0.0 ทำให้โปรแกรมไม่ error แต่ถ้าไม่ได้อ่านเซนเซอร์จริง ทุกค่าจะเป็นศูนย์ dataset จึงไร้ประโยชน์
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: เก็บ idle 2 burst, circle 2 burst และ shaking 3 burst ไฟล์ที่ถูกต้องควรมีกี่บรรทัด (รวมหัวตาราง)
+    en: You record idle twice, circle twice and shaking three times. How many lines should the correct file have, header included?
+  choices:
+  - th: '1400'
+  - th: '1401'
+  - th: '1407'
+  - th: '601'
+  answer:
+  - 1
+  explain:
+    th: 7 burst × 200 = 1400 บรรทัดข้อมูล บวกหัวตาราง 1 บรรทัด เป็น 1401 และ shaking มีมากกว่าคลาสอื่นอยู่หนึ่ง burst ควรเก็บเพิ่มให้สมดุล
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ตั้ง RATE_MS = 20 แต่วัดได้จริงราว 43 Hz เพราะอะไร
+    en: RATE_MS = 20 but the measured rate is about 43 Hz. Why?
+  choices:
+  - th: เซนเซอร์เสีย
+  - th: แต่ละรอบมีเวลาอ่านเซนเซอร์และเขียนไฟล์บวกกับ sleep 20 ms หนึ่งรอบจริงจึงยาวกว่า 20 ms
+  - th: time.sleep_ms ปัดเป็นวินาที
+  - th: flash เขียนได้แค่ 43 ครั้งต่อวินาที
+  answer:
+  - 1
+  explain:
+    th: นี่คือความจริงของงานฝังตัว ตราบใดที่ต่ำกว่าอย่างสม่ำเสมอก็ยังใช้ได้ สิ่งสำคัญคือวัดค่าจริงแทนการเชื่อค่าที่ตั้ง
+- id: q5
+  objective: 3
+  type: multi
+  prompt:
+    th: ข้อใดเป็นกับดักเงียบที่โปรแกรมรันผ่านแต่ dataset ผิด (เลือกทุกข้อที่ถูก)
+    en: Which are silent traps where the program runs but the dataset is wrong? (select all that apply)
+  choices:
+  - th: เขียน gx ก่อน ax ไม่ตรง schema
+  - th: ลืม \n ท้ายบรรทัด ทุก sample ต่อกันเป็นบรรทัดเดียว
+  - th: สะกด sensors ผิดจนเกิด NameError
+  - th: เปิดไฟล์ด้วย "w" ในลูปบันทึก
+  answer:
+  - 0
+  - 1
+  - 3
+  explain:
+    th: NameError ขึ้น error ให้เห็นทันทีจึงไม่ใช่กับดักเงียบ ส่วนอีกสามข้อรันผ่านแต่ข้อมูลผิด ต้องเปิดไฟล์ตรวจเสมอ

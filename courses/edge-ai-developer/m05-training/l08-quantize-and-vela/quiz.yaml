@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m05.l08 บทเรียน 5.8
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ไฟล์ใดควรส่งไปหน้าเว็บ
+    en: Which file should go to the web page?
+  choices:
+  - th: model_int8_vela.tflite
+  - th: model_web.tflite ที่ I/O เป็น float และไม่มี custom op ของ NPU
+  - th: model.keras
+  - th: ไฟล์ใดก็ได้
+  answer:
+  - 1
+  explain:
+    th: ไฟล์ Vela มี op ethos-u ที่รันได้เฉพาะบน NPU ส่วน model_web.tflite ทำมาเพื่อเบราว์เซอร์ และ model_int8.tflite ใช้กับ PC และ Cortex-A
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: หลังรัน ./quantize_vela.sh model_int8.tflite ไฟล์ของ MCU อยู่ที่ใด
+    en: After ./quantize_vela.sh model_int8.tflite, where is the MCU file?
+  choices:
+  - th: ./model_int8.tflite ทับไฟล์เดิม
+  - th: ./output/model_int8_vela.tflite
+  - th: ./vela/model.bin
+  - th: ในบอร์ดโดยตรง
+  answer:
+  - 1
+  explain:
+    th: Vela เขียนผลลงโฟลเดอร์ output ต่อท้ายชื่อด้วย _vela ไฟล์ int8 เดิมยังอยู่ไว้ใช้กับ PC และ Cortex-A
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: AIM_GESTURE_dequeue คืน −1 ในช่วงแรกหลัง start หมายความว่าอะไร
+    en: AIM_GESTURE_dequeue returns −1 just after start. What does it mean?
+  choices:
+  - th: โมเดลพัง ต้อง flash ใหม่
+  - th: 'NODATA: หน้าต่างยังเก็บข้อมูลไม่เต็ม เป็นเรื่องปกติ'
+  - th: NPU ร้อนเกินไป
+  - th: คลาสที่ชนะคือ −1
+  answer:
+  - 1
+  explain:
+    th: ตาม IPWIN ABI ค่า −1 คือยังไม่มีผล enqueue ต่อไปจนหน้าต่างเต็ม dequeue จึงคืน 0 พร้อมคะแนน
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: int8 บน PC แม่น 0.95 แต่บนบอร์ดทายผิดเกือบหมด ควรสงสัยอะไรก่อน
+    en: int8 on the PC scores 0.95 but the board is wrong almost every time. What do you suspect first?
+  choices:
+  - th: Vela คำนวณผิด
+  - th: front-end บนบอร์ด (normalize, quantize หรือ feature) ไม่ตรงกับตอนฝึก
+  - th: NPU ช้าเกินไป
+  - th: ต้องฝึกใหม่ด้วย epoch มากขึ้น
+  answer:
+  - 1
+  explain:
+    th: Vela ไม่แก้คณิต ความต่างใหญ่ขนาดนี้มักมาจากข้อมูลที่ป้อนเข้าโมเดลบนบอร์ดคนละสเกลหรือคนละ feature กับตอนฝึก
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: ทำไม Ethos-U55 ใช้พลังงานต่อการอนุมานน้อยกว่า Cortex-M55 ทำเอง
+    en: Why does the Ethos-U55 use less energy per inference than the Cortex-M55 doing the work itself?
+  choices:
+  - th: เพราะใช้ float32
+  - th: เพราะคูณเมทริกซ์ int8 ได้ขนาน 128 MAC ต่อรอบ งานเสร็จในรอบน้อยกว่า แล้วบอร์ดกลับไปหลับได้เร็ว
+  - th: เพราะข้ามการ normalize
+  - th: เพราะไม่ต้องใช้ไฟ
+  answer:
+  - 1
+  explain:
+    th: ความเร็วกับพลังงานมาจากเหตุผลเดียวกัน วงจรเฉพาะทางทำงานเดียวได้ขนาน ใช้รอบสัญญาณนาฬิกาน้อยกว่ามาก

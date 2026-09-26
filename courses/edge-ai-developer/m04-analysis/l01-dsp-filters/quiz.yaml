@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m04.l01 บทเรียน 4.1
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ระยะจากเรดาร์กระโดดเป็นครั้งคราวเพราะการสะท้อนหลายทาง ควรเลือกฟิลเตอร์ใดเป็นลำดับแรก
+    en: Radar distance jumps now and then because of multipath. Which filter should you try first?
+  choices:
+  - th: EMA
+  - th: Median
+  - th: HPF
+  - th: ไม่ต้องกรอง
+  answer:
+  - 1
+  explain:
+    th: การกระโดดเป็น spike แท้ ๆ Median โหวตค่ากลางจึงตัด spike ทิ้งได้ ส่วน EMA จะเกลี่ยให้เป็นโหนกที่ยังเห็นอยู่
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: y_prev = 10, x = 20 และ α = 0.25 ค่า EMA รอบนี้เป็นเท่าไร
+    en: y_prev = 10, x = 20 and α = 0.25. What is this step's EMA?
+  choices:
+  - th: '12.5'
+  - th: '15'
+  - th: '17.5'
+  - th: '20'
+  answer:
+  - 0
+  explain:
+    th: y = 0.25 × 20 + 0.75 × 10 = 5 + 7.5 = 12.5 ค่าใหม่ได้น้ำหนักแค่หนึ่งในสี่ เส้นจึงตามช้าแต่เรียบ
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: หน้าต่าง Median ห้าค่าคือ 98 101 240 99 100 ผลลัพธ์คืออะไร
+    en: A five-value Median window holds 98 101 240 99 100. What is the output?
+  choices:
+  - th: '127.6'
+  - th: '100'
+  - th: '240'
+  - th: '98'
+  answer:
+  - 1
+  explain:
+    th: เรียงได้ 98 99 100 101 240 ค่ากลางคือ 100 spike 240 ถูกดันไปขอบ ขณะที่ค่าเฉลี่ย 127.6 ถูก spike ลาก
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ใน Kalman1D ถ้าเพิ่ม r (ไม่เชื่อเซนเซอร์มากขึ้น) โดย q คงเดิม ผลคืออะไร
+    en: In Kalman1D, raising r (trusting the sensor less) with q unchanged does what?
+  choices:
+  - th: K โตขึ้น ค่ากระโดดตามการวัด
+  - th: K เล็กลง ค่าขยับทีละน้อย เรียบขึ้นแต่ตามช้าลง
+  - th: ไม่มีผลเพราะ K คงที่
+  - th: ฟิลเตอร์หยุดทำงาน
+  answer:
+  - 1
+  explain:
+    th: K = P/(P+R) เมื่อ R โต K เล็กลง x += K(z − x) จึงขยับน้อย ได้ความเรียบแลกกับการตอบสนองแบบเดียวกับ α เล็กของ EMA
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: โค้ดนี้สร้าง f = dsp.EMA(alpha=0.15) ไว้ในลูปทุกรอบแล้วเรียก f.update(x) ผลบนกราฟคืออะไร
+    en: This code creates f = dsp.EMA(alpha=0.15) inside the loop on every pass and then calls f.update(x). What does the chart show?
+  choices:
+  - th: เส้นเรียบมากเพราะ α เล็ก
+  - th: เส้นกรองเหมือนเส้นดิบ เพราะฟิลเตอร์ที่เพิ่งสร้างคืนค่าแรกที่ป้อนตรง ๆ และความจำถูกลบทุกรอบ
+  - th: โปรแกรมโยน TypeError
+  - th: เส้นเป็นศูนย์ตลอด
+  answer:
+  - 1
+  explain:
+    th: state อยู่ในอ็อบเจกต์ การสร้างใหม่ทุกรอบคือการเริ่มต้นใหม่ทุกครั้ง ฟิลเตอร์จึงไม่มีอดีตให้ถ่วง ต้องสร้างครั้งเดียวนอกลูป

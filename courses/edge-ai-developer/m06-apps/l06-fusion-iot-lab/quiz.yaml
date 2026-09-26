@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m06.l06 บทเรียน 6.6
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: เขย่าแรงหนึ่งครั้งแต่ฝั่งผู้รับเห็นข้อความสิบกว่าข้อความ ส่วนใดของโค้ดหายไป
+    en: One hard shake gives the receiver more than ten messages. What is missing from the code?
+  choices:
+  - th: try/except OSError
+  - th: ธง fired ที่ยิงเฉพาะขอบขาขึ้นของ fused
+  - th: wifi.ip()
+  - th: ประตู gyro
+  answer:
+  - 1
+  explain:
+    th: fused เป็นจริงหลายเฟรมติดกันระหว่างเขย่า ถ้าไม่มี fired ทุกเฟรมจะถูก publish
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: บนบอร์ด gyro บนจอค้าง 0 ตลอดและไม่มีเหตุการณ์ถูกส่งเลย จุดใดยังว่าง
+    en: On the board the gyro value stays at 0 and no event is ever sent. Which point is empty?
+  choices:
+  - th: จุดที่ 3 อ่าน sensors.bmi270.motion()
+  - th: จุดที่ 5 mqtt.publish
+  - th: จุดที่ 1 select
+  - th: ไม่มีจุดใดผิด
+  answer:
+  - 0
+  explain:
+    th: ค่าเริ่มต้น gx = gy = gz = 0.0 ทำให้ gmag เป็น 0 ประตูดิบจึงไม่เคยเปิด fused ก็ไม่เคยจริง
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ยกบอร์ดเร็ว ๆ โมเดลตอบ shaking 0.7 แต่ gmag = 25 ที่ MOTION_FLOOR = 40 เกิดอะไร
+    en: You lift the board quickly; the model says shaking 0.7 but gmag = 25 with MOTION_FLOOR = 40. What happens?
+  choices:
+  - th: ส่งเหตุการณ์ เพราะโมเดลมั่นใจ
+  - th: ไม่ส่ง เพราะประตูดิบไม่ผ่าน fusion กรอง false positive นี้ไว้
+  - th: แอปพัง
+  - th: ส่งแบบ [SIM]
+  answer:
+  - 1
+  explain:
+    th: AND ต้องผ่านทั้งสองด่าน นี่คือตัวอย่างของ false positive ที่ fusion มีไว้กรอง
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ทำไมจึงห่อ import wifi, mqtt ด้วย try/except ImportError
+    en: Why wrap import wifi, mqtt in try/except ImportError?
+  choices:
+  - th: ให้ import เร็วขึ้น
+  - th: ให้โค้ดชุดเดียวรันได้แม้เฟิร์มแวร์ไม่มีโมดูลเน็ต โดยถอยเป็นโหมด offline แทนการพังตั้งแต่บรรทัด import
+  - th: เพื่อซ่อนรหัส WiFi
+  - th: ไม่จำเป็น
+  answer:
+  - 1
+  explain:
+    th: degrade อย่างสง่างามคือเช็กก่อนใช้ส่วนที่ต้องมีเน็ต ส่วนที่เหลือของแอปยังทำงานและแสดงกลไก fusion ได้
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: payload แบบใดเหมาะที่สุดกับหลัก edge-to-cloud ของบทเรียนนี้
+    en: Which payload best fits the edge-to-cloud principle of this lesson?
+  choices:
+  - th: สตรีม IMU ดิบ 50 ครั้งต่อวินาที
+  - th: '{"event":"shaking","conf":0.92,"gyro":180,"ts":123456} ครั้งเดียวต่อเหตุการณ์'
+  - th: ไฟล์เสียงดิบทุกวินาที
+  - th: ภาพหน้าจอทุกเฟรม
+  answer:
+  - 1
+  explain:
+    th: คิดที่ขอบแล้วส่งเฉพาะข้อสรุปพร้อมหลักฐานดิบที่จำเป็น ประหยัด bandwidth และรักษาความเป็นส่วนตัว

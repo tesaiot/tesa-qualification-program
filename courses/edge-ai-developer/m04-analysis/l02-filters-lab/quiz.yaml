@@ -1,0 +1,64 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m04.l02 บทเรียน 4.2
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: เติมไฟล์แล้วแต่เส้น Filtered เหมือนเส้น Raw ทุกจุดไม่ว่าจะเลือกฟิลเตอร์ใด จุดใดยังว่าง
+    en: After filling the file, the Filtered line matches Raw exactly whatever filter is chosen. Which point is still empty?
+  choices:
+  - th: return dsp.Median(window=MED_WINDOW)
+  - th: mag = (ax*ax + ay*ay + az*az) ** 0.5
+  - th: y = filt.update(x)
+  - th: raw_chart.value(clamp(x))
+  answer:
+  - 2
+  explain:
+    th: placeholder y = x ทำให้ค่าที่วาดบนเส้นล่างคือค่าดิบ สองกราฟต่างกันก็ต่อเมื่อค่าผ่าน filt.update จริง
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: เขียน return dsp.Median(5) ในจุดที่ 1 แล้วเลือก Median จะเกิดอะไร
+    en: You write return dsp.Median(5) at point 1 and choose Median. What happens?
+  choices:
+  - th: ได้หน้าต่าง 5 ค่าตามต้องการ
+  - th: โยน TypeError เพราะ window เป็นพารามิเตอร์แบบ keyword เท่านั้น
+  - th: ได้หน้าต่าง 6 ค่า
+  - th: ฟิลเตอร์กลายเป็น EMA
+  answer:
+  - 1
+  explain:
+    th: พารามิเตอร์ของฟิลเตอร์ใน dsp เป็น keyword-only ต้องเขียน dsp.Median(window=5) การส่งแบบ positional จะถูกปฏิเสธทันที
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: เคาะบอร์ดแรงครั้งเดียวให้เกิด spike ผลที่คาดว่าจะเห็นบนเส้น Filtered ของ EMA เทียบกับ Median คืออะไร
+    en: You tap the board hard once to make a spike. What do you expect on the Filtered line for EMA versus Median?
+  choices:
+  - th: ทั้งสองตัดทิ้งได้เท่ากัน
+  - th: EMA เกลี่ยเป็นโหนกนุ่มที่ยังเห็น ส่วน Median โหวต spike ตกไปจนแทบไม่เห็น
+  - th: EMA ตัดทิ้งหมด ส่วน Median เกลี่ยเป็นโหนก
+  - th: ทั้งสองทำให้เส้นกลายเป็นศูนย์
+  answer:
+  - 1
+  explain:
+    th: EMA ถ่วงค่าโดดเข้าไปในผลลัพธ์บางส่วน Median เลือกค่ากลางจึงไม่สนค่าโดดเดี่ยว นี่คือความต่างของ "เกลี่ย" กับ "โหวตตัด"
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: raw_jit = 400 และ filt_jit = 100 ค่า noise down % เป็นเท่าไร
+    en: raw_jit = 400 and filt_jit = 100. What is noise down %?
+  choices:
+  - th: 25%
+  - th: 75%
+  - th: 100%
+  - th: 400%
+  answer:
+  - 1
+  explain:
+    th: red = (1 − 100/400) × 100 = 75% การกระตุกของเส้นกรองเหลือหนึ่งในสี่ของเส้นดิบ

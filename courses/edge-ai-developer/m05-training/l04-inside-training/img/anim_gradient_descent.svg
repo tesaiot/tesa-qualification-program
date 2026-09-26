@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" font-family="DejaVu Sans, sans-serif">
+  <!-- Gradient descent: a ball rolls down the loss curve to the minimum. -->
+  <text x="20" y="28" font-size="18" font-weight="700" fill="#1565c0">Gradient Descent — โมเดลเรียนรู้โดยไถลลงหุบ Loss</text>
+  <!-- axes -->
+  <line x1="70" y1="40" x2="70" y2="270" stroke="#bbb" stroke-width="1.5"/>
+  <line x1="70" y1="270" x2="720" y2="270" stroke="#bbb" stroke-width="1.5"/>
+  <text x="30" y="60" font-size="13" fill="#666">Loss</text>
+  <text x="660" y="292" font-size="13" fill="#666">weights θ</text>
+  <!-- the loss curve (a valley) -->
+  <path d="M110,70 Q395,360 680,70" fill="none" stroke="#6a1b9a" stroke-width="3"/>
+  <!-- minimum marker -->
+  <circle cx="395" cy="232" r="4" fill="#2e7d32"/>
+  <text x="360" y="258" font-size="12" fill="#2e7d32">ต่ำสุด (โมเดลเก่งสุด)</text>
+  <!-- rolling ball: cx/cy step down the curve toward the min, with a small overshoot then settle -->
+  <circle r="12" fill="#e53935" stroke="#b71c1c" stroke-width="2">
+    <animate attributeName="cx" dur="3.2s" repeatCount="indefinite"
+      keyTimes="0;0.18;0.36;0.54;0.72;0.85;1"
+      values="120;190;270;340;395;430;395"/>
+    <animate attributeName="cy" dur="3.2s" repeatCount="indefinite"
+      keyTimes="0;0.18;0.36;0.54;0.72;0.85;1"
+      values="82;150;205;228;232;229;232"
+      calcMode="spline" keySplines="0.4 0 1 1;0.4 0 1 1;0.4 0 1 1;0.4 0 1 1;0.2 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <!-- gradient step arrow that shrinks as we approach the min -->
+  <text x="480" y="150" font-size="13" fill="#e53935">θ ← θ − η·∇L</text>
+  <text x="480" y="172" font-size="12" fill="#666">แต่ละก้าว = ขยับ θ ลงตามความชัน (η = ก้าวสั้น/ยาว)</text>
+</svg>

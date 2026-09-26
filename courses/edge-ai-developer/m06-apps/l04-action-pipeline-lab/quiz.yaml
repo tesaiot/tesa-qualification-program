@@ -1,0 +1,64 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m06.l04 บทเรียน 6.4
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ไฟค้างสีฟ้าตลอดแม้เขย่าค้างนาน streak ไม่ขยับเลย จุดใดยังว่าง
+    en: The light stays cyan even with a long shake and the streak never moves. Which point is empty?
+  choices:
+  - th: จุดที่ 2 hit ยังเป็น False
+  - th: จุดที่ 4
+  - th: จุดที่ 3
+  - th: ไม่มีจุดใดผิด
+  answer:
+  - 0
+  explain:
+    th: streak เพิ่มเมื่อ hit เป็นจริงเท่านั้น ถ้า hit ยังเป็นค่าเริ่มต้น False ท่อจะรีเซ็ตทุกเฟรม
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: ไฟขึ้นเหลือง 1/3 และ 2/3 ตามการเขย่า แต่ไม่เคยแดง ไม่มีเสียงหรือ log จุดใดยังว่าง
+    en: The light goes amber 1/3 and 2/3 as you shake, but never turns red and there is no sound or log. Which point is empty?
+  choices:
+  - th: จุดที่ 1
+  - th: จุดที่ 2
+  - th: จุดที่ 3 หรือ 4 (should_fire ยังเป็น False หรือยังไม่เรียก fire_action)
+  - th: COOLDOWN_MS เป็นศูนย์
+  answer:
+  - 2
+  explain:
+    th: streak ขยับแปลว่าด่าน 1 และ 2 ทำงาน ปลายท่อที่ไม่ยิงอยู่ที่เงื่อนไข should_fire หรือการเรียก fire_action
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: NEED_HITS = 1 ผลการทดสอบน่าจะเป็นแบบใด
+    en: With NEED_HITS = 1, what result do you expect?
+  choices:
+  - th: ไม่เคยยิง
+  - th: ไวที่สุดแต่ false positive มากที่สุด เพราะเฟรมเดียวที่ผ่านด่านกรองก็ยิง
+  - th: พลาดเหตุการณ์จริงบ่อยที่สุด
+  - th: เหมือน NEED_HITS = 6
+  answer:
+  - 1
+  explain:
+    th: debounce ที่ 1 เฟรมเท่ากับไม่มี debounce ส่วนค่าสูงอย่าง 6 จะพลาดเหตุการณ์สั้นของจริงบ่อยขึ้น
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ลืม last_fire = now ในจุดที่ 4 แล้วเขย่าค้างยาว จะเกิดอะไร
+    en: You forget last_fire = now at point 4 and hold a long shake. What happens?
+  choices:
+  - th: ยิงครั้งเดียวตามปกติ
+  - th: cooldown ไม่เริ่มนับใหม่ ท่อยิงซ้ำทุกครั้งที่ streak ครบ
+  - th: ไม่ยิงเลย
+  - th: โปรแกรม error
+  answer:
+  - 1
+  explain:
+    th: cooled ยังเป็นจริงตลอดเพราะ last_fire ไม่ขยับ ด่าน cooldown จึงไม่มีผล

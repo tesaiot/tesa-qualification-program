@@ -1,0 +1,84 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m04.l05 บทเรียน 4.5
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: WIN = 50, HOP = 25 ที่อัตราสุ่ม 50 Hz ได้ feature vector ใหม่กี่ชุดต่อวินาที
+    en: With WIN = 50 and HOP = 25 at 50 Hz, how many new feature vectors per second?
+  choices:
+  - th: 1 ชุด
+  - th: 2 ชุด
+  - th: 25 ชุด
+  - th: 50 ชุด
+  answer:
+  - 1
+  explain:
+    th: ได้ชุดใหม่ทุก HOP = 25 จุด ที่ 50 จุดต่อวินาทีจึงเป็น 2 ชุดต่อวินาที แต่ละชุดครอบคลุม 1 วินาทีและซ้อนกัน 50%
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ตั้ง HOP = WIN (ไม่ซ้อน) ความเสี่ยงหลักคืออะไร
+    en: Setting HOP = WIN (no overlap) mainly risks what?
+  choices:
+  - th: หน่วยความจำเต็ม
+  - th: เหตุการณ์สั้นที่คร่อมรอยต่อระหว่างสองหน้าต่างอาจถูกแบ่งครึ่งจนโมเดลพลาด และได้ผลช้าลง
+  - th: std กลายเป็นลบ
+  - th: อัตราสุ่มเปลี่ยน
+  answer:
+  - 1
+  explain:
+    th: การซ้อนทำให้ทุกจุดถูกครอบด้วยหน้าต่างมากกว่าหนึ่งอัน และได้ผลบ่อยขึ้น ไม่ซ้อนประหยัดแรงแต่ตอบช้าและพลาดง่าย
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: หน้าต่าง [7.8, 11.8, 7.8, 11.8] มี mean และ std เท่าไร
+    en: What are the mean and std of the window [7.8, 11.8, 7.8, 11.8]?
+  choices:
+  - th: mean 9.8, std 0
+  - th: mean 9.8, std 2.0
+  - th: mean 4.0, std 9.8
+  - th: mean 11.8, std 4.0
+  answer:
+  - 1
+  explain:
+    th: ค่าเฉลี่ย 9.8 ทุกจุดห่างจากค่าเฉลี่ย 2.0 std จึงเป็น 2.0 เทียบกับหน้าต่างนิ่ง [9.8, 9.8, 9.8, 9.8] ที่ std = 0 แม้ mean เท่ากัน
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: หมุนบอร์ดช้า ๆ จากราบเป็นตั้ง feature ใดเปลี่ยนมากที่สุด
+    en: You slowly rotate the board from flat to upright. Which feature changes most?
+  choices:
+  - th: mean เพราะทิศของแรงโน้มถ่วงบนแกน Z เปลี่ยน ส่วน std ยังต่ำเพราะไม่มีการสั่น
+  - th: std เพราะบอร์ดเคลื่อนที่
+  - th: band3 เท่านั้น
+  - th: ไม่มี feature ใดเปลี่ยน
+  answer:
+  - 0
+  explain:
+    th: mean บอกท่าทางคงที่ std บอกการสั่น การหมุนช้า ๆ เปลี่ยนระดับเฉลี่ยของ az แต่แทบไม่ทำให้ค่าแกว่ง
+- id: q5
+  objective: 4
+  type: order
+  prompt:
+    th: เรียงสายพานสร้าง log-mel spectrogram จากสัญญาณเสียงหนึ่งหน้าต่าง
+    en: Order the pipeline that builds a log-mel spectrogram from one audio window.
+  choices:
+  - th: FFT
+  - th: คูณ Hann window (x · w)
+  - th: log
+  - th: เอาขนาด |·|
+  - th: รวมเป็นย่าน Mel
+  answer:
+  - 1
+  - 0
+  - 3
+  - 4
+  - 2
+  explain:
+    th: x·w → FFT → |·| → Mel → log ถ้าตอนฝึกกับตอนใช้บนบอร์ดทำขั้นเหล่านี้ไม่ตรงกัน ผลของโมเดลจะเพี้ยน

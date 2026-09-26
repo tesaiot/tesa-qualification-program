@@ -1,0 +1,65 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m03.l03 บทเรียน 3.3
+items:
+- id: q1
+  objective: 1
+  type: multi
+  prompt:
+    th: ข้อใดเป็นจุดแข็งของกฎมือเมื่อเทียบกับ ML (เลือกทุกข้อที่ถูก)
+    en: Which are strengths of hand-written rules compared with ML? (select all that apply)
+  choices:
+  - th: ไม่ต้องมีข้อมูลฝึก รันได้ทันที
+  - th: อธิบายได้ว่าคำตัดสินมาจากเงื่อนไขใด
+  - th: จับ pattern ซับซ้อนหลายสิบมิติได้ดี
+  - th: ปรับเส้นแบ่งตามข้อมูลใหม่ได้เอง
+  answer:
+  - 0
+  - 1
+  explain:
+    th: สองข้อหลังเป็นจุดแข็งของ ML ที่เรียนเส้นแบ่งจากข้อมูล ส่วนกฎมือเบา อธิบายได้ และไม่ต้องมีข้อมูลฝึก
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ทำไมบันไดกฎของบทเรียนนี้ตัดสิน hot และ danger จาก heat index แทนอุณหภูมิดิบ
+    en: Why does this lesson's ladder decide hot and danger from the heat index rather than the raw temperature?
+  choices:
+  - th: เพราะ heat index อ่านได้เร็วกว่า
+  - th: เพราะอุณหภูมิเท่ากันแต่ความชื้นต่างกันทำให้ร่างกายรู้สึกต่างกันมาก heat index รวมผลนั้นไว้แล้ว
+  - th: เพราะเซนเซอร์อุณหภูมิไม่แม่น
+  - th: เพราะ heat index เป็นจำนวนเต็มเสมอ
+  answer:
+  - 1
+  explain:
+    th: 32°C ที่ความชื้น 80% รู้สึกเหมือนราว 44°C ถ้าตัดสินจากอุณหภูมิดิบจะพลาดภาวะร้อนอบอ้าวที่อันตรายจริง
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: dew point เข้าใกล้อุณหภูมิอากาศมาก หมายความว่าอะไร
+    en: The dew point is very close to the air temperature. What does that mean?
+  choices:
+  - th: อากาศแห้งมาก
+  - th: อากาศใกล้อิ่มตัว ชื้นมาก ไอน้ำใกล้จะกลั่นเป็นหยดน้ำ
+  - th: เซนเซอร์เสีย
+  - th: อุณหภูมิกำลังลดลงเร็ว
+  answer:
+  - 1
+  explain:
+    th: เมื่อ RH เข้าใกล้ 100% ค่า ln(RH/100) เข้าใกล้ 0 ทำให้ dew point เข้าใกล้อุณหภูมิจริง ระยะห่าง t − Td จึงเป็นสัญญาณความชื้นที่ดี
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: 'บันไดเขียนว่า if hi >= 32: return "hot" ไว้ก่อน if hi >= 41: return "danger" อินพุต hi = 43 จะได้อะไร'
+    en: 'The ladder has if hi >= 32: return "hot" before if hi >= 41: return "danger". What does hi = 43 give?'
+  choices:
+  - th: danger
+  - th: hot และชั้น danger กลายเป็น dead branch ที่ไม่มีวันถูกเรียก
+  - th: error เพราะเงื่อนไขซ้อนกัน
+  - th: comfortable
+  answer:
+  - 1
+  explain:
+    th: บันได return ขั้นแรกที่จริง 43 ≥ 32 จึงตอบ hot ก่อนถึงชั้น danger เงื่อนไขที่รุนแรงกว่าต้องอยู่บนเสมอ

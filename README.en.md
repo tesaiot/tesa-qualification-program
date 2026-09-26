@@ -43,12 +43,12 @@ Each pathway's courses, hours and exit point are in [catalog/tracks.yaml](catalo
 | [**TESAIoT Firmware Stack: C Firmware on the TESAIoT Dev Kit**](courses/tesaiot-firmware-stack/README.en.md) · core course | L3 Independent | alpha |
 | [Edge AI & IoT for Product Decisions](courses/edge-ai-iot-for-business/README.en.md) | L1 Aware | alpha |
 | [Product Industrial Design (Blender & Twin)](courses/product-design/README.en.md) | L2 Guided | alpha |
-| [Electronics & Test Instruments for Embedded Developers](courses/electronics-and-instruments/README.en.md) | L2 Guided | pre-alpha |
-| [Embedded C Foundations on PSoC Edge](courses/embedded-c-foundations/README.en.md) | L3 Independent | pre-alpha |
+| [Electronics & Test Instruments for Embedded Developers](courses/electronics-and-instruments/README.en.md) | L2 Guided | alpha |
+| [Embedded C Foundations on PSoC Edge](courses/embedded-c-foundations/README.en.md) | L3 Independent | alpha |
 | [TESA Firmware SDK for Edge AI](courses/firmware-sdk-edge-ai/README.en.md) | L3 Independent | alpha |
 | [Firmware Development with the VS Code-based TESA Digital Twin](courses/digital-twin/README.en.md) | L3 Independent | alpha |
-| [Secure IoT with OPTIGA™ Trust M](courses/secure-iot-optiga/README.en.md) | L3 Independent | pre-alpha |
-| [Edge AI Developer: From Sensor to On-Device Model](courses/edge-ai-developer/README.en.md) | L3 Independent | pre-alpha |
+| [Secure IoT with OPTIGA™ Trust M](courses/secure-iot-optiga/README.en.md) | L3 Independent | alpha |
+| [Edge AI Developer: From Sensor to On-Device Model](courses/edge-ai-developer/README.en.md) | L3 Independent | alpha |
 | [Educator Kit](courses/educator-kit/README.en.md) | L3 Independent | alpha |
 | [Fundamental of Embedded Systems Developer I–II (Game Console)](https://advance-innovation-centre-aic.github.io/embedded-systems-for-game_console_developer/) · external course | L2 Guided | stable |
 

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 240" font-family="DejaVu Sans, sans-serif">
+  <!-- EMA filter: a noisy signal is smoothed; the smooth line draws in over the noisy one. -->
+  <text x="20" y="26" font-size="18" font-weight="700" fill="#1565c0">EMA Filter — ทำสัญญาณ noisy ให้เรียบ (เห็นแนวโน้มจริง)</text>
+  <line x1="40" y1="60" x2="40" y2="200" stroke="#ccc"/><line x1="40" y1="130" x2="730" y2="130" stroke="#ccc"/>
+  <!-- noisy raw signal (static) -->
+  <polyline fill="none" stroke="#e0a0a0" stroke-width="1.5" points="40,130 70,95 100,150 130,80 160,160 190,100 220,175 250,90 280,140 310,70 340,165 370,105 400,150 430,85 460,120 490,150 520,95 550,140 580,110 610,145 640,100 670,130 700,115"/>
+  <text x="470" y="80" font-size="12" fill="#c07070">raw (noisy)</text>
+  <!-- smoothed EMA line, drawn in via stroke-dashoffset animation -->
+  <polyline fill="none" stroke="#2e7d32" stroke-width="3" points="40,130 70,124 100,130 130,122 160,131 190,127 220,136 250,127 280,130 310,122 340,132 370,127 400,131 430,124 460,126 490,131 520,125 550,129 580,126 610,130 640,124 670,127 700,124"
+    stroke-dasharray="900" stroke-dashoffset="900">
+    <animate attributeName="stroke-dashoffset" from="900" to="0" dur="2.4s" fill="freeze" repeatCount="indefinite"/>
+  </polyline>
+  <text x="470" y="176" font-size="12" fill="#2e7d32">EMA (เรียบ)</text>
+  <text x="60" y="224" font-size="13" fill="#666">y[t] = α·x[t] + (1−α)·y[t−1]   ·   α เล็ก = เรียบมาก/ตอบช้า, α ใหญ่ = ไว/เหลือ noise</text>
+</svg>

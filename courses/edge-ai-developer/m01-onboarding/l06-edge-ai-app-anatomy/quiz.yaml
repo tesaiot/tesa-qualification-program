@@ -1,0 +1,81 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m01.l06 บทเรียน 1.6
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ทำไม find_model("Motion") ถึงดีกว่า edge_ai.select(0) ในแอปที่จะใช้กับหลายบอร์ด
+    en: Why is find_model("Motion") better than edge_ai.select(0) in an app meant for several boards?
+  choices:
+  - th: เพราะ select() รับเลขไม่ได้
+  - th: เพราะลำดับโมเดลอาจต่างกันตามเฟิร์มแวร์หรือบอร์ด การค้นจากชื่อจึงได้โมเดลที่ต้องการเสมอ และได้ labels มาใช้ต่อด้วย
+  - th: เพราะ find_model() รันเร็วกว่าบน NPU
+  - th: เพราะชื่อโมเดลไม่เคยเปลี่ยน แต่ index เปลี่ยนทุกครั้งที่บูต
+  answer:
+  - 1
+  explain:
+    th: บน Dev Kit Cough อยู่ที่ 3 แต่บน Emulator อยู่ที่ 2 เพราะไม่มี Push การถามทะเบียนด้วยชื่อทำให้โค้ดทนต่อความต่างนี้
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: คะแนนดิบ z = [0, 0, 0] ของสามคลาส ผ่าน softmax แล้วได้อะไร
+    en: Raw scores z = [0, 0, 0] for three classes. What does softmax give?
+  choices:
+  - th: '[0, 0, 0]'
+  - th: '[1, 1, 1]'
+  - th: '[0.33, 0.33, 0.33] โดยประมาณ conf จึงต่ำกว่า CONF_FLOOR'
+  - th: '[1, 0, 0]'
+  answer:
+  - 2
+  explain:
+    th: e⁰ = 1 ทุกคลาส หารด้วยผลรวม 3 ได้ราว 0.33 เท่ากันหมด argmax ยังเลือกผู้ชนะได้หนึ่งตัว แต่ conf 0.33 ต่ำกว่า 0.50 จึงไม่ควรเชื่อ
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: scores = [0.10, 0.70, 0.20] ของ labels ['idle', 'circle', 'shaking'] ค่า top, label และ conf คืออะไร
+    en: scores = [0.10, 0.70, 0.20] for labels ['idle', 'circle', 'shaking']. What are top, label and conf?
+  choices:
+  - th: top = 1, label = circle, conf = 0.70
+  - th: top = 0.70, label = circle, conf = 1
+  - th: top = 2, label = shaking, conf = 0.20
+  - th: top = 1, label = idle, conf = 0.10
+  answer:
+  - 0
+  explain:
+    th: argmax ให้ตำแหน่ง 1 (top) ซึ่งตรงกับชื่อ circle ส่วน max ให้ค่า 0.70 คือ conf
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: เขย่าบอร์ดค้างสามวินาที โมเดลตอบ shaking ทุกเฟรม ถ้าไม่มีธง fired จะเกิดอะไร
+    en: You shake the board for three seconds and every frame says shaking. Without the fired flag, what happens?
+  choices:
+  - th: action ยิงครั้งเดียวเหมือนเดิม
+  - th: action ยิงทุกเฟรมที่ยังเจอ บี๊บรัวจนน่ารำคาญ (level-triggered)
+  - th: action ไม่ยิงเลย
+  - th: โมเดลหยุดทำงาน
+  answer:
+  - 1
+  explain:
+    th: ธง fired ทำให้ยิงตอนขอบขาขึ้นครั้งเดียว แล้วรีเซ็ตเมื่อออกจากคลาสเป้าหมาย นี่คือ edge-trigger แบบเดียวกับการกดปุ่มหนึ่งครั้งได้ event หนึ่งครั้ง
+- id: q5
+  objective: 4
+  type: multi
+  prompt:
+    th: ข้อใดถูกต้องเกี่ยวกับ on_result(cb) เทียบกับการ poll ด้วย result() (เลือกทุกข้อที่ถูก)
+    en: Which statements about on_result(cb) compared with polling result() are correct? (select all that apply)
+  choices:
+  - th: เฟิร์มแวร์เป็นผู้เรียก cb ให้ เราจึงไม่ต้องเช็ก seq เอง
+  - th: cb ถูกเรียกทันทีที่คลาสเปลี่ยน และอาจถูกเรียกซ้ำด้วยคลาสเดิมราววินาทีละครั้ง จึงยังต้องมีธง fired
+  - th: การ poll เห็นทุกจังหวะในลูปเดียว เหมาะกับตอนเริ่มเรียน
+  - th: on_result ทำให้ไม่ต้องเรียก edge_ai.stop() ตอนจบ
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: ทั้งสองวิธีถูกต้อง ต่างกันที่ใครถาม ตอนจบยังต้องถอน callback ด้วย on_result(None) แล้ว stop() เสมอ

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 200" font-family="DejaVu Sans, sans-serif">
+  <!-- 5-pillar Edge AI pipeline: a data token flows through all five stages. -->
+  <text x="20" y="26" font-size="18" font-weight="700" fill="#1565c0">5 เสาของ Edge AI — ข้อมูลไหลจากเซนเซอร์ถึงการตัดสินใจ</text>
+  <g font-size="13" text-anchor="middle">
+    <rect x="20"  y="70" width="128" height="60" rx="10" fill="#e3f2fd" stroke="#71C7EC" stroke-width="2"/><text x="84"  y="96" fill="#1565c0" font-weight="700">1 · DAQ</text><text x="84"  y="116" font-size="11" fill="#555">เก็บข้อมูล</text>
+    <rect x="168" y="70" width="128" height="60" rx="10" fill="#e8f5e9" stroke="#50D890" stroke-width="2"/><text x="232" y="96" fill="#2e7d32" font-weight="700">2 · Processing</text><text x="232" y="116" font-size="11" fill="#555">คณิต/ฟิสิกส์</text>
+    <rect x="316" y="70" width="128" height="60" rx="10" fill="#fff8e1" stroke="#F2B84B" stroke-width="2"/><text x="380" y="96" fill="#a67c00" font-weight="700">3 · Analysis</text><text x="380" y="116" font-size="11" fill="#555">DSP/FFT</text>
+    <rect x="464" y="70" width="128" height="60" rx="10" fill="#ffebee" stroke="#E85B5B" stroke-width="2"/><text x="528" y="96" fill="#c62828" font-weight="700">4 · Training</text><text x="528" y="116" font-size="11" fill="#555">TF→int8 TFLite</text>
+    <rect x="612" y="70" width="128" height="60" rx="10" fill="#f3e5f5" stroke="#BB86FC" stroke-width="2"/><text x="676" y="96" fill="#6a1b9a" font-weight="700">5 · Apps</text><text x="676" y="116" font-size="11" fill="#555">ตัดสินใจ/action</text>
+  </g>
+  <!-- connector arrows -->
+  <g stroke="#bbb" stroke-width="2" fill="none"><path d="M148,100 L168,100" marker-end="url(#a)"/><path d="M296,100 L316,100" marker-end="url(#a)"/><path d="M444,100 L464,100" marker-end="url(#a)"/><path d="M592,100 L612,100" marker-end="url(#a)"/></g>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#bbb"/></marker></defs>
+  <!-- flowing token -->
+  <circle r="9" fill="#e53935"><animate attributeName="cx" dur="4s" repeatCount="indefinite" keyTimes="0;0.2;0.4;0.6;0.8;1" values="84;232;380;528;676;676"/><animate attributeName="cy" values="55;55" dur="4s" repeatCount="indefinite"/></circle>
+  <text x="230" y="168" font-size="13" fill="#666">"train once, run everywhere" — โมเดล int8 ตัวเดียว → MCU (Ethos-U55) · Web · PC · Cortex-A</text>
+</svg>

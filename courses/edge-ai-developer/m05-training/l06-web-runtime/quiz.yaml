@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m05.l06 บทเรียน 5.6
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ข้อได้เปรียบหลักของ LiteRT.js เหนือ ONNX Runtime Web ในคอร์สนี้คืออะไร
+    en: What is the main advantage of LiteRT.js over ONNX Runtime Web in this course?
+  choices:
+  - th: เร็วกว่าเสมอทุกเครื่อง
+  - th: โหลด .tflite ฟอร์แมตเดียวกับ MCU ได้ตรง ๆ ไม่ต้องแปลงข้ามฟอร์แมต
+  - th: รองรับเฉพาะ int8
+  - th: ไม่ต้องทำ front-end
+  answer:
+  - 1
+  explain:
+    th: ลดขั้นแปลงที่อาจทำให้เพี้ยน ส่วน ONNX Runtime Web ต้องแปลง TFLite เป็น ONNX ก่อน ซึ่งเป็นทางที่ BENTO Emulator เลือกเพื่อรันไฟล์ int8 in/out
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: convert_web.py ตั้ง Optimize.DEFAULT โดยไม่ผูก representative dataset ได้ไฟล์แบบใด
+    en: convert_web.py sets Optimize.DEFAULT without a representative dataset. What kind of file results?
+  choices:
+  - th: full-integer int8 (int8 in/out)
+  - th: 'dynamic-range: น้ำหนัก int8 แต่ activation และ I/O เป็น float'
+  - th: float16 ล้วน
+  - th: ไฟล์ที่ผ่าน Vela แล้ว
+  answer:
+  - 1
+  explain:
+    th: ไม่มีตัวอย่างไว้ calibrate converter จึงบีบได้แค่น้ำหนัก ไฟล์เล็กลงราวสี่เท่าและ I/O ยังเป็น float ที่เบราว์เซอร์รับได้
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: input มี scale s = 0.05 และ zero-point z = −10 ค่า x = 1.2 ถูก quantize เป็นเท่าไร
+    en: The input has scale s = 0.05 and zero-point z = −10. What does x = 1.2 quantize to?
+  choices:
+  - th: '14'
+  - th: '24'
+  - th: '34'
+  - th: −10
+  answer:
+  - 0
+  explain:
+    th: round(1.2 / 0.05 + (−10)) = round(24 − 10) = 14 และ dequantize กลับได้ (14 + 10) × 0.05 = 1.2
+- id: q4
+  objective: 4
+  type: single
+  prompt:
+    th: s_pc = [0.10, 0.85, 0.05] และ s_web = [0.07, 0.88, 0.05] ด้วย TOL = 0.02 ผลเป็นอย่างไร
+    en: s_pc = [0.10, 0.85, 0.05] and s_web = [0.07, 0.88, 0.05] with TOL = 0.02. What is the result?
+  choices:
+  - th: ผ่าน เพราะคลาสที่ชนะตรงกัน
+  - th: ไม่ผ่าน เพราะ d = 0.03 เกิน TOL แม้คลาสที่ชนะจะตรงกัน
+  - th: ผ่าน เพราะ d = 0.00
+  - th: ไม่ผ่าน เพราะคลาสที่ชนะต่างกัน
+  answer:
+  - 1
+  explain:
+    th: ต้องผ่านทั้งสองเงื่อนไข d = max(0.03, 0.03, 0.00) = 0.03 > 0.02 จึงไม่ผ่าน ให้ไล่ตรวจ front-end ก่อน
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: เบราว์เซอร์ทายคนละคลาสกับ PC เกือบทุก window ควรตรวจอะไรก่อน
+    en: The browser picks a different class from the PC on almost every window. What do you check first?
+  choices:
+  - th: kernel XNNPACK กับ CMSIS-NN
+  - th: normalization ว่าทั้งสองฝั่งใช้ mean/std ชุดเดียวกันจาก .norm.npz หรือไม่
+  - th: ความเร็วอินเทอร์เน็ต
+  - th: จำนวน epoch
+  answer:
+  - 1
+  explain:
+    th: kernel ต่างกันทำให้คะแนนต่างเล็กน้อยสม่ำเสมอ แต่ถ้าคลาสเพี้ยนทั้งกระดาน front-end โดยเฉพาะ normalize มักเป็นต้นเหตุ

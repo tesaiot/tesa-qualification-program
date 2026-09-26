@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 280" font-family="DejaVu Sans, sans-serif">
+  <!-- Conv1D: a kernel window slides across the signal, computing one output per step. -->
+  <text x="20" y="26" font-size="18" font-weight="700" fill="#1565c0">Conv1D — หน้าต่าง (kernel) ไถลไปตามสัญญาณ</text>
+  <text x="30" y="58" font-size="13" fill="#666">สัญญาณเข้า x[t] (เช่น accel ตามเวลา)</text>
+  <!-- input cells -->
+  <g font-size="12" fill="#333" text-anchor="middle">
+    <rect x="40"  y="70" width="46" height="46" fill="#e3f2fd" stroke="#90caf9"/><text x="63" y="98">.1</text>
+    <rect x="88"  y="70" width="46" height="46" fill="#e3f2fd" stroke="#90caf9"/><text x="111" y="98">.4</text>
+    <rect x="136" y="70" width="46" height="46" fill="#e3f2fd" stroke="#90caf9"/><text x="159" y="98">.8</text>
+    <rect x="184" y="70" width="46" height="46" fill="#e3f2fd" stroke="#90caf9"/><text x="207" y="98">.6</text>
+    <rect x="232" y="70" width="46" height="46" fill="#e3f2fd" stroke="#90caf9"/><text x="255" y="98">.2</text>
+    <rect x="280" y="70" width="46" height="46" fill="#e3f2fd" stroke="#90caf9"/><text x="303" y="98">.3</text>
+    <rect x="328" y="70" width="46" height="46" fill="#e3f2fd" stroke="#90caf9"/><text x="351" y="98">.9</text>
+    <rect x="376" y="70" width="46" height="46" fill="#e3f2fd" stroke="#90caf9"/><text x="399" y="98">.5</text>
+  </g>
+  <!-- sliding kernel window (3 wide) -->
+  <rect y="64" width="142" height="58" fill="none" stroke="#e53935" stroke-width="3" rx="4">
+    <animate attributeName="x" dur="4s" repeatCount="indefinite"
+      keyTimes="0;0.16;0.2;0.36;0.4;0.56;0.6;0.76;0.8;1" calcMode="discrete"
+      values="36;36;84;84;132;132;180;180;228;228"/>
+  </rect>
+  <text x="40" y="145" font-size="12" fill="#e53935">kernel w = [.2 .5 .3] · เลื่อนทีละ 1 (stride) → dot-product</text>
+  <!-- output row -->
+  <text x="30" y="190" font-size="13" fill="#666">ผลลัพธ์ y[t] = Σ w[k]·x[t+k] + b  (ในภาพ b = 0)</text>
+  <g font-size="12" fill="#fff" text-anchor="middle">
+    <rect x="60"  y="205" width="46" height="40" fill="#6a1b9a" opacity="0"><animate attributeName="opacity" begin="0.6s" dur="0.3s" fill="freeze" values="0;1"/></rect><text x="83" y="230" fill="#fff" opacity="0"><animate attributeName="opacity" begin="0.6s" dur="0.3s" fill="freeze" values="0;1"/>.46</text>
+    <rect x="108" y="205" width="46" height="40" fill="#6a1b9a" opacity="0"><animate attributeName="opacity" begin="1.4s" dur="0.3s" fill="freeze" values="0;1"/></rect><text x="131" y="230" fill="#fff" opacity="0"><animate attributeName="opacity" begin="1.4s" dur="0.3s" fill="freeze" values="0;1"/>.66</text>
+    <rect x="156" y="205" width="46" height="40" fill="#6a1b9a" opacity="0"><animate attributeName="opacity" begin="2.2s" dur="0.3s" fill="freeze" values="0;1"/></rect><text x="179" y="230" fill="#fff" opacity="0"><animate attributeName="opacity" begin="2.2s" dur="0.3s" fill="freeze" values="0;1"/>.52</text>
+    <rect x="204" y="205" width="46" height="40" fill="#6a1b9a" opacity="0"><animate attributeName="opacity" begin="3.0s" dur="0.3s" fill="freeze" values="0;1"/></rect><text x="227" y="230" fill="#fff" opacity="0"><animate attributeName="opacity" begin="3.0s" dur="0.3s" fill="freeze" values="0;1"/>.31</text>
+  </g>
+  <text x="330" y="232" font-size="12" fill="#666">→ kernel เดียวกันทั้งเส้น = เรียน "รูปทรง" ที่เลื่อนไปมาได้ (translation-invariant)</text>
+</svg>

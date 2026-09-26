@@ -92,10 +92,9 @@ courses:
     short: edgeai-dev
     in_tree: true
     level: L3
-    status: pre-alpha
+    status: alpha
     title: {th: "Edge AI Developer: จากเซนเซอร์สู่โมเดลบนอุปกรณ์", en: "Edge AI Developer: From Sensor to On-Device Model"}
     nav: {th: "Edge AI Developer", en: "Edge AI Developer"}
-    note: The source course exists (MicroPython-first) and is under the author's review; only the outline is published until the author releases it.
 
   - id: educator-kit
     short: edu

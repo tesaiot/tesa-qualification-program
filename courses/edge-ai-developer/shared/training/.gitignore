@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+data/*.csv
+*.norm.npz
+output/
+# keep a sample model_int8.tflite as reference output (small), remove the rest
+
+# SPDX-FileCopyrightText: 2026 Wiroon Sriborrirux
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: MIT

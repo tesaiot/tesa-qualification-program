@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" font-family="DejaVu Sans, sans-serif">
+  <!-- Softmax: raw scores (z) become probabilities that sum to 1. -->
+  <text x="20" y="26" font-size="18" font-weight="700" fill="#1565c0">Softmax — เปลี่ยนคะแนนดิบเป็นความน่าจะเป็น (รวม = 1)</text>
+  <text x="70" y="56" font-size="13" fill="#666">คะแนนดิบ z</text>
+  <text x="470" y="56" font-size="13" fill="#666">ความน่าจะเป็น ŷ = softmax(z)</text>
+  <!-- left: raw scores -->
+  <g>
+    <rect x="70"  y="90" width="60" height="120" fill="#90a4ae"/><text x="78" y="230" font-size="13" fill="#333">idle</text><text x="82" y="82" font-size="13" fill="#333">2.0</text>
+    <rect x="150" y="70" width="60" height="140" fill="#90a4ae"/><text x="152" y="230" font-size="13" fill="#333">circle</text><text x="162" y="62" font-size="13" fill="#333">3.1</text>
+    <rect x="230" y="120" width="60" height="90" fill="#90a4ae"/><text x="228" y="230" font-size="13" fill="#333">shake</text><text x="242" y="112" font-size="13" fill="#333">1.2</text>
+  </g>
+  <!-- arrow with formula -->
+  <text x="330" y="150" font-size="26" fill="#6a1b9a">➜</text>
+  <text x="315" y="185" font-size="12" fill="#6a1b9a">eᶻⁱ / Σeᶻ</text>
+  <!-- right: probabilities animate up to sum=1 -->
+  <g>
+    <rect x="470" y="210" width="60" height="0" fill="#1565c0"><animate attributeName="height" values="0;40" dur="1.1s" fill="freeze" begin="0.2s"/><animate attributeName="y" values="210;170" dur="1.1s" fill="freeze" begin="0.2s"/></rect>
+    <text x="478" y="230" font-size="13" fill="#333">idle</text><text x="480" y="164" font-size="13" font-weight="700" fill="#1565c0">0.22</text>
+    <rect x="550" y="210" width="60" height="0" fill="#2e7d32"><animate attributeName="height" values="0;120" dur="1.1s" fill="freeze" begin="0.35s"/><animate attributeName="y" values="210;90" dur="1.1s" fill="freeze" begin="0.35s"/></rect>
+    <text x="556" y="230" font-size="13" fill="#333">circle</text><text x="560" y="84" font-size="13" font-weight="700" fill="#2e7d32">0.67</text>
+    <rect x="630" y="210" width="60" height="0" fill="#1565c0"><animate attributeName="height" values="0;18" dur="1.1s" fill="freeze" begin="0.5s"/><animate attributeName="y" values="210;192" dur="1.1s" fill="freeze" begin="0.5s"/></rect>
+    <text x="632" y="230" font-size="13" fill="#333">shake</text><text x="642" y="186" font-size="13" font-weight="700" fill="#1565c0">0.10</text>
+  </g>
+  <line x1="70" y1="210" x2="290" y2="210" stroke="#bbb"/><line x1="470" y1="210" x2="690" y2="210" stroke="#bbb"/>
+  <text x="470" y="262" font-size="13" fill="#2e7d32">0.22 + 0.67 + 0.10 ≈ 1 (ปัดเศษ)  →  ทายว่า "circle"</text>
+  <animateTransform attributeName="transform" type="scale" values="1;1" dur="2.6s" repeatCount="indefinite"/>
+</svg>

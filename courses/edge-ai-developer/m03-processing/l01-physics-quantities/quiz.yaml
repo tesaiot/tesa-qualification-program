@@ -1,0 +1,80 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m03.l01 บทเรียน 3.1
+items:
+- id: q1
+  objective: 1
+  type: multi
+  prompt:
+    th: ปริมาณใดในบทเรียนนี้ที่มีฟังก์ชันสำเร็จใน dsp (เลือกทุกข้อที่ถูก)
+    en: Which quantities in this lesson have a ready function in dsp? (select all that apply)
+  choices:
+  - th: มุมเอียง (dsp.tilt)
+  - th: ความสูง (dsp.altitude)
+  - th: พลังงานการเคลื่อนไหว
+  - th: ระดับเสียง dBFS
+  answer:
+  - 0
+  - 1
+  explain:
+    th: tilt กับ altitude มีในโมดูล dsp ส่วน energy กับ dBFS เราเขียนสูตรเองด้วย math.sqrt และ math.log10
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ax = 0, ay = 6.9, az = 6.9 m/s² มุม roll = atan2(ay, az) เป็นเท่าไร
+    en: With ax = 0, ay = 6.9 and az = 6.9 m/s², what is roll = atan2(ay, az)?
+  choices:
+  - th: 0 องศา
+  - th: 45 องศา
+  - th: 90 องศา
+  - th: คำนวณไม่ได้เพราะไม่ได้แปลงหน่วยเป็น g ก่อน
+  answer:
+  - 1
+  explain:
+    th: atan2(6.9, 6.9) = 45° สูตรเป็นอัตราส่วน หน่วยจึงหักล้างกัน ใช้ m/s² หรือ g ก็ได้มุมเท่ากัน
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: วางบอร์ดนิ่ง motion() ให้ |a| ≈ 9.81 m/s² ถ้าเขียน energy = abs(mag - 1.0) โดยไม่หาร 9.81 จะได้อะไร
+    en: At rest motion() gives |a| ≈ 9.81 m/s². If you write energy = abs(mag - 1.0) without dividing by 9.81, what do you get?
+  choices:
+  - th: ราว 0 ตามที่ต้องการ
+  - th: ราว 8.8 แถบจะเต็มตลอดแม้วางนิ่ง
+  - th: ราว −1
+  - th: error เพราะ math.sqrt รับค่าลบไม่ได้
+  answer:
+  - 1
+  explain:
+    th: ต้องหาร 9.81 ให้เป็นหน่วย g ก่อน ตอนนิ่ง mag ≈ 1 แล้วลบ 1 จึงเหลือราว 0
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ทำไมจับความดัน p0 ครั้งเดียวก่อนลูปแล้วส่งเข้า dsp.altitude(p, p0)
+    en: Why capture the pressure p0 once before the loop and pass it to dsp.altitude(p, p0)?
+  choices:
+  - th: เพราะ dsp.altitude ต้องมีสองค่าเสมอ
+  - th: เพื่อให้ได้ความสูงสัมพัทธ์เทียบกับจุดเริ่ม ซึ่งเห็นการยกบอร์ดชัดและไม่ขึ้นกับสภาพอากาศวันนั้น
+  - th: เพื่อให้เซนเซอร์อุ่นเครื่อง
+  - th: เพื่อแปลง hPa เป็น kPa
+  answer:
+  - 1
+  explain:
+    th: p0 เป็นอาร์กิวเมนต์ไม่บังคับ ถ้าไม่ใส่จะเทียบกับ 1013.25 hPa ได้ความสูงเหนือน้ำทะเลที่ขึ้นกับอากาศ การใส่ p0 เองทำให้จุด 0 อยู่ที่ตอนเริ่มโปรแกรม
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: ทำไมระดับเสียงใช้สเกล dBFS (log) แทนค่า RMS ตรง ๆ
+    en: Why is sound level shown in dBFS (log) rather than raw RMS?
+  choices:
+  - th: เพราะ log คำนวณเร็วกว่า
+  - th: เพราะหูรับรู้ความดังแบบ log และช่วงของเสียงกว้างมาก log ทำให้เสียงเบาไม่เบียดกันจนอ่านไม่ออก
+  - th: เพราะ RMS ติดลบได้
+  - th: เพราะ Bar รับเฉพาะค่าติดลบ
+  answer:
+  - 1
+  explain:
+    th: สเกล decibel บีบช่วงกว้างตั้งแต่ราว −96 ถึง 0 dBFS ให้อ่านง่าย แบบเดียวกับริกเตอร์หรือ pH

@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m05.l04 บทเรียน 5.4
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: kernel w = [.2, .5, .3] และ b = 0 บนสัญญาณ .4 .8 .6 ได้ค่าออกเท่าไร
+    en: With kernel w = [.2, .5, .3] and b = 0 over the signal .4 .8 .6, what is the output?
+  choices:
+  - th: '0.46'
+  - th: '0.52'
+  - th: '0.66'
+  - th: '1.80'
+  answer:
+  - 2
+  explain:
+    th: .2×.4 + .5×.8 + .3×.6 = .08 + .40 + .18 = .66 คือการคูณแล้วบวกทีละตำแหน่ง
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: คะแนนดิบ z = [2.0, 3.1, 1.2] ของ idle, circle, shaking หลัง softmax circle ได้ความน่าจะเป็นราวเท่าไร
+    en: Raw scores z = [2.0, 3.1, 1.2] for idle, circle, shaking. After softmax, roughly what probability does circle get?
+  choices:
+  - th: '0.31'
+  - th: '0.49'
+  - th: '0.67'
+  - th: '1.00'
+  answer:
+  - 2
+  explain:
+    th: e^3.1 ≈ 22.2 หารด้วย e^2.0 + e^3.1 + e^1.2 ≈ 7.39 + 22.2 + 3.32 ≈ 32.9 ได้ราว 0.67 ส่วน idle ราว 0.22 และ shaking ราว 0.10
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ฝึกจบแล้ว accuracy = 0.99 แต่ val_accuracy = 0.60 และตกลงเรื่อย ๆ ในช่วงท้าย แปลว่าอะไร
+    en: At the end accuracy = 0.99 but val_accuracy = 0.60 and falling. What does it mean?
+  choices:
+  - th: โมเดลดีมาก
+  - th: overfit โมเดลจำชุดฝึกแต่ไม่ generalize
+  - th: underfit โมเดลเล็กเกินไป
+  - th: representative dataset ผิด
+  answer:
+  - 1
+  explain:
+    th: train สูงแต่ val ไม่ตามคือจำข้อสอบ แก้ด้วยข้อมูลเพิ่ม หยุดเร็วขึ้น หรือโมเดลเล็กลง ส่วน underfit คือทั้งคู่ต่ำค้าง
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ตั้ง supported_ops = [TFLITE_BUILTINS_INT8] แต่ลืมผูก representative_dataset แล้วเรียก convert() จะเกิดอะไร
+    en: You set supported_ops = [TFLITE_BUILTINS_INT8] but forget representative_dataset, then call convert(). What happens?
+  choices:
+  - th: ได้ไฟล์ที่แม่นเท่าเดิม
+  - th: converter หยุดด้วย ValueError เพราะ full-integer ต้องมีตัวอย่างไว้ calibrate
+  - th: ได้ไฟล์ float32
+  - th: ไฟล์เล็กลงแปดเท่า
+  answer:
+  - 1
+  explain:
+    th: ไม่มีตัวอย่าง converter ก็เลือก scale และ zero-point ของ activation ไม่ได้ TensorFlow จึงปฏิเสธตั้งแต่ต้น ถ้ามีแต่เป็นตัวอย่างที่ไม่เหมือนจริง ไฟล์จะออกมาแต่แม่นตก
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: 'confusion matrix: idle [10 0 0], circle [0 8 2], shaking [0 1 9] ความแม่นและคู่ที่สับสนที่สุดคืออะไร'
+    en: 'Confusion matrix: idle [10 0 0], circle [0 8 2], shaking [0 1 9]. What is the accuracy and the most confused pair?'
+  choices:
+  - th: ความแม่น 0.90 และโมเดลทาย circle ผิดเป็น shaking บ่อยที่สุด
+  - th: ความแม่น 0.90 และโมเดลทาย idle ผิดบ่อยที่สุด
+  - th: ความแม่น 0.27 และไม่มีคู่ใดสับสน
+  - th: ความแม่น 1.00
+  answer:
+  - 0
+  explain:
+    th: แนวทแยง 10 + 8 + 9 = 27 จาก 30 คือ 0.90 แถว circle มี 2 หน้าต่างที่ถูกทายเป็น shaking ควรเก็บสองท่านี้เพิ่ม

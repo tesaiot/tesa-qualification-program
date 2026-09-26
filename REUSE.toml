@@ -86,7 +86,10 @@ SPDX-License-Identifier = "CC-BY-4.0"
 # Course edge-ai-developer: content
 path = "courses/edge-ai-developer/**"
 precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
+SPDX-FileCopyrightText = [
+    "2026 Thai Embedded Systems Association (TESA)",
+    "2026 Wiroon Sriborrirux",
+]
 SPDX-License-Identifier = "CC-BY-4.0"
 
 [[annotations]]
@@ -98,8 +101,11 @@ path = [
     "courses/edge-ai-developer/shared/**",
 ]
 precedence = "closest"
-SPDX-FileCopyrightText = "2026 Thai Embedded Systems Association (TESA)"
-SPDX-License-Identifier = "Apache-2.0"
+SPDX-FileCopyrightText = [
+    "2026 Wiroon Sriborrirux",
+    "2026 Thai Embedded Systems Association (TESA)",
+]
+SPDX-License-Identifier = "MIT"
 
 [[annotations]]
 # Course edge-ai-iot-for-business: content

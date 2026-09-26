@@ -256,6 +256,19 @@ def m_authorship_generated(r: Path):
     edit(r / "README.md", "# ชุดทดสอบ", f"# ชุดทดสอบ\n\n🤖 Generated with {AI_NAME} Code")
 
 
+STATUS_ROW = "\n\n| หลักสูตร | ระดับ | สถานะ |\n|---|---|---|\n| [ตัวอย่าง](courses/demo-course/README.md) | L1 | {s} |\n"
+
+
+def test_readme_status_matching_the_catalog_is_green(green: Path) -> None:
+    edit(green / "README.md", "(ATTRIBUTION.md)", "(ATTRIBUTION.md)" + STATUS_ROW.format(s="ฉบับร่าง (alpha)"))
+    rep = validate.run(green)
+    assert not [f for f in rep.errors if f.check == "catalog"], rep.errors
+
+
+def m_catalog_readme_status(r: Path):
+    edit(r / "README.md", "(ATTRIBUTION.md)", "(ATTRIBUTION.md)" + STATUS_ROW.format(s="ร่างโครง (pre-alpha)"))
+
+
 def m_sections_empty(r: Path):
     edit(r / L2 / "README.md", "## แนวคิด\n", "## ยังไม่ได้เขียน\n\n<!-- รอเนื้อหา -->\n\n## แนวคิด\n")
 
@@ -367,6 +380,7 @@ CASES = [
     (m_leaks_path, "leaks", "error"),
     (m_leaks_scratch, "leaks", "error"),
     (m_sections_empty, "sections", "error"),
+    (m_catalog_readme_status, "catalog", "error"),
     (m_sections_empty_last, "sections", "error"),
     (m_authorship_trailer, "authorship", "error"),
     (m_authorship_generated, "authorship", "error"),

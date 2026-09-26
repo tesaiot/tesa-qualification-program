@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m08.l01 บทเรียน 8.1
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: Guardian แตะเสาใดโดยตรงบ้าง
+    en: Which pillars does the Guardian touch directly?
+  choices:
+  - th: DAQ, Processing และ Apps
+  - th: Training เท่านั้น
+  - th: Analysis กับ Training
+  - th: Apps เท่านั้น
+  answer:
+  - 0
+  explain:
+    th: อ่านความเร่งดิบ (DAQ) กรองความมั่นใจด้วย EMA (Processing) และ verdict สู่ action (Apps) ส่วน Training กับ Analysis เป็นทางต่อยอด
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: EMA_ALPHA = 0.4 ค่าที่กรองไว้เดิม 0.30 และ conf ดิบใหม่ 0.90 ได้ค่าใหม่เท่าไร
+    en: EMA_ALPHA = 0.4, the previous filtered value is 0.30 and the new raw conf is 0.90. What is the new value?
+  choices:
+  - th: '0.90'
+  - th: '0.60'
+  - th: '0.54'
+  - th: '0.36'
+  answer:
+  - 2
+  explain:
+    th: 0.4 × 0.90 + 0.6 × 0.30 = 0.36 + 0.18 = 0.54 ผ่านเกณฑ์ 0.50 แล้ว แต่ยังต้องผ่านด่าน streak ด้วย
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ถ้าสร้าง dsp.EMA ใหม่ทุกรอบในลูป จะเกิดอะไร
+    en: What happens if a new dsp.EMA is created on every loop pass?
+  choices:
+  - th: กรองได้ดีขึ้น
+  - th: ตัวกรองเสียความจำทุกเฟรม ค่าออกเท่ากับค่าดิบ จึงไม่ได้กรองอะไรเลย
+  - th: โปรแกรมหยุด
+  - th: ค่ากลายเป็นศูนย์
+  answer:
+  - 1
+  explain:
+    th: EMA ครั้งแรกคืนค่าที่ป้อนเข้าไป ถ้าสร้างใหม่ทุกรอบก็เหมือนไม่มีตัวกรอง จึงต้องสร้างครั้งเดียวก่อนลูป
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: top = alert_idx, conf_s = 0.62 และ streak = 2 ขณะ HITS_NEEDED = 3 Guardian ยิงหรือไม่
+    en: top = alert_idx, conf_s = 0.62 and streak = 2 while HITS_NEEDED = 3. Does the Guardian fire?
+  choices:
+  - th: ยิง เพราะคลาสถูกและมั่นใจพอ
+  - th: ยังไม่ยิง เพราะด่าน streak ยังไม่ครบ
+  - th: ยิงสองครั้ง
+  - th: ไม่ยิงเพราะ conf ต่ำ
+  answer:
+  - 1
+  explain:
+    th: ต้องผ่านครบทั้งสามด่านพร้อมกัน ถ้าผลถัดไปยังถูกคลาสและมั่นใจพอ streak จะครบ 3 แล้วยิงครั้งเดียว
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: Guardian ตรวจการล้มของผู้สูงอายุ ควรปรับค่าไปทางใด
+    en: For a Guardian that detects falls of elderly people, which way should the values lean?
+  choices:
+  - th: CONF_FLOOR สูงและ HITS_NEEDED มาก เพื่อไม่ให้เตือนผิดเลย
+  - th: ยอมเตือนผิดได้บ้างเพื่อไม่พลาดของจริง เช่น CONF_FLOOR ต่ำลงและ HITS_NEEDED น้อยลง
+  - th: ไม่ต้องมีชั้นตัดสินใจ
+  - th: EMA_ALPHA = 0
+  answer:
+  - 1
+  explain:
+    th: ต้นทุนของการพลาดการล้มสูงกว่าการเตือนผิดมาก การจูนจึงต้องเอนไปทางไว แล้วเขียนเหตุผลนี้ไว้ในการออกแบบ

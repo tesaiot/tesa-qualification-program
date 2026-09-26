@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m06.l03 บทเรียน 6.3
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: คลาส cough กระโดดขึ้นเหนือ CONF_FLOOR เพียงเฟรมเดียวแล้วตกลง ด่านใดกันไม่ให้ยิง
+    en: The cough class jumps above CONF_FLOOR for a single frame and drops. Which stage stops the firing?
+  choices:
+  - th: ด่านกรอง
+  - th: ด่าน debounce เพราะ streak ไม่ถึง NEED_HITS แล้วรีเซ็ตเป็น 0
+  - th: ด่าน cooldown
+  - th: ด่าน action
+  answer:
+  - 1
+  explain:
+    th: ยอดแหลมที่สูงพอผ่านด่านกรองได้ แต่ไม่ค้างต่อเนื่อง streak จึงไม่ครบ ส่วน cooldown มีไว้กันการยิงรัวตอนเหตุการณ์จริงค้างยาว
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: EMA ที่ α = 0.35 ค่าเดิม y = 0.20 เจอค่าใหม่ x = 0.90 ได้ y ใหม่เท่าไร
+    en: An EMA with α = 0.35 and previous y = 0.20 meets a new x = 0.90. What is the new y?
+  choices:
+  - th: '0.90'
+  - th: '0.55'
+  - th: '0.445'
+  - th: '0.315'
+  answer:
+  - 2
+  explain:
+    th: 0.35 × 0.90 + 0.65 × 0.20 = 0.315 + 0.130 = 0.445 ยอดแหลมถูกกดจนยังไม่ข้ามเกณฑ์ 0.50
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: NEED_HITS = 3 และพ้น cooldown แล้ว ลำดับเฟรม hit, hit, hit, hit, hit จะยิงกี่ครั้ง
+    en: With NEED_HITS = 3 and the cooldown elapsed, how many times does hit, hit, hit, hit, hit fire?
+  choices:
+  - th: '0'
+  - th: 1 ครั้ง ที่เฟรมที่สาม
+  - th: 3 ครั้ง
+  - th: 5 ครั้ง
+  answer:
+  - 1
+  explain:
+    th: ยิงเมื่อ c_t ถึง 3 เป็นครั้งแรก (c_{t−1} = 2 < 3) เฟรมถัดไป c_{t−1} ครบแล้วจึงไม่ยิงซ้ำ และ cooldown เริ่มนับใหม่ด้วย
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ทำไมต้องใช้ time.ticks_diff(now, last_fire) แทน now − last_fire
+    en: Why use time.ticks_diff(now, last_fire) instead of now − last_fire?
+  choices:
+  - th: เร็วกว่า
+  - th: ตัวนับ ticks_ms วนกลับได้ ticks_diff จัดการการวนกลับให้ผลต่างยังถูก
+  - th: ได้หน่วยวินาที
+  - th: ไม่มีความต่าง
+  answer:
+  - 1
+  explain:
+    th: เมื่อตัวนับเต็มแล้ววนกลับ การลบตรง ๆ จะได้ค่าติดลบหรือผิด ticks_diff ออกแบบมาเพื่อกรณีนี้
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: งานใดเหมาะกับ edge_ai.on_result(cb) มากที่สุด
+    en: Which task suits edge_ai.on_result(cb) best?
+  choices:
+  - th: นับ streak ต่อเฟรมเพื่อ debounce
+  - th: log เมื่อคลาสที่ชนะเปลี่ยน โดยจำคลาสล่าสุดไว้เพื่อข้ามรอบที่เฟิร์มแวร์ทวนคลาสเดิม
+  - th: วัด latency ทุกเฟรม
+  - th: smoothing ด้วย EMA ทุกเฟรม
+  answer:
+  - 1
+  explain:
+    th: callback มาตอนคลาสเปลี่ยนและทวนราววินาทีละครั้ง ไม่ได้มาทุกเฟรม งานที่ต้องนับเฟรมจึงควรใช้ poll

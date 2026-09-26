@@ -1,0 +1,67 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m01.l07 บทเรียน 1.7
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: เติมไฟล์ครบแล้ว หน้าจอขึ้นคลาส shaking ถูกต้อง แต่ไม่มีเสียงบี๊บและไม่มีแบนเนอร์เลย ช่องใดยังว่าง
+    en: The file is filled, the screen correctly shows shaking, but there is no beep and no banner. Which blank is still empty?
+  choices:
+  - th: ช่อง 1 edge_ai.select(model['index'])
+  - th: ช่อง 2 r = edge_ai.result()
+  - th: ช่อง 4 fire_action(r['conf'])
+  - th: ไม่มีช่องไหนว่าง เป็นเพราะ Emulator ไม่มีลำโพง
+  answer:
+  - 2
+  explain:
+    th: คลาสขึ้นจอแปลว่าช่อง 1–3 ทำงานแล้ว ช่อง 4 คือจุดที่ verdict กลายเป็น action ถ้าว่าง แอปจะ "รายงาน" แต่ไม่ "ลงมือ"
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: อยากเปลี่ยนแอปเป็นตัวจับเสียงไอ ต้องตั้งสองบรรทัดบนหัวไฟล์อย่างไร
+    en: You want the app to catch coughs. How do you set the two lines at the top of the file?
+  choices:
+  - th: MODEL_KEYWORD = "Cough", TARGET_CLASS = "cough"
+  - th: MODEL_KEYWORD = "cough", TARGET_CLASS = "Cough Detection"
+  - th: MODEL_KEYWORD = "Motion", TARGET_CLASS = "cough"
+  - th: MODEL_KEYWORD = 3, TARGET_CLASS = 1
+  answer:
+  - 0
+  explain:
+    th: find_model ค้นคำในชื่อโดยไม่สนตัวพิมพ์ แต่ TARGET_CLASS ต้องตรงกับ labels ของโมเดลเป๊ะ ซึ่งของ Cough Detection คือ unlabelled กับ cough
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: 'ผลคือ {''label'': ''shaking'', ''conf'': 0.42} และ TARGET_CLASS = ''shaking'' action จะเป็นอย่างไร'
+    en: 'The result is {''label'': ''shaking'', ''conf'': 0.42} and TARGET_CLASS = ''shaking''. What happens to the action?'
+  choices:
+  - th: ยิงทันทีเพราะคลาสตรง
+  - th: ไม่ยิง เพราะ hit ต้องการ conf ≥ CONF_FLOOR (0.50) ด้วย และ fired ถูกรีเซ็ตเป็น False
+  - th: ยิงสองครั้ง
+  - th: โปรแกรมโยน OSError
+  answer:
+  - 1
+  explain:
+    th: hit เป็น False เพราะ conf ยังไม่ถึงเกณฑ์ โค้ดจึงเข้า elif not hit ซึ่งรีเซ็ต fired และขึ้นแบนเนอร์ "รอจับ" นี่คือตัวกัน false positive
+- id: q4
+  objective: 3
+  type: order
+  prompt:
+    th: เรียงเหตุการณ์เมื่อผู้ใช้เขย่าบอร์ดสองรอบ (เขย่า หยุด เขย่า) โดยเป้าหมายคือ shaking
+    en: Order the events when the user shakes the board twice (shake, stop, shake) with shaking as the target.
+  choices:
+  - th: hit เป็น False จึงรีเซ็ต fired = False
+  - th: hit เป็น True และ fired เป็น False จึงยิง action แล้วตั้ง fired = True
+  - th: hit เป็น True อีกครั้ง fired เป็น False จึงยิง action รอบที่สอง
+  - th: hit ยังเป็น True แต่ fired เป็น True จึงไม่ยิงซ้ำ
+  answer:
+  - 1
+  - 3
+  - 0
+  - 2
+  explain:
+    th: edge-trigger ยิงตอนเพิ่งเข้าคลาส ไม่ยิงซ้ำระหว่างที่ยังเขย่าค้าง รีเซ็ตเมื่อออกจากคลาส แล้วพร้อมยิงใหม่เมื่อเข้าคลาสอีกครั้ง

@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m05.l01 บทเรียน 5.1
+items:
+- id: q1
+  objective: 1
+  type: order
+  prompt:
+    th: เรียงท่อเตรียมข้อมูลจากเซนเซอร์จนพร้อมฝึก
+    en: Order the preparation pipeline from sensor to ready-to-train.
+  choices:
+  - th: 'window: ตัดเป็นหน้าต่าง 50 sample (บน PC)'
+  - th: 'capture: อ่าน IMU ที่ 50 Hz (บนบอร์ด)'
+  - th: 'split: แบ่ง train/val/test (บน PC)'
+  - th: 'label: ติดป้ายท่าที่ทำ (บนบอร์ด)'
+  answer:
+  - 1
+  - 3
+  - 0
+  - 2
+  explain:
+    th: capture กับ label เกิดบนบอร์ดขณะเก็บ ส่วน window กับ split ทำบน PC ด้วย dataset_tools.py แล้วจึงส่งต่อให้การฝึก
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: dataset มี idle 950 หน้าต่าง circle 30 และ shaking 20 โมเดลที่ตอบ idle ทุกครั้งได้ความแม่นเท่าไร
+    en: A dataset has 950 idle, 30 circle and 20 shaking windows. What accuracy does a model that always answers idle get?
+  choices:
+  - th: 33%
+  - th: 50%
+  - th: 95% ทั้งที่ไม่ได้เรียนอะไรเลย
+  - th: 100%
+  answer:
+  - 2
+  explain:
+    th: p_idle = 950/1000 = 0.95 ความแม่นบนกระดาษจึงสูงแต่หลอกตา สมดุลควรให้ทุกคลาสได้ราว 1/3
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: คลาส shaking มี 40 หน้าต่าง split แบบ stratified (val = test = 0.15) ได้ train, val, test กี่หน้าต่าง
+    en: The shaking class has 40 windows. A stratified split (val = test = 0.15) gives how many train, val and test windows?
+  choices:
+  - th: 28, 6, 6
+  - th: 30, 5, 5
+  - th: 26, 7, 7
+  - th: 40, 0, 0
+  answer:
+  - 0
+  explain:
+    th: ⌊0.15 × 40⌋ = 6 ไป test และ 6 ไป val ที่เหลือ 40 − 12 = 28 เป็น train train จึงรับเศษที่เหลือเสมอ
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ทำไมต้องมี val แยกจาก test
+    en: Why keep val separate from test?
+  choices:
+  - th: เพื่อให้ train มีข้อมูลน้อยลง
+  - th: เราดู val ซ้ำ ๆ ตอนจูน val จึงปนการตัดสินใจของเราไปแล้ว test ที่ไม่เคยแตะเท่านั้นที่บอกความแม่นจริง
+  - th: val กับ test ต่างกันแค่ชื่อ
+  - th: เพราะ test ต้องใหญ่กว่า train
+  answer:
+  - 1
+  explain:
+    th: val ใช้ระหว่างฝึกจึงเริ่มเอนตามการจูน test เก็บไว้สอบครั้งเดียวตอนจบ ถ้าแอบดู test ระหว่างจูน ตัวเลขจะโกหก
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: โค้ดแบบใดทำให้ข้อมูลรั่ว
+    en: Which code leaks data?
+  choices:
+  - th: split ก่อน แล้ว normalize(Xtr, Xva, Xte) ที่คิด mean/std จาก Xtr
+  - th: normalize X ทั้งก้อนด้วย mean/std ของข้อมูลทั้งหมด แล้วค่อย split
+  - th: ใช้ rng.permutation ก่อนหั่นแต่ละคลาส
+  - th: ตั้ง seed ของ split ให้คงที่
+  answer:
+  - 1
+  explain:
+    th: mean/std ที่คิดรวม test ทำให้สถิติของ test เข้าไปอยู่ในข้อมูลที่ใช้ฝึก ต้อง fit บน train แล้ว apply ทุกกอง

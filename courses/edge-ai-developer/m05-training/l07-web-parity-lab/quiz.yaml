@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m05.l07 บทเรียน 5.7
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: รันแล้ว scores ดูถูกต้องแต่ conf = 0.0000 ทุกครั้ง จุดใดยังว่าง
+    en: The scores look right but conf is always 0.0000. Which point is still empty?
+  choices:
+  - th: เติม 1 normalize
+  - th: เติม 3 invoke
+  - th: เติม 4 dequantize
+  - th: เติม 5 conf = float(o[top])
+  answer:
+  - 3
+  explain:
+    th: placeholder conf = 0.0 ค้างอยู่ ต้องดึงคะแนนของคลาสที่ชนะออกมาด้วย float(o[top])
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: scores ออกมาเป็น ['-128.0000', '127.0000', '-128.0000'] จุดใดยังว่าง
+    en: The scores come out as ['-128.0000', '127.0000', '-128.0000']. Which point is still empty?
+  choices:
+  - th: เติม 2 quantize
+  - th: เติม 4 dequantize ค่ายังเป็น int8 ดิบ ไม่ใช่ความน่าจะเป็น
+  - th: เติม 1 normalize
+  - th: ไม่มีจุดใดผิด
+  answer:
+  - 1
+  explain:
+    th: ต้องแปลงกลับด้วย (o − out_zero) × out_scale ค่าจึงอยู่ในช่วง 0..1 และรวมกันได้ราว 1
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: s13_web_full.py รายงานคลาสที่ชนะตรงกัน 12/12 window และ max-abs-diff สูงสุด 0.0117 ที่ TOL 0.02 สรุปอย่างไร
+    en: s13_web_full.py reports the winning class agrees on 12/12 windows and the largest max-abs-diff is 0.0117 with TOL 0.02. What do you conclude?
+  choices:
+  - th: ผ่านบน PC แล้ว ขั้นต่อไปคือยืนยันในเบราว์เซอร์จริง
+  - th: ไม่ผ่าน เพราะ diff ไม่เป็นศูนย์
+  - th: ผ่าน และไม่ต้องทดสอบที่ไหนอีก
+  - th: ไม่ผ่าน เพราะต้องได้ 100%
+  answer:
+  - 0
+  explain:
+    th: ครบทั้งสองเงื่อนไข แต่ s13_web_full.py รันไฟล์ web ด้วย interpreter บน PC จึงเป็นด่านแรก เบราว์เซอร์จริงอาจใช้ kernel ต่างกันจึงควรยืนยันซ้ำ
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ต้องส่งเดโมให้ลูกค้าเปิดดูทันทีโดยไม่ติดตั้งอะไรและไม่มีบอร์ด ควรเลือกเป้าหมายใด
+    en: You must send a demo a client can open at once, with nothing to install and no board. Which target?
+  choices:
+  - th: MCU + Ethos-U55
+  - th: Web ในเบราว์เซอร์
+  - th: Cortex-A
+  - th: PC ใน Docker
+  answer:
+  - 1
+  explain:
+    th: เว็บแชร์ด้วยลิงก์ได้ทันทีและข้อมูลอยู่ในเครื่องผู้ใช้ แลกกับการต้องทำ front-end ใน JS และวัด parity เอง
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: ทำไม eval_pc.py จึงรันบน Raspberry Pi ได้โดยไม่แก้แม้แต่บรรทัดเดียว
+    en: Why does eval_pc.py run on a Raspberry Pi without changing a single line?
+  choices:
+  - th: เพราะ Raspberry Pi มี Ethos-U55
+  - th: เพราะ Cortex-A มี Linux กับ Python จริง ติดตั้ง ai-edge-litert ได้ และใช้ไฟล์ .tflite เดิมโดยไม่บังคับ int8
+  - th: เพราะ eval_pc.py ถูกคอมไพล์เป็นภาษา C
+  - th: เพราะใช้ Vela
+  answer:
+  - 1
+  explain:
+    th: Cortex-A คือ PC ตัวเล็กที่มีระบบปฏิบัติการเต็ม สคริปต์และไฟล์โมเดลชุดเดียวกับบน PC จึงย้ายไปได้ทันที

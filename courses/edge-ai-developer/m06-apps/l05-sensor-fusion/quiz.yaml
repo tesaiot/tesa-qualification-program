@@ -1,0 +1,64 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m06.l05 บทเรียน 6.5
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ข้อใดบรรยายหน้าที่ของโมเดลกับเซนเซอร์ดิบใน fusion ได้ถูกต้อง
+    en: Which statement describes the roles of the model and the raw sensor in fusion correctly?
+  choices:
+  - th: โมเดลบอกว่านี่คืออะไร (ความน่าจะเป็น) เซนเซอร์ดิบบอกว่าแรงแค่ไหน (หน่วยฟิสิกส์)
+  - th: ทั้งคู่บอกสิ่งเดียวกัน จึงใช้แทนกันได้
+  - th: เซนเซอร์ดิบแม่นกว่าโมเดลเสมอ
+  - th: โมเดลอ่านค่าฟิสิกส์ได้ดีกว่าเซนเซอร์ดิบ
+  answer:
+  - 0
+  explain:
+    th: สองแหล่งตอบคนละคำถามและพลาดคนละแบบ เอามายืนยันกันจึงกัน false positive ได้
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ระบบโหวตสองในสาม เรดาร์เห็น IMU เงียบ ไมค์เห็น ผลคืออะไร
+    en: 'A two-of-three vote: radar sees, IMU is quiet, mic sees. What is the result?'
+  choices:
+  - th: ไม่ปลุก เพราะ IMU เงียบ
+  - th: ปลุก เพราะผลรวม 2 ≥ k = 2
+  - th: ไม่แน่นอน
+  - th: ปลุกก็ต่อเมื่อทั้งสามเห็น
+  answer:
+  - 1
+  explain:
+    th: Σsᵢ = 1 + 0 + 1 = 2 ผ่านเกณฑ์ k = 2 การโหวตยอมให้เซนเซอร์ตัวหนึ่งพลาดได้ ถ้าต้องครบทั้งสามคือ k = n = AND
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: สองสัญญาณ น้ำหนักเท่ากัน wᵢ = 1 ตั้ง θ เท่าไรจึงเท่ากับ AND
+    en: Two signals with equal weights wᵢ = 1. Which θ makes it an AND?
+  choices:
+  - th: θ = 0
+  - th: θ = 1
+  - th: θ = 2
+  - th: θ = 0.5
+  answer:
+  - 2
+  explain:
+    th: θ เท่าผลรวมน้ำหนักคือต้องผ่านทุกตัว ถ้า θ = 1 จะกลายเป็น OR ผ่านตัวเดียวก็ยิง
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: โมเดลตอบ shaking ที่ conf 0.8 แต่ gx, gy, gz = 5, 10, 8 และ MOTION_FLOOR = 40 ค่า fused เป็นอะไร
+    en: The model says shaking at conf 0.8, but gx, gy, gz = 5, 10, 8 and MOTION_FLOOR = 40. What is fused?
+  choices:
+  - th: True เพราะโมเดลมั่นใจ
+  - th: False เพราะ gmag = 23 ไม่เกิน 40 ประตูดิบไม่ผ่าน
+  - th: True เพราะ gmag > 0
+  - th: error
+  answer:
+  - 1
+  explain:
+    th: fusion ใช้ AND ด่านเดียวไม่ผ่านก็ไม่ยิง นี่คือ false positive ของโมเดลที่ fusion กรองออก

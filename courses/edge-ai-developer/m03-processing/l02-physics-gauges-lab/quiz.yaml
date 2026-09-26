@@ -1,0 +1,66 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m03.l02 บทเรียน 3.2
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: เติมสูตร Tilt แล้วแต่เกจมุมยังค้างที่ 0 ทุกครั้ง สาเหตุที่น่าจะเป็นคืออะไร
+    en: You filled the Tilt formula but the angle gauge stays at 0. What is the likely cause?
+  choices:
+  - th: ยังไม่ได้แทน pass หรือยังเหลือบรรทัด placeholder roll, pitch = 0.0, 0.0 อยู่หลังสูตร
+  - th: dsp.tilt ใช้ได้เฉพาะบนบอร์ด
+  - th: ต้องหาร 9.81 ก่อนเรียก dsp.tilt
+  - th: Chart รับค่าเกิน 100 ไม่ได้
+  answer:
+  - 0
+  explain:
+    th: placeholder มีไว้ให้ไฟล์รันได้ตอนยังไม่เติม ถ้ามันยังทับค่าหลังสูตรอยู่ เกจจะโชว์ 0 ตลอด ส่วน dsp.tilt ไม่ต้องแปลงหน่วยก่อน
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: วางบอร์ดนิ่งแล้ว Energy โชว์ 8.81 ตลอด ต้องแก้สูตรอย่างไร
+    en: At rest the Energy view shows 8.81 all the time. How should the formula change?
+  choices:
+  - th: เปลี่ยน abs เป็น max
+  - th: หารขนาดเวกเตอร์ด้วย 9.81 ให้เป็นหน่วย g ก่อนลบ 1.0
+  - th: ลบ 1.0 ออกจากสูตร
+  - th: ใช้ gx gy gz แทน ax ay az
+  answer:
+  - 1
+  explain:
+    th: motion() ให้ m/s² ขนาดตอนนิ่งจึงราว 9.81 หาร 9.81 แล้วได้ราว 1g ลบ 1 จึงเหลือราว 0
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: energy (หน่วย g) ถูกแปลงเป็นแถบด้วย clamp100(energy / 2.0 * 100) ถ้า energy = 0.5 แถบจะอยู่ที่เท่าไร
+    en: Energy in g is mapped to the bar with clamp100(energy / 2.0 * 100). If energy = 0.5, where is the bar?
+  choices:
+  - th: '5'
+  - th: '25'
+  - th: '50'
+  - th: '100'
+  answer:
+  - 1
+  explain:
+    th: 0.5 / 2.0 × 100 = 25 ช่วง 0..2g ถูก map ลงแถบ 0..100 ส่วนค่าเกิน 2g จะถูก clamp ไว้ที่ 100
+- id: q4
+  objective: 3
+  type: multi
+  prompt:
+    th: ข้อใดถูกต้องเกี่ยวกับส่วนที่ให้ไว้แล้วในไฟล์ฝึก (เลือกทุกข้อที่ถูก)
+    en: Which statements about the parts already given in the practice file are correct? (select all that apply)
+  choices:
+  - th: p0 จับครั้งเดียวก่อนลูปเพราะเป็นจุดอ้างอิงที่ไม่เปลี่ยน
+  - th: pdm.deinit() อยู่ใน finally เพื่อคืนไมโครโฟนเสมอไม่ว่าจะออกด้วยวิธีใด
+  - th: placeholder ทำให้ไฟล์รันได้และโชว์ 0 ตั้งแต่ยังไม่เติม
+  - th: widget ถูกสร้างใหม่ในลูปทุก 120 ms
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: widget สร้างครั้งเดียวก่อนลูปตามโครงร่วม ในลูปแค่เปลี่ยนค่า ส่วนอีกสามข้อคือการเตรียมของก่อนลูปและการเก็บกวาดที่ถูกต้อง

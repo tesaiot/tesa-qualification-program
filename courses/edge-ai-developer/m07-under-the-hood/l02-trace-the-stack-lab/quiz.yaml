@@ -1,0 +1,64 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m07.l02 บทเรียน 7.2
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: บน Emulator และบนบอร์ด edge_ai.links() ควรคืนอะไร
+    en: What should edge_ai.links() return on the emulator and on the board?
+  choices:
+  - th: ('ipc',)
+  - th: ('wifi',)
+  - th: None
+  - th: จำนวนโมเดล
+  answer:
+  - 0
+  explain:
+    th: MicroPython คุยกับ ai_engine ผ่าน IPC model link ทางเดียว Emulator คืนค่าเดียวกันเพื่อให้โค้ดย้ายไปบอร์ดได้ แม้ในเบราว์เซอร์จะไม่มี IPC จริง
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: หลัง select(sel) สำเร็จ ค่า cur = edge_ai.active() ควรเป็นอะไร
+    en: After select(sel) succeeds, what should cur = edge_ai.active() be?
+  choices:
+  - th: −1
+  - th: sel เพราะ select รอจนเห็น Q_ACTIVE เท่ากับค่าที่ขอแล้ว
+  - th: sel + 1
+  - th: จำนวนโมเดล
+  answer:
+  - 1
+  explain:
+    th: select คืนก็ต่อเมื่อยืนยันด้วยการสังเกตแล้ว ถ้าไม่ยืนยันมันโยน OSError แทน
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: log "select(n)" ควรจับคู่กับสิ่งใดใน ipc_model_link_defs.h
+    en: Which item in ipc_model_link_defs.h matches the "select(n)" log line?
+  choices:
+  - th: MODEL_LINK_Q_RESULT
+  - th: MODEL_LINK_CMD_SELECT_BASE (0x90) บวก n บน control plane
+  - th: MODEL_LINK_STREAM_MIC_PCM
+  - th: BENTO_MODEL_LINK_VERSION
+  answer:
+  - 1
+  explain:
+    th: SELECT ใส่เลขโมเดลไว้ในไบต์คำสั่งบน OP_CTRL แล้วยืนยันด้วย Q_ACTIVE บน query plane
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: บนบอร์ด latency ของ Motion (int8) ต่ำกว่า Push (float32) มาก เพราะอะไร
+    en: On the board, Motion (int8) has much lower latency than Push (float32). Why?
+  choices:
+  - th: Motion มีคลาสน้อยกว่า
+  - th: โมเดล int8 ที่ผ่าน Vela รันบน Ethos-U55 ส่วน float32 รันบน CPU ด้วย float kernel
+  - th: เรดาร์ช้ากว่า IMU เสมอ
+  - th: เพราะ IPC ของเรดาร์ช้ากว่า
+  answer:
+  - 1
+  explain:
+    th: latency วัดเฉพาะช่วงอนุมาน ความต่างหลักจึงมาจากว่ากราฟรันบน NPU หรือบน CPU

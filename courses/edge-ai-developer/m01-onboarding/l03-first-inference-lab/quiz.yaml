@@ -1,0 +1,83 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m01.l03 บทเรียน 1.3
+items:
+- id: q1
+  objective: 1
+  type: order
+  prompt:
+    th: เรียงสี่จังหวะของโปรแกรม MicroPython บน BENTO
+    en: Order the four beats of a BENTO MicroPython program.
+  choices:
+  - th: 'ลูป: อ่านผลแล้วอัปเดตจอ'
+  - th: 'import: edge_ai, ui, lcd, time'
+  - th: 'ui.poll: รับปุ่มและการแตะจอ'
+  - th: 'สร้างครั้งเดียว: อ่าน models() และสร้าง widget'
+  answer:
+  - 1
+  - 3
+  - 0
+  - 2
+  explain:
+    th: import → สร้างครั้งเดียว → ลูป → ui.poll แล้ววนกลับ widget สร้างนอกลูป ในลูปแค่เปลี่ยนค่า จอจึงไม่กระพริบ
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: เติมไฟล์ฝึกแล้ว กด Load สถานะขึ้น RUNNING แต่ไม่มีผลอนุมานเลย ลืมเติมจุดใดมากที่สุด
+    en: After filling the practice file, Load shows RUNNING but no result ever appears. Which blank was most likely missed?
+  choices:
+  - th: 'จุดที่ 1: edge_ai.select(sel) ในปุ่ม Load'
+  - th: 'จุดที่ 3: verdict.text(...)'
+  - th: 'จุดที่ 4: edge_ai.stop()'
+  - th: บรรทัด import lcd
+  answer:
+  - 0
+  explain:
+    th: ถ้าไม่เรียก select() โมเดลไม่ถูกสั่งให้รันเลย แต่โค้ดยังขึ้นข้อความ RUNNING ตามบรรทัดถัดไป ตารางช่องเติมในสไลด์บอกอาการนี้ไว้ตรง ๆ
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: แถบความมั่นใจขยับทุกคลาส แต่ตัวอักษรใหญ่ของคลาสที่ชนะไม่เปลี่ยนเลย ช่องใดยังไม่ได้เติม
+    en: Every confidence bar moves but the big winning-class text never changes. Which blank is still empty?
+  choices:
+  - th: r = edge_ai.result()
+  - th: verdict.text(r['label'] or '-')
+  - th: edge_ai.stop()
+  - th: edge_ai.select(sel)
+  answer:
+  - 1
+  explain:
+    th: แถบมาจาก r['scores'] ที่ให้ไว้แล้ว แสดงว่า result() ทำงาน ส่วนตัวอักษรใหญ่ต้องเติม verdict.text เอง
+- id: q4
+  objective: 3
+  type: multi
+  prompt:
+    th: ข้อใดบอกเหตุผลของการเช็ก r['seq'] และบล็อก finally ได้ถูกต้อง (เลือกทุกข้อที่ถูก)
+    en: Which statements correctly give the reasons for checking r['seq'] and for the finally block? (select all that apply)
+  choices:
+  - th: เช็ก seq เพื่อวาดจอเฉพาะเมื่อมีผลใหม่ ไม่วาดซ้ำทุกรอบ
+  - th: finally ทำให้ออกยังไงก็เรียก edge_ai.stop() เครื่องยนต์ไม่รันค้าง
+  - th: seq คือความมั่นใจของโมเดลเป็นเปอร์เซ็นต์
+  - th: finally ทำให้โปรแกรมไม่มีวันเกิด error
+  answer:
+  - 0
+  - 1
+  explain:
+    th: seq เพิ่มขึ้นทุกครั้งที่มีผลใหม่ จึงบอกได้ว่าควรวาดไหม ส่วน finally ไม่ได้กัน error แต่รับประกันว่าตอนออกจะหยุดเครื่องยนต์เสมอ
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: ถ้าทำท่าที่ก้ำกึ่งระหว่าง circle กับ shaking สิ่งที่มักเห็นบนจอคืออะไร
+    en: If you make a motion halfway between circle and shaking, what do you usually see?
+  choices:
+  - th: คลาสใดคลาสหนึ่งชนะขาดที่ 100%
+  - th: คะแนนกระจายระหว่างสองคลาส conf ของผู้ชนะต่ำ อาจต่ำกว่า 50%
+  - th: โมเดลหยุดทำงาน
+  - th: latency_ms กลายเป็นศูนย์
+  answer:
+  - 1
+  explain:
+    th: เมื่อข้อมูลคล้ายหลายคลาส softmax จะแบ่งคะแนนไปหลายคลาส ผู้ชนะจึงชนะแบบเฉียด นี่คือเหตุผลที่ต้องมี CONF_FLOOR

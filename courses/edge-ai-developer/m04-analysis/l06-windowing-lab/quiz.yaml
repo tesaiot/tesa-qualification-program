@@ -1,0 +1,64 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m04.l06 บทเรียน 4.6
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: รันแล้วแท่งทุกแท่งนิ่งและตัวนับหน้าต่างไม่ขึ้นเลย จุดใดยังว่างมากที่สุด
+    en: All bars are still and the window counter never rises. Which point is most likely empty?
+  choices:
+  - th: buf.append(az) ทำให้ buffer ไม่เคยครบหน้าต่าง
+  - th: band_e.append(...)
+  - th: buf = buf[-WIN:]
+  - th: std
+  answer:
+  - 0
+  explain:
+    th: ถ้าไม่เก็บค่าเข้า buffer เงื่อนไข len(buf) >= WIN ไม่มีวันจริง จึงไม่มีการบีบ feature และไม่มีการนับหน้าต่าง
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: วางบอร์ดนิ่งแล้ว std ต่ำ แต่เขย่าแล้ว std สูงมาก เพราะอะไร
+    en: At rest std is low, but shaking makes it very high. Why?
+  choices:
+  - th: เขย่าทำให้ค่าเฉลี่ยของ az สูงขึ้นเสมอ
+  - th: std วัดว่าค่ากระจายห่างจากค่าเฉลี่ยแค่ไหน เขย่าทำให้ az แกว่งไปมารอบค่าเฉลี่ยมาก
+  - th: เซนเซอร์เปลี่ยนหน่วยตอนเขย่า
+  - th: หน้าต่างสั้นลงตอนเขย่า
+  answer:
+  - 1
+  explain:
+    th: ตอนนิ่งทุกจุดใกล้ค่าเฉลี่ย std จึงเล็ก ตอนเขย่าจุดกระจายห่างค่าเฉลี่ย std จึงใหญ่ เป็นเหตุผลที่ feature สถิติง่าย ๆ แยกท่าทางได้ดี
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: ถ้าเขียนบรรทัด std ไว้ก่อนบรรทัด mean ภายใน features() จะเกิดอะไร
+    en: If the std line comes before the mean line in features(), what happens?
+  choices:
+  - th: ได้ค่าเท่าเดิม
+  - th: std คำนวณจาก mean = 0.0 ค่าเริ่มต้น จึงผิด (ได้ค่าใกล้ระดับของสัญญาณแทนการแกว่ง)
+  - th: โปรแกรมโยน NameError ทุกครั้ง
+  - th: band energy ผิดแทน
+  answer:
+  - 1
+  explain:
+    th: std ต้องใช้ mean ที่คำนวณแล้ว ถ้า mean ยังเป็น 0.0 ผลรวม (x − 0)² จะสะท้อนขนาดของสัญญาณ ไม่ใช่การกระจายรอบค่าเฉลี่ย
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ลืมเติม buf = buf[-WIN:] ผลระยะยาวคืออะไร
+    en: You forget buf = buf[-WIN:]. What is the long-term effect?
+  choices:
+  - th: หน้าต่างไม่ซ้อนกันแต่ทุกอย่างปกติ
+  - th: buffer โตขึ้นเรื่อย ๆ ไม่มีที่สิ้นสุดจนหน่วยความจำหมด
+  - th: feature ทุกตัวเป็นศูนย์
+  - th: อัตราสุ่มเร็วขึ้น
+  answer:
+  - 1
+  explain:
+    th: features() ยังใช้ buf[-WIN:] จึงดูเหมือนทำงานปกติในช่วงแรก แต่ list ถูกต่อท้ายไม่หยุด เป็น memory leak ที่ทำให้บอร์ดค้างในที่สุด

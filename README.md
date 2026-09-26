@@ -40,12 +40,12 @@ Skillset Mapping ใน **TESA Qualification Program (TQP) ซึ่งเป็
 | [**TESAIoT Firmware Stack: เฟิร์มแวร์ภาษา C บน TESAIoT Dev Kit**](courses/tesaiot-firmware-stack/README.md) · หลักสูตรหลัก | L3 ทำได้เอง | ฉบับร่าง (alpha) |
 | [Edge AI และ IoT สำหรับการตัดสินใจเชิงผลิตภัณฑ์](courses/edge-ai-iot-for-business/README.md) | L1 รู้จัก | ฉบับร่าง (alpha) |
 | [การออกแบบผลิตภัณฑ์เชิงอุตสาหกรรม (Blender และ Digital Twin)](courses/product-design/README.md) | L2 ทำตามแนวทาง | ฉบับร่าง (alpha) |
-| [อิเล็กทรอนิกส์และเครื่องมือวัดสำหรับนักพัฒนาระบบฝังตัว](courses/electronics-and-instruments/README.md) | L2 ทำตามแนวทาง | ร่างโครง (pre-alpha) |
-| [พื้นฐานเฟิร์มแวร์ภาษา C บน PSoC Edge](courses/embedded-c-foundations/README.md) | L3 ทำได้เอง | ร่างโครง (pre-alpha) |
+| [อิเล็กทรอนิกส์และเครื่องมือวัดสำหรับนักพัฒนาระบบฝังตัว](courses/electronics-and-instruments/README.md) | L2 ทำตามแนวทาง | ฉบับร่าง (alpha) |
+| [พื้นฐานเฟิร์มแวร์ภาษา C บน PSoC Edge](courses/embedded-c-foundations/README.md) | L3 ทำได้เอง | ฉบับร่าง (alpha) |
 | [TESA Firmware SDK สำหรับ Edge AI](courses/firmware-sdk-edge-ai/README.md) | L3 ทำได้เอง | ฉบับร่าง (alpha) |
 | [พัฒนาเฟิร์มแวร์ร่วมกับ TESA Digital Twin บน VS Code](courses/digital-twin/README.md) | L3 ทำได้เอง | ฉบับร่าง (alpha) |
-| [Secure IoT กับ OPTIGA™ Trust M](courses/secure-iot-optiga/README.md) | L3 ทำได้เอง | ร่างโครง (pre-alpha) |
-| [Edge AI Developer: จากเซนเซอร์สู่โมเดลบนอุปกรณ์](courses/edge-ai-developer/README.md) | L3 ทำได้เอง | ร่างโครง (pre-alpha) |
+| [Secure IoT กับ OPTIGA™ Trust M](courses/secure-iot-optiga/README.md) | L3 ทำได้เอง | ฉบับร่าง (alpha) |
+| [Edge AI Developer: จากเซนเซอร์สู่โมเดลบนอุปกรณ์](courses/edge-ai-developer/README.md) | L3 ทำได้เอง | ฉบับร่าง (alpha) |
 | [ชุดสำหรับผู้สอน (Educator Kit)](courses/educator-kit/README.md) | L3 ทำได้เอง | ฉบับร่าง (alpha) |
 | [Fundamental of Embedded Systems Developer I–II (เกมคอนโซล)](https://advance-innovation-centre-aic.github.io/embedded-systems-for-game_console_developer/) · หลักสูตรภายนอก | L2 ทำตามแนวทาง | พร้อมใช้ (stable) |
 

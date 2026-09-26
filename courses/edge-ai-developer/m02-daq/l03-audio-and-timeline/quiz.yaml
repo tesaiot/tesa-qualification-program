@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m02.l03 บทเรียน 2.3
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: เฟรมเสียงมี RMS = 32768 ซึ่งเท่ากับค่าสูงสุดของ 16-bit ค่า dBFS เป็นเท่าไร
+    en: An audio frame has RMS = 32768, the 16-bit maximum. What is its dBFS?
+  choices:
+  - th: 0 dBFS
+  - th: −96 dBFS
+  - th: +20 dBFS
+  - th: 32768 dBFS
+  answer:
+  - 0
+  explain:
+    th: 20·log10(32768/32768) = 20·log10(1) = 0 dBFS คือดังสุด เสียงที่เบากว่านี้จะได้ค่าติดลบ ส่วน −96 คือค่าที่โค้ดใช้แทนความเงียบสนิท
+- id: q2
+  objective: 1
+  type: order
+  prompt:
+    th: เรียงเส้นทางของเสียงจากไมโครโฟนจนเป็นคอลัมน์ db ใน CSV
+    en: Order the path of sound from the microphone to the db column in the CSV.
+  choices:
+  - th: หา RMS ของเฟรม
+  - th: บิต PDM 0/1 ความเร็วสูง
+  - th: แปลงเป็น dBFS แล้วเขียนลงแถว
+  - th: ตัวอย่าง PCM 16-bit ใน buf จาก pdm.readinto()
+  answer:
+  - 1
+  - 3
+  - 0
+  - 2
+  explain:
+    th: PDM → PCM ใน buffer → RMS → dBFS เป็นค่าเดียวต่อเฟรม ซึ่งเป็นก้าวแรกก่อนทำ spectrogram ในโมดูล 4
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ที่ fs = 16 kHz เฟรมขนาด N = 512 ตัวอย่างยาวเท่าไร
+    en: At fs = 16 kHz, how long is a frame of N = 512 samples?
+  choices:
+  - th: 3.2 ms
+  - th: 32 ms
+  - th: 62.5 µs
+  - th: 512 ms
+  answer:
+  - 1
+  explain:
+    th: t = N / fs = 512 / 16000 = 0.032 วินาที = 32 ms ยาวกว่าจังหวะแถว 20 ms การอ่านเสียงจึงเป็นตัวการหลักของ jitter
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: วิธีใดทำให้ค่าเสียงกับค่า IMU ใน dataset จับคู่ตามเวลาได้แน่นอน
+    en: Which method guarantees that sound and IMU values in the dataset can be paired by time?
+  choices:
+  - th: เก็บเสียงกับ IMU คนละไฟล์แล้วจับคู่ตามลำดับบรรทัดทีหลัง
+  - th: อ่านทั้งสองเซนเซอร์ในรอบเดียวของลูป แล้วเขียนแถวเดียวที่มี t_ms ร่วมกัน
+  - th: ใช้ time.time() บันทึกเวลาแยกให้แต่ละไฟล์
+  - th: ตั้ง RATE_MS ให้เท่ากับ 0
+  answer:
+  - 1
+  explain:
+    th: หนึ่งรอบ = หนึ่งแถว = หนึ่ง t_ms ทุกคอลัมน์ของแถวจึงหมายถึงช่วงเวลาเดียวกัน การจับคู่ตามลำดับพลาดง่ายเมื่ออัตราต่างกัน
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: ทำไมใช้ time.ticks_diff(time.ticks_ms(), t0) แทน time.ticks_ms() - t0
+    en: Why use time.ticks_diff(time.ticks_ms(), t0) instead of time.ticks_ms() - t0?
+  choices:
+  - th: เพราะ ticks_diff เร็วกว่า
+  - th: เพราะตัวนับมิลลิวินาทีวนกลับศูนย์ได้ (wrap-around) ticks_diff คิดช่วงเวลาให้ถูกแม้ตัวนับวนรอบ
+  - th: เพราะ ticks_ms คืนค่าเป็นวินาที
+  - th: เพราะการลบใน MicroPython ทำไม่ได้
+  answer:
+  - 1
+  explain:
+    th: ticks_ms กับ ticks_diff คือคู่มาตรฐานของ MicroPython สำหรับวัดช่วงเวลาสั้น ๆ อย่างปลอดภัยจาก wrap-around

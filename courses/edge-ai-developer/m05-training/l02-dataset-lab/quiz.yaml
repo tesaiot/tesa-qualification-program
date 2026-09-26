@@ -1,0 +1,67 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m05.l02 บทเรียน 5.2
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: กดปุ่ม label แล้วแถบสมดุลไม่ขยับเลย แต่ไฟล์มีบรรทัดเพิ่ม จุดใดยังว่าง
+    en: You press a label button; the file grows but the balance bar never moves. Which point is still empty?
+  choices:
+  - th: ax, ay, az, gx, gy, gz = sensors.bmi270.motion()
+  - th: f.write(...)
+  - th: counts[label] += BURST
+  - th: fewest = min(counts, key=counts.get)
+  answer:
+  - 2
+  explain:
+    th: แถบอ่านค่าจาก counts ถ้าไม่บวก BURST เข้าตัวนับ ไฟล์จะโตแต่โปรแกรมไม่รู้ว่าเก็บไปเท่าไร เป็นการเก็บแบบตาบอด
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: 'counts = {''idle'': 600, ''circle'': 200, ''shaking'': 400} ค่า min(counts, key=counts.get) คืออะไร'
+    en: 'With counts = {''idle'': 600, ''circle'': 200, ''shaking'': 400}, what is min(counts, key=counts.get)?'
+  choices:
+  - th: '200'
+  - th: '''circle'''
+  - th: '''idle'''
+  - th: ('circle', 200)
+  answer:
+  - 1
+  explain:
+    th: min วนคีย์ของ dict แต่เทียบด้วย counts.get จึงคืนชื่อคลาสที่ค่าน้อยสุด ไม่ใช่ตัวเลข คำใบ้จึงบอกให้เก็บ circle เพิ่ม
+- id: q3
+  objective: 2
+  type: order
+  prompt:
+    th: เรียงขั้นบน PC ให้ไม่มีข้อมูลรั่ว
+    en: Order the PC steps so that no data leaks.
+  choices:
+  - th: split(X, y)
+  - th: load_csv("data/gestures.csv")
+  - th: normalize(Xtr, Xva, Xte)
+  - th: make_windows(s, l)
+  answer:
+  - 1
+  - 3
+  - 0
+  - 2
+  explain:
+    th: อ่านไฟล์ → ตัดหน้าต่าง → แบ่งกอง → normalize ด้วยสถิติของ train ถ้า normalize ก่อน split สถิติของ test จะรั่วเข้าไป
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: เก็บ idle มากกว่าคลาสอื่นสามเท่าแล้ว split แบบ stratified ผลคืออะไร
+    en: You capture three times more idle than the other classes and split with stratification. What happens?
+  choices:
+  - th: split ปรับให้ทุกกองสมดุลเอง
+  - th: ทุกกองได้ idle มากกว่าคลาสอื่นราวสามเท่าเหมือนกัน ความไม่สมดุลติดไปทุกกอง
+  - th: test ไม่มี idle เลย
+  - th: โปรแกรม error
+  answer:
+  - 1
+  explain:
+    th: stratified รักษาสัดส่วนเดิมของแต่ละคลาสในทุกกอง จึงไม่แก้ความไม่สมดุล ต้องแก้ที่ตอนเก็บ

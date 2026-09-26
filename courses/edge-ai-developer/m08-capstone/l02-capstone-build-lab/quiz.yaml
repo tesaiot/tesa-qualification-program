@@ -1,0 +1,64 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m08.l02 บทเรียน 8.2
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: Guardian ขึ้น RUNNING แต่การ์ดผลไม่ขยับเลยและ motion ขยับตามการเขย่า จุดใดยังว่าง
+    en: The Guardian shows RUNNING, the result card never moves, but motion follows the shaking. Which point is empty?
+  choices:
+  - th: จุดที่ 2 อ่านความเร่ง
+  - th: จุดที่ 3 r = edge_ai.result() (หรือจุดที่ 1 select)
+  - th: จุดที่ 4 EMA
+  - th: จุดที่ 5 fire_alert
+  answer:
+  - 1
+  explain:
+    th: motion ขยับแปลว่าเสา DAQ ทำงาน การ์ดผลต้องการทั้งโมเดลที่ถูก select และการอ่าน result ในลูป
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: เขย่าค้างครบเกณฑ์แล้วแบนเนอร์ขึ้นรอจับตลอด ไม่มีเสียงหรือตัวนับเพิ่ม จุดใดยังว่าง
+    en: You shake long enough but the banner stays on waiting and there is no sound or counter. Which point is empty?
+  choices:
+  - th: จุดที่ 5 fire_alert(r["label"], conf_s)
+  - th: จุดที่ 2
+  - th: จุดที่ 1
+  - th: ไม่มีจุดใดผิด
+  answer:
+  - 0
+  explain:
+    th: ด่านทั้งสามผ่านแล้วแต่ไม่มีการเรียกการกระทำ fire_alert คือปลายท่อที่ทำเสียง แบนเนอร์ และนับครั้ง
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: หลักฐานแบบใดดีที่สุดสำหรับอธิบายว่าเลือก HITS_NEEDED = 4 เพราะอะไร
+    en: What is the best evidence for choosing HITS_NEEDED = 4?
+  choices:
+  - th: '"รู้สึกว่ากำลังดี"'
+  - th: 'ตารางผลทดลอง: ที่ 4 เหตุการณ์จริงเตือนครบ 5/5 และเคสหลอกเตือน 0/5 ส่วนที่ 2 เคสหลอกเตือน 3/5'
+  - th: ค่าเดียวกับเพื่อน
+  - th: ค่าที่มากที่สุดที่ใส่ได้
+  answer:
+  - 1
+  explain:
+    th: การตัดสินใจเชิงวิศวกรรมต้องยืนบนการวัด จำนวนการเตือนจากเหตุการณ์จริงเทียบกับเคสหลอกคือหลักฐานของการแลกเปลี่ยน
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: เดโม capstone ที่ดีควรแสดงอะไรนอกจากการเตือนที่ทำงาน
+    en: Besides a working alert, what should a good capstone demo show?
+  choices:
+  - th: โค้ดทั้งไฟล์บนจอ
+  - th: เคสหลอกที่ Guardian ไม่เตือน และเหตุผลของการแลกเปลี่ยนที่เลือก
+  - th: จำนวนบรรทัดของโค้ด
+  - th: ไม่ต้องมีอะไรเพิ่ม
+  answer:
+  - 1
+  explain:
+    th: ส่วนที่ยากและมีค่าคือการปฏิเสธสัญญาณปลอม และการอธิบายว่าทำไมตั้งค่าแบบนี้ นั่นคือความต่างระหว่างผลิตภัณฑ์กับเดโม

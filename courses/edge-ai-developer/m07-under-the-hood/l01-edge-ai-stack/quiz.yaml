@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m07.l01 บทเรียน 7.1
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: โค้ด MicroPython ของเรากับ Ethos-U55 NPU อยู่คนละคอร์อย่างไร
+    en: How are our MicroPython code and the Ethos-U55 NPU split across cores?
+  choices:
+  - th: ทั้งคู่อยู่บน CM55
+  - th: MicroPython อยู่บน CM33_NS ส่วน ai_engine กับ NPU อยู่บน CM55 และคุยกันผ่าน IPC
+  - th: MicroPython อยู่บน CM33_S
+  - th: NPU อยู่บน CM33_NS
+  answer:
+  - 1
+  explain:
+    th: งานหนักอย่าง NPU โมเดล และจออยู่คอร์เร็ว ส่วน REPL กับเซนเซอร์อยู่คอร์ควบคุม CM33_S ดูแล boot กับความปลอดภัย
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: edge_ai.active() คืนค่าใด
+    en: What does edge_ai.active() return?
+  choices:
+  - th: s_active คือโมเดลที่เพิ่งขอ
+  - th: s_current คือโมเดลที่ init เสร็จและสลับไปแล้วจริง
+  - th: จำนวนโมเดลทั้งหมด
+  - th: ค่า seq ล่าสุด
+  answer:
+  - 1
+  explain:
+    th: active() ไปทาง Q_ACTIVE ซึ่งคืน ai_engine_active() ส่วนโมเดลที่เพิ่งขอคือ Q_REQUESTED หรือ ai_engine_requested()
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: select(n) โยน OSError "select not confirmed" หมายความว่าอะไร
+    en: select(n) raises OSError "select not confirmed". What does it mean?
+  choices:
+  - th: ชื่อโมเดลผิด
+  - th: ส่งคำสั่งแล้วแต่ poll Q_ACTIVE ไม่เห็นโมเดล n ภายในเวลาที่กำหนด
+  - th: บอร์ดไม่มี NPU
+  - th: IPC ถูกปิดถาวร
+  answer:
+  - 1
+  explain:
+    th: select ไม่เชื่อว่าสั่งแล้วสำเร็จ มันรอเห็นผลจริง ถ้าไม่เห็นก็รายงานเป็น error ให้เราจัดการด้วย try/except
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: r['latency_ms'] มาจากฟิลด์ใดของ ai_result_t
+    en: Which ai_result_t field does r['latency_ms'] come from?
+  choices:
+  - th: seq
+  - th: inference_us หารด้วย 1000
+  - th: inferences
+  - th: top_class
+  answer:
+  - 1
+  explain:
+    th: engine จับเวลาแต่ละการอนุมานเป็นไมโครวินาที MicroPython แปลงเป็นมิลลิวินาที ส่วน seq เพิ่มทุกครั้งที่ publish
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: ในภาพเฟิร์มแวร์เดียวกัน โมเดล float32 รันที่ใด
+    en: In the same firmware image, where does a float32 model run?
+  choices:
+  - th: บน Ethos-U55 เหมือน int8
+  - th: บน CPU ด้วย float kernel ของ TFLite-Micro
+  - th: รันไม่ได้
+  - th: บน CM33_S
+  answer:
+  - 1
+  explain:
+    th: TFLite-Micro พก kernel ทั้งสองชนิด NPU รับเฉพาะ int8 ที่ผ่าน Vela โมเดล float32 จึงใช้ CPU และช้ากว่า

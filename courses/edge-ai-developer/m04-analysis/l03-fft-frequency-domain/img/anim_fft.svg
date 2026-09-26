@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" font-family="DejaVu Sans, sans-serif">
+  <!-- FFT: a time-domain wave transforms into frequency bars. -->
+  <text x="20" y="26" font-size="18" font-weight="700" fill="#1565c0">FFT — จากโดเมนเวลา ➜ โดเมนความถี่</text>
+  <text x="60" y="56" font-size="13" fill="#666">โดเมนเวลา x[t]</text>
+  <text x="470" y="56" font-size="13" fill="#666">สเปกตรัม |X[f]|</text>
+  <!-- axes L -->
+  <line x1="50" y1="70" x2="50" y2="200" stroke="#ccc"/><line x1="50" y1="135" x2="360" y2="135" stroke="#ccc"/>
+  <!-- animated composite wave: two sines summing, phase animates -->
+  <path fill="none" stroke="#6a1b9a" stroke-width="2.5"
+    d="M50,135 Q80,80 110,135 T170,135 T230,135 T290,135 T350,135">
+    <animate attributeName="d" dur="2.2s" repeatCount="indefinite"
+      values="M50,135 Q80,80 110,135 T170,135 T230,135 T290,135 T350,135;
+              M50,135 Q80,100 110,135 Q140,175 170,135 Q200,95 230,135 Q260,180 290,135 Q320,100 350,135;
+              M50,135 Q80,80 110,135 T170,135 T230,135 T290,135 T350,135"/>
+  </path>
+  <text x="150" y="220" font-size="12" fill="#666">คลื่นผสม (หลายความถี่ปนกัน)</text>
+  <!-- transform arrow -->
+  <text x="378" y="140" font-size="30" fill="#e53935">➜</text>
+  <text x="372" y="170" font-size="11" fill="#e53935">FFT</text>
+  <!-- axes R -->
+  <line x1="470" y1="70" x2="470" y2="200" stroke="#ccc"/><line x1="470" y1="200" x2="710" y2="200" stroke="#ccc"/>
+  <!-- frequency bars grow (revealing the hidden component frequencies) -->
+  <g fill="#2e7d32">
+    <rect x="500" y="200" width="26" height="0"><animate attributeName="height" begin="0.3s" dur="0.5s" fill="freeze" values="0;90"/><animate attributeName="y" begin="0.3s" dur="0.5s" fill="freeze" values="200;110"/></rect>
+    <rect x="545" y="200" width="26" height="0"><animate attributeName="height" begin="0.45s" dur="0.5s" fill="freeze" values="0;40"/><animate attributeName="y" begin="0.45s" dur="0.5s" fill="freeze" values="200;160"/></rect>
+    <rect x="590" y="200" width="26" height="0"><animate attributeName="height" begin="0.6s" dur="0.5s" fill="freeze" values="0;120"/><animate attributeName="y" begin="0.6s" dur="0.5s" fill="freeze" values="200;80"/></rect>
+    <rect x="635" y="200" width="26" height="0"><animate attributeName="height" begin="0.75s" dur="0.5s" fill="freeze" values="0;18"/><animate attributeName="y" begin="0.75s" dur="0.5s" fill="freeze" values="200;182"/></rect>
+    <rect x="680" y="200" width="26" height="0"><animate attributeName="height" begin="0.9s" dur="0.5s" fill="freeze" values="0;30"/><animate attributeName="y" begin="0.9s" dur="0.5s" fill="freeze" values="200;170"/></rect>
+  </g>
+  <text x="500" y="218" font-size="11" fill="#666">f1</text><text x="588" y="218" font-size="11" fill="#666">f2 (เด่น)</text>
+  <text x="470" y="252" font-size="12" fill="#666">แต่ละแท่ง = "มีความถี่นี้แค่ไหน" → feature</text>
+  <text x="470" y="272" font-size="11" fill="#999">X[f] = Σ x[t]·e^(−j2πft/N)   (DFT)</text>
+</svg>

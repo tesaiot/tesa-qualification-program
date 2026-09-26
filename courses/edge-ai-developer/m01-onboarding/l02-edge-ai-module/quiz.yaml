@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m01.l02 บทเรียน 1.2
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ทำไมโค้ดในหลักสูตรนี้ถึงอ่านชื่อโมเดลจาก edge_ai.models() แทนการเขียนชื่อหรือเลขโมเดลตายตัว
+    en: Why does this course read model names from edge_ai.models() instead of hard-coding names or numbers?
+  choices:
+  - th: เพราะ models() เร็วกว่าการเขียน list เอง
+  - th: เพราะเฟิร์มแวร์แต่ละบอร์ดมีโมเดลไม่เท่ากัน ถ้าอ่านจากทะเบียน โค้ดจะปรับตามเองโดยไม่ต้องแก้
+  - th: เพราะ select() รับได้เฉพาะชื่อโมเดล
+  - th: เพราะ Emulator ไม่มีโมเดลเลย
+  answer:
+  - 1
+  explain:
+    th: นิสัย "ถามฮาร์ดแวร์ก่อน อย่าเดา" ทำให้โค้ดชุดเดียวใช้ได้ทั้งบอร์ดหกโมเดลและ Emulator ห้าโมเดล ลำดับที่ต่างกันก็ไม่ทำให้พัง
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ถ้า edge_ai.select(n) ส่งคำสั่งไปแล้วแต่เครื่องยนต์ไม่สลับภายในเวลาที่กำหนด จะเกิดอะไร
+    en: If edge_ai.select(n) sends the command but the engine does not switch in time, what happens?
+  choices:
+  - th: select() คืน None เงียบ ๆ แล้วโปรแกรมทำต่อ
+  - th: select() โยน OSError เราจึงต้องห่อด้วย try/except OSError
+  - th: บอร์ดรีบูตเอง
+  - th: โมเดลตัวเดิมถูกลบออกจากทะเบียน
+  answer:
+  - 1
+  explain:
+    th: select() ยืนยันด้วยการสังเกตว่าโมเดลที่ active เปลี่ยนจริง ถ้าไม่เห็นก็โยน OSError เพื่อไม่ให้โปรแกรมโกหกว่ากำลังรัน
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: 'ผลคือ {''label'': ''circle'', ''conf'': 0.41, ...} และ CONF_FLOOR = 0.50 ควรทำอย่างไรกับคำตอบนี้'
+    en: 'The result is {''label'': ''circle'', ''conf'': 0.41, ...} and CONF_FLOOR = 0.50. What should you do with this answer?'
+  choices:
+  - th: เชื่อเลยเพราะ circle ชนะ
+  - th: ถือว่ายังไม่ชัวร์ เพราะ conf ต่ำกว่า CONF_FLOOR ยังไม่ควรสั่งการตามคำตอบนี้
+  - th: เรียก select() ใหม่ทุกครั้งที่ conf ต่ำ
+  - th: คูณ conf ด้วย 2 ให้ผ่านเกณฑ์
+  answer:
+  - 1
+  explain:
+    th: argmax เลือกผู้ชนะเสมอแม้คะแนนสูสี CONF_FLOOR คือเกณฑ์ตัดบนค่า conf เชื่อคำตอบก็ต่อเมื่อ conf ≥ 0.50
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: latency_ms = 5 หมายความว่าโมเดลรันได้สูงสุดราวกี่ครั้งต่อวินาที
+    en: latency_ms = 5 means the model can run at most about how many times per second?
+  choices:
+  - th: 5 ครั้ง
+  - th: 50 ครั้ง
+  - th: 200 ครั้ง
+  - th: 5000 ครั้ง
+  answer:
+  - 2
+  explain:
+    th: fps = 1000 / t_ms = 1000 / 5 = 200 ครั้งต่อวินาที เหลือเฟือเมื่อเทียบกับลูปที่อ่านผลทุกราว 180 ms
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: บน BENTO Emulator คุณเลือก Motion Detection กด Load แล้วลากแผ่นเอียงหรือกด Shake ควรเห็นอะไร
+    en: On the BENTO Emulator you choose Motion Detection, press Load and use the tilt pad or Shake. What should you see?
+  choices:
+  - th: คลาสที่ชนะเปลี่ยนระหว่าง idle / circle / shaking พร้อมแถบความมั่นใจของทุกคลาส
+  - th: รายชื่อโมเดลหายไปจาก dropdown
+  - th: หน้าจอขึ้น Push ทุกครั้ง
+  - th: ไม่มีอะไรเปลี่ยนจนกว่าจะต่อ WiFi
+  answer:
+  - 0
+  explain:
+    th: Motion มีสามคลาส idle circle shaking บน Emulator คะแนนเลียนแบบจากเซนเซอร์จำลอง จึงเปลี่ยนตามการเอียงหรือเขย่าที่เราจำลอง ไม่ต้องใช้เน็ตเลย

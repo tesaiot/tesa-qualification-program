@@ -1,0 +1,64 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m07.l04 บทเรียน 7.4
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ROW ที่พิมพ์ออกมามี .dequeue = None จุดใดยังว่าง
+    en: The printed ROW has .dequeue = None. Which point is still empty?
+  choices:
+  - th: จุดที่ 1 SPEC
+  - th: จุดที่ 2 deq_fn ใน make_row()
+  - th: จุดที่ 3 count()
+  - th: จุดที่ 5 select
+  answer:
+  - 1
+  explain:
+    th: make_row ประกอบชื่อฟังก์ชันทั้งสี่จาก prefix ถ้า deq_fn ยังเป็น None ข้อความ ROW จะคอมไพล์ไม่ผ่าน
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: รันบน Emulator แล้ว scan_registry() ไม่เจอ Fall Detection หมายความว่าอะไร
+    en: On the emulator scan_registry() does not find Fall Detection. What does that mean?
+  choices:
+  - th: โค้ดผิด
+  - th: ถูกต้องแล้ว Emulator มีห้าโมเดลที่คอมไพล์มาแล้ว และ build C ในเบราว์เซอร์ไม่ได้
+  - th: ต้องรีเฟรชเบราว์เซอร์
+  - th: ต้องเพิ่มชื่อใน edge_ai.py
+  answer:
+  - 1
+  explain:
+    th: การเพิ่มโมเดลต้องมี toolchain และ flash ลงบอร์ด นี่คือเส้นแบ่งระหว่างงานเฟิร์มแวร์กับงานระดับแอป
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: หลักฐานข้อใดยืนยันว่าเพิ่มโมเดลสำเร็จจริง
+    en: Which evidence proves the model was really added?
+  choices:
+  - th: build ผ่านโดยไม่มี error
+  - th: count() เพิ่มขึ้น ชื่อใหม่อยู่ใน models() และ select แล้ว verdict สลับตามการขยับจริง
+  - th: ไฟล์โมเดลอยู่ในโฟลเดอร์ถูกที่
+  - th: ROW พิมพ์ออกมาครบ
+  answer:
+  - 1
+  explain:
+    th: build ผ่านหรือไฟล์อยู่ถูกที่ยังไม่ได้แปลว่าทั้งสี่ฟังก์ชันต่อสายถูก ต้องเห็นทั้งทะเบียนและ verdict บนบอร์ด
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ทำไม checklist จึงให้ hard power-cycle ก่อนเชื่อผลบนฮาร์ดแวร์
+    en: Why does the checklist demand a hard power cycle before trusting hardware results?
+  choices:
+  - th: เพื่อล้างไฟล์ใน flash
+  - th: หลัง flash เซนเซอร์และ NPU บางตัวต้อง init ใหม่จากไฟจริง ไม่งั้นค่าที่อ่านอาจค้างจากรอบก่อน
+  - th: เพื่อให้ Wi-Fi ต่อใหม่
+  - th: ไม่จำเป็น
+  answer:
+  - 1
+  explain:
+    th: หนึ่งการเปลี่ยนต่อหนึ่งการ flash แล้ว power-cycle ก่อนเชื่อ ช่วยให้แน่ใจว่าผลที่เห็นมาจากการเปลี่ยนครั้งนี้จริง

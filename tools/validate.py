@@ -385,6 +385,29 @@ def check_catalog(ctx: Ctx) -> None:
             if d.is_dir() and not d.name.startswith(".") and d.name not in ctx.catalog:
                 ctx.rep.error("catalog", f"courses/{d.name}", 0,
                               f"folder courses/{d.name}/ is not registered in catalog/courses.yaml")
+    check_readme_status(ctx)
+
+
+_STATUS_WORD = re.compile(r"(?<![\w-])(pre-alpha|alpha|beta|stable)(?![\w-])")
+
+
+def check_readme_status(ctx: Ctx) -> None:
+    """The course tables in the root README.md / README.en.md are written by hand; a row's status must be
+    the catalog's (four rows said pre-alpha for weeks after the courses reached alpha)."""
+    for name in ("README.md", "README.en.md"):
+        path = ctx.root / name
+        if not path.is_file():
+            continue
+        for n, line in enumerate(path.read_text(encoding="utf-8").split("\n"), 1):
+            m = re.search(r"\]\(courses/([a-z0-9-]+)/README(?:\.en)?\.md\)", line)
+            if not (m and line.lstrip().startswith("|")) or m.group(1) not in ctx.catalog:
+                continue
+            cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            found = set(_STATUS_WORD.findall(cells[-1]))
+            want = ctx.catalog[m.group(1)].get("status")
+            if found != {want}:
+                ctx.rep.error("catalog", name, n, f"course {m.group(1)!r}: status cell {cells[-1]!r} but "
+                              f"catalog/courses.yaml says {want!r}")
 
 
 def check_course(ctx: Ctx, cid: str) -> None:

@@ -1,0 +1,64 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m01.l05 บทเรียน 1.5
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ช่องเติมที่ 2 ของ Tilt Monitor คือคำสั่งใด
+    en: Which statement fills blank 2 of the Tilt Monitor?
+  choices:
+  - th: ax, ay, az, gx, gy, gz = sensors.bmi270.motion()
+  - th: roll, pitch = dsp.tilt(ax, ay, az)
+  - th: seg.text("%d" % ang)
+  - th: raise KeyboardInterrupt
+  answer:
+  - 1
+  explain:
+    th: ช่อง 1 อ่าน ช่อง 2 คำนวณมุมด้วย dsp.tilt ช่อง 3 วาดมุมเด่น และช่อง 4 ออกจากลูปเมื่อกดปุ่ม back ตรงกับโครงอ่าน คำนวณ วาด ฟังปุ่ม
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: รันแล้วเข็มไม่ขยับเลยและมุมเป็น 0 ตลอดแม้เอียงบอร์ด สาเหตุที่น่าจะเป็นที่สุดคืออะไร
+    en: After running, the needles never move and the angle stays 0 even when tilting. What is the most likely cause?
+  choices:
+  - th: ยังไม่ได้เติมช่อง 1 ax ay az จึงค้างเป็น 0 ทำให้ dsp.tilt ได้มุม 0 เสมอ
+  - th: ลืมเติม raise KeyboardInterrupt
+  - th: TILT_LIMIT ตั้งไว้สูงเกินไป
+  - th: จอเสีย
+  answer:
+  - 0
+  explain:
+    th: บรรทัดสำรอง ax = ay = az = ... = 0 ทำให้โปรแกรมรันได้แต่ค่าเป็นศูนย์ เป็นเบาะแสตอน debug ว่าช่องอ่านเซนเซอร์ยังว่าง
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: กดปุ่ม "< ออก" แล้วโปรแกรมยังวนต่อไม่จบ ช่องใดยังว่าง
+    en: Pressing the back button does not end the program. Which blank is still empty?
+  choices:
+  - th: ช่อง 1
+  - th: ช่อง 2
+  - th: ช่อง 3
+  - th: ช่อง 4 raise KeyboardInterrupt ใน ui.poll
+  answer:
+  - 3
+  explain:
+    th: ถ้าไม่ raise ในลูป ui.poll โปรแกรมจะเห็นอีเวนต์ของปุ่มแต่ไม่ทำอะไร จึงวนต่อไปเรื่อย ๆ
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: อยากให้แอปเดิมแสดงว่ามีคนอยู่หน้าบอร์ดแทนมุมเอียง ต้องแก้ส่วนใดเป็นหลัก
+    en: You want the same app to show whether someone is in front of the board instead of the tilt. What do you mainly change?
+  choices:
+  - th: เขียนโครงใหม่ทั้งไฟล์
+  - th: เปลี่ยนช่องอ่านเป็น sensors.radar() และช่องคำนวณเป็น bool(r["presence"]) ส่วน poll และปุ่ม back คงเดิม
+  - th: เปลี่ยนแค่ TILT_LIMIT
+  - th: ลบ ui.poll ทิ้ง
+  answer:
+  - 1
+  explain:
+    th: ตารางเทียบสามแอปคือแผนที่ remix สลับช่องอ่านกับคำนวณก็ได้แอปใหม่ โครงที่เหลือไม่ต้องแตะ

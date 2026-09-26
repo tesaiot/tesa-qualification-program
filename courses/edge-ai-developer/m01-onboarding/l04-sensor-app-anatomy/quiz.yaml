@@ -1,0 +1,80 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m01.l04 บทเรียน 1.4
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ส่วนใดของสามแอป 01 02 และ 04 ที่เหมือนกันทุกบรรทัดจน copy ข้ามแอปได้เลย
+    en: Which part of apps 01, 02 and 04 is identical line for line, so it can be copied across apps?
+  choices:
+  - th: ช่องอ่านเซนเซอร์
+  - th: ช่องคำนวณ
+  - th: ลูป ui.poll กับปุ่ม back ที่ raise KeyboardInterrupt
+  - th: ชนิดของ widget ที่สร้าง
+  answer:
+  - 2
+  explain:
+    th: ตารางเทียบสามแอปแสดงว่าต่างกันแค่ "อ่านอะไร คำนวณอะไร วาดด้วยอะไร" ส่วน poll กับปุ่ม back เหมือนกันเป๊ะ
+- id: q2
+  objective: 2
+  type: multi
+  prompt:
+    th: ถ้าเผลอสร้าง ui.Seg7 ใหม่ทุกรอบในลูป จะเกิดอะไร (เลือกทุกข้อที่ถูก)
+    en: If you accidentally create a new ui.Seg7 on every loop pass, what happens? (select all that apply)
+  choices:
+  - th: จอกระพริบเพราะวาดทับซ้ำทุกเฟรม
+  - th: widget เก่ากองสะสมจนหน่วยความจำหมดแล้วค้าง
+  - th: ลูปเร็วขึ้นเพราะไม่ต้องเก็บตัวแปร
+  - th: ค่าจากเซนเซอร์แม่นขึ้น
+  answer:
+  - 0
+  - 1
+  explain:
+    th: สร้าง widget ครั้งเดียวก่อนลูป แล้วในลูปแค่แก้ค่า เช่น seg.text("42") จอจึงนิ่งและหน่วยความจำคงที่
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ใน 04_radar_presence.py บรรทัด if now != was ทำหน้าที่อะไร
+    en: In 04_radar_presence.py, what does the line if now != was do?
+  choices:
+  - th: หยุดลูปเมื่อไม่มีคน
+  - th: วาดจอเฉพาะตอนสถานะเปลี่ยน ไม่แตะจอเมื่อค่าเดิม
+  - th: เปิดเรดาร์ใหม่ทุกรอบ
+  - th: รอจนกว่าจะมีคนเข้ามา
+  answer:
+  - 1
+  explain:
+    th: นี่คือการวาดแบบ event-driven เก็บสถานะล่าสุดไว้ใน was แล้ววาดใหม่เฉพาะตอนที่ต่างไปจากเดิม
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: วางบอร์ดนิ่งราบบนโต๊ะ ค่าจาก sensors.bmi270.motion() ข้อใดสมเหตุสมผลที่สุด
+    en: With the board lying flat and still, which reading from sensors.bmi270.motion() is most plausible?
+  choices:
+  - th: ax ≈ 9.8, ay ≈ 0, az ≈ 0
+  - th: ax ≈ 0, ay ≈ 0, az ≈ 9.8 และ gyro ทั้งสามแกนใกล้ 0
+  - th: ทุกแกนเป็น 0 เพราะบอร์ดไม่ขยับ
+  - th: az ≈ 1.0 เพราะหน่วยเป็น g
+  answer:
+  - 1
+  explain:
+    th: accel มีหน่วย m/s² และวัดแรงโน้มถ่วงด้วย แกนที่ตั้งฉากพื้นจึงได้ราว 9.8 ส่วน gyro วัดการหมุน วางนิ่งจึงใกล้ 0
+- id: q5
+  objective: 3
+  type: single
+  prompt:
+    th: ถ้า ax = 0, ay = 6, az = 8 m/s² ค่า |a| เท่าไร
+    en: If ax = 0, ay = 6 and az = 8 m/s², what is |a|?
+  choices:
+  - th: '14'
+  - th: '10'
+  - th: '7'
+  - th: '100'
+  answer:
+  - 1
+  explain:
+    th: '|a| = √(0² + 6² + 8²) = √100 = 10 m/s² เป็นพีทาโกรัสในสามมิติ ค่าใกล้ 9.8 แปลว่าบอร์ดแทบไม่ได้เร่ง มีแค่แรงโน้มถ่วงที่ถูกเอียงไปสองแกน'

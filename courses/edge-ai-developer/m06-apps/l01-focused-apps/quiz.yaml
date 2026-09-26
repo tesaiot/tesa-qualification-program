@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m06.l01 บทเรียน 6.1
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: เครื่องนับเสียงไอข้างเตียงผู้ป่วยควรเป็นแอปแบบใด
+    en: What kind of app should a bedside cough counter be?
+  choices:
+  - th: เมนูที่ให้ผู้ใช้เลือกโมเดลเองทุกครั้ง
+  - th: แอปโฟกัสที่เล็งโมเดล Cough ตั้งแต่เปิด และต่อ verdict กับการนับ
+  - th: แอปที่สลับทุกโมเดลทุกวินาที
+  - th: ไม่ต้องมีแอป ใช้ REPL
+  answer:
+  - 1
+  explain:
+    th: ผู้ใช้ปลายทางไม่ควรต้องรู้ว่ามีโมเดลอะไร เมนูเหมาะกับการสำรวจและเดโม แอปโฟกัสเหมาะกับงานจริง
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: ทำไม find_model(("cough",), edge_ai.SENSOR_MIC) จึงดีกว่า edge_ai.select(3)
+    en: Why is find_model(("cough",), edge_ai.SENSOR_MIC) better than edge_ai.select(3)?
+  choices:
+  - th: เร็วกว่า
+  - th: หาโมเดลจากชื่อ จึงยังถูกตัวแม้ลำดับทะเบียนเปลี่ยน เช่น Emulator ที่ไม่มี Push ทำให้ Cough อยู่ index 2
+  - th: ใช้หน่วยความจำน้อยกว่า
+  - th: select(3) ใช้ไม่ได้บนบอร์ด
+  answer:
+  - 1
+  explain:
+    th: บนบอร์ด Cough อยู่ index 3 แต่บน Emulator อยู่ index 2 การถามทะเบียนด้วยชื่อทำให้โค้ดชุดเดียวใช้ได้ทั้งสองที่
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: r['scores'] = [0.12, 0.88] ของโมเดล ['unlabelled', 'cough'] ค่า r['top'] และ r['conf'] คืออะไร
+    en: r['scores'] = [0.12, 0.88] for the labels ['unlabelled', 'cough']. What are r['top'] and r['conf']?
+  choices:
+  - th: top = 0, conf = 0.12
+  - th: top = 1, conf = 0.88
+  - th: top = 0.88, conf = 1
+  - th: top = 1, conf = 0.12
+  answer:
+  - 1
+  explain:
+    th: top คือ index ของคะแนนสูงสุด (argmax) conf คือค่าคะแนนนั้นเอง คลาสที่ชนะจึงเป็น cough ด้วยความมั่นใจ 0.88
+- id: q4
+  objective: 4
+  type: single
+  prompt:
+    th: ไอหนึ่งครั้งยาวสามผลอนุมาน ได้ conf ของ cough เป็น 0.8, 0.9, 0.85 แล้วตกลง ตัวนับแบบขอบขาขึ้นเพิ่มกี่ครั้ง
+    en: One cough spans three inferences with cough conf 0.8, 0.9, 0.85, then drops. How much does a rising-edge counter add?
+  choices:
+  - th: '0'
+  - th: '1'
+  - th: '3'
+  - th: '2'
+  answer:
+  - 1
+  explain:
+    th: นับเฉพาะตอนเปลี่ยนจากไม่เข้าเป้าเป็นเข้าเป้า ตราบใดที่ยังค้างเหนือเกณฑ์จะไม่นับซ้ำ ไอหนึ่งครั้งจึงได้ 1
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: แอป Cough ทำงานดีมาสักพัก แล้วผลค้างนิ่งและ seq ไม่ขยับ สาเหตุที่น่าจะเป็นที่สุดคืออะไร
+    en: The cough app worked for a while, then the result freezes and seq stops moving. What is the most likely cause?
+  choices:
+  - th: โค้ดมี memory leak
+  - th: โมเดล Ready-Model แบบประเมินผลถึงเพดานจำนวนครั้งอนุมาน
+  - th: CONF_FLOOR ตั้งผิด
+  - th: ไมค์เสีย
+  answer:
+  - 1
+  explain:
+    th: โมเดลประเมินผลจำกัดจำนวนครั้งอนุมาน นี่คือลักษณะของใบอนุญาต ไม่ใช่บั๊กในโค้ด โมเดลที่ฝึกเองไม่มีข้อจำกัดนี้

@@ -1,0 +1,64 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m06.l02 บทเรียน 6.2
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: แอปขึ้นการ์ดครบแต่ไม่มีผลใด ๆ เลยและตัวนับไม่ขยับ จุดใดยังว่างมากที่สุด
+    en: The cards appear but no result ever shows and the counter never moves. Which point is most likely empty?
+  choices:
+  - th: จุดที่ 1 edge_ai.select(model['index'])
+  - th: จุดที่ 3 verdict.text(...)
+  - th: จุดที่ 4 is_target
+  - th: ไม่มีจุดใดผิด
+  answer:
+  - 0
+  explain:
+    th: ถ้าไม่ select โมเดลเป้าหมาย ก็ไม่มีโมเดลรัน จึงไม่มีผลให้ result() คืน
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: ไอหนึ่งครั้งแต่ตัวนับเพิ่มสามถึงสี่ครั้ง ส่วนใดของเงื่อนไขหายไป
+    en: One cough makes the counter jump by three or four. Which part of the condition is missing?
+  choices:
+  - th: r["conf"] >= edge_ai.CONF_FLOOR
+  - th: not was_target (การนับเฉพาะขอบขาขึ้น)
+  - th: r["label"] == TARGET_CLASS
+  - th: edge_ai.stop()
+  answer:
+  - 1
+  explain:
+    th: ไอหนึ่งครั้งกินหลายผลอนุมาน ถ้าไม่จำสถานะรอบก่อน ทุกผลที่เข้าเป้าจะถูกนับหมด
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: รีทาร์เก็ตเป็นไซเรนด้วย TARGET_KEYWORDS = ("siren",) และ TARGET_CLASS = "siren" แล้วตัวนับไม่เคยขยับ เพราะอะไร
+    en: You retarget with TARGET_KEYWORDS = ("siren",) and TARGET_CLASS = "siren" and the counter never moves. Why?
+  choices:
+  - th: โมเดล Siren ไม่มีบนบอร์ด
+  - th: ชื่อคลาสจริงคือ sirens (มี s) เงื่อนไข label == TARGET_CLASS จึงไม่เคยจริง
+  - th: CONF_FLOOR สูงเกินไป
+  - th: find_model หาไม่เจอ
+  answer:
+  - 1
+  explain:
+    th: ชื่อโมเดลกับชื่อคลาสไม่เหมือนกันเสมอ ให้ตรวจ labels จาก edge_ai.models() ใน REPL ก่อนรีทาร์เก็ต
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ตัดเงื่อนไข conf ออกแล้ว ตัวนับเพิ่มแม้ไม่มีใครไอ เพราะอะไร
+    en: Without the conf condition the counter rises even when nobody coughs. Why?
+  choices:
+  - th: ไมค์เสีย
+  - th: argmax ให้ผู้ชนะเสมอ แม้ cough ชนะแบบเฉียด 0.51 ต่อ 0.49 ก็ถูกนับ กลายเป็น false positive
+  - th: seq ไม่เปลี่ยน
+  - th: โมเดลเปลี่ยนเป็น Motion
+  answer:
+  - 1
+  explain:
+    th: CONF_FLOOR คือประตูที่บอกว่าเชื่อผลก็ต่อเมื่อมั่นใจถึงเกณฑ์ ถ้าไม่มีประตู ทุกครั้งที่ชนะเฉียดก็กลายเป็นการกระทำ

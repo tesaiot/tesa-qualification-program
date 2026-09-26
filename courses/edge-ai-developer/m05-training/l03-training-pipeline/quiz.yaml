@@ -1,0 +1,64 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m05.l03 บทเรียน 5.3
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: ใน docker run --rm -v "$PWD":/work edgeai-train python train.py ส่วน -v "$PWD":/work ทำอะไร
+    en: In docker run --rm -v "$PWD":/work edgeai-train python train.py, what does -v "$PWD":/work do?
+  choices:
+  - th: ลบ container ทิ้งเมื่อจบ
+  - th: เอาโฟลเดอร์ปัจจุบันบนเครื่องไปวางที่ /work ใน container โค้ด ข้อมูล และผลลัพธ์จึงอยู่ที่เดียวกัน
+  - th: ตั้งชื่ออิมเมจ
+  - th: ติดตั้ง TensorFlow ลงเครื่อง
+  answer:
+  - 1
+  explain:
+    th: bind mount ทำให้ไฟล์ model_int8.tflite ที่เขียนใน /work โผล่บนเครื่องเราทันที ส่วน --rm คือลบ container และ -t ตอน build คือตั้งชื่อ
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: เป้าหมายใดต้องคอมไพล์ model_int8.tflite เพิ่มอีกขั้นก่อนใช้
+    en: Which target needs an extra compile step on model_int8.tflite before use?
+  choices:
+  - th: PC ผ่าน ai-edge-litert
+  - th: Cortex-A เช่น Raspberry Pi
+  - th: MCU ที่ใช้ Ethos-U55 ต้องผ่าน Vela
+  - th: ไม่มีเป้าหมายใดต้องทำเพิ่ม
+  answer:
+  - 2
+  explain:
+    th: Vela แปลงส่วนที่ NPU รันได้เป็น op ของ Ethos-U ไฟล์ที่ได้จึงรันได้แค่บน MCU ส่วน PC และ Cortex-A ใช้ไฟล์ int8 เดิม
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: log บอก float32 test accuracy 0.980 แต่ eval_pc.py บอก int8 test accuracy 0.600 ควรสงสัยอะไรก่อน
+    en: The log shows float32 test accuracy 0.980 but eval_pc.py reports int8 test accuracy 0.600. What do you suspect first?
+  choices:
+  - th: ข้อมูลไม่สมดุล
+  - th: การบีบเป็น int8 (calibration หรือ normalize ที่ไม่ตรงกัน) มีปัญหา
+  - th: Docker ช้าเกินไป
+  - th: ไม่มีอะไรผิด int8 ควรแม่นน้อยกว่ามากเสมอ
+  answer:
+  - 1
+  explain:
+    th: โมเดลเดียวกันควรได้ int8 ใกล้ float32 ถ้าตกมากให้ตรวจ representative dataset และไฟล์ .norm.npz ที่ใช้ normalize ตอนทดสอบ
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ไฟล์ใดต้องเดินทางคู่กับ model_int8.tflite ไปทุกเป้าหมาย
+    en: Which file must travel with model_int8.tflite to every target?
+  choices:
+  - th: Dockerfile
+  - th: model_int8.tflite.norm.npz ที่เก็บ mean/std ของชุดฝึก
+  - th: gestures.csv ทั้งไฟล์
+  - th: train.py
+  answer:
+  - 1
+  explain:
+    th: ฝั่งที่ใช้โมเดลต้อง normalize ข้อมูลด้วย mean/std ชุดเดียวกับตอนฝึก ไม่งั้นโมเดลไม่ error แต่ทายผิดเงียบ ๆ

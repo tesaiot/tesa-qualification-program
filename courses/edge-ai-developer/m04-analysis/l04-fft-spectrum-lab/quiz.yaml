@@ -1,0 +1,69 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m04.l04 บทเรียน 4.4
+items:
+- id: q1
+  objective: 1
+  type: order
+  prompt:
+    th: เรียงขั้นของ pipeline ใน s09_fft_spectrum.py
+    en: Order the steps of the pipeline in s09_fft_spectrum.py.
+  choices:
+  - th: fft(re, im)
+  - th: mean = sum(buf) / N (ตัด DC)
+  - th: kmax = max(range(1, HALF), key=...) (หา peak)
+  - th: คูณ Hann window
+  - th: mag = sqrt(re² + im²) ครึ่งแรก
+  answer:
+  - 1
+  - 3
+  - 0
+  - 4
+  - 2
+  explain:
+    th: ตัด DC → window → FFT → magnitude → peak ขั้น FFT ให้ไว้แล้ว ส่วนอีกสี่ขั้นคือช่องที่เราเติม
+- id: q2
+  objective: 1
+  type: single
+  prompt:
+    th: เติมครบแล้ว แท่งขยับตามการเขย่า แต่ป้าย peak ค้างที่ 1.6 Hz (bin 1) ตลอด ขั้นใดยังไม่ได้เติม
+    en: Everything moves with the shaking, but the peak label is stuck at 1.6 Hz (bin 1). Which step is still unfilled?
+  choices:
+  - th: ตัด DC
+  - th: Hann window
+  - th: magnitude
+  - th: หา peak (kmax ยังเป็นค่าเริ่มต้น 1)
+  answer:
+  - 3
+  explain:
+    th: 'placeholder kmax = 1 ทำให้ความถี่เด่นชี้ bin 1 เสมอ ต้องแทนด้วย max(range(1, HALF), key=lambda k: mag[k])'
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ถ้าไม่คูณ Hann window สเปกตรัมจะเปลี่ยนอย่างไร
+    en: Without the Hann window, how does the spectrum change?
+  choices:
+  - th: bin 0 พุ่งกลบทุกอย่าง
+  - th: ยอดยังอยู่ที่เดิม แต่แท่งข้างเคียงรั่วสูงกว่าที่ควร สเปกตรัมเลอะ
+  - th: แท่งแบนราบทั้งหมด
+  - th: ความถี่เด่นหายไป
+  answer:
+  - 1
+  explain:
+    th: ขอบของหน้าต่างที่ไม่พอดีคาบเวลาของสัญญาณทำให้พลังงานรั่ว (spectral leakage) Hann กดขอบให้เป็นศูนย์จึงลดการรั่ว ส่วน bin 0 พุ่งเป็นอาการของการไม่ตัด DC
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ถ้าลบ time.sleep_ms(int(1000 / FS)) ออกจากลูปเก็บ N จุด ผลคืออะไร
+    en: If you remove time.sleep_ms(int(1000 / FS)) from the loop that collects N points, what happens?
+  choices:
+  - th: ไม่มีผลเพราะ FFT ไม่สนเวลา
+  - th: อัตราสุ่มจริงไม่ใช่ FS อีกต่อไป การแปลง kmax · FS / N เป็น Hz จึงผิด
+  - th: สเปกตรัมละเอียดขึ้นเสมอ
+  - th: บอร์ดรีสตาร์ต
+  answer:
+  - 1
+  explain:
+    th: สูตร f = k·FS/N ถือว่าจุดห่างกัน 1/FS วินาทีเท่ากันทุกจุด ถ้าอัตราจริงต่างไป ค่า Hz ที่แสดงจะไม่ตรงกับความจริง

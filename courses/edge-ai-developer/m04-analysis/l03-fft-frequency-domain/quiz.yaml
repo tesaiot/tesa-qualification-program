@@ -1,0 +1,81 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m04.l03 บทเรียน 4.3
+items:
+- id: q1
+  objective: 1
+  type: multi
+  prompt:
+    th: ข้อใดเป็นเหตุผลที่โมเดลเสียงดูสเปกตรัมแทนคลื่นดิบ (เลือกทุกข้อที่ถูก)
+    en: Which are reasons audio models look at the spectrum rather than the raw wave? (select all that apply)
+  choices:
+  - th: เสียงเดียวกันสองครั้งมีรูปคลื่นต่างกัน แต่การกระจายพลังงานตามความถี่คล้ายกัน
+  - th: สเปกตรัมบีบข้อมูลให้สั้นลง โมเดลจึงเล็กและเร็วขึ้น
+  - th: ความถี่มีความหมายทางกายภาพที่อ่านออก
+  - th: FFT ทำให้เสียงดังขึ้น
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: สามข้อแรกคือเหตุผลในสไลด์ FFT ไม่ได้เปลี่ยนความดัง มันแค่เปลี่ยนมุมมองจากเวลาเป็นความถี่
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: FS = 50 Hz และ N = 32 bin ที่ 3 คือความถี่เท่าไร
+    en: With FS = 50 Hz and N = 32, what frequency is bin 3?
+  choices:
+  - th: 3 Hz
+  - th: 4.69 Hz
+  - th: 6.25 Hz
+  - th: 25 Hz
+  answer:
+  - 1
+  explain:
+    th: f = k·FS/N = 3 × 50 / 32 ≈ 4.69 Hz หนึ่ง bin กว้าง 1.5625 Hz
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: ถ้าเพิ่ม N จาก 32 เป็น 128 ที่ FS = 50 Hz ผลคืออะไร
+    en: Raising N from 32 to 128 at FS = 50 Hz does what?
+  choices:
+  - th: bin กว้างขึ้น อัปเดตเร็วขึ้น
+  - th: bin แคบลงเหลือราว 0.39 Hz แยกความถี่ใกล้กันได้ แต่ต้องเก็บจุดนานราว 2.56 วินาที สเปกตรัมจึงอัปเดตช้า
+  - th: Nyquist สูงขึ้นเป็น 100 Hz
+  - th: ไม่มีผลเพราะ FFT ใช้ N เท่าไรก็ได้
+  answer:
+  - 1
+  explain:
+    th: bin width = FS/N ส่วน Nyquist ขึ้นกับ FS เท่านั้น ความละเอียดความถี่กับความไวในเวลาแลกกันเสมอ
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: วางบอร์ดนิ่งแล้วเห็นแท่ง bin 0 สูงเด่นกลบทุกแท่ง ขั้นใดถูกข้ามไป
+    en: With the board still, bin 0 towers over every other bar. Which step was skipped?
+  choices:
+  - th: การตัด DC ด้วยการลบค่าเฉลี่ยของหน้าต่าง
+  - th: การคูณ Hann window
+  - th: การหา magnitude
+  - th: การหา peak
+  answer:
+  - 0
+  explain:
+    th: แรงโน้มถ่วงเป็นค่าคงที่ ในโดเมนความถี่คือ 0 Hz จึงไปกองที่ bin 0 ต้องลบค่าเฉลี่ยก่อน FFT
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: สร้างไซน์ 12.5 Hz ที่ FS = 50 Hz, N = 32 ป้อน FFT peak ควรอยู่ที่ bin ใด
+    en: You feed a 12.5 Hz sine sampled at FS = 50 Hz with N = 32 into the FFT. Which bin should the peak land in?
+  choices:
+  - th: bin 4
+  - th: bin 8
+  - th: bin 12
+  - th: bin 16
+  answer:
+  - 1
+  explain:
+    th: k = f·N/FS = 12.5 × 32 / 50 = 8 ลงตัวพอดี ถ้า FFT ถูก peak ต้องอยู่ที่ bin 8

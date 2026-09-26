@@ -1,0 +1,81 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m02.l01 บทเรียน 2.1
+items:
+- id: q1
+  objective: 1
+  type: multi
+  prompt:
+    th: ข้อใดทำให้ dataset เสียทั้งที่โปรแกรมไม่ขึ้น error (เลือกทุกข้อที่ถูก)
+    en: Which of these spoil a dataset even though the program raises no error? (select all that apply)
+  choices:
+  - th: กดปุ่ม shaking แต่วางบอร์ดนิ่ง
+  - th: เก็บ idle 1000 sample แต่ shaking แค่ 50 sample
+  - th: อัตราสุ่มแกว่งไปมาเดี๋ยวเร็วเดี๋ยวช้า
+  - th: เก็บหลายคนหลายท่าทางให้หลากหลาย
+  answer:
+  - 0
+  - 1
+  - 2
+  explain:
+    th: label ผิด คลาสไม่สมดุล และอัตราไม่คงที่ ล้วนสอนโมเดลผิดแบบเงียบ ๆ ส่วนความหลากหลายของสภาพจริงทำให้โมเดลทนขึ้น
+- id: q2
+  objective: 2
+  type: single
+  prompt:
+    th: การเขย่ามือเร็วสุดราว 10 Hz อัตราสุ่มต่ำสุดตามกฎ Nyquist คือเท่าไร
+    en: Hand shaking reaches about 10 Hz. What is the minimum sampling rate by the Nyquist rule?
+  choices:
+  - th: 5 Hz
+  - th: 10 Hz
+  - th: 20 Hz
+  - th: 100 Hz
+  answer:
+  - 2
+  explain:
+    th: fs ≥ 2·fmax = 2 × 10 = 20 Hz ถ้าต่ำกว่านี้จะเกิด aliasing การเก็บที่ 50 Hz จึงเผื่อไว้พอ
+- id: q3
+  objective: 2
+  type: single
+  prompt:
+    th: เก็บ N = 150 sample ที่ fs = 50 Hz หนึ่ง burst ยาวกี่วินาที
+    en: Collecting N = 150 samples at fs = 50 Hz, how long is one burst?
+  choices:
+  - th: 0.33 วินาที
+  - th: 3 วินาที
+  - th: 7.5 วินาที
+  - th: 200 วินาที
+  answer:
+  - 1
+  explain:
+    th: T = N / fs = 150 / 50 = 3 วินาที
+- id: q4
+  objective: 3
+  type: single
+  prompt:
+    th: ถ้าเก็บ dataset ที่ 25 Hz ไปฝึกหรือเทียบกับโมเดลที่ฝึกมาที่ 50 Hz ปัญหาคืออะไร
+    en: If you record the dataset at 25 Hz to train or compare with a model trained at 50 Hz, what is the problem?
+  choices:
+  - th: ไม่มีปัญหา เพราะค่าแต่ละ sample เหมือนเดิม
+  - th: รูปคลื่นตามเวลาจะห่างและยืดต่างจากที่โมเดลเคยเห็น โมเดลจึงอาจทายผิด
+  - th: ไฟล์จะใหญ่ขึ้นสองเท่า
+  - th: บอร์ดจะเขียนไฟล์ไม่ได้
+  answer:
+  - 1
+  explain:
+    th: อัตราสุ่มตอนเก็บข้อมูลต้องเท่ากับตอนใช้งานจริง นี่คือหลักสำคัญของ Edge AI dataset สวยแค่ไหนก็ใช้ไม่ได้ถ้าอัตราไม่ตรง
+- id: q5
+  objective: 4
+  type: single
+  prompt:
+    th: logger กดเก็บสาม burst แต่ไฟล์เหลือแค่ burst สุดท้าย สาเหตุน่าจะเป็นอะไร
+    en: The logger records three bursts but the file only keeps the last one. What is the likely cause?
+  choices:
+  - th: เปิดไฟล์ในลูปบันทึกด้วยโหมด "w" ซึ่งทับไฟล์ทุกครั้ง แทนที่จะใช้ "a"
+  - th: ลืมเขียน \n ท้ายบรรทัด
+  - th: เรียก motion() แทน acceleration()
+  - th: flash เต็ม
+  answer:
+  - 0
+  explain:
+    th: โหมด "a" เขียนต่อท้ายโดยไม่ลบของเก่า ใช้ "w" ได้เฉพาะตอนสร้างไฟล์ใหม่พร้อมหัวตาราง

@@ -1,0 +1,64 @@
+# SPDX-FileCopyrightText: 2026 Thai Embedded Systems Association (TESA)
+# SPDX-License-Identifier: CC-BY-4.0
+# เช็กความเข้าใจ — edgeai-dev.m05.l05 บทเรียน 5.5
+items:
+- id: q1
+  objective: 1
+  type: single
+  prompt:
+    th: 'รันแล้วได้ float32 test accuracy: 0.333 ทุกครั้ง ช่องใดยังว่าง'
+    en: 'Every run prints float32 test accuracy: 0.333. Which point is still empty?'
+  choices:
+  - th: ช่อง 1 model.fit
+  - th: ช่อง 2 representative_dataset
+  - th: ช่อง 3 int8 I/O
+  - th: ช่อง 4 acc
+  answer:
+  - 0
+  explain:
+    th: ถ้าไม่ fit น้ำหนักยังเป็นค่าสุ่ม โมเดลเดาในสามคลาสได้ราวหนึ่งในสาม evaluate จึงวัดได้ราว 0.33
+- id: q2
+  objective: 3
+  type: single
+  prompt:
+    th: 'convert() หยุดด้วย ValueError: For full integer quantization, a representative_dataset must be specified. ต้องแก้ช่องใด'
+    en: 'convert() stops with "ValueError: For full integer quantization, a representative_dataset must be specified." Which point do you fix?'
+  choices:
+  - th: ช่อง 1
+  - th: ช่อง 2 เติม conv.representative_dataset = representative
+  - th: ช่อง 3
+  - th: ช่อง 4
+  answer:
+  - 1
+  explain:
+    th: ข้อความบอกตรง ๆ ว่าการบีบแบบ full-integer ต้องมีตัวอย่างไว้ calibrate ช่วงค่า
+- id: q3
+  objective: 3
+  type: single
+  prompt:
+    th: 'รายงานบอก int8 test accuracy: 0.000 แต่ confusion matrix มีตัวเลขเต็มแนวทแยง ช่องใดยังว่าง'
+    en: 'The report says int8 test accuracy: 0.000 but the confusion matrix is full on the diagonal. Which point is still empty?'
+  choices:
+  - th: ช่อง 1
+  - th: ช่อง 2
+  - th: ช่อง 3
+  - th: ช่อง 4 acc ยังเป็นค่าเริ่มต้น 0.0
+  answer:
+  - 3
+  explain:
+    th: confusion matrix คำนวณจาก preds จริง แต่ตัวเลขความแม่นมาจาก acc ที่ยังเป็น 0.0 ต้องเติม acc = (preds == yte).mean()
+- id: q4
+  objective: 2
+  type: single
+  prompt:
+    th: ฝึก 3 epoch ได้ทั้ง accuracy และ val_accuracy ต่ำกว่าตอน 25 epoch ชัดเจน อธิบายอย่างไร
+    en: With 3 epochs both accuracy and val_accuracy are clearly lower than with 25. How do you explain it?
+  choices:
+  - th: overfit
+  - th: underfit เพราะฝึกสั้นเกินไป loss ยังลงไม่สุด
+  - th: int8 ทำให้แม่นตก
+  - th: ข้อมูลรั่ว
+  answer:
+  - 1
+  explain:
+    th: ทั้ง train และ val ต่ำด้วยกันคืออาการ underfit ให้เวลาโมเดลไถลลงเนิน loss มากขึ้นก็ดีขึ้น
